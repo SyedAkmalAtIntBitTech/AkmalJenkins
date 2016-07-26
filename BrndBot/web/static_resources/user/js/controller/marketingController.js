@@ -424,7 +424,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.recurringScheduleData.entities_reply_to_email_address = $scope.recurringEntitiesDetails.reply_to_email_address;
                 $scope.recurringScheduleData.days = days;
                 $scope.recurringScheduleData.entities_selected_time = $filter('date')(schedule_time, "HH:mm a");
-                var iframe = document.getElementById('iframeForAction');
+                var iframe = document.getElementById('iframeForRecurringEmail');
                 if ($scope.recurringEntitiesDetails.body) {
                     $scope.savedEmail = true;
                     $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
@@ -873,7 +873,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.showHTMLData = function (html_data, id) {
             var $iframe = $('.fr-iframe');
-            alert(html_data);
             $("#tinymceEditorBody").empty().append(html_data);
             $scope.templateId = id;
             $scope.lunchTinyMceEditor();
@@ -1162,7 +1161,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         alert("Problem saving the record!");
                     }
                     $location.path("/marketingprogramactions");
-                    $scope.getCampaigns();
+                    $scope.getProgramActions('emailautomation');
                 });
             }
             else if (($scope.type === 'template') && ($scope.entityNoEmailTemplate === true)) {
@@ -1213,7 +1212,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     if ((data === true)) {
                         alert("Details saved succesfully.");
                         $location.path("/marketingprogramactions");
-                        $scope.getCampaigns();
+                        $scope.getProgramActions('emailautomation');
 //                            window.open(getHost() + 'user/marketingprogramactions?program_id=' + program_id + '&past=0&program_date=' + program_end_date, "_self");
                     } else {
                         alert("Problem saving the record!");
@@ -1263,7 +1262,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 if ((data === true)) {
                                     alert("Details saved succesfully.");
                                     $location.path("/marketingprogramactions");
-                                    $scope.getCampaigns();
+                                    $scope.getProgramActions('emailautomation');
 //                                        window.open(getHost() + 'user/marketingprogramactions?program_id=' + program_id + '&past=0&program_date=' + program_end_date, "_self");
                                 } else {
                                     alert("Problem saving the record!");

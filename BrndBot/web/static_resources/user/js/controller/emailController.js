@@ -472,14 +472,14 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         footerData.userProfile.websiteUrl, footerData.userProfile.instagramUrl,
                         footerData.userProfile.address);
                 var sendData = {
-                    htmlString: $('#edit').froalaEditor('html.get') + footer,
+                    htmlString: $('#tinymceEditorBody').html() + footer,
                     iframeName: $scope.randomIframeFilename.toString()
                 };
 
                 emailFactory.previewServletPost(sendData).then(function () {
                     if (!$scope.draftId) {
                         var draftData = {
-                            bodyString: $('#edit').froalaEditor('html.get'),
+                            bodyString: $('#tinymceEditorBody').html(),
                             lookupId: $scope.lookupId.toString(),
                             mindbodyData: $scope.mindbodyid.toString(),
                             categoryId: $scope.categoryId.toString(),
@@ -498,7 +498,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     } else {
                         var draftData = {
                             draftId: $scope.draftId.toString(),
-                            bodyString: $('#edit').froalaEditor('html.get'),
+                            bodyString: $('#tinymceEditorBody').html(),
                             lookupId: $scope.lookupId.toString(),
                             mindbodyData: $scope.mindbodyid.toString(),
                             categoryId: $scope.categoryId.toString(),

@@ -453,7 +453,8 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 if (actionData != '') {
                     $scope.ddSelectActionName = [{text: "Custom Action", value: "0"}];
                     for (var i = 0; i < actionData.length; i++)
-                    {
+                    { 
+//                        var actionDate=new Date(actionData[i].schedule_time);
                         var actionObject = {};
                         actionObject["text"] = actionData[i].schedule_title;
                         actionObject["value"] = actionData[i].id;
