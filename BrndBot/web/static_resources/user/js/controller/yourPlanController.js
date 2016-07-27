@@ -299,6 +299,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.emailsectionClass = '';
             $scope.fadeClass = '';
             $scope.hideSaveButton();
+            $scope.hideReminderSaveButton();
         };
 
         $scope.setTab = function (tabName) {
@@ -341,6 +342,12 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
         $scope.hideSaveButton = function(){
             $scope.showUpdateBtn = false;
+        };
+        $scope.hideReminderSaveButton = function (){
+            $scope.showReminderUpdateBtn=false;  
+        };
+        $scope.showReminderSaveButton = function (){
+            $scope.showReminderUpdateBtn=true;
         };
         $scope.showSaveButton = function(){
             $scope.showUpdateBtn = true;

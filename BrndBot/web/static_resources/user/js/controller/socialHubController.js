@@ -21,7 +21,11 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
                 }
             });
         };
-        
+        $scope.showDropDown = function ()
+        {
+//                $("#emaildropdown").css("display","block");
+            $scope.emaildropdown = true;
+        };
         $scope.twitterDetails = function () {
             $scope.facebookDetailsTab = false;
             $scope.twitterDetailsTab = true;
