@@ -4436,3 +4436,61 @@ textarea.task-textarea:focus{
 .clear-colors {
     padding-top: 60px;
 }
+
+.recurring-email-trigger-sentence-wrap{
+    display: inline-flex;
+    margin-top:8px;
+    align-items: center;
+    
+}
+
+.recurring-email-trigger-sentence-wrap span{
+    margin-left: 10px;
+    line-height: 30px;
+}
+
+.recurring-email-trigger-sentence-wrap span.user-data{
+    margin-left: 10px;
+    border: 1px solid #c9c9c9;
+    border-radius: 3px;
+    height: 30px; 
+   text-align: center;
+    padding: 0px 10px;
+    color: #555;
+    background-color: #fafafa;
+    
+}
+
+.recurring-email-trigger-sentence-wrap span.user-data.unselected{
+    color: #AAAAAA;
+    
+}
+
+
+.recurring-email-trigger-sentence-wrap span:first-child{
+    margin-left: 0px;
+}
+
+.edit-email-auto-button{
+    margin-right: 30px;
+    position: relative;
+}
+
+.overlay-name-bar-recurring-title{
+    box-sizing: border-box;
+    color: #3F3F42;
+    font-size: 20px;
+    font-weight: 400;
+    padding-left:15px;
+}
+
+.email-automation-hint{
+       height: 12px;
+    width: 12px;
+    border-radius: 30px;
+    background-color: #1EADFC;
+    position: absolute;
+    top: 11px;
+    left: -6px;
+    
+}
