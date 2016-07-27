@@ -7,6 +7,7 @@ package com.intbittech.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -29,6 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "users")
 public class Users implements Serializable {
+    @OneToMany(mappedBy = "userId")
+    private List<UsersRoleLookup> usersRoleLookupList;
     @OneToMany(mappedBy = "inviteSentBy")
     private Set<CompanyInvite> companyInviteSet;
     @OneToMany(mappedBy = "inviteSentTo")
@@ -146,6 +149,15 @@ public class Users implements Serializable {
 
     public void setCompanyInviteSet1(Set<CompanyInvite> companyInviteSet1) {
         this.companyInviteSet1 = companyInviteSet1;
+    }
+
+    @XmlTransient
+    public List<UsersRoleLookup> getUsersRoleLookupList() {
+        return usersRoleLookupList;
+    }
+
+    public void setUsersRoleLookupList(List<UsersRoleLookup> usersRoleLookupList) {
+        this.usersRoleLookupList = usersRoleLookupList;
     }
 
 }

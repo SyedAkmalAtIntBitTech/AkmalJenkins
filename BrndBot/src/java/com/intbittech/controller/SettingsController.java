@@ -16,11 +16,13 @@ import com.intbittech.utility.ServletUtil;
 import com.intbittech.AppConstants;
 import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.model.Company;
+import com.intbittech.model.CompanyInvite;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.UserProfile;
 import com.intbittech.model.UserRole;
 import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.modelmappers.FooterDetails;
+import com.intbittech.modelmappers.InviteDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
@@ -72,6 +74,7 @@ import com.intbittech.social.CompanyPreferencesFacebook;
 import com.intbittech.social.CompanyPreferencesTwitter;
 import com.intbittech.utility.Utility;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.servlet.ServletContext;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -106,32 +109,10 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     @Autowired
     private EmailListService emailListService;
 
-    @RequestMapping(value = "/checkInvitationValidity", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> checkInvitationValidity(HttpServletRequest request,
-            HttpServletResponse response) {
-        GenericResponse<String> genericResponse = new GenericResponse<>();
-
-        try {
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            String email_id = userProfile.getUser().getUserName();
-
-//            genericResponse.setDetails(userProfile);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
-        } catch (Throwable throwable) {
-            logger.error(throwable);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
-        }
-
-        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
-    }
-    
     @RequestMapping(value = "/sendInvitation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> sendInvitation(HttpServletRequest request,
-            HttpServletResponse response) {
+    public ResponseEntity<ContainerResponse> sendInvitation(@RequestBody InviteDetails inviteDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            Map<String, Object> requestBodyMap
-                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             String fromEmailId = userProfile.getUser().getUserName();
@@ -140,10 +121,8 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
             String contextPath = Utility.getServerName(context_real_path);
 
-            String toEmailId = (String) requestBodyMap.get("emailid");
-            JSONObject task = (JSONObject)requestBodyMap.get("task");
-            usersInviteService.sendMail(fromEmailId,toEmailId, contextPath, task);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
+            usersInviteService.sendMail(fromEmailId, contextPath, inviteDetails);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("invitation_pleasecheckmail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {
             logger.error(throwable);

@@ -17,7 +17,7 @@ public interface UsersInviteDao {
     
     
     /**
-     * This method pass user as input and get the {@link Integer} from database
+     * This method pass companyInvite as input and get the {@link Integer} from database
      *
      * @param companyInvite
      * @return {@link Integer}
@@ -26,7 +26,14 @@ public interface UsersInviteDao {
     public Integer save(CompanyInvite companyInvite) throws ProcessFailed;
     
     /**
-     * This method pass user as input and updates the {@link Users} from database
+     * This method pass companyInvite as input and updates the {@link CompanyInvite} from database
+     *
+     * @param companyInvite
+     * @throws ProcessFailed the process failed
+     */
+    public void update(CompanyInvite companyInvite) throws ProcessFailed;
+    /**
+     * This method pass companyInvite as input and deletes the {@link CompanyInvite} from database
      *
      * @param companyInvite
      * @throws ProcessFailed the process failed
@@ -34,19 +41,19 @@ public interface UsersInviteDao {
     public void delete(CompanyInvite companyInvite) throws ProcessFailed;
     
     /**
-     * This method pass user as input and get the {@link Users} from database
+     * This method pass id as input and get the {@link CompanyInvite} from database
      *
      * @param Id
-     * @return {@link Users}
+     * @return {@link CompanyInvite}
      * @throws ProcessFailed the process failed
      */
-    public CompanyInvite getUserById(Integer Id) throws ProcessFailed;
+    public CompanyInvite getInvitedUserById(Integer Id) throws ProcessFailed;
     
         /**
-     * This method pass user as input and get the {@link Users} from database
+     * This method pass inviteCode as input and get the {@link CompanyInvite} from database
      *
      * @param inviteCode
-     * @return {@link Users}
+     * @return {@link CompanyInvite}
      * @throws ProcessFailed the process failed
      */
     public CompanyInvite getUserByInviteCode(String inviteCode) throws ProcessFailed;

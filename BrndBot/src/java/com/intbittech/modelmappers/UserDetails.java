@@ -19,7 +19,34 @@ public class UserDetails  implements Serializable {
     private String userPassword;
     private Date createdDate;
     private Integer companyId;
+    private String firstName;
+    private String lastName;
+    private String invitationCode;
 
+    public String getInvitationCode() {
+        return invitationCode;
+    }
+
+    public void setInvitationCode(String invitationCode) {
+        this.invitationCode = invitationCode;
+    }
+    
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    
     public Integer getUserId() {
         return userId;
     }

@@ -6,6 +6,7 @@
 package com.intbittech.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -25,6 +26,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "user_role")
 public class UserRole implements Serializable {
+    @OneToMany(mappedBy = "roleId")
+    private List<UsersRoleLookup> usersRoleLookupList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkUserRoleId")
     private Set<Users> usersSet;
 
@@ -67,6 +70,15 @@ public class UserRole implements Serializable {
 
     public void setUsersSet(Set<Users> usersSet) {
         this.usersSet = usersSet;
+    }
+
+    @XmlTransient
+    public List<UsersRoleLookup> getUsersRoleLookupList() {
+        return usersRoleLookupList;
+    }
+
+    public void setUsersRoleLookupList(List<UsersRoleLookup> usersRoleLookupList) {
+        this.usersRoleLookupList = usersRoleLookupList;
     }
 
 }

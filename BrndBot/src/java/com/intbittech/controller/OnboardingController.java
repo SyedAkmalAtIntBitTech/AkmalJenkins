@@ -91,6 +91,21 @@ public class OnboardingController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
+    @RequestMapping(value = "/onboarding/saveInvited", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveInvited(@RequestBody UserDetails usersDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            
+            String returnMessage = usersService.saveUsers(usersDetails);
+            transactionResponse.setMessage(returnMessage);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("user_save", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
     @RequestMapping(value = "/onboarding/saveStudioId", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveStudioId(@RequestParam("studioId") String studioId) {
         TransactionResponse transactionResponse = new TransactionResponse();

@@ -43,6 +43,14 @@ public interface UsersService {
     public String save(UserDetails usersDetails) throws ProcessFailed;
     
     /**
+     * This method pass user as input and get the {@link Integer} from DAO layer.
+     *
+     * @param user
+     * @return {@link Integer}
+     * @throws ProcessFailed the process failed
+     */
+    public String saveUsers(UserDetails usersDetails) throws ProcessFailed;
+    /**
      * This method pass user as input and updates the {@link Users} from DAO layer.
      *
      * @param user
@@ -67,5 +75,13 @@ public interface UsersService {
      * @throws ProcessFailed the process failed
      */
     public Users getUserByEmailId(String emailId) throws ProcessFailed;
+    /**
+     * This method pass inviteCode as input and get the {@link String} from Service layer
+     *
+     * @param inviteCode
+     * @return {@link CompanyInvite}
+     * @throws ProcessFailed the process failed
+     */
+    public boolean checkOutValidityOfInviteCode(String inviteCode);
     
 }

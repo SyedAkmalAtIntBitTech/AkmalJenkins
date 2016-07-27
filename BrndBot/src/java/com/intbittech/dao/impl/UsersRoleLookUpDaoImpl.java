@@ -5,11 +5,11 @@
  */
 package com.intbittech.dao.impl;
 
-import com.intbittech.dao.UsersInviteDao;
+import com.intbittech.dao.UsersRoleLookUpDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.CompanyInvite;
 import com.intbittech.model.Users;
-import java.util.List;
+import com.intbittech.model.UsersRoleLookup;
 import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -22,7 +22,7 @@ import org.springframework.context.MessageSource;
  *
  * @author Syed Muzamil at IntBit Technologies.
  */
-public class UsersInviteDaoImpl implements UsersInviteDao{
+public class UsersRoleLookUpDaoImpl implements UsersRoleLookUpDao{
 
     private Logger logger = Logger.getLogger(UsersDaoImpl.class);
 
@@ -37,31 +37,19 @@ public class UsersInviteDaoImpl implements UsersInviteDao{
      */
     
     @Override
-    public Integer save(CompanyInvite companyInvite) throws ProcessFailed {
+    public Integer save(UsersRoleLookup userRoleLookup) throws ProcessFailed {
         try {
-            return (Integer) sessionFactory.getCurrentSession().save(companyInvite);
+            return (Integer) sessionFactory.getCurrentSession().save(userRoleLookup);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_saving_message", new String[]{}, Locale.US));
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public void update(CompanyInvite companyInvite) {
-        try {
-            sessionFactory.getCurrentSession().update(companyInvite);
-        } catch (Throwable throwable) {
-            logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_updating_message", new String[]{}, Locale.US));
-        }
-    }
-    
     @Override
-    public void delete(CompanyInvite companyInvite) throws ProcessFailed {
+    public void delete(UsersRoleLookup userRoleLookup) throws ProcessFailed {
         try {
-            sessionFactory.getCurrentSession().delete(companyInvite);
+            sessionFactory.getCurrentSession().delete(userRoleLookup);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_deleting_message", new String[]{}, Locale.US));
@@ -69,25 +57,14 @@ public class UsersInviteDaoImpl implements UsersInviteDao{
     }
 
     @Override
-    public CompanyInvite getInvitedUserById(Integer Id) throws ProcessFailed {
+    public UsersRoleLookup getUsersRoleLookupById(Integer Id) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(Users.class)
                 .add(Restrictions.eq("id", Id));
         if (criteria.list().isEmpty()) {
             return null;
         }
-        return (CompanyInvite) criteria.list().get(0);
+        return (UsersRoleLookup) criteria.list().get(0);
     }
-
-    @Override
-    public CompanyInvite getUserByInviteCode(String inviteCode) throws ProcessFailed {
-        Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(Users.class)
-                .add(Restrictions.eq("taskCode", inviteCode));
-        if (criteria.list().isEmpty()) {
-            return null;
-        }
-        return (CompanyInvite) criteria.list().get(0);
-    }
-
+    
 }

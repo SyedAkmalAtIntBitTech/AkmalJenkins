@@ -6,6 +6,7 @@
 package com.intbittech.services.impl;
 
 import com.controller.GenerateHashPassword;
+import com.intbittech.controller.SignupController;
 import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.UsersDao;
 import com.intbittech.dao.UsersInviteDao;
@@ -21,12 +22,19 @@ import com.intbittech.model.ForgotPassword;
 import com.intbittech.model.Organization;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
+import com.intbittech.model.UsersRoleLookup;
+import com.intbittech.modelmappers.InviteDetails;
+import com.intbittech.modelmappers.TaskDetails;
 import com.intbittech.modelmappers.UserDetails;
 import com.intbittech.services.UsersInviteService;
+import com.intbittech.services.UsersRoleLookUpService;
 import com.intbittech.services.UsersService;
+import com.intbittech.utility.ErrorHandlingUtil;
+import com.intbittech.utility.StringUtility;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -42,16 +50,24 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor = ProcessFailed.class)
 public class UsersInviteServiceImpl implements UsersInviteService{
 
+    private final static Logger logger = Logger.getLogger(SignupController.class);
 
     @Autowired
     private UsersInviteDao usersInviteDao;
     
+    @Autowired
+    UsersInviteService usersInviteService;
+    
+    @Autowired
+    UsersRoleLookUpService usersRoleLookUpService;
+
     @Autowired
     private MessageSource messageSource;
     SendMail send_email = new SendMail();
 
     @Autowired
     UsersService usersService;
+    
     @Override
     public String save(CompanyInvite companyInvite) throws ProcessFailed {
         String returnMessage = "false";
@@ -66,9 +82,17 @@ public class UsersInviteServiceImpl implements UsersInviteService{
         return returnMessage;    
     }
 
+ /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void update(CompanyInvite companyInvite) throws ProcessFailed {
+        usersInviteDao.update(companyInvite);
+    }
+    
     @Override
     public void delete(Integer Id) throws ProcessFailed {
-        CompanyInvite companyInvite = usersInviteDao.getUserById(Id);
+        CompanyInvite companyInvite = usersInviteDao.getInvitedUserById(Id);
         if(companyInvite == null){
             throw new ProcessFailed("No user found with id " + Id + ".");
         }
@@ -77,7 +101,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
 
     @Override
     public CompanyInvite getInvitedUserById(Integer Id) throws ProcessFailed {
-        CompanyInvite companyInvite = usersInviteDao.getUserById(Id);
+        CompanyInvite companyInvite = usersInviteDao.getInvitedUserById(Id);
         if(companyInvite == null)
         {
              throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
@@ -96,10 +120,12 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     }
 
     @Override
-    public void sendMail(String from_email_id,String to_email_id, String imageContextPath, JSONObject task) {
+    public void sendMail(String from_email_id, String imageContextPath, InviteDetails inviteDetails)throws ProcessFailed {
+        try{
+            
         Users user = usersService.getUserByEmailId(from_email_id);
 
-        String randomVal = to_email_id + String.valueOf(user.getUserId()) + new Date().getTime();
+        String randomVal = inviteDetails.getEmailaddress() + String.valueOf(user.getUserId()) + new Date().getTime();
         GenerateHashPassword generate_hash_password = new GenerateHashPassword();
 
         String hashURL = generate_hash_password.hashURL(randomVal);
@@ -110,7 +136,9 @@ public class UsersInviteServiceImpl implements UsersInviteService{
         companyInvite.setInviteSentBy(user);
         companyInvite.setInviteSentTo(null);
         companyInvite.setMessage(null);
-        companyInvite.setTask(task.toJSONString());
+        companyInvite.setIsUsed(Boolean.FALSE);
+        TaskDetails taskdetails = new TaskDetails(inviteDetails.getTask(),inviteDetails.getRoles());
+        companyInvite.setTask(StringUtility.objectListToJsonString(taskdetails));
         
         save(companyInvite);
 
@@ -129,7 +157,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
         ArrayList<Recipient> messageToList = new ArrayList<Recipient>();
 
         Recipient recipient = new Recipient();
-        recipient.setEmail(to_email_id);
+        recipient.setEmail(inviteDetails.getEmailaddress());
         recipient.setType("to");
 
         messageToList.add(recipient);
@@ -137,7 +165,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
         message.setMessageTo(messageToList);
 
         RecipientMetadata recipientMetadata = new RecipientMetadata();
-        recipientMetadata.setRcpt(to_email_id);
+        recipientMetadata.setRcpt(inviteDetails.getEmailaddress());
 
         ArrayList<RecipientMetadata> metadataList = new ArrayList<RecipientMetadata>();
         metadataList.add(recipientMetadata);
@@ -145,6 +173,43 @@ public class UsersInviteServiceImpl implements UsersInviteService{
 
         message.setRecipient_metadata(metadataList);
         send_email.sendMail(message);
+        }catch (Throwable throwable){
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("mail send problem",new String[]{}, Locale.US));
+       }
+
+    }
+
+    @Override
+    public boolean checkOutValidity(String inviteCode)throws ProcessFailed {
+            boolean status = false;
+        try{
+            CompanyInvite companyInvite = usersInviteService.getInvitedUserByInviteCode(inviteCode);
+
+            Long createdDate = companyInvite.getCreatedDateTime().getTime();
+            Long todayDate = new Date().getTime();
+
+            Long Datedifference = createdDate - todayDate;
+            
+            boolean isUsed = companyInvite.getIsUsed();
+            if ((Datedifference <= 172800000) && (!isUsed)){
+                status = true;
+                companyInvite.setIsUsed(true);
+                usersInviteService.update(companyInvite);
+                UsersRoleLookup usersRoleLookUp = new UsersRoleLookup();
+                
+                usersRoleLookUp.setUserId(null);
+                usersRoleLookUp.setRoleId(null);
+                usersRoleLookUpService.save(usersRoleLookUp);
+            }else {
+                status = false;
+            }
+            
+        }catch (Throwable throwable){
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("problem checking the data",new String[]{}, Locale.US));
+        }    
+            return status;
     }
     
 }

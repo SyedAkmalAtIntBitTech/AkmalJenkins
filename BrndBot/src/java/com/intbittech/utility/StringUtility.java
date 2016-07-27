@@ -8,8 +8,10 @@ package com.intbittech.utility;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.intbittech.modelmappers.MarketingActionDetails;
 import com.intbittech.modelmappers.MarketingActionsObjectDetails;
+import com.intbittech.modelmappers.TaskDetails;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Arrays;
@@ -40,6 +42,14 @@ public class StringUtility {
         
     }
     
+    public static String objectListToJsonString(Object object) throws IOException {
+        
+        final StringWriter stringWriter =new StringWriter();
+    final ObjectMapper mapper = new ObjectMapper();
+    mapper.writeValue(stringWriter, object);
+    return stringWriter.toString();
+        
+    }    
     public static List jsonStringToObjectList(String jsonString) throws JSONException, IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonFactory jFactory = new JsonFactory();
@@ -49,4 +59,9 @@ public class StringUtility {
         return myObjectList;
     }
 
+    public static Object stringToObject(String content){
+        Gson gson = new Gson(); 
+        final Object object = gson.fromJson(content, Object.class);                
+        return object;
+    }
 }
