@@ -188,6 +188,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     } else {
                         $scope.htmlbody = data.htmlbody;
                         $("#tinymceEditorBody").append(data.htmlbody);
+                        $scope.lunchTinyMceEditor();
                     }
                 });
             }
@@ -348,6 +349,16 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 toolbar2: ' forecolor backcolor | fontselect fontsizeselect custombutton fileuploader ',
                 menubar: false
             });
+                             $('.innerbg').mouseenter(function () {
+                            var seldiv = $(this).parents('[st-sortable]');
+                            $(this).colpick({
+                                layout: 'hex',
+                                submit: 0,
+                                onChange: function (hsb, hex, rgb, fromSetColor) {
+                                    $(seldiv).find('table:first').attr('bgcolor', '#' + hex);
+                                }
+                            });
+                        });
         };
         $scope.blockIdOnSelected = function (selectedBlock, blockId) {
             var selectedHtmlBlockId = selectedBlock.id;
@@ -537,13 +548,13 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         footerData.userProfile.websiteUrl, footerData.userProfile.instagramUrl,
                         footerData.userProfile.address);
                 var sendData = {
-                    htmlString: $('#edit').froalaEditor('html.get') + footer,
+                    htmlString: $('#tinymceEditorBody').html() + footer,
                     iframeName: $scope.randomIframeFilename.toString()
                 };
                 emailFactory.previewServletPost(sendData).then(function (data) {
                     if (!$scope.draftId) {
                         var draftData = {
-                            bodyString: $('#edit').froalaEditor('html.get'),
+                            bodyString: $('#tinymceEditorBody').html(),
                             lookupId: $scope.lookupId.toString(),
                             mindbodyData: $scope.mindbodyid.toString(),
                             categoryId: $scope.categoryId.toString(),
@@ -561,7 +572,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     } else {
                         var draftData = {
                             draftId: $scope.draftId.toString(),
-                            bodyString: $('#edit').froalaEditor('html.get'),
+                            bodyString: $('#tinymceEditorBody').html(),
                             lookupId: $scope.lookupId.toString(),
                             mindbodyData: $scope.mindbodyid.toString(),
                             categoryId: $scope.categoryId.toString(),
@@ -822,10 +833,10 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $scope.emailPreviewPopup = true;
         };
 
-        $scope.continueEmailDetailsOnClick = function () {
-            $scope.emailSendPopup = true;
-            $("#fade").show();
-        };
+//        $scope.continueEmailDetailsOnClick = function () {alert($scope.draftId);
+//            $scope.emailSendPopup = true;
+//            $("#fade").show();
+//        };
 
         $scope.sendEmailOnClick = function (fromName, fromAddress, replyAddress, toAddress) {
             var sendEmailData = JSON.stringify({
@@ -1172,9 +1183,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 emailFactory.sendEmail(sendEmailData).then(function (data) {
                     if (data.d.message === "true") {
                         emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
-                            if (responseText === "true")
+                            if (responseText === true)
                             {
-                                alert("Your Email has been sent successfully");
                                 $scope.isMailSent = true;
 //                                window.location = "dashboard";
                             }
