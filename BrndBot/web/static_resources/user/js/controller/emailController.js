@@ -348,6 +348,16 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 toolbar2: ' forecolor backcolor | fontselect fontsizeselect custombutton fileuploader ',
                 menubar: false
             });
+                             $('.innerbg').mouseenter(function () {
+                            var seldiv = $(this).parents('[st-sortable]');
+                            $(this).colpick({
+                                layout: 'hex',
+                                submit: 0,
+                                onChange: function (hsb, hex, rgb, fromSetColor) {
+                                    $(seldiv).find('table:first').attr('bgcolor', '#' + hex);
+                                }
+                            });
+                        });
         };
         $scope.blockIdOnSelected = function (selectedBlock, blockId) {
             var selectedHtmlBlockId = selectedBlock.id;
