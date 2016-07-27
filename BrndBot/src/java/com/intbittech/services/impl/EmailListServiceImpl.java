@@ -593,6 +593,7 @@ public class EmailListServiceImpl implements EmailListService {
                 emailListJSONObject.remove(IConstants.kEmailListMindbodyKey);
             }
         }
+      emailListJSONObject.put(IConstants.kEmailListMindbodyKey, mindbodyEmails);
       return saveEmailPreferences(emailListJSONObject, companyPreferences);
     }
 
