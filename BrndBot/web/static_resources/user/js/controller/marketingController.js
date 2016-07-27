@@ -426,10 +426,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.recurringScheduleData.entities_selected_time = $filter('date')(schedule_time, "HH:mm a");
                 var iframe = document.getElementById('iframeForRecurringEmail');
                 if ($scope.recurringEntitiesDetails.body) {
+                    alert("sa");
                     $scope.savedEmail = true;
                     $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
                     $scope.deleteScheduleButton = "Remove Saved Email";
                     iframe.contentDocument.body.innerHTML = $scope.recurringEntitiesDetails.body;
+                    alert(JSONiframe.contentDocument.body);
                 } else {
                     $scope.savedEmail = false;
                     $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
