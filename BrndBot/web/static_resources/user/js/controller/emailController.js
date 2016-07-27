@@ -30,7 +30,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         var sliderDialog = "#emaileditorexternalpopup";
         var emailDraftDetails = localStorage.getItem('emailDraftData');
         //OnPageLoad
-        $scope.emailEditorInit = function () {            
+        $scope.emailEditorInit = function () {  
             $scope.loadingOverlay = true; //start Loading Overlay
             if (emailDraftDetails !== null) {
                 var paramDraftId = JSON.parse(emailDraftDetails).draftid;
@@ -54,18 +54,18 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 }
             });
 
-            var redirectFromDraft = localStorage.getItem("emailDraftData");
-            $.FroalaEditor.DEFAULTS.htmlAllowedAttrs = $.merge($.FroalaEditor.DEFAULTS.htmlAllowedAttrs, ['onclick', 'ng-click']);
+//            var redirectFromDraft = localStorage.getItem("emailDraftData");
+//            $.FroalaEditor.DEFAULTS.htmlAllowedAttrs = $.merge($.FroalaEditor.DEFAULTS.htmlAllowedAttrs, ['onclick', 'ng-click']);
             companyMarketingProgramFactory.getAllUserMarketingProgramsSessionIdGet().then(function (urlList) {
-                $('#edit').froalaEditor({key: FroalaLicenseKey, linkList: urlList});
+//                $('#edit').froalaEditor({key: FroalaLicenseKey, linkList: urlList});
                 $scope.blockIdOnSelected('defaultblock1', 0);
-                if (redirectFromDraft === null) {
+                if (emailDraftDetails === null) {
                     modelFactory.EmailModelsIdGet($scope.subCategoryId).then(function (templateDate) {
                         var blockList = templateDate.d.details.reverse();
                         $scope.addHTMLInEmailEditor(blockList[0].modelId);
                     });
                 } else {
-                    var DraftId = JSON.parse(redirectFromDraft).draftid;
+                    var DraftId = JSON.parse(emailDraftDetails).draftid;
                     $scope.getEmailDrafts(DraftId);
                 }
                 $scope.loadingOverlay = false; //stop Loading Overlay
@@ -181,13 +181,13 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.getEmailDrafts = function (emailDrafts) {
-            if (!$scope.draftId) {
+            if ($scope.draftId) {
                 emailDraftFactory.getEmailDraftGet(emailDrafts).then(function (data) {
                     if (data === "") {
                         $scope.emaildraftsstatus = "No email drafts present";
                     } else {
                         $scope.htmlbody = data.htmlbody;
-                        $('#edit').froalaEditor('html.set', data.htmlbody);
+                        $("#tinymceEditorBody").append(data.htmlbody);
                     }
                 });
             }
