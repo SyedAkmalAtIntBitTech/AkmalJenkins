@@ -269,7 +269,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 alert("Date not selected, select the date");
                 return false;
             }else {
-                var actionTime1=$("#timepickertextbox").val().replace(/ /g,'');
+                var actionTime1=$("#timepicker1").val().replace(/ /g,'');
                 var actionDateTime1=datePicker.toLocaleString() +" "+actionTime1.toLocaleString();
                 var fromDate = new Date(actionDateTime1);
                 var todayDate = new Date();
