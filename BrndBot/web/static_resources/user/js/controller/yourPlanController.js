@@ -33,7 +33,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 text: 'Email',
                 value: 'Email'
             }, {
-                text: 'Reminder',
+                text: 'Task',
                 value: 'Reminder'
             }
         ];
@@ -219,7 +219,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 text: 'Email',
                 value: 'Email'
             }, {
-                text: 'Reminder',
+                text: 'Task',
                 value: 'Reminder'
             }
             ];

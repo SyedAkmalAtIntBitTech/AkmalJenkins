@@ -3,7 +3,7 @@
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
-brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'externalContentFactory', 'settingsFactory', 'assetsFactory', function ($scope, $location, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, externalContentFactory, settingsFactory, assetsFactory) {
+brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'externalContentFactory', 'settingsFactory', 'assetsFactory', 'signupFactory', function ($scope, $location, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, externalContentFactory, settingsFactory, assetsFactory, signupFactory) {
         $scope.imageSrc = "images/uploadPhoto.svg";
         $scope.colorFrom = "custom";
         $scope.organizationValidation = false;
@@ -286,5 +286,27 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 $scope.stepsModel.push(e.target.result);
             });
         };
+        
+        $scope.resetPassword = function(user) {
+            signupFactory.forgotPasswordPost(user).then(function (data) {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));          
+                $scope.status = data;
+                window.open(getHost() , "_self");
+            });
+        };
+        
+        $scope.forgotChangePassword = function(user) 
+        {
+            
+            //Validate password
+            var password_object = {"hashURL":$location.search().userid,"password":user.password,"type":"change"};
+            signupFactory.resetPasswordPost(password_object).then(function (data) {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));          
+                $scope.status = data;
+                window.open(getHost() , "_self");
+            });
+        };
+        
+        
 
     }]);

@@ -12,10 +12,10 @@ factoryApp.factory('signupFactory', function ($q, authenticatedServiceFactory, c
         });
         return deffered.promise;
     };
-    signupFactoryObject.forgotPasswordPost = function () {
+    signupFactoryObject.forgotPasswordPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.forgotPasswordURL();
-        authenticatedServiceFactory.makeCall("POST", url, "", "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
