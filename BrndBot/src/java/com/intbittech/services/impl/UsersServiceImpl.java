@@ -116,15 +116,15 @@ public class UsersServiceImpl implements UsersService {
      * {@inheritDoc}
      */
     @Override
-    public String saveUsers(UserDetails usersDetails) throws ProcessFailed {
-        String returnMessage = "false";
+    public String saveUser(UserDetails usersDetails) throws ProcessFailed {
+        String returnMessage = "your invite code is expired";
         CompanyInvite companyInvite = null;TaskDetails taskdetails = null;
         ArrayList roles = null;UsersRoleLookup usersRoleLookUp = null;
         
         try {
-            companyInvite = usersInviteService.getInvitedUserByInviteCode(usersDetails.getInvitationCode());
-        
-            boolean validity = checkOutValidityOfInviteCode(usersDetails.getInvitationCode());
+            companyInvite = usersInviteService.getCompanyInviteByInviteCode(usersDetails.getInvitationCode());
+        /** this step checks the validity of the invitation code **/
+            boolean validity = isInviteCodeValid(usersDetails.getInvitationCode());
             if (validity){
 
                 Users user = new Users();
@@ -159,9 +159,9 @@ public class UsersServiceImpl implements UsersService {
                 
             }
         
-            returnMessage = "true";
+            returnMessage = "saved successfully";
         } catch(Throwable throwable) {
-            returnMessage = "false";
+            returnMessage = "problem saving the record";
             throw new ProcessFailed(messageSource.getMessage("something_wrong", new String[]{}, Locale.US));
         }finally {
             companyInvite = null;taskdetails = null;roles = null;usersRoleLookUp = null;
@@ -200,10 +200,10 @@ public class UsersServiceImpl implements UsersService {
     }
     
     @Override
-    public boolean checkOutValidityOfInviteCode(String inviteCode)throws ProcessFailed {
+    public boolean isInviteCodeValid(String inviteCode)throws ProcessFailed {
             boolean status = false;
         try{
-            CompanyInvite companyInvite = usersInviteService.getInvitedUserByInviteCode(inviteCode);
+            CompanyInvite companyInvite = usersInviteService.getCompanyInviteByInviteCode(inviteCode);
 
             Long createdDate = companyInvite.getCreatedDateTime().getTime();
             Long todayDate = new Date().getTime();

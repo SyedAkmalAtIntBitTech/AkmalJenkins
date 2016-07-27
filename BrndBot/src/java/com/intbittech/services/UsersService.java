@@ -49,7 +49,7 @@ public interface UsersService {
      * @return {@link Integer}
      * @throws ProcessFailed the process failed
      */
-    public String saveUsers(UserDetails usersDetails) throws ProcessFailed;
+    public String saveUser(UserDetails usersDetails) throws ProcessFailed;
     /**
      * This method pass user as input and updates the {@link Users} from DAO layer.
      *
@@ -82,6 +82,6 @@ public interface UsersService {
      * @return {@link CompanyInvite}
      * @throws ProcessFailed the process failed
      */
-    public boolean checkOutValidityOfInviteCode(String inviteCode);
+    public boolean isInviteCodeValid(String inviteCode);
     
 }

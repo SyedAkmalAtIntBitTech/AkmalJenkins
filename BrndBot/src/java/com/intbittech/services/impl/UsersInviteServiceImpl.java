@@ -70,13 +70,13 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     
     @Override
     public String save(CompanyInvite companyInvite) throws ProcessFailed {
-        String returnMessage = "false";
+        String returnMessage = "problem saving the record";
         try {
             usersInviteDao.save(companyInvite);
 
-            returnMessage = "true";
+            returnMessage = "saved successfully";
         } catch(Throwable throwable) {
-            returnMessage = "false";
+            returnMessage = "problem saving the record";
             throw new ProcessFailed(messageSource.getMessage("something_wrong", new String[]{}, Locale.US));
         }  
         return returnMessage;    
@@ -110,7 +110,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     }
 
     @Override
-    public CompanyInvite getInvitedUserByInviteCode(String inviteCode) throws ProcessFailed {
+    public CompanyInvite getCompanyInviteByInviteCode(String inviteCode) throws ProcessFailed {
         CompanyInvite companyInvite = usersInviteDao.getUserByInviteCode(inviteCode);
         if(companyInvite == null)
         {
@@ -132,7 +132,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
         CompanyInvite companyInvite = new CompanyInvite();
         
         companyInvite.setCreatedDateTime(new Date());
-        companyInvite.setTaskCode(hashURL);
+        companyInvite.setCode(hashURL);
         companyInvite.setInviteSentBy(user);
         companyInvite.setInviteSentTo(null);
         companyInvite.setMessage(null);
@@ -149,6 +149,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
 //        TODO code to be modified
         message.setHtml("<html><body>" + imageContextPath + "changepassword?userid=" + hashURL + "</body></html>");
         message.setText("text");
+        /** need to change the above link and below message**/
         message.setSubject("your password changing link for our account");
         message.setFrom_email("intbit@intbittech.com");
         message.setFrom_name("Intbit Tech");
@@ -179,37 +180,4 @@ public class UsersInviteServiceImpl implements UsersInviteService{
        }
 
     }
-
-    @Override
-    public boolean checkOutValidity(String inviteCode)throws ProcessFailed {
-            boolean status = false;
-        try{
-            CompanyInvite companyInvite = usersInviteService.getInvitedUserByInviteCode(inviteCode);
-
-            Long createdDate = companyInvite.getCreatedDateTime().getTime();
-            Long todayDate = new Date().getTime();
-
-            Long Datedifference = createdDate - todayDate;
-            
-            boolean isUsed = companyInvite.getIsUsed();
-            if ((Datedifference <= 172800000) && (!isUsed)){
-                status = true;
-                companyInvite.setIsUsed(true);
-                usersInviteService.update(companyInvite);
-                UsersRoleLookup usersRoleLookUp = new UsersRoleLookup();
-                
-                usersRoleLookUp.setUserId(null);
-                usersRoleLookUp.setRoleId(null);
-                usersRoleLookUpService.save(usersRoleLookUp);
-            }else {
-                status = false;
-            }
-            
-        }catch (Throwable throwable){
-            logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("problem checking the data",new String[]{}, Locale.US));
-        }    
-            return status;
-    }
-    
 }

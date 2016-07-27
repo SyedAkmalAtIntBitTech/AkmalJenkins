@@ -58,7 +58,7 @@ public interface UsersInviteService {
      * @return {@link CompanyInvite}
      * @throws ProcessFailed the process failed
      */
-    public CompanyInvite getInvitedUserByInviteCode(String inviteCode) throws ProcessFailed;
+    public CompanyInvite getCompanyInviteByInviteCode(String inviteCode) throws ProcessFailed;
 
     /**
      * This method pass fromEmailId,imageContextPath,inviteDetails as input and sends mail from Service layer
@@ -70,12 +70,4 @@ public interface UsersInviteService {
      */
     public void sendMail(String fromEmailId, String imageContextPath, InviteDetails inviteDetails) throws ProcessFailed;    
     
-    /**
-     * This method pass inviteCode as input and get the {@link String} from Service layer
-     *
-     * @param inviteCode
-     * @return {@link CompanyInvite}
-     * @throws ProcessFailed the process failed
-     */
-    public boolean checkOutValidity(String inviteCode);
 }

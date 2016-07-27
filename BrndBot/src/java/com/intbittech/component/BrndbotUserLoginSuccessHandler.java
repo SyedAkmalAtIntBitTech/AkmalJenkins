@@ -84,6 +84,13 @@ public class BrndbotUserLoginSuccessHandler extends SimpleUrlAuthenticationSucce
         }
         return false;
     }
+
+    private boolean isCreator(List<String> roles) {
+        if (roles.contains("ROLE_Creator")) {
+            return true;
+        }
+        return false;
+    }
     
     public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
         this.redirectStrategy = redirectStrategy;

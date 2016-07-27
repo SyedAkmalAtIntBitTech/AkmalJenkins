@@ -95,8 +95,13 @@ public class OnboardingController {
     public ResponseEntity<ContainerResponse> saveInvited(@RequestBody UserDetails usersDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            
-            String returnMessage = usersService.saveUsers(usersDetails);
+
+            /** 
+             * This method checks the validity and proceed further to save, 
+             * if the validity is expired the it return false. From this part of 
+             * the program we will show right messages to the user 
+             **/
+            String returnMessage = usersService.saveUser(usersDetails);
             transactionResponse.setMessage(returnMessage);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("user_save", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {

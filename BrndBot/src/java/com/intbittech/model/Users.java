@@ -33,9 +33,9 @@ public class Users implements Serializable {
     @OneToMany(mappedBy = "userId")
     private List<UsersRoleLookup> usersRoleLookupList;
     @OneToMany(mappedBy = "inviteSentBy")
-    private Set<CompanyInvite> companyInviteSet;
+    private Set<CompanyInvite> companyInviteSetSentBy;
     @OneToMany(mappedBy = "inviteSentTo")
-    private Set<CompanyInvite> companyInviteSet1;
+    private Set<CompanyInvite> companyInviteSentSentTo;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
@@ -135,20 +135,20 @@ public class Users implements Serializable {
 
     @XmlTransient
     public Set<CompanyInvite> getCompanyInviteSet() {
-        return companyInviteSet;
+        return companyInviteSetSentBy;
     }
 
     public void setCompanyInviteSet(Set<CompanyInvite> companyInviteSet) {
-        this.companyInviteSet = companyInviteSet;
+        this.companyInviteSetSentBy = companyInviteSet;
     }
 
     @XmlTransient
     public Set<CompanyInvite> getCompanyInviteSet1() {
-        return companyInviteSet1;
+        return companyInviteSentSentTo;
     }
 
     public void setCompanyInviteSet1(Set<CompanyInvite> companyInviteSet1) {
-        this.companyInviteSet1 = companyInviteSet1;
+        this.companyInviteSentSentTo = companyInviteSet1;
     }
 
     @XmlTransient

@@ -52,7 +52,7 @@ public class CompanyInvite implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Column(name = "task_code")
-    private String taskCode;
+    private String code;
     @Column(name = "created_date_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDateTime;
@@ -85,12 +85,12 @@ public class CompanyInvite implements Serializable {
         this.id = id;
     }
 
-    public String getTaskCode() {
-        return taskCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setTaskCode(String taskCode) {
-        this.taskCode = taskCode;
+    public void setCode(String taskCode) {
+        this.code = taskCode;
     }
 
     public Date getCreatedDateTime() {

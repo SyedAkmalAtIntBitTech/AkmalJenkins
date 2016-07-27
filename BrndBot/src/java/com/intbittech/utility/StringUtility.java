@@ -43,12 +43,16 @@ public class StringUtility {
     }
     
     public static String objectListToJsonString(Object object) throws IOException {
-        
-        final StringWriter stringWriter =new StringWriter();
-    final ObjectMapper mapper = new ObjectMapper();
-    mapper.writeValue(stringWriter, object);
-    return stringWriter.toString();
-        
+
+        if (object != null){
+            final StringWriter stringWriter =new StringWriter();
+            final ObjectMapper mapper = new ObjectMapper();
+            mapper.writeValue(stringWriter, object);
+
+            return stringWriter.toString();
+            
+        }
+        return null;
     }    
     public static List jsonStringToObjectList(String jsonString) throws JSONException, IOException {
         ObjectMapper mapper = new ObjectMapper();
@@ -61,7 +65,11 @@ public class StringUtility {
 
     public static Object stringToObject(String content){
         Gson gson = new Gson(); 
-        final Object object = gson.fromJson(content, Object.class);                
+        Object object = null;
+        if (content != null){
+            object = gson.fromJson(content, Object.class);                
+            return object;
+        }
         return object;
     }
 }
