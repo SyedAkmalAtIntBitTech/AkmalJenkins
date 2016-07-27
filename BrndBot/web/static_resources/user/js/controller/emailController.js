@@ -35,7 +35,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.scheduleTimeValidation = scheduleTimeValidation;
         var sliderDialog = "#emaileditorexternalpopup";
         var emailDraftDetails = localStorage.getItem('emailDraftData');
-//        var postData = "";
 //        
         //OnPageLoad
         $scope.emailEditorInit = function () {            

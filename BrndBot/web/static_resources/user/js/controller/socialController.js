@@ -603,10 +603,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 $scope.actionTimeVal = "";
                 return false;
             }
-            else
-            {
                 return true;
-            }
         };
 
         $scope.schedulePost = function (selectedSocialmedia, postData) {

@@ -236,7 +236,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         {
             $scope.resetActionForm();
 
-            $scope.datePicker = "";
+//            $scope.datePicker = "";
             $scope.fadeClass = 'fadeClass';
             $scope.isYourplan = true;
             $scope.addAction = true;
@@ -266,7 +266,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             }
             if (actionType.text === "Select") {
                 $scope.actionTypeValidation = true;
-//                $("#dropdownValue").focus();
                 return false;
             }
             if (!datePicker) {
@@ -295,7 +294,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 var todayDate = new Date();
 
                 if (fromDate < todayDate) {
-//                        alert("The selected date is lesser than todays date, please change the date");
                     $scope.dateLesser = true;
                     return false;
                 }

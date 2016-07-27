@@ -12,7 +12,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.colorValidation = colorValidation;
         $scope.studioIdValidation = studioIdValidation;
         $scope.logoValidation = logoValidation;
-        $scope.companyName = "";
+//        $scope.companyName = "";
         $scope.organizationId = "";
 
         function validateSignUp()
@@ -106,9 +106,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 
         $scope.saveCompany = function (companyName, organizationId) {
             $scope.companyName = companyName;
-//            alert($scope.companyName);
             $scope.organizationId = organizationId;
-//            alert($scope.organizationId);
             if ($scope.validationcode(companyName, organizationId))
             {
                 var companyDetails = {"companyName": companyName, "organizationId": organizationId};
@@ -120,7 +118,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 
         $scope.selectedOrganization = function (organizationId)
         {
-//            alert(JSON.stringify(organizationId));
             if (organizationId.value) {
                 $scope.organizationValidation = false;
             }
@@ -259,6 +256,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $("#color4").css("background-color", color4);
         };
         $scope.clearColorPalette = function () {
+            $scope.colorsAlert = false;
             var bgColor = "background-color";
             $("#color1").css(bgColor, "");
             $("#color2").css(bgColor, "");

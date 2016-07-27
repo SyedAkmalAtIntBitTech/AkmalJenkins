@@ -41,7 +41,7 @@
                         <div class="input">
                             <input id="recuring_email_title"  type="text" required placeholder="Enter Name of email" ng-model="automationData.title" value="{{entity_details.recurring_email_title}}" class="fluid"/>
                         </div>
-<!--                        <span class="validationAlert" ng-if='automationData.title === "" || null'>{{actionNameValidation}}</span>-->
+                        <span class="validationAlert" ng-if='automationData.title === "" || null'>{{actionNameValidation}}</span>
 
                         <p class="input-wrap-label"> Make this something that your clients will recognize</p>
                     </div>
@@ -50,7 +50,7 @@
                         <div class="input">
                             <input id="recuring_description"  type="text" required  
                                    placeholder="Enter description of email" ng-model="automationData.description" value="{{entity_details.recurring_email_description}}" class="fluid"/>
-<!--                            <span class="validationAlert" ng-if='automationData.description === "" || null'>{{descriptionValidation}}</span>-->
+                            <span class="validationAlert" ng-if='automationData.description === "" || null'>{{descriptionValidation}}</span>
 
                             <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
                         </div>
@@ -69,6 +69,8 @@
                             <!--                             <select id="days" ng-model="automationData.selectedDay" class="email-automation-trigger-day-drop" ng-options="day for day in days"></select>-->
                             <div dropdown-select="ddSelectDateAutomationDataOptions" dropdown-model="ddSelectDateAutomationData" dropdown-onchange="setDays(selected)"></div>
                         </div>
+                        <span class="validationAlert" ng-if="emailAutomationDayValidation">{{automationDayValidation}}</span>
+
                         <div class="">
                             <div class="">
                                 days after they are added to
@@ -82,7 +84,7 @@
                                                           </select>-->
                             <div dropdown-select="ddSelectEmailListAutomationDataOptions" dropdown-model="ddSelectEmailListAutomationData" dropdown-onchange="emailListOnChange(selected)"></div>
                         </div>
-<!--                        <span class="validationAlert" ng-if="emailAutomationListValidation">{{actionNameValidation}}</span>-->
+                        <span class="validationAlert" ng-if="emailAutomationListValidation">{{automatedEmailListValidation}}</span>
 
                     </div>
                     <div class="input-wrap">
@@ -93,7 +95,6 @@
                             </div>
                             <input id="timepicker1" readonly type="text" name="timepicker1" ng-model="automationData.time" class="time-date-select" 
                                    value="{{entity_details.recurring_email_time| date: 'hh : mm : a'}}" /> 
-<!--                            <span class="validationAlert" ng-if='automationData.time === "" || null'>{{scheduleTimeValidation}}</span>-->
 
                             <script src="js/timepicki.js" type="text/javascript"></script>
                             <script>
@@ -108,6 +109,8 @@
                                        });
                             </script>
                         </a>
+                        <span class="validationAlert" ng-if="automationTime">{{scheduleTimeValidation}}</span>
+
                     </div>
                 </div>
                 <div class="hub-section">
@@ -119,7 +122,7 @@
                         <div class="input">
                             <input id="recuring_email_subject"  type="text" required placeholder="Enter subject" ng-model="automationData.subject" value="{{entity_details.recurring_email_subject}}" class="fluid"/>
                         </div>
-<!--                        <span class="validationAlert" ng-if='automationData.subject === "" || null'>{{subjectValidation}}</span>-->
+                        <span class="validationAlert" ng-if='automationData.subject === "" || null'>{{subjectValidation}}</span>
 
                         <p class="input-wrap-label"> Make this something that your clients will recognize</p>
                     </div>
@@ -128,7 +131,7 @@
                         <div class="input">
                             <input id="recurring_from_name" class="fluid" type="text" ng-model="automationData.fromName" required  placeholder="Enter from name" 
                                    value="{{entity_details.recurring_email_from_name}}"/>
-<!--                            <span class="validationAlert" ng-if='automationData.fromName === "" || null'>{{fromNameValidation}}</span>-->
+                            <span class="validationAlert" ng-if='automationData.fromName === "" || null'>{{fromNameValidation}}</span>
 
                             <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
                         </div>
@@ -139,7 +142,7 @@
                             <input id="reply_address" class="fluid" ng-model="automationData.replyAddress" type="email" 
                                    required  placeholder="Enter reply-to-address" 
                                    value="{{entity_details.recurring_email_reply_to_email_address}}"/>
-<!--                            <span class="validationAlert" ng-if='automationData.replyAddress === "" || null'>{{replyToValidation}}</span>-->
+                            <span class="validationAlert" ng-if='automationData.replyAddress === "" || null'>{{replyToValidation}}</span>
 
                             <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
                         </div>
