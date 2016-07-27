@@ -1,5 +1,4 @@
 <div class="overlay-wrap overlay-slide" id="notediv" ng-init='hideSaveButton()' ng-class="reminderSectionClass">
-
     <!--MainContent-->
     <div class="detail-overlay-content">
         <input type="hidden" id="remainder_id" value="{{scheduleData.schedule_id}}"/>
@@ -10,13 +9,11 @@
             </a>
             <h2> Task Detail</h2>
             <div class="overlay-header-cta-wrap">
-            <a class="status-button template-not-approved" ng-show="action_template_status === 'No Template'" ng-click="Approval(schedule_id, 'complete', masterActionType)">
-                <i class=""></i>
-                <label>Complete</label>
+            <a class="reg-button gray-button" ng-show="action_template_status === 'No Template'" ng-click="Approval(schedule_id, 'complete', masterActionType)">
+                Mark Complete
             </a>
-             <a class="status-button template-not-approved" id="marketingemailapprove" ng-show="action_template_status === 'Complete'" ng-click="Approval(schedule_id, 'no_template', masterActionType)">
-                 <i class=""></i>
-                <label>Incomplete</label>
+             <a class="reg-button gray-button" id="marketingemailapprove" ng-show="action_template_status === 'Complete'" ng-click="Approval(schedule_id, 'no_template', masterActionType)">
+                Change to Incomplete
             </a>                
                 <div class="action-delete-button" ng-click="clickedDeleteAction = true"></div>
                 <div ng-show="clickedDeleteAction" class="action-pop-up delete-action-pop-up ease-all">
@@ -31,7 +28,7 @@
         </div>
         
         <!--Below Nav-->
-        <div class="overlay-content">
+        <div class="overlay-content-saved-email-draft">
             <div hidden="" id="note_desc" class="instruction-text">{{scheduleData.schedule_desc}}</div>
             <div class="overlay-name-bar">
                 <input  size="40" type="text" id="edit_note_title" ng-change="showSaveButton()" ng-model="scheduleData.schedule_title"  name="edit_note_title" value="{{scheduleData.schedule_title}}" />
@@ -57,7 +54,7 @@
                 </div>
             </div>-->
             <div class="overlay-details-pane">
-                    <div class="overlay-details-pane-header">{{scheduledTo}} DETAILS</div>
+                    <div class="overlay-details-pane-header">TASK DETAILS</div>
                     <div class="detail-sections-wrap">
                         <input type="hidden" class="textbox" id="emaildays" name="emaildays" value="0"/>
                        
@@ -97,7 +94,6 @@
                                             step_size_minutes: 05,
                                             overflow_minutes: true,
                                             increase_direction: 'up',
-                                            start_time: ["06", "00", "AM"],
                                             disable_keyboard_mobile: true
                                         });
                                 </script>
@@ -109,13 +105,17 @@
                     </div>
                 </div>-->
             </div>
+             
         </div>
-           <div class="" id="reminderactionsave">
-            <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft" ng-show="showUpdateBtn" id="updateAction" ng-click="updateReminder(scheduleData)">Save Reminder</div>
-            </div>
-            </div>
-    </div></div>
+    </div>   
+    <div  id="reminderactionsave" class="bottom-cta-button-container-overlay"  ng-show="showUpdateBtn">
+        <a class="reg-button success-button" id="updateAction" ng-click="updateAction(scheduleData)" ng-show="isRecurring === false" >Save Reminder</a>
+    </div>    
+   </div>
+   
+
+
+
         <!--<div ng-if="reminderDetailsTab" class="below-nav-container-saved-post-detail" id="reminderdetailsdiv">
             <div class="inner-content-container-detail">
                 <!--                            <div class="saved-post-header-detail">

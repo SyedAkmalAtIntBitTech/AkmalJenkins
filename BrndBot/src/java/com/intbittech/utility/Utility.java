@@ -85,7 +85,7 @@ public class Utility {
         try {
             ScriptEngineManager manager = new ScriptEngineManager();
             ScriptEngine engine = manager.getEngineByName("JavaScript");
-            String path = context +"/js/configurations.js";
+            String path = context +"/static_resources/js/configurations.js";
 // read script file
             engine.eval(Files.newBufferedReader(Paths.get(path), StandardCharsets.UTF_8));
 

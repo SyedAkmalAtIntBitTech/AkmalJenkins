@@ -7,8 +7,8 @@
     </div>
     <div class="top-nav-bar-offset"></div>
 
-    <div class="content-wrap content-wrap-padding content-wrap-with-continue-bar content-wrap-flex">
-        <div class="modal-pane modal-pane-full-width">
+    <div class="content-wrap content-wrap-padding content-wrap-with-continue-bar content-wrap-flex" ng-init="activeColorPicker='selected_Tab'">
+        <div class="modal-pane modal-pane-full-width color-div">
             <div class="modal-pane-header-wrap">
                 <h2 class="">Upload your logo</h2>
             </div>
@@ -33,7 +33,7 @@
                 <div class="color-palette-col">
                     <div class="color-selection-menu">
                         <div class="color-selection-option" ng-class="activeColorTheme"  id="themeColors" ng-click="getAllThemes()">Color Themes</div>
-                        <div class="color-selection-option selected" ng-class="activeColorPicker"  id="customColors" ng-click="getColorFromPicker()">Color Picker</div>
+                        <div class="color-selection-option" ng-class="activeColorPicker"  id="customColors" ng-click="getColorFromPicker()">Color Picker</div>
                         <div class="color-selection-option" ng-class="activeColorLogo"  id="logoColorsDiv" ng-click="getColorsFromLogo()">Logo Colors</div>
                     </div> 
 <!--                    <div class="color-selection-menu">

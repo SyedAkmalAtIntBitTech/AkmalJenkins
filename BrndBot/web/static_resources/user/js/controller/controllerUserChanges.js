@@ -5,10 +5,11 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.newPasswordValidation = newPasswordValidation;
         $scope.confirmPasswordValidation = confirmPasswordValidation;
         $scope.logoValidation = logoValidation;
-
+        $scope.showPaletteChangePopUp="";
+               
         // Hide & show password function
         $scope.hideShowPassword = function () {
-            if ($scope.inputType === 'password')
+            if ($scope.inputType == 'password')
                 $scope.inputType = 'text';
             else
                 $scope.inputType = 'password';
@@ -72,12 +73,18 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             }
         };
         $scope.getColorsFromLogo = function () {
+            $scope.activeColorLogo = 'selected_Tab';
+            $scope.activeColorPicker = '';
+            $scope.activeColorTheme = '';
             $scope.colorFrom = "logo";
             onboardingFactory.colorsForLogoGet().then(function (data) {
                 $scope.color = data.d.details;
             });
         };
         $scope.getAllThemes = function () {
+            $scope.activeColorTheme = 'selected_Tab';
+            $scope.activeColorPicker = '';
+            $scope.activeColorLogo = '';
             $scope.colorFrom = "theme";
             assetsFactory.allColorThemesGet().then(function (data) {
                 $scope.curPage = 0;
@@ -86,6 +93,9 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             });
         };
         $scope.getColorFromPicker = function () {
+            $scope.activeColorPicker = 'selected_Tab';
+            $scope.activeColorTheme = '';
+            $scope.activeColorLogo = '';
             $scope.colorFrom = "custom";
             $('#picker').colpick({
                 flat: true,
@@ -98,14 +108,11 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 }
             });
         };
-        $scope.getColorID = function (color) {
-            $('.palette-colorswab-selected').css("background-color", color);
-        };
         $scope.selectTheme = function (color1, color2, color3, color4) {
-            $("#color1").css("background-color", color1);
-            $("#color2").css("background-color", color2);
-            $("#color3").css("background-color", color3);
-            $("#color4").css("background-color", color4);
+            $("#colorPalete1").css("background-color", color1);
+            $("#colorPalete2").css("background-color", color2);
+            $("#colorPalete3").css("background-color", color3);
+            $("#colorPalete4").css("background-color", color4);
         };
         $scope.showColors = function () {
             settingsFactory.getColorsURLGet().then(function (data) {
@@ -126,14 +133,20 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             });
         };
         $scope.saveColorPalette = function () {
-            var color1 = $("#color1").css("backgroundColor");
-            var color2 = $("#color2").css("backgroundColor");
-            var color3 = $("#color3").css("backgroundColor");
-            var color4 = $("#color4").css("backgroundColor");
+            var color1 = $("#colorPalete1").css("backgroundColor");
+            var color2 = $("#colorPalete2").css("backgroundColor");
+            var color3 = $("#colorPalete3").css("backgroundColor");
+            var color4 = $("#colorPalete4").css("backgroundColor");
             if ((color1 === "rgba(0, 0, 0, 0)") || (color2 === "rgba(0, 0, 0, 0)") || (color3 === "rgba(0, 0, 0, 0)") || (color4 === "rgba(0, 0, 0, 0)")) {
                 alert("Please choose all 4 colors.");
             }
+            $("#color1").css("backgroundColor",color1);
+            $("#color2").css("backgroundColor",color2);
+            $("#color3").css("backgroundColor",color3);
+            $("#color4").css("backgroundColor",color4);
+            $scope.showPaletteChangePopUp = false;
             settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
+//                alert(JSON.stringify(data.d.operationStatus.messages));
             });
         };
         $scope.clearColorPalette = function () {

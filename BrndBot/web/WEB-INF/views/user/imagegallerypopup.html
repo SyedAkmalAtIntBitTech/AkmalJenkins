@@ -1,39 +1,37 @@
-<div  ng-show="showImageGalleryPopup" class="popUp_background-dark " id="imagePopUp" >
-    <div class="popUp_CenterVert">
-        <div class="popUp-top-wide lear" >
-            <span >
-                <div class="popUp_header clear">
-                    <div class="pane_title fleft h2 col1of2">Please Select an Image</div>
-                    <div class="popUp_close fright" id="hidepopup" ng-click="show_hide_ImageGalleryPopup(false)">
-                        <img type="image/svg+xml" src="../static_resources/images/Pop-Up-Exit-Button.svg" class="fleft popUp_close-icon cursor-shape">
-                    </div>
-                </div>
-                <div class="popUp_subheader clear">
+<div  ng-show="showImageGalleryPopup" class="center-pop-ups " id="fade" ng-class="fadeClass"  >
+    
+    <div class="center-pop-ups" style="height:100vh;">
+                
+                <!--Old Sub Navs-->
+                <!--<div class="popUp_subheader clear">
                     <span  class="popUp_subheader-tabs fleft cursor-shape" id="showGallery" ng-class="selectTabGallery" ng-click="show_Hide_Upload_GalleryImages(true)">From Gallery</span>
                     <span  class="popUp_subheader-tabs fleft cursor-shape" id="shoeUploadimage" ng-class="selectTabUpload" ng-click="show_Hide_Upload_GalleryImages(false)">Upload Image</span>
-                </div>
-                <div class=" gallery-padding clear gallery-pane">
-                    <span id="gallerySpan" ng-init="getUserImages()" ng-show="showUserImages"> 
-                        <div class="gallery-item-wrap-selected fleft {{images.companyImagesId}} toggleClass" id="{{images.companyImagesId}}" ng-repeat="images in datalists"  ng-click="selectImageToPost(images.imageName, 'gallery',companyId)">
-                            <div class="gallery-image-wrap">
-                                <img id="{{images.companyImagesId}}"  src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}" alt="alt_text" border="0" align="center" class="gallery-image" />
-                            </div>
-                            <div class="gallery-name"> Photo {{images.companyImagesId}}</div>
-                            <div class="gallery-settings"></div>
-                        </div>
-                    </span>
-                    <span class="" id="uploadImageSpan" ng-show="showUploadImage">
-                        <div class="logoUpload-wrap">
-                            <img type="image/svg+xml" ng-src="{{imageToBeUploaded}}" class="logoUpload-svg" style="cursor:pointer;">
-                        </div>
-                        <div class="Add_Button Button--Gray logoUpload--button">Select Image
-                            <input type="file" file-model="myFile1" class="Add_Button Button--Gray logoUpload--button upload fileupld"/>
-                        </div>
-                    </span>
-                </div>
-            </span>
+                </div>-->
+         
+        <div class="modal-pane modal-pane-width-full mbPopup ">
+            <div ng-init="getAllCompanyImages()">
+                 <div class="modal-pane-header-wrap">
+                      <h2 class="">Your Images</h2>
+                      
+                      <!--PUT UPLOAD IMAGE FUNCTIONALITY HERE-->
+                      <div class="upload-photo-button reg-button gray-button">Upload an Image</div>
+                      
+                      <a class="modal-pane-header-exit" id="hidepopup" ng-click="show_hide_ImageGalleryPopup(false)"></a>
+     <!--             <a ng-repeat="mindbody in mindbodylist" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=subCategoryId%>&mindbodyId={{mindbody.id}}&LookupId=<%=LookupId%>">-->
+                 </div>
+                 <div class="full-height-modal-pane-content-wrap modal-pane-content-social-sequence" ng-init="getUserImages()" ng-show="showUserImages" >
+                     <div class="gallery-image-wrap {{images.companyImagesId}}">
+                         <div class="gallery-image-card" ng-repeat="images in datalists"  ng-click="selectImageToPost(images.imageName, 'gallery',companyId)">
+                             <img  class="gallery-image" id="{{images.companyImagesId}}"  src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}" alt="{{images.imageName}}"/>
+                         </div>
+                     </div>
+                 </div>
+            </div>
         </div>
-        <div class="popUp-bottom-wide" id="addImageButton" ng-click="addImage()" ng-show="showUserImages">
+        
+        <!-- THIS IS THE OLD UPLOAD CODE-->
+        
+        <!--<div class="popUp-bottom-wide" id="addImageButton" ng-click="addImage()" ng-show="showUserImages">
             <span class="clickable-area">
                 <div class="popUp-bottom-link">ADD IMAGE</div>
             </span>
@@ -41,8 +39,23 @@
         <div class="popUp-bottom-wide " id="uploadImageButton"  ng-click="uploadLogo1(myFile1)" ng-show="showUploadImage">
             <span class="clickable-area">
                 <div class="popUp-bottom-link">UPLOAD IMAGE</div>
-            </span>
+            </span>-->
+        
+    
+    
+    <!--PUT THIS UPLOAD FUNCTIONALITY INTO THE MODAL-CTA-CONTAINER-BELOW-->
+    <span class="" id="uploadImageSpan" ng-show="showUploadImage">
+        <div class="logoUpload-wrap">
+            <img type="image/svg+xml" ng-src="{{imageToBeUploaded}}" class="logoUpload-svg" style="cursor:pointer;">
         </div>
-
+        <div class="Add_Button Button--Gray logoUpload--button">Select Image
+            <input type="file" file-model="myFile1" class="Add_Button Button--Gray logoUpload--button upload fileupld"/>
+        </div>
+    </span>
+    
+    <!--<div class="modal-cta-container" >
+        <a class="long-button blue-button" id="addActionYourPlan" ng-click="AddAction(addTitle, datePicker, timePicker123, ddSelectAction,programaction.postDate)" href="javascript:void(0)">Create this Action</a>
+    </div>-->
+    </div>
     </div>
 </div>

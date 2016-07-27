@@ -3,7 +3,7 @@
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
-brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'externalContentFactory', 'settingsFactory', 'assetsFactory', function ($scope, $location, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, externalContentFactory, settingsFactory, assetsFactory) {
+brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'externalContentFactory', 'settingsFactory', 'assetsFactory', 'signupFactory', function ($scope, $location, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, externalContentFactory, settingsFactory, assetsFactory, signupFactory) {
         $scope.imageSrc = "images/uploadPhoto.svg";
         $scope.colorFrom = "custom";
         $scope.organizationValidation = false;
@@ -12,6 +12,8 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.colorValidation = colorValidation;
         $scope.studioIdValidation = studioIdValidation;
         $scope.logoValidation = logoValidation;
+        $scope.companyName = "";
+        $scope.organizationId = "";
 
         function validateSignUp()
         {
@@ -103,6 +105,10 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         };
 
         $scope.saveCompany = function (companyName, organizationId) {
+            $scope.companyName = companyName;
+//            alert($scope.companyName);
+            $scope.organizationId = organizationId;
+//            alert($scope.organizationId);
             if ($scope.validationcode(companyName, organizationId))
             {
                 var companyDetails = {"companyName": companyName, "organizationId": organizationId};
@@ -112,9 +118,10 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             }
         };
 
-        $scope.selectedOrganization = function (selected)
+        $scope.selectedOrganization = function (organizationId)
         {
-            if (selected.value) {
+//            alert(JSON.stringify(organizationId));
+            if (organizationId.value) {
                 $scope.organizationValidation = false;
             }
         };
@@ -217,7 +224,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             }
         };
         $scope.getColorsFromLogo = function () {
-            $scope.activeColorLogo = 'selected';
+            $scope.activeColorLogo = 'selected_Tab';
             $scope.activeColorPicker = '';
             $scope.activeColorTheme = '';
             $scope.colorFrom = "logo";
@@ -226,7 +233,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             });
         };
         $scope.getAllThemes = function () {
-            $scope.activeColorTheme = 'selected';
+            $scope.activeColorTheme = 'selected_Tab';
             $scope.activeColorPicker = '';
             $scope.activeColorLogo = '';
             $scope.colorFrom = "theme";
@@ -237,7 +244,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             });
         };
         $scope.getColorFromPicker = function () {
-            $scope.activeColorPicker = 'selected';
+            $scope.activeColorPicker = 'selected_Tab';
             $scope.activeColorTheme = '';
             $scope.activeColorLogo = '';
             $scope.colorFrom = "custom";
@@ -304,5 +311,24 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 $scope.stepsModel.push(e.target.result);
             });
         };
-
+        
+        $scope.resetPassword = function(user) {
+            signupFactory.forgotPasswordPost(user).then(function (data) {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));          
+                $scope.status = data;
+                window.open(getHost() , "_self");
+            });
+        };
+        
+        $scope.forgotChangePassword = function(user) 
+        {
+            
+            //Validate password
+            var password_object = {"hashURL":$location.search().userid,"password":user.password,"type":"change"};
+            signupFactory.resetPasswordPost(password_object).then(function (data) {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));          
+                $scope.status = data;
+                window.open(getHost() , "_self");
+            });
+        };
     }]);
