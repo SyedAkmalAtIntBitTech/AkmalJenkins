@@ -199,9 +199,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 }, {
                     text: 'Email',
                     value: 'Email'
-                }, {
-                    text: 'Task',
-                    value: 'Reminder'
                 }
             ];
         };
@@ -1596,9 +1593,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 }, {
                     text: 'Email',
                     value: 'Email'
-                }, {
-                    text: 'Reminder',
-                    value: 'Reminder'
                 }
             ];
         };

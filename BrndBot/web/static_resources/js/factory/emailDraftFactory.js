@@ -44,10 +44,10 @@ factoryApp.factory('emailDraftFactory', function ($q, authenticatedServiceFactor
         });
         return deffered.promise;
     };
-    emailDraftFactoryObject.deleteEmailDraftPost = function (data) {
+    emailDraftFactoryObject.deleteEmailDraftPost = function (draftId) {
         var deffered = $q.defer();
-        var url = configurationService.deleteEmailDraftURL();
-        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
+        var url = configurationService.deleteEmailDraftURL()+'?draftid='+draftId;
+        authenticatedServiceFactory.makeCall("POST", url,draftId,"").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

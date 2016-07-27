@@ -489,8 +489,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 
         $scope.updateEmailID = function (email) {
             $("#addcontact").show();
-            $scope.showAddContactPopup = false;
-            $scope.overlayFade = false;
             var email_list_name = $scope.emailListName;
             var email_address = $("#emailId").val();
             var firstName = email.firstName;
@@ -512,6 +510,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                             emailListFactory.emailListSavePost(emaildetails).then(function (data) {
                                 alert(datasaved);
                                 $scope.updateList();
+                                $scope.overlayFade = false;
                                 $scope.showAddContactPopup = false;
                                 $("#addContactButton").unbind('click');
                             });
@@ -529,6 +528,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                         alert("datasaved");
                         $scope.updateList();
                         $scope.showAddContactPopup = false;
+                        $scope.overlayFade = false;
                     });
                 }
                 ;
