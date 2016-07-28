@@ -213,12 +213,12 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 
         $scope.uploadLogo = function () {
             var file = $scope.myFile;
-            if ($scope.uploadLogoValidation(file))
-            {
+//            if ($scope.uploadLogoValidation(file))
+//            {
                 settingsFactory.changeLogoPost(file).then(function (data) {
                     $location.path("signup/choosepalette");
                 });
-            }
+//            }
         };
         $scope.getColorsFromLogo = function () {
             $scope.activeColorLogo = 'selected_Tab';

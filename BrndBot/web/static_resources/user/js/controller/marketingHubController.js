@@ -21,7 +21,11 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.fromAddressValidation = fromAddressValidation;
         $scope.emailAddressValidation = emailAddressValidation;
         $scope.email = [];
+        $scope.company = [];
+        $scope.email_settings = [];
         $scope.showEmailListDetails = false;
+//        $scope.uploadCsvValidation = uploadCsvValidation;
+        $scope.replyToValidation = replyToValidation;
 
         $scope.displayAllEmailDrafts = function () {
             $scope.activeEmailDrafts = 'activeTab';
@@ -229,13 +233,27 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $scope.email_settings = JSON.parse(data.d.details);
             });
         };
+
+        $scope.emailSettingsValidation = function (email_settings) {
+            var from_address = email_settings.from_address;
+            if (!email_settings.reply_email_address) {
+                $scope.email_settings = {reply_email_address: "", from_address: from_address};
+                $("#reply_address").focus();
+                return false;
+            }
+            return true;
+        };
+
         $scope.saveEmailSettings = function (email_settings) {
             var from_address = email_settings.from_address;
             var reply_email_address = email_settings.reply_email_address;
-            var emailSettingsData = {"from_address": "mail@brndbot.com", "reply_email_address": reply_email_address};
-            settingsFactory.saveEmailSettingsPost(emailSettingsData).then(function (data) {
-                $scope.getEmailSettings();
-            });
+            if ($scope.emailSettingsValidation(email_settings))
+            {
+                var emailSettingsData = {"from_address": "mail@brndbot.com", "reply_email_address": reply_email_address};
+                settingsFactory.saveEmailSettingsPost(emailSettingsData).then(function (data) {
+                    $scope.getEmailSettings();
+                });
+            }
         };
         $scope.getFooterDetails = function () {
             $scope.emaildropdown = false;
@@ -248,6 +266,16 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $scope.company = $scope.footerDetails;
             });
         };
+
+        $scope.emailFooterValidation = function (company) {
+            if (!company.address) {
+                $scope.company = {address: ""};
+                $("#company_address").focus();
+                return false;
+            }
+            return true;
+        };
+
         $scope.changeFooterDetails = function (company) {
             var footerAddress = "";
             if (company.address)
@@ -264,12 +292,15 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             var footerInstagramUrl = "";
             if (company.instagramUrl)
                 footerInstagramUrl = company.instagramUrl;
-            var footerPopupDetails = {"facebookUrl": footerFacebookUrl, "twitterUrl": footerTwitterUrl, "instagramUrl": footerInstagramUrl, "websiteUrl": footerWebsiteUrl, "address": footerAddress};
-            $scope.emailFooterPopupDetails = false;
-            $scope.getFooterDetails();
-            settingsFactory.setFooterPost(footerPopupDetails).then(function (data) {
+            if ($scope.emailFooterValidation(company))
+            {
+                var footerPopupDetails = {"facebookUrl": footerFacebookUrl, "twitterUrl": footerTwitterUrl, "instagramUrl": footerInstagramUrl, "websiteUrl": footerWebsiteUrl, "address": footerAddress};
+                $scope.emailFooterPopupDetails = false;
                 $scope.getFooterDetails();
-            });
+                settingsFactory.setFooterPost(footerPopupDetails).then(function (data) {
+                    $scope.getFooterDetails();
+                });
+            };
         };
         $scope.emailFooterPopup = function ()
         {
@@ -530,9 +561,12 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                             $scope.showAddContactPopup = false;
                             $scope.overlayFade = false;
                         });
-                    };
-                };
-            };
+                    }
+                    ;
+                }
+                ;
+            }
+            ;
         };
 
         $scope.unsubscribeEmailList = "";
@@ -565,7 +599,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     alert("This browser does not support HTML5!");
                 }
             } else {
-                alert("Please upload a valid CSV file!");
+                alert("Please 1 upload a valid CSV file!");
+//                $scope.csvFileValidation = true;
             }
 
         };
@@ -577,6 +612,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             if (!$scope.unsubscribeEmailList)
             {
                 alert("Please choose a valid csv file.");
+//                $scope.csvFileValidation = true;
                 return false;
             }
             //if file is blank
@@ -585,9 +621,11 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 if ($scope.unsubscribeEmailList.length == 0)
                 {
                     alert("Please choose a valid csv file.");
+//                    $scope.csvFileValidation = true;
                     return false;
                 }
             }
+            $scope.csvFileValidation = false;
             var emailListData = $scope.unsubscribeEmailList.split(",");
             var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;

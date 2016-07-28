@@ -220,3 +220,4 @@ var replyToValidation = "Please enter the reply to email address!";
 var descriptionValidation = "Please enter the description";
 var automatedEmailListValidation = "Please select an email list";
 var automationDayValidation = "Please select an email to a recipent";
+var uploadCsvValidation = "Please upload a CSV file";

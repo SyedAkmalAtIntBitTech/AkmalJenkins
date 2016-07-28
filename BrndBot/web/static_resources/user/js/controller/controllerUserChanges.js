@@ -32,11 +32,13 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.changePassword = function (password, confirmPassword) {
             if ($scope.accountSettingsValidation(password, confirmPassword))
             {
-                alert(password);
-                alert(confirmPassword);
+//                alert(password);
+//                alert(confirmPassword);
 
                 var password_object = {"password": password, "confirmpassword": confirmPassword, "type": "update"};
                 signupFactory.resetPasswordPost(password_object).then(function (data) {
+                    alert(password);
+
                     $scope.status = data;
                 });
             }
