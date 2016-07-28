@@ -85,7 +85,7 @@ public class UsersInviteDaoImpl implements UsersInviteDao{
     public CompanyInvite getUserByInviteCode(String inviteCode) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(Users.class)
-                .add(Restrictions.eq("taskCode", inviteCode));
+                .add(Restrictions.eq("code", inviteCode));
         if (criteria.list().isEmpty()) {
             return null;
         }
