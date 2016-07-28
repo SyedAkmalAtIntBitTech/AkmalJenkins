@@ -582,9 +582,7 @@ EDITOR
 }
 .editor_rightside .emailrender
 {
-    float: left;
-    width: 100%;
-    min-height: 600px;
+   
 }
 .emailrender .confirmbox
 {
