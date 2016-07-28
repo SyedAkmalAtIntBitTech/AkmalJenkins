@@ -374,7 +374,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
         {
 //        $scope.entities_selected_time =schedule_time;
-            var nDate = new Date(action_date);
+            var nDate = new Date(action_date + " 10:30 am"); //10:30 am save DST
             $scope.calculatedProgramDate = $scope.addDays(nDate, days);
             $scope.entities_selected_time = $filter('date')(schedule_time, "MMM dd yyyy");
             $scope.savedEmail = false;
