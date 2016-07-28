@@ -6,21 +6,23 @@
 package com.intbittech.services.impl;
 
 import com.intbittech.controller.SignupController;
-import com.intbittech.dao.UsersInviteDao;
 import com.intbittech.dao.UsersRoleLookUpDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.CompanyInvite;
 import com.intbittech.model.UsersRoleLookup;
 import com.intbittech.services.UsersRoleLookUpService;
 import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Syed Muzamil at IntBit Technologies.
  */
+@Service
+@Transactional(rollbackFor = ProcessFailed.class)
 public class UsersRoleLookUpServiceImpl implements UsersRoleLookUpService{
 
     private final static Logger logger = Logger.getLogger(SignupController.class);

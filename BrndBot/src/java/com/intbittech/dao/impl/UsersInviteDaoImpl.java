@@ -73,7 +73,7 @@ public class UsersInviteDaoImpl implements UsersInviteDao{
     @Override
     public CompanyInvite getInvitedUserById(Integer Id) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(Users.class)
+                .createCriteria(CompanyInvite.class)
                 .add(Restrictions.eq("id", Id));
         if (criteria.list().isEmpty()) {
             return null;
@@ -84,7 +84,7 @@ public class UsersInviteDaoImpl implements UsersInviteDao{
     @Override
     public CompanyInvite getUserByInviteCode(String inviteCode) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(Users.class)
+                .createCriteria(CompanyInvite.class)
                 .add(Restrictions.eq("code", inviteCode));
         if (criteria.list().isEmpty()) {
             return null;

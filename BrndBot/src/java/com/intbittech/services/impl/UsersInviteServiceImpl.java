@@ -55,18 +55,19 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     @Autowired
     private UsersInviteDao usersInviteDao;
     
-    @Autowired
-    UsersInviteService usersInviteService;
-    
-    @Autowired
-    UsersRoleLookUpService usersRoleLookUpService;
+//    @Autowired
+//    private UsersInviteService usersInviteService;
+//    
+//    @Autowired
+//    private UsersRoleLookUpService usersRoleLookUpService;
 
     @Autowired
     private MessageSource messageSource;
+    
     SendMail send_email = new SendMail();
 
     @Autowired
-    UsersService usersService;
+    private UsersService usersService;
     
     @Override
     public String save(CompanyInvite companyInvite) throws ProcessFailed {

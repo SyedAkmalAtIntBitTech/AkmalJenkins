@@ -14,14 +14,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
@@ -35,14 +31,7 @@ import org.hibernate.annotations.TypeDefs;
 )
 @TypeDefs({
     @TypeDef(name = "StringJsonObject", typeClass = StringJsonUserType.class)})
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "CompanyInvite.findAll", query = "SELECT c FROM CompanyInvite c"),
-    @NamedQuery(name = "CompanyInvite.findById", query = "SELECT c FROM CompanyInvite c WHERE c.id = :id"),
-    @NamedQuery(name = "CompanyInvite.findByCode", query = "SELECT c FROM CompanyInvite c WHERE c.code = :code"),
-    @NamedQuery(name = "CompanyInvite.findByCreatedDateTime", query = "SELECT c FROM CompanyInvite c WHERE c.createdDateTime = :createdDateTime"),
-    @NamedQuery(name = "CompanyInvite.findByMessage", query = "SELECT c FROM CompanyInvite c WHERE c.message = :message"),
-    @NamedQuery(name = "CompanyInvite.findByIsUsed", query = "SELECT c FROM CompanyInvite c WHERE c.isUsed = :isUsed")})
+
 public class CompanyInvite implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -140,29 +129,6 @@ public class CompanyInvite implements Serializable {
         this.inviteSentTo = inviteSentTo;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CompanyInvite)) {
-            return false;
-        }
-        CompanyInvite other = (CompanyInvite) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.intbittech.model.CompanyInvite[ id=" + id + " ]";
-    }
+ 
     
 }

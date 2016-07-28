@@ -17,11 +17,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Syed Muzamil at IntBit Technologies.
  */
+@Repository
 public class UsersRoleLookUpDaoImpl implements UsersRoleLookUpDao{
 
     private Logger logger = Logger.getLogger(UsersDaoImpl.class);
@@ -59,7 +61,7 @@ public class UsersRoleLookUpDaoImpl implements UsersRoleLookUpDao{
     @Override
     public UsersRoleLookup getUsersRoleLookupById(Integer Id) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(Users.class)
+                .createCriteria(UsersRoleLookup.class)
                 .add(Restrictions.eq("id", Id));
         if (criteria.list().isEmpty()) {
             return null;

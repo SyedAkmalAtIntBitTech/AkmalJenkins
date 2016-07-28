@@ -47,7 +47,7 @@ public class UsersServiceImpl implements UsersService {
     private CompanyDao companyDao;
 
     @Autowired
-    UsersInviteService usersInviteService;
+    private UsersInviteService usersInviteService;
     
     @Autowired
     private MessageSource messageSource;
@@ -56,7 +56,7 @@ public class UsersServiceImpl implements UsersService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    UsersRoleLookUpService usersRoleLookUpService;
+    private UsersRoleLookUpService usersRoleLookUpService;
     
     /**
      * {@inheritDoc}
