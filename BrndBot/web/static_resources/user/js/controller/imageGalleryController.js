@@ -42,6 +42,7 @@ imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http'
                 imageFactory.saveImagePost(file).then(function (data) {
                     alert("Image Uploaded successfully");
                     $scope.hidePopup = false;
+                    $("#fade").hide();
                     $scope.getAllCompanyImages();
                 });
             }
@@ -66,12 +67,14 @@ imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http'
 
         $scope.showImageUploadPopup = function ()
         {
+            $("#fade").show();
             $scope.hidePopup = true;
         };
 
         $scope.closeImageUploadPopup = function ()
         {
             $scope.hidePopup = false;
+            $("#fade").hide();
             $scope.getAllCompanyImages();
         };
 

@@ -27,12 +27,16 @@
                         <div class="input ">
                             <input placeholder="Type post here" id="linkTitle" ng-model="fbPostData.linkTitle" class="fluid"></input>
                         </div>
+<!--                        <span class="validationAlert" ng-if='fbPostData.linkTitle === "" || null'>{{facebookPostValidation}}</span>-->
+
                     </div>
                     <div class="input-wrap">
                         <label> Enter a Link Description </label>
                         <div class="input ">
                             <textarea placeholder="Type post here" id="linkDescription" ng-model="fbPostData.linkDescription" type="text" class="fluid"></textarea>
                         </div>
+<!--                        <span class="validationAlert" ng-if='fbPostData.linkDescription === "" || null'>{{facebookPostValidation}}</span>-->
+
                     </div>
                     <div class="input-wrap">
                         <label>Choose a Link</label>
@@ -40,12 +44,16 @@
                             <select ng-model="linkUrls" id="dropdownurl"  class="select_Field_lg removeDrag" ng-options="url.url as url.prigram_name + ' - ' + url.link_name + ' - ' + url.url for url in urls"></select>
                             <p class="input-label">If you have a custom link write it below</p>
                         </div>
+<!--                        <span class="validationAlert" ng-if="facebookLinkValidation">{{facebookPostValidation}}</span>-->
+
                     </div>
                     <div class="input-wrap">
                         <label>Write a Custom Link</label>
                         <div class="input ">
-                            <input class="fluid" placeholder="http://www.brndbot.com" ng-model="fbPostData.url"></input>
+                            <input id="facebooklink" class="fluid" placeholder="http://www.brndbot.com" ng-model="fbPostData.url"></input>
                         </div>
+<!--                        <span class="validationAlert" ng-if='fbPostData.url === "" || null'>{{facebookPostValidation}}</span>-->
+
                     </div>
                 </div>
                 <div class="add-link-facebook-container">

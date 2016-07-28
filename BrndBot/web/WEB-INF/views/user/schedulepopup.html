@@ -41,9 +41,12 @@
                 </a>
                 
             </div>-->
+
             <div class="input-wrap">
                 <label>Action Name</label>
                 <div class="fluid" dropdown-select="ddSelectActionName" dropdown-model="ddSelectAction" dropdown-onchange="setAction(selected)"></div>
+<!--                <span class="validationAlert" ng-show="actionDropdown">{{actionNameValidation}}</span>-->
+
             </div>
         </div>
         <div class="modal-pane-content-wrap create-new-schedule-modal" ng-init="createNewActionPopup = false" ng-if="createNewActionPopup">

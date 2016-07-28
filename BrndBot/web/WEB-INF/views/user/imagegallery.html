@@ -1,6 +1,5 @@
-<div ng-include src="'imageuploadpopup.html'"></div>
 
-    <!--<input type="text"  value="${user}"/>-->
+<!--    <input type="text"  value="${user}"/>-->
 <div class="main-content-wrap" ng-init="showImage()">
     <div class="top-nav-wrap">
         <div class="header">
@@ -13,7 +12,7 @@
             <div class="hub-pane-header-wrap">
                 <h2 class="">Your Images</h2>
                 <a id="liPriority" href="" class=" reg-button gray-button" ng-click="showImageUploadPopup()"> Upload an Image</a>
-            </div>
+            </div><!--
             <div class="hub-pane-content-wrap">
                 <div class="gallery-image-wrap">
                     <div class="gallery-image-card" ng-repeat="images in datalists" ng-mouseover="hoverInGalleryImage()" ng-mouseleave="hoverOutGalleryImage()">
@@ -25,9 +24,21 @@
                 </div>
             </div>
         </div>
-    </div>
-   
-    
-    </div>
-    </body>
-</html>
+    </div>  -->                              
+            <div class="gallery-page-background">
+                <div class="imageGallery-container  fleft" ng-repeat="images in datalists" ng-mouseover="hoverInGalleryImage()" ng-mouseleave="hoverOutGalleryImage()">
+                    <div class="galCard-image col-1of1">
+                        <img  class="gallery-image" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}"/>
+                    </div>
+                    <div class="gallery-Card-delete"> 
+                        <div ng-show="hoverEditGalleryImage" class="gallery-image gallery-image-options">
+                            <img type="image/svg+xml" id="delete" src="/BrndBot/user/images/trash-white.svg" class="gallery-image-options-trash-icon" ng-click="deleteImage(images.companyImagesId)"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><div ng-include src="'imageuploadpopup.html'"></div>
+
+
+
