@@ -30,7 +30,6 @@ import org.hibernate.annotations.TypeDefs;
  *
  * @author Sandeep Kumar at IntBit Technologies.
  */
-
 @Entity
 @Table(name = "company_invite", schema = "public"
 )
@@ -40,7 +39,7 @@ import org.hibernate.annotations.TypeDefs;
 @NamedQueries({
     @NamedQuery(name = "CompanyInvite.findAll", query = "SELECT c FROM CompanyInvite c"),
     @NamedQuery(name = "CompanyInvite.findById", query = "SELECT c FROM CompanyInvite c WHERE c.id = :id"),
-    @NamedQuery(name = "CompanyInvite.findByTaskCode", query = "SELECT c FROM CompanyInvite c WHERE c.taskCode = :taskCode"),
+    @NamedQuery(name = "CompanyInvite.findByCode", query = "SELECT c FROM CompanyInvite c WHERE c.code = :code"),
     @NamedQuery(name = "CompanyInvite.findByCreatedDateTime", query = "SELECT c FROM CompanyInvite c WHERE c.createdDateTime = :createdDateTime"),
     @NamedQuery(name = "CompanyInvite.findByMessage", query = "SELECT c FROM CompanyInvite c WHERE c.message = :message"),
     @NamedQuery(name = "CompanyInvite.findByIsUsed", query = "SELECT c FROM CompanyInvite c WHERE c.isUsed = :isUsed")})
@@ -51,7 +50,7 @@ public class CompanyInvite implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "task_code")
+    @Column(name = "code")
     private String code;
     @Column(name = "created_date_time")
     @Temporal(TemporalType.TIMESTAMP)
@@ -89,8 +88,8 @@ public class CompanyInvite implements Serializable {
         return code;
     }
 
-    public void setCode(String taskCode) {
-        this.code = taskCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Date getCreatedDateTime() {

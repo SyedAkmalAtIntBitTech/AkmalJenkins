@@ -7,7 +7,6 @@ package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.CompanyInvite;
-import com.intbittech.model.Users;
 
 /**
  *
