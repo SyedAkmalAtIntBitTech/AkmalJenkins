@@ -1,39 +1,24 @@
-<!--
-    Document   : facebookmanagepages
-    Created on : 3 May, 2016, 4:29:01 PM
-    Author     : sandeep
--->
-<div class="popUp_background-dark" ng-init="managepage = false"   ng-if ="managepage" ng-show="managepagesettings">
-            <div class="popUp_CenterVert ">
-                <div class="popUp-top-wide clear">
-                    <div class="popUp_header clear">
-                        <div class="pane_title fleft h2 col1of2">Please Select a page</div>
-<!--                        <div class="popUp_close fright" ng-click ="hideFbPopup1('s')">-->
-                         <div class="popUp_close fright" ng-click="hideFbPopup()">
-                            <img  src="../images/Pop-Up-Exit-Button.svg" class="fleft popUp_close-icon cursor-shape">
-                        </div>
-                    </div>
-                    <div class="popUp_subheader clear" ng-hide="setDefaultManagePage">
-                        <span class="popUp_subheader-tabs fleft darktext">
-                            <input type="checkbox" ng-checked="setDefaultManagePage" name="defaultManagePage" id="setDefaultManagePage" class="marginRight">Set selected page as default<br>
-                        </span>
-                    </div>
-                    <div class=" gallery-padding clear gallery-pane">
-                        <span ng-repeat="fbDetails in fbPagesDetails">
-                            <div class="gallery-item-wrap-selected fleft " ng-click="setPageAccessToken(fbDetails.pageAccessToken,fbDetails.profileName,fbProfileName);selectImage(fbDetails.profileName)">
-                                <div class="gallery-image-wrap">
-                                    <img src="{{fbDetails.profilPicture}}" alt="alt_text" border="0" align="center" class="gallery-image" style="width: 218px;">
-                                </div>
-                                <div class="gallery-name"> {{fbDetails.profileName}}</div>
-                                <div class="gallery-settings"></div>
-                            </div>
-                        </span>
-                    </div>
-                </div>
-                <div class="popUp-bottom-wide">
-                    <span class="clickable-area" ng-click="postToSelectedPage()">
-                        <div class="popUp-bottom-link">Done</div>
-                    </span>
+<div class="center-pop-ups" ng-init="managepage = false"   ng-if ="managepage" ng-show="managepagesettings">
+    <div class="modal-pane modal-pane-width-reg">
+        <div class="modal-pane-header-wrap">
+            <h2>Please select a managed page for your company</h2>
+        </div>
+        <div class="modal-pane-content-wrap">
+
+            <div class="cat-list" ng-repeat="fbDetails in fbPagesDetails">
+                <div class="cat-slat">  
+                     <img src="{{fbDetails.profilPicture}}" class="social-channel-icon">
+                    <div class="cat-slat-title" ng-click="setPageAccessToken(fbDetails.pageAccessToken,fbDetails.profileName,fbProfileName);selectImage(fbDetails.profileName)"> {{fbDetails.profileName}}</div>                    
                 </div>
             </div>
+            <div class="cat-list"  ng-show="pageName === 'marketingPrograms'" ng-repeat="displayAllMarketingProgram in displayAllMarketingPrograms">
+                <div  class="cat-slat">
+                    <div class="cat-slat-title" ng-click="redirectProgram(forward, marketingCategoryId, displayAllMarketingProgram.marketingProgramId, displayAllMarketingProgram.htmlData)" id="{{displayAllMarketingProgram.marketingProgramId}}" class="cat-slat-titles">{{displayAllMarketingProgram.marketingProgramName}}</div>
+                </div>
+            </div> 
         </div>
+        <div class="modal-cta-container" >
+            <a class="long-button blue-button" ng-click="postToSelectedPage()" href="">Set as default managed page</a>
+        </div>
+    </div>
+</div>
