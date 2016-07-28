@@ -192,6 +192,31 @@ var imageChannel = "image";
 
 //VALIDATION
 
-var companyValidation = "Please enter a subject for the email";
+var companyValidation = "Please enter your Company name";
 var dropdownValidation = "Please select your Organization";
-var emailListValidation  = "Please enter email list name";
+var newPasswordValidation = "Password not entered! Please enter the password";
+var confirmPasswordValidation = "Confirm password not entered! Please enter the confirm password";
+var studioIdValidation = "No studio id entered, kindly enter the studio id";
+var emailListValidation  = "Email list name not entered! Please enter the email list name";
+var emailDescriptionValidation = "Email list description not entered! Please enter the email list description";
+var fromAddressValidation = "Please enter default from adress with a valid email id";
+var emailAddressValidation = "Please enter email address with a valid email id";
+//var emailValidation = "Invalid email address";
+var subjectValidation = "Please enter the email subject";
+var colorValidation = "Please choose all four colors";
+var actionNameValidation = "Title not entered, Please enter the title";
+var actionDropdownValidation = "No action type selected, select a action type";
+var actionDateValidation = "Date not selected, select the date";
+var lesserDateValidation  = "The selected date is lesser than todays date, please change the date";
+//var greaterDateValidation  = "The selected date is greater than program date, please change the date";
+var campaignNameValidation = "Enter the campaign name!";
+var campaignDateValidation = "Enter the program date!";
+var scheduleDateValidation = "Date not selected, Please select the date";
+var scheduleTimeValidation = "Time not selected, Please select the time";
+var facebookPostValidation = "Please enter the text to share";
+var logoValidation = "Please choose an image";
+var fromNameValidation = "Please enter the from name!";
+var replyToValidation = "Please enter the reply to email address!";
+var descriptionValidation = "Please enter the description";
+var automatedEmailListValidation = "Please select an email list";
+var automationDayValidation = "Please select an email to a recipent";

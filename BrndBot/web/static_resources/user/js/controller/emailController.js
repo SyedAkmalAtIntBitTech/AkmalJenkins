@@ -27,8 +27,15 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.selectedSocialmedia = "email";
         $scope.emailAddresses = '';
         $scope.loadingOverlay = false;
+        $scope.subjectValidation = subjectValidation;
+        $scope.fromNameValidation = fromNameValidation;
+        $scope.replyToValidation = replyToValidation;
+        $scope.actionNameValidation = actionNameValidation;
+        $scope.scheduleDateValidation = scheduleDateValidation;
+        $scope.scheduleTimeValidation = scheduleTimeValidation;
         var sliderDialog = "#emaileditorexternalpopup";
         var emailDraftDetails = localStorage.getItem('emailDraftData');
+//        
         //OnPageLoad
         $scope.emailEditorInit = function () {  
             $scope.loadingOverlay = true; //start Loading Overlay
@@ -75,6 +82,17 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         };
 
+        $scope.emailFlowValidation = function (emailSubject) {
+            if (!emailSubject) {
+//                $scope.$parent = {emailsubject: ""};
+                $("#emailSub").focus();
+                $scope.isEmailSubEmpty = true;
+                return false;
+            }
+            $scope.isEmailSubEmpty = false;
+            return true;
+        };
+
         $scope.redirect = function (redirect, categoryId, subCategoryId, mindbody, lookupId, mindbodyid, emailSubject, draftId)
         {
             localStorage.removeItem("emailDraftData");
@@ -93,7 +111,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $scope.externalSourceName = 'mindbody';
                 redirect = $scope.forwardone;
             }
-            if (mindbody != 'Mindbody')
+            if (mindbody !== 'Mindbody')
             {
                 if (redirect === 'emailexternalsource')
                 {
@@ -112,7 +130,15 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             {
                 $scope.emailSubject = emailSubject;
             }
-            $location.path("/" + redirect);
+            if (redirect !== 'emaileditor') {
+                $location.path("/" + redirect);
+            }
+            if (redirect === 'emaileditor') {
+                if ($scope.emailFlowValidation(emailSubject))
+                {
+                    $location.path("/" + redirect);
+                }
+            }
         };
 
         $scope.redirectBaseURL = function () {
@@ -125,11 +151,11 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         {
             redirectFactory.redirectFlowTo(forwardone);
             $window.location = getHost() + "user/" + forwardone;
-            var emailsubject = $scope.emailSubject;
-            if (emailsubject === '')
-            {
-                $scope.emailSubjectError = "Email Subject Required!";
-            }
+//            var emailsubject = $scope.emailSubject;
+//            if (emailsubject === '')
+//            {
+//                $scope.emailSubjectError = "Email Subject Required!";
+//            }
         };
         $scope.getCategories = function (forwardone)
         {
@@ -860,11 +886,30 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             });
         };
 
+        $scope.emailListValidation = function (postData) {
+            if (postData) {
+                if (!postData.fromName) {
+                    $scope.fromName = "";
+                    $("#name").focus();
+                    return false;
+                }
+                if (!postData.replyAddress) {
+                    $scope.replyAddress = "";
+                    $("#email").focus();
+                    return false;
+                }
+            }
+            return true;
+        };
+
         $scope.continueEmailDetailsOnClick = function (postData) {
-            $scope.schedulePopup = false;
-            $scope.postTypeSelectionPopUp = true;
-            $scope.postData = postData;
-            $scope.postTo = "Send Now";
+            if ($scope.emailListValidation(postData))
+            {
+                $scope.schedulePopup = false;
+                $scope.postTypeSelectionPopUp = true;
+                $scope.postData = postData;
+                $scope.postTo = "Send Now";
+            }
         };
 
         $scope.createNewAction = function () {
@@ -958,9 +1003,39 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $scope.socialAction = selectedAction.value;
         };
 
+        $scope.schedulePostValidation = function () {
+            var schedule_title = $("#ActionName").val();
+            var schedule_date = $("#actionDate").val();
+            var schedule_time = $("#actionTime").val().replace(/ /g, '');
+            var actionName = schedule_title;
+            var actionDateVal = schedule_date;
+            var actionTimeVal = schedule_time;
+
+            if (!actionName) {
+                $("#ActionName").focus();
+                $scope.actionName = "";
+                return false;
+            }
+            if (!actionDateVal) {
+                $("#actionDate").focus();
+                $scope.actionDateVal = "";
+                return false;
+            }
+            if (!actionTimeVal) {
+//                $("#actionTime").focus();
+                $scope.actionTimeVal = "";
+                return false;
+            }
+            return true;
+        };
+
         $scope.schedulePost = function (selectedSocialmedia, postData) {
-            if (selectedSocialmedia === "email") {
-                $scope.schedulePostToEmail(postData);
+            if ($scope.schedulePostValidation())
+            {
+                $scope.actionTimeVal = false;
+                if (selectedSocialmedia === "email") {
+                    $scope.schedulePostToEmail(postData);
+                }
             }
         };
 

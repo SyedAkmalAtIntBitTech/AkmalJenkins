@@ -41,6 +41,8 @@
                             <input class="input_Field " type="text" id="mindbodyStudioId" ng-model="studioId"></input>
                             <p class="input-wrap-label">If you need help finding your MINDBODY ID please<a class="input-help" href="#">click here for help</a></p>
                         </div>
+                        <span class="validationAlert" ng-if='studioId === "" || null'>{{studioIdValidation}}</span>
+
                     </div>
                     <div class="input-wrap">
                         <label> Enter your MINDBODY Studio ID </label>
