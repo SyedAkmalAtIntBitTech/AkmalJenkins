@@ -16,7 +16,7 @@ import com.intbittech.utility.ServletUtil;
 import com.intbittech.AppConstants;
 import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.model.Company;
-import com.intbittech.model.CompanyInvite;
+import com.intbittech.model.Invite;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.UserProfile;
 import com.intbittech.model.UserRole;
@@ -34,6 +34,7 @@ import com.intbittech.utility.EmailValidator;
 import com.intbittech.services.EmailListService;
 import com.intbittech.services.ForgotPasswordService;
 import com.intbittech.services.UsersInviteService;
+import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.StringUtility;
 import com.intbittech.utility.UserSessionUtil;
@@ -97,9 +98,13 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     
     @Autowired
     UsersInviteService usersInviteService;
-
+    
+    @Autowired
+    UsersService usersService;
+    
     @Autowired
     private MessageSource messageSource;
+    
     private Twitter twitter;
     private RequestToken requestToken;
     private Facebook facebook;
@@ -117,12 +122,16 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             String fromEmailId = userProfile.getUser().getUserName();
             ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
-            String context_real_path = servletContext.getRealPath("");
+            String contextRealPath = servletContext.getRealPath("");
 
-            String contextPath = Utility.getServerName(context_real_path);
-
-            usersInviteService.sendMail(fromEmailId, contextPath, inviteDetails);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("invitation_pleasecheckmail", new String[]{}, Locale.US)));
+            String contextPath = Utility.getServerName(contextRealPath);
+            boolean userExist = usersService.isUserExist(inviteDetails,userProfile.getUser().getFkCompanyId());
+            if (userExist){
+                
+            }else {
+                usersInviteService.sendMail(fromEmailId, contextPath, inviteDetails);
+            }
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("invitation please check mail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {
             logger.error(throwable);

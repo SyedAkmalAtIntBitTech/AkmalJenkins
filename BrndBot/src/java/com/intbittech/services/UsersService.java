@@ -6,7 +6,9 @@
 package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.Company;
 import com.intbittech.model.Users;
+import com.intbittech.modelmappers.InviteDetails;
 import com.intbittech.modelmappers.UserDetails;
 
 /**
@@ -32,11 +34,20 @@ public interface UsersService {
      * @throws ProcessFailed the process failed
      */
     public Boolean checkUniqueUser(Users user) throws ProcessFailed;
+
+    /**
+     * This method pass user as input and get the {@link Boolean} from DAO layer.
+     *
+     * @param user
+     * @return {@link Boolean}
+     * @throws ProcessFailed the process failed
+     */
+    public Boolean isUserExist(InviteDetails inviteDetails, Company company) throws ProcessFailed;
     
     /**
      * This method pass user as input and get the {@link Integer} from DAO layer.
      *
-     * @param user
+     * @param usersDetails
      * @return {@link Integer}
      * @throws ProcessFailed the process failed
      */
@@ -45,11 +56,11 @@ public interface UsersService {
     /**
      * This method pass user as input and get the {@link Integer} from DAO layer.
      *
-     * @param user
+     * @param usersDetails
      * @return {@link Integer}
      * @throws ProcessFailed the process failed
      */
-    public String saveUser(UserDetails usersDetails) throws ProcessFailed;
+    public boolean saveUser(UserDetails usersDetails) throws ProcessFailed;
     /**
      * This method pass user as input and updates the {@link Users} from DAO layer.
      *
@@ -83,5 +94,12 @@ public interface UsersService {
      * @throws ProcessFailed the process failed
      */
     public boolean isInviteCodeValid(String inviteCode);
-    
+
+    /**
+     * This method pass fromEmailId,imageContextPath,inviteDetails as input and sends mail from Service layer
+     *
+     * @param fromEmailId
+     * @throws ProcessFailed the process failed
+     */
+    public void sendMail(String fromEmailId) throws ProcessFailed;
 }

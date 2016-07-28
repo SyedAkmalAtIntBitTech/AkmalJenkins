@@ -6,14 +6,14 @@
 package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.CompanyInvite;
-import com.intbittech.model.UsersRoleLookup;
+import com.intbittech.model.Invite;
+import com.intbittech.model.UserRoleLookup;
 
 /**
  *
  * @author Syed Muzamil at IntBit Technologies.
  */
-public interface UsersRoleLookUpService {
+public interface UserRoleLookUpService {
     /**
      * This method pass usersRoleLookup as input and get the {@link String} from DAO layer.
      *
@@ -21,10 +21,10 @@ public interface UsersRoleLookUpService {
      * @return {@link String}
      * @throws ProcessFailed the process failed
      */
-    public String save(UsersRoleLookup usersRoleLookup) throws ProcessFailed;
+    public String save(UserRoleLookup usersRoleLookup) throws ProcessFailed;
     
     /**
-     * This method pass id as input and deletes the {@link UsersRoleLookup} from DAO layer.
+     * This method pass id as input and deletes the {@link UserRoleLookup} from DAO layer.
      *
      * @param id
      * @throws ProcessFailed the process failed
@@ -32,12 +32,12 @@ public interface UsersRoleLookUpService {
     public void delete(Integer id) throws ProcessFailed;
     
     /**
-     * This method pass id as input and get the {@link UsersRoleLookup} from DAO layer
+     * This method pass id as input and get the {@link UserRoleLookup} from DAO layer
      *
      * @param Id
-     * @return {@link UsersRoleLookup}
+     * @return {@link UserRoleLookup}
      * @throws ProcessFailed the process failed
      */
-    public UsersRoleLookup getUsersRoleLookupById(Integer Id) throws ProcessFailed;
+    public UserRoleLookup getUsersRoleLookupById(Integer Id) throws ProcessFailed;
     
 }

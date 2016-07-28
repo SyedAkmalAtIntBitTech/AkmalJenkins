@@ -21,9 +21,9 @@ import javax.persistence.Table;
  * @author Syed Muzamil at IntBit Technologies.
  */
 @Entity
-@Table(name = "users_role_lookup")
+@Table(name = "user_role_lookup")
 
-public class UsersRoleLookup implements Serializable {
+public class UserRoleLookup implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,10 +37,10 @@ public class UsersRoleLookup implements Serializable {
     @ManyToOne
     private Users userId;
 
-    public UsersRoleLookup() {
+    public UserRoleLookup() {
     }
 
-    public UsersRoleLookup(Integer id) {
+    public UserRoleLookup(Integer id) {
         this.id = id;
     }
 

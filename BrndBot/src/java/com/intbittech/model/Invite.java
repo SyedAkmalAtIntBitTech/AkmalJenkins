@@ -24,15 +24,15 @@ import org.hibernate.annotations.TypeDefs;
 
 /**
  *
- * @author Sandeep Kumar at IntBit Technologies.
+ * @author Syed Muzamil at IntBit Technologies.
  */
 @Entity
-@Table(name = "company_invite", schema = "public"
+@Table(name = "invite", schema = "public"
 )
 @TypeDefs({
     @TypeDef(name = "StringJsonObject", typeClass = StringJsonUserType.class)})
 
-public class CompanyInvite implements Serializable {
+public class Invite implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,10 +58,10 @@ public class CompanyInvite implements Serializable {
     @ManyToOne
     private Users inviteSentTo;
 
-    public CompanyInvite() {
+    public Invite() {
     }
 
-    public CompanyInvite(Integer id) {
+    public Invite(Integer id) {
         this.id = id;
     }
 

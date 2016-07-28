@@ -6,11 +6,8 @@
 package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.CompanyInvite;
-import com.intbittech.model.Users;
+import com.intbittech.model.Invite;
 import com.intbittech.modelmappers.InviteDetails;
-import com.intbittech.modelmappers.UserDetails;
-import org.json.simple.JSONObject;
 
 /**
  *
@@ -25,17 +22,17 @@ public interface UsersInviteService {
      * @return {@link String}
      * @throws ProcessFailed the process failed
      */
-    public String save(CompanyInvite companyInvite) throws ProcessFailed;
+    public String save(Invite companyInvite) throws ProcessFailed;
     
     /**
-     * This method pass user as input and updates the {@link CompanyInvite} from DAO layer.
+     * This method pass user as input and updates the {@link Invite} from DAO layer.
      *
      * @param companyInvite
      * @throws ProcessFailed the process failed
      */
-    public void update(CompanyInvite companyInvite) throws ProcessFailed;
+    public void update(Invite companyInvite) throws ProcessFailed;
     /**
-     * This method pass id as input and deletes the {@link CompanyInvite} from DAO layer.
+     * This method pass id as input and deletes the {@link Invite} from DAO layer.
      *
      * @param id
      * @throws ProcessFailed the process failed
@@ -43,22 +40,22 @@ public interface UsersInviteService {
     public void delete(Integer id) throws ProcessFailed;
     
     /**
-     * This method pass Id as input and get the {@link CompanyInvite} from DAO layer
+     * This method pass Id as input and get the {@link Invite} from DAO layer
      *
      * @param Id
-     * @return {@link CompanyInvite}
+     * @return {@link Invite}
      * @throws ProcessFailed the process failed
      */
-    public CompanyInvite getInvitedUserById(Integer Id) throws ProcessFailed;
+    public Invite getInvitedUserById(Integer Id) throws ProcessFailed;
     
     /**
-     * This method pass inviteCode as input and get the {@link CompanyInvite} from DAO layer
+     * This method pass inviteCode as input and get the {@link Invite} from DAO layer
      *
      * @param inviteCode
-     * @return {@link CompanyInvite}
+     * @return {@link Invite}
      * @throws ProcessFailed the process failed
      */
-    public CompanyInvite getCompanyInviteByInviteCode(String inviteCode) throws ProcessFailed;
+    public Invite getInvitedUserByInviteCode(String inviteCode) throws ProcessFailed;
 
     /**
      * This method pass fromEmailId,imageContextPath,inviteDetails as input and sends mail from Service layer

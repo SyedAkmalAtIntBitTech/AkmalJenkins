@@ -29,7 +29,7 @@ public class AppConstants {
     public static final String BASE_ADMIN_GLOBAL_IMAGE_UPLOAD_PATH = BASE_ADMIN_IMAGE_UPLOAD_PATH + File.separator + "globalimages";
     public static final String BASE_ADMIN_EMAIL_TEMPLATE_IMAGE_UPLOAD_PATH = BASE_ADMIN_IMAGE_UPLOAD_PATH + File.separator + "emailtemplates";
     public static final String BASE_HTML_TEMPLATE_UPLOAD_PATH = BASE_USERS_UPLOAD_PATH + File.separator + "HTMLTemplates";
-    
+    public static final Integer Datedifference = 172800000;
     
     
     public static final String BASE_IMAGE_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "images";

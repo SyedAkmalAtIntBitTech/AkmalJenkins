@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "user_role")
 public class UserRole implements Serializable {
     @OneToMany(mappedBy = "roleId")
-    private List<UsersRoleLookup> usersRoleLookupList;
+    private List<UserRoleLookup> usersRoleLookupList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkUserRoleId")
     private Set<Users> usersSet;
 
@@ -73,11 +73,11 @@ public class UserRole implements Serializable {
     }
 
     @XmlTransient
-    public List<UsersRoleLookup> getUsersRoleLookupList() {
+    public List<UserRoleLookup> getUsersRoleLookupList() {
         return usersRoleLookupList;
     }
 
-    public void setUsersRoleLookupList(List<UsersRoleLookup> usersRoleLookupList) {
+    public void setUsersRoleLookupList(List<UserRoleLookup> usersRoleLookupList) {
         this.usersRoleLookupList = usersRoleLookupList;
     }
 

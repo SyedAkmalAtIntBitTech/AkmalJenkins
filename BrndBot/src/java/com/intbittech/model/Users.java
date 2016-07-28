@@ -31,11 +31,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "users")
 public class Users implements Serializable {
     @OneToMany(mappedBy = "userId")
-    private List<UsersRoleLookup> usersRoleLookupList;
+    private List<UserRoleLookup> usersRoleLookupList;
     @OneToMany(mappedBy = "inviteSentBy")
-    private Set<CompanyInvite> companyInviteSetSentBy;
+    private Set<Invite> companyInviteSetSentBy;
     @OneToMany(mappedBy = "inviteSentTo")
-    private Set<CompanyInvite> companyInviteSentSentTo;
+    private Set<Invite> companyInviteSentSentTo;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
@@ -134,29 +134,29 @@ public class Users implements Serializable {
     }
 
     @XmlTransient
-    public Set<CompanyInvite> getCompanyInviteSet() {
+    public Set<Invite> getCompanyInviteSet() {
         return companyInviteSetSentBy;
     }
 
-    public void setCompanyInviteSet(Set<CompanyInvite> companyInviteSet) {
+    public void setCompanyInviteSet(Set<Invite> companyInviteSet) {
         this.companyInviteSetSentBy = companyInviteSet;
     }
 
     @XmlTransient
-    public Set<CompanyInvite> getCompanyInviteSet1() {
+    public Set<Invite> getCompanyInviteSet1() {
         return companyInviteSentSentTo;
     }
 
-    public void setCompanyInviteSet1(Set<CompanyInvite> companyInviteSet1) {
+    public void setCompanyInviteSet1(Set<Invite> companyInviteSet1) {
         this.companyInviteSentSentTo = companyInviteSet1;
     }
 
     @XmlTransient
-    public List<UsersRoleLookup> getUsersRoleLookupList() {
+    public List<UserRoleLookup> getUsersRoleLookupList() {
         return usersRoleLookupList;
     }
 
-    public void setUsersRoleLookupList(List<UsersRoleLookup> usersRoleLookupList) {
+    public void setUsersRoleLookupList(List<UserRoleLookup> usersRoleLookupList) {
         this.usersRoleLookupList = usersRoleLookupList;
     }
 

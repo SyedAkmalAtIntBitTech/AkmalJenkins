@@ -5,11 +5,11 @@
  */
 package com.intbittech.dao.impl;
 
-import com.intbittech.dao.UsersRoleLookUpDao;
+import com.intbittech.dao.UserRoleLookUpDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.CompanyInvite;
+import com.intbittech.model.Invite;
 import com.intbittech.model.Users;
-import com.intbittech.model.UsersRoleLookup;
+import com.intbittech.model.UserRoleLookup;
 import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Repository;
  * @author Syed Muzamil at IntBit Technologies.
  */
 @Repository
-public class UsersRoleLookUpDaoImpl implements UsersRoleLookUpDao{
+public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
 
     private Logger logger = Logger.getLogger(UsersDaoImpl.class);
 
@@ -39,7 +39,7 @@ public class UsersRoleLookUpDaoImpl implements UsersRoleLookUpDao{
      */
     
     @Override
-    public Integer save(UsersRoleLookup userRoleLookup) throws ProcessFailed {
+    public Integer save(UserRoleLookup userRoleLookup) throws ProcessFailed {
         try {
             return (Integer) sessionFactory.getCurrentSession().save(userRoleLookup);
         } catch (Throwable throwable) {
@@ -49,7 +49,7 @@ public class UsersRoleLookUpDaoImpl implements UsersRoleLookUpDao{
     }
 
     @Override
-    public void delete(UsersRoleLookup userRoleLookup) throws ProcessFailed {
+    public void delete(UserRoleLookup userRoleLookup) throws ProcessFailed {
         try {
             sessionFactory.getCurrentSession().delete(userRoleLookup);
         } catch (Throwable throwable) {
@@ -59,14 +59,14 @@ public class UsersRoleLookUpDaoImpl implements UsersRoleLookUpDao{
     }
 
     @Override
-    public UsersRoleLookup getUsersRoleLookupById(Integer Id) throws ProcessFailed {
+    public UserRoleLookup getUsersRoleLookupById(Integer Id) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(UsersRoleLookup.class)
+                .createCriteria(UserRoleLookup.class)
                 .add(Restrictions.eq("id", Id));
         if (criteria.list().isEmpty()) {
             return null;
         }
-        return (UsersRoleLookup) criteria.list().get(0);
+        return (UserRoleLookup) criteria.list().get(0);
     }
     
 }

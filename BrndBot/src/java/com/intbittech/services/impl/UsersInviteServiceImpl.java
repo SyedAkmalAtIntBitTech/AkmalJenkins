@@ -7,8 +7,6 @@ package com.intbittech.services.impl;
 
 import com.controller.GenerateHashPassword;
 import com.intbittech.controller.SignupController;
-import com.intbittech.dao.CompanyDao;
-import com.intbittech.dao.UsersDao;
 import com.intbittech.dao.UsersInviteDao;
 import com.intbittech.email.mandrill.Message;
 import com.intbittech.email.mandrill.Recipient;
@@ -16,29 +14,19 @@ import com.intbittech.email.mandrill.RecipientMetadata;
 import com.intbittech.email.mandrill.SendMail;
 import static com.intbittech.email.mandrill.SendMail.MANDRILL_KEY;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.Company;
-import com.intbittech.model.CompanyInvite;
-import com.intbittech.model.ForgotPassword;
-import com.intbittech.model.Organization;
-import com.intbittech.model.UserRole;
+import com.intbittech.model.Invite;
 import com.intbittech.model.Users;
-import com.intbittech.model.UsersRoleLookup;
 import com.intbittech.modelmappers.InviteDetails;
 import com.intbittech.modelmappers.TaskDetails;
-import com.intbittech.modelmappers.UserDetails;
 import com.intbittech.services.UsersInviteService;
-import com.intbittech.services.UsersRoleLookUpService;
 import com.intbittech.services.UsersService;
-import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.StringUtility;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import org.apache.log4j.Logger;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,7 +58,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     private UsersService usersService;
     
     @Override
-    public String save(CompanyInvite companyInvite) throws ProcessFailed {
+    public String save(Invite companyInvite) throws ProcessFailed {
         String returnMessage = "problem saving the record";
         try {
             usersInviteDao.save(companyInvite);
@@ -87,13 +75,13 @@ public class UsersInviteServiceImpl implements UsersInviteService{
      * {@inheritDoc}
      */
     @Override
-    public void update(CompanyInvite companyInvite) throws ProcessFailed {
+    public void update(Invite companyInvite) throws ProcessFailed {
         usersInviteDao.update(companyInvite);
     }
     
     @Override
     public void delete(Integer Id) throws ProcessFailed {
-        CompanyInvite companyInvite = usersInviteDao.getInvitedUserById(Id);
+        Invite companyInvite = usersInviteDao.getInvitedUserById(Id);
         if(companyInvite == null){
             throw new ProcessFailed("No user found with id " + Id + ".");
         }
@@ -101,8 +89,8 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     }
 
     @Override
-    public CompanyInvite getInvitedUserById(Integer Id) throws ProcessFailed {
-        CompanyInvite companyInvite = usersInviteDao.getInvitedUserById(Id);
+    public Invite getInvitedUserById(Integer Id) throws ProcessFailed {
+        Invite companyInvite = usersInviteDao.getInvitedUserById(Id);
         if(companyInvite == null)
         {
              throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
@@ -111,8 +99,8 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     }
 
     @Override
-    public CompanyInvite getCompanyInviteByInviteCode(String inviteCode) throws ProcessFailed {
-        CompanyInvite companyInvite = usersInviteDao.getUserByInviteCode(inviteCode);
+    public Invite getInvitedUserByInviteCode(String inviteCode) throws ProcessFailed {
+        Invite companyInvite = usersInviteDao.getUserByInviteCode(inviteCode);
         if(companyInvite == null)
         {
              throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
@@ -130,7 +118,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
         GenerateHashPassword generate_hash_password = new GenerateHashPassword();
 
         String hashURL = generate_hash_password.hashURL(randomVal);
-        CompanyInvite companyInvite = new CompanyInvite();
+        Invite companyInvite = new Invite();
         
         companyInvite.setCreatedDateTime(new Date());
         companyInvite.setCode(hashURL);
@@ -146,12 +134,11 @@ public class UsersInviteServiceImpl implements UsersInviteService{
         Message message = new Message();
 
         message.setKey(MANDRILL_KEY);
-//                String url=request.getRequestURL().toString().replace("SendEmail","");  
 //        TODO code to be modified
         message.setHtml("<html><body>" + imageContextPath + "changepassword?userid=" + hashURL + "</body></html>");
         message.setText("text");
         /** need to change the above link and below message**/
-        message.setSubject("your password changing link for our account");
+        message.setSubject("please click the above given link to create your user role");
         message.setFrom_email("intbit@intbittech.com");
         message.setFrom_name("Intbit Tech");
         message.setAsync(true);

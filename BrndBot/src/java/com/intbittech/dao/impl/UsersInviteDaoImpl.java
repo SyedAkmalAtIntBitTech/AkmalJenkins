@@ -7,7 +7,7 @@ package com.intbittech.dao.impl;
 
 import com.intbittech.dao.UsersInviteDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.CompanyInvite;
+import com.intbittech.model.Invite;
 import com.intbittech.model.Users;
 import java.util.List;
 import java.util.Locale;
@@ -39,7 +39,7 @@ public class UsersInviteDaoImpl implements UsersInviteDao{
      */
     
     @Override
-    public Integer save(CompanyInvite companyInvite) throws ProcessFailed {
+    public Integer save(Invite companyInvite) throws ProcessFailed {
         try {
             return (Integer) sessionFactory.getCurrentSession().save(companyInvite);
         } catch (Throwable throwable) {
@@ -51,7 +51,7 @@ public class UsersInviteDaoImpl implements UsersInviteDao{
     /**
      * {@inheritDoc}
      */
-    public void update(CompanyInvite companyInvite) {
+    public void update(Invite companyInvite) {
         try {
             sessionFactory.getCurrentSession().update(companyInvite);
         } catch (Throwable throwable) {
@@ -61,7 +61,7 @@ public class UsersInviteDaoImpl implements UsersInviteDao{
     }
     
     @Override
-    public void delete(CompanyInvite companyInvite) throws ProcessFailed {
+    public void delete(Invite companyInvite) throws ProcessFailed {
         try {
             sessionFactory.getCurrentSession().delete(companyInvite);
         } catch (Throwable throwable) {
@@ -71,25 +71,25 @@ public class UsersInviteDaoImpl implements UsersInviteDao{
     }
 
     @Override
-    public CompanyInvite getInvitedUserById(Integer Id) throws ProcessFailed {
+    public Invite getInvitedUserById(Integer Id) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(CompanyInvite.class)
+                .createCriteria(Invite.class)
                 .add(Restrictions.eq("id", Id));
         if (criteria.list().isEmpty()) {
             return null;
         }
-        return (CompanyInvite) criteria.list().get(0);
+        return (Invite) criteria.list().get(0);
     }
 
     @Override
-    public CompanyInvite getUserByInviteCode(String inviteCode) throws ProcessFailed {
+    public Invite getUserByInviteCode(String inviteCode) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(CompanyInvite.class)
+                .createCriteria(Invite.class)
                 .add(Restrictions.eq("code", inviteCode));
         if (criteria.list().isEmpty()) {
             return null;
         }
-        return (CompanyInvite) criteria.list().get(0);
+        return (Invite) criteria.list().get(0);
     }
 
 }

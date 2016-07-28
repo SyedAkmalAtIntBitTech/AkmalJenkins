@@ -6,7 +6,7 @@
 package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.CompanyInvite;
+import com.intbittech.model.Invite;
 
 /**
  *
@@ -22,40 +22,40 @@ public interface UsersInviteDao {
      * @return {@link Integer}
      * @throws ProcessFailed the process failed
      */
-    public Integer save(CompanyInvite companyInvite) throws ProcessFailed;
+    public Integer save(Invite companyInvite) throws ProcessFailed;
     
     /**
-     * This method pass companyInvite as input and updates the {@link CompanyInvite} from database
+     * This method pass companyInvite as input and updates the {@link Invite} from database
      *
      * @param companyInvite
      * @throws ProcessFailed the process failed
      */
-    public void update(CompanyInvite companyInvite) throws ProcessFailed;
+    public void update(Invite companyInvite) throws ProcessFailed;
     /**
-     * This method pass companyInvite as input and deletes the {@link CompanyInvite} from database
+     * This method pass companyInvite as input and deletes the {@link Invite} from database
      *
      * @param companyInvite
      * @throws ProcessFailed the process failed
      */
-    public void delete(CompanyInvite companyInvite) throws ProcessFailed;
+    public void delete(Invite companyInvite) throws ProcessFailed;
     
     /**
-     * This method pass id as input and get the {@link CompanyInvite} from database
+     * This method pass id as input and get the {@link Invite} from database
      *
      * @param Id
-     * @return {@link CompanyInvite}
+     * @return {@link Invite}
      * @throws ProcessFailed the process failed
      */
-    public CompanyInvite getInvitedUserById(Integer Id) throws ProcessFailed;
+    public Invite getInvitedUserById(Integer Id) throws ProcessFailed;
     
         /**
-     * This method pass inviteCode as input and get the {@link CompanyInvite} from database
+     * This method pass inviteCode as input and get the {@link Invite} from database
      *
      * @param inviteCode
-     * @return {@link CompanyInvite}
+     * @return {@link Invite}
      * @throws ProcessFailed the process failed
      */
-    public CompanyInvite getUserByInviteCode(String inviteCode) throws ProcessFailed;
+    public Invite getUserByInviteCode(String inviteCode) throws ProcessFailed;
     
     
 }

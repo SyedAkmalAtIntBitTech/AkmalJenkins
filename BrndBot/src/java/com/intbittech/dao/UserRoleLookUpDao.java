@@ -6,13 +6,13 @@
 package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.UsersRoleLookup;
+import com.intbittech.model.UserRoleLookup;
 
 /**
  *
  * @author Syed Muzamil at IntBit Technologies.
  */
-public interface UsersRoleLookUpDao {
+public interface UserRoleLookUpDao {
 
     /**
      * This method pass userRoleLookup as input and get the {@link Integer} from database
@@ -21,23 +21,23 @@ public interface UsersRoleLookUpDao {
      * @return {@link Integer}
      * @throws ProcessFailed the process failed
      */
-    public Integer save(UsersRoleLookup userRoleLookup) throws ProcessFailed;
+    public Integer save(UserRoleLookup userRoleLookup) throws ProcessFailed;
     
     /**
-     * This method pass userRoleLookup as input and updates the {@link UsersRoleLookup} from database
+     * This method pass userRoleLookup as input and updates the {@link UserRoleLookup} from database
      *
      * @param userRoleLookup
      * @throws ProcessFailed the process failed
      */
-    public void delete(UsersRoleLookup userRoleLookup) throws ProcessFailed;
+    public void delete(UserRoleLookup userRoleLookup) throws ProcessFailed;
     
     /**
-     * This method pass user as input and get the {@link UsersRoleLookup} from database
+     * This method pass user as input and get the {@link UserRoleLookup} from database
      *
      * @param Id
-     * @return {@link UsersRoleLookup}
+     * @return {@link UserRoleLookup}
      * @throws ProcessFailed the process failed
      */
-    public UsersRoleLookup getUsersRoleLookupById(Integer Id) throws ProcessFailed;
+    public UserRoleLookup getUsersRoleLookupById(Integer Id) throws ProcessFailed;
     
 }
