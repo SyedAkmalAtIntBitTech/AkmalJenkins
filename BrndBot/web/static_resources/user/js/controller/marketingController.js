@@ -422,7 +422,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.recurringScheduleData.entities_selected_time = $filter('date')(schedule_time, "HH:mm a");
                 var iframe = document.getElementById('iframeForRecurringEmail');
                 if ($scope.recurringEntitiesDetails.body) {
-                    alert("sa");
                     $scope.savedEmail = true;
                     $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
                     $scope.deleteScheduleButton = "Remove Saved Email";
@@ -634,14 +633,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 if (data.toString() == "true") {
                     if ($scope.action_template_status == "Template Saved") {
                         $scope.action_template_status = "Approved";
-                        $scope.scheduleData.email_template_status = 'Approved';
+//                        $scope.scheduleData.email_template_status = 'Approved';
                     }
                     else {
                         $scope.action_template_status = "Template Saved";
-                        $scope.scheduleData.email_template_status = 'Template Saved';
+//                        $scope.scheduleData.email_template_status = 'Template Saved';
                     }
-                    alert(templetestatussaved);
                     $scope.getProgramActions('emailautomation');
+                    alert(templetestatussaved);
                 } else {
                     alert(savingrecordproblem);
                 }
