@@ -616,8 +616,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.validateEmailListPopup = function (email)
         {
             var email_address = $("#emailId").val();
-            var firstName = email.firstName;
-            var lastName = email.lastName;
+//            var firstName = email.firstName;
+//            var lastName = email.lastName;
             var error = 0;
             if (email_address === "")
             {
@@ -639,16 +639,16 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     return false;
                 }
             }
-            if (firstName !== "")
-            {
-                if (lastName === "")
-                {
-                    error++;
-                    alert(lastnameerror);
-                    $("#lastName").focus();
-                    return false;
-                }
-            }
+//            if (firstName !== "")
+//            {
+//                if (lastName === "")
+//                {
+//                    error++;
+//                    alert(lastnameerror);
+//                    $("#lastName").focus();
+//                    return false;
+//                }
+//            }
             if (error === 0)
             {
                 return true;
