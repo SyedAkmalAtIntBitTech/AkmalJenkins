@@ -414,6 +414,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 
         $scope.showUpdateList = function ()
         {
+            $scope.activeEmailListContacts='activeTab';
+            $scope.activeImportContacts='';
             $scope.updateList();
             $("#addcontact").show();
             $scope.showAddContactPopup = false;
@@ -426,6 +428,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
 
         $scope.updateList = function () {
+            $scope.activeEmailListContacts='activeTab';
             $scope.showEmailListContacts = true;
             $("#importListli").removeClass("top-subnav-link-active");
             $("#importList").removeClass("h3-active-subnav");
@@ -780,6 +783,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $("#tab4").show();
             $scope.showAddContactPopup = false;
             $scope.showEmailListContacts = false;
+            $scope.activeEmailListContacts=''
+            $scope.activeImportContacts='activeTab';
         };
         $scope.viewEmailListDetails = function (listName, type)
         {

@@ -5,11 +5,11 @@
         </a>
         <h2> {{generalActionDetailsHeader}} Action Detail</h2>
         <div class="overlay-header-cta-wrap">
-            <a class="status-button template-not-approved" ng-show="action_template_status === 'Template Saved'" ng-click="Approval(schedule_id, 'approved', masterActionType)">
+            <a class="status-button template-not-approved" ng-show="action_template_status === 'Template Saved'" ng-click="Approval(schedule_id, 'approved', masterActionType)" style="padding: 10px 0px 10px 0px;width: 100px;">
                 <i class=""></i>
                 <label>{{templateApproveButton}}</label>
             </a>
-             <a class="status-button template-not-approved" id="marketingemailapprove" ng-show="action_template_status === 'Approved'" ng-click="Approval(schedule_id, 'template_saved', masterActionType)">
+             <a class="status-button template-not-approved" id="marketingemailapprove" ng-show="action_template_status === 'Approved'" ng-click="Approval(schedule_id, 'template_saved', masterActionType)"  style="padding: 10px 0px 10px 0px;width: 100px;">
                  <i class=""></i>
                 <label>{{templateDisapproveButton}}</label>
             </a>
