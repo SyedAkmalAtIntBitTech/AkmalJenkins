@@ -2,14 +2,44 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
         $scope.inputType = 'password';
         $scope.colorFrom = "custom";
+        $scope.newPasswordValidation = newPasswordValidation;
+        $scope.confirmPasswordValidation = confirmPasswordValidation;
+        $scope.logoValidation = logoValidation;
         $scope.showPaletteChangePopUp="";
-        
+               
         // Hide & show password function
         $scope.hideShowPassword = function () {
             if ($scope.inputType == 'password')
                 $scope.inputType = 'text';
             else
                 $scope.inputType = 'password';
+        };
+
+        $scope.accountSettingsValidation = function (password, confirmPassword) {
+            if (!password) {
+                $scope.password = "";
+                $("#newpassword").focus();
+                return false;
+            }
+            if (!confirmPassword) {
+                $scope.confirmPassword = "";
+                $("#confirmpassword").focus();
+                return false;
+            }
+            return true;
+        };
+
+        $scope.changePassword = function (password, confirmPassword) {
+            if ($scope.accountSettingsValidation(password, confirmPassword))
+            {
+                alert(password);
+                alert(confirmPassword);
+
+                var password_object = {"password": password, "confirmpassword": confirmPassword, "type": "update"};
+                signupFactory.resetPasswordPost(password_object).then(function (data) {
+                    $scope.status = data;
+                });
+            }
         };
 
         $scope.setTab = function (type) {
@@ -22,21 +52,25 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $scope.userLogoSetClass = 'active';
             }
         };
-        $scope.changePassword = function (password, confirmPassword) {
-            alert(password);
-            alert(confirmPassword);
 
-            var password_object = {"password": password, "confirmpassword": confirmPassword, "type": "update"};
-            signupFactory.resetPasswordPost(password_object).then(function (data) {
-                $scope.status = data;
-            });
+        $scope.userLogoValidation = function (logoImage) {
+            if (!logoImage) {
+                $scope.logoImage = "";
+                $("#uploadlogo").focus();
+                return false;
+            }
+            return true;
         };
+
         $scope.changeLogo = function (logoImage) {
             var file = logoImage;
 //            alert(file);
-            settingsFactory.changeLogoPost(file).then(function (data) {
-                $location.path("signup/choosepalette");
-            });
+            if ($scope.userLogoValidation(logoImage))
+            {
+                settingsFactory.changeLogoPost(file).then(function (data) {
+                    $location.path("signup/choosepalette");
+                });
+            }
         };
         $scope.getColorsFromLogo = function () {
             $scope.activeColorLogo = 'selected_Tab';
@@ -73,9 +107,6 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
                 }
             });
-        };
-        $scope.getColorID = function (color) {
-            $('.palette-colorswab-selected').css("background-color", color);
         };
         $scope.selectTheme = function (color1, color2, color3, color4) {
             $("#colorPalete1").css("background-color", color1);

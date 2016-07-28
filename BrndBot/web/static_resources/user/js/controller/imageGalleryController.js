@@ -5,7 +5,9 @@
  */
 
 imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http', '$location', 'imageFactory', 'companyImagesFactory', 'companyFactory', function ($scope, $window, $http, $location, imageFactory, companyImagesFactory, companyFactory) {
-       
+      
+         $scope.logoValidation = logoValidation;
+      
         //This was added by Andy for Gallery hover options
         $scope.hoverEditGalleryImage=false;
         $scope.hoverInGalleryImage = function(){
@@ -24,14 +26,25 @@ imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http'
             });
         };
 
+        $scope.imageGalleryValidation = function (myFile) {
+            if (!myFile) {
+                $scope.myFile = "";
+                return false;
+            }
+            return true;
+        };
+
         $scope.uploadLogo = function (myFile) {
             var file = $("#filesToUpload").val();
             var file = myFile;
-            imageFactory.saveImagePost(file).then(function (data) {
-                alert("Image Uploaded successfully");
-                $scope.hidePopup = false;
-                $scope.getAllCompanyImages();
-            });
+            if ($scope.imageGalleryValidation(myFile))
+            {
+                imageFactory.saveImagePost(file).then(function (data) {
+                    alert("Image Uploaded successfully");
+                    $scope.hidePopup = false;
+                    $scope.getAllCompanyImages();
+                });
+            }
         };
 
         $scope.getAllCompanyImages = function ()

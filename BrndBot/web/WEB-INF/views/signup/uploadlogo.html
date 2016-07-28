@@ -41,10 +41,13 @@
                         <img ng-src={{image}} />
                         <span class="file-name">{{imageFileName}}</span>
                     </div>-->
+
+                    <span class="validationAlert" ng-if='myFile === "" || null'>{{logoValidation}}</span>
                     <div class="upload-icon-button-wrap">
                         <p>or</p>
                         <a id="triggerFile" class="reg-button gray-button">Browse your files</a>
                         <input type="file" fileread="uploadme.src" file-model="myFile" class="Add_Button Button--Gray logoUpload--button upload fileupld inputhide" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">
+
                     </div>
                 </div>
             </div>
