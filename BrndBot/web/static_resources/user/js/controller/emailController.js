@@ -545,7 +545,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         };
 
                         emailDraftFactory.updateEmailDraftPost(draftData).then(function (responseText) {
-                            if (responseText === "true") {
+                            if (responseText === true) {
                                 alert("Draft updated successfully.");
                                 document.location.href = "dashboard";
                             } else {
