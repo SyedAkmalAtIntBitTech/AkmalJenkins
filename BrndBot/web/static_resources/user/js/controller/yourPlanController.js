@@ -230,6 +230,9 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
         $scope.chooseActionTypeOnChange = function (actionValue) {
             $scope.ddSelectAction = actionValue;
+            if (actionValue.value) {
+                $scope.actionTypeValidation = false;
+            }
         };
 
         $scope.ShowAddAction = function ()
@@ -276,20 +279,12 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             return true;
         };
 
-        $scope.selectedOrganization = function (selected)
-        {
-            if (selected.value) {
-                $scope.actionTypeValidation = false;
-            }
-        };
-
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
         {
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
             {
-//                var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
-                var actionTime1 = $("#timepickertextbox").val().replace(/ /g, '');
-                var actionDateTime1 = datePicker.toLocaleString() + " " + actionTime1.toLocaleString();
+                var actionTime1=$("#timepicker1").val().replace(/ /g,'');
+                var actionDateTime1=datePicker.toLocaleString() +" "+actionTime1.toLocaleString();
                 var fromDate = new Date(actionDateTime1);
                 var todayDate = new Date();
 
@@ -299,7 +294,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 }
 
                 $scope.dateLesser = false;
-//                var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
                 var actiondate = datePicker;
                 var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
                 var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();
@@ -322,6 +316,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.emailsectionClass = '';
             $scope.fadeClass = '';
             $scope.hideSaveButton();
+            $scope.hideReminderSaveButton();
         };
 
         $scope.setTab = function (tabName) {
@@ -365,7 +360,14 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.hideSaveButton = function () {
             $scope.showUpdateBtn = false;
         };
-        $scope.showSaveButton = function () {
+
+        $scope.hideReminderSaveButton = function (){
+            $scope.showReminderUpdateBtn=false;  
+        };
+        $scope.showReminderSaveButton = function (){
+            $scope.showReminderUpdateBtn=true;
+        };
+        $scope.showSaveButton = function(){
             $scope.showUpdateBtn = true;
         };
         $scope.globalScheduleData = {};

@@ -1,12 +1,12 @@
 <div class="main-content-wrap no-side-nav">
     <div class="top-nav-wrap full">
-        <div class="header">
+        <div class="sequence-page-header">
             <div class="sequence-left-wrap">
                 
 <!--                <div class="sequence-logo-wrap">
                     <img class="sequence-logo-svg" src="/BrndBot/user/images/Logo_Reverse.svg" />
                 </div>-->
-                <a class="back-button" href="createmarketingprogram#/marketingprogramactions"></a>
+                <a class="sequence-page-back-button" href="createmarketingprogram#/marketingprogramactions"></a>
 <!--                <a class="sequence-page-back-button" href="createmarketingprogram#/marketingprogramactions"></a>-->
                 <h2 class="sequence-page-title"> Create an Email Automation</h2>
             </div>
@@ -18,7 +18,7 @@
             </div>
             <div class="sequence-page-header-cta-wrap">
                 <!--<a>Exit</a>-->
-                <div class="gray-button" id="emailpreview" ng-click="emailPreviewOnClick()">Preview Email</div> 
+                <div class="gray-button sequence-page-preview-button reg-button" id="emailpreview" ng-click="emailPreviewOnClick()">Preview Email</div> 
             </div>
         </div>
     </div>
@@ -204,12 +204,16 @@
         <!--Email Editor View-->
         <div class="content-wrap content-wrap-sequence-page-editor" id="emlautomeditorcontainer" ng-init="getEmailTemplates()" ng-show="automationEditor === true">
             <!--// tinymce editor-->
-            <div  class="emailEditor-page-background" style="width: 75%; height: 100%;float: left;">
-                <div style="max-height: 62%;overflow: auto">
+            <div  class="email-editor-wrap">
+                <div class="email-editor-top-buttons-wrap">
+                    <a class="reg-button slat-detail-button">Preview Email</a>
+                    <a class="reg-button slat-detail-button">Select Template</a>
+                </div>
+                <div class="email-editor-content-wrap">
                     <div  id ="defaultBlock" >
-                        <div class="editor_rightside ui-sortable" style="min-height: 438px; width: 1275px;">
+                        <div class="ui-sortable">
 
-                            <div class="emailrender ui-sortable" id="tinymceEditorBody" style="min-height: 523px; height: auto;">
+                            <div class="emailrender ui-sortable" id="tinymceEditorBody">
                             </div>
                         </div>
                         <!--    <div ng-init="hideEmailEditorOverlay = false" ng-if="hideEmailEditorOverlay" class="emailEditor-page-background fleft">
@@ -252,8 +256,8 @@
 
             <div class="email-editor-right-col">
                 <div class="email-editor-tab-wrap">
-                    <div class="r-col-editor-tab" class="{{addtemplatetab}}" id="addtemplatetab" ng-init="showTemplates()" ng-click="showTemplates()"> Choose Template</div>
-                    <div class="r-col-editor-tab" class="{{texttab}}" id="texttab" ng-init="showText('false')" ng-click="showText('true')">Personalization</div>
+                    <div class="r-col-editor-tab" class="{{addtemplatetab}}" id="addtemplatetab" ng-init="showTemplates()" ng-click="showTemplates()"> Change Style</div>
+                    <div class="r-col-editor-tab" class="{{texttab}}" id="texttab" ng-init="showText('false')" ng-click="showText('true')">Add Blocks</div>
                 </div>
                 <div class="r-col-editor-wrap">
                     <div class="editor-block-slat" id="blockdivheader" ng-show="blockdivheader" ng-repeat="email_template in recuring_email_templates" ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>

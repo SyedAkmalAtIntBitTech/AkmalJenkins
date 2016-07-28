@@ -16,7 +16,7 @@
                 <!--                <a class="long-button green-button">Create Email List</a>-->
             </div>
             <div class="hub-pane-content-wrap" ng-init="emailListGet()">
-                <div class="hub-empty-wrap"></div>
+                <div class="hub-empty-wrap" ng-if="emailLists.length === 0">There are no email lists</div>
                 <div class="hub-slat-list-wrap" ng-show="emailLists.length > 0" ng-repeat="email in emailLists"> 
                     <div class="slat">
                         <div class="selection-container col-5p"> 
@@ -54,7 +54,7 @@
                 <h2 class="">MINDBODY Index Connected Lists</h2>
             </div>
             <div class="hub-pane-content-wrap" ng-init="emailListGet()">
-                <div class="hub-empty-wrap">There are no MINDBODY Index Lists</div>
+                <div class="hub-empty-wrap"  ng-if="emailListsMindbody.length === 0">There are no MINDBODY Index Lists</div>
                 <div class="hub-slat-list-wrap" ng-show="emailListsMindbody.length > 0" ng-repeat="email in emailListsMindbody">
                     <div class="slat">
                         <div class="slat-icon-wrap"></div>

@@ -28,7 +28,7 @@
                 <!--                    <ul  class="main-container fleft" ng-show="current_programs!=''">
                                            <li class="slat-container fleft selfclear" ng-repeat="program in current_programs">-->
                 <div class="hub-slat-list-wrap" id="currprogs" ng-show="currProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
-                    <div class="slat" ng-repeat="program in currentPrograms">
+                    <div class="slat" ng-repeat="program in currentPrograms | orderBy:'start_date':true">
                         <div class="slat-name-wrap">
                             <h2>{{program.program_name}}</h2>
                             <p>Added on {{program.start_date| date: 'MMM dd yyyy'}}</p>
@@ -64,7 +64,7 @@
                 <!--                    <ul  class="main-container fleft" ng-show="current_programs!=''">
                                            <li class="slat-container fleft selfclear" ng-repeat="program in current_programs">-->
                 <div class="hub-slat-list-wrap" id="currprogs" ng-show="pastProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
-                    <div class="slat" ng-repeat="program in pastPrograms">
+                    <div class="slat" ng-repeat="program in pastPrograms  | orderBy:'start_date':true">
                         <div class="slat-name-wrap">
                             <h2>{{program.program_name}}</h2>
                             <p>Added on {{program.start_date| date: 'MMM dd yyyy'}}</p>

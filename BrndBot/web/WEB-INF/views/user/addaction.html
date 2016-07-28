@@ -24,7 +24,8 @@
                                             <option value="Email">Email</option>
                                             <option value="Reminder" ng-show="isYourplan">Reminder</option>
                                         </select>-->
-                    <div dropdown-select="ddSelectActionOptions" dropdown-onchange="selectedOrganization(selected)" dropdown-model="ddSelectAction"></div>
+                    <div dropdown-select="ddSelectActionOptions" dropdown-model="ddSelectAction" dropdown-onchange="chooseActionTypeOnChange(selected)"></div>
+<!--                    <div dropdown-select="ddSelectActionOptions" dropdown-onchange="selectedOrganization(selected)" dropdown-model="ddSelectAction"></div>-->
                     <span class="validationAlert" ng-if="actionTypeValidation">{{actionDropdownValidation}}</span>
                 </div>
 
