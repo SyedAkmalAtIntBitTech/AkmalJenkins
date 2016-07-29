@@ -661,7 +661,7 @@ li.main-nav:last-child{
 
 .hub-dropdown-text{
     line-height: 20px;
-    
+
 }
 
 .hub-dropdown i{
@@ -671,7 +671,7 @@ li.main-nav:last-child{
 }
 
 .dropdown-inner-hub{
-     position: relative;
+    position: relative;
     -webkit-user-select: none;
     -moz-user-select: none;
     padding: 0 ;
@@ -4330,6 +4330,7 @@ textarea.task-textarea:focus{
 
 .gallery-image-wrap{
     display: flex;
+    width: 2500px;
 }
 
 .gallery-image-card{
@@ -4343,16 +4344,38 @@ textarea.task-textarea:focus{
 }
 
 .gallery-image{
-    max-height: 100%;
-    max-width: 100%;
+    width: 200px;
+    height: 150px;
+    /*    max-height: 100%;
+        max-width: 100%;*/
+}
+.gallery-Card-delete{
+    padding-bottom: 10px;
+    padding-top: 50px;
+    margin-bottom: 20px;
+}
+
+.gallery-page-background {
+    background-color: #FFFFFF;
+    width: 100%;
+    margin: auto;
+    box-sizing: border-box;
+    overflow-x: auto;
+    padding-bottom: 100px;
+    padding-left: 70px;
+}
+.imageGallery-container {
+    box-sizing: border-box;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 250px;
+    margin-top: 30px;
 }
 
 .gallery-image-options{
     position: absolute;
-    bottom: 0;
-    left: 0;
     height: 30px;
-    width: 100%;
+    width: 200px;
     background-color: rgba(0,0,0,.6);
     display: flex;
     align-content: center;
@@ -4364,17 +4387,17 @@ textarea.task-textarea:focus{
     height:60%;
     cursor: pointer;
     margin-left: auto;
-    
+
 }
 
 .animate-enter {
-	-webkit-transition: 1s linear all; /* Chrome */
-	transition: 1s linear all;
-	opacity: 0;
+    -webkit-transition: 1s linear all; /* Chrome */
+    transition: 1s linear all;
+    opacity: 0;
 }
- 
+
 .animate-enter.animate-enter-active {
-	opacity: 1;
+    opacity: 1;
 }
 
 .full-height-modal-pane-content-wrap{
@@ -4402,8 +4425,8 @@ textarea.task-textarea:focus{
 }
 
 .marketing-program-title-slat{
-   display: inline-flex;
-   align-items: center;
+    display: inline-flex;
+    align-items: center;
 }
 
 .palette-colorswab-global {
@@ -4417,8 +4440,8 @@ textarea.task-textarea:focus{
 }
 
 .color-picker-space {
-   margin-top: 3vw;
-   margin-left: 7vw;
+    margin-top: 3vw;
+    margin-left: 7vw;
 }
 
 .palette-colorswab-selected {
@@ -4443,7 +4466,7 @@ textarea.task-textarea:focus{
     display: inline-flex;
     margin-top:8px;
     align-items: center;
-    
+
 }
 
 .recurring-email-trigger-sentence-wrap span{
@@ -4456,16 +4479,16 @@ textarea.task-textarea:focus{
     border: 1px solid #c9c9c9;
     border-radius: 3px;
     height: 30px; 
-   text-align: center;
+    text-align: center;
     padding: 0px 10px;
     color: #555;
     background-color: #fafafa;
-    
+
 }
 
 .recurring-email-trigger-sentence-wrap span.user-data.unselected{
     color: #AAAAAA;
-    
+
 }
 
 
@@ -4487,14 +4510,14 @@ textarea.task-textarea:focus{
 }
 
 .email-automation-hint{
-       height: 12px;
+    height: 12px;
     width: 12px;
     border-radius: 30px;
     background-color: #1EADFC;
     position: absolute;
     top: 11px;
     left: -6px;
-    
+
 }
 
 .sequence-page-back-button{
@@ -4502,7 +4525,7 @@ textarea.task-textarea:focus{
     height: 100%;
     background: #0F76A6;
     padding: 18px;
-     background-image: url(/BrndBot/user/images/backbutton.svg);
+    background-image: url(/BrndBot/user/images/backbutton.svg);
     background-position: center;
     background-size: 40%;
     background-repeat: no-repeat;
@@ -4532,13 +4555,13 @@ textarea.task-textarea:focus{
 .user-role-option-wrap{
     display:flex;
     margin-top: 20px;
-    
+
 }
 
 .user-role-selection-wrap-header{
     font-size: 14px;
     color: #999;
-    
+
 }
 
 .user-role-check-box{
@@ -4596,7 +4619,7 @@ textarea.task-textarea:focus{
     width:250px;
     margin-right: 20px;
     font-size: 16px;
-    
+
 }
 .user-role{
     margin-right: 20px;
@@ -4611,7 +4634,7 @@ textarea.task-textarea:focus{
 
 .user-slat-button{
     color: #787878;
-     margin-left: 20px;
-     display: block;
-     cursor: pointer;
+    margin-left: 20px;
+    display: block;
+    cursor: pointer;
 }

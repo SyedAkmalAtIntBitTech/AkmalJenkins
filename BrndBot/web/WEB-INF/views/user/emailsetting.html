@@ -28,8 +28,9 @@
                     <div class="input-wrap">
                         <label> Default Reply-to Address </label>
                         <div class="input">
-                            <input id="from_address" class="fluid" type="text" ng-model="email_settings.reply_email_address"   name="reply_email_address"  placeholder="Enter default email address"/>
+                            <input id="reply_address" class="fluid" type="text" ng-model="email_settings.reply_email_address"   name="reply_email_address"  placeholder="Enter default email address"/>
                             <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
+                            <span class="validationAlert" ng-if='email_settings.reply_email_address === "" || null'>{{replyToValidation}}</span>
                         </div>
                     </div>
                      <div class="update-container" ng-click="saveEmailSettings(email_settings)">
@@ -44,9 +45,11 @@
                     <div class="input-wrap">
                         <label>Company Address</label>
                         <div class="input">
-                            <input id="from_address" class="fluid"  type="text" name="from_address" ng-model="company.address" placeholder="Enter default email address" />
+                            <input id="company_address" class="fluid"  type="text" name="from_address" ng-model="company.address" placeholder="Enter default email address" />
                             <p class="input-wrap-label"> We need this to comply with email spam (CANSPAM) laws</p>
                         </div>
+                        <span class="validationAlert" ng-if='company.address === "" || null'>{{uploadCsvValidation}}</span>
+
                     </div>
                     <div class="input-wrap">
                         <label> Website URL </label>

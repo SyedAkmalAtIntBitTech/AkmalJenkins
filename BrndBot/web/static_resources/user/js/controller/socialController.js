@@ -295,31 +295,82 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             $scope.managepage = false;
         };
         $scope.changeFbPostType = function (type) {
-            if (type === "Change To Link Post") {
-                $scope.linkpost = true;
-                $scope.postType = 'Change To Normal Post';
-            } else if (type === 'Change To Normal Post') {
-                $scope.linkpost = false;
-                $scope.postType = 'Change To Link Post';
-                $scope.fbPostData = null;
-                $("#linkTitle").val("");
-                $("#linkDescription").val("");
-                $("#linkUrl").val("");
-            }
-
+//            if ($scope.fbPostValidation1(postData))
+//            {
+                if (type === "Change To Link Post") {
+                    $scope.linkpost = true;
+                    $scope.postType = 'Change To Normal Post';
+                } else if (type === 'Change To Normal Post') {
+                    $scope.linkpost = false;
+                    $scope.postType = 'Change To Link Post';
+                    $scope.fbPostData = null;
+                    $("#linkTitle").val("");
+                    $("#linkDescription").val("");
+                    $("#linkUrl").val("");
+                }
+//            }
         };
-
+        
+//        $scope.fbPostValidation1 = function (postData) {
+////            if (!postData.shareText) {
+////                $scope.fbPostData = {shareText: "", linkTitle: postData.linkTitle, linkDescription: postData.linkDescription, url: postData.url};
+////                $("#shareText").focus();
+////                return false;
+////            }
+//            if (!postData.linkTitle) {
+//                $scope.fbPostData = {linkTitle: "", linkDescription: postData.linkDescription, url: postData.url};
+//                $("#linkTitle").focus();
+//                return false;
+//            }
+//            if (!postData.linkDescription) {
+//                $scope.fbPostData = {linkTitle: postData.linkTitle, linkDescription: "", url: postData.url};
+//                $("#linkDescription").focus();
+//                return false;
+//            }
+//            if (!postData.shareText) {
+//                $scope.facebookLinkValidation = true;
+//                return false;
+//            }
+//            if (!postData.url) {
+//                $scope.fbPostData = {linkTitle: postData.linkTitle, linkDescription: postData.linkDescription, url: ""};
+//                $("#facebooklink").focus();
+//                return false;
+//            }
+//            return true;
+//        };
+        
 //        ...................post or schedule new functions..................
 
         $scope.fbPostValidation = function (postData) {
             if (!postData.shareText) {
-                $scope.fbPostData = {shareText: ""};
+                $scope.fbPostData = {shareText: "", linkTitle: postData.linkTitle, linkDescription: postData.linkDescription, url: postData.url};
                 $("#shareText").focus();
                 return false;
             }
+//            if ($scope.changeFbPostType === "") {
+//            if (!postData.linkTitle) {
+//                $scope.fbPostData = {linkTitle: "", linkDescription: postData.linkDescription, url: postData.url};
+//                $("#linkTitle").focus();
+//                return false;
+//            }
+//            if (!postData.linkDescription) {
+//                $scope.fbPostData = {linkTitle: postData.linkTitle, linkDescription: "", url: postData.url};
+//                $("#linkDescription").focus();
+//                return false;
+//            }
+//            if (!postData.shareText) {
+//                $scope.facebookLinkValidation = true;
+//                return false;
+//            }
+//            if (!postData.url) {
+//                $scope.fbPostData = {linkTitle: postData.linkTitle, linkDescription: postData.linkDescription, url: ""};
+//                $("#facebooklink").focus();
+//                return false;
+//            }
+//        }
             return true;
         };
-        
+
         $scope.twitterPostValidation = function (postData) {
             if (!postData.text) {
                 $scope.twitterPostData = {text: ""};
@@ -490,7 +541,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 if (actionData != '') {
                     $scope.ddSelectActionName = [{text: "Custom Action", value: "0"}];
                     for (var i = 0; i < actionData.length; i++)
-                    { 
+                    {
 //                        var actionDate=new Date(actionData[i].schedule_time);
                         var actionObject = {};
                         actionObject["text"] = actionData[i].schedule_title;
@@ -578,6 +629,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
         $scope.setAction = function (selectedAction) {
             $scope.socialAction = selectedAction.value;
+//            $scope.actionDropdown = false;
         };
 
         $scope.schedulePostValidation = function () {
@@ -587,7 +639,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             var actionName = schedule_title;
             var actionDateVal = schedule_date;
             var actionTimeVal = schedule_time;
-
+            
             if (!actionName) {
                 $("#ActionName").focus();
                 $scope.actionName = "";
@@ -603,7 +655,11 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 $scope.actionTimeVal = "";
                 return false;
             }
-                return true;
+//            if (!$scope.socialAction) {
+//                $scope.actionDropdown = true;
+//                return false;
+//            }
+            return true;
         };
 
         $scope.schedulePost = function (selectedSocialmedia, postData) {

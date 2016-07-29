@@ -545,7 +545,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         };
 
                         emailDraftFactory.updateEmailDraftPost(draftData).then(function (responseText) {
-                            if (responseText === "true") {
+                            if (responseText === true) {
                                 alert("Draft updated successfully.");
                                 document.location.href = "dashboard";
                             } else {
@@ -1001,6 +1001,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.setAction = function (selectedAction) {
             $scope.socialAction = selectedAction.value;
+//            $scope.actionDropdown = false;
         };
 
         $scope.schedulePostValidation = function () {
@@ -1026,6 +1027,10 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $scope.actionTimeVal = "";
                 return false;
             }
+//            if (!$scope.socialAction) {
+//                $scope.actionDropdown = true;
+//                return false;
+//            }
             return true;
         };
 

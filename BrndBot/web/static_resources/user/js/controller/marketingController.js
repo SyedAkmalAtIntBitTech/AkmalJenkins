@@ -675,14 +675,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 if (data.toString() == "true") {
                     if ($scope.action_template_status == "Template Saved") {
                         $scope.action_template_status = "Approved";
-                        $scope.scheduleData.email_template_status = 'Approved';
+//                        $scope.scheduleData.email_template_status = 'Approved';
                     }
                     else {
                         $scope.action_template_status = "Template Saved";
-                        $scope.scheduleData.email_template_status = 'Template Saved';
+//                        $scope.scheduleData.email_template_status = 'Template Saved';
                     }
-                    alert(templetestatussaved);
                     $scope.getProgramActions('emailautomation');
+                    alert(templetestatussaved);
                 } else {
                     alert(savingrecordproblem);
                 }
