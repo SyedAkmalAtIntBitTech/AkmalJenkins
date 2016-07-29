@@ -86,7 +86,7 @@ public class MindbodyEmailListProcessor implements Runnable {
         Map<String, String> unsubscribedEmailsMap = companyPreferencesService.getUnsubscribedEmailsMap(companyPreferences);
         try {
                 long startTime = System.currentTimeMillis();
-                logger.log(Level.INFO, "Started working on getting email lists for :" + siteids[0]);
+                logger.log(Level.INFO, "Started working on getting email lists for :" + siteids[0] + " - " +companyId);
                 //String key is the Email List Name. And the value is the clients associated with it.
                 try {
                     clientIndexesHashmap = mind_body_class.getAllClientIndexes();

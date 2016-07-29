@@ -4401,7 +4401,9 @@ textarea.task-textarea:focus{
 }
 
 .full-height-modal-pane-content-wrap{
-    height: 80vh;
+    /*height: 80vh;*/
+    height: 100vh;
+    overflow-y: scroll;
 }
 
 .upload-photo-button{
