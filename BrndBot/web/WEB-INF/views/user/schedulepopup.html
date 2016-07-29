@@ -45,7 +45,7 @@
             <div class="input-wrap">
                 <label>Action Name</label>
                 <div class="fluid" dropdown-select="ddSelectActionName" dropdown-model="ddSelectAction" dropdown-onchange="setAction(selected)"></div>
-<!--                <span class="validationAlert" ng-show="actionDropdown">{{actionNameValidation}}</span>-->
+                <span class="validationAlert" ng-show="actionDropdown">{{actionNameListValidation}}</span>
 
             </div>
         </div>
@@ -75,8 +75,8 @@
                         </script>
                     </a>
                     <span class="validationAlert" ng-if='actionDateVal === "" || null'>{{scheduleDateValidation}}</span>
-
                 </div>
+                <span style="position: relative; bottom: 8px;" class="validationAlert" ng-if="dateLesser">{{lesserDateValidation}}</span>
                 <div class="input-wrap">
                     <label>Action Time</label>
                     <a class="input">
