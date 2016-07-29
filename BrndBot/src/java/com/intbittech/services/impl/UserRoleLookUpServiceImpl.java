@@ -9,6 +9,7 @@ import com.intbittech.controller.SignupController;
 import com.intbittech.dao.UserRoleLookUpDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.UserRoleLookup;
+import com.intbittech.model.Users;
 import com.intbittech.services.UserRoleLookUpService;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -32,6 +33,14 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
     
     @Autowired
     private MessageSource messageSource;
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isRoleExist(UserRoleLookup usersRoleLookup) throws ProcessFailed {
+        return usersRoleLookUpDao.isRoleExist(usersRoleLookup);
+    }
     
     @Override
     public String save(UserRoleLookup usersRoleLookup) throws ProcessFailed {

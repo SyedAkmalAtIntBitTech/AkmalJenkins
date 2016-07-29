@@ -14,6 +14,14 @@ import com.intbittech.model.UserRoleLookup;
  */
 public interface UserRoleLookUpDao {
 
+/**
+     * This method pass userRoleLookup as input and get the {@link Integer} from database
+     *
+     * @param userRoleLookup
+     * @return {@link Integer}
+     * @throws ProcessFailed the process failed
+     */
+    public boolean isRoleExist(UserRoleLookup userRoleLookup) throws ProcessFailed;    
     /**
      * This method pass userRoleLookup as input and get the {@link Integer} from database
      *

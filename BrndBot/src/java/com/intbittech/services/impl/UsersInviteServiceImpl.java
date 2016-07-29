@@ -43,12 +43,6 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     @Autowired
     private UsersInviteDao usersInviteDao;
     
-//    @Autowired
-//    private UsersInviteService usersInviteService;
-//    
-//    @Autowired
-//    private UsersRoleLookUpService usersRoleLookUpService;
-
     @Autowired
     private MessageSource messageSource;
     
@@ -164,7 +158,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
         send_email.sendMail(message);
         }catch (Throwable throwable){
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("mail send problem",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("mail_send_problem",new String[]{}, Locale.US));
        }
 
     }

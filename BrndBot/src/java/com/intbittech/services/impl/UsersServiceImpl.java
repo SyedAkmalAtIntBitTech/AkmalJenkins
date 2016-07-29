@@ -17,6 +17,7 @@ import static com.intbittech.email.mandrill.SendMail.MANDRILL_KEY;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.Invite;
+import com.intbittech.model.UserProfile;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
 import com.intbittech.model.UserRoleLookup;
@@ -27,10 +28,17 @@ import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UserRoleLookUpService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.StringUtility;
+import com.intbittech.utility.UserSessionUtil;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Properties;
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -87,8 +95,8 @@ public class UsersServiceImpl implements UsersService {
      * {@inheritDoc}
      */
     @Override
-    public Boolean isUserExist(InviteDetails inviteDetails, Company company) throws ProcessFailed {
-        return usersDao.isUserExist(inviteDetails, company);
+    public Boolean isUserExistInCompany(InviteDetails inviteDetails, Company company) throws ProcessFailed {
+        return usersDao.isUserExistInCompany(inviteDetails, company);
     }
     
     /**
@@ -149,10 +157,10 @@ public class UsersServiceImpl implements UsersService {
                 Company companyObject = new Company();
                 companyObject.setCompanyId(usersDetails.getCompanyId());
                 user.setFkCompanyId(companyObject);
-                if (usersDao.checkUniqueUser(user)){
+                if (!(usersDao.checkUniqueUser(user))){
                     usersDao.save(user);
                 }else {
-                    throw new ProcessFailed(messageSource.getMessage("user already exist", new String[]{}, Locale.US));
+                    throw new ProcessFailed(messageSource.getMessage("user_exist", new String[]{}, Locale.US));
                 }
                 companyInvite.setInviteSentTo(user);
                 companyInvite.setIsUsed(true);
@@ -170,24 +178,64 @@ public class UsersServiceImpl implements UsersService {
 
                     usersRoleLookUp.setUserId(user);
                     usersRoleLookUp.setRoleId(userRole);
-                    usersRoleLookUpService.save(usersRoleLookUp);
-                    
+                    if (!(usersRoleLookUpService.isRoleExist(usersRoleLookUp))){
+                        usersRoleLookUpService.save(usersRoleLookUp);
+                        sendAcknowledgementEMail(usersDetails.getUserName());
+                        returnMessage = true;
+                    }else {
+                        throw new ProcessFailed(messageSource.getMessage("role_exist", new String[]{}, Locale.US));
+                    }
                 }
-                sendMail(usersDetails.getUserName());
-                returnMessage = true;
                 
             }else {
-                throw new ProcessFailed(messageSource.getMessage("validity failed", new String[]{}, Locale.US));
+                throw new ProcessFailed(messageSource.getMessage("validity_expired", new String[]{}, Locale.US));
             }
         
         } catch(Throwable throwable) {
             returnMessage = false;
+            logger.log(Priority.ERROR, throwable);
             throw new ProcessFailed(messageSource.getMessage("something_wrong", new String[]{}, Locale.US));
         }finally {
             companyInvite = null;taskdetails = null;roles = null;usersRoleLookUp = null;
         }  
         return returnMessage;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setRole(InviteDetails inviteDetails) throws ProcessFailed{
+        TaskDetails taskdetails = null;
+        ArrayList roles = null;UserRoleLookup usersRoleLookUp = null;
+        Users user = null;
+        try{
+            
+            taskdetails = new TaskDetails(inviteDetails.getTask(),inviteDetails.getRoles());
+            
+            user = findByUserName(inviteDetails.getEmailaddress());
+                roles = taskdetails.getRoles();
+                for (int i = 0; i< roles.size(); i++){
+                    
+                    usersRoleLookUp = new UserRoleLookup();
+
+                    UserRole userRole = new UserRole();
+                    userRole.setUserRoleId((Integer)roles.get(i));
+
+                    usersRoleLookUp.setUserId(user);
+                    usersRoleLookUp.setRoleId(userRole);
+                    usersRoleLookUpService.save(usersRoleLookUp);
+                    
+                }
+            
+        }catch (Exception exception){
+            logger.error(exception);
+            throw new ProcessFailed(messageSource.getMessage("something_wrong", new String[]{}, Locale.US));
+        }finally{
+            roles = null;taskdetails =null;usersRoleLookUp = null;user = null;
+        }
+    }
+    
     /**
      * {@inheritDoc}
      */
@@ -239,23 +287,22 @@ public class UsersServiceImpl implements UsersService {
             
         }catch (Throwable throwable){
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("problem checking the data",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("problem_checking",new String[]{}, Locale.US));
         }    
             return status;
     }
 
     @Override
-    public void sendMail(String from_email_id)throws ProcessFailed {
+    public void sendAcknowledgementEMail(String toEmailId)throws ProcessFailed {
         try{
             
         Message message = new Message();
 
         message.setKey(MANDRILL_KEY);
-//                String url=request.getRequestURL().toString().replace("SendEmail","");  
 //        TODO code to be modified
-        message.setText("you have been assigned a new role");
-        /** need to change the above link and below message**/
-        message.setSubject("new role assigned");
+            
+        message.setText(messageSource.getMessage("acknowledgement_message",new String[]{}, Locale.US));
+        message.setSubject(messageSource.getMessage("acknowledgement_subject",new String[]{}, Locale.US));
         message.setFrom_email("intbit@intbittech.com");
         message.setFrom_name("Intbit Tech");
         message.setAsync(true);
@@ -263,7 +310,7 @@ public class UsersServiceImpl implements UsersService {
         ArrayList<Recipient> messageToList = new ArrayList<Recipient>();
 
         Recipient recipient = new Recipient();
-        recipient.setEmail(from_email_id);
+        recipient.setEmail(toEmailId);
         recipient.setType("to");
 
         messageToList.add(recipient);
@@ -271,7 +318,7 @@ public class UsersServiceImpl implements UsersService {
         message.setMessageTo(messageToList);
 
         RecipientMetadata recipientMetadata = new RecipientMetadata();
-        recipientMetadata.setRcpt(from_email_id);
+        recipientMetadata.setRcpt(toEmailId);
 
         ArrayList<RecipientMetadata> metadataList = new ArrayList<RecipientMetadata>();
         metadataList.add(recipientMetadata);
@@ -281,7 +328,7 @@ public class UsersServiceImpl implements UsersService {
         send_email.sendMail(message);
         }catch (Throwable throwable){
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("mail send problem",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("mail_send_problem",new String[]{}, Locale.US));
        }
 
     }

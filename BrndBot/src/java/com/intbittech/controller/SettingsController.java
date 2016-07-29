@@ -125,13 +125,27 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             String contextRealPath = servletContext.getRealPath("");
 
             String contextPath = Utility.getServerName(contextRealPath);
-            boolean userExist = usersService.isUserExist(inviteDetails,userProfile.getUser().getFkCompanyId());
+            
+            boolean userExist = usersService.checkUniqueUser(usersService.findByUserName(inviteDetails.getEmailaddress()));
+            
             if (userExist){
-                
+                boolean userExistInCompany = usersService.isUserExistInCompany(inviteDetails,userProfile.getUser().getFkCompanyId());
+                if (userExistInCompany){
+                    usersService.setRole(inviteDetails);
+                    transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(
+                            messageSource.getMessage("user_exist_role_assigned", 
+                                    new String[]{}, Locale.US)));
+                }else {
+                    transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(
+                            messageSource.getMessage("user_exist", 
+                                    new String[]{}, Locale.US)));
+                }    
             }else {
                 usersInviteService.sendMail(fromEmailId, contextPath, inviteDetails);
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(
+                        messageSource.getMessage("invitation_check_mail", 
+                                new String[]{}, Locale.US)));
             }
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("invitation please check mail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {
             logger.error(throwable);

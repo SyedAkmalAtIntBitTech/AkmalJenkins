@@ -103,9 +103,10 @@ public class OnboardingController {
              **/
             boolean returnValue = usersService.saveUser(usersDetails);
             if (returnValue){
-                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("user saved successfully", new String[]{}, Locale.US)));
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(
+                        messageSource.getMessage("user_save", new String[]{}, Locale.US)));
             }else {
-                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation("some thing wrong"));
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation("something_wrong"));
             }            
         } catch (Throwable throwable) {
             logger.error(throwable);

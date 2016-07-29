@@ -42,7 +42,7 @@ public interface UsersService {
      * @return {@link Boolean}
      * @throws ProcessFailed the process failed
      */
-    public Boolean isUserExist(InviteDetails inviteDetails, Company company) throws ProcessFailed;
+    public Boolean isUserExistInCompany(InviteDetails inviteDetails, Company company) throws ProcessFailed;
     
     /**
      * This method pass user as input and get the {@link Integer} from DAO layer.
@@ -61,6 +61,14 @@ public interface UsersService {
      * @throws ProcessFailed the process failed
      */
     public boolean saveUser(UserDetails usersDetails) throws ProcessFailed;
+    /**
+     * This method pass user as input and get the {@link Integer} from DAO layer.
+     *
+     * @param inviteDetails
+     * @return {@link Integer}
+     * @throws ProcessFailed the process failed
+     */
+    public void setRole(InviteDetails inviteDetails) throws ProcessFailed;
     /**
      * This method pass user as input and updates the {@link Users} from DAO layer.
      *
@@ -101,5 +109,5 @@ public interface UsersService {
      * @param fromEmailId
      * @throws ProcessFailed the process failed
      */
-    public void sendMail(String fromEmailId) throws ProcessFailed;
+    public void sendAcknowledgementEMail(String fromEmailId) throws ProcessFailed;
 }

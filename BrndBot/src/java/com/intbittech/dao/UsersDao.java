@@ -43,7 +43,7 @@ public interface UsersDao {
      * @return {@link Boolean}
      * @throws ProcessFailed the process failed
      */
-    public Boolean isUserExist(InviteDetails inviteDetails,Company company) throws ProcessFailed;
+    public Boolean isUserExistInCompany(InviteDetails inviteDetails,Company company) throws ProcessFailed;
     
     /**
      * This method pass user as input and get the {@link Integer} from database

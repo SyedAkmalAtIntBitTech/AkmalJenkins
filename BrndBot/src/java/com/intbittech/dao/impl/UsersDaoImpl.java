@@ -91,7 +91,7 @@ public class UsersDaoImpl implements UsersDao {
      * {@inheritDoc}
      */
     @Override
-    public Boolean isUserExist(InviteDetails inviteDetails, Company company) {
+    public Boolean isUserExistInCompany(InviteDetails inviteDetails, Company company) {
         Boolean isUserUnique = true;
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(Users.class)

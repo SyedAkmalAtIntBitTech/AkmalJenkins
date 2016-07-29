@@ -34,10 +34,26 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
     @Autowired
     private MessageSource messageSource;
 
+    
+/**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isRoleExist(UserRoleLookup userRoleLookup) {
+        boolean isUserUnique = true;
+        Criteria criteria = sessionFactory.getCurrentSession()
+                .createCriteria(Users.class)
+                .add(Restrictions.eq("role_id", userRoleLookup.getRoleId()));
+        if (criteria.list().isEmpty()) {
+            isUserUnique = true;
+        } else {
+            isUserUnique = false;
+        }
+        return isUserUnique;
+    }    
     /**
      * {@inheritDoc}
      */
-    
     @Override
     public Integer save(UserRoleLookup userRoleLookup) throws ProcessFailed {
         try {
