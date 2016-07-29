@@ -50,7 +50,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             }
 
             $('#slider-button').click(function () {
-                if ($('#slider-button').css("margin-right") === "788px")
+                if ($('#slider-button').css("margin-right") === "900px")
                 {
                     $(sliderDialog).animate({"margin-right": '-=900px'});
                     $('#slider-button').animate({"margin-right": '-=788px'});
@@ -292,10 +292,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 } else
                 {
                     
-                    $("#fade").show();
                     $scope.overlayFade = true;
                     $scope.loadingOverlay = true; //start Loading Overlay
-                    $('#slider-button').click();
                     $scope.emailScrollyDiv = false;
                     externalContentFactory.activatedGet(externalSourceKeywordLookupId).then(function (data) {
                         var externalData = JSON.stringify(data.d.details);
@@ -304,6 +302,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                             externalContentFactory.listDataGet(externalSourceKeywordLookupId).then(function (listData) {
                                 var parseData = JSON.parse(listData.d.details);
                                 $scope.mindbodyDataList = parseData;
+                                $("#fade").show();
+                                $('#slider-button').click();
                                 $scope.loadingOverlay = false; //start Loading Overlay
                                 $scope.hideMindbodyOverlay = true;
                                 $scope.emailScrollyDiv = true;
@@ -928,6 +928,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.closeMindbodyPopup = function () {
             $scope.emailMindBodyPopup = false;
             $scope.overlayFade = false;
+            $("#fade").hide();
         };
 
         $scope.ddSelectMarketingCampaign = {
