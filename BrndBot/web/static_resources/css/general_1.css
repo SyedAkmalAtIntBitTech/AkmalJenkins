@@ -1606,6 +1606,9 @@ li.sub-nav-tab.active a{
     margin: auto;
 }
 
+.mbPopup{
+    height: 100%; 
+}
 
 .modal-pane-header-wrap{
     height: 55px;
@@ -2414,7 +2417,16 @@ p.modal-content-header{
     overflow-y: scroll;
     padding-top: 30px;
 }
-
+.palette-wrap-globalColors {
+    margin-top: 25px;
+}
+.palette-theme-global {
+    width: 400px;
+    margin: 0px 0px 5px 11px;
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 .color-palette-wrap{}
 
 .color-explanation{

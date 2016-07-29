@@ -11,19 +11,24 @@
                     <a class="input">
                         <input type="text" id="list_name" ng-model="email.listName" placeholder="Enter a name for the email list" class="fluid" />
                     </a>
+                    <span class="validationAlert" ng-if='email.listName === "" || null'>{{emailListValidation}}</span>
+
                 </div>
                 <div class="input-wrap">
                     <label>List Description</label>
                     <a class="input">
-                        <input type="text" id="list_name" ng-model="email.listDescription" placeholder="Enter List Description" class="fluid" />
+                        <input type="text" id="list_description" ng-model="email.listDescription" placeholder="Enter List Description" class="fluid" />
                     </a>
+                    <span class="validationAlert" ng-if='email.listDescription === "" || null'>{{emailDescriptionValidation}}</span>
+
                 </div>
                 <div class="input-wrap">
                     <label>Default from Address</label>
                     <div class="input">
                         <input id="default_from_name" ng-model="email.deafultFromName" type="text"  placeholder="Default from Address" class="fluid" />
                     </div>
-                    <span class="validationAlert" ng-if='email.deafultFromName == "" || null' id="listDescription">{{listDescription}}</span>
+                <span class="validationAlert" ng-if='email.deafultFromName === "" || null'>{{fromAddressValidation}}</span>
+                <span class="validationAlert" ng-if="createEmailValidation">{{emailaddrValidation}}</span>
                 </div>
             </div>
             <div class="modal-cta-container" >
@@ -31,3 +36,4 @@
             </div>
         </div>
 </div>
+

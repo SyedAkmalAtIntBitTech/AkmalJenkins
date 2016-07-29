@@ -6,7 +6,7 @@
         float:left;
     }
 </style>
-<div id="fade" class="black_overlay" ng-show="hidePopup" >
+<div id="fade" class="black_overlay">
 
 <div class="pop-up-background-gallery" id="imagepopup" ng-show="hidePopup">
     <div class="pop-up-container-galleryselect"> 
@@ -27,6 +27,8 @@
                     <div class="browse-button">
                         <div id="triggerfile" class="md-button gray-button">Browse your Images</div>
                         <input type="file"  name="filesToUpload[]" id="filesToUpload" file-model="myFile" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">
+                        <span class="validationAlert" ng-if='myFile === "" || null'>{{logoValidation}}</span>
+
                         <!--                        <input type="file" file-model="logoImage" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">
                                                 <input type="file"  name="filesToUpload[]" id="filesToUpload" file-model="myFile" class="Add_Button Button--Gray logoUpload--button upload fileupld"/>-->
                         <!--                            <input type="file" file-model="myFile1" class="Add_Button Button--Gray logoUpload--button upload fileupld"/>-->
@@ -44,7 +46,6 @@
             <div class="browse-button">
                 <div class="add-action-button md-button button-text-1 uploadimgbtn" id="upload" ng-click="uploadLogo(myFile)"> Upload Image</div>
 
-                </span>
             </div>
         </div>
     </div>

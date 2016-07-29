@@ -9,7 +9,10 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.organizationValidation = false;
         $scope.companyValidation = companyValidation;
         $scope.dropdownValidation = dropdownValidation;
-        $scope.companyName = "";
+        $scope.colorValidation = colorValidation;
+        $scope.studioIdValidation = studioIdValidation;
+        $scope.logoValidation = logoValidation;
+//        $scope.companyName = "";
         $scope.organizationId = "";
 
         function validateSignUp()
@@ -96,20 +99,14 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             }
             else if (!organizationId) {
                 $scope.organizationValidation = true;
-                $("#dropdownValue").focus();
                 return false;
             }
-            else
-            {
-                return true;
-            }
+            return true;
         };
 
         $scope.saveCompany = function (companyName, organizationId) {
             $scope.companyName = companyName;
-//            alert($scope.companyName);
             $scope.organizationId = organizationId;
-//            alert($scope.organizationId);
             if ($scope.validationcode(companyName, organizationId))
             {
                 var companyDetails = {"companyName": companyName, "organizationId": organizationId};
@@ -121,11 +118,13 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 
         $scope.selectedOrganization = function (organizationId)
         {
-//            alert(JSON.stringify(organizationId));
             if (organizationId.value) {
                 $scope.organizationValidation = false;
             }
         };
+
+//        $scope.ddSelectServicesOptions = [
+//        ];
 
         $scope.ddSelectServices = {
             text: "None"
@@ -165,31 +164,34 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 }
             });
         };
-        $scope.isMindbodyActivated = function(selectServices,studioId){
+
+        $scope.isMindbodyActivated = function (selectServices, studioId) {
             var services = selectServices;
-            if (services.text == 'None'){
+            if (services.text === 'None') {
                 $scope.saveServices();
-            }else if(services.text == 'Mindbody'){
-             var studio = $("#mindbodyStudioId").val();
-                if (studio == ""){
-                    alert("no studio id entered, kindly enter the studio id");
+            } else if (services.text === 'Mindbody') {
+                var studio = $("#mindbodyStudioId").val();
+                if (studio === "") {
+                    $scope.studioId = "";
                     $("#mindbodyStudioId").focus();
                     return false;
-                }else {
-                    onboardingFactory.isMindbodyActivated().then(function (data){
-                    var activation=JSON.stringify(data.d.details[0]); 
-                    globalActivation=activation;
-                        if(globalActivation=="false")
+                }
+                else {
+                    onboardingFactory.isMindbodyActivated().then(function (data) {
+                        var activation = JSON.stringify(data.d.details[0]);
+                        globalActivation = activation;
+                        if (globalActivation === "false")
                         {
                             alert("Mindbody not activated, kindly activate mindbody");
                             return false;
-                        }else{
+                        } else {
                             $scope.saveServices();
                         }
                     });
                 }
             }
         };
+
         $scope.saveServices = function () {
             onboardingFactory.completedActivationGet().then(function (data) {
                 var studioIdSaved = eval(JSON.stringify(data.d.message));
@@ -200,12 +202,33 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 
             });
         };
-        $scope.uploadLogo = function () {
-            var file = $scope.myFile;
-            settingsFactory.changeLogoPost(file).then(function (data) {
-                $location.path("signup/choosepalette");
-            });
+
+        $scope.uploadLogoValidation = function (file) {
+            if (!file) {
+                $scope.myFile = "";
+                return false;
+            }
+            return true;
         };
+
+        $scope.uploadLogo = function (myFile) {
+            var file = myFile;
+//            if ($scope.uploadLogoValidation(file))
+//            {
+                settingsFactory.changeLogoPost(file).then(function (data) {
+                    $location.path("signup/choosepalette");
+                });
+//            }
+        };
+//        $scope.uploadLogo = function () {
+//            var file = $scope.myFile;
+//            if ($scope.uploadLogoValidation(file))
+//            {
+//                settingsFactory.changeLogoPost(file).then(function (data) {
+//                    $location.path("signup/choosepalette");
+//                });
+//            }
+//        };
         $scope.getColorsFromLogo = function () {
             $scope.activeColorLogo = 'selected_Tab';
             $scope.activeColorPicker = '';
@@ -231,6 +254,16 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $scope.activeColorTheme = '';
             $scope.activeColorLogo = '';
             $scope.colorFrom = "custom";
+            $('#picker').colpick({
+                flat: true,
+                layout: 'hex',
+                onSubmit: function (hsb, hex, rgb, el) {
+                    //for haking hex value alert(hex);
+                    $('.palette-colorswab-selected').css("background-color", "#" + hex);
+                    $('.palette-colorswab-selected').val("#" + hex);
+
+                }
+            });
         };
         $scope.getColorID = function (color) {
             $('.palette-colorswab-selected').css("background-color", color);
@@ -242,34 +275,43 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $("#color4").css("background-color", color4);
         };
         $scope.clearColorPalette = function () {
+            $scope.colorsAlert = false;
             var bgColor = "background-color";
             $("#color1").css(bgColor, "");
             $("#color2").css(bgColor, "");
             $("#color3").css(bgColor, "");
             $("#color4").css(bgColor, "");
         };
+
         $scope.saveColorPalette = function () {
             var color1 = $("#color1").css("backgroundColor");
             var color2 = $("#color2").css("backgroundColor");
             var color3 = $("#color3").css("backgroundColor");
             var color4 = $("#color4").css("backgroundColor");
             if ((color1 === "rgba(0, 0, 0, 0)") || (color2 === "rgba(0, 0, 0, 0)") || (color3 === "rgba(0, 0, 0, 0)") || (color4 === "rgba(0, 0, 0, 0)")) {
-                alert("Please choose all 4 colors.");
+//               alert("Please choose all 4 colors.");
+                $scope.colorsAlert = true;
+                return false;
             }
-            settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
-                window.location = getHost() + "user/dashboard";
-            });
+            else {
+                $scope.colorsAlert = false;
+                settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
+                    window.location = getHost() + "user/dashboard";
+                });
+            }
         };
-        //to display color picker
-        $('#picker').colpick({
-            flat: true,
-            layout: 'hex',
-            onSubmit: function (hsb, hex, rgb, el) {
-                //for haking hex value alert(hex);
-                $('.palette-colorswab-selected').css("background-color", "#" + hex);
-                $('.palette-colorswab-selected').val("#" + hex);
-            }
-        });
+
+//
+//        //to display color picker
+//        $('#picker').colpick({
+//            flat: true,
+//            layout: 'hex',
+//            onSubmit: function (hsb, hex, rgb, el) {
+//                //for haking hex value alert(hex);
+//                $('.palette-colorswab-selected').css("background-color", "#" + hex);
+//                $('.palette-colorswab-selected').val("#" + hex);
+//            }
+//        });
 
         $scope.stepsModel = [];
         $scope.stepsModel.push("/BrndBot/user/images/upload-icon.svg");
@@ -286,27 +328,24 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 $scope.stepsModel.push(e.target.result);
             });
         };
-        
-        $scope.resetPassword = function(user) {
-            signupFactory.forgotPasswordPost(user).then(function (data) {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));          
-                $scope.status = data;
-                window.open(getHost() , "_self");
-            });
-        };
-        
-        $scope.forgotChangePassword = function(user) 
-        {
-            
-            //Validate password
-            var password_object = {"hashURL":$location.search().userid,"password":user.password,"type":"change"};
-            signupFactory.resetPasswordPost(password_object).then(function (data) {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));          
-                $scope.status = data;
-                window.open(getHost() , "_self");
-            });
-        };
-        
-        
 
+        $scope.resetPassword = function (user) {
+            signupFactory.forgotPasswordPost(user).then(function (data) {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                $scope.status = data;
+                window.open(getHost(), "_self");
+            });
+        };
+
+        $scope.forgotChangePassword = function (user)
+        {
+
+            //Validate password
+            var password_object = {"hashURL": $location.search().userid, "password": user.password, "type": "change"};
+            signupFactory.resetPasswordPost(password_object).then(function (data) {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                $scope.status = data;
+                window.open(getHost(), "_self");
+            });
+        };
     }]);

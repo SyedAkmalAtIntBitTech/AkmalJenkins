@@ -20,7 +20,7 @@
     <div class="top-sub-nav">
         <div class="" ng-click="setCurrentDateActions()">
             <div class="your-plan-cal-dropdown" for="jumptodatepicker" > 
-                <i></i>
+                <label for="jumptodatepicker"><i style="cursor: pointer;"></i></label>
                 <label class="datepickerClass your-plan-cal-dropdown-label dateSelection subnav-date-dropdown-text " for="jumptodatepicker" >Jump to Date</label>
                 <input type="text"  name="datepicker" id="jumptodatepicker" readonly class="hideinput"/>
             </div>
@@ -97,7 +97,8 @@
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">
                                 <h2 ng-show="entitydetails.entity_type == master_facebook || entitydetails.entity_type == master_twitter">{{entitydetails.entity_type}}</h2>
-                                <h2 ng-show="entitydetails.entity_type == master_email || entitydetails.entity_type == master_note">{{entitydetails.entity_type}}</h2>
+                                <h2 ng-show="entitydetails.entity_type == master_email">{{entitydetails.entity_type}}</h2>
+                                <h2 ng-show="entitydetails.entity_type == master_note">Note</h2>
                                 <p>Action Type</p>
                             </div>
                         </div>

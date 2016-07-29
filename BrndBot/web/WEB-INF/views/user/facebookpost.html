@@ -17,6 +17,8 @@
                     <div class="input ">
                         <textarea class="fluid facebook-post-textarea" placeholder="Type post here" id="shareText" ng-model="fbPostData.shareText"></textarea>
                     </div>
+                    <span class="validationAlert" ng-if='fbPostData.shareText === "" || null'>{{facebookPostValidation}}</span>
+
                 </div>
                 
                 <div ng-if="linkpost" id="linkPostFields">
@@ -25,25 +27,36 @@
                         <div class="input ">
                             <input placeholder="Type post here" id="linkTitle" ng-model="fbPostData.linkTitle" class="fluid"></input>
                         </div>
+                        <span class="validationAlert" ng-if='fbPostData.linkTitle === "" || null'>{{facebookLinkValidation}}</span>
+
                     </div>
                     <div class="input-wrap">
                         <label> Enter a Link Description </label>
                         <div class="input ">
                             <textarea placeholder="Type post here" id="linkDescription" ng-model="fbPostData.linkDescription" type="text" class="fluid"></textarea>
                         </div>
+                        <span class="validationAlert" ng-if='fbPostData.linkDescription === "" || null'>{{facebookDescriptionValidation}}</span>
+
                     </div>
                     <div class="input-wrap">
                         <label>Choose a Link</label>
                         <div class="input " id='urlDropDownSpan' ng-init="getUrls()">
-                            <select ng-model="linkUrls" id="dropdownurl"  class="select_Field_lg removeDrag" ng-options="url.url as url.prigram_name + ' - ' + url.link_name + ' - ' + url.url for url in urls"></select>
+<!--                            <select ng-model="linkUrls" id="dropdownurl"  class="select_Field_lg removeDrag" ng-options="url.url as url.prigram_name + ' - ' + url.link_name + ' - ' + url.url for url in urls"></select>-->
+                            <div dropdown-select="ddSelectlinkUrlsOptions" dropdown-model="ddSelectlinkUrls" dropdown-onchange="getSelectedUrl(selected)"></div>
                             <p class="input-label">If you have a custom link write it below</p>
                         </div>
+<!--                        <span class="validationAlert" ng-if="facebookLinkValidation">{{linkValidation}}</span>-->
+<!--                        <span class="validationAlert" ng-if='linkUrls === "" || null'>{{linkValidation}}</span>-->
+
+                                                
                     </div>
                     <div class="input-wrap">
                         <label>Write a Custom Link</label>
                         <div class="input ">
-                            <input class="fluid" placeholder="http://www.brndbot.com" ng-model="fbPostData.url"></input>
+                            <input id="facebooklink" class="fluid" placeholder="http://www.brndbot.com" ng-model="fbPostData.url"></input>
                         </div>
+                        <span class="validationAlert" ng-if='fbPostData.url === "" || null'>{{customLinkValidation}}</span>
+
                     </div>
                 </div>
                 <div class="add-link-facebook-container">
@@ -62,6 +75,8 @@
                     </div>
                 </div>
             </div>
+<!--            <span class="validationAlert Social-Add-Image-Wrap" ng-if="imageValidation">{{facebookImageValidation}}</span>-->
+
         </div>
         <div class="continue-bar-offset"></div>
     </div>

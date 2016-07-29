@@ -28,14 +28,18 @@
                     <div class="input-wrap">
                         <label> Campaign Name </label>
                         <div class="input ">
-                            <input class="fluid" type="text" ng-model="programName" >
+                            <input class="fluid" id="campaignname" type="text" ng-model="programName" >
                         </div>
+                        <span class="validationAlert" ng-if='programName === "" || null'>{{campaignNameValidation}}</span>
+
                         <p> This is for internal use only</p>
                     </div>
                     <div class="input-wrap ">
                         <label> Date of Campaign Inserted Here </label>
                         <div class="input">
                             <input class="fluid" type="text" ng-model="programDateTime" name="programdatetime" id="programdatetime" value="" readonly="">
+                            <span class="validationAlert" ng-if='programDateTime === "" || null'>{{campaignDateValidation}}</span>
+
                             <script>
                                         var picker = new Pikaday(
                                                 {

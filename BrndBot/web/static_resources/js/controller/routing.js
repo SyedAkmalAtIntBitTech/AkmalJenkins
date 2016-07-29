@@ -1,32 +1,25 @@
 brndBotSignupApp.config(function ($routeProvider) {
     $routeProvider
             .when('/signin', {
-                templateUrl: 'signup/loginform.html',
-//                controller: 'onboardingController'
+                templateUrl: 'signup/loginform.html'
             })
             .when('/signup/resetpassword', {
-                templateUrl: 'signup/resetpassword.html',
-//                controller: 'onboardingController'
+                templateUrl: 'signup/resetpassword.html'
             })
-             .when('/signup/changepassword', {
-                templateUrl: 'signup/changepassword.html',
-//                controller: 'onboardingController'
+            .when('/signup/changepassword', {
+                templateUrl: 'signup/changepassword.html'
             })
             .when('/signup/company', {
-                templateUrl: 'signup/company.html',
-//                controller: 'onboardingController'
+                templateUrl: 'signup/company.html'
             })
             .when('/signup/datasource', {
-                templateUrl: 'signup/datasource.html',
-//                controller: 'onboardingController'
+                templateUrl: 'signup/datasource.html'
             })
             .when('/signup/uploadlogo', {
-                templateUrl: 'signup/uploadlogo.html',
-//                controller: 'onboardingController'
+                templateUrl: 'signup/uploadlogo.html'
             })
             .when('/signup/choosepalette', {
-                templateUrl: 'signup/choosepalette.html',
-//                controller: 'onboardingController'
+                templateUrl: 'signup/choosepalette.html'
             })
             .otherwise({redirectTo: '/signin'});
 });

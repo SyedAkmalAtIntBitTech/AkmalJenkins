@@ -2,15 +2,21 @@
 <div ng-include src="'marketinghubnavigation.html'"></div>
     <div class="top-nav-bar-offset"></div>
     <div class="top-subnav-bar-offset"></div>
-
+    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-hide="emailDraftDetails">
+        <div class="hub-pane" ng-show="emaildraftnumber === '0'">
+            <div class="hub-pane-header-wrap">
+                <h2 class="">{{emaildraftsstatus}}</h2>
+            </div>
+        </div>
+    </div>
     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" id="emaildraftsdiv" ng-show="emailDraftDetails">
         <div class="hub-pane">
             <div class="hub-pane-header-wrap">
                 <h2 class="">Your Email Drafts</h2>
             </div>
             <div class="hub-pane-content-wrap">
-                <div class="hub-empty-wrap" ng-show="emaildrafts.length === 0"></div>
-                <div class="hub-slat-list-wrap" ng-repeat="drafts in emaildrafts" ng-show="emaildrafts.length > 0">
+                <div class="hub-empty-wrap" ng-show="emaildraftnumber === '0'"><div class="slat" ><div class="selection-container col-5p" id="deleteids"> asasd{{emaildraftsstatus}}</div></div></div>
+                <!--<div class="hub-slat-list-wrap" ng-repeat="drafts in emaildrafts" ng-show="emaildrafts.length > 0">-->
                     <div class="slat" id="li{{drafts.id}}" ng-repeat="drafts in emaildrafts | filter:userSearch">
                         <div class="selection-container col-5p" id="deleteids"> 
                             <div class="selection-icon" id="{{drafts.id}}" ng-click="emailDraftCheckbox(drafts.id)">
@@ -29,7 +35,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                <!--</div>-->
             </div>
         </div>
     </div>
