@@ -50,9 +50,7 @@
                             </script>
                         </a>
                         <span class="validationAlert" ng-if='datePicker === "" || null'>{{actionDateValidation}}</span>
-                        <span class="validationAlert" ng-if="dateLesser">{{lesserDateValidation}}</span>
-                        <span class="validationAlert" ng-if="dateGreater">{{greaterDateValidation}}</span>
-
+<!--                        <span class="validationAlert" ng-if="dateGreater">{{greaterDateValidation}}</span>-->
                                                 
                     </div>
                     <div class="input-wrap half">
@@ -76,10 +74,13 @@
                                 });
                             </script>
                         </a>
-                        <span class="validationAlert" ng-if='timePicker123 === "" || null'>{{actionDateValidation}}</span>
+<!--                        <span class="validationAlert" ng-if='timePicker123 === "" || null'>{{actionDateValidation}}</span>-->
+                        <span class="validationAlert" ng-if="timePickerVal">{{actionDateValidation}}</span>
 
                     </div>
                 </div>
+                 <span class="validationAlert" ng-if="dateLesser">{{lesserDateValidation}}</span>
+
             </div>
             <div class="modal-cta-container" >
                 <a class="long-button blue-button" id="addActionYourPlan" ng-click="AddAction(addTitle, datePicker, timePicker123, ddSelectAction,programaction.postDate)" href="javascript:void(0)">Create this Action</a>

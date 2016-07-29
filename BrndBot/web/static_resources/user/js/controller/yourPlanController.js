@@ -22,6 +22,9 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.actionDateValidation = actionDateValidation;
         $scope.lesserDateValidation = lesserDateValidation;
         $scope.calculatedProgramDate = "";
+        $scope.actionTypeValidation = false;
+        $scope.dateLesser = false;
+        $scope.timePickerVal = false;
 
         $scope.ddSelectActionOptions = [
             {
@@ -262,6 +265,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.addActionValidation = function (addTitle, datePicker, actionType) {
+            var actionTime1=$("#timepicker1").val().replace(/ /g,'');
+            
             if (!addTitle) {
                 $scope.addTitle = "";
                 $("#addactiontitle").focus();
@@ -276,6 +281,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $("#datepicker").focus();
                 return false;
             }
+            if (!actionTime1) {
+                $scope.timePickerVal = true;
+//                $("#datepicker").focus();
+                return false;
+            }
             return true;
         };
 
@@ -283,6 +293,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         {
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
             {
+                $scope.timePickerVal = false;
                 var actionTime1=$("#timepicker1").val().replace(/ /g,'');
                 var actionDateTime1=datePicker.toLocaleString() +" "+actionTime1.toLocaleString();
                 var fromDate = new Date(actionDateTime1);

@@ -138,8 +138,8 @@
                                 <span class="">Send an email</span>
                                 <span class="user-data" ng-click="editEmailAutoHint=true">{{recurringScheduleData.days}}</span>
                                 <span class=""> days after being added to</span>
-                                <span class="user-data unselected" ng-click="editEmailAutoHint=false" ng-show="recurringScheduleData.entities_list_name!==''">Need to Select an Email List</span>
-                                <span class="user-data" ng-click="editEmailAutoHint=true" ng-show="recurringScheduleData.entities_list_name!==undefined">{{recurringScheduleData.entities_list_name}}</span>
+                                <span class="user-data unselected" ng-click="editEmailAutoHint=false" ng-show="recurringScheduleData.entities_list_name ===''">Need to Select an Email List</span>
+                                <span class="user-data" ng-click="editEmailAutoHint=true" ng-show="recurringScheduleData.entities_list_name!==''">{{recurringScheduleData.entities_list_name}}</span>
                                 <span class="">email list.</span>
                             </div> 
                        </div>

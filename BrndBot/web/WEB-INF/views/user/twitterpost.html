@@ -35,11 +35,14 @@
                             </span>
                             <span ng-show="showTwitterLink == true" class="" id='urlDropDownSpan' ng-init="getUrls()">                               
                                 <div class="input_Label pushUp_20">Choose from your Existing Links:</div>
-                                <select ng-model="linkUrls" id="dropdownurl"  class="select_Field_lg removeDrag" ng-options="url.url as url.prigram_name+' - '+url.link_name+' - '+url.url for url in urls"></select>
+<!--                                <select ng-model="linkUrls" id="dropdownurl"  class="select_Field_lg removeDrag" ng-options="url.url as url.prigram_name+' - '+url.link_name+' - '+url.url for url in urls"></select>-->
+                            <div dropdown-select="ddSelectlinkUrlsOptions" dropdown-model="ddSelectlinkUrls" dropdown-onchange="getSelectedUrl(selected)"></div>
                             </span>
                             <span ng-show="showTwitterLink == true" class="" id="twitterLinkPost">
                                 <div class="input_Label pushUp_20">Write Custom Link</div>
-                                <textarea class="socialLink_attached removeDrag removeBorder" ng-model="twitterPostData.url=linkUrls.split('-').pop(0)" placeholder="http://www.brndbot.com" id="linkOfUrls">{{linkUrls.split('-').pop(0)}}</textarea></span>
+                                <textarea class="socialLink_attached removeDrag removeBorder" ng-model="twitterPostData.url = linkUrls.split('-').pop(0)" placeholder="http://www.brndbot.com" id="linkOfUrls">{{linkUrls.split('-').pop(0)}}</textarea></span><br>
+<!--                                <span class="validationAlert" ng-if='twitterPostData.url === "" || null'>{{customLinkValidation}}</span>-->
+                                <span class="validationAlert" ng-if="twitterCustomLink">{{customLinkValidation}}</span>
                         </div>  
                     </div>
                     <div ng-show="addImageToPostButton" class="Social-Add-Image-Wrap clear" id="addImageToTwitterPost" ng-click="show_hide_ImageGalleryPopup(true)">
@@ -52,6 +55,7 @@
                     </div>
                     <div ng-show="twitterImageDivToPost" class="Social-Add-Image-Wrap clear" id="addImageDivToTwitterPost">
                         <img ng-src="{{displayImage}}" ng-model="twitterPostData.img = displayImage"alt="alt_text" border="0" align="center" id="selectedImage" class="imageAdded pushUp_10 fleft">
+
                         <div class="col-1of1 clear">
                             <div class="edit-Image-Button fleft" id="changeImage"  ng-click="show_hide_ImageGalleryPopup(true)">
                                 Change Image
@@ -61,6 +65,8 @@
                                                         </div>-->
                         </div>
                     </div>
+<!--                    <span class="validationAlert Social-Add-Image-Wrap" ng-if="imageValidation">{{facebookPostValidation}}</span>-->
+
                 </div>   
             </div>
         </div>
