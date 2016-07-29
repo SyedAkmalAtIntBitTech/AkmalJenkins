@@ -20,12 +20,17 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.emailDescriptionValidation = emailDescriptionValidation;
         $scope.fromAddressValidation = fromAddressValidation;
         $scope.emailAddressValidation = emailAddressValidation;
+        $scope.emailaddrValidation = emailaddrValidation;
         $scope.email = [];
         $scope.company = [];
         $scope.email_settings = [];
         $scope.showEmailListDetails = false;
 //        $scope.uploadCsvValidation = uploadCsvValidation;
         $scope.replyToValidation = replyToValidation;
+        $scope.emailIdVal = false;
+        $scope.validateEmail = false;
+        $scope.emailIdVal = false;
+        $scope.createEmailValidation = false;
 
         $scope.displayAllEmailDrafts = function () {
             $scope.activeEmailDrafts = 'activeTab';
@@ -300,7 +305,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 settingsFactory.setFooterPost(footerPopupDetails).then(function (data) {
                     $scope.getFooterDetails();
                 });
-            };
+            }
+            ;
         };
         $scope.emailFooterPopup = function ()
         {
@@ -398,11 +404,21 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $("#default_from_name").focus();
                 return false;
             }
-//            if (!email.emailId) {
-//                $scope.email = {emailId: ""};
-//                $("#emailid").focus();
-//                return false;
-//            }
+            return true;
+        };
+
+        $scope.emailAdressValidation = function (email) {
+            var deafultFromName = email.deafultFromName;
+            var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+            var result = deafultFromName.replace(/\s/g, "").split(/,|;/);
+            for (var i = 0; i < result.length; i++) {
+                if (!regex.test(result[i])) {
+                    $("#default_from_name").focus();
+                    $scope.createEmailValidation = "true" + "'" + result[i] + "'";
+                    return false;
+                }
+            }
+            $scope.createEmailValidation = false;
             return true;
         };
 
@@ -410,14 +426,17 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         {
             if ($scope.emailValidation(email))
             {
-                var emailListDetails = {"emailListName": email.listName, "defaultFromName": email.deafultFromName, "listDescription": email.listDescription, "update": "addEmailList"};
-                emailListFactory.emailListSavePost(emailListDetails).then(function (data) {
-                    $scope.createEmailListPopup = false;
-                    $("#fade").hide();
-                    $scope.emailListGet();
-                    $scope.showDeleteEmailList = false;
-                    $("#deleteEmailList").show();
-                });
+                if ($scope.emailAdressValidation(email))
+                {
+                    var emailListDetails = {"emailListName": email.listName, "defaultFromName": email.deafultFromName, "listDescription": email.listDescription, "update": "addEmailList"};
+                    emailListFactory.emailListSavePost(emailListDetails).then(function (data) {
+                        $scope.createEmailListPopup = false;
+                        $("#fade").hide();
+                        $scope.emailListGet();
+                        $scope.showDeleteEmailList = false;
+                        $("#deleteEmailList").show();
+                    });
+                }
             }
         };
 
@@ -445,8 +464,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 
         $scope.showUpdateList = function ()
         {
-            $scope.activeEmailListContacts='activeTab';
-            $scope.activeImportContacts='';
+            $scope.activeEmailListContacts = 'activeTab';
+            $scope.activeImportContacts = '';
             $scope.updateList();
             $("#addcontact").show();
             $scope.showAddContactPopup = false;
@@ -459,7 +478,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
 
         $scope.updateList = function () {
-            $scope.activeEmailListContacts='activeTab';
+            $scope.activeEmailListContacts = 'activeTab';
             $scope.showEmailListContacts = true;
             $("#importListli").removeClass("top-subnav-link-active");
             $("#importList").removeClass("h3-active-subnav");
@@ -515,12 +534,30 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 //            return true;
 //        };
 
+        $scope.emailIdValidation = function (email) {
+            $scope.emailIdVal = false;
+            var emailAddressVal = email.emailId;
+            var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+            var result = emailAddressVal.replace(/\s/g, "").split(/,|;/);
+            for (var i = 0; i < result.length; i++) {
+                if (!regex.test(result[i])) {
+                    $("#emailId").focus();
+                    $scope.validateEmail = "true" + "'" + result[i] + "'";
+                    return false;
+                }
+            }
+            $scope.validateEmail = false;
+            return true;
+        };
+
         $scope.updateEmailID = function (email) {
             if (!email.emailId) {
                 $("emailId").focus();
                 $scope.emailIdVal = true;
                 return false;
-            } else {
+            }
+            else if ($scope.emailIdValidation(email))
+            {
                 $scope.emailIdVal = false;
                 $("#addcontact").show();
                 var email_list_name = $scope.emailListName;
@@ -569,7 +606,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 }
                 ;
             }
-            ;
         };
 
         $scope.unsubscribeEmailList = "";
@@ -821,8 +857,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $("#tab4").show();
             $scope.showAddContactPopup = false;
             $scope.showEmailListContacts = false;
-            $scope.activeEmailListContacts=''
-            $scope.activeImportContacts='activeTab';
+            $scope.activeEmailListContacts = ''
+            $scope.activeImportContacts = 'activeTab';
         };
         $scope.viewEmailListDetails = function (listName, type)
         {

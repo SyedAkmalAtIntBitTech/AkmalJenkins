@@ -63,6 +63,8 @@
                             </select>-->
                         <div dropdown-select="ddSelectEmailListOptions" dropdown-model="ddSelectEmailList" dropdown-onchange="chooseEmailListOnChange(selected)"></div>
                         <p class="input-wrap-label"> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
+                        <span class="validationAlert" ng-if="listSelectionValidation">{{listValidation}}</span>
+
                     </div>
                 </div>
 <!--               <div class="input-wrap">
@@ -114,10 +116,11 @@
                 <div class="input-wrap">
                     <label> Enter a Reply to Address </label>
                     <div class="input ">
-                        <input id="email" class="fluid" placeholder="Enter Reply To Email Address" type="email" value="{{email_settings.reply_email_address}}" ng-model="replyAddress"></input>
+                        <input id="email" class="fluid" placeholder="Enter Reply To Email Address" type="text" value="{{email_settings.reply_email_address}}" ng-model="replyAddress"></input>
                         <input id="toaddress1" class="input-field-textfield input-placeholder" ng-model="toAddress" value="{{email_settings.email_addresses}}" placeholder="Enter To Email Address" type="hidden"></input>
                     </div>
                     <span class="validationAlert" ng-if='replyAddress === "" || null'>{{replyToValidation}}</span>
+                    <span class="validationAlert" ng-if="validateEmailAddress">{{emailValidation}}</span>
 
                 </div>
             </div>
