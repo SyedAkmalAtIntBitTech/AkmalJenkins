@@ -5,6 +5,7 @@
  */
 package com.intbittech.services.impl;
 
+import com.controller.ApplicationContextListener;
 import com.intbittech.AppConstants;
 import com.intbittech.controller.SignupController;
 import com.intbittech.dao.CompanyDao;
@@ -27,8 +28,10 @@ import com.intbittech.modelmappers.UserDetails;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UserRoleLookUpService;
 import com.intbittech.services.UsersService;
+import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.StringUtility;
 import com.intbittech.utility.UserSessionUtil;
+import com.intbittech.utility.Utility;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -37,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Properties;
+import javax.servlet.ServletContext;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -200,7 +204,43 @@ public class UsersServiceImpl implements UsersService {
         }  
         return returnMessage;
     }
-    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String saveNonExistingUser(InviteDetails inviteDetails)throws ProcessFailed{
+        String returnMessage = "";
+        try{
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            String fromEmailId = userProfile.getUser().getUserName();
+
+            boolean userExist = checkUniqueUser(findByUserName(inviteDetails.getEmailaddress()));
+            
+            if (userExist){
+                boolean userExistInCompany = isUserExistInCompany(inviteDetails,userProfile.getUser().getFkCompanyId());
+                if (userExistInCompany){
+                    setRole(inviteDetails);
+                    returnMessage = messageSource.getMessage("user_exist_role_assigned", new String[]{}, Locale.US);
+                }else {
+                    returnMessage = messageSource.getMessage("user_does_not_exist_in_company", new String[]{}, Locale.US);
+                }    
+            }else {
+                ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
+                String contextRealPath = servletContext.getRealPath("");
+
+                String contextPath = Utility.getServerName(contextRealPath);
+                
+                usersInviteService.sendMail(fromEmailId, contextPath, inviteDetails);
+                returnMessage = messageSource.getMessage("invitation_check_mail", new String[]{}, Locale.US);
+
+            }
+            
+        }catch (Exception exception){
+            logger.log(Priority.ERROR, exception);
+            throw new ProcessFailed(messageSource.getMessage("something_wrong", new String[]{}, Locale.US));
+        }
+        return returnMessage;
+    }
     /**
      * {@inheritDoc}
      */

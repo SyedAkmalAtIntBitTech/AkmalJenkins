@@ -62,6 +62,14 @@ public interface UsersService {
      */
     public boolean saveUser(UserDetails usersDetails) throws ProcessFailed;
     /**
+     * This method pass user as input and get the {@link String} from DAO layer.
+     *
+     * @param usersDetails
+     * @return {@link Integer}
+     * @throws ProcessFailed the process failed
+     */
+    public String saveNonExistingUser(InviteDetails inviteDetails)throws ProcessFailed;    
+    /**
      * This method pass user as input and get the {@link Integer} from DAO layer.
      *
      * @param inviteDetails

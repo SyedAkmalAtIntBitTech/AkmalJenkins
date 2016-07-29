@@ -65,7 +65,7 @@ public class BrndbotUserLoginSuccessHandler extends SimpleUrlAuthenticationSucce
     }
  
     private boolean isManager(List<String> roles) {
-        if (roles.contains("ROLE_Manager")) {
+        if (roles.contains("ROLE_MANAGER")) {
             return true;
         }
         return false;
@@ -79,14 +79,14 @@ public class BrndbotUserLoginSuccessHandler extends SimpleUrlAuthenticationSucce
     }
     
     private boolean isTempManager(List<String> roles) {
-        if (roles.contains("ROLE_TEMP_Manager")) {
+        if (roles.contains("ROLE_TEMP_MANAGER")) {
             return true;
         }
         return false;
     }
 
     private boolean isCreator(List<String> roles) {
-        if (roles.contains("ROLE_Creator")) {
+        if (roles.contains("ROLE_CREATOR")) {
             return true;
         }
         return false;

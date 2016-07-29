@@ -837,8 +837,8 @@ INSERT INTO organization_type VALUES (2, 'organization');
 --
 
 INSERT INTO user_role VALUES (1, 'ROLE_ADMIN');
-INSERT INTO user_role VALUES (2, 'ROLE_USER');
-INSERT INTO user_role VALUES (3, 'ROLE_TEMP_USER');
+INSERT INTO user_role VALUES (2, 'ROLE_MANAGER');
+INSERT INTO user_role VALUES (3, 'ROLE_TEMP_MANAGER');
 
 -- Data for Name: users;
 --

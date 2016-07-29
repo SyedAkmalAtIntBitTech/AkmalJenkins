@@ -119,33 +119,10 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
 
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            String fromEmailId = userProfile.getUser().getUserName();
-            ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
-            String contextRealPath = servletContext.getRealPath("");
-
-            String contextPath = Utility.getServerName(contextRealPath);
-            
-            boolean userExist = usersService.checkUniqueUser(usersService.findByUserName(inviteDetails.getEmailaddress()));
-            
-            if (userExist){
-                boolean userExistInCompany = usersService.isUserExistInCompany(inviteDetails,userProfile.getUser().getFkCompanyId());
-                if (userExistInCompany){
-                    usersService.setRole(inviteDetails);
-                    transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(
-                            messageSource.getMessage("user_exist_role_assigned", 
+            String returnMessage = usersService.saveNonExistingUser(inviteDetails);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(
+                            messageSource.getMessage(returnMessage, 
                                     new String[]{}, Locale.US)));
-                }else {
-                    transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(
-                            messageSource.getMessage("user_exist", 
-                                    new String[]{}, Locale.US)));
-                }    
-            }else {
-                usersInviteService.sendMail(fromEmailId, contextPath, inviteDetails);
-                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(
-                        messageSource.getMessage("invitation_check_mail", 
-                                new String[]{}, Locale.US)));
-            }
 
         } catch (Throwable throwable) {
             logger.error(throwable);
