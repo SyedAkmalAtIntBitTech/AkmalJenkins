@@ -27,10 +27,13 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.selectedSocialmedia = "email";
         $scope.emailAddresses = '';
         $scope.loadingOverlay = false;
+        $scope.colpic = false;
+        $scope.colorcodeArray = [];
+        var seldiv = "";
         var sliderDialog = "#emaileditorexternalpopup";
         var emailDraftDetails = localStorage.getItem('emailDraftData');
         //OnPageLoad
-        $scope.emailEditorInit = function () {  
+        $scope.emailEditorInit = function () {
             $scope.loadingOverlay = true; //start Loading Overlay
             if (emailDraftDetails !== null) {
                 var paramDraftId = JSON.parse(emailDraftDetails).draftid;
@@ -71,10 +74,44 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $scope.loadingOverlay = false; //stop Loading Overlay
                 $scope.hideEmailEditorOverlay = true;
             });
-
+            $scope.getColor();
 
         };
+        $scope.getColor = function () {
+            var colorcodeArray = [];
+            var hexDigits = new Array
+                    ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
+//Function to convert hex format to a rgb color
+            function rgb2hex(rgb) {
+                rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+                return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+            }
+            function hex(x) {
+                return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+            }
+            $.ajax({
+                async: false,
+                url: global_host_address + 'settings/getColors.do',
+                dataType: 'json',
+                success: function (data) {
+                    var k = 4;
+                    for (var i = 0; i < data.d.details.length; i++)
+                    {
+                        colorcodeArray[i] = rgb2hex(data.d.details[i]);
+                    }
+                    for (var j = 0; j < defaultFroalaColors.length; j = (j + 2)) {
+                        colorcodeArray[k] = defaultFroalaColors[j];
+                        k++;
+                    }
+                    $scope.colorcode = {colors: colorcodeArray};
+                }
+            });
 
+        };
+        $scope.chengeTemplateColor = function (color) {
+            $(seldiv).find('table:first').attr('bgcolor', '#' + color);
+            $("#colpic").hide();
+        };
         $scope.redirect = function (redirect, categoryId, subCategoryId, mindbody, lookupId, mindbodyid, emailSubject, draftId)
         {
             localStorage.removeItem("emailDraftData");
@@ -188,6 +225,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     } else {
                         $scope.htmlbody = data.htmlbody;
                         $("#tinymceEditorBody").append(data.htmlbody);
+                        $scope.launchTinyMceEditor();
                     }
                 });
             }
@@ -247,8 +285,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
 
         $scope.didChooseBlock = function (selectedBlockId, externalSourceKeywordLookupId) {
-             $scope.emailMindBodyPopup = true;
-             $scope.loadingOverlay = true; //start Loading Overlay
+            $scope.emailMindBodyPopup = true;
+            $scope.loadingOverlay = true; //start Loading Overlay
             blockModelFactory.allEmailBlockModelGet(selectedBlockId).then(function (data) {
                 $scope.firstTemplateForBlock = data.d.details[0].emailBlockModelLookupId;
                 $scope.isBlockClicked = "true";
@@ -264,7 +302,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     $scope.loadingOverlay = false;
                 } else
                 {
-                    
+
                     $("#fade").show();
                     $scope.overlayFade = true;
                     $scope.loadingOverlay = true; //start Loading Overlay
@@ -314,28 +352,30 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     var styleHtml = '<div id=defaultblock1 class=module onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)">' + emailData.htmldata + '</div>';
 //                    var styleHtml = '<div id=defaultblock1 class=module onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)"><div class=\"view\"><table width=\"100%\" bgcolor=\"#2a2a2a\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tbody><tr><td><table bgcolor=\"#d41b29\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\" class=\"devicewidth\"><div class=\"innerbg\"></div><div class=\"addremove\" style=\"margin-left: 975px;\"><div class=\"drag\"></div><div class=\"remove\"></div></div><tbody><tr><td width=\"100%\">' + emailData.htmldata + '</td></tr></tbody></table></div>';
                     $("#tinymceEditorBody").append(styleHtml);
-                    $scope.lunchTinyMceEditor();
+                    $scope.launchTinyMceEditor();
                 } else {
                     var editorHtml = $('#tinymceEditorBody').html();
                     if (editorHtml.contains('id="' + $scope.htmlTagId + '"')) {
-                        $("#"+ $scope.htmlTagId).remove();
+                        $("#" + $scope.htmlTagId).remove();
                         var BlockHtml = '<div id=' + $scope.htmlTagId + ' onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ')>' + emailData.htmldata + '</div>';
                         $("#tinymceEditorBody").append(BlockHtml);
-                         $scope.lunchTinyMceEditor();
+                        $scope.launchTinyMceEditor();
                     } else
                     {
                         BlockHtml = '<div id=' + $scope.htmlTagId + ' onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ')>' + emailData.htmldata + '</div>';
                         $("#tinymceEditorBody").append(BlockHtml);
-                         $scope.lunchTinyMceEditor();
+                        $scope.launchTinyMceEditor();
                     }
                 }
             });
 
         };
-        $scope.lunchTinyMceEditor = function () {
-            tinymce.EditorManager.editors = []; 
+        $scope.launchTinyMceEditor = function () {
+            tinymce.EditorManager.editors = [];
             tinymce.init({
                 selector: 'td.mce-content-body',
+                extended_valid_elements: 'img[class|src|style|border=0|alt|title|hspace|vspace|width|height|max-width|max-height|align|onmouseover|onmouseout|name]',
+                forced_root_block : false,
                 width: 400,
                 inline: true,
                 plugins: [
@@ -344,20 +384,21 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     'insertdatetime media table contextmenu paste',
                     'template paste textcolor colorpicker textpattern imagetools'
                 ],
-                toolbar1: ' insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image ',
-                toolbar2: ' forecolor backcolor | fontselect fontsizeselect custombutton fileuploader ',
+                toolbar1: ' insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | link',
+                toolbar2: ' forecolor backcolor | fontselect fontsizeselect custombutton',
                 menubar: false
             });
-                             $('.innerbg').mouseenter(function () {
-                            var seldiv = $(this).parents('[st-sortable]');
-                            $(this).colpick({
-                                layout: 'hex',
-                                submit: 0,
-                                onChange: function (hsb, hex, rgb, fromSetColor) {
-                                    $(seldiv).find('table:first').attr('bgcolor', '#' + hex);
-                                }
-                            });
-                        });
+            $('.innerbg').click(function ($scope) {
+                $("#colpic").show();
+                seldiv = $(this).parents('[st-sortable]');
+//                            $(this).colpick({
+//                                layout: 'hex',
+//                                submit: 0,
+//                                onChange: function (hsb, hex, rgb, fromSetColor) {
+//                                    $(seldiv).find('table:first').attr('bgcolor', '#' + hex);
+//                                }
+//                            });
+            });
         };
         $scope.blockIdOnSelected = function (selectedBlock, blockId) {
             var selectedHtmlBlockId = selectedBlock.id;
