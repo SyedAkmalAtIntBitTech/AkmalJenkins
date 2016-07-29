@@ -211,8 +211,8 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             return true;
         };
 
-        $scope.uploadLogo = function () {
-            var file = $scope.myFile;
+        $scope.uploadLogo = function (myFile) {
+            var file = myFile;
 //            if ($scope.uploadLogoValidation(file))
 //            {
                 settingsFactory.changeLogoPost(file).then(function (data) {
