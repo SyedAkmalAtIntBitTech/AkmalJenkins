@@ -93,11 +93,27 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             $scope.selectCompanyId = companyId;
         };
 
+        $scope.ddSelectlinkUrls = {
+            text: "Please select an Url"
+        };
+
         $scope.getUrls = function () {
+            $scope.ddSelectlinkUrlsOptions = [
+            ];
             companyMarketingProgramFactory.getAllUserMarketingProgramsUserIdGet().then(function (data) {
                 $scope.urls = data;
                 $scope.show_BlackLayer = false;
                 $scope.show_Post_SchedulePopup = false;
+                //angulardd
+                var linkUrlData = data;
+                for (var i = 0; i < linkUrlData.length; i++)
+                {
+                    var linkUrlObject = {};
+                    linkUrlObject["text"] = linkUrlData[i].prigram_name  + " - " + linkUrlData[i].link_name + " - " + linkUrlData[i].url;
+                    linkUrlObject["value"] = linkUrlData[i].link_name;
+                    linkUrlObject["url"] = linkUrlData[i].url;
+                    $scope.ddSelectlinkUrlsOptions.push(linkUrlObject);
+                }
             });
         };
 
@@ -297,20 +313,20 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.changeFbPostType = function (type) {
 //            if ($scope.fbPostValidation1(postData))
 //            {
-                if (type === "Change To Link Post") {
-                    $scope.linkpost = true;
-                    $scope.postType = 'Change To Normal Post';
-                } else if (type === 'Change To Normal Post') {
-                    $scope.linkpost = false;
-                    $scope.postType = 'Change To Link Post';
-                    $scope.fbPostData = null;
-                    $("#linkTitle").val("");
-                    $("#linkDescription").val("");
-                    $("#linkUrl").val("");
-                }
+            if (type === "Change To Link Post") {
+                $scope.linkpost = true;
+                $scope.postType = 'Change To Normal Post';
+            } else if (type === 'Change To Normal Post') {
+                $scope.linkpost = false;
+                $scope.postType = 'Change To Link Post';
+                $scope.fbPostData = null;
+                $("#linkTitle").val("");
+                $("#linkDescription").val("");
+                $("#linkUrl").val("");
+            }
 //            }
         };
-        
+
 //        $scope.fbPostValidation1 = function (postData) {
 ////            if (!postData.shareText) {
 ////                $scope.fbPostData = {shareText: "", linkTitle: postData.linkTitle, linkDescription: postData.linkDescription, url: postData.url};
@@ -338,7 +354,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 //            }
 //            return true;
 //        };
-        
+
 //        ...................post or schedule new functions..................
 
         $scope.fbPostValidation = function (postData) {
@@ -639,7 +655,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             var actionName = schedule_title;
             var actionDateVal = schedule_date;
             var actionTimeVal = schedule_time;
-            
+
             if (!actionName) {
                 $("#ActionName").focus();
                 $scope.actionName = "";

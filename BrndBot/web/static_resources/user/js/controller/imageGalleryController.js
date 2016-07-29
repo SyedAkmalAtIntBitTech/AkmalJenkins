@@ -5,21 +5,21 @@
  */
 
 imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http', '$location', 'imageFactory', 'companyImagesFactory', 'companyFactory', function ($scope, $window, $http, $location, imageFactory, companyImagesFactory, companyFactory) {
-      
-         $scope.logoValidation = logoValidation;
-      
+
+        $scope.logoValidation = logoValidation;
+
         //This was added by Andy for Gallery hover options
-        $scope.hoverEditGalleryImage=false;
-        $scope.hoverInGalleryImage = function(){
+        $scope.hoverEditGalleryImage = false;
+        $scope.hoverInGalleryImage = function () {
             this.hoverEditGalleryImage = true;
         };
 
-        $scope.hoverOutGalleryImage = function(){
+        $scope.hoverOutGalleryImage = function () {
             this.hoverEditGalleryImage = false;
         };
-        
+
         //End of Gallery hover options
-        
+
         $scope.getCompanyId = function () {
             companyFactory.currentCompanyGet().then(function (companyData) {
                 $scope.companyId = companyData.d.details[0];
@@ -35,7 +35,6 @@ imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http'
         };
 
         $scope.uploadLogo = function (myFile) {
-            var file = $("#filesToUpload").val();
             var file = myFile;
             if ($scope.imageGalleryValidation(myFile))
             {
@@ -99,6 +98,32 @@ imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http'
                 $scope.showImageUploaded = false;
             });
         };
+
+//        $scope.datalists = [];
+//
+//        $scope.imageUpload = function (myFile) {
+//            alert(myFile);
+////             var fd = new FormData();
+////    //Take the first selected file
+////            fd.append("file", $(myFile)[0].files[0]);
+//
+//            
+//            var reader = new FileReader();
+//            reader.onload = $scope.imageIsLoaded;
+//            reader.readAsDataURL(myFile.files[0]);
+//            var file = myFile;
+//            imageFactory.saveImagePost(fd).then(function (data) {
+//                alert(JSON.stringify(data));
+//                alert("Image Uploaded successfully");
+//                $scope.getAllCompanyImages();
+//            });
+//        };
+//
+//        $scope.imageIsLoaded = function (e) {
+//            $scope.$apply(function () {
+//                $scope.datalists.push(e.target.result);
+//            });
+//        };
 
     }]);
 

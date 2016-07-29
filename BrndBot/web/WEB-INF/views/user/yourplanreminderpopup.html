@@ -62,7 +62,7 @@
                             <label class="detail-section-label">Date</label>
                             <a class="overlay-detail-input date-input ease-all">
                                 <img type="" class="date-time-input-img" src="/BrndBot/user/images/calendar-gray.svg" />
-                                <input type="text" ng-blur="showSaveButton()" id="emaildatetime1" name="emaildatetime1" />
+                                <input type="text" ng-blur="showReminderSaveButton()" id="emaildatetime1" name="emaildatetime1" />
                                 <!--<input type="hidden" value="{{scheduleData.entities_selected_time| date:'MMM dd yyyy'}}" id="emaildateid"/>-->
                                     <script>
                                         
@@ -83,7 +83,7 @@
                             <label class="detail-section-label">Time of Day</label>
                             <a class="overlay-detail-input time-input ease-all">
                                 <img type="" class="date-time-input-img" src="/BrndBot/user/images/time-gray.svg" />
-                                <input type="text" ng-blur="showSaveButton()" id="timepickertextbox" name="timepickertextbox" value="{{scheduleData.schedule_time}}" readonly />
+                                <input type="text" ng-blur="showReminderSaveButton()" id="timepickertextbox" name="timepickertextbox" value="{{scheduleData.schedule_time}}" readonly />
                                  <!--                            <input id="timepickeremail123" class="timepickertextbox "  value ="{{scheduleData.schedule_time| date:'hh : mm : a': 'UTC'}}">-->
                                 <!--<script src="js/timepicki.js" type="text/javascript"></script>-->
                                 <script>

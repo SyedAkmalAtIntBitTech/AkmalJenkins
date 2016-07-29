@@ -454,7 +454,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 entities_from_name: "", entities_reply_to_email_address: ""};
             yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data) {
                 $scope.recurringEntitiesDetails = JSON.parse(data.d.details);
-
+                alert(JSON.stringify($scope.recurringEntitiesDetails));
                 $scope.recurringScheduleData.entities_subject = $scope.recurringEntitiesDetails.subject;
                 $scope.recurringScheduleData.entities_list_name = $scope.recurringEntitiesDetails.email_list_name;
                 $scope.recurringScheduleData.entities_from_name = $scope.recurringEntitiesDetails.from_name;
