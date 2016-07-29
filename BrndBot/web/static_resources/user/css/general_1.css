@@ -4330,14 +4330,15 @@ textarea.task-textarea:focus{
 
 .gallery-image-wrap{
     display: flex;
-    width: 2500px;
+    padding: 30px 30px 0px 30px;
 }
 
 .gallery-image-card{
     height: 150px;
-    width: 250px;
+    width: 200px;
     position: relative;
     margin-right: 30px;
+    margin-bottom: 30px;
 }
 .gallery-image-card:last-child{
     margin-right: 0px;
@@ -4349,21 +4350,8 @@ textarea.task-textarea:focus{
     /*    max-height: 100%;
         max-width: 100%;*/
 }
-.gallery-Card-delete{
-    padding-bottom: 10px;
-    padding-top: 50px;
-    margin-bottom: 20px;
-}
 
-.gallery-page-background {
-    background-color: #FFFFFF;
-    width: 100%;
-    margin: auto;
-    box-sizing: border-box;
-    overflow-x: auto;
-    padding-bottom: 100px;
-    padding-left: 70px;
-}
+
 .imageGallery-container {
     box-sizing: border-box;
     padding-left: 15px;
@@ -4375,6 +4363,7 @@ textarea.task-textarea:focus{
 .gallery-image-options{
     position: absolute;
     height: 30px;
+    top: 120px;
     width: 200px;
     background-color: rgba(0,0,0,.6);
     display: flex;
