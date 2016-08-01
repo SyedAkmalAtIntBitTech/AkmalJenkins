@@ -722,6 +722,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
             });
             $scope.emailList = "1";
+            $scope.getEmailSettings();
         };
 
 //        $scope.showEmailList = function () {
@@ -737,6 +738,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             settingsFactory.getEmailSettingsGet().then(function (data) {
                 var parseData = JSON.parse(data.d.details);
                 $scope.email_settings = parseData;
+                $scope.replyAddress=parseData.reply_email_address;
             });
         };
 
