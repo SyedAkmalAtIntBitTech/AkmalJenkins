@@ -306,7 +306,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
                 $scope.dateLesser = false;
                 var actiondate = datePicker;
-                var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
+                var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
                 var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();
                 var myDate = new Date(l);
                 var days = 0;
