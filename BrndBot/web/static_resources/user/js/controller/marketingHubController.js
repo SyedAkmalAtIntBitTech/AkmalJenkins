@@ -25,12 +25,17 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.company = [];
         $scope.email_settings = [];
         $scope.showEmailListDetails = false;
-//        $scope.uploadCsvValidation = uploadCsvValidation;
+        $scope.uploadCsvValidation = uploadCsvValidation;
+        $scope.validCsvFileValidation = validCsvFileValidation;
+        $scope.invalidCsvValidation = invalidCsvValidation;
         $scope.replyToValidation = replyToValidation;
         $scope.emailIdVal = false;
         $scope.validateEmail = false;
         $scope.emailIdVal = false;
         $scope.createEmailValidation = false;
+        $scope.csvValidation = false;
+        $scope.csvFileValidation = false;
+        $scope.csvInvalidValidation = false;
         $scope.listDescription = "";
         $scope.listName = "";
         $scope.deafultFromName = "";
@@ -646,8 +651,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     alert("This browser does not support HTML5!");
                 }
             } else {
-                alert("Please 1 upload a valid CSV file!");
-//                $scope.csvFileValidation = true;
+//                alert("Please upload a valid CSV file!");
+                $scope.csvValidation = false;
+                $scope.csvFileValidation = true;
             }
 
         };
@@ -658,8 +664,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             var emailLists = [];
             if (!$scope.unsubscribeEmailList)
             {
-                alert("Please choose a valid csv file.");
-//                $scope.csvFileValidation = true;
+                $scope.csvFileValidation = false;
+//                alert("Please choose a valid csv file.");
+                $scope.csvValidation = true;
                 return false;
             }
             //if file is blank
@@ -667,8 +674,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             {
                 if ($scope.unsubscribeEmailList.length == 0)
                 {
-                    alert("Please choose a valid csv file.");
-//                    $scope.csvFileValidation = true;
+                    $scope.csvFileValidation = false;
+//                    alert("Please choose a valid csv file.");
+                    $scope.csvValidation = true;
                     return false;
                 }
             }
@@ -688,7 +696,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 }
             }
             if (error != 0) {
-                alert("Some of the email addresses are invalid in the csv file and they have been excluded.");
+//                alert("Some of the email addresses are invalid in the csv file and they have been excluded.");
+                $scope.csvInvalidValidation = true;
             }
 
             settingsFactory.unSubscribeEmails(emailLists).then(function (data) {

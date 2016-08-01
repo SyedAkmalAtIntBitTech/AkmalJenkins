@@ -229,3 +229,5 @@ var descriptionValidation = "Please enter the description";
 var automatedEmailListValidation = "Please select an email list";
 var automationDayValidation = "Please select an email to a recipent";
 var uploadCsvValidation = "Please upload a CSV file";
+var validCsvFileValidation = "Please upload a valid CSV file";
+var invalidCsvValidation = "Some of the email addresses are invalid in the csv file and they have been excluded";

@@ -14,6 +14,14 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.logoValidation = logoValidation;
 //        $scope.companyName = "";
         $scope.organizationId = "";
+        $scope.emailAddressValidation = emailAddressValidation;
+        $scope.emailaddrValidation = emailaddrValidation;
+        $scope.passwordValidation = passwordValidation;
+        $scope.confirmPasswordValidation = confirmPasswordValidation;
+        $scope.uniqueUserValidation = uniqueUserValidation;
+        $scope.uniqueUser = false;
+        $scope.userDetails = [];
+        $scope.user = [];
 
         function validateSignUp()
         {
@@ -51,13 +59,70 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         }
         ;
 
+        $scope.signupValidation = function (userDetails) {
+            if (!userDetails.userName) {
+                $scope.uniqueUser = false;
+                $scope.userDetails = {userName: "", userPassword: userDetails.userPassword};
+                $("#usernamesignup").focus();
+                return false;
+            }
+
+            var uniqueuser = userDetails.userName;
+            var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+            var result = uniqueuser.replace(/\s/g, "").split(/,|;/);
+            for (var i = 0; i < result.length; i++) {
+                if (!regex.test(result[i])) {
+                    $("#usernamesignup").focus();
+                    $scope.createEmailValidation = "true" + "'" + result[i] + "'";
+                    return false;
+                }
+            }
+
+            if (!userDetails.userPassword) {
+                $scope.uniqueUser = false;
+                $scope.createEmailValidation = false;
+                $scope.userDetails = {userName: userDetails.userName, userPassword: ""};
+                $("#passwordsignup").focus();
+                return false;
+            }
+//            if (!userDetails.confirmPassword) {
+//                $scope.createEmailValidation = false;
+//                $scope.userDetails = {userName: userDetails.userName, userPassword: userDetails.userPassword, confirmPassword: ""};
+//                $("#confirmpasswordsignup").focus();
+//                return false;
+//            }
+//            if (!confirmPassword) {
+//                $scope.createEmailValidation = false;
+//                $scope.confirmPassword = "";
+//                $("#confirmpasswordsignup").focus();
+//                return false;
+//            }
+            return true;
+        };
+
         $scope.saveUser = function (userDetails) {
-            onboardingFactory.saveUserPost(userDetails).then(function (data) {
-                var message = data.d.message;
-                if (message === "true")
-                {
-                    $("#signform").submit();
-                    $location.path("/signup/company");
+            $scope.uniqueUser = false;
+            if ($scope.signupValidation(userDetails))
+            {
+                onboardingFactory.saveUserPost(userDetails).then(function (data) {
+                    var message = data.d.message;
+                    if (message === "true")
+                    {
+                        $("#signform").submit();
+                        $location.path("/signup/company");
+                    }
+                });
+            }
+        };
+
+        $scope.isUserUnique = function () {
+            var emailId = $scope.userDetails.userName;
+            var userEmailId = {"userName": emailId};
+            onboardingFactory.userPost(userEmailId).then(function (data) {
+                var isUserUnique = eval(JSON.stringify(data.d.message));
+                if (isUserUnique === "false") {
+                    $scope.uniqueUser = true;
+                    $("#usernamesignup").focus();
                 }
             });
         };
@@ -213,22 +278,14 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 
         $scope.uploadLogo = function (myFile) {
             var file = myFile;
-//            if ($scope.uploadLogoValidation(file))
-//            {
+            if ($scope.uploadLogoValidation(file))
+            {
                 settingsFactory.changeLogoPost(file).then(function (data) {
                     $location.path("signup/choosepalette");
                 });
-//            }
+            }
         };
-//        $scope.uploadLogo = function () {
-//            var file = $scope.myFile;
-//            if ($scope.uploadLogoValidation(file))
-//            {
-//                settingsFactory.changeLogoPost(file).then(function (data) {
-//                    $location.path("signup/choosepalette");
-//                });
-//            }
-//        };
+
         $scope.getColorsFromLogo = function () {
             $scope.activeColorLogo = 'selected_Tab';
             $scope.activeColorPicker = '';
@@ -330,11 +387,18 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         };
 
         $scope.resetPassword = function (user) {
-            signupFactory.forgotPasswordPost(user).then(function (data) {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                $scope.status = data;
-                window.open(getHost(), "_self");
-            });
+            if (!user.emailid) {
+                $scope.user = {emailid: ""};
+                $("#inputemail").focus();
+                return false;
+            }
+            else {
+                signupFactory.forgotPasswordPost(user).then(function (data) {
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    $scope.status = data;
+                    window.open(getHost(), "_self");
+                });
+            }
         };
 
         $scope.forgotChangePassword = function (user)
