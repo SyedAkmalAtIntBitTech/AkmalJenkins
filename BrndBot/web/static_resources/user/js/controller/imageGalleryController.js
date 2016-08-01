@@ -66,8 +66,9 @@ imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http'
 
         $scope.showImageUploadPopup = function ()
         {
-            $("#fade").show();
-            $scope.hidePopup = true;
+//            $("#fade").show();
+//            $scope.hidePopup = true;
+            $("#filesToUpload").trigger("click");
         };
 
         $scope.closeImageUploadPopup = function ()
@@ -97,6 +98,8 @@ imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http'
                 $scope.imageModal.push(e.target.result);
                 $scope.showImageUploaded = false;
             });
+            var showImage = document.getElementById('upload');
+            angular.element(showImage).triggerHandler('click');
         };
 
 //        $scope.datalists = [];

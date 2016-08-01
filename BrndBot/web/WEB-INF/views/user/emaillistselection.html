@@ -62,7 +62,7 @@
                                 <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
                             </select>-->
                         <div dropdown-select="ddSelectEmailListOptions" dropdown-model="ddSelectEmailList" dropdown-onchange="chooseEmailListOnChange(selected)"></div>
-                        <p class="input-wrap-label"> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
+                        <!--<p class="input-wrap-label"> Make sure you are sending to a list that wants to recieve this email<a class="input-help" href="#">Click to learn how</a></p>-->
                         <span class="validationAlert" ng-if="listSelectionValidation">{{listValidation}}</span>
 
                     </div>
@@ -86,10 +86,10 @@
                     </div>
 
                 
-                <div class="col-15of4 fleft unit">
+                <!--<div class="col-15of4 fleft unit">-->
                     <!--                    <input type="button" id="upload" value="Upload" ng-show="uploadButton" ng-click="upload()" class="md-button add-action-button noborder"/>      -->
                     <input type="button" value="Upload" ng-show="uploadButton" ng-click="uploadFileButton()" class="md-button add-action-button noborder" />      
-                </div>
+                <!--</div>-->
         </div>
         
         <!--Email Final Details-->
@@ -116,7 +116,7 @@
                 <div class="input-wrap">
                     <label> Enter a Reply to Address </label>
                     <div class="input ">
-                        <input id="email" class="fluid" placeholder="Enter Reply To Email Address" type="text" value="{{email_settings.reply_email_address}}" ng-model="replyAddress"></input>
+                        <input id="email" class="fluid" placeholder="Enter Reply To Email Address" type="text" ng-model="replyAddress"></input>
                         <input id="toaddress1" class="input-field-textfield input-placeholder" ng-model="toAddress" value="{{email_settings.email_addresses}}" placeholder="Enter To Email Address" type="hidden"></input>
                     </div>
                     <span class="validationAlert" ng-if='replyAddress === "" || null'>{{replyToValidation}}</span>

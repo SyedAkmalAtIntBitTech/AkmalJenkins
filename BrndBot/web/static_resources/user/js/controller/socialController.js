@@ -962,6 +962,40 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 $("#pinTextBox").focus();
             }
         };
+
+        $scope.showImageUploadPopup = function ()
+        {
+//            $scope.chooseImage = false;
+            $("#filesToUpload").trigger("click");
+        };
+        
+        $scope.imageModal = [];
+        $scope.showImageUploaded = true;
+
+        $scope.imageUpload = function (element) {
+            var reader = new FileReader();
+            reader.onload = $scope.imageIsLoaded;
+            reader.readAsDataURL(element.files[0]);
+        };
+
+        $scope.imageIsLoaded = function (e) {
+            $scope.$apply(function () {
+                $scope.imageModal = [];
+                $scope.imageModal.push(e.target.result);
+                $scope.showImageUploaded = false;
+            });
+            var showImage = document.getElementById('upload');
+            angular.element(showImage).triggerHandler('click');
+        };
+        $scope.uploadLogo = function (myFile) {
+            var file = myFile;
+                imageFactory.saveImagePost(file).then(function (data) {
+                    alert("Image Uploaded successfully");
+                    $scope.hidePopup = false;
+                    $("#fade").hide();
+                    $scope.getUserImages();
+                });           
+        };
     }]);
 //socialFlowApp.directive('toggleClass', function() {
 //    return {

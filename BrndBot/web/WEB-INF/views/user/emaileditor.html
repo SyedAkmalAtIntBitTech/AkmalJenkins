@@ -46,20 +46,16 @@
 </div> -->
 
 <!--SideNav-->
-<!--<div class="content-main" ng-controller="MyController">   -->
+<!--<div class="content-main" ng-controller="MyController">
 <div class="content-main" ng-init="emailEditorInit()">  
-    <div ng-include src="'emaileditormindbodypopup.html'">
-    </div> 
-    <!--Top Nav-->   
+    <div ng-include src="'emaileditormindbodypopup.html'"></div> 
     <div class="top-nav-full">
         <div class="page-title-bar col-1of1" ng-init="redirectBaseURL()">
-            <!--<a class="exit-button-icon" href="emailsubjects?categoryId={{categoryId}}&subCategoryId=<{{categoryId}}&mindbodyId={{mindbodyId}}&LookupId={{LookupId}}&emailSubject={{emailSubject}}">-->    
             <a class="exit-button-icon" href="baseemaileditor#/emailsubjects" >
                 <div class="exit-button-detail">
                         <img  src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/> 
                 </div>
             </a>    
-                <!--</a>-->
             <div class="page-title-with-back page-title-font">Email Editor</div>
             <div class="page-cta-container">
                 <a href="" class="gray-button fleft pushright">
@@ -72,7 +68,36 @@
         </div>
     </div>
     <!--Main Content GENERIC--> 
-    <div class="emailEditor-page-background fleft">
+    
+<div class="main-content-wrap no-side-nav" ng-init="emailEditorInit()">
+    <div ng-include src="'emaileditormindbodypopup.html'"></div> 
+    <div class="top-nav-wrap full">
+        <div class="sequence-page-header">
+            <div class="sequence-left-wrap" ng-init="redirectBaseURL()">
+                
+<!--                <div class="sequence-logo-wrap">
+                    <img class="sequence-logo-svg" src="/BrndBot/user/images/Logo_Reverse.svg" />
+                </div>-->
+                <a class="sequence-page-back-button" href="baseemaileditor#/emailsubjects"></a>
+<!--                <a class="sequence-page-back-button" href="createmarketingprogram#/marketingprogramactions"></a>-->
+                <h2 class="sequence-page-title"> Create an Email</h2>
+            </div>
+            <div class="sequence-step-wrap">
+                <ul>
+                    <a class="sequence-step">Subject</a>
+                    <a class="sequence-step active">Design</a>
+                    <a class="sequence-step ">Send To</a>
+                    <a class="sequence-step">Final Details</a>
+                </ul>
+            </div>
+            <div class="sequence-page-header-cta-wrap">
+                <!--<a>Exit</a>-->
+                <div class="email-editor-save-exit-button" id="saveToDraft" ng-click="saveToDraftOnClick()"  >Save as Draft and Exit</div> 
+            </div>
+        </div>
+    </div>
+    <div class="top-s-nav-bar-offset"></div>   
+   <div class="content-wrap content-wrap-sequence-page-editor" >
 
 
 
@@ -80,14 +105,15 @@
 
 
         <!--...................tinyMce test code...............-->
-        <div  class="emailEditor-page-background" style="width: 75%; height: 100%;float: left;">
-            <div style="max-height: 62%;overflow: auto">
+         <div  class="email-editor-wrap">
+                <div class="email-editor-top-buttons-wrap">
+                    <a class="reg-button slat-detail-button" id="emailpreview" ng-click="emailPreviewOnClick()">Preview Email</a>
+                </div>
+            <div class="email-editor-content-wrap">
                 <div  id ="defaultBlock" >
-                     <div class="editor_rightside ui-sortable" style="min-height: 438px; width: 1275px;">
-
-            <div class="emailrender ui-sortable" id="tinymceEditorBody" style="min-height: 523px; height: auto;">
-            </div>
-        </div>
+                    <div class="ui-sortable" >
+                        <div class="emailrender ui-sortable" id="tinymceEditorBody" ></div>
+                    </div>
 <!--    <div ng-init="hideEmailEditorOverlay = false" ng-if="hideEmailEditorOverlay" class="emailEditor-page-background fleft">
         <div class="emailEditor-leftCol ">
             <script>
@@ -107,9 +133,9 @@
                     <span class="reg-button gray-button" ng-click="editFooter()">Edit Email Footer</span>
                 </div>
             </div>
+    
             <div id="colpic" class="displayNone" style="width: 200px;height:200px;" >
                 <p ng-repeat="color in  colorcode.colors"style="display: inline-block;width: 20px;height:20px;background-color: {{color}}"  ng-click="chengeTemplateColor(color)">
-                  
                 </p>
             </div>
         </div>
@@ -127,31 +153,35 @@
 
 
 
-        <div class="" style="width: 25%; float: left;">
-            <div class="emailSideBar-Header">
-                <div class="col-1of2 fleft">
+        <div class="email-editor-right-col">
+            <div class="email-editor-tab-wrap">
+                <div class="editor-col-tab">
                     <div class="{{blocktab}}" id="blocktab" ng-init="showBlocks()" ng-click="showBlocks()">
                         Add Block
                     </div>
                 </div>
-                <div class="col-1of2 fleft">
+                <div class="editor-col-tab">
                     <div class="{{styletab}}" id="styletab" ng-init="showStyles('false')" ng-click="showStyles('true')">
                         Change Style
                     </div>
                 </div> 
             </div>
-            <div class="email-Block-Selection right-email-select">
-                <div class="email-Block-Header" id="blockdivheader" ng-show="blockdivheader">Select a block to add:</div>
-                <div class="email-Block-Header" id="styledivheader" ng-show="styledivheader">Select a style for this block:</div>
+            <div class="r-col-editor-wrap">
+                <div class="r-col-editor-header-wrap" id="blockdivheader" ng-show="blockdivheader">Select a block to add:</div>
+                <div class="r-col-editor-header-wrap" id="styledivheader" ng-show="styledivheader">Select a style for this block:</div>
                 <div class="block-selection-divider"></div>
-                <ul class="block-list" id="blockdiv" ng-show="blockdivheader">
-                    <li class="block-slat"  ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="blockOnClick(blocks.emailBlockId)">
+                <ul class="r-col-block-wrap" id="blockdiv" ng-show="blockdivheader">
+                    <li class="editor-block-slat" ng-class="setBlockActive" ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="blockOnClick(blocks.emailBlockId)">
+
+<!--                <ul class="block-list" id="blockdiv" ng-show="blockdivheader">
+                    <li class="block-slat" ng-class="setBlockActive" ng-class="blocks.emailBlockId"  ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="blockOnClick(blocks.emailBlockId)">-->
+
                         <div class="block-name" id="blklist----{{blocks.emailBlockId}}" >{{blocks.emailBlockName}}</div>                            
-                        <div class="block-button hide" ng-click="didChooseBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)" id="div2{{blocks.emailBlockId}}">Add Block</div>
+                        <div class="block-button hide" ng-class="{'hide': activeBlock !== blocks.emailBlockId}" ng-click="didChooseBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)" >Add Block</div>
                     </li>
                 </ul>
 
-                <ul class="block-list"  ng-show="styledivheader">
+                <ul class="r-col-block-wrap"  ng-show="styledivheader">
                     <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.modelId}}" ng-click="addActive('stylelistid' + styles.modelId)">
                         <div class="block-name">
                             <img id="{{styles.modelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" ng-click="addHTMLInEmailEditor(styles.modelId)" width="100%" />

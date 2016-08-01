@@ -64,7 +64,8 @@ Author: senthil
 	position: absolute;
 	left: 0px;
         top: 100%;
-        width: auto;
+        /*width: auto;*/
+        width:220px;
 }
 
 .arrow_top {
@@ -81,7 +82,7 @@ input.timepicki-input {
     	border: 1px solid #CCCCCC;
     	border-radius: 5px 5px 5px 5px;
     	float: none;
-    	margin: 10px 8px;
+    	margin: 10px 8px !important;
     	text-align: center;
     	width: 73%;
         font-size: 18px;
