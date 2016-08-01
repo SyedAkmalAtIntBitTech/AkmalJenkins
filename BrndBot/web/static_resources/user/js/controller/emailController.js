@@ -90,6 +90,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 }
                 $scope.loadingOverlay = false; //stop Loading Overlay
                 $scope.hideEmailEditorOverlay = true;
+                $scope.showBlocks();
             });
             $scope.getColor();
 
@@ -303,15 +304,20 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.blockOnClick = function (id) {
+            $scope.id=id;
+            $scope.id='block-slat-active';
+            $scope.setBlockActive='block-slat';
+            $scope.activeBlock=id;
+            
 //            TODO change to AngularJs, (Complicated code)
-            $("#blockdiv li").removeClass("block-slat-active");
-            $("#blockdiv li").addClass("block-slat");
-            $(".block-button").addClass("hide");
-            $("#blockdiv li").removeClass("block-slat-active");
-            $("#blockdiv li").addClass("block-slat");
-            $("#" + id).removeClass("block-slat");
-            $("#" + id).addClass("block-slat-active");
-            $("#div2" + id).removeClass("hide");
+//            $("#blockdiv li").removeClass("block-slat-active");
+//            $("#blockdiv li").addClass("block-slat");
+//            $(".block-button").addClass("hide");
+//            $("#blockdiv li").removeClass("block-slat-active");
+//            $("#blockdiv li").addClass("block-slat");
+//            $("#" + id).removeClass("block-slat");
+//            $("#" + id).addClass("block-slat-active");
+//            $("#div2" + id).removeClass("hide");
             $("#stylelist").css("display", "none");
             $("#blklist").css("display", "block");
             $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
@@ -330,12 +336,13 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $scope.selectedBlockId = selectedBlockId;
                 ++$scope.addBlockCount;
                 $scope.htmlTagId = "block" + $scope.addBlockCount;
-
+                $scope.showStyles('true');
                 if (externalSourceKeywordLookupId === 0)
                 {
                     $scope.mindbodyid = "0";
                     $scope.addHTMLInEmailEditor(selectedBlockId);
                     $scope.loadingOverlay = false;
+                    $scope.blockOnClick(0);
                 } else
                 {
 
@@ -369,6 +376,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $scope.showStyles();
             $scope.addHTMLInEmailEditor($scope.firstTemplateForBlock);
             $scope.closeMindbodyPopup();
+            $scope.blockOnClick(0);
         };
 
         $scope.addHTMLInEmailEditor = function (templateId) {
@@ -452,6 +460,11 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $scope.selectedBlockId = blockId;
                 $scope.htmlTagId = selectedHtmlBlockId;
             }
+            $scope.showStyles(true);
+            $scope.blockdivheader = false;
+            $scope.styledivheader = true;
+            $scope.blocktab = "emailSideBar-tab";
+            $scope.styletab = "emailSideBar-tab-active";
         };
 
 

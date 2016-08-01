@@ -171,9 +171,13 @@
                 <div class="r-col-editor-header-wrap" id="styledivheader" ng-show="styledivheader">Select a style for this block:</div>
                 <div class="block-selection-divider"></div>
                 <ul class="r-col-block-wrap" id="blockdiv" ng-show="blockdivheader">
-                    <li class="editor-block-slat"  ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="blockOnClick(blocks.emailBlockId)">
+                    <li class="editor-block-slat" ng-class="setBlockActive" ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="blockOnClick(blocks.emailBlockId)">
+
+<!--                <ul class="block-list" id="blockdiv" ng-show="blockdivheader">
+                    <li class="block-slat" ng-class="setBlockActive" ng-class="blocks.emailBlockId"  ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="blockOnClick(blocks.emailBlockId)">-->
+
                         <div class="block-name" id="blklist----{{blocks.emailBlockId}}" >{{blocks.emailBlockName}}</div>                            
-                        <div class="block-button hide" ng-click="didChooseBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)" id="div2{{blocks.emailBlockId}}">Add Block</div>
+                        <div class="block-button hide" ng-class="{'hide': activeBlock !== blocks.emailBlockId}" ng-click="didChooseBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)" >Add Block</div>
                     </li>
                 </ul>
 
