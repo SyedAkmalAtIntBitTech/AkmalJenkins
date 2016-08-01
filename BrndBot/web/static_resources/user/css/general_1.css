@@ -4500,6 +4500,7 @@ textarea.task-textarea:focus{
 
 .edit-email-auto-button{
     margin-right: 30px;
+    padding-left: 25px;
     position: relative;
 }
 
@@ -4517,8 +4518,10 @@ textarea.task-textarea:focus{
     border-radius: 30px;
     background-color: #1EADFC;
     position: absolute;
-    top: 11px;
-    left: -6px;
+/*    top: 11px;
+    left: -6px;*/
+    top: 12px;
+    left: 8px;
 
 }
 

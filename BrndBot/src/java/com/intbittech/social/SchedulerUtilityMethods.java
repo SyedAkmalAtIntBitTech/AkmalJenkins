@@ -96,7 +96,6 @@ public class SchedulerUtilityMethods {
             sbSql.append(";");
         }
         ArrayList<String> entityId = new ArrayList<String>();
-logger.log(Level.SEVERE,sbSql.toString());
         try (Connection conn = connectionManager.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sbSql.toString())) {
             ps.execute();

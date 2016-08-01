@@ -22,6 +22,9 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.actionDateValidation = actionDateValidation;
         $scope.lesserDateValidation = lesserDateValidation;
         $scope.calculatedProgramDate = "";
+        $scope.actionTypeValidation = false;
+        $scope.dateLesser = false;
+        $scope.timePickerVal = false;
 
         $scope.ddSelectActionOptions = [
             {
@@ -262,6 +265,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.addActionValidation = function (addTitle, datePicker, actionType) {
+            var actionTime1=$("#timepicker1").val().replace(/ /g,'');
+            
             if (!addTitle) {
                 $scope.addTitle = "";
                 $("#addactiontitle").focus();
@@ -276,6 +281,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $("#datepicker").focus();
                 return false;
             }
+            if (!actionTime1) {
+                $scope.timePickerVal = true;
+//                $("#datepicker").focus();
+                return false;
+            }
             return true;
         };
 
@@ -283,6 +293,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         {
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
             {
+                $scope.timePickerVal = false;
                 var actionTime1=$("#timepicker1").val().replace(/ /g,'');
                 var actionDateTime1=datePicker.toLocaleString() +" "+actionTime1.toLocaleString();
                 var fromDate = new Date(actionDateTime1);
@@ -374,7 +385,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
         {
 //        $scope.entities_selected_time =schedule_time;
-            var nDate = new Date(action_date);
+            var nDate = new Date(action_date + " 10:30 am"); //10:30 am save DST
             $scope.calculatedProgramDate = $scope.addDays(nDate, days);
             $scope.entities_selected_time = $filter('date')(schedule_time, "MMM dd yyyy");
             $scope.savedEmail = false;

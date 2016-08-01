@@ -139,10 +139,11 @@
                     <div class="input-wrap">
                         <label> Enter a Reply to Address</label>
                         <div class="input">
-                            <input id="reply_address" class="fluid" ng-model="automationData.replyAddress" type="email" 
+                            <input id="reply_address" class="fluid" ng-model="automationData.replyAddress" type="text" 
                                    required  placeholder="Enter reply-to-address" 
                                    value="{{entity_details.recurring_email_reply_to_email_address}}"/>
                             <span class="validationAlert" ng-if='automationData.replyAddress === "" || null'>{{replyToValidation}}</span>
+                            <span class="validationAlert" ng-if="validateEmailId">{{emailValidation}}</span>
 
                             <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
                         </div>

@@ -107,7 +107,11 @@
                     <span class="reg-button gray-button" ng-click="editFooter()">Edit Email Footer</span>
                 </div>
             </div>
-
+            <div id="colpic" class="displayNone" style="width: 200px;height:200px;" >
+                <p ng-repeat="color in  colorcode.colors"style="display: inline-block;width: 20px;height:20px;background-color: {{color}}"  ng-click="chengeTemplateColor(color)">
+                  
+                </p>
+            </div>
         </div>
 
 

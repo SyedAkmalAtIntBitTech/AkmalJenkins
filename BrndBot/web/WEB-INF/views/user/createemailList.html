@@ -25,9 +25,10 @@
                 <div class="input-wrap">
                     <label>Default from Address</label>
                     <div class="input">
-                        <input id="default_from_name" ng-model="email.deafultFromName" type="email"  placeholder="Default from Address" class="fluid" />
+                        <input id="default_from_name" ng-model="email.deafultFromName" type="text"  placeholder="Default from Address" class="fluid" />
                     </div>
-                 <span class="validationAlert" ng-if='email.deafultFromName === "" || null'>{{fromAddressValidation}}</span>
+                <span class="validationAlert" ng-if='email.deafultFromName === "" || null'>{{fromAddressValidation}}</span>
+                <span class="validationAlert" ng-if="createEmailValidation">{{emailaddrValidation}}</span>
                 </div>
             </div>
             <div class="modal-cta-container" >

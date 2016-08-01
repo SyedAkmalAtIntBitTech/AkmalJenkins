@@ -27,17 +27,30 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.selectedSocialmedia = "email";
         $scope.emailAddresses = '';
         $scope.loadingOverlay = false;
+        $scope.colpic = false;
+        $scope.colorcodeArray = [];
+        var seldiv = "";
         $scope.subjectValidation = subjectValidation;
         $scope.fromNameValidation = fromNameValidation;
         $scope.replyToValidation = replyToValidation;
         $scope.actionNameValidation = actionNameValidation;
         $scope.scheduleDateValidation = scheduleDateValidation;
+        $scope.lesserDateValidation = lesserDateValidation;
         $scope.scheduleTimeValidation = scheduleTimeValidation;
+        $scope.actionNameListValidation = actionNameListValidation;
+        $scope.listValidation = listValidation;
+        $scope.emailValidation = emailValidation;
+        $scope.isEmailSubEmpty = false;
+        $scope.actionTimeVal = false;
+        $scope.actionDropdown = false;
+        $scope.dateLesser = false;
+        $scope.validateEmailAddress = false;
+        $scope.validateEmailAddress = false;
         var sliderDialog = "#emaileditorexternalpopup";
         var emailDraftDetails = localStorage.getItem('emailDraftData');
 //        
         //OnPageLoad
-        $scope.emailEditorInit = function () {  
+        $scope.emailEditorInit = function () {
             $scope.loadingOverlay = true; //start Loading Overlay
             if (emailDraftDetails !== null) {
                 var paramDraftId = JSON.parse(emailDraftDetails).draftid;
@@ -79,8 +92,43 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $scope.hideEmailEditorOverlay = true;
                 $scope.showBlocks();
             });
+            $scope.getColor();
 
+        };
+        $scope.getColor = function () {
+            var colorcodeArray = [];
+            var hexDigits = new Array
+                    ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
+//Function to convert hex format to a rgb color
+            function rgb2hex(rgb) {
+                rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+                return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+            }
+            function hex(x) {
+                return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+            }
+            $.ajax({
+                async: false,
+                url: global_host_address + 'settings/getColors.do',
+                dataType: 'json',
+                success: function (data) {
+                    var k = 4;
+                    for (var i = 0; i < data.d.details.length; i++)
+                    {
+                        colorcodeArray[i] = rgb2hex(data.d.details[i]);
+                    }
+                    for (var j = 0; j < defaultFroalaColors.length; j = (j + 2)) {
+                        colorcodeArray[k] = defaultFroalaColors[j];
+                        k++;
+                    }
+                    $scope.colorcode = {colors: colorcodeArray};
+                }
+            });
 
+        };
+        $scope.chengeTemplateColor = function (color) {
+            $(seldiv).find('table:first').attr('bgcolor', '#' + color);
+            $("#colpic").hide();
         };
 
         $scope.emailFlowValidation = function (emailSubject) {
@@ -93,7 +141,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $scope.isEmailSubEmpty = false;
             return true;
         };
-
         $scope.redirect = function (redirect, categoryId, subCategoryId, mindbody, lookupId, mindbodyid, emailSubject, draftId)
         {
             localStorage.removeItem("emailDraftData");
@@ -215,7 +262,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     } else {
                         $scope.htmlbody = data.htmlbody;
                         $("#tinymceEditorBody").append(data.htmlbody);
-                        $scope.lunchTinyMceEditor();
+                        $scope.launchTinyMceEditor();
                     }
                 });
             }
@@ -280,8 +327,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
 
         $scope.didChooseBlock = function (selectedBlockId, externalSourceKeywordLookupId) {
-             $scope.emailMindBodyPopup = true;
-             $scope.loadingOverlay = true; //start Loading Overlay
+            $scope.emailMindBodyPopup = true;
+            $scope.loadingOverlay = true; //start Loading Overlay
             blockModelFactory.allEmailBlockModelGet(selectedBlockId).then(function (data) {
                 $scope.firstTemplateForBlock = data.d.details[0].emailBlockModelLookupId;
                 $scope.isBlockClicked = "true";
@@ -298,7 +345,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     $scope.blockOnClick(0);
                 } else
                 {
-                    
+
+                    $("#fade").show();
                     $scope.overlayFade = true;
                     $scope.loadingOverlay = true; //start Loading Overlay
                     $scope.emailScrollyDiv = false;
@@ -349,28 +397,30 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     var styleHtml = '<div id=defaultblock1 class=module onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)">' + emailData.htmldata + '</div>';
 //                    var styleHtml = '<div id=defaultblock1 class=module onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)"><div class=\"view\"><table width=\"100%\" bgcolor=\"#2a2a2a\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tbody><tr><td><table bgcolor=\"#d41b29\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\" class=\"devicewidth\"><div class=\"innerbg\"></div><div class=\"addremove\" style=\"margin-left: 975px;\"><div class=\"drag\"></div><div class=\"remove\"></div></div><tbody><tr><td width=\"100%\">' + emailData.htmldata + '</td></tr></tbody></table></div>';
                     $("#tinymceEditorBody").append(styleHtml);
-                    $scope.lunchTinyMceEditor();
+                    $scope.launchTinyMceEditor();
                 } else {
                     var editorHtml = $('#tinymceEditorBody').html();
                     if (editorHtml.contains('id="' + $scope.htmlTagId + '"')) {
-                        $("#"+ $scope.htmlTagId).remove();
+                        $("#" + $scope.htmlTagId).remove();
                         var BlockHtml = '<div id=' + $scope.htmlTagId + ' onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ')>' + emailData.htmldata + '</div>';
                         $("#tinymceEditorBody").append(BlockHtml);
-                         $scope.lunchTinyMceEditor();
+                        $scope.launchTinyMceEditor();
                     } else
                     {
                         BlockHtml = '<div id=' + $scope.htmlTagId + ' onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ')>' + emailData.htmldata + '</div>';
                         $("#tinymceEditorBody").append(BlockHtml);
-                         $scope.lunchTinyMceEditor();
+                        $scope.lunchTinyMceEditor();
                     }
                 }
             });
 
         };
-        $scope.lunchTinyMceEditor = function () {
-            tinymce.EditorManager.editors = []; 
+        $scope.launchTinyMceEditor = function () {
+            tinymce.EditorManager.editors = [];
             tinymce.init({
                 selector: 'td.mce-content-body',
+                extended_valid_elements: 'img[class|src|style|border=0|alt|title|hspace|vspace|width|height|max-width|max-height|align|onmouseover|onmouseout|name]',
+                forced_root_block : false,
                 width: 400,
                 inline: true,
                 plugins: [
@@ -379,20 +429,21 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     'insertdatetime media table contextmenu paste',
                     'template paste textcolor colorpicker textpattern imagetools'
                 ],
-                toolbar1: ' insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image ',
-                toolbar2: ' forecolor backcolor | fontselect fontsizeselect custombutton fileuploader ',
+                toolbar1: ' insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | link',
+                toolbar2: ' forecolor backcolor | fontselect fontsizeselect custombutton',
                 menubar: false
             });
-                             $('.innerbg').mouseenter(function () {
-                            var seldiv = $(this).parents('[st-sortable]');
-                            $(this).colpick({
-                                layout: 'hex',
-                                submit: 0,
-                                onChange: function (hsb, hex, rgb, fromSetColor) {
-                                    $(seldiv).find('table:first').attr('bgcolor', '#' + hex);
-                                }
-                            });
-                        });
+            $('.innerbg').click(function ($scope) {
+                $("#colpic").show();
+                seldiv = $(this).parents('[st-sortable]');
+//                            $(this).colpick({
+//                                layout: 'hex',
+//                                submit: 0,
+//                                onChange: function (hsb, hex, rgb, fromSetColor) {
+//                                    $(seldiv).find('table:first').attr('bgcolor', '#' + hex);
+//                                }
+//                            });
+            });
         };
         $scope.blockIdOnSelected = function (selectedBlock, blockId) {
             var selectedHtmlBlockId = selectedBlock.id;
@@ -722,6 +773,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.chooseEmailListOnChange = function (listName) {
             $scope.emailList = listName.value;
+            $scope.listSelectionValidation = false;
             $scope.toAddress = "";
             if ($scope.emailList === "Manual") {
                 emails = "";
@@ -805,7 +857,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             var result = emailAddresses.replace(/\s/g, "").split(/,|;/);
             for (var i = 0; i < result.length; i++) {
                 if (!regex.test(result[i])) {
-                    alert("This email list contains Invalid email " + "'" + result[i] + "'");
+//                    alert("This email list contains Invalid email " + "'" + result[i] + "'");
+                    $scope.listSelectionValidation = "true" + "'" + result[i] + "'";
                     return false;
                 }
             }
@@ -899,6 +952,22 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             });
         };
 
+//        $scope.emailListValidation = function (postData) {
+//            if (postData) {
+//                if (!postData.fromName) {
+//                    $scope.fromName = "";
+//                    $("#name").focus();
+//                    return false;
+//                }
+//                if (!postData.replyAddress) {
+//                    $scope.replyAddress = "";
+//                    $("#email").focus();
+//                    return false;
+//                }
+//            }
+//            return true;
+//        };
+
         $scope.emailListValidation = function (postData) {
             if (postData) {
                 if (!postData.fromName) {
@@ -915,13 +984,31 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             return true;
         };
 
+        $scope.replyEmailValidation = function (postData) {
+            var replyAddress = postData.replyAddress;
+            var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+            var result = replyAddress.replace(/\s/g, "").split(/,|;/);
+            for (var i = 0; i < result.length; i++) {
+                if (!regex.test(result[i])) {
+                    $("#email").focus();
+                    $scope.validateEmailAddress = "true" + "'" + result[i] + "'";
+                    return false;
+                }
+            }
+            $scope.validateEmailAddress = false;
+            return true;
+        };
+
         $scope.continueEmailDetailsOnClick = function (postData) {
             if ($scope.emailListValidation(postData))
             {
-                $scope.schedulePopup = false;
-                $scope.postTypeSelectionPopUp = true;
-                $scope.postData = postData;
-                $scope.postTo = "Send Now";
+                if ($scope.replyEmailValidation(postData))
+                {
+                    $scope.schedulePopup = false;
+                    $scope.postTypeSelectionPopUp = true;
+                    $scope.postData = postData;
+                    $scope.postTo = "Send Now";
+                }
             }
         };
 
@@ -1015,36 +1102,40 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.setAction = function (selectedAction) {
             $scope.socialAction = selectedAction.value;
-//            $scope.actionDropdown = false;
+            $scope.actionDropdown = false;
         };
 
         $scope.schedulePostValidation = function () {
-            var schedule_title = $("#ActionName").val();
-            var schedule_date = $("#actionDate").val();
-            var schedule_time = $("#actionTime").val().replace(/ /g, '');
-            var actionName = schedule_title;
-            var actionDateVal = schedule_date;
-            var actionTimeVal = schedule_time;
+            if ($scope.createNewActionPopup) {
+                var schedule_title = $("#ActionName").val();
+                var schedule_date = $("#actionDate").val();
+                var schedule_time = $("#actionTime").val().replace(/ /g, '');
+                var actionName = schedule_title;
+                var actionDateVal = schedule_date;
+                var actionTimeVal = schedule_time;
 
-            if (!actionName) {
-                $("#ActionName").focus();
-                $scope.actionName = "";
-                return false;
-            }
-            if (!actionDateVal) {
-                $("#actionDate").focus();
-                $scope.actionDateVal = "";
-                return false;
-            }
-            if (!actionTimeVal) {
+                if (!actionName) {
+                    $("#ActionName").focus();
+                    $scope.actionName = "";
+                    return false;
+                }
+                if (!actionDateVal) {
+                    $("#actionDate").focus();
+                    $scope.actionDateVal = "";
+                    return false;
+                }
+                if (!actionTimeVal) {
 //                $("#actionTime").focus();
-                $scope.actionTimeVal = "";
-                return false;
+                    $scope.actionTimeVal = "";
+                    return false;
+                }
             }
-//            if (!$scope.socialAction) {
-//                $scope.actionDropdown = true;
-//                return false;
-//            }
+            if ($scope.existingActionPopup) {
+                if (!$scope.socialAction) {
+                    $scope.actionDropdown = true;
+                    return false;
+                }
+            }
             return true;
         };
 
@@ -1110,6 +1201,14 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 var schedule_date = $("#actionDate").val();
                 var schedule_time = $("#actionTime").val().replace(/ /g, '');
                 var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
+                var fromDate = new Date(dateAndTime);
+                var todayDate = new Date();
+                if (fromDate < todayDate) {
+                    $scope.dateLesser = true;
+                    return false;
+                }
+                $scope.dateLesser = false;
+
                 var myEpoch = Date.parse(dateAndTime);
                 console.log("Epoch: " + myEpoch);
 
