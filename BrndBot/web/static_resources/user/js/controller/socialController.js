@@ -135,6 +135,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             $scope.facebookAction = urlsLink.value;
             $scope.fbLinkValidation = false;
             $scope.twitterLinkValidation = false;
+            $scope.twitterPostData.url = urlsLink.url;
         };
 
         $scope.postToFacebook = function (fbPostData) {
