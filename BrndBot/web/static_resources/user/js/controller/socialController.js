@@ -103,6 +103,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             $scope.selectImageType = imageType;
             $scope.selectImageType.toLowerCase();
             $scope.selectCompanyId = companyId;
+            $scope.addImage();
         };
 
         $scope.ddSelectlinkUrls = {
