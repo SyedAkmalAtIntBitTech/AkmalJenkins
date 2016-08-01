@@ -113,19 +113,19 @@
                    
             <div class="overlay-content" id="recurringactiondiv" ng-show="isRecurring===true">
                 <div class="overlay-name-bar">
-                    <div class="overlay-name-bar-recurring-title"  >{{recurringScheduleData.schedule_title}}</div>
-                    <input type="hidden"  id="recurring_email_title" value="{{schedule_title}}" class="input-field-textfield" readonly/>
+                    <div class="overlay-name-bar-recurring-title" ng-click="hideShowEditDot(true)" >{{recurringScheduleData.schedule_title}}</div>
+                    <input type="hidden" id="recurring_email_title" value="{{schedule_title}}" class="input-field-textfield" readonly/>
                     <input class="inputbox SP1" type="hidden" name="fb_scheduletype" id="fb_scheduletype" value='{{schedule_type}}'/>
                     <input class="inputbox SP1" type="hidden" name="fb_scheduleid" id="fb_scheduleid" value='{{schedule_id}}'/>
                     <a class="reg-button slat-detail-button edit-email-auto-button" ng-click="redirectToEmailAutomation('emailautomation','edit','', schedule_id)"> Edit Email Automation Details
-                    <div ng-show="editEmailAutoHint=true" class="email-automation-hint"></div></a>
+                        <div class="email-automation-hint" ng-show="editAutomationHint"></div></a>
                 </div>
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">GENERAL DETAILS</div>
                     <div class="detail-sections-wrap">
                         <div class="detail-section-item">
                             <label class="detail-section-label">Email Description</label>
-                            <p class="detail-section-data" ng-click="editEmailAutoHint=true">{{recurringScheduleData.schedule_desc}}</p>
+                            <p class="detail-section-data" ng-click="hideShowEditDot(true)">{{recurringScheduleData.schedule_desc}}</p>
                         </div>
                     </div>
                 </div>
@@ -136,10 +136,10 @@
                             <label class="detail-section-label">Trigger to send</label>
                             <div class="recurring-email-trigger-sentence-wrap">
                                 <span class="">Send an email</span>
-                                <span class="user-data" ng-click="editEmailAutoHint=true">{{recurringScheduleData.days}}</span>
+                                <span class="user-data" ng-click="hideShowEditDot(true)">{{recurringScheduleData.days}}</span>
                                 <span class=""> days after being added to</span>
-                                <span class="user-data unselected" ng-click="editEmailAutoHint=false" ng-show="recurringScheduleData.entities_list_name ===''">Need to Select an Email List</span>
-                                <span class="user-data" ng-click="editEmailAutoHint=true" ng-show="recurringScheduleData.entities_list_name!==''">{{recurringScheduleData.entities_list_name}}</span>
+                                <span class="user-data unselected" ng-click="hideShowEditDot(true)" ng-hide="hideShowEmailList">Need to Select an Email List</span>
+                                <span class="user-data" ng-click="hideShowEditDot(true)" ng-show="hideShowEmailList">{{recurringScheduleData.entities_list_name}}</span>
                                 <span class="">email list.</span>
                             </div> 
                        </div>

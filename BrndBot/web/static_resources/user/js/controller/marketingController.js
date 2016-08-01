@@ -438,7 +438,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //                }
 //            });
 //        };
-
+        $scope.hideShowEditDot = function (flag){
+            $scope.editAutomationHint=flag;
+        };
+        
         $scope.getRecurringScheduleDetails = function (schedule_id, template_status, till_date, schedule_time, entity_type, schedule_title, schedule_desc, date_status, days)
         {
             $scope.isRecurring = true;
@@ -458,6 +461,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.savedDetailsAddTemplateLink = "#/marketingprogramactions";
             $scope.templateApproveButton = "Play";
             $scope.templateDisapproveButton = "Pause";
+            $scope.hideShowEditDot(false);
             $scope.recurringScheduleData = {schedule_title: schedule_title, schedule_desc: schedule_desc,
                 schedule_id: schedule_id, entities_list_name: "",
                 email_template_status: template_status, schedule_type: "Recurring Email",
@@ -472,6 +476,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.recurringScheduleData.entities_reply_to_email_address = $scope.recurringEntitiesDetails.reply_to_email_address;
                 $scope.recurringScheduleData.days = days;
                 $scope.recurringScheduleData.entities_selected_time = $filter('date')(schedule_time, "HH:mm a");
+                if($scope.recurringEntitiesDetails.email_list_name === '0' || $scope.recurringEntitiesDetails.email_list_name == ''){
+                    $scope.hideShowEmailList=false;
+                }else{
+                    $scope.hideShowEmailList=true;
+                }
                 var iframe = document.getElementById('iframeForRecurringEmail');
                 if ($scope.recurringEntitiesDetails.body) {
                     $scope.savedEmail = true;
