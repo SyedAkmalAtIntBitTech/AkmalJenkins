@@ -44,7 +44,7 @@
                 </div>                     
             </div>
             <div class="browse-button">
-                <div class="add-action-button md-button button-text-1 uploadimgbtn" id="upload" ng-click="uploadLogo(myFile)"> Upload Image</div>
+                <div class="add-action-button md-button button-text-1 uploadimgbtn" id="upload" ng-click="uploadLogo(myFile); $event.stopPropagation();"> Upload Image</div>
 
             </div>
         </div>

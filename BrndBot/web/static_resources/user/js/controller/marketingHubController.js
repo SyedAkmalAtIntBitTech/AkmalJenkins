@@ -881,6 +881,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     emailListFactory.emailListSavePost(Emails).then(function (data) {
                         $scope.deSelectCheckboxButton = false;
                         $scope.selectCheckboxButton = false;
+                        $("#addcontact").show();
+                        $("#addcontacts").show();
                         $scope.updateList(email_list_name);
                         selectedemailids = "";
 //                        $location.path("/emaillistdetails");

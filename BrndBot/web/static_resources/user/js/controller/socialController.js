@@ -121,7 +121,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 for (var i = 0; i < linkUrlData.length; i++)
                 {
                     var linkUrlObject = {};
-                    linkUrlObject["text"] = linkUrlData[i].prigram_name  + " - " + linkUrlData[i].link_name + " - " + linkUrlData[i].url;
+                    linkUrlObject["text"] = linkUrlData[i].prigram_name + " - " + linkUrlData[i].link_name + " - " + linkUrlData[i].url;
                     linkUrlObject["value"] = linkUrlData[i].link_name;
                     linkUrlObject["url"] = linkUrlData[i].url;
                     $scope.ddSelectlinkUrlsOptions.push(linkUrlObject);
@@ -955,6 +955,40 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 alert(pinerror);
                 $("#pinTextBox").focus();
             }
+        };
+
+        $scope.showImageUploadPopup = function ()
+        {
+//            $scope.chooseImage = false;
+            $("#filesToUpload").trigger("click");
+        };
+        
+        $scope.imageModal = [];
+        $scope.showImageUploaded = true;
+
+        $scope.imageUpload = function (element) {
+            var reader = new FileReader();
+            reader.onload = $scope.imageIsLoaded;
+            reader.readAsDataURL(element.files[0]);
+        };
+
+        $scope.imageIsLoaded = function (e) {
+            $scope.$apply(function () {
+                $scope.imageModal = [];
+                $scope.imageModal.push(e.target.result);
+                $scope.showImageUploaded = false;
+            });
+            var showImage = document.getElementById('upload');
+            angular.element(showImage).triggerHandler('click');
+        };
+        $scope.uploadLogo = function (myFile) {
+            var file = myFile;
+                imageFactory.saveImagePost(file).then(function (data) {
+                    alert("Image Uploaded successfully");
+                    $scope.hidePopup = false;
+                    $("#fade").hide();
+                    $scope.getUserImages();
+                });           
         };
     }]);
 //socialFlowApp.directive('toggleClass', function() {
