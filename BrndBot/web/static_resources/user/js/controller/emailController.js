@@ -140,7 +140,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             }
             $scope.isEmailSubEmpty = false;
             return true;
-        };
+        };        
         $scope.redirect = function (redirect, categoryId, subCategoryId, mindbody, lookupId, mindbodyid, emailSubject, draftId)
         {
             localStorage.removeItem("emailDraftData");
