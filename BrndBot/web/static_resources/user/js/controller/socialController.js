@@ -39,7 +39,8 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.actionNameListValidation = actionNameListValidation;
         $scope.fbPostData = [];
         $scope.twitterPostData = [];
-//        $scope.facebookLinkValidation = false;
+        $scope.fbLinkValidation = false;
+        $scope.twitterLinkValidation = false;
 //        $scope.imageValidation = false;
         $scope.twitterCustomLink = false;
         $scope.actionTimeVal = false;
@@ -121,7 +122,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 for (var i = 0; i < linkUrlData.length; i++)
                 {
                     var linkUrlObject = {};
-                    linkUrlObject["text"] = linkUrlData[i].prigram_name  + " - " + linkUrlData[i].link_name + " - " + linkUrlData[i].url;
+                    linkUrlObject["text"] = linkUrlData[i].prigram_name + " - " + linkUrlData[i].link_name + " - " + linkUrlData[i].url;
                     linkUrlObject["value"] = linkUrlData[i].link_name;
                     linkUrlObject["url"] = linkUrlData[i].url;
                     $scope.ddSelectlinkUrlsOptions.push(linkUrlObject);
@@ -130,7 +131,9 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
 
         $scope.getSelectedUrl = function (urlsLink) {
-
+            $scope.facebookAction = urlsLink.value;
+            $scope.fbLinkValidation = false;
+            $scope.twitterLinkValidation = false;
         };
 
         $scope.postToFacebook = function (fbPostData) {
@@ -365,11 +368,10 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                     $("#linkDescription").focus();
                     return false;
                 }
-//            if (!linkUrls) {
-////                $scope.facebookLinkValidation = true;
-//                $scope.linkUrls = "";
-//                return false;
-//            }
+                if (!$scope.facebookAction) {
+                    $scope.fbLinkValidation = true;
+                    return false;
+                }
                 if (!postData.url) {
                     $scope.fbPostData = {shareText: postData.shareText, linkTitle: postData.linkTitle, linkDescription: postData.linkDescription, url: ""};
                     $("#facebooklink").focus();
@@ -392,6 +394,10 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 //                return false;
 //            }
             if ($scope.showTwitterLink) {
+                if (!$scope.facebookAction) {
+                    $scope.twitterLinkValidation = true;
+                    return false;
+                }
                 if (!postData.url) {
 //                    $scope.twitterPostData = {text: postData.text, url: ""};
                     $scope.twitterCustomLink = true;

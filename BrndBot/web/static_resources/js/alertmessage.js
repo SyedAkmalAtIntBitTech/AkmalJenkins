@@ -198,5 +198,8 @@ var dropdownValidation = "Please select your Organization";
 var colorValidation = "Please choose all four colors";
 var studioIdValidation = "No studio id entered, kindly enter the studio id";
 var logoValidation = "Please choose an image";
-
-
+var emailAddressValidation = "Please enter email address";
+var emailaddrValidation = "Invalid email address";
+var passwordValidation = "Please enter the password";
+var confirmPasswordValidation = "Please enter the confirm password";
+var uniqueUserValidation = "Sorry, that email Id already exists!";
