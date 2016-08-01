@@ -1,7 +1,7 @@
 <div id="fade" class="black_overlay" ng-class="fadeClass"></div>
 <div class="overlay-wrap overlay-slide" id="emailsection" ng-class="emailsectionClass">
     <div class="header" id="emailtopnav">
-        <a class="exit-button" ng-click="closePopup();clickedDeleteAction = false" href="">
+        <a class="exit-button" ng-click="closePopup();clickedDeleteAction = false;" href="">
         </a>
         <h2> {{generalActionDetailsHeader}} Action Detail</h2>
         <div class="overlay-header-cta-wrap">
@@ -19,7 +19,7 @@
                 <p>All data will be erased and you will lose any saved emails and posts</p>
                 <div class="cta-wrapper">
                     <a ng-click="clickedDeleteAction = false" href="" class="cancel-button">Cancel</a>
-                    <a ng-click="deleteSchedule(schedule_id, 'delete', generalActionDetailsHeader,'')" href="" class="delete-button">Delete</a>
+                    <a ng-click="clickedDeleteAction = false;deleteSchedule(schedule_id, 'delete', generalActionDetailsHeader,'');" href="" class="delete-button">Delete</a>
                 </div>
             </div>
         </div>

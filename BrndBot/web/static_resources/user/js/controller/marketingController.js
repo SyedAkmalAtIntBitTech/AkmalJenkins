@@ -86,6 +86,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         {
             $scope.marketingCategoryId = marketingCategoryId;
             $scope.marketingProgramId = marketingProgramId;
+//          var htm=$("p").clone().children().remove().end().text();
             $scope.htmlData = htmlData;
             $location.path("/" + pageName);
         };
@@ -315,7 +316,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 var end1 = moment(currDate);
                 var days = start.diff(end1, "days");
                 var actiond = "1970/01/01";
-                var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
+                var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
                 var l = actiond.toLocaleString() + " " + actionDateTime.toLocaleString();
                 var myDate = new Date(l); // Your timezone!        
                 var schedule_time = Date.parse(l);
