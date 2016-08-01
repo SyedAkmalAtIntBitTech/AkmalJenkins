@@ -60,18 +60,26 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                 <!--<label class="sign-up-text">Sign up with our free month trial</label>-->
                 <div class="input-wrap">
                     <div class="login">
-                        <input ng-model="userDetails.userName" placeholder="Email"  ng-blur="isUserUnique()" class="fluid"></input>
+                        <input id="usernamesignup" ng-model="userDetails.userName" placeholder="Email" ng-blur="isUserUnique()" class="fluid"></input>
                     </div>
+                    <span class="validationAlert" ng-if='userDetails.userName === "" || null'>{{emailAddressValidation}}</span>
+                    <span class="validationAlert" ng-if="createEmailValidation">{{emailaddrValidation}}</span>
+                    <span class="validationAlert" ng-if="uniqueUser">{{uniqueUserValidation}}</span>
                 </div>
                  <div class="input-wrap">
                     <div class="login ">
-                        <input ng-model="userDetails.userPassword" type="password" class="fluid" placeholder="Create a Password"></input>
+                        <input id="passwordsignup" ng-model="userDetails.userPassword" type="password" class="fluid" placeholder="Create a Password"></input>
                     </div>
+                    <span class="validationAlert" ng-if='userDetails.userPassword === "" || null'>{{passwordValidation}}</span>
+
                 </div>
                 <div class="input-wrap">
                     <div class="login ">
-                        <input  type="password" class="fluid" placeholder="Retype Password"></input>
+                        <input id="confirmpasswordsignup" type="password" class="fluid" placeholder="Retype Password"></input>
+<!--                        <input id="confirmpasswordsignup" type="password" class="fluid" ng-model="userDetails.confirmPassword" placeholder="Retype Password"></input>-->
                     </div>
+<!--                    <span class="validationAlert" ng-if='confirmPassword === "" || null'>{{confirmPasswordValidation}}</span>-->
+
                 </div>
             </form>
             <div class="login-in-button-wrap">
@@ -84,6 +92,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <form hidden id="signform" action="/BrndBot/login" method="POST">
             <input name="username"  id="username" ng-model="userDetails.userName" class="input_Field login-fields" type="text" required>
             <input ng-model="userDetails.userPassword" id="userpassword" name="password" type="text" required>
+<!--            <input id="confirmpasswordsignup" type="password" class="fluid" ng-model="userDetails.confirmPassword" required>-->
             <button  id="submitButton" type="submit">Login</button>
         </form>
     </div>

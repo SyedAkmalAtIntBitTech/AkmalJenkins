@@ -5,8 +5,8 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.newPasswordValidation = newPasswordValidation;
         $scope.confirmPasswordValidation = confirmPasswordValidation;
         $scope.logoValidation = logoValidation;
-        $scope.showPaletteChangePopUp="";
-               
+        $scope.showPaletteChangePopUp = "";
+
         // Hide & show password function
         $scope.hideShowPassword = function () {
             if ($scope.inputType == 'password')
@@ -32,12 +32,15 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.changePassword = function (password, confirmPassword) {
             if ($scope.accountSettingsValidation(password, confirmPassword))
             {
-//                alert(password);
-//                alert(confirmPassword);
+
+//                $scope.password = {};
+//                $scope.confirmPassword = {};
+//                 $scope.results;
+//                 $scope.results = angular.equals($scope.password, $scope.confirmPassword);
 
                 var password_object = {"password": password, "confirmpassword": confirmPassword, "type": "update"};
                 signupFactory.resetPasswordPost(password_object).then(function (data) {
-                    alert(password);
+                    alert("Password changed successfully");
 
                     $scope.status = data;
                 });
@@ -142,10 +145,10 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             if ((color1 === "rgba(0, 0, 0, 0)") || (color2 === "rgba(0, 0, 0, 0)") || (color3 === "rgba(0, 0, 0, 0)") || (color4 === "rgba(0, 0, 0, 0)")) {
                 alert("Please choose all 4 colors.");
             }
-            $("#color1").css("backgroundColor",color1);
-            $("#color2").css("backgroundColor",color2);
-            $("#color3").css("backgroundColor",color3);
-            $("#color4").css("backgroundColor",color4);
+            $("#color1").css("backgroundColor", color1);
+            $("#color2").css("backgroundColor", color2);
+            $("#color3").css("backgroundColor", color3);
+            $("#color4").css("backgroundColor", color4);
             $scope.showPaletteChangePopUp = false;
             settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
 //                alert(JSON.stringify(data.d.operationStatus.messages));

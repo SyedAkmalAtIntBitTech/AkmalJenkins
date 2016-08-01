@@ -5,7 +5,7 @@
       <div class="top-nav-bar-offset"></div>
     <div class="top-subnav-bar-offset"></div>
     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav">
-        <div class="hub-pane">
+        <div class="hub-pane" ng-init="displayEmailHistory()">
             <div class="hub-pane-header-wrap">
                 <h2 class="">Email History</h2>
                 <input type="text" class="search-bar" placeholder="Search" ng-model="userSearch"  ng-show="email_history.length > 0">

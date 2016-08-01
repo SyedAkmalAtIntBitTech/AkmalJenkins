@@ -39,12 +39,15 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.actionNameListValidation = actionNameListValidation;
         $scope.fbPostData = [];
         $scope.twitterPostData = [];
-//        $scope.facebookLinkValidation = false;
+        $scope.fbLinkValidation = false;
+        $scope.twitterLinkValidation = false;
 //        $scope.imageValidation = false;
         $scope.twitterCustomLink = false;
         $scope.actionTimeVal = false;
         $scope.actionDropdown = false;
         $scope.dateLesser = false;
+        $scope.imageValidation = false;
+        $scope.twitterImageValidation = false;
         var schedule_desc = "";
         $rootScope.CurrentFbAccessToken = "";
 
@@ -103,6 +106,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             $scope.selectImageType = imageType;
             $scope.selectImageType.toLowerCase();
             $scope.selectCompanyId = companyId;
+            $scope.addImage();
         };
 
         $scope.ddSelectlinkUrls = {
@@ -130,7 +134,9 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
 
         $scope.getSelectedUrl = function (urlsLink) {
-
+            $scope.facebookAction = urlsLink.value;
+            $scope.fbLinkValidation = false;
+            $scope.twitterLinkValidation = false;
         };
 
         $scope.postToFacebook = function (fbPostData) {
@@ -348,34 +354,37 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 $("#shareText").focus();
                 return false;
             }
-//            if (!$scope.twitterImageDivToPost) {
-////                $scope.fbPostData = {shareText: postData.shareText, img: fbPostData.img, linkTitle: postData.linkTitle, linkDescription: postData.linkDescription, url: postData.url};
-////                $("#shareText").focus();
-//                $scope.imageValidation = true;
-//                return false;
-//            }
             if ($scope.linkpost) {
                 if (!postData.linkTitle) {
+                    $scope.imageValidation = false;
                     $scope.fbPostData = {shareText: postData.shareText, linkTitle: "", linkDescription: postData.linkDescription, url: postData.url};
                     $("#linkTitle").focus();
                     return false;
                 }
                 if (!postData.linkDescription) {
+                    $scope.imageValidation = false;
                     $scope.fbPostData = {shareText: postData.shareText, linkTitle: postData.linkTitle, linkDescription: "", url: postData.url};
                     $("#linkDescription").focus();
                     return false;
                 }
-//            if (!linkUrls) {
-////                $scope.facebookLinkValidation = true;
-//                $scope.linkUrls = "";
-//                return false;
-//            }
+                if (!$scope.facebookAction) {
+                    $scope.imageValidation = false;
+                    $scope.fbLinkValidation = true;
+                    return false;
+                }
                 if (!postData.url) {
+                    $scope.imageValidation = false;
                     $scope.fbPostData = {shareText: postData.shareText, linkTitle: postData.linkTitle, linkDescription: postData.linkDescription, url: ""};
                     $("#facebooklink").focus();
                     return false;
                 }
             }
+            if (!$scope.twitterImageDivToPost) {
+//                $scope.fbPostData = {shareText: postData.shareText, img: fbPostData.img, linkTitle: postData.linkTitle, linkDescription: postData.linkDescription, url: postData.url};
+                $scope.imageValidation = true;
+                return false;
+            }
+            $scope.imageValidation = false;
             return true;
         };
 
@@ -385,20 +394,27 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 $("#twitterShareText").focus();
                 return false;
             }
-//            if (!$scope.twitterImageDivToPost) {
-////                $scope.twitterPostData = {text: postData.text, img: ""};
-////                $("#shareText").focus();
-//                $scope.imageValidation = true;
-//                return false;
-//            }
             if ($scope.showTwitterLink) {
+                if (!$scope.facebookAction) {
+                    $scope.twitterImageValidation = false;
+                    $scope.twitterLinkValidation = true;
+                    return false;
+                }
                 if (!postData.url) {
+                    $scope.twitterImageValidation = false;
 //                    $scope.twitterPostData = {text: postData.text, url: ""};
                     $scope.twitterCustomLink = true;
                     $("#linkOfUrls").focus();
                     return false;
                 }
             }
+            if (!$scope.twitterImageDivToPost) {
+                $scope.twitterImageValidation = false;
+//                $scope.twitterPostData = {text: postData.text, img: ""};
+                $scope.twitterImageValidation = true;
+                return false;
+            }
+            $scope.twitterImageValidation = false;
             return true;
         };
 
@@ -962,7 +978,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 //            $scope.chooseImage = false;
             $("#filesToUpload").trigger("click");
         };
-        
+
         $scope.imageModal = [];
         $scope.showImageUploaded = true;
 
@@ -983,12 +999,12 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
         $scope.uploadLogo = function (myFile) {
             var file = myFile;
-                imageFactory.saveImagePost(file).then(function (data) {
-                    alert("Image Uploaded successfully");
-                    $scope.hidePopup = false;
-                    $("#fade").hide();
-                    $scope.getUserImages();
-                });           
+            imageFactory.saveImagePost(file).then(function (data) {
+                alert("Image Uploaded successfully");
+                $scope.hidePopup = false;
+                $("#fade").hide();
+                $scope.getUserImages();
+            });
         };
     }]);
 //socialFlowApp.directive('toggleClass', function() {
