@@ -31,6 +31,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.validateEmail = false;
         $scope.emailIdVal = false;
         $scope.createEmailValidation = false;
+        $scope.listDescription = "";
+        $scope.listName = "";
+        $scope.deafultFromName = "";
 
         $scope.displayAllEmailDrafts = function () {
             $scope.activeEmailDrafts = 'activeTab';
@@ -257,6 +260,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 var emailSettingsData = {"from_address": "mail@brndbot.com", "reply_email_address": reply_email_address};
                 settingsFactory.saveEmailSettingsPost(emailSettingsData).then(function (data) {
                     $scope.getEmailSettings();
+                    alert("Settings saved successfully");
                 });
             }
         };
@@ -359,6 +363,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         $scope.addEmailList = function ()
         {
+            $("#list_name").val("");
+            $("#list_description").val("");
+            $("#default_from_name").val("");
             $("#fade").show();
             $scope.createEmailListPopup = true;
         };
@@ -430,6 +437,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 {
                     var emailListDetails = {"emailListName": email.listName, "defaultFromName": email.deafultFromName, "listDescription": email.listDescription, "update": "addEmailList"};
                     emailListFactory.emailListSavePost(emailListDetails).then(function (data) {
+                        alert("Email list created successfully");
                         $scope.createEmailListPopup = false;
                         $("#fade").hide();
                         $scope.emailListGet();

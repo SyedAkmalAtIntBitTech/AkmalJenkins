@@ -37,7 +37,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
                 var password_object = {"password": password, "confirmpassword": confirmPassword, "type": "update"};
                 signupFactory.resetPasswordPost(password_object).then(function (data) {
-                    alert(password);
+                    alert("Password changed successfully");
 
                     $scope.status = data;
                 });
