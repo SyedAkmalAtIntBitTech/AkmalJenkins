@@ -42,7 +42,7 @@
 
                             <span ng-show="showTwitterLink == true" class="" id="twitterLinkPost">
                                 <div class="input_Label pushUp_20">Write Custom Link</div>
-                                <textarea class="socialLink_attached removeDrag removeBorder" ng-model="twitterPostData.url = linkUrls.split('-').pop(0)" placeholder="http://www.brndbot.com" id="linkOfUrls">{{linkUrls.split('-').pop(0)}}</textarea></span><br>
+                                <input class="socialLink_attached removeDrag removeBorder fluid" ng-model="twitterPostData.url" placeholder="http://www.brndbot.com" id="linkOfUrls"></input></span><br>
 <!--                                <span class="validationAlert" ng-if='twitterPostData.url === "" || null'>{{customLinkValidation}}</span>-->
                                 <span class="validationAlert" ng-if="twitterCustomLink">{{customLinkValidation}}</span>
                         </div>  
