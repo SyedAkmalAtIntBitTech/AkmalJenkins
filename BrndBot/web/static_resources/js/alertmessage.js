@@ -202,4 +202,5 @@ var emailAddressValidation = "Please enter email address";
 var emailaddrValidation = "Invalid email address";
 var passwordValidation = "Please enter the password";
 var confirmPasswordValidation = "Please enter the confirm password";
+var confirmPasswordMissmatch = "Sorry, Confirm password didn't matched with Password!";
 var uniqueUserValidation = "Sorry, that email Id already exists!";
