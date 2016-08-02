@@ -4787,3 +4787,19 @@ textarea.task-textarea:focus{
 .modal-pane-search-input{
     margin-left:30px !important;
 }
+
+.gallery-item-wrap-selected{
+    width: 222px;
+      border: 2px solid #0f76a6;
+    border-radius: 3px;
+      margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.gallery-item-wrap-selected-true {
+    width: 224px;
+    border: 2px solid #0f76a6;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
