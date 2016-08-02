@@ -98,12 +98,6 @@
     </div>
     <div class="top-s-nav-bar-offset"></div>   
    <div class="content-wrap content-wrap-sequence-page-editor" >
-
-
-
-
-
-
         <!--...................tinyMce test code...............-->
          <div  class="email-editor-wrap">
                 <div class="email-editor-top-buttons-wrap">
@@ -111,16 +105,9 @@
                 </div>
             <div class="email-editor-content-wrap">
                 <div  id ="defaultBlock" >
-                    <div class="ui-sortable" >
+                    <div class="editor_rightside ui-sortable" >
                         <div class="emailrender ui-sortable" id="tinymceEditorBody" ></div>
                     </div>
-<!--    <div ng-init="hideEmailEditorOverlay = false" ng-if="hideEmailEditorOverlay" class="emailEditor-page-background fleft">
-        <div class="emailEditor-leftCol ">
-            <script>
-                       
-            </script>   
-            <div id="editor">
-                <div id='edit' class="editorclass" style="margin-top: 5px;">-->
                 </div>
             </div>
             <div class="emailEditor-leftCol float-lt" style="">
@@ -139,20 +126,6 @@
                 </p>
             </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <div class="email-editor-right-col">
             <div class="email-editor-tab-wrap">
                 <div class="editor-col-tab">
@@ -195,9 +168,6 @@
         <div ng-include src="'emailfooterpopup.html'"></div> 
     </span>
 </div>  
-
-<!--<div ng-show="overlayFade" id="fade" class="black_overlay" ></div>-->
-
 <div class="bottom-cta-bar" id="bottomdiv">
     <div class="bottom-cta-button-container-lg">
         <a href="">
@@ -212,67 +182,8 @@
         </div>
     </a>
 </div>
-<!--<script type="text/javascript" src="js/plugins/align.min.js"></script>
-<script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
-<script type="text/javascript" src="js/plugins/font_size.min.js"></script>
-<script type="text/javascript" src="js/plugins/font_family.min_editor.js"></script>
-<script type="text/javascript" src="js/plugins/image.min.js"></script>
-<script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
-<script type="text/javascript" src="js/plugins/file.min.js"></script>
-<script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
-<script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
-<script type="text/javascript" src="js/plugins/url.min.js"></script>
-<script type="text/javascript" src="js/plugins/entities.min.js"></script>
-<script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
-<script type="text/javascript" src="js/plugins/save.min.js"></script>
-<script type="text/javascript" src="js/plugins/quote.min.js"></script>
-<script type="text/javascript" src="js/plugins/link.min.js"></script>-->
 <script>
-//            function dragactions() {
-//
-//                $('.view').find('table:first').find('td:first').mouseenter(function () {
-//                    $(this).find('table:first').addClass('selecthover');
-//                });
-//                $('.view').find('table:first').find('td:first').mouseleave(function () {
-//                    $(this).find('table:first').removeClass('selecthover');
-//                });
-//
-//
-//
-//            }
-//
-//
-///////////COLOR SELECTOR///////////////////////
-//            function colorselector() {
-//
-//                $('.colorSelectorinner').hover(function () {
-//                    var seldiv = $(this);
-//
-//                    $(seldiv).ColorPicker({
-//                        color: '#0000ff',
-//                        onShow: function (colpkr) {
-//                            $(colpkr).fadeIn(500);
-//                            return false;
-//                        },
-//                        onHide: function (colpkr) {
-//                            $(colpkr).fadeOut(500);
-//                            return false;
-//                        },
-//                        onChange: function (hsb, hex, rgb) {
-//                            $(seldiv).css('background-color', '#' + hex).attr('bgcolor', '#' + hex);
-//                            //var color = $(this).css( "background-color" );
-//                            $(seldiv).parent('[st-bgcolor="edit"]').attr('bgcolor', '#' + hex);
-//                            //$('.sort table:first td:first table:first').css('backgroundColor', '#' + hex).attr('bgcolor','#' + hex);
-//                        }
-//                    });
-//
-//                });
-//
-//            }
-
-
-
-            $(document).ready(function () {
+    $(document).ready(function () {
                 $('.view').find('table:first').find('td:first').mouseenter(function () {
                     $(this).find('table:first').addClass('selecthover');
                 });
@@ -325,13 +236,9 @@
                         $('.emailrender a').click(function (event) {
                             event.preventDefault();
                         });
-
-                        //mouseover();
-                        //handleJsIds()
                         dragactions();
                         move_up_down();
                         colorselector();
-//                        tinymcereload();
                         $('.innerbg').mouseenter(function () {
                             var seldiv = $(this).parents('[st-sortable]');
                             $(this).colpick({
@@ -358,25 +265,9 @@
                         //$('.imgpop').prepend('<div class="uploader_wrap"><div class="upload_buttons"><div class="img_link"></div><div class="img_upload"></div></div></div>');
                         upload_buttons();
 
-
-                        //$('[st-content]')attr("mc:allowdesigner","");
-                        //$('[st-content]').attr(" mc:allowtext","contentattr");
-
-                        //monkey
-                        // var winh=$(".emailrender").height();
-                        // $(".emailrender").css("height",winh-100);
-
-
                     }
                 });
-
-
-
             });
-
-
-
-
         </script>
         <script>
             $(document).ready(function () {
@@ -404,24 +295,6 @@
                     $(this).parents('.view').find('table:first').find('table:first').removeClass('selecthoverred');
                     $(this).parents('.view').find('.move_controls').show();
                 });
-
-
-// $(".emailrender").delegate(".confirmyes", "click", function (e) { 
-
-//         $(this).closest('table').parents('table').parents('.module ').slideUp('200', function(){  $(this).remove(); } );
-//         $(this).closest('.remove').css("opacity","0");
-//         $(this).closest('.confirmbox').remove();
-//         $(this).parents('.view').find('table:first').find('table:first').removeClass('selecthoverred');
-//         $(this).parents('.view').find('.move_controls').show();
-//     });
-
-// $(".emailrender").delegate(".confirmno", "click", function (e) { 
-
-//         $(this).parents('.confirmbox').css({"opacity":"0"}).delay(300).slideUp(1);
-//         $(this).parents('.view').find('table:first').find('table:first').removeClass('selecthoverred');
-//         $(this).parents('.view').find('.move_controls').show();
-//     });
-
             }
 
             function clearDemo() {
@@ -431,7 +304,6 @@
             function removeMenuClasses() {
                 $("#menu-layoutit li button").removeClass("active")
             }
-
 
             function cleanHtml(e) {
                 $(e).parent().append($(e).children().html())
@@ -521,15 +393,6 @@
             var timerSave = 2e3;
 
             $(document).ready(function () {
-
-//                $("[data-target=#downloadModal]").click(function (e) {
-//                    e.preventDefault();
-//
-//                    downloadLayoutSrc()
-//                });
-
-
-
                 $("#edit").click(function () {
                     $("body").removeClass("devpreview sourcepreview");
                     $("body").addClass("edit");
@@ -560,13 +423,6 @@
                     $(".sidebar-nav .boxes, .sidebar-nav .rows").hide();
                     $(this).next().slideDown()
                 });
-
-
-                //configurationElm();
-                //gridSystemGenerator();
-//    setInterval(function () {
-//        //handleSaveLayout()
-//    }, timerSave)
             });
 
         </script>
