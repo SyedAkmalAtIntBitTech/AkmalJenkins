@@ -1,6 +1,6 @@
 
 <!--<div ng-show="overlayFade" id="fade" class="black_overlay" ></div>-->
-<div ng-if ="emailMindBodyPopup" class="center-pop-ups" id="emaileditorexternalpopup">
+<div ng-if ="emailMindBodyPopup" class="center-pop-ups overlay-dark-bg" id="emaileditorexternalpopup">
 
     <!--MainContent-->
    <!--<div class="detail-overlay-content">
@@ -47,15 +47,23 @@
             </div>
         </div>
     </div>-->
-   <div class="modal-pane modal-pane-width-full mbPopup ">
-       <div ng-init="hideMindbodyOverlay = false" ng-if="hideMindbodyOverlay">
+   <div class="modal-pane modal-pane-width-full ">
+       <div >
             <div class="modal-pane-header-wrap">
-                <h2>Email Template Category</h2>
-                 <input type="text" placeholder="Search" ng-model="userSearch">
+                <h2>Select content for this block</h2>
+                 <input class="modal-pane-search-input" type="text" placeholder="Search" ng-model="userSearch">
                  <a class="modal-pane-header-exit" ng-click="closeMindbodyPopup()"></a>
 <!--             <a ng-repeat="mindbody in mindbodylist" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=subCategoryId%>&mindbodyId={{mindbody.id}}&LookupId=<%=LookupId%>">-->
             </div>
-            <div class="full-height-modal-pane-content-wrap mbPopup">
+            <div class="modal-pane-content-wrap sequence-page" ng-show="loadingOverlay">
+                 <div class="external-data-loading-wrap" >
+                    <div class="external-data-loading-block">
+                        <div class="loader"></div>
+                        <div class="loader-description">Loading your content</div>
+                    </div>
+                </div>
+            </div>
+           <div class="modal-pane-content-wrap sequence-page"  ng-init="hideMindbodyOverlay = false" ng-if="hideMindbodyOverlay">
                 <a ng-repeat="mindbody in mindbodyDataList.mindbody_data | filter:userSearch" ng-click="didSelectMindbodyDataId(mindbody.id)" class="slat external-data">
                     <div class="slat-name-wrap">
                         <h2>{{mindbody.column1}}</h2>

@@ -823,7 +823,7 @@ li.sub-nav-tab.active a{
     left: 70px;
     width: calc(100vw - 70px);
     background-color: white;
-    border-top: 1px solid #B3B6BF;
+    border-top: 1px solid #E2E3E7;
     height: 55px;
 }
 
@@ -902,7 +902,7 @@ li.sub-nav-tab.active a{
     position: fixed;
     top:0;
     left: 0;
-    background: rgba(25,88,124,.7);
+    background: rgba(57,60,70,.7);
 }
 
 .overlay-wrap{
@@ -2526,6 +2526,7 @@ p.modal-content-header{
 
 .slat.external-data{
     padding: 22px 20px;   
+    border: 1px solid transparent;
 }
 
 .slat.external-data:hover{
@@ -2570,14 +2571,16 @@ p.modal-content-header{
     display: flex;
     align-self: center;
     padding-left: 20px;
-    margin-left: auto;
+}
+
+.slat-detail-wrap-your-plan{
+    padding-left:160px;
 }
 
 .slat-detail-wrap:last-child{
     display: flex;
     justify-content: flex-end;
     padding-left: 20px;
-    margin-left: auto;
 }
 
 .slat-detail{
@@ -2594,7 +2597,7 @@ p.modal-content-header{
 }
 
 .slat-detail h2{
-
+    text-align: right;
 }
 
 .slat-detail p{
@@ -4779,4 +4782,8 @@ textarea.task-textarea:focus{
 
 .addImage{
     margin-top: 200px;
+}
+
+.modal-pane-search-input{
+    margin-left:30px !important;
 }

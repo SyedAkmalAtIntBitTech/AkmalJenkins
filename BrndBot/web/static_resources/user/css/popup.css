@@ -1493,15 +1493,8 @@ textarea#filetext1 {
     display: none;
 }
 #emaileditorexternalpopup{
-    //display: none;
-    position: fixed;
-    z-index: 999999;
-    height: 100%;
-    overflow-y: auto;
-    max-height: 100%;
-    width: 900px;
-    right: 0px;
-    margin-right: -900px;
+   
+ 
 }
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/
 
