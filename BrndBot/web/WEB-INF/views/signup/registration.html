@@ -75,11 +75,11 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                 </div>
                 <div class="input-wrap">
                     <div class="login ">
-                        <input id="confirmpasswordsignup" type="password" class="fluid" placeholder="Retype Password"></input>
+                        <input id="confirmpasswordsignup" type="password" class="fluid" placeholder="Retype Password" ng-model="confirmPassword" ng-blur="isConfirmPasswordSame(confirmPassword)"></input>
 <!--                        <input id="confirmpasswordsignup" type="password" class="fluid" ng-model="userDetails.confirmPassword" placeholder="Retype Password"></input>-->
                     </div>
-<!--                    <span class="validationAlert" ng-if='confirmPassword === "" || null'>{{confirmPasswordValidation}}</span>-->
-
+                    <span class="validationAlert" ng-if='confirmPassword === ""|| null '>{{confirmPasswordValidation}}</span>
+                    <span class="validationAlert" ng-if='isConfirmPasswordSamePassword'>{{confirmPasswordMissmatch}}</span>
                 </div>
             </form>
             <div class="login-in-button-wrap">

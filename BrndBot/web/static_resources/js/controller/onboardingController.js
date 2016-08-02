@@ -18,10 +18,11 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.emailaddrValidation = emailaddrValidation;
         $scope.passwordValidation = passwordValidation;
         $scope.confirmPasswordValidation = confirmPasswordValidation;
+        $scope.confirmPasswordMissmatch = confirmPasswordMissmatch;
         $scope.uniqueUserValidation = uniqueUserValidation;
         $scope.uniqueUser = false;
-        $scope.userDetails = [];
-        $scope.user = [];
+        $scope.userDetails = {};
+        $scope.user = {};
 
         function validateSignUp()
         {
@@ -66,7 +67,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 $("#usernamesignup").focus();
                 return false;
             }
-
+            
             var uniqueuser = userDetails.userName;
             var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
             var result = uniqueuser.replace(/\s/g, "").split(/,|;/);
@@ -85,19 +86,27 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 $("#passwordsignup").focus();
                 return false;
             }
-//            if (!userDetails.confirmPassword) {
-//                $scope.createEmailValidation = false;
-//                $scope.userDetails = {userName: userDetails.userName, userPassword: userDetails.userPassword, confirmPassword: ""};
-//                $("#confirmpasswordsignup").focus();
-//                return false;
-//            }
-//            if (!confirmPassword) {
-//                $scope.createEmailValidation = false;
-//                $scope.confirmPassword = "";
-//                $("#confirmpasswordsignup").focus();
-//                return false;
-//            }
+            if ($scope.confirmPassword === ""||$scope.confirmPassword == null ) {
+                $scope.createEmailValidation = false;
+                $scope.confirmPassword = "";
+                $("#confirmpasswordsignup").focus();
+                return false;
+            }
+            if($scope.isConfirmPasswordSame($scope.confirmPassword))
             return true;
+        };
+        
+        $scope.isConfirmPasswordSame = function (cPassword){
+            if(cPassword === ""){
+                $scope.confirmPasswordError=true;
+                return false;
+            }else if($scope.userDetails.userPassword === cPassword){
+                $scope.isConfirmPasswordSamePassword=false;
+                return true;
+            }else{
+                $scope.isConfirmPasswordSamePassword=true;
+                return false;
+            }
         };
 
         $scope.saveUser = function (userDetails) {
@@ -123,6 +132,8 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 if (isUserUnique === "false") {
                     $scope.uniqueUser = true;
                     $("#usernamesignup").focus();
+                }else{
+                    $scope.uniqueUser = false;
                 }
             });
         };
