@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.intbit.util.CustomStyles;
 import com.intbittech.utility.ServletUtil;
 import com.intbittech.AppConstants;
+import com.intbittech.exception.ProcessFailed;
 import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.model.Company;
 import com.intbittech.model.Invite;
@@ -119,10 +120,12 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
 
-            String returnMessage = usersService.saveNonExistingUser(inviteDetails);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(
-                            messageSource.getMessage(returnMessage, 
+            boolean returnMessage = usersService.saveNonExistingUser(inviteDetails);
+            if (returnMessage){
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(
+                            messageSource.getMessage("invitation_check_mail", 
                                     new String[]{}, Locale.US)));
+            }
 
         } catch (Throwable throwable) {
             logger.error(throwable);

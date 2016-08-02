@@ -208,8 +208,8 @@ public class UsersServiceImpl implements UsersService {
      * {@inheritDoc}
      */
     @Override
-    public String saveNonExistingUser(InviteDetails inviteDetails)throws ProcessFailed{
-        String returnMessage = "";
+    public boolean saveNonExistingUser(InviteDetails inviteDetails)throws ProcessFailed{
+        boolean returnMessage = false;
         try{
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             String fromEmailId = userProfile.getUser().getUserName();
@@ -220,24 +220,21 @@ public class UsersServiceImpl implements UsersService {
                 boolean userExistInCompany = isUserExistInCompany(inviteDetails,userProfile.getUser().getFkCompanyId());
                 if (userExistInCompany){
                     setRole(inviteDetails);
-                    returnMessage = messageSource.getMessage("user_exist_role_assigned", new String[]{}, Locale.US);
+                    throw new ProcessFailed(messageSource.getMessage("user_exist_role_assigned", new String[]{}, Locale.US));
                 }else {
-                    returnMessage = messageSource.getMessage("user_does_not_exist_in_company", new String[]{}, Locale.US);
+                    throw new ProcessFailed(messageSource.getMessage("user_does_not_exist_in_company", new String[]{}, Locale.US));
                 }    
-            }else {
+            }else if(!userExist) {
                 ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
                 String contextRealPath = servletContext.getRealPath("");
 
                 String contextPath = Utility.getServerName(contextRealPath);
                 
                 usersInviteService.sendMail(fromEmailId, contextPath, inviteDetails);
-                returnMessage = messageSource.getMessage("invitation_check_mail", new String[]{}, Locale.US);
-
+                returnMessage = true;
             }
-            
-        }catch (Exception exception){
-            logger.log(Priority.ERROR, exception);
-            throw new ProcessFailed(messageSource.getMessage("something_wrong", new String[]{}, Locale.US));
+        }catch (Throwable throwable){
+            throw new ProcessFailed(throwable.getMessage());
         }
         return returnMessage;
     }
