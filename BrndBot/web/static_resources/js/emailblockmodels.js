@@ -146,7 +146,8 @@ function emailBlocksController($scope, $http, fileReader) {
 
     $scope.addEmailBlockModel = function () {
         var emailBlockModelName = $("#emailModelName").val();
-        var htmlData = $("#edit").froalaEditor('html.get');
+//        var htmlData = $("#edit").froalaEditor('html.get');
+        var htmlData = $("#editor").val();
         var imgDataObj = getImageData();
         var emailBlockModel = {"emailBlockModelName": emailBlockModelName, "htmlData": htmlData, "imageFileName": imgDataObj.imageFileName, "imageFileData": imgDataObj.base64ImgString};
         var validate = function () {
@@ -217,7 +218,8 @@ function emailBlocksController($scope, $http, fileReader) {
     $scope.updateEmailBlockModel = function () {
         var emailBlockModelId = $("#emailBlockIdTag").val();
         var emailBlockModelName = $("#emailModelNameTag").val();
-        var htmlData = $("#edit").froalaEditor('html.get');
+//        var htmlData = $("#edit").froalaEditor('html.get');
+        var htmlData = $("#editor").val();
         var imgDataObj = getImageData();
          var imageDataMethod= $("#imageEditSrc").attr('src');
         var emailBlockModel = {"modelId":emailBlockModelId, "emailBlockModelName": emailBlockModelName, "htmlData": htmlData, "imageFileName": imgDataObj.imageFileName, "imageFileData": imageDataMethod};
