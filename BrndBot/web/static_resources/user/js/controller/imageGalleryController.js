@@ -39,7 +39,7 @@ imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http'
             if ($scope.imageGalleryValidation(myFile))
             {
                 imageFactory.saveImagePost(file).then(function (data) {
-                    alert("Image Uploaded successfully");
+//                    alert("Image Uploaded successfully");
                     $scope.hidePopup = false;
                     $("#fade").hide();
                     $scope.getAllCompanyImages();
