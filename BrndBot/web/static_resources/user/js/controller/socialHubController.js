@@ -55,6 +55,7 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
                 settingsFactory.fbGetTokenGet(code).then(function (data) {
                     $scope.setDefaultManagePage=true;
                     $scope.facebook = true;
+                    $scope.facebookDetailsTab = false;
                     $scope.managepagesettings = true;
                     $scope.fbPagesDetails = data.d.details[0].fbPages;
                     $scope.fbProfileName = data.d.details[0].user_profile_name;
@@ -130,7 +131,8 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
         
 
         $scope.postToSelectedPage = function () {
-            var addDafaultmanagePage = $("#setDefaultManagePage").prop('checked');
+            alert("fb");
+            var addDafaultmanagePage = true;//$("#setDefaultManagePage").prop('checked');
 //            var data = JSON.stringify({access_token_method: "setAccessToken"});
             var data = "";
             if (addDafaultmanagePage) {

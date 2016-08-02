@@ -391,25 +391,29 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 if ($scope.isBlockClicked === "false") {
                     var editorHtml = $('#tinymceEditorBody').html();
                     if (editorHtml.contains('id="defaultblock1"')) {
-                        $("#defaultblock1").remove();
-                        editorHtml = $('#tinymceEditorBody').html();
-                    }
-                    var styleHtml = '<div id=defaultblock1 class=module onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)">' + emailData.htmldata + '</div>';
+                        $("#defaultblock1").html('<div class="view">'+emailData.htmldata+'</div>');
+//                        $("#defaultblock1").remove();
+//                        editorHtml = $('#tinymceEditorBody').html();
+                    } else
+                    {
+                    var styleHtml = '<div id=defaultblock1 class=module onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)"><div class="view">' + emailData.htmldata + '</div></div>';
 //                    var styleHtml = '<div id=defaultblock1 class=module onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)"><div class=\"view\"><table width=\"100%\" bgcolor=\"#2a2a2a\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tbody><tr><td><table bgcolor=\"#d41b29\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\" class=\"devicewidth\"><div class=\"innerbg\"></div><div class=\"addremove\" style=\"margin-left: 975px;\"><div class=\"drag\"></div><div class=\"remove\"></div></div><tbody><tr><td width=\"100%\">' + emailData.htmldata + '</td></tr></tbody></table></div>';
                     $("#tinymceEditorBody").append(styleHtml);
+                    }
                     $scope.launchTinyMceEditor();
                 } else {
                     var editorHtml = $('#tinymceEditorBody').html();
                     if (editorHtml.contains('id="' + $scope.htmlTagId + '"')) {
-                        $("#" + $scope.htmlTagId).remove();
-                        var BlockHtml = '<div id=' + $scope.htmlTagId + ' onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ')>' + emailData.htmldata + '</div>';
-                        $("#tinymceEditorBody").append(BlockHtml);
+                        $("#" + $scope.htmlTagId).html('<div class="view">'+emailData.htmldata+'</div>');
+//                        $("#" + $scope.htmlTagId).remove();
+//                        var BlockHtml = '<div id=' + $scope.htmlTagId + ' onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ')>' + emailData.htmldata + '</div>';
+//                        $("#tinymceEditorBody").append(BlockHtml);
                         $scope.launchTinyMceEditor();
                     } else
                     {
                         BlockHtml = '<div id=' + $scope.htmlTagId + ' onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ')>' + emailData.htmldata + '</div>';
                         $("#tinymceEditorBody").append(BlockHtml);
-                        $scope.lunchTinyMceEditor();
+                        $scope.launchTinyMceEditor();
                     }
                 }
             });
@@ -429,8 +433,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     'insertdatetime media table contextmenu paste',
                     'template paste textcolor colorpicker textpattern imagetools'
                 ],
-                toolbar1: ' insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | link',
-                toolbar2: ' forecolor backcolor | fontselect fontsizeselect custombutton',
+                toolbar1: 'undo | bold italic | alignleft aligncenter alignright | link forecolor | fontselect fontsizeselect custombutton',
                 menubar: false
             });
             $('.innerbg').click(function ($scope) {
