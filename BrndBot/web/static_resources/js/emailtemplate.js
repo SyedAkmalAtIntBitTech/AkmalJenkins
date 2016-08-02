@@ -159,7 +159,9 @@ function emailTemplateController($scope, $http ,fileReader) {
 
     $scope.addEmailTemplate = function () {
         var emailModelName = $("#emailModelName").val();
-        var htmlData = $("#edit").froalaEditor('html.get');
+        //  var htmlData = $("#edit").froalaEditor('html.get');
+        var htmlData = $("#editor").val();
+
         var imgDataObj = getImageData();
 
         var emailModel = {"emailModelName": emailModelName, "htmlData": htmlData, "imageFileName": imgDataObj.imageFileName, "imageFileData": imgDataObj.base64ImgString};
@@ -211,7 +213,8 @@ function emailTemplateController($scope, $http ,fileReader) {
     $scope.editEmailTemplate = function () {
         var emailModelId = $("#emailModelIdTag").val();
         var emailModelName = $("#emailModelNameTag").val();
-        var htmlData = $("#edit").froalaEditor('html.get');
+        var htmlData = $("#editor").val();
+//        var htmlData = $("#edit").froalaEditor('html.get')
         var imgDataObj = getImageData();
         var imageDataMethod= $("#imageEditSrc").attr('src');
         var emailModel = {"emailModelId": emailModelId, "emailModelName": emailModelName, "htmlData": htmlData, "imageFileName": imgDataObj.imageFileName, "imageFileData": imageDataMethod};
@@ -265,7 +268,8 @@ function emailTemplateController($scope, $http ,fileReader) {
             method: 'GET',
             url: getHost() + '/getEmailModelById?emailModelId=' + emailModelId
         }).success(function (data, status, headers, config) {
-            $('.fr-element').html(eval(JSON.stringify(data.d.details[0].htmlData)));
+            $('#editor').html(eval(JSON.stringify(data.d.details[0].htmlData)));
+//            $('.fr-element').html(eval(JSON.stringify(data.d.details[0].htmlData)));
             $('#showFIleName').text(eval(JSON.stringify(data.d.details[0].imageFileName)));
             $('#imageEditSrc').attr('src','data:image;base64,'+(data.d.details[0].imageFileData));
             $scope.emailModelById = data.d.details[0];

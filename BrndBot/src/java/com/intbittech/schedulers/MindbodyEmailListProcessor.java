@@ -96,19 +96,19 @@ public class MindbodyEmailListProcessor implements Runnable {
                 logger.log(Level.INFO, "Ended working on getting email lists for :" + siteids[0] + " Processing time:" + ((System.currentTimeMillis() - startTime) / 1000.0) + " Email Indexes Present:" + clientIndexesHashmap.keySet().size());
                 //convert clientIndexesHashmap to JSONObject and update table
                 //Email list name : [clientEmailAddresses].
-
+                //iterates through every emaillist
                 for (String email_list_name : clientIndexesHashmap.keySet()) {
                     org.json.JSONObject json_email_object = new org.json.JSONObject();
                     List email_client = (List<Client>) clientIndexesHashmap.get(email_list_name);
                     org.json.JSONArray json_array_emailclient = new org.json.JSONArray();
-
+                    //iterates throught every email in emaillist
                     for (int i = 0; i < email_client.size(); i++) {
                         Client email_object1 = (Client) email_client.get(i);
                         String email_id = email_object1.getEmail();
 
                         String first_name = email_object1.getFirstName();
                         String last_name = email_object1.getLastName();
-                        if (Utility.checkIfUnsubscribed(email_id, unsubscribedEmailsMap)) {
+                        if (!Utility.checkIfUnsubscribed(email_id, unsubscribedEmailsMap)) {
                             EmailInfo email_info = new EmailInfo(email_id, first_name, last_name, dateFormat.format(new Date()));
                             json_array_emailclient.put(email_info.getEmailInfoJSONObject());
                         }                        
@@ -135,6 +135,6 @@ public class MindbodyEmailListProcessor implements Runnable {
         Map<String, Object> map = new HashMap<>();
         map.put("update", "updateAllCompanyMindbodyListForStudioId");
         map.put(IConstants.kEmailListMindbodyKey, mindbodyEmails);
-        emailListService.setEmailList(map, companyId);;
+        emailListService.setEmailList(map, companyId);
     }
 }

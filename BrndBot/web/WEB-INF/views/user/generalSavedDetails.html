@@ -68,7 +68,7 @@
                     <div class="detail-sections-wrap">
                         <div class="detail-section">
                             <div class="detail-section-item">
-                                <label class="detail-section-label">post text</label>
+                                <label class="detail-section-label">Post Text</label>
                                 <p class="detail-section-data">{{entitiesdetails.metadata.post_text}}</p>
                             </div>
                             <div ng-show="entitiesdetails.metadata.url != 'undefined'">
@@ -217,19 +217,23 @@
                     <div class="detail-sections-wrap">
                         <div class="detail-section">  
                             <div class="detail-section-item">
-                                <label class="detail-section-label">subject line</label>
-                                <p class="detail-section-data">{{recurringScheduleData.subject}}</p>
+                                <label class="detail-section-label">Subject Line</label>
+                                <p class="detail-section-data">{{recurringScheduleData.entities_subject}}</p>
                             </div>
                             <div class="detail-section-item">
-                                <label class="detail-section-label">send to list</label>
-                                <p class="detail-section-data">{{recurringScheduleData.entities_list_name}}</p>
+                                <label class="detail-section-label">Reply-to-address:</label>
+                                <p class="detail-section-data">{{recurringScheduleData.entities_reply_to_email_address}}</p>
+                            </div>
+                            <div class="detail-section-item">
+                                <label class="detail-section-label"> From name:</label>
+                                <p class="detail-section-data">{{recurringScheduleData.entities_from_name}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
            
                 <div class="email-preview-bar">EMAIL PREVIEW</div>
-                <div class="overlay-email-preview"><iframe id="iframeForAction" class="email-overlay-iFrame"></iframe>
+                <div class="overlay-email-preview"><iframe id="iframeForRecurringEmail" class="email-overlay-iFrame"></iframe>
                     <!--iframe goes here-->
                 </div>
         </div>

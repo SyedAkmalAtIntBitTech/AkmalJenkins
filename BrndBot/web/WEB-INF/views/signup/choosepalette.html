@@ -25,6 +25,7 @@
                             <div id="color3Div" class="color-swab"><div id="color3" ng-model="selectedColor.color3" toggle-class model="colorModel"></div></div>
                             <div id="color4Div" class="color-swab"><div id="color4" ng-model="selectedColor.color4"  toggle-class model="colorModel"></div></div>
                         </div>
+                        <span class="validationAlert" ng-if="colorsAlert">{{colorValidation}}</span>
                     </div>
 
                     <div class="CTA_Button Button--Gray clear-colors" ng-click="clearColorPalette()">Clear Colors</div>
@@ -68,7 +69,6 @@
         </div>     
     </div>
     <div class="continue-bar-offset"></div>
-</div>
 </div>
 <div class="continue-bar sequence-continue-bar">
     <a id="continue-bar-button" ng-click="saveColorPalette()" class="fright">CONTINUE</a>

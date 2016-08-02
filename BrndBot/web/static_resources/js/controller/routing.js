@@ -8,6 +8,10 @@ brndBotSignupApp.config(function ($routeProvider) {
                 templateUrl: 'signup/resetpassword.html',
 //                controller: 'onboardingController'
             })
+             .when('/signup/changepassword', {
+                templateUrl: 'signup/changepassword.html',
+//                controller: 'onboardingController'
+            })
             .when('/signup/company', {
                 templateUrl: 'signup/company.html',
 //                controller: 'onboardingController'

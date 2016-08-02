@@ -17,6 +17,8 @@
                     <div class="input ">
                         <textarea class="fluid facebook-post-textarea" placeholder="Type post here" id="shareText" ng-model="fbPostData.shareText"></textarea>
                     </div>
+                    <span class="validationAlert" ng-if='fbPostData.shareText === "" || null'>{{facebookPostValidation}}</span>
+
                 </div>
                 
                 <div ng-if="linkpost" id="linkPostFields">
@@ -56,6 +58,8 @@
             </div>
             <div ng-show="twitterImageDivToPost" class="Social-Add-Image-Wrap-with-img " id="addImageDivToTwitterPost">
                 <img ng-src="{{displayImage}}" ng-model="fbPostData.img = displayImage" alt="alt_text" border="0" align="center" id="selectedImage" class="imageAdded">
+<!--                <span class="validationAlert" ng-if='fbPostData.img === "" || null'>{{facebookPostValidation}}</span>-->
+
                 <div class=\">
                     <div class="reg-button" id="changeImage"  ng-click="show_hide_ImageGalleryPopup(true)">
                         Change Image

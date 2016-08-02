@@ -1,16 +1,18 @@
 <div class="addContactPopup" ng-init="showAddContactPopup = false" ng-if="showAddContactPopup">
     <div class="pop-up-background" style="width: 100%;">
-
         <div class="pop-up-container pop-up-container-createEmail"> 
             <div class="modal-pane-header-wrap">
-                <h2 class="">Create a New Action</h2>
+                <h2 class="">Create a New Contact</h2>
                 <a id="close" ng-click="closeAddContactPopup()" class="modal-pane-header-exit"></a>
             </div>
             <div class="modal-pane-content-wrap create-new-schedule-modal">
                 <div class="input-wrap">
                     <label>Email Address</label>
                     <div class="input">
-                        <input type="text" placeholder="Enter Email Address" id="emailId" ng-model="email.emailId" class="fluid" >
+                        <input type="email" placeholder="Enter Email Address" id="emailId" ng-model="email.emailId" class="fluid" >
+<!--                            <span class="validationAlert" ng-if='email.emailId === "" || null'>{{emailAddressValidation}}</span>-->
+                            <span class="validationAlert" ng-if="emailIdVal">{{emailAddressValidation}}</span>
+
                         <input type="hidden" id="uuid" value="">
                         <input type="hidden" id="type" value=""/>
                     </div>
@@ -19,17 +21,18 @@
                     <label>First Name</label>
                     <div class="input">
                         <input type="text" value="" class="fluid" placeholder="Enter First Name" id="firstName" ng-model="email.firstName"/>
+
                     </div>
                 </div>
                 <div class="input-wrap">
-                    <label>Action Name</label>
+                    <label>Last Name</label>
                     <div class="input">
                         <input type="text" value="" class="fluid" placeholder="Enter Last Name" id="lastName" ng-model="email.lastName"/>
                     </div>
                 </div>
             </div>
             <div class="modal-cta-container" >
-                <a class="long-button blue-button" ng-click="updateEmailID(email)" id="addContactButton" href="">Create this Action</a>
+                <a class="long-button blue-button" ng-click="updateEmailID(email)" id="addContactButton" href="">Create this Contact</a>
             </div>
         </div>
     </div>      
