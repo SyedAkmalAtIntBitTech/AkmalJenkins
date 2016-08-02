@@ -4569,7 +4569,7 @@ textarea.task-textarea:focus{
     width: calc(100vw - 401px);
     align-self: flex-start;
     background-color: #f2f2f4;
-
+    overflow-y: scroll;
 }
 
 .email-editor-top-buttons-wrap{
