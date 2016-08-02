@@ -6,7 +6,9 @@
 package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.UserRole;
 import com.intbittech.model.UserRoleLookup;
+import com.intbittech.model.Users;
 
 /**
  *
@@ -47,5 +49,14 @@ public interface UserRoleLookUpDao {
      * @throws ProcessFailed the process failed
      */
     public UserRoleLookup getUsersRoleLookupById(Integer Id) throws ProcessFailed;
+
+    /**
+     * This method pass user as input and get the {@link UserRole} from database
+     *
+     * @param user
+     * @return {@link UserRole}
+     * @throws ProcessFailed the process failed
+     */
+    public UserRole getUsersRoleByUserId(Users user) throws ProcessFailed;
     
 }

@@ -7,7 +7,10 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Invite;
+import com.intbittech.model.InvitedUsers;
+import com.intbittech.model.Users;
 import com.intbittech.modelmappers.InviteDetails;
+import java.util.List;
 
 /**
  *
@@ -38,6 +41,23 @@ public interface UsersInviteService {
      * @throws ProcessFailed the process failed
      */
     public void delete(Integer id) throws ProcessFailed;
+
+    /**
+     * This method pass id as input and deletes the {@link InviteUsers} from DAO layer.
+     *
+     * @param id
+     * @return {@link InvitedUsers}
+     * @throws ProcessFailed the process failed
+     */
+    public List<InvitedUsers> getInvitedUsers(Users userFrom)throws ProcessFailed;
+    /**
+     * This method pass Id as input and get the {@link Invite} from DAO layer
+     *
+     * @param Id
+     * @return {@link Invite}
+     * @throws ProcessFailed the process failed
+     */
+    public List<Invite> getAllInvitedUsers(Users userFrom) throws ProcessFailed;    
     
     /**
      * This method pass Id as input and get the {@link Invite} from DAO layer

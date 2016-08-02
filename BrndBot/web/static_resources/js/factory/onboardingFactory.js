@@ -20,6 +20,26 @@ factoryApp.factory('onboardingFactory', function ($q,authenticatedServiceFactory
         });
         return deffered.promise;
     };
+    onboardingFactoryObject.inviteUserPost = function (userDetails) {
+        alert(JSON.stringify(userDetails));
+        var deffered = $q.defer();
+        var url = configurationService.inviteUserURL();
+        alert(url);
+        authenticatedServiceFactory.makeCall("POST", url, userDetails, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+
+    onboardingFactoryObject.getInvitedUsersPost = function () {
+        var deffered = $q.defer();
+        var url = configurationService.getInvitedUsersURL();
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+
     onboardingFactoryObject.saveStudioIdPost = function (studioId) {
         var deffered = $q.defer();
         var url = configurationService.saveStudioIdURL()+"?studioId="+studioId;

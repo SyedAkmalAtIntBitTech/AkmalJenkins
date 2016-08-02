@@ -13,18 +13,25 @@ import com.intbittech.email.mandrill.Recipient;
 import com.intbittech.email.mandrill.RecipientMetadata;
 import com.intbittech.email.mandrill.SendMail;
 import static com.intbittech.email.mandrill.SendMail.MANDRILL_KEY;
+import com.intbittech.enums.AdminStatus;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Invite;
+import com.intbittech.model.InvitedUsers;
+import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.InviteDetails;
 import com.intbittech.modelmappers.TaskDetails;
+import com.intbittech.services.UserRoleLookUpService;
+import com.intbittech.services.UserRoleService;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.StringUtility;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
@@ -42,7 +49,10 @@ public class UsersInviteServiceImpl implements UsersInviteService{
 
     @Autowired
     private UsersInviteDao usersInviteDao;
-    
+    @Autowired
+    private UserRoleLookUpService userRoleLookUpService;
+    @Autowired
+    private UserRoleService userRoleService;
     @Autowired
     private MessageSource messageSource;
     
@@ -83,6 +93,17 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     }
 
     @Override
+    public List<Invite> getAllInvitedUsers(Users userFrom) throws ProcessFailed{
+        List<Invite> invites = usersInviteDao.getAllInvitedUsers(userFrom);
+        if(invites == null)
+        {
+            throw new ProcessFailed(messageSource.getMessage("user_list_not_found",new String[]{}, Locale.US));
+        }
+            return invites;
+
+    }
+
+    @Override
     public Invite getInvitedUserById(Integer Id) throws ProcessFailed {
         Invite companyInvite = usersInviteDao.getInvitedUserById(Id);
         if(companyInvite == null)
@@ -102,6 +123,45 @@ public class UsersInviteServiceImpl implements UsersInviteService{
         return companyInvite;
     }
 
+    public List<InvitedUsers> getInvitedUsers(Users userFrom)throws ProcessFailed {
+        String invitationStatus = null;InvitedUsers inviteduser = null;
+        try{
+        List<Invite> invites = getAllInvitedUsers(userFrom);
+        
+        List<InvitedUsers> invitedUsers = new ArrayList<InvitedUsers>();
+        if (invites != null){
+            List<Invite> invitesList = new ArrayList<Invite>();
+            invitesList = invites;
+            
+            for (int i = 0; i<invitesList.size(); i++){
+                Invite invite = invitesList.get(i);
+                Users user = invite.getInviteSentTo();
+                JSONArray task = (JSONArray)StringUtility.stringToObject(invite.getTask());
+                
+                for (int j = 0; j< task.size(); j++){
+                    Integer role_id = (Integer)task.get(j);
+                    UserRole userRole = userRoleService.getUserRoleById(role_id);
+                    String userRoleName = userRole.getRoleName();
+                    boolean isUsed = invite.getIsUsed();
+                    if (isUsed){
+                        invitationStatus = AdminStatus.Invite_Success.toString();
+                    }
+                    inviteduser = new InvitedUsers(user.getUserName(), userRoleName, invitationStatus);
+                    invitedUsers.add(inviteduser);
+                }
+            }
+            return invitedUsers;
+        }else {
+            throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
+        }
+        }catch (Throwable throwable){
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
+        }
+            
+        
+    }
+    
     @Override
     public void sendMail(String from_email_id, String imageContextPath, InviteDetails inviteDetails)throws ProcessFailed {
         try{

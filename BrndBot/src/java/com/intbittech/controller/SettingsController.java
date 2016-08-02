@@ -5,7 +5,6 @@
  */
 package com.intbittech.controller;
 
-import com.controller.ApplicationContextListener;
 import com.controller.BrndBotBaseHttpServlet;
 import com.intbittech.utility.IConstants;
 import com.intbittech.schedulers.MindbodyEmailListProcessor;
@@ -14,13 +13,11 @@ import com.google.gson.Gson;
 import com.intbit.util.CustomStyles;
 import com.intbittech.utility.ServletUtil;
 import com.intbittech.AppConstants;
-import com.intbittech.exception.ProcessFailed;
 import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.model.Company;
-import com.intbittech.model.Invite;
 import com.intbittech.model.CompanyPreferences;
+import com.intbittech.model.InvitedUsers;
 import com.intbittech.model.UserProfile;
-import com.intbittech.model.UserRole;
 import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.modelmappers.FooterDetails;
 import com.intbittech.modelmappers.InviteDetails;
@@ -28,10 +25,6 @@ import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.CompanyPreferencesService;
-import com.intbittech.services.EmailListService;
-import com.intbittech.social.CompanyPreferencesFacebook;
-import com.intbittech.social.CompanyPreferencesTwitter;
-import com.intbittech.utility.EmailValidator;
 import com.intbittech.services.EmailListService;
 import com.intbittech.services.ForgotPasswordService;
 import com.intbittech.services.UsersInviteService;
@@ -46,7 +39,6 @@ import facebook4j.ResponseList;
 import java.io.BufferedReader;
 import java.io.File;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -74,10 +66,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.intbittech.social.CompanyPreferencesFacebook;
 import com.intbittech.social.CompanyPreferencesTwitter;
-import com.intbittech.utility.Utility;
 import java.util.ArrayList;
-import java.util.Date;
-import javax.servlet.ServletContext;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -119,7 +108,6 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     public ResponseEntity<ContainerResponse> sendInvitation(@RequestBody InviteDetails inviteDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-
             boolean returnMessage = usersService.saveNonExistingUser(inviteDetails);
             if (returnMessage){
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(
@@ -132,6 +120,25 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "/getInvitedUsers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getInvitedUsers(HttpServletRequest request,
+            HttpServletResponse response) {
+        GenericResponse<String> genericResponse = new GenericResponse<>();
+
+        try {
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Company company = userProfile.getUser().getFkCompanyId();
+            List<InvitedUsers> invitedUsers = usersInviteService.getInvitedUsers(userProfile.getUser());
+            genericResponse.addDetail(StringUtility.objectListToJsonString(invitedUsers));
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
     
     @RequestMapping(value = "/getColors", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

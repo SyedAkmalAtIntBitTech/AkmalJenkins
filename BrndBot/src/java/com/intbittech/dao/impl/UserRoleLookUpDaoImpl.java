@@ -8,6 +8,7 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.UserRoleLookUpDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Invite;
+import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
 import com.intbittech.model.UserRoleLookup;
 import java.util.Locale;
@@ -83,6 +84,17 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
             return null;
         }
         return (UserRoleLookup) criteria.list().get(0);
+    }
+
+    @Override
+    public UserRole getUsersRoleByUserId(Users user) throws ProcessFailed {
+        Criteria criteria = sessionFactory.getCurrentSession()
+                .createCriteria(UserRoleLookup.class)
+                .add(Restrictions.eq("userId", user));
+        if (criteria.list().isEmpty()) {
+            return null;
+        }
+        return (UserRole) criteria.list().get(0);
     }
     
 }

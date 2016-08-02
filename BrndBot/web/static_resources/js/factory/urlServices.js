@@ -641,6 +641,14 @@ factoryApp.service('configurationService', function (){
         return getHost() + "settings/saveUnsubscribeEmails";
     };
     
+    this.inviteUserURL = function () {
+        return getHost() + "settings/sendInvitation";
+    };
+    
+    this.getInvitedUsersURL = function (){
+        return getHost() + "settings/getInvitedUsers";
+    };
+    
     this.setColorsURL = function () {
         return getHost() + "settings/setColors";
     };

@@ -7,6 +7,7 @@ package com.intbittech.dao.impl;
 
 import com.intbittech.dao.UsersInviteDao;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.Company;
 import com.intbittech.model.Invite;
 import com.intbittech.model.Users;
 import java.util.List;
@@ -70,6 +71,23 @@ public class UsersInviteDaoImpl implements UsersInviteDao{
         }
     }
 
+    @Override
+    public List<Invite> getAllInvitedUsers(Users userFrom) throws ProcessFailed{
+    try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(Invite.class)
+                    .add(Restrictions.eq("inviteSentBy", userFrom));
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_list_message",new String[]{}, Locale.US));
+        }        
+    }
+    
     @Override
     public Invite getInvitedUserById(Integer Id) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()

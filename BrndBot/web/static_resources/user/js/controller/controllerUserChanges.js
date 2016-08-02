@@ -42,6 +42,31 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             }
         };
 
+        $scope.inviteUser = function (userDetails) {
+            var userRoles = userDetails.roles.split();
+            alert(JSON.stringify(userRoles));
+            var invitation = {"emailId": userDetails.email, "task": userDetails.task, "roles": userRoles};
+            onboardingFactory.inviteUserPost(invitation).then(function (data) {
+                var response = data;
+//                if (message === "true")
+//                {
+//                    $("#signform").submit();
+//                    $location.path("/signup/company");
+//                }
+            });
+        };
+
+        $scope.getInvitedUsers = function () {
+            onboardingFactory.getInvitedUsersPost().then(function (data) {
+                var response = data;
+//                if (message === "true")
+//                {
+//                    $("#signform").submit();
+//                    $location.path("/signup/company");
+//                }
+            });
+        };
+        
         $scope.setTab = function (type) {
             if (type == 'account') {
                 $scope.userAccountSetClass = 'active';

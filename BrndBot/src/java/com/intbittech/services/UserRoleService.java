@@ -6,7 +6,6 @@
 package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.Invite;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.UserRoleLookup;
 import com.intbittech.model.Users;
@@ -15,8 +14,7 @@ import com.intbittech.model.Users;
  *
  * @author Syed Muzamil at IntBit Technologies.
  */
-public interface UserRoleLookUpService {
-
+public interface UserRoleService {
     /**
      * This method pass usersRoleLookup as input and get the {@link String} from DAO layer.
      *
@@ -24,7 +22,7 @@ public interface UserRoleLookUpService {
      * @return {@link String}
      * @throws ProcessFailed the process failed
      */
-    public boolean isRoleExist(UserRoleLookup usersRoleLookup) throws ProcessFailed;    
+    public boolean isRoleExist(UserRole userRole) throws ProcessFailed;    
     /**
      * This method pass usersRoleLookup as input and get the {@link String} from DAO layer.
      *
@@ -32,7 +30,7 @@ public interface UserRoleLookUpService {
      * @return {@link String}
      * @throws ProcessFailed the process failed
      */
-    public String save(UserRoleLookup usersRoleLookup) throws ProcessFailed;
+    public String save(UserRole userRole) throws ProcessFailed;
     
     /**
      * This method pass id as input and deletes the {@link UserRoleLookup} from DAO layer.
@@ -49,14 +47,6 @@ public interface UserRoleLookUpService {
      * @return {@link UserRoleLookup}
      * @throws ProcessFailed the process failed
      */
-    public UserRoleLookup getUsersRoleLookupById(Integer Id) throws ProcessFailed;
-
-    /**
-     * This method pass id as input and get the {@link UserRole} from DAO layer
-     *
-     * @param Users
-     * @return {@link UserRole}
-     * @throws ProcessFailed the process failed
-     */
-    public UserRole getUsersRoleByUserId(Users user) throws ProcessFailed;    
+    public UserRole getUserRoleById(Integer Id) throws ProcessFailed;
+    
 }

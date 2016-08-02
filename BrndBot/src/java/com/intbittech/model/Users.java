@@ -134,21 +134,21 @@ public class Users implements Serializable {
     }
 
     @XmlTransient
-    public Set<Invite> getCompanyInviteSet() {
+    public Set<Invite> getCompanyInviteSetSentBy() {
         return companyInviteSetSentBy;
     }
 
-    public void setCompanyInviteSet(Set<Invite> companyInviteSet) {
-        this.companyInviteSetSentBy = companyInviteSet;
+    public void setCompanyInviteSetSentBy(Set<Invite> companyInviteSetSentBy) {
+        this.companyInviteSetSentBy = companyInviteSetSentBy;
     }
 
     @XmlTransient
-    public Set<Invite> getCompanyInviteSet1() {
+    public Set<Invite> getCompanyInviteSetSentTo() {
         return companyInviteSentSentTo;
     }
 
-    public void setCompanyInviteSet1(Set<Invite> companyInviteSet1) {
-        this.companyInviteSentSentTo = companyInviteSet1;
+    public void setCompanyInviteSetSentTo(Set<Invite> companyInviteSetSentTo) {
+        this.companyInviteSentSentTo = companyInviteSetSentTo;
     }
 
     @XmlTransient

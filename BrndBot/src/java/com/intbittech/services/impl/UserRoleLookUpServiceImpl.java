@@ -8,6 +8,7 @@ package com.intbittech.services.impl;
 import com.intbittech.controller.SignupController;
 import com.intbittech.dao.UserRoleLookUpDao;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.UserRole;
 import com.intbittech.model.UserRoleLookup;
 import com.intbittech.model.Users;
 import com.intbittech.services.UserRoleLookUpService;
@@ -73,6 +74,16 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
              throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
         }
         return userRoleLookup;
+    }
+
+    @Override
+    public UserRole getUsersRoleByUserId(Users user) throws ProcessFailed {
+        UserRole userRole = usersRoleLookUpDao.getUsersRoleByUserId(user);
+        if(userRole == null)
+        {
+             throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
+        }
+        return userRole;
     }
 
     

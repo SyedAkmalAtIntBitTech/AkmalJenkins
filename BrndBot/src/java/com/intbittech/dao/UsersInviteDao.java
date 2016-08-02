@@ -7,6 +7,8 @@ package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Invite;
+import com.intbittech.model.Users;
+import java.util.List;
 
 /**
  *
@@ -38,6 +40,15 @@ public interface UsersInviteDao {
      * @throws ProcessFailed the process failed
      */
     public void delete(Invite companyInvite) throws ProcessFailed;
+
+    /**
+     * This method pass id as input and get the {@link Invite} from database
+     *
+     * @param Id
+     * @return {@link Invite}
+     * @throws ProcessFailed the process failed
+     */
+    public List<Invite> getAllInvitedUsers(Users userFrom) throws ProcessFailed;
     
     /**
      * This method pass id as input and get the {@link Invite} from database
