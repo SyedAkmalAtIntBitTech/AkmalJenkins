@@ -413,7 +413,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     {
                         BlockHtml = '<div id=' + $scope.htmlTagId + ' onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ')>' + emailData.htmldata + '</div>';
                         $("#tinymceEditorBody").append(BlockHtml);
-                        $scope.lanchTinyMceEditor();
+                        $scope.launchTinyMceEditor();
                     }
                 }
             });

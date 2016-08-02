@@ -724,6 +724,25 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             }
         };
 
+
+        $scope.setTwitterAccessTokenFromSocialHub = function (pinCode) {
+            var pin = pinCode;
+                settingsFactory.twitterGetTokenGet(pin).then(function (data) {
+                    if (pin.length > 0) {
+                        $location.path('/twitterpost');
+                        $scope.showTwitterPopup = false;
+                    } else {
+                        alert(pinerror);
+                        $("#pinTextBox").focus();
+                    }
+                });
+        };
+        
+        $scope.closeTwitterPopup = function ()
+        {
+            $scope.showTwitterPopup = false;
+        };
+
         $scope.schedulePostToFacebook = function (postData) {
             $scope.postedTo = getfacebook();
             var sendData = $scope.getScheduleData($scope.selectedMarketingProgram, postData, getfacebook());
