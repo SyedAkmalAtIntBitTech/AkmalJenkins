@@ -13,7 +13,7 @@
                     <div class="input-wrap">
                         <label> Type New Password </label>
                         <div class="input" >
-                            <input class="" id="newpassword" type="{{inputType}}" ng-model="password" placeholder="Enter your password"></input>
+                            <input class="" id="newpassword" type="{{inputType}}" ng-model="password" placeholder="Enter your password" ng-blur="setPassword(password)"></input>
                         </div>
                         <span class="validationAlert" ng-if='password == "" || null'>{{newPasswordValidation}}</span>
 
@@ -21,10 +21,11 @@
                     <div class="input-wrap">
                         <label> Confirm New Password </label>
                         <div class="input">
-                            <input id="confirmpassword" type="{{inputType}}" ng-model="confirmPassword" placeholder="Confirm password"></input>
+                            <input id="confirmpassword" type="{{inputType}}" ng-model="confirmPassword" placeholder="Confirm password" ng-blur="isConfirmPasswordSame(confirmPassword)"></input>
                         </div>
-                        <span class="validationAlert" ng-if='confirmPassword == "" || null'>{{confirmPasswordValidation}}</span>
-                                                
+                        <span class="validationAlert" ng-if='confirmPassword === "" || null'>{{confirmPasswordValidation}}</span>
+                        <span class="validationAlert" ng-if='isConfirmPasswordSamePassword'>{{confirmPasswordMissmatch}}</span>
+
                     </div>
                      <div class="update-container">
                         <a class="long-button gray-button" ng-click="changePassword(password,confirmPassword)">Change Password</a>
