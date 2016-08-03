@@ -123,7 +123,6 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
  
         $scope.clearTwitterDetails = function () {
             var data = JSON.stringify({access_token_method: "clearTwitterDetails"});
-            alert(data);
             settingsFactory.twitterPost(data).then(function (data) {
                 $scope.getTwitterDetails();
             });
