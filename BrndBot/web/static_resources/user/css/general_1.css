@@ -1831,9 +1831,11 @@ li.sub-nav-tab.active a{
 }
 
 .modal-pane-content-wrap.sequence-page{
-    padding: 0px 30px 20px 30px;  
+    padding: 20px 30px 20px 30px;  
     box-sizing: border-box;
-    max-height: 430px;
+    max-height: 480px;
+    height: 85vh;
+    min-height: 350px;
     overflow-y: auto;
 }
 
@@ -4370,6 +4372,12 @@ textarea.task-textarea:focus{
 .gallery-image-wrap{
     display: flex;
     padding: 30px 30px 0px 30px;
+    flex-wrap: row wrap;
+}
+
+.gallery-pop-up-image-wrap{
+    display: flex;
+    flex-wrap: row wrap;
 }
 
 .gallery-image-card{
@@ -4802,4 +4810,15 @@ textarea.task-textarea:focus{
     border-radius: 3px;
     margin-bottom: 20px;
     margin-right: 20px;
+}
+
+.upload-image-bar{
+    width: 100%;
+    height: 40px;
+    cursor: pointer;
+    line-height: 40px;
+    text-align: center;
+    border-bottom: 1px solid #E2E3E7;
+    background-color: #ECF0F2;
+    color: #959AA6;
 }
