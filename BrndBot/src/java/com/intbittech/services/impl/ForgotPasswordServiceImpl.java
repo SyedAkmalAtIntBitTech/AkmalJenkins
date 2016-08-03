@@ -76,9 +76,9 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 
         message.setKey(MANDRILL_KEY);
 //                String url=request.getRequestURL().toString().replace("SendEmail","");  
-        message.setHtml("<html><body>" + imageContextPath + "#/signup/changepassword?userid=" + hashURL + "</body></html>");
+        message.setHtml("<html><body><p><h2>Forgot your password?</h2></p><p>We received a request to reset the password for your BrndBot account.</p>To reset your password, click on the link below (or copy and paste the URL into your browser):<br />" + imageContextPath + "#/signup/changepassword?userid=" + hashURL + "</body></html>");
         message.setText("text");
-        message.setSubject("your password changing link for our account");
+        message.setSubject("Reset your BrndBot password");
         message.setFrom_email("mail@brndbot.com");
         message.setFrom_name("BrndBot");
         message.setAsync(true);

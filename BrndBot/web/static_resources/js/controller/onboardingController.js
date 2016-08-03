@@ -11,6 +11,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.dropdownValidation = dropdownValidation;
         $scope.colorValidation = colorValidation;
         $scope.studioIdValidation = studioIdValidation;
+        $scope.inActiveMindbodyValidation = inActiveMindbodyValidation;
         $scope.logoValidation = logoValidation;
 //        $scope.companyName = "";
         $scope.organizationId = "";
@@ -231,6 +232,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         };
 
         $scope.getActivationLink = function (studioId) {
+            $scope.mindbodyActive = false;
             onboardingFactory.saveStudioIdPost(studioId).then(function (data) {
                 var studioIdSaved = eval(JSON.stringify(data.d.message));
                 if (studioIdSaved === "true") {
@@ -258,7 +260,8 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                         globalActivation = activation;
                         if (globalActivation === "false")
                         {
-                            alert("Mindbody not activated, kindly activate mindbody");
+//                            alert("Mindbody not activated, kindly activate mindbody");
+                            $scope.mindbodyActive = true;
                             return false;
                         } else {
                             $scope.saveServices();

@@ -48,7 +48,7 @@ public class PostToFacebook {
             /* change the context path while uploading the war file */
             ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
             String context_real_path = servletContext.getRealPath("");
-            context_real_path += "/static_resources";
+//            context_real_path += "/static_resources";
             String imageContextPath = Utility.getServerName(context_real_path);
             logger.info("message while facebook post:" + imageContextPath);
 

@@ -58,7 +58,7 @@ imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http'
         $scope.deleteImage = function (companyImageId)
         {
             companyImagesFactory.deleteCompanyImagesPost(companyImageId).then(function (data) {
-                alert("Image deleted successfully");
+                growl("Image deleted successfully");
                 $scope.datalists = data.d.details;
                 $scope.getAllCompanyImages();
             });

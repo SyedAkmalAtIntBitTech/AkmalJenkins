@@ -35,7 +35,7 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
         $scope.clearFacebookDetails = function () {
             var data = JSON.stringify({access_token_method: "clearFacebookDetails"});
             settingsFactory.facebookPost(data).then(function (data) {
-                alert(JSON.stringify(data));
+//                alert(JSON.stringify(data));
                 $scope.getFacebookDetails();
             });
         };
@@ -123,7 +123,6 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
  
         $scope.clearTwitterDetails = function () {
             var data = JSON.stringify({access_token_method: "clearTwitterDetails"});
-            alert(data);
             settingsFactory.twitterPost(data).then(function (data) {
                 $scope.getTwitterDetails();
             });
@@ -131,7 +130,6 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
         
 
         $scope.postToSelectedPage = function () {
-            alert("fb");
             var addDafaultmanagePage = true;//$("#setDefaultManagePage").prop('checked');
 //            var data = JSON.stringify({access_token_method: "setAccessToken"});
             var data = "";

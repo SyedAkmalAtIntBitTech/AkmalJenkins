@@ -130,14 +130,17 @@
             <div class="hub-pane-content-wrap" >
                 <div id="emailsubjectdiv">
            
-       
+
                 <div class="col-md-7 col-md-offset-0">
                     <label style="padding-top: 20px;">Upload CSV</label><br><br>
                     <input type="file" class="fileUpload" id="fileUpload" name="fileUpload"><br>
+                    <span class="validationAlert" ng-if="csvUpload">{{uploadCsvValidation}}</span><br>
                     <input class="button button--moema button--text-thick button--text-upper button--size-s" type="button" id="upload" value="Upload" ng-click="uploadCsv()" /><br>
                 </div><br>
                 <div id="dvCSV"></div>
                 <textarea width="400" height="500" id="textArea"></textarea><br><br>
+                                   
+                <span class="validationAlert" ng-if="importContacts">{{importContactValidation}}</span><br>
                 <input  id="emailSubjectContinueButton" type="button" class="button button--moema button--text-thick button--text-upper button--size-s" value="Update" ng-click="updateEmailList()">
             </div>
                     

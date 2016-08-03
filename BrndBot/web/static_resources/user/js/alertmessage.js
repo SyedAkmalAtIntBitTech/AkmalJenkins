@@ -231,3 +231,6 @@ var automationDayValidation = "Please select an email to a recipent";
 var uploadCsvValidation = "Please upload a CSV file";
 var validCsvFileValidation = "Please upload a valid CSV file";
 var invalidCsvValidation = "Some of the email addresses are invalid in the csv file and they have been excluded";
+var confirmPasswordMissmatch = "Sorry, Confirm password didn't matched with Password!";
+//var emailExistValidation = "The Email id already exist or is an unsubscribed id, please try with some other emailid.";
+var importContactValidation = "No Contacts to import!, Please Enter atleast One Contact.";

@@ -1,4 +1,6 @@
 <div class="main-content-wrap">
+    <div ng-include="'facebookmanagepages.html'"></div>
+    <div ng-include="'twitterpopupsocialhub.html'"></div>
     <div class="top-nav-wrap">
         <div class="header">
             <a class="back-button" href="dashboard"></a>
@@ -6,7 +8,7 @@
         </div>
     </div>
     <div class="top-nav-bar-offset"></div>
-    <div class="content-wrap content-wrap-flex"> 
+    <div class="content-wrap content-wrap-flex" ng-if="hideBaseSocialSequence"> 
          <div class="modal-pane modal-pane-width-reg">
             <div class="modal-pane-header-wrap">
                 <h2>Select a Social Channel</h2>
@@ -26,8 +28,7 @@
         </div>
     </div>
 </div>
-<div ng-include="'facebookmanagepages.html'"></div>
-<div ng-include="'twitterpopupsocialhub.html'"></div>
+
 
 
 

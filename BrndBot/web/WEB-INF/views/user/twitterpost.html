@@ -39,15 +39,15 @@
                         <!--                                <select ng-model="linkUrls" id="dropdownurl"  class="select_Field_lg removeDrag" ng-options="url.url as url.prigram_name+' - '+url.link_name+' - '+url.url for url in urls"></select>-->
                         <div dropdown-select="ddSelectlinkUrlsOptions" dropdown-model="ddSelectlinkUrls" dropdown-onchange="getSelectedUrl(selected)"></div>
                     </span>
-                    <span class="validationAlert" ng-if="twitterLinkValidation">{{linkValidation}}</span>
+<!--                    <span class="validationAlert" ng-if="twitterLinkValidation">{{linkValidation}}</span>-->
 
                     <span ng-show="showTwitterLink == true" class="" id="twitterLinkPost">
                         <div class="input_Label pushUp_20">Write Custom Link</div>
                         <div class="input ">
                             <input class="socialLink_attached removeDrag fluid" ng-model="twitterPostData.url" placeholder="http://www.brndbot.com" id="linkOfUrls"></input></span><br>
                          </div>
-                <!-- <span class="validationAlert" ng-if='twitterPostData.url === "" || null'>{{customLinkValidation}}</span>-->
-                <span class="validationAlert" ng-if="twitterCustomLink">{{customLinkValidation}}</span>
+                 <span class="validationAlert" ng-if='twitterPostData.url === "" || null'>{{customLinkValidation}}</span>
+<!--                <span class="validationAlert" ng-if="twitterCustomLink">{{customLinkValidation}}</span>-->
             </div>  
         </div>
         <div ng-show="addImageToPostButton" class="Social-Add-Image-Wrap clear" id="addImageToTwitterPost" ng-click="show_hide_ImageGalleryPopup(true)">

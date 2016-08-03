@@ -4,8 +4,10 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.colorFrom = "custom";
         $scope.newPasswordValidation = newPasswordValidation;
         $scope.confirmPasswordValidation = confirmPasswordValidation;
+        $scope.confirmPasswordMissmatch = confirmPasswordMissmatch;
         $scope.logoValidation = logoValidation;
         $scope.showPaletteChangePopUp = "";
+        $scope.passwordText="";
 
         // Hide & show password function
         $scope.hideShowPassword = function () {
@@ -26,22 +28,33 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $("#confirmpassword").focus();
                 return false;
             }
+            if($scope.isConfirmPasswordSame(confirmPassword))
             return true;
         };
-
+        
+        $scope.setPassword = function (password){
+            $scope.passwordText = password;
+        };
+        
+        $scope.isConfirmPasswordSame = function (cPassword){
+            if(cPassword === ""){
+                $scope.isConfirmPasswordSamePassword = true;
+                return false;
+            }else if($scope.passwordText === cPassword){
+                $scope.isConfirmPasswordSamePassword = false;
+                return true;
+            }else{
+                $scope.isConfirmPasswordSamePassword = true;
+                return false;
+            }
+        };
+        
         $scope.changePassword = function (password, confirmPassword) {
             if ($scope.accountSettingsValidation(password, confirmPassword))
             {
-
-//                $scope.password = {};
-//                $scope.confirmPassword = {};
-//                 $scope.results;
-//                 $scope.results = angular.equals($scope.password, $scope.confirmPassword);
-
                 var password_object = {"password": password, "confirmpassword": confirmPassword, "type": "update"};
                 signupFactory.resetPasswordPost(password_object).then(function (data) {
                     alert("Password changed successfully");
-
                     $scope.status = data;
                 });
             }
