@@ -25,7 +25,8 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <link rel="stylesheet" type="text/css" href="css/admin.css">
         <link href="css/popup.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="css/gallery-user.css"/>
-        <link href="css/style_detail_overlay-1.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="css/general_1.css" />
+        <!--<link href="css/style_detail_overlay-1.css" rel="stylesheet" type="text/css"/>-->
         <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
         <link href="css/style_detail_overlay-1.css" rel="stylesheet" type="text/css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -36,45 +37,38 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <link href="../css/jquerygrowl.css" rel="stylesheet" type="text/css"/>
         <script src="../js/jquerygrowl.js" type="text/javascript"></script>
         <script>
-          var appp = angular.module("imgPopup", []);
-            appp.directive('fileModel', ['$parse', function ($parse) {
-                    return {
-                        restrict: 'A',
-                        link: function (scope, element, attrs) {
-                            var model = $parse(attrs.fileModel);
-                            var modelSetter = model.assign;
+            var appp = angular.module("imgPopup", []);
+            appp.directive('customOnChange', function () {
+                return {
+                    restrict: 'A',
+                    link: function (scope, element, attrs) {
+                        var onChangeFunc = scope.$eval(attrs.customOnChange);
+                        element.bind('change', onChangeFunc);
+                    }
+                };
+            });
 
-                            element.bind('change', function () {
-                                scope.$apply(function () {
-                                    modelSetter(scope, element[0].files[0]);
-                                });
-                            });
-                        }
-                    };
-                }]);
             appp.controller("imgPopupController", function ($scope, $http, $q) {
-                $scope.showImageGalleryPopup = true;
-                $scope.showUserImages = true;
                 $scope.imageToBeUploaded = 'images/uploadPhoto.svg';
                 $scope.imageSelected = 'gallery-item-wrap-selected-true';
                 $scope.imageUnSelect = 'gallery-item-wrap-selected';
-                var imageurl = ""; 
+                var imageurl = "";
                 var deffered = $q.defer();
-                $scope.getImg = function () {
-                        $scope.showUploadImage = false;
-                        $scope.showUserImages = true;
-                    $http.get(getHost()+"companyImages/get", "", "").then(function (getData) {
+                $scope.getAllCompanyImages = function () {
+                    $scope.fadeClass = 'fadeClass';
+                    $scope.showUploadImage = false;
+                    $scope.showUserImages = true;
+                    $scope.chooseImage = true;
+                    $http.get(getHost() + "companyImages/get", "", "").then(function (getData) {
                         $scope.datalists = getData.data.d.details;
                         $scope.companyId = getData.data.d.details[0].fkCompanyId.companyId;
                         deffered.resolve(getData.data);
                     });
                 };
-                $scope.selectImageToPost = function (imageName, imageFrom, companyId,id) {
-                        angular.element(document.getElementsByClassName('gallery-item-wrap-selected-true')).addClass('gallery-item-wrap-selected').removeClass('gallery-item-wrap-selected-true');
-            angular.element(document.getElementById(id)).removeClass('gallery-item-wrap-selected').addClass('gallery-item-wrap-selected-true');
+                $scope.selectImageToPost = function (imageName, imageFrom, companyId, id) {
+                    angular.element(document.getElementsByClassName('gallery-item-wrap-selected-true')).addClass('gallery-item-wrap-selected').removeClass('gallery-item-wrap-selected-true');
+                    angular.element(document.getElementById(id)).removeClass('gallery-item-wrap-selected').addClass('gallery-item-wrap-selected-true');
                     imageurl = "/BrndBot/downloadImage?imageType=GALLERY&imageName=" + imageName + "&companyId=" + companyId + "";
-                };
-                $scope.addImage = function (){
                     $("#imageDiv").val(imageurl);
                 };
                 $scope.selectImageFromGallery = function (popmpMode) {
@@ -86,75 +80,68 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                         $scope.showUploadImage = true;
                     }
                 };
-                $scope.uploadLogo = function (myFile) {
-                    var file = myFile;
-                    console.log(file);
+                $scope.showImageUploadPopup = function ()
+                {
+                    $("#filesToUpload").trigger("click");
+                };
+                $scope.uploadFile = function () {
                     var deffered = $q.defer();
                     var fd = new FormData();
-                    fd.append('file', file);
-                    $http.post(getHost()+"images/save", fd, {
+                    fd.append('file', event.target.files[0]);
+                    $http.post(getHost() + "images/save", fd, {
                         transformRequest: angular.identity,
                         headers: {'Content-Type': undefined}
                     }).then(function (putData) {
                         deffered.resolve(putData.data);
-                        $scope.getImg();
+                        $scope.getAllCompanyImages();
                     }, function (error) {
                     });
                 };
 
             });
         </script>
+        <style>
+            .thumb{
+                width:140px;
+                height:140px;
+                margin:6px;
+                float:left;
+            }
+            .mce-rank-button button {
+                color: red !important;
+            }
+        </style>
     </head>
-
-    <body ng-app="imgPopup" class="body-normal" ng-controller="imgPopupController">
+    <body ng-app="imgPopup" class="center-pop-ups" ng-controller="imgPopupController">
         <input type="hidden" id="imageDiv">
-        <form>
-            <div  ng-show="showImageGalleryPopup" class="popUp_background-dark " id="imagePopUp" >
-                <div class="popUp_CenterVert" ng-init="getImg()">
-                    <div class="popUp-top-wide lear" >
-                        <div class="popUp_header clear">
-                            <div class="pane_title fleft h2 col1of2">Please Select an Image</div>
-                            <div class="popUp_close fright" id="hidepopup" ng-click="selectImageFromGallery(false)">
-                                <!--<img type="image/svg+xml" src="../static_resources/images/Pop-Up-Exit-Button.svg" class="fleft popUp_close-icon cursor-shape">-->
+
+        <div  class="center-pop-ups " id="fade" ng-class="fadeClass">
+
+            <div class="center-pop-ups" style="height:100vh;">
+                <div class="modal-pane modal-pane-width-full mbPopup ">
+                    <div ng-init="getAllCompanyImages()">
+                        <div class="modal-pane-header-wrap">
+                            <div class="upload-photo-button reg-button gray-button" ng-click="showImageUploadPopup()">Upload an Image</div>
+                        </div>
+                        <div class="pop-up-inner-gallery" ng-show="chooseImage">
+                            <div class="imageGallery-inner-popup">
+                                <div class="imageUpload-container">
+                                    <div class="browse-button">
+                                        <input type="file" class="displayNone" id="filesToUpload" custom-on-change="uploadFile"/>
+                                    </div>
+                                </div>                     
+                            </div>
+                            <div class="full-height-modal-pane-content-wrap modal-pane-content-social-sequence" ng-show="showUserImages" >
+                                <div class="gallery-image-wrap {{images.companyImagesId}}">
+                                    <div class="gallery-image-card" ng-repeat="images in datalists"  ng-click="selectImageToPost(images.imageName, 'gallery', companyId)">
+                                        <img  class="gallery-image" id="{{images.companyImagesId}}"  src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}" alt="{{images.imageName}}"/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="popUp_subheader clear">
-                            <span  class="popUp_subheader-tabs fleft cursor-shape" id="showGallery" ng-class="selectTabGallery" ng-click="selectImageFromGallery(true)">From Gallery</span>
-                            <span  class="popUp_subheader-tabs fleft cursor-shape" id="shoeUploadimage" ng-class="selectTabUpload" ng-click="selectImageFromGallery(false)">Upload Image</span>
-                        </div>
-                        <div class=" gallery-padding clear gallery-pane">
-                            <span id="gallerySpan" ng-init="getUserImages()" ng-show="showUserImages"> 
-                                <div class="gallery-item-wrap-selected fleft {{images.companyImagesId}}" id="{{images.companyImagesId}}" ng-repeat="images in datalists" ng-class="imageUnSelect"  ng-click="selectImageToPost(images.imageName, 'gallery', companyId,images.companyImagesId)">
-                                    <div class="gallery-image-wrap">
-                                        <img id="{{images.companyImagesId}}"  src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}" alt="alt_text" border="0" align="center" class="gallery-image" />
-                                    </div>
-                                    <div class="gallery-name"> Photo {{images.companyImagesId}}</div>
-                                    <div classelectImages="gallery-settings"></div>
-                                </div>
-                            </span>
-                            <span class="" id="uploadImageSpan" ng-show="showUploadImage">
-                                <div class="logoUpload-wrap">
-                                    <img  ng-src="{{imageToBeUploaded}}" class="logoUpload-svg" style="cursor:pointer;">
-                                </div>
-                                <div class="Add_Button Button--Gray logoUpload--button">Select Image
-                                    <input type="file" file-model="myFile" class="Add_Button Button--Gray logoUpload--button upload fileupld"/>
-                                </div>
-                            </span>
-                        </div>
                     </div>
-                    <div class="popUp-bottom-wide" id="addImageButton" ng-click="addImage()" ng-show="showUserImages">
-                        <span class="clickable-area">
-                            <div class="popUp-bottom-link">ADD IMAGE</div>
-                        </span>
-                    </div>
-                    <div class="popUp-bottom-wide " id="uploadImageButton"  ng-click="uploadLogo(myFile)" ng-show="showUploadImage">
-                        <span class="clickable-area">
-                            <div class="popUp-bottom-link">UPLOAD IMAGE</div>
-                        </span>
-                    </div>
-
                 </div>
             </div>
-        </form>
+        </div>
     </body>
 </html>

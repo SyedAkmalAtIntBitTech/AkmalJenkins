@@ -24,6 +24,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.twitterImageDivToPost = false;
         $scope.imageToBeUploaded = 'images/uploadPhoto.svg';
         $scope.postType = 'Change To Link Post';
+        $scope.TwtPostType="Change To Link Post";
         $scope.existingAction = false;
         $scope.managepage = "";
         $scope.actionNameValidation = actionNameValidation;
@@ -237,9 +238,10 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
         $scope.changeTwitterPostType = function () {
             if ($scope.showTwitterLink === true) {
-//                JSON.stringify(twitterShareTextValue.url="");
+                $scope.TwtPostType="Change To Link Post";
                 $scope.showTwitterLink = false;
             } else {
+                $scope.TwtPostType="Change To Normal Post";
                 $scope.showTwitterLink = true;
             }
         };
