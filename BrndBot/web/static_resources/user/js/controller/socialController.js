@@ -24,6 +24,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.twitterImageDivToPost = false;
         $scope.imageToBeUploaded = 'images/uploadPhoto.svg';
         $scope.postType = 'Change To Link Post';
+        $scope.TwtPostType="Change To Link Post";
         $scope.existingAction = false;
         $scope.managepage = "";
         $scope.actionNameValidation = actionNameValidation;
@@ -48,6 +49,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.dateLesser = false;
         $scope.imageValidation = false;
         $scope.twitterImageValidation = false;
+        $scope.hideBaseSocialSequence = true;
         var schedule_desc = "";
         $rootScope.CurrentFbAccessToken = "";
 
@@ -155,7 +157,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 imageType: $scope.selectImageType
             });
             socialPostFactory.facebookPost(data).then(function (data) {
-                alert(JSON.stringify(data));
+                growl(JSON.stringify(data));
             });
 
         };
@@ -170,7 +172,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             socialPostFactory.shortenUrl(BitlyUserDetails).then(function (data) {
 //                $scope.bit_url = urlData.data.url;
 //                socialPostFactory.postToTwitterURL().then(function (data){
-//                    alert(data);
+//                    growl(data);
 //                });
             });
 
@@ -194,6 +196,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 settingsFactory.fbGetTokenGet(code).then(function (data) {
                     $scope.setDefaultManagePage = true;
                     $scope.managepagesettings = true;
+                    $scope.hideBaseSocialSequence = false;
                     $scope.managepage = true;
                     $scope.fbPagesDetails = data.d.details[0].fbPages;
                     $scope.fbProfileName = data.d.details[0].user_profile_name;
@@ -220,7 +223,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
         $scope.postToSelectedPage = function () {
             $scope.managepage = false;
-            var addDafaultmanagePage = $("#setDefaultManagePage").prop('checked');
+            var addDafaultmanagePage = true;//$("#setDefaultManagePage").prop('checked');
             if (addDafaultmanagePage) {
                 var pageDetails = JSON.stringify({
                     access_token_method: "setAccessToken",
@@ -235,9 +238,10 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
         $scope.changeTwitterPostType = function () {
             if ($scope.showTwitterLink === true) {
-//                JSON.stringify(twitterShareTextValue.url="");
+                $scope.TwtPostType="Change To Link Post";
                 $scope.showTwitterLink = false;
             } else {
+                $scope.TwtPostType="Change To Normal Post";
                 $scope.showTwitterLink = true;
             }
         };
@@ -369,11 +373,11 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                     $("#linkDescription").focus();
                     return false;
                 }
-                if (!$scope.facebookAction) {
-                    $scope.imageValidation = false;
-                    $scope.fbLinkValidation = true;
-                    return false;
-                }
+//                if (!$scope.facebookAction) {
+//                    $scope.imageValidation = false;
+//                    $scope.fbLinkValidation = true;
+//                    return false;
+//                }
                 if (!postData.url) {
                     $scope.imageValidation = false;
                     $scope.fbPostData = {shareText: postData.shareText, linkTitle: postData.linkTitle, linkDescription: postData.linkDescription, url: ""};
@@ -397,15 +401,15 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 return false;
             }
             if ($scope.showTwitterLink) {
-                if (!$scope.facebookAction) {
-                    $scope.twitterImageValidation = false;
-                    $scope.twitterLinkValidation = true;
-                    return false;
-                }
+//                if (!$scope.facebookAction) {
+//                    $scope.twitterImageValidation = false;
+//                    $scope.twitterLinkValidation = true;
+//                    return false;
+//                }
                 if (!postData.url) {
                     $scope.twitterImageValidation = false;
-//                    $scope.twitterPostData = {text: postData.text, url: ""};
-                    $scope.twitterCustomLink = true;
+                    $scope.twitterPostData = {text: postData.text, url: ""};
+//                    $scope.twitterCustomLink = true;
                     $("#linkOfUrls").focus();
                     return false;
                 }
@@ -609,7 +613,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 //                $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM TWITTER"}];
 //                $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
 //                $scope.socialAction = $scope.defaultAction[0].id;
-//                alert(JSON.stringify(data));
+//                growl(JSON.stringify(data));
 //            });
 //        };
 //        $scope.getFacebookActions = function (selectedMarketingProgrmaId) {
@@ -732,7 +736,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                         $location.path('/twitterpost');
                         $scope.showTwitterPopup = false;
                     } else {
-                        alert(pinerror);
+                        growl(pinerror);
                         $("#pinTextBox").focus();
                     }
                 });
@@ -995,7 +999,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                     $location.path('/twitterpost');
                 });
             } else {
-                alert(pinerror);
+                growl(pinerror);
                 $("#pinTextBox").focus();
             }
         };
@@ -1027,7 +1031,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.uploadLogo = function (myFile) {
             var file = myFile;
             imageFactory.saveImagePost(file).then(function (data) {
-                alert("Image Uploaded successfully");
+                growl("Image Uploaded successfully");
                 $scope.hidePopup = false;
                 $("#fade").hide();
                 $scope.getUserImages();
