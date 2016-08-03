@@ -2,7 +2,7 @@
 yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory) {
 
 //$scope.iframeLoad = function (){
-//    alert($('iframe').contents().find('body').height());
+//    growl($('iframe').contents().find('body').height());
 //    $('#iframeForAction').height($('iframe').contents().height());
 //};
 
@@ -49,7 +49,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
         // use scope.onPikadaySelect for older scope syntax
         $scope.onPikadaySelect = function onPikadaySelect(pikaday) {
-            alert(pikaday.toString());
+            growl(pikaday.toString());
         };
 
         var user_selected_date = '';
@@ -315,7 +315,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 var action = {"title": addTitle, "actiontype": actionType.value, "type": "save",
                     "description": "", "marketingType": 0, "action_date": myEpoch, "days": days};
                 yourPlanFactory.addActionPost(action).then(function (data) {
-                    alert("Action Saved");
+                    growl("Action Saved");
                     $scope.getCampaigns();
                     $scope.closeOverlay();
                 });
@@ -652,7 +652,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     });
                 });
             }
-//            alert($scope.isRecurring);
+//            growl($scope.isRecurring);
         };
 
 
@@ -666,19 +666,19 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             if (scheduleUpdatedData.marketing_program_name == 'General') {
                 actiondate = $("#emaildatetime").val();
                 if (title == undefined) {
-                    alert("Title not entered, enter the title");
+                    growl("Title not entered, enter the title");
                     $("#addactiontitle").focus();
                     return false;
                 }
                 if (actiondate == undefined) {
-                    alert("Date not selected, select the date");
+                    growl("Date not selected, select the date");
                     return false;
                 } else {
                     var actionDateTime2 = actiondate.toLocaleString() + " " + actionTime1.toLocaleString();
                     var fromDate = new Date(actionDateTime2);
                     var todayDate = new Date();
                     if (fromDate < todayDate) {
-                        alert("The selected date is lesser than todays date, please change the date");
+                        growl("The selected date is lesser than todays date, please change the date");
                         return false;
                     }
                 }
@@ -686,12 +686,12 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 var actiondate2 = $("#emaildatetime").val();
 
                 if (title == undefined) {
-                    alert("Title not entered, enter the title");
+                    growl("Title not entered, enter the title");
                     $("#addactiontitle").focus();
                     return false;
                 }
                 if (actiondate2 == undefined) {
-                    alert("Date not selected, select the date");
+                    growl("Date not selected, select the date");
                     return false;
                 } else {
                     var actionDateTime1 = actiondate2.toLocaleString() + " " + actionTime1.toLocaleString();
@@ -700,11 +700,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 //                    var currDate = moment(emaildate).format('YYYY-MM-DD');
                     var endDay = new Date($scope.calculatedProgramDate);
                     if (fromDate < todayDate) {
-                        alert("The selected date is lesser than todays date, please change the date");
+                        growl("The selected date is lesser than todays date, please change the date");
                         return false;
                     }
 //                        else if (fromDate > endDay) {
-//                            alert("The selected date is greater than program date, please change the date");
+//                            growl("The selected date is greater than program date, please change the date");
 //                            return false;
 //                        }
                 }
@@ -729,7 +729,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             yourPlanFactory.addActionPost(action).then(function (data) {
                 $scope.closePopup();
                 $scope.getCampaigns();
-                alert("Action Saved");
+                growl("Action Saved");
             });
 //        }
         };
@@ -776,10 +776,10 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                         $scope.scheduleData.email_template_status = 'Template Saved';
                     }
 //                    todo notification here
-//                    alert(templetestatussaved);
+//                    growl(templetestatussaved);
                     $scope.getCampaigns();
                 } else {
-                    alert(savingrecordproblem);
+                    growl(savingrecordproblem);
                 }
             });
 //        $http({
@@ -790,14 +790,14 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 //        }).success(function (data, status, headers, config) {
 //           
 //          if (data == "true"){
-//            alert(templetestatussaved);
+//            growl(templetestatussaved);
 //            window.open(getHost() + 'user/marketing', "_self");
 //          }else {
-//              alert(savingrecordproblem);
+//              growl(savingrecordproblem);
 //          }
 //        }).error(function (data, status, headers, config) {
 //  
-//            alert(nodataerror);
+//            growl(nodataerror);
 //        });      
 
         };
@@ -863,7 +863,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 "schedule_time": myEpoch
             };
             yourPlanFactory.changeSchedulePost(schedule_details).then(function (data) {
-                alert("Reminder updated");
+                growl("Reminder updated");
                 $scope.closePopup();
                 $scope.getCampaigns();
             });
@@ -877,11 +877,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 //        {
 //            $scope.status = data;
 //            if (data != "") {
-//                alert(detailssaved);
+//                growl(detailssaved);
 //                $("#change").val("1");
 //            }
 //        }).error(function (data, status) {
-//            alert(requesterror);
+//            growl(requesterror);
 //        });        
         };
     }]);

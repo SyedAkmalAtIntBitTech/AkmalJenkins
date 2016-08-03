@@ -39,7 +39,7 @@ imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http'
             if ($scope.imageGalleryValidation(myFile))
             {
                 imageFactory.saveImagePost(file).then(function (data) {
-//                    alert("Image Uploaded successfully");
+                    growl("Image Uploaded successfully");
                     $scope.hidePopup = false;
                     $("#fade").hide();
                     $scope.getAllCompanyImages();
@@ -105,7 +105,7 @@ imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http'
 //        $scope.datalists = [];
 //
 //        $scope.imageUpload = function (myFile) {
-//            alert(myFile);
+//            growl(myFile);
 ////             var fd = new FormData();
 ////    //Take the first selected file
 ////            fd.append("file", $(myFile)[0].files[0]);
@@ -116,8 +116,8 @@ imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http'
 //            reader.readAsDataURL(myFile.files[0]);
 //            var file = myFile;
 //            imageFactory.saveImagePost(fd).then(function (data) {
-//                alert(JSON.stringify(data));
-//                alert("Image Uploaded successfully");
+//                growl(JSON.stringify(data));
+//                growl("Image Uploaded successfully");
 //                $scope.getAllCompanyImages();
 //            });
 //        };

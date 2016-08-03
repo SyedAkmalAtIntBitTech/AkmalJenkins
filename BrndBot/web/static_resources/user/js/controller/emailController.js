@@ -594,10 +594,10 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
                         emailDraftFactory.saveEmailDraftsPost(draftData).then(function (responseText) {
                             if (responseText !== "0") {
-                                alert("Draft saved successfully.");
+                                growl("Draft saved successfully.");
                                 document.location.href = "dashboard";
                             } else {
-                                alert("There was a problem while saving the draft! Please try again later.");
+                                growl("There was a problem while saving the draft! Please try again later.");
                             }
                         });
                     } else {
@@ -613,10 +613,10 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
                         emailDraftFactory.updateEmailDraftPost(draftData).then(function (responseText) {
                             if (responseText === true) {
-                                alert("Draft updated successfully.");
+                                growl("Draft updated successfully.");
                                 document.location.href = "dashboard";
                             } else {
-                                alert("There was a problem while saving the draft! Please try again later.");
+                                growl("There was a problem while saving the draft! Please try again later.");
                             }
                         });
                     }
@@ -659,7 +659,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                                 $scope.redirect('emaillistselection', '', '', '', '', '', '', responseText);
                                 document.location.href = "emaillistselection?draftid=" + responseText + "&subject=" + email_subject + "&iframeName=" + rendomIframeFilename + "&categoryId=" + categoryId + "&subCategoryId=" + subCategoryId + "&emailSubject=" + email_subject + "&mindbodyId=" + mindbodydata + "&LookupId=" + LookupId;
                             } else {
-                                alert("There was a problem while saving the draft! Please try again later.");
+                                growl("There was a problem while saving the draft! Please try again later.");
                             }
                         });
                     } else {
@@ -677,7 +677,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                                 $scope.redirect('emaillistselection', $scope.categoryId, '', '', '', '', '', '', $scope.draftId);
                                 document.location.href = "emaillistselection?draftid=" + draft_id + "&subject=" + email_subject + "&iframeName=" + rendomIframeFilename;
                             } else {
-                                alert("There was a problem while saving the draft! Please try again later.");
+                                growl("There was a problem while saving the draft! Please try again later.");
                             }
                         });
                     }
@@ -833,7 +833,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                                 if (email !== "")
                                 {
                                     if (reg.test(split[i]) === false) {
-                                        alert("This file contains Invalid Email Address! \n'" + split[i] + "'\t is Invalid Email id in this file. \nPlease select a valid File.");
+                                        growl("This file contains Invalid Email Address! \n'" + split[i] + "'\t is Invalid Email id in this file. \nPlease select a valid File.");
                                         $("#fileid").val("");
                                         $("#filetext").empty().append("Click to Select file");
                                         return false;
@@ -849,10 +849,10 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     };
                     reader.readAsText(fileUpload.files[0]);
                 } else {
-                    alert("This browser does not support HTML5!");
+                    growl("This browser does not support HTML5!");
                 }
             } else {
-                alert("Please upload a valid CSV file!");
+                growl("Please upload a valid CSV file!");
             }
         };
 
@@ -862,7 +862,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             var result = emailAddresses.replace(/\s/g, "").split(/,|;/);
             for (var i = 0; i < result.length; i++) {
                 if (!regex.test(result[i])) {
-//                    alert("This email list contains Invalid email " + "'" + result[i] + "'");
+//                    growl("This email list contains Invalid email " + "'" + result[i] + "'");
                     $scope.listSelectionValidation = "true" + "'" + result[i] + "'";
                     return false;
                 }
@@ -885,7 +885,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         $scope.emailListBackButton = false;
                         $scope.emailDetailsBackButton = true;
                     } else {
-                        alert("Please select atleast one email list or add email manually.");
+                        growl("Please select atleast one email list or add email manually.");
                         $scope.selectCsvOnClick();
                         $("#emailaddresses").focus();
                         return false;
@@ -902,7 +902,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         $scope.emailListBackButton = false;
                         $scope.emailDetailsBackButton = true;
                     } else {
-                        alert("Please select at least one email list or add email manually.");
+                        growl("Please select at least one email list or add email manually.");
                         selectCsvFile();
                         $("#emailaddresses").focus();
                         return false;
@@ -930,7 +930,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $scope.emailPreviewPopup = true;
         };
 
-//        $scope.continueEmailDetailsOnClick = function () {alert($scope.draftId);
+//        $scope.continueEmailDetailsOnClick = function () {growl($scope.draftId);
 //            $scope.emailSendPopup = true;
 //            $("#fade").show();
 //        };
@@ -1196,7 +1196,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
                         if (responseText === "true")
                         {
-                            alert("Your Email has been Scheduled Successfully");
+                            growl("Your Email has been Scheduled Successfully");
                             window.location = "dashboard";
                         }
                     });
@@ -1243,7 +1243,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
                         if (responseText === "true")
                         {
-                            alert("Your Email has been Scheduled Successfully");
+                            growl("Your Email has been Scheduled Successfully");
                             window.location = "dashboard";
                         }
                     });
