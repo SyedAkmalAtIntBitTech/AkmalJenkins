@@ -46,15 +46,5 @@
 .mce-i-link:before{
     content:url('../../../images/link.svg') !important;
 }
-/*.mce-i-editimage:before{
-    content:url('../../../images/tinyMCE_edit-overlay-01.svg') !important;
-}*/
-/*.mce-i-editimage:before{
-    content:url('../../../images/tinyMCE_edit-overlay-02.svg') !important;
-}*/
-/*.mce-i-editimage:before{
-    content:url('../../../images/bgcolor.svg') !important;
-}*/
-
 
 /*Custom Styles Ends here...*/
