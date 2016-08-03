@@ -29,6 +29,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.validCsvFileValidation = validCsvFileValidation;
         $scope.invalidCsvValidation = invalidCsvValidation;
         $scope.replyToValidation = replyToValidation;
+        $scope.importContactValidation = importContactValidation;
         $scope.emailIdVal = false;
         $scope.validateEmail = false;
         $scope.emailIdVal = false;
@@ -36,6 +37,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.csvValidation = false;
         $scope.csvFileValidation = false;
         $scope.csvInvalidValidation = false;
+        $scope.emailExists = false;
         $scope.listDescription = "";
         $scope.listName = "";
         $scope.deafultFromName = "";
@@ -617,10 +619,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                             $scope.showAddContactPopup = false;
                             $scope.overlayFade = false;
                         });
-                    }
-                    ;
-                }
-                ;
+                    };
+                };
             }
         };
 
@@ -757,6 +757,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
             if (regex.test(fileUpload.value.toLowerCase())) {
                 if (typeof (FileReader) !== "undefined") {
+                    $scope.csvUpload = false;
+                    $scope.importContacts = false;
                     var reader = new FileReader();
                     reader.onload = function (e) {
                         var table = document.createElement("table");
@@ -770,6 +772,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     reader.readAsText(fileUpload.files[0]);
                 }
             }
+            else {
+                $scope.importContacts = false;
+                $scope.csvUpload = true;
+            }
         };
         $scope.updateEmailList = function () {
             var emailaddrestextarea = $("textArea").val();
@@ -777,6 +783,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             var toemailvalid = reg.test(emailaddrestextarea);
             if ($("textArea").val() === '') {
 //                growl("No Contacts to import!, Please Enter atleast One Contact.");
+                $scope.importContacts = true;
                 $("#textArea").focus();
                 return false;
             }
