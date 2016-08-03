@@ -476,7 +476,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.recurringScheduleData.entities_reply_to_email_address = $scope.recurringEntitiesDetails.reply_to_email_address;
                 $scope.recurringScheduleData.days = days;
                 $scope.recurringScheduleData.entities_selected_time = $filter('date')(schedule_time, "HH:mm a");
-                if($scope.recurringEntitiesDetails.email_list_name === '0' || $scope.recurringEntitiesDetails.email_list_name == ''){
+                if($scope.recurringEntitiesDetails.email_list_name === '0' || $scope.recurringEntitiesDetails.email_list_name == '' || $scope.recurringEntitiesDetails.email_list_name == undefined){
                     $scope.hideShowEmailList=false;
                 }else{
                     $scope.hideShowEmailList=true;
