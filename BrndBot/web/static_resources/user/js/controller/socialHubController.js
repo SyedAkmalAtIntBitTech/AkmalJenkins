@@ -35,7 +35,7 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
         $scope.clearFacebookDetails = function () {
             var data = JSON.stringify({access_token_method: "clearFacebookDetails"});
             settingsFactory.facebookPost(data).then(function (data) {
-//                alert(JSON.stringify(data));
+//                growl(JSON.stringify(data));
                 $scope.getFacebookDetails();
             });
         };
@@ -100,7 +100,7 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
             $scope.showTwitterPopup = true;
             var data = {redirectUrl: "user/social"};
             settingsFactory.twitterLoginGet(data).then(function (data) {
-//                alert(JSON.stringify(data));
+//                growl(JSON.stringify(data));
                 $scope.getTwitterPin = data.d.details[0];
             });
         };
@@ -114,7 +114,7 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
                     $scope.showTwitterPopup = false;
                     $scope.getTwitterDetails(); 
                 } else {
-                    alert(pinerror);
+                    growl(pinerror);
                     $("#pinTextBox").focus();
                 }
             });
@@ -143,7 +143,7 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
                 $scope.facebook = false;
                 window.location = getHost() + "user/social";
             } else {
-                alert("Please select any page and set as Default.");
+                growl("Please select any page and set as Default.");
             }
             settingsFactory.facebookPost(data).then(function (data) {
             });
