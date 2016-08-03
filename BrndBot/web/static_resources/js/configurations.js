@@ -45,7 +45,7 @@ function getHost(){
 }
 
 function debugAlert(message){
-    alert(message);
+    growl(message);
 }
 
 function kUserPreference_HasLoggedInFacebook (){
@@ -78,5 +78,12 @@ function getBitlyUserName(){
 }
 function getBitlyKey(){
     return bitlyKey;
+}
+function growl(message,type)
+{
+    if(!type)
+        $.growl.notice({message: message});
+    else
+        $.growl.error({message: message});
 }
 

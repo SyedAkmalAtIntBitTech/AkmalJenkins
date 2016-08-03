@@ -28,7 +28,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.dateLesser = false;
         $scope.timePickerVal = false;
         $scope.validateEmailId = false;
-//        $scope.automationData = [];
 
         $scope.ddSelectAction = {
             text: "Select"

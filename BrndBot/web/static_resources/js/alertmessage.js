@@ -204,3 +204,4 @@ var passwordValidation = "Please enter the password";
 var confirmPasswordValidation = "Please enter the confirm password";
 var confirmPasswordMissmatch = "Sorry, Confirm password didn't matched with Password!";
 var uniqueUserValidation = "Sorry, that email Id already exists!";
+var inActiveMindbodyValidation = "Mindbody not activated, kindly activate mindbody";
