@@ -265,13 +265,13 @@ EDITOR
 }
 .innerbg
 {
-    width: 30px;
-    height: 23px;
+    width: 35px;
+    height: 35px;
     background: #465057 url(../../user/images/bgcolor.svg) no-repeat 0px 0px;
     cursor: pointer;
     position: absolute;
-    margin: -10px 0px 0px 333px;
-    border-radius: 15px;
+    margin: 0px 0px 0px -35px;
+    border-radius: 3px;
     opacity: 0;
 }
 .buttonbg
