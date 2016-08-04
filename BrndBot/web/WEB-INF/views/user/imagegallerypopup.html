@@ -21,7 +21,7 @@
                 <div class="modal-pane-header-wrap">
                     <h2 class="">Your Images</h2>
                     <!--PUT UPLOAD IMAGE FUNCTIONALITY HERE-->
-                    <div class="upload-photo-button reg-button gray-button" ng-click="showImageUploadPopup()">Upload an Image</div>
+                    
 
                     <a class="modal-pane-header-exit" id="hidepopup" ng-click="show_hide_ImageGalleryPopup(false)"></a>
                     <!--             <a ng-repeat="mindbody in mindbodylist" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=subCategoryId%>&mindbodyId={{mindbody.id}}&LookupId=<%=LookupId%>">-->
@@ -47,8 +47,9 @@
                             $event.stopPropagation();"> Upload Image</div>
                     </div>
                 </div>
-                <div class="full-height-modal-pane-content-wrap modal-pane-content-social-sequence" ng-init="getUserImages()" ng-show="showUserImages" >
-                    <div class="gallery-image-wrap {{images.companyImagesId}}">
+                <div class="upload-image-bar" ng-click="showImageUploadPopup()">Upload an Image</div>
+                <div class="modal-pane-content-wrap sequence-page" ng-init="getUserImages()" ng-show="showUserImages" >
+                    <div class="gallery-pop-up-image-wrap {{images.companyImagesId}}">
                         <div class="gallery-image-card" ng-repeat="images in datalists"  ng-click="selectImageToPost(images.imageName, 'gallery', companyId)">
                             <img  class="gallery-image" id="{{images.companyImagesId}}"  src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}" alt="{{images.imageName}}"/>
                         </div>
