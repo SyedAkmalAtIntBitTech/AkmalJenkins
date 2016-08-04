@@ -1011,7 +1011,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
             else
             {
-                marketingRecurringEmailFactory.getRecurringEntityPost(entity_details).then(function (data) {alert(JSON.stringify(data));
+                marketingRecurringEmailFactory.getRecurringEntityPost(entity_details).then(function (data) {
 
                     $scope.recurringEmailValidation(data);
                     if ($scope.type === "template")

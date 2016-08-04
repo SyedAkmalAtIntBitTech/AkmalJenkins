@@ -193,6 +193,7 @@ var imageChannel = "image";
 //VALIDATION
 
 var companyValidation = "Please enter your Company name";
+var companyAddressValidation= "Please enter your Company Address";
 var dropdownValidation = "Please select your Organization";
 var newPasswordValidation = "Password not entered! Please enter the password";
 var confirmPasswordValidation = "Confirm password not entered! Please enter the confirm password";
