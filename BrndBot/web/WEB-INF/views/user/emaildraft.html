@@ -3,11 +3,16 @@
     <div class="top-nav-bar-offset"></div>
     <div class="top-subnav-bar-offset"></div>
     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-hide="emailDraftDetails">
-        <div class="hub-pane" ng-show="emaildraftnumber === '0'">
-            <div class="hub-pane-header-wrap">
-                <h2 class="">{{emaildraftsstatus}}</h2>
+    <div class="hub-pane" ng-show="emaildraftnumber === '0'">
+        <div class="hub-pane-header-wrap">
+            <h2 class="">Your Email Drafts</h2>
+        </div>
+        <div class="hub-pane-content-wrap">
+            <div class="hub-empty-wrap">
+                <div class="slat" ><div class="selection-container ">{{emaildraftsstatus}}</div></div>                    
             </div>
         </div>
+    </div>
     </div>
     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" id="emaildraftsdiv" ng-show="emailDraftDetails">
         <div class="hub-pane" ng-init="displayAllEmailDrafts()">

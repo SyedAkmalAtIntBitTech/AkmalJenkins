@@ -666,19 +666,19 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             if (scheduleUpdatedData.marketing_program_name == 'General') {
                 actiondate = $("#emaildatetime").val();
                 if (title == undefined) {
-                    growl("Title not entered, enter the title");
+                    growl("Title not entered, enter the title","error");
                     $("#addactiontitle").focus();
                     return false;
                 }
                 if (actiondate == undefined) {
-                    growl("Date not selected, select the date");
+                    growl("Date not selected, select the date","error");
                     return false;
                 } else {
                     var actionDateTime2 = actiondate.toLocaleString() + " " + actionTime1.toLocaleString();
                     var fromDate = new Date(actionDateTime2);
                     var todayDate = new Date();
                     if (fromDate < todayDate) {
-                        growl("The selected date is lesser than todays date, please change the date");
+                        growl("The selected date is lesser than todays date, please change the date","error");
                         return false;
                     }
                 }
@@ -686,12 +686,12 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 var actiondate2 = $("#emaildatetime").val();
 
                 if (title == undefined) {
-                    growl("Title not entered, enter the title");
+                    growl("Title not entered, enter the title","error");
                     $("#addactiontitle").focus();
                     return false;
                 }
                 if (actiondate2 == undefined) {
-                    growl("Date not selected, select the date");
+                    growl("Date not selected, select the date","error");
                     return false;
                 } else {
                     var actionDateTime1 = actiondate2.toLocaleString() + " " + actionTime1.toLocaleString();
@@ -700,7 +700,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 //                    var currDate = moment(emaildate).format('YYYY-MM-DD');
                     var endDay = new Date($scope.calculatedProgramDate);
                     if (fromDate < todayDate) {
-                        growl("The selected date is lesser than todays date, please change the date");
+                        growl("The selected date is lesser than todays date, please change the date","error");
                         return false;
                     }
 //                        else if (fromDate > endDay) {
@@ -775,11 +775,10 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                         $scope.action_template_status = "Template Saved";
                         $scope.scheduleData.email_template_status = 'Template Saved';
                     }
-//                    todo notification here
-//                    growl(templetestatussaved);
+                    growl(templetestatussaved);
                     $scope.getCampaigns();
                 } else {
-                    growl(savingrecordproblem);
+                    growl(savingrecordproblem,"error");
                 }
             });
 //        $http({
@@ -811,18 +810,21 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 requestBody = {"type": "deleteSelected",
                     "schedule_ids": selected_schedules_to_delete, "entity_type": "null"};
                 responseMessage = multideletesuccess;
+                growl(singledeletesuccess);
             } else if (type == "delete") {
                 message = singledeleteconfirm;
                 requestBody = {"type": "delete",
                     "schedule_ids": schedules_to_delete, "entity_type": section,
                     "isRecurring": isRecurring};
                 responseMessage = singledeletesuccess;
+                growl(singledeletesuccess);
             } else if (type == "remove") {
                 message = removecnfirm;
                 requestBody = {"type": "removetemplate",
                     "schedule_ids": schedules_to_delete, "entity_type": section,
                     "isRecurring": isRecurring};
                 responseMessage = multideletesuccess;
+                growl(singledeletesuccess);
             }
 
             yourPlanFactory.changeSchedulePost(requestBody).then(function (data) {

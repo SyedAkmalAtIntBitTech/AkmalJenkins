@@ -24,7 +24,17 @@
                 <a id="crtmarkprog" ng-click="rediectToCreateCampaign('createmarketingprogram')" class="long-button green-button">Create a Campaign</a>
             </div>
             <div class="hub-pane-content-wrap">
-                <div ng-show="currentPrograms == ''" id="noprogramsavailable" class="hub-empty-wrap">No campaigns</div>
+                <div class="hub-slat-list-wrap" ng-show="currentPrograms == ''">
+                    <div class="slat" >
+                        <div class="slat-name-wrap">
+                            <h2>No Campaigns</h2>
+                        </div>
+                        <div class="slat-detail-wrap">
+                            <div class="slat-detail slat-detail-button ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!--                    <ul  class="main-container fleft" ng-show="current_programs!=''">
                                            <li class="slat-container fleft selfclear" ng-repeat="program in current_programs">-->
                 <div class="hub-slat-list-wrap" id="currprogs" ng-show="currProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">

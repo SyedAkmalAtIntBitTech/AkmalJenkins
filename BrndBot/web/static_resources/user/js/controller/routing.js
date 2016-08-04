@@ -168,7 +168,7 @@ marketinghubFlowApp.config(function($routeProvider){
                 templateUrl: 'emaillistdetails.html'          
     })
     
-    .otherwise({redirectTo: '/emaillist'});
+    .otherwise({title: 'BrndBot - Email Lists',redirectTo: '/emaillist'});
     }).run(function ($rootScope) {
         $rootScope.$on("$routeChangeSuccess", function (event, currentRoute) {
             document.title = currentRoute.title;
