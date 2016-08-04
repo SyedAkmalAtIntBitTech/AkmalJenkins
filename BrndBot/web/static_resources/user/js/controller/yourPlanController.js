@@ -384,6 +384,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.globalScheduleData = {};
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
         {
+            $scope.dateLesser = false;
 //        $scope.entities_selected_time =schedule_time;
             var nDate = new Date(action_date + " 10:30 am"); //10:30 am save DST
             $scope.calculatedProgramDate = $scope.addDays(nDate, days);
@@ -663,35 +664,34 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var actiondate = "1970/01/01";
             var actionTime1 = $("#timepickertextbox").val().replace(/ /g, '');
             var days = 0;
-            if (scheduleUpdatedData.marketing_program_name == 'General') {
+            if (scheduleUpdatedData.marketing_program_name === 'General') {
                 actiondate = $("#emaildatetime").val();
-                if (title == undefined) {
-                    growl("Title not entered, enter the title","error");
-                    $("#addactiontitle").focus();
+                if (!title) {
+//                    $scope.scheduleData = {schedule_title : ""};
+                    $("#email_edit_title").focus();
                     return false;
                 }
-                if (actiondate == undefined) {
-                    growl("Date not selected, select the date","error");
+                if (!actiondate) {
+                    $scope.generalTimeAction = true;
                     return false;
                 } else {
                     var actionDateTime2 = actiondate.toLocaleString() + " " + actionTime1.toLocaleString();
                     var fromDate = new Date(actionDateTime2);
                     var todayDate = new Date();
                     if (fromDate < todayDate) {
-                        growl("The selected date is lesser than todays date, please change the date","error");
+                        $scope.dateLesser = true;
                         return false;
                     }
                 }
             } else {
                 var actiondate2 = $("#emaildatetime").val();
 
-                if (title == undefined) {
-                    growl("Title not entered, enter the title","error");
-                    $("#addactiontitle").focus();
+                if (!title) {
+                    $("#email_edit_title").focus();
                     return false;
                 }
-                if (actiondate2 == undefined) {
-                    growl("Date not selected, select the date","error");
+                if (!actiondate2) {
+                    $scope.generalTimeAction = true;
                     return false;
                 } else {
                     var actionDateTime1 = actiondate2.toLocaleString() + " " + actionTime1.toLocaleString();
@@ -700,7 +700,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 //                    var currDate = moment(emaildate).format('YYYY-MM-DD');
                     var endDay = new Date($scope.calculatedProgramDate);
                     if (fromDate < todayDate) {
-                        growl("The selected date is lesser than todays date, please change the date","error");
+                        $scope.dateLesser = true;
                         return false;
                     }
 //                        else if (fromDate > endDay) {
@@ -727,6 +727,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 "description": description, "action_date": myEpoch, "days": days.toString()
             };
             yourPlanFactory.addActionPost(action).then(function (data) {
+                $scope.dateLesser = false;
                 $scope.closePopup();
                 $scope.getCampaigns();
                 growl("Action Saved");
@@ -805,20 +806,20 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var message;
             var requestBody;
             var responseMessage;
-            if (type == "deleteMultiple") {
+            if (type === "deleteMultiple") {
                 message = multideleteconfirm;
                 requestBody = {"type": "deleteSelected",
                     "schedule_ids": selected_schedules_to_delete, "entity_type": "null"};
                 responseMessage = multideletesuccess;
                 growl(singledeletesuccess);
-            } else if (type == "delete") {
+            } else if (type === "delete") {
                 message = singledeleteconfirm;
                 requestBody = {"type": "delete",
                     "schedule_ids": schedules_to_delete, "entity_type": section,
                     "isRecurring": isRecurring};
                 responseMessage = singledeletesuccess;
                 growl(singledeletesuccess);
-            } else if (type == "remove") {
+            } else if (type === "remove") {
                 message = removecnfirm;
                 requestBody = {"type": "removetemplate",
                     "schedule_ids": schedules_to_delete, "entity_type": section,
@@ -828,7 +829,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             }
 
             yourPlanFactory.changeSchedulePost(requestBody).then(function (data) {
-                if (type == "remove") {
+                if (type === "remove") {
                     $scope.savedEmail = false;
                     $scope.action_template_status = "No Template";
                 }

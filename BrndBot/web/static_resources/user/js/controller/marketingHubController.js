@@ -24,7 +24,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.companyAddressValidation = companyAddressValidation;
         $scope.email = {};
         $scope.company = {};
-        $scope.email_settings = {};
         $scope.showEmailListDetails = false;
         $scope.uploadCsvValidation = uploadCsvValidation;
         $scope.validCsvFileValidation = validCsvFileValidation;
@@ -42,6 +41,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.listDescription = "";
         $scope.listName = "";
         $scope.deafultFromName = "";
+        $scope.replyEmailValidation = false;    
+        $scope.replyToAddress = false;
 
         $scope.displayAllEmailDrafts = function () {
             $scope.activeEmailDrafts = 'activeTab';
@@ -192,31 +193,31 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 
         $scope.deleteDrafts = function (type, id)
         {
-                var delid = id + ",";
-                var message;
-                if ($scope.selectedEmail == "") {
-                    $scope.selectedEmail = id;
-                }
-                //            var selected_emaildrafts_to_delete = id;
-                var requestBody;
-                if (type === "deleteMultiple") {
-                    message = multidraftconfirm;
-                    requestBody = {"type": "deleteSelected",
-                        "draft_ids": $scope.selectedEmail.toString(), "entity_type": "null"};
-                    $scope.deletDraftsButton = false;
-                } else if (type === "delete") {
-                    message = singledraftconfirm;
-                    requestBody = {"type": "delete",
-                        "draft_ids": $scope.selectedEmail.toString()};
-                }
-                emailDraftFactory.deleteEmailDraftsPost(requestBody).then(function (data) {
-                    growl("Data deleted successfully");
-                    $scope.displayAllEmailDrafts();
-                    $scope.savedEmailDraftPopup = false;
-                    $scope.deletDraftsButton = false;
-                    $scope.selectedEmail = "";
-                    $scope.closeSavedEmailDraftPopup();
-                });
+            var delid = id + ",";
+            var message;
+            if ($scope.selectedEmail == "") {
+                $scope.selectedEmail = id;
+            }
+            //            var selected_emaildrafts_to_delete = id;
+            var requestBody;
+            if (type === "deleteMultiple") {
+                message = multidraftconfirm;
+                requestBody = {"type": "deleteSelected",
+                    "draft_ids": $scope.selectedEmail.toString(), "entity_type": "null"};
+                $scope.deletDraftsButton = false;
+            } else if (type === "delete") {
+                message = singledraftconfirm;
+                requestBody = {"type": "delete",
+                    "draft_ids": $scope.selectedEmail.toString()};
+            }
+            emailDraftFactory.deleteEmailDraftsPost(requestBody).then(function (data) {
+                growl("Data deleted successfully");
+                $scope.displayAllEmailDrafts();
+                $scope.savedEmailDraftPopup = false;
+                $scope.deletDraftsButton = false;
+                $scope.selectedEmail = "";
+                $scope.closeSavedEmailDraftPopup();
+            });
         };
         $scope.editDrafts = function (draft_id, category_id, email_subject, sub_category_id, mindbodyId, lookupId) {
             var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id,
@@ -224,7 +225,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             localStorage.setItem("emailDraftData", JSON.stringify(draftdetails));
             emailDraftFactory.getEmailDraftGet(draft_id).then(function (data) {
                 if (data === "false") {
-                    growl("There was a problem while saving the draft! Please try again later","error");
+                    growl("There was a problem while saving the draft! Please try again later", "error");
                 } else {
                     window.open(getHost() + 'user/baseemaileditor#/emaileditor', "_self");
                 }
@@ -250,12 +251,25 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
 
         $scope.emailSettingsValidation = function (email_settings) {
-            var from_address = email_settings.from_address;
             if (!email_settings.reply_email_address) {
-                $scope.email_settings = {reply_email_address: "", from_address: from_address};
+//                $scope.email_settings = {reply_email_address: "", from_address: from_address};
+                $scope.replyToAddress = true;
                 $("#reply_address").focus();
                 return false;
             }
+            
+            var reply_email_address = email_settings.reply_email_address;
+            var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+            var result = reply_email_address.replace(/\s/g, "").split(/,|;/);
+            for (var i = 0; i < result.length; i++) {
+                if (!regex.test(result[i])) {
+                    $scope.replyToAddress = false;
+                    $("#reply_address").focus();
+                    $scope.replyEmailValidation = "true" + "'" + result[i] + "'";
+                    return false;
+                }
+            }
+            $scope.replyEmailValidation = false;                    
             return true;
         };
 
@@ -264,11 +278,12 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             var reply_email_address = email_settings.reply_email_address;
             if ($scope.emailSettingsValidation(email_settings))
             {
-                var emailSettingsData = {"from_address": "mail@brndbot.com", "reply_email_address": reply_email_address};
-                settingsFactory.saveEmailSettingsPost(emailSettingsData).then(function (data) {
-                    $scope.getEmailSettings();
-                    growl("Settings saved successfully");
-                });
+                    var emailSettingsData = {"from_address": "mail@brndbot.com", "reply_email_address": reply_email_address};
+                    settingsFactory.saveEmailSettingsPost(emailSettingsData).then(function (data) {
+                        $scope.replyToAddress = false;
+                        $scope.getEmailSettings();
+                        growl("Settings saved successfully");
+                    });
             }
         };
         $scope.getFooterDetails = function () {
@@ -605,7 +620,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                                     $("#addContactButton").unbind('click');
                                 });
                             } else if (parseData === '["Email list saved successfully."]') {
-                                growl(emailexist , "error");
+                                growl(emailexist, "error");
                                 $("#addContactButton").unbind('click');
                             }
                         });
@@ -620,8 +635,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                             $scope.showAddContactPopup = false;
                             $scope.overlayFade = false;
                         });
-                    };
-                };
+                    }
+                    ;
+                }
+                ;
             }
         };
 
@@ -720,7 +737,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             if (email_address === "")
             {
                 error++;
-                growl(noemail,"error");
+                growl(noemail, "error");
                 $("#emailId").focus();
                 return false;
             }
@@ -732,7 +749,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 else
                 {
                     error++;
-                    growl(emailerror,"error");
+                    growl(emailerror, "error");
                     $("#emailId").focus();
                     return false;
                 }
@@ -914,8 +931,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                         $scope.updateList(email_list_name);
                         selectedemailids = "";
 //                        $location.path("/emaillistdetails");
+                        growl("Contact deleted successfully");
                         $scope.updateList();
-                        $scope.showAddContactPopup = false;                        
+                        $scope.showAddContactPopup = false;
                     });
                 } else {
                     growl(emailnotselected);

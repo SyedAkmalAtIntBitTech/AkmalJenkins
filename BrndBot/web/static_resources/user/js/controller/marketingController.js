@@ -627,8 +627,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         $scope.updateAction = function (scheduleUpdatedData) {
-
-
             var actiontype = scheduleUpdatedData.schedule_type;//$("#email_schedule_type").val();
             var schedule_id = scheduleUpdatedData.schedule_id;//$("#email_scheduleid").val();
             var title = scheduleUpdatedData.schedule_title;//$("#email_edit_title").val();
@@ -636,13 +634,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var actiondate = $("#emaildatetime").val();
             var actionTime1 = $("#timepickertextbox").val().replace(/ /g, '');
 
-            if (title == undefined) {
-                growl("Title not entered, enter the title");
-                $("#addactiontitle").focus();
+            if (!title) {
+                $("#email_edit_title").focus();
                 return false;
             }
-            if (actiondate == undefined) {
-                growl("Date not selected, select the date");
+            if (!actiondate) {
+                $scope.generalTimeAction = true;
                 return false;
             } else {
                 var actionDateTime1 = actiondate.toLocaleString() + " " + actionTime1.toLocaleString();
@@ -651,7 +648,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 var endDate = $scope.programDate;
                 var endDay = new Date(endDate);
                 if (fromDate < todayDate) {
-                    growl("The selected date is lesser than todays date, please change the date");
+                    $scope.dateLesser = true;
                     return false;
                 }
 //                else if (fromDate > endDay) {
@@ -679,7 +676,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 "description": description, "action_date": myEpoch, "days": days.toString()
             };
             yourPlanFactory.addActionPost(action).then(function (data) {
-                growl("Action saved succesfully");
+                $scope.dateLesser = false;
+                alert("Action saved succesfully");
                 $scope.closePopup();
                 $scope.getProgramActions();
             });
