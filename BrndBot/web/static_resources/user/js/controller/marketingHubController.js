@@ -21,6 +21,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.fromAddressValidation = fromAddressValidation;
         $scope.emailAddressValidation = emailAddressValidation;
         $scope.emailaddrValidation = emailaddrValidation;
+        $scope.companyAddressValidation = companyAddressValidation;
         $scope.email = {};
         $scope.company = {};
         $scope.email_settings = {};
@@ -191,7 +192,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 
         $scope.deleteDrafts = function (type, id)
         {
-            if (confirm("Are you sure, You want to Delete Email Draft(s)?")) {
                 var delid = id + ",";
                 var message;
                 if ($scope.selectedEmail == "") {
@@ -217,7 +217,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     $scope.selectedEmail = "";
                     $scope.closeSavedEmailDraftPopup();
                 });
-            }
         };
         $scope.editDrafts = function (draft_id, category_id, email_subject, sub_category_id, mindbodyId, lookupId) {
             var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id,
@@ -498,6 +497,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 
         $scope.updateList = function () {
             $scope.activeEmailListContacts = 'activeTab';
+            $scope.activeImportContacts = '';
             $scope.showEmailListContacts = true;
             $("#importListli").removeClass("top-subnav-link-active");
             $("#importList").removeClass("h3-active-subnav");
@@ -805,7 +805,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                         if (email !== "")
                         {
                             if (reg.test(split[i]) === false) {
-                                growl("Contacts not Valid! Please Enter Valid Email Address \n\n'" + split[i] + "'\t is Invalid Email id.", "error");
+                                growl("Contacts not Valid! Please Enter Valid Email Address \n\n'" + split[i] + "'\t is Invalid Email id.\nCheck and remove if there is any spaces.", "error");
                                 $("#textArea").focus();
                                 return false;
                             }
@@ -819,7 +819,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             var Emails = {"emailListName": email_list_name, "emailAddresses": emailaddrestextarea, "update": "UpdateEmailList",
                 "emailFirstName": firstName, "emailLastName": lastName};
             emailListFactory.emailListSavePost(Emails).then(function (data) {
-                if (data === "true") {
+                if (data.d.operationStatus.statusCode === "Success") {
                     growl(datasaved);
                     $scope.updateList();
                 } else if (data === error) {
