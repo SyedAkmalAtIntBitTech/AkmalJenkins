@@ -168,18 +168,18 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.getUserMarketingProgramsOpen = function (forward) {
             companyMarketingProgramFactory.listAllMarketingProgramGet("Open").then(function (data) {
+                $scope.showCurrentPrograms();
                 $scope.currentPrograms = data.programs;
                 $scope.forward = forward;
-                $scope.showCurrentPrograms();
             });
         };
 
         $scope.getUserMarketingProgramsClosed = function (forward) {
-            companyMarketingProgramFactory.listAllMarketingProgramGet("Closed").then(function (data) {
-                $scope.showPastPrograms();
-                $scope.pastPrograms = data.programs;
-                $scope.forward = forward;
-            });
+                companyMarketingProgramFactory.listAllMarketingProgramGet("Closed").then(function (data) {
+                    $scope.pastPrograms = data.programs;
+                    $scope.forward = forward;
+                    $scope.showPastPrograms();
+                });
         };
         $scope.showPastPrograms = function () {
             $scope.currProgramsDiv = false;
@@ -188,8 +188,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.archivedCampaignClass = 'activeCampaign';
         };
         $scope.showCurrentPrograms = function () {
-            $scope.currentCampaignClass = 'activeCampaign';
             $scope.archivedCampaignClass = '';
+            $scope.currentCampaignClass = 'activeCampaign';
             $scope.currProgramsDiv = true;
             $scope.pastProgramsDiv = false;
         };
@@ -579,7 +579,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.entitiesdetails = JSON.parse(data.d.details);
 //                    growl(JSON.stringify($scope.entitiesdetails));
                     var iframe = document.getElementById('iframeForAction');
-                    if ($scope.entitiesdetails != "{}") {
+                    if (data.d.details != "{}") {
                         $scope.savedEmail = true;
                         $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
                         $scope.deleteScheduleButton = "Remove Saved Email";
@@ -1011,7 +1011,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
             else
             {
-                marketingRecurringEmailFactory.getRecurringEntityPost(entity_details).then(function (data) {alert(JSON.stringify(data));
+                marketingRecurringEmailFactory.getRecurringEntityPost(entity_details).then(function (data) {
 
                     $scope.recurringEmailValidation(data);
                     if ($scope.type === "template")
@@ -1034,14 +1034,16 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     }
 //                    $scope.entity_details = data;
                     $scope.automationData.title = data.recurring_email_title;
-                    $scope.automationData.description = data.recurring_email_description
+                    $scope.automationData.description = data.recurring_email_description;
                     $scope.automationData.selectedDay = data.recurring_email_days;
                     $scope.automationData.selectedEmailList = data.recurring_email_email_list_name;
                     $scope.automationData.time = $filter('date')(data.recurring_email_time, "HH : mm : a");
                     $scope.automationData.subject = data.recurring_email_subject;
                     $scope.automationData.fromName = data.recurring_email_from_name;
                     $scope.automationData.replyAddress = data.recurring_email_reply_to_email_address;
-                    if (data.recurring_email_template_id != null) {
+                    $scope.ddSelectDateAutomationData.text = data.recurring_email_days;
+                    $scope.ddSelectEmailListAutomationData.text = data.recurring_email_email_list_name;
+                    if (data.recurring_email_template_id !== null) {
                         $scope.templateId = data.recurring_email_template_id;
 //                        $scope.entityNoEmailTemplate = false;
                     } else {

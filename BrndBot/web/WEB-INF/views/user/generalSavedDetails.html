@@ -107,6 +107,19 @@
          
          
          <div class="overlay-content" ng-show="masterActionType=='Email'">
+            <div id="noemailsdiv" ng-if="savedEmail === false">
+                <div class="overlay-content">
+                    <div class="overlay-empty-container">
+                        <div class="empty-wrap">
+                            <object type="image/svg+xml" data="/BrndBot/user/images/Overlay_EmptyStates_email.svg"></object>
+                            <p>{{actionTypeNoTemplateMessage}}</p>
+                            <a class="reg-button blue-button empty-wrap-button" href="{{savedDetailsAddTemplateLink}}" ng-if="isRecurring === false">{{savedDetailsAddTemplateButton}}</a>
+                            <a class="reg-button blue-button empty-wrap-button" ng-click="redirectToEmailAutomation('emailautomation','template','', schedule_id)" ng-if="isRecurring === true">{{savedDetailsAddTemplateButton}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div ng-if="savedEmail === true">
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div >SAVED EMAIL DETAILS</div>
@@ -138,7 +151,9 @@
                 <div class="overlay-email-preview"><iframe id="iframeForAction" class="email-overlay-iFrame"></iframe>
                     <!--iframe goes here-->
                 </div>
+             </div>
         </div>
+    </div>
 <!--                <div class="overlay-name-bar">
                     <input size="40" value="Email Action Name"></input>
                     <a class="reg-button gray-button dropdown">
@@ -238,7 +253,5 @@
                 </div>
         </div>
     </div>
-                </div>
     
         </div>
-</div>
