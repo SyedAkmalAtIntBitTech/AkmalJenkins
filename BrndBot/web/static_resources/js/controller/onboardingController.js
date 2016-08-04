@@ -236,8 +236,9 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             onboardingFactory.saveStudioIdPost(studioId).then(function (data) {
                 var studioIdSaved = eval(JSON.stringify(data.d.message));
                 if (studioIdSaved === "true") {
-                    externalContentFactory.activationLinkGet().then(function (data) {
+                    externalContentFactory.activationLinkGet().then(function (data) {                       
                         $scope.activationLink = data.d.details[0];
+                        growl("Mindbody activated successfully");
                     });
                 }
             });
