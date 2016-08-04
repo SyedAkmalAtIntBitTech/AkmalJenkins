@@ -168,18 +168,18 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.getUserMarketingProgramsOpen = function (forward) {
             companyMarketingProgramFactory.listAllMarketingProgramGet("Open").then(function (data) {
+                $scope.showCurrentPrograms();
                 $scope.currentPrograms = data.programs;
                 $scope.forward = forward;
-                $scope.showCurrentPrograms();
             });
         };
 
         $scope.getUserMarketingProgramsClosed = function (forward) {
-            companyMarketingProgramFactory.listAllMarketingProgramGet("Closed").then(function (data) {
-                $scope.showPastPrograms();
-                $scope.pastPrograms = data.programs;
-                $scope.forward = forward;
-            });
+                companyMarketingProgramFactory.listAllMarketingProgramGet("Closed").then(function (data) {
+                    $scope.pastPrograms = data.programs;
+                    $scope.forward = forward;
+                    $scope.showPastPrograms();
+                });
         };
         $scope.showPastPrograms = function () {
             $scope.currProgramsDiv = false;
@@ -188,8 +188,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.archivedCampaignClass = 'activeCampaign';
         };
         $scope.showCurrentPrograms = function () {
-            $scope.currentCampaignClass = 'activeCampaign';
             $scope.archivedCampaignClass = '';
+            $scope.currentCampaignClass = 'activeCampaign';
             $scope.currProgramsDiv = true;
             $scope.pastProgramsDiv = false;
         };
@@ -579,7 +579,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.entitiesdetails = JSON.parse(data.d.details);
 //                    growl(JSON.stringify($scope.entitiesdetails));
                     var iframe = document.getElementById('iframeForAction');
-                    if ($scope.entitiesdetails != "{}") {
+                    if (data.d.details != "{}") {
                         $scope.savedEmail = true;
                         $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
                         $scope.deleteScheduleButton = "Remove Saved Email";
