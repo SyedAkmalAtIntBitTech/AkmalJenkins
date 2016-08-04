@@ -27,6 +27,14 @@ public interface UsersService {
     Users findByUserName(String userName) throws ProcessFailed;
     
     /**
+     * 
+     * @param userName
+     * @return
+     * @throws com.intbittech.exception.ProcessFailed
+     * @throws ProcessFailed 
+     */
+    Users isUserExist(String userName) throws ProcessFailed;
+    /**
      * This method pass user as input and get the {@link Boolean} from DAO layer.
      *
      * @param user

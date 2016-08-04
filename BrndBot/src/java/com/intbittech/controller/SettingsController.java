@@ -110,9 +110,8 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         try {
             boolean returnMessage = usersService.saveNonExistingUser(inviteDetails);
             if (returnMessage){
-                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(
-                            messageSource.getMessage("invitation_check_mail", 
-                                    new String[]{}, Locale.US)));
+                
+                transactionResponse.setMessage(messageSource.getMessage("invitation_check_mail", new String[]{}, Locale.US));
             }
 
         } catch (Throwable throwable) {

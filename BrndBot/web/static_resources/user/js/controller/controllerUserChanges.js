@@ -6,7 +6,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.confirmPasswordValidation = confirmPasswordValidation;
         $scope.logoValidation = logoValidation;
         $scope.showPaletteChangePopUp="";
-               
+        $scope.addUserSettings = false;                   
         // Hide & show password function
         $scope.hideShowPassword = function () {
             if ($scope.inputType == 'password')
@@ -43,11 +43,22 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         };
 
         $scope.inviteUser = function (userDetails) {
-            var userRoles = userDetails.roles.split();
-            alert(JSON.stringify(userRoles));
-            var invitation = {"emailId": userDetails.email, "task": userDetails.task, "roles": userRoles};
+            var roles = [];
+            if (userDetails.adminCheckBox == true){
+                roles.push(1);
+            }
+            if (userDetails.managerCheckBox == true){
+                roles.push(2);
+            }
+            if (userDetails.creatorCheckBox == true){
+                roles.push(4);
+            }
+            var invitation = {"emailaddress": userDetails.email, "roles": roles, "task": 'invitation',};
+           
             onboardingFactory.inviteUserPost(invitation).then(function (data) {
                 var response = data;
+                alert(JSON.stringify(response.d.message));
+                $scope.closeOverlay();
 //                if (message === "true")
 //                {
 //                    $("#signform").submit();
@@ -78,6 +89,22 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             }
         };
 
+        $scope.ShowAddUserSettings = function ()
+        {
+//            $scope.resetActionForm();
+
+//            $scope.datePicker = "";
+            $scope.fadeClass = 'fadeClass';
+//            $scope.isYourplan = true;
+            $scope.addUserSettings = true;
+        };
+
+        $scope.closeOverlay = function ()
+        {
+            $scope.fadeClass = '';
+            $scope.addUserSettings = false;
+        };
+        
         $scope.userLogoValidation = function (logoImage) {
             if (!logoImage) {
                 $scope.logoImage = "";

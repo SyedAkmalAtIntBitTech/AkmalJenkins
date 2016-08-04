@@ -572,6 +572,10 @@ factoryApp.service('configurationService', function (){
     this.saveUserURL = function () {
         return getHost() + "onboarding/saveUser";
     };
+
+    this.saveInvitedUserURL = function () {
+        return getHost() + "onboarding/saveInvitedUser";
+    };
     
     this.saveStudioIdURL = function () {
         return getHost() + "onboarding/saveStudioId";

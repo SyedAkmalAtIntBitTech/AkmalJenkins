@@ -30,17 +30,17 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "users")
 public class Users implements Serializable {
-    @OneToMany(mappedBy = "userId")
-    private List<UserRoleLookup> usersRoleLookupList;
-    @OneToMany(mappedBy = "inviteSentBy")
-    private Set<Invite> companyInviteSetSentBy;
-    @OneToMany(mappedBy = "inviteSentTo")
-    private Set<Invite> companyInviteSentSentTo;
+//    @OneToMany(mappedBy = "userId")
+//    private List<UserRoleLookup> usersRoleLookupList;
+//    @OneToMany(mappedBy = "inviteSentBy")
+//    private Set<Invite> companyInviteSetSentBy;
+//    @OneToMany(mappedBy = "inviteSentTo")
+//    private Set<Invite> companyInviteSentSentTo;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @OneToMany(mappedBy = "userId")
+//    @OneToMany(mappedBy = "userId")
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -133,31 +133,31 @@ public class Users implements Serializable {
         this.lastName = lastName;
     }
 
-    @XmlTransient
-    public Set<Invite> getCompanyInviteSetSentBy() {
-        return companyInviteSetSentBy;
-    }
-
-    public void setCompanyInviteSetSentBy(Set<Invite> companyInviteSetSentBy) {
-        this.companyInviteSetSentBy = companyInviteSetSentBy;
-    }
-
-    @XmlTransient
-    public Set<Invite> getCompanyInviteSetSentTo() {
-        return companyInviteSentSentTo;
-    }
-
-    public void setCompanyInviteSetSentTo(Set<Invite> companyInviteSetSentTo) {
-        this.companyInviteSentSentTo = companyInviteSetSentTo;
-    }
-
-    @XmlTransient
-    public List<UserRoleLookup> getUsersRoleLookupList() {
-        return usersRoleLookupList;
-    }
-
-    public void setUsersRoleLookupList(List<UserRoleLookup> usersRoleLookupList) {
-        this.usersRoleLookupList = usersRoleLookupList;
-    }
+//    @XmlTransient
+//    public Set<Invite> getCompanyInviteSetSentBy() {
+//        return companyInviteSetSentBy;
+//    }
+//
+//    public void setCompanyInviteSetSentBy(Set<Invite> companyInviteSetSentBy) {
+//        this.companyInviteSetSentBy = companyInviteSetSentBy;
+//    }
+//
+//    @XmlTransient
+//    public Set<Invite> getCompanyInviteSetSentTo() {
+//        return companyInviteSentSentTo;
+//    }
+//
+//    public void setCompanyInviteSetSentTo(Set<Invite> companyInviteSetSentTo) {
+//        this.companyInviteSentSentTo = companyInviteSetSentTo;
+//    }
+//
+//    @XmlTransient
+//    public List<UserRoleLookup> getUsersRoleLookupList() {
+//        return usersRoleLookupList;
+//    }
+//
+//    public void setUsersRoleLookupList(List<UserRoleLookup> usersRoleLookupList) {
+//        this.usersRoleLookupList = usersRoleLookupList;
+//    }
 
 }

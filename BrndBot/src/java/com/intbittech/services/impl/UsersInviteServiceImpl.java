@@ -189,12 +189,12 @@ public class UsersInviteServiceImpl implements UsersInviteService{
 
         message.setKey(MANDRILL_KEY);
 //        TODO code to be modified
-        message.setHtml("<html><body>" + imageContextPath + "changepassword?userid=" + hashURL + "</body></html>");
-        message.setText("text");
+         message.setHtml("<html><body><p><h2>User Invitation:</h2></p><p>You have been invited to join your company in BrndBot.</p>To create a user, click on the link below (or copy and paste the URL into your browser):<br />" + imageContextPath + "#/signup/changepassword?userid=" + hashURL + "</body></html>");
+//        message.setText("text");
         /** need to change the above link and below message**/
-        message.setSubject("please click the above given link to create your user role");
-        message.setFrom_email("intbit@intbittech.com");
-        message.setFrom_name("Intbit Tech");
+        message.setSubject("User Invitation");
+        message.setFrom_email("mail@brndbot.com");
+        message.setFrom_name("BrndBot");
         message.setAsync(true);
 
         ArrayList<Recipient> messageToList = new ArrayList<Recipient>();

@@ -63,6 +63,15 @@ public class StringUtility {
         return myObjectList;
     }
 
+    public static TaskDetails stringToTaskDetails(String content){
+        Gson gson = new Gson(); 
+        TaskDetails object = null;
+        if (content != null){
+            object = gson.fromJson(content, TaskDetails.class);                
+            return object;
+        }
+        return object;
+    }
     public static Object stringToObject(String content){
         Gson gson = new Gson(); 
         Object object = null;
@@ -71,5 +80,5 @@ public class StringUtility {
             return object;
         }
         return object;
-    }
+    }    
 }

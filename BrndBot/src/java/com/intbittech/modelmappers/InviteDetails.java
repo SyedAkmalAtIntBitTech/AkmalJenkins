@@ -6,6 +6,7 @@
 package com.intbittech.modelmappers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  */
 public class InviteDetails {
     String emailaddress;
-    public ArrayList<Integer> roles = new ArrayList<Integer>();
+    public List<Integer> roles = new ArrayList<Integer>();
     public String task;
 
     public String getEmailaddress() {
@@ -28,11 +29,11 @@ public class InviteDetails {
         return task;
     }
 
-    public ArrayList<Integer> getRoles() {
+    public List<Integer> getRoles() {
         return roles;
     }
 
-    public void setRoles(ArrayList<Integer> roles) {
+    public void setRoles(List<Integer> roles) {
         this.roles = roles;
     }
 

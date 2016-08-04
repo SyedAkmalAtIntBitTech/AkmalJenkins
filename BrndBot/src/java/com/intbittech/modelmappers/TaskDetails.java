@@ -6,22 +6,23 @@
 package com.intbittech.modelmappers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Syed Muzamil at IntBit Technologies.
  */
 public class TaskDetails {
-    public ArrayList<Integer> roles = new ArrayList<Integer>();
+    public List<Integer> roles = new ArrayList<Integer>();
     public String task;
 
-    public TaskDetails(String task, ArrayList roles) {
+    public TaskDetails(String task, List roles) {
         this.task = task;
         this.roles = roles;
     }
 
     
-    public ArrayList<Integer> getRoles() {
+    public List<Integer> getRoles() {
         return roles;
     }
 

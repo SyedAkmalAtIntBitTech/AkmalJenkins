@@ -91,7 +91,7 @@ public class OnboardingController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "/onboarding/saveInvited", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/onboarding/saveInvitedUser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveInvited(@RequestBody UserDetails usersDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {

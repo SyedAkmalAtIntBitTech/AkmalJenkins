@@ -38,6 +38,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import javax.servlet.ServletContext;
@@ -83,6 +84,18 @@ public class UsersServiceImpl implements UsersService {
           Users users = usersDao.findByUserName(userName);
         if (users == null) {
             throw new ProcessFailed("No user found.");
+        }
+        return users;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Users isUserExist(String userName) throws ProcessFailed {
+          Users users = usersDao.findByUserName(userName);
+        if (users == null) {
+            return null;
         }
         return users;
     }
@@ -144,7 +157,7 @@ public class UsersServiceImpl implements UsersService {
     public boolean saveUser(UserDetails usersDetails) throws ProcessFailed {
         boolean returnMessage = false;
         Invite companyInvite = null;TaskDetails taskdetails = null;
-        ArrayList roles = null;UserRoleLookup usersRoleLookUp = null;
+        List roles = null;UserRoleLookup usersRoleLookUp = null;
         
         try {
             companyInvite = usersInviteService.getInvitedUserByInviteCode(usersDetails.getInvitationCode());
@@ -158,11 +171,17 @@ public class UsersServiceImpl implements UsersService {
                 user.setFirstName(usersDetails.getFirstName());
                 user.setLastName(usersDetails.getLastName());
                 user.setCreatedDate(new Date());
-                Company companyObject = new Company();
-                companyObject.setCompanyId(usersDetails.getCompanyId());
+                Users sentUser = companyInvite.getInviteSentBy();
+                
+                Company companyObject = sentUser.getFkCompanyId();
+//                companyObject.setCompanyId(usersDetails.getCompanyId());
                 user.setFkCompanyId(companyObject);
-                if (!(usersDao.checkUniqueUser(user))){
-                    usersDao.save(user);
+                UserRole userRole1 = new UserRole();
+                userRole1.setUserRoleId(3);
+                user.setFkUserRoleId(userRole1);
+                user.setFkUserRoleId(userRole1);
+                if ((usersDao.checkUniqueUser(user))){
+                    Integer success = usersDao.save(user);
                 }else {
                     throw new ProcessFailed(messageSource.getMessage("user_exist", new String[]{}, Locale.US));
                 }
@@ -170,7 +189,7 @@ public class UsersServiceImpl implements UsersService {
                 companyInvite.setIsUsed(true);
                 usersInviteService.update(companyInvite);
                 
-                taskdetails = (TaskDetails)StringUtility.stringToObject(companyInvite.getTask());
+                taskdetails = (TaskDetails)StringUtility.stringToTaskDetails(companyInvite.getTask());
                 
                 roles = taskdetails.getRoles();
                 for (int i = 0; i< roles.size(); i++){
@@ -182,13 +201,13 @@ public class UsersServiceImpl implements UsersService {
 
                     usersRoleLookUp.setUserId(user);
                     usersRoleLookUp.setRoleId(userRole);
-                    if (!(usersRoleLookUpService.isRoleExist(usersRoleLookUp))){
+//                    if (!(usersRoleLookUpService.isRoleExist(usersRoleLookUp))){
                         usersRoleLookUpService.save(usersRoleLookUp);
                         sendAcknowledgementEMail(usersDetails.getUserName());
                         returnMessage = true;
-                    }else {
-                        throw new ProcessFailed(messageSource.getMessage("role_exist", new String[]{}, Locale.US));
-                    }
+//                    }else {
+//                        throw new ProcessFailed(messageSource.getMessage("role_exist", new String[]{}, Locale.US));
+//                    }
                 }
                 
             }else {
@@ -210,11 +229,15 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public boolean saveNonExistingUser(InviteDetails inviteDetails)throws ProcessFailed{
         boolean returnMessage = false;
+        boolean userExist = false;
         try{
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             String fromEmailId = userProfile.getUser().getUserName();
-
-            boolean userExist = checkUniqueUser(findByUserName(inviteDetails.getEmailaddress()));
+            
+            Users user = isUserExist(inviteDetails.getEmailaddress());
+            if (user != null){
+                userExist = checkUniqueUser(user);
+            }
             
             if (userExist){
                 boolean userExistInCompany = isUserExistInCompany(inviteDetails,userProfile.getUser().getFkCompanyId());
@@ -244,7 +267,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public void setRole(InviteDetails inviteDetails) throws ProcessFailed{
         TaskDetails taskdetails = null;
-        ArrayList roles = null;UserRoleLookup usersRoleLookUp = null;
+        List<Integer> roles = null;UserRoleLookup usersRoleLookUp = null;
         Users user = null;
         try{
             
@@ -313,7 +336,7 @@ public class UsersServiceImpl implements UsersService {
             Long createdDate = companyInvite.getCreatedDateTime().getTime();
             Long todayDate = new Date().getTime();
 
-            Long Datedifference = createdDate - todayDate;
+            Long Datedifference = todayDate - createdDate ;
             
             boolean isUsed = companyInvite.getIsUsed();
             if ((Datedifference <= AppConstants.Datedifference) && (!isUsed)){

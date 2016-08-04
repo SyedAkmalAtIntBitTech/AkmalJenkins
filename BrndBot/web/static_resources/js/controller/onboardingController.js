@@ -12,6 +12,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.colorValidation = colorValidation;
         $scope.studioIdValidation = studioIdValidation;
         $scope.logoValidation = logoValidation;
+        $scope.userHashId = "";
 //        $scope.companyName = "";
         $scope.organizationId = "";
 
@@ -53,6 +54,24 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 
         $scope.saveUser = function (userDetails) {
             onboardingFactory.saveUserPost(userDetails).then(function (data) {
+                var message = data.d.message;
+                if (message === "true")
+                {
+                    $("#signform").submit();
+                    $location.path("/signup/company");
+                }
+            });
+        };
+
+        $scope.getUserId = function (){
+            $scope.userHashId = $location.search().userid;
+        };
+        $scope.saveInvitedUser = function (userDetails) {
+            
+            var user = {"userName": userDetails.userName, "firstName": userDetails.firstName, 
+                        "lastName": userDetails.lastName, "userPassword": userDetails.userPassword,
+                        "invitationCode": $scope.userHashId}
+            onboardingFactory.saveInvitedUserPost(user).then(function (data) {
                 var message = data.d.message;
                 if (message === "true")
                 {
