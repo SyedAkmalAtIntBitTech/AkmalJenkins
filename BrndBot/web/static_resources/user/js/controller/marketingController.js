@@ -488,7 +488,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
                     $scope.deleteScheduleButton = "Remove Saved Email";
                     iframe.contentDocument.body.innerHTML = $scope.recurringEntitiesDetails.body;
-                    growl(JSONiframe.contentDocument.body);
                 } else {
                     $scope.savedEmail = false;
                     $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
@@ -1043,7 +1042,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.automationData.fromName = data.recurring_email_from_name;
                     $scope.automationData.replyAddress = data.recurring_email_reply_to_email_address;
                     $scope.ddSelectDateAutomationData.text = data.recurring_email_days;
-                    $scope.ddSelectEmailListAutomationData.text = data.recurring_email_email_list_name;
+                    if(data.recurring_email_email_list_name)
+                        $scope.ddSelectEmailListAutomationData.text = data.recurring_email_email_list_name;
+                    else
+                    {
+                        $scope.ddSelectEmailListAutomationData = {
+                            text: "Please select an email list"
+                        };
+                    }
                     if (data.recurring_email_template_id !== null) {
                         $scope.templateId = data.recurring_email_template_id;
 //                        $scope.entityNoEmailTemplate = false;
@@ -1055,10 +1061,16 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         var emailListDropDownSelect = { "text" : $scope.automationData.selectedEmailList, "value":$scope.automationData.selectedEmailList};
                         $scope.emailListOnChange(emailListDropDownSelect);
                     }
+                    if(data.recurring_email_days) {
+                        var daysDropDownSelect = { "text" : data.recurring_email_days, "value":data.recurring_email_days};
+                        $scope.setDays(daysDropDownSelect);
+                    }
 //                    alert(JSON.stringify(data.recurring_email_body));
                     //TODO Sandeep
                     $scope.froalaHtmlData = data.recurring_email_body;
-                    $('#edit').froalaEditor('html.set', '' + $scope.froalaHtmlData + '');
+//                    $('#edit').froalaEditor('html.set', '' + $scope.froalaHtmlData + '');
+                    $("#tinymceEditorBody").empty().append($scope.froalaHtmlData);
+                    $scope.lunchTinyMceEditor();
 
                 });
 
