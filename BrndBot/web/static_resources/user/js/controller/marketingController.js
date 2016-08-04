@@ -1034,14 +1034,16 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     }
 //                    $scope.entity_details = data;
                     $scope.automationData.title = data.recurring_email_title;
-                    $scope.automationData.description = data.recurring_email_description
+                    $scope.automationData.description = data.recurring_email_description;
                     $scope.automationData.selectedDay = data.recurring_email_days;
                     $scope.automationData.selectedEmailList = data.recurring_email_email_list_name;
                     $scope.automationData.time = $filter('date')(data.recurring_email_time, "HH : mm : a");
                     $scope.automationData.subject = data.recurring_email_subject;
                     $scope.automationData.fromName = data.recurring_email_from_name;
                     $scope.automationData.replyAddress = data.recurring_email_reply_to_email_address;
-                    if (data.recurring_email_template_id != null) {
+                    $scope.ddSelectDateAutomationData.text = data.recurring_email_days;
+                    $scope.ddSelectEmailListAutomationData.text = data.recurring_email_email_list_name;
+                    if (data.recurring_email_template_id !== null) {
                         $scope.templateId = data.recurring_email_template_id;
 //                        $scope.entityNoEmailTemplate = false;
                     } else {
