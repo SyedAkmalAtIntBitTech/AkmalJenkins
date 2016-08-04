@@ -345,6 +345,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     $scope.blockOnClick(0);
                 } else
                 {
+                    $scope.hideMindbodyOverlay = false;
                     $scope.emailMindBodyPopup = true;
                     $("#fade").show();
                     $scope.overlayFade = true;

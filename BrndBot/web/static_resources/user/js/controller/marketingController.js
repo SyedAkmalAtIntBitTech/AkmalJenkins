@@ -559,13 +559,13 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.masterActionType = entity_type;
             $scope.savedDetailsAddTemplateButton = "Go to Dashboard";
             $scope.savedDetailsAddTemplateLink = "dashboard";
-            $scope.templateApproveButton = "Click to Approve";
-            $scope.templateDisapproveButton = "Click to Unapprove";
+            $scope.templateApproveButton = "Approve";
+            $scope.templateDisapproveButton = "Disapprove";
             $scope.savedHeader = 'Post';
             $scope.actionDate = schedule_date;
             var time = $filter('date')(schedule_time, "hh : mm : a");
-            $("#emaildatetime").val($filter('date')(schedule_date, "MMM dd yyyy"));
-
+            $("#emaildatetime").val($filter('date')(schedule_date, "MMM dd yyyy")); 
+            
             $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: schedule_date,
                 schedule_id: schedule_id, schedule_desc: schedule_desc,
                 email_template_status: template_status, schedule_type: entity_type,
