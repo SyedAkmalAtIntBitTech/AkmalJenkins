@@ -165,7 +165,7 @@
             </div>
         </div>
     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav"  id="" ng-show="showCampaignDetails == true">
-
+        <div ng-show="isProgramArchived" class="clickProofLayer"></div>
         <div class="hub-pane" >
             <div class="hub-pane-header-wrap">
                 <h2 class="">Marketing Campaign Details</h2>
@@ -214,7 +214,7 @@
 
                     </div>
                     <div class="update-container">
-                        <a class="long-button gray-button"  ng-click="updateUserProgram(programs)">Save Changes</a>
+                        <a ng-hide="isProgramArchived" class="long-button gray-button"  ng-click="updateUserProgram(programs)">Save Changes</a>
                     </div>
                 </div>
 

@@ -42,6 +42,7 @@
                             <p class="input-wrap-label">If you need help finding your MINDBODY ID please<a class="input-help" href="#">click here for help</a></p>
                         </div>
                         <span class="validationAlert" ng-if='studioId === "" || null'>{{studioIdValidation}}</span>
+                        <span class="validationAlert" ng-if='mindbodyActive'>{{inActiveMindbodyValidation}}</span>
 
                     </div>
                     <div class="input-wrap">

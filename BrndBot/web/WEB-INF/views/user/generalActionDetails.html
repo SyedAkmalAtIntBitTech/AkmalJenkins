@@ -1,5 +1,6 @@
 
 <div class="overlay-content" id="emailactionsection" ng-init='hideSaveButton()' ng-show='generalActions' ng-form name="actionDetailsForm">
+    <div ng-show="isProgramArchived" class="clickProofLayer"></div>
     <div class="overlay-name-bar" ng-show="isRecurring === false">
         <input size="40" value="Email Action Name" id="email_edit_title" name="email_edit_title" ng-model='scheduleData.schedule_title' ng-change="showSaveButton()" value="{{scheduleData.schedule_title}}">
         <input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{scheduleData.schedule_id}}' />
@@ -104,7 +105,7 @@
             </div>
     
     
-            <div class="bottom-cta-button-container-overlay"  ng-show="showUpdateBtn">
+            <div class="bottom-cta-button-container-overlay"  ng-show="showUpdateBtn && !isProgramArchived">
                 <a class="reg-button success-button" id="updateAction1" ng-click="updateAction(scheduleData)" ng-show="isRecurring === false" >Save Action</a>
             </div>
            
@@ -117,7 +118,7 @@
                     <input type="hidden" id="recurring_email_title" value="{{schedule_title}}" class="input-field-textfield" readonly/>
                     <input class="inputbox SP1" type="hidden" name="fb_scheduletype" id="fb_scheduletype" value='{{schedule_type}}'/>
                     <input class="inputbox SP1" type="hidden" name="fb_scheduleid" id="fb_scheduleid" value='{{schedule_id}}'/>
-                    <a class="reg-button slat-detail-button edit-email-auto-button" ng-click="redirectToEmailAutomation('emailautomation','edit','', schedule_id)"> Edit Email Automation Details
+                    <a ng-hide="isProgramArchived"  class="reg-button slat-detail-button edit-email-auto-button" ng-click="redirectToEmailAutomation('emailautomation','edit','', schedule_id)"> Edit Email Automation Details
                         <div class="email-automation-hint" ng-show="editAutomationHint"></div></a>
                 </div>
                 <div class="overlay-details-pane">

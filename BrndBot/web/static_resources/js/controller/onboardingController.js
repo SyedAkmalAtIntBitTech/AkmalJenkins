@@ -11,6 +11,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.dropdownValidation = dropdownValidation;
         $scope.colorValidation = colorValidation;
         $scope.studioIdValidation = studioIdValidation;
+        $scope.inActiveMindbodyValidation = inActiveMindbodyValidation;
         $scope.logoValidation = logoValidation;
 //        $scope.companyName = "";
         $scope.organizationId = "";
@@ -30,28 +31,28 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             var password = $scope.signUpPassword;
             var rePassword = $scope.signUpConfirmPassword;
             if ($.trim(emailId).length === 0) {
-                alert(emptyemail);
+                growl(emptyemail);
                 emailId.focus();
                 return false;
             }
             if (!(validateEmail(emailId))) {
-                alert(wrongemail);
+                growl(wrongemail);
                 $("#emailId").focus();
                 return false;
             }
             if (password === "") {
-                alert(passworderror);
+                growl(passworderror);
                 $("#password").focus();
                 return false;
             }
             if (rePassword === "") {
-                alert(repasswordempty);
+                growl(repasswordempty);
                 $("#rePassword").focus();
                 return false;
             }
 
             if (password !== rePassword) {
-                alert(confirmpassworderror);
+                growl(confirmpassworderror);
                 $("#rePassword").focus();
                 $("#rePassword").val('');
                 return false;
@@ -154,7 +155,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 $scope.defaultOrganisation = [{organizationId: 0, organizationName: 'Please select an industry'}];
                 $scope.organizations = $scope.defaultOrganisation.concat(data.d.details);
                 $scope.organizationId = $scope.organizations[0].organizationId;
-//                alert(JSON.stringify(data));
+//                growl(JSON.stringify(data));
                 //angular DD
                 var organizationsData = data.d.details;
                 for (var i = 0; i < organizationsData.length; i++) {
@@ -231,6 +232,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         };
 
         $scope.getActivationLink = function (studioId) {
+            $scope.mindbodyActive = false;
             onboardingFactory.saveStudioIdPost(studioId).then(function (data) {
                 var studioIdSaved = eval(JSON.stringify(data.d.message));
                 if (studioIdSaved === "true") {
@@ -258,7 +260,8 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                         globalActivation = activation;
                         if (globalActivation === "false")
                         {
-                            alert("Mindbody not activated, kindly activate mindbody");
+//                            growl("Mindbody not activated, kindly activate mindbody");
+                            $scope.mindbodyActive = true;
                             return false;
                         } else {
                             $scope.saveServices();
@@ -271,7 +274,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.saveServices = function () {
             onboardingFactory.completedActivationGet().then(function (data) {
                 var studioIdSaved = eval(JSON.stringify(data.d.message));
-//                alert(studioIdSaved);
+//                growl(studioIdSaved);
 //                if (studioIdSaved === "true") {
                 $location.path("/signup/uploadlogo");
 //                }
@@ -326,7 +329,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 flat: true,
                 layout: 'hex',
                 onSubmit: function (hsb, hex, rgb, el) {
-                    //for haking hex value alert(hex);
+                    //for haking hex value growl(hex);
                     $('.palette-colorswab-selected').css("background-color", "#" + hex);
                     $('.palette-colorswab-selected').val("#" + hex);
 
@@ -357,7 +360,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             var color3 = $("#color3").css("backgroundColor");
             var color4 = $("#color4").css("backgroundColor");
             if ((color1 === "rgba(0, 0, 0, 0)") || (color2 === "rgba(0, 0, 0, 0)") || (color3 === "rgba(0, 0, 0, 0)") || (color4 === "rgba(0, 0, 0, 0)")) {
-//               alert("Please choose all 4 colors.");
+//               growl("Please choose all 4 colors.");
                 $scope.colorsAlert = true;
                 return false;
             }
@@ -375,7 +378,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 //            flat: true,
 //            layout: 'hex',
 //            onSubmit: function (hsb, hex, rgb, el) {
-//                //for haking hex value alert(hex);
+//                //for haking hex value growl(hex);
 //                $('.palette-colorswab-selected').css("background-color", "#" + hex);
 //                $('.palette-colorswab-selected').val("#" + hex);
 //            }
@@ -405,7 +408,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             }
             else {
                 signupFactory.forgotPasswordPost(user).then(function (data) {
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                     $scope.status = data;
                     window.open(getHost(), "_self");
                 });
@@ -418,7 +421,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             //Validate password
             var password_object = {"hashURL": $location.search().userid, "password": user.password, "type": "change"};
             signupFactory.resetPasswordPost(password_object).then(function (data) {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                 $scope.status = data;
                 window.open(getHost(), "_self");
             });

@@ -4,8 +4,10 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.colorFrom = "custom";
         $scope.newPasswordValidation = newPasswordValidation;
         $scope.confirmPasswordValidation = confirmPasswordValidation;
+        $scope.confirmPasswordMissmatch = confirmPasswordMissmatch;
         $scope.logoValidation = logoValidation;
         $scope.showPaletteChangePopUp = "";
+        $scope.passwordText="";
 
         // Hide & show password function
         $scope.hideShowPassword = function () {
@@ -26,22 +28,33 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $("#confirmpassword").focus();
                 return false;
             }
+            if($scope.isConfirmPasswordSame(confirmPassword))
             return true;
         };
-
+        
+        $scope.setPassword = function (password){
+            $scope.passwordText = password;
+        };
+        
+        $scope.isConfirmPasswordSame = function (cPassword){
+            if(cPassword === ""){
+                $scope.isConfirmPasswordSamePassword = true;
+                return false;
+            }else if($scope.passwordText === cPassword){
+                $scope.isConfirmPasswordSamePassword = false;
+                return true;
+            }else{
+                $scope.isConfirmPasswordSamePassword = true;
+                return false;
+            }
+        };
+        
         $scope.changePassword = function (password, confirmPassword) {
             if ($scope.accountSettingsValidation(password, confirmPassword))
             {
-
-//                $scope.password = {};
-//                $scope.confirmPassword = {};
-//                 $scope.results;
-//                 $scope.results = angular.equals($scope.password, $scope.confirmPassword);
-
                 var password_object = {"password": password, "confirmpassword": confirmPassword, "type": "update"};
                 signupFactory.resetPasswordPost(password_object).then(function (data) {
-                    alert("Password changed successfully");
-
+                    growl("Password changed successfully");
                     $scope.status = data;
                 });
             }
@@ -69,7 +82,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
         $scope.changeLogo = function (logoImage) {
             var file = logoImage;
-//            alert(file);
+//            growl(file);
             if ($scope.userLogoValidation(logoImage))
             {
                 settingsFactory.changeLogoPost(file).then(function (data) {
@@ -106,7 +119,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 flat: true,
                 layout: 'hex',
                 onSubmit: function (hsb, hex, rgb, el) {
-                    //for haking hex value alert(hex);
+                    //for haking hex value growl(hex);
                     $('.palette-colorswab-selected').css("background-color", "#" + hex);
                     $('.palette-colorswab-selected').val("#" + hex);
 
@@ -143,7 +156,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             var color3 = $("#colorPalete3").css("backgroundColor");
             var color4 = $("#colorPalete4").css("backgroundColor");
             if ((color1 === "rgba(0, 0, 0, 0)") || (color2 === "rgba(0, 0, 0, 0)") || (color3 === "rgba(0, 0, 0, 0)") || (color4 === "rgba(0, 0, 0, 0)")) {
-                alert("Please choose all 4 colors.");
+                growl("Please choose all 4 colors.");
             }
             $("#color1").css("backgroundColor", color1);
             $("#color2").css("backgroundColor", color2);
@@ -151,7 +164,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             $("#color4").css("backgroundColor", color4);
             $scope.showPaletteChangePopUp = false;
             settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
-//                alert(JSON.stringify(data.d.operationStatus.messages));
+//                growl(JSON.stringify(data.d.operationStatus.messages));
             });
         };
         $scope.clearColorPalette = function () {
@@ -165,17 +178,17 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
         $scope.createUserPreferences = function (themecolor1, themecolor2, themecolor3, themecolor4)
         {
-            alert(themecolor1);
-            alert(themecolor2);
-            alert(themecolor3);
-            alert(themecolor4);
+            growl(themecolor1);
+            growl(themecolor2);
+            growl(themecolor3);
+            growl(themecolor4);
 //            color1 = "rgb(255, 0, 255)";
 //            color2 = "rgb(255, 0, 255)";
 //            color3 = "rgb(255, 0, 255)";
 //            color4 = "rgb(255, 0, 255)";
             settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
                 $scope.status = data;
-                alert(data.d.operationStatus.messages[0]);
+                growl(data.d.operationStatus.messages[0]);
                 $scope.showColors();
             });
         };
@@ -183,7 +196,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             flat: true,
             layout: 'hex',
             onSubmit: function (hsb, hex, rgb, el) {
-                //for haking hex value alert(hex);
+                //for haking hex value growl(hex);
                 $('.palette-colorswab-selected').css("background-color", "#" + hex);
                 $('.palette-colorswab-selected').val("#" + hex);
 

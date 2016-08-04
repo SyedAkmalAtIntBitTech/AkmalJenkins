@@ -1,11 +1,4 @@
 <style>
-/*    .rcorners2 {
-        border-radius: 5px;
-        border: 2px solid #00b386;
-        padding: 2px; 
-                        width: 200px;
-                        height: 150px; 
-    }*/
     .rcorners2 {
     width: 30px;
     height: 23px;
@@ -18,55 +11,7 @@
 }
 </style>
 <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-6.css"/>
-<!--<div ng-show="overlayFade" id="fade" class="black_overlay"></div>-->
 <div ng-include src="'emailpreview.html'"></div>
-<!--<div ng-include src="'emailpreview.html'"></div>--> 
-<script>
-//                tinymce.init({
-//                    selector: 'td.mce-content-body',
-//                    width:400,
-//                    inline: true,
-//                    plugins: [
-//                        'advlist custombutton autolink lists link image charmap print preview anchor',
-//                        'searchreplace visualblocks code fullscreen',
-//                        'insertdatetime media table contextmenu paste',
-//                        'template paste textcolor colorpicker textpattern imagetools'
-//                    ],
-//                    toolbar1: ' insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image ',
-//                    toolbar2: ' forecolor backcolor | fontselect fontsizeselect custombutton fileuploader ',
-//                     menubar: false,
-//    });
-
-</script>
-
-<!--<div id="boxes" >
-    <div id="dialog" class="window" >
-    </div>
-    <div id="mask"></div>
-</div> -->
-
-<!--SideNav-->
-<!--<div class="content-main" ng-controller="MyController">
-<div class="content-main" ng-init="emailEditorInit()">  
-    <div ng-include src="'emaileditormindbodypopup.html'"></div> 
-    <div class="top-nav-full">
-        <div class="page-title-bar col-1of1" ng-init="redirectBaseURL()">
-            <a class="exit-button-icon" href="baseemaileditor#/emailsubjects" >
-                <div class="exit-button-detail">
-                        <img  src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/> 
-                </div>
-            </a>    
-            <div class="page-title-with-back page-title-font">Email Editor</div>
-            <div class="page-cta-container">
-                <a href="" class="gray-button fleft pushright">
-                    <div class="nounderline md-button" id="emailpreview" ng-click="emailPreviewOnClick()">  Preview Email</div>  
-                </a>
-                <a href="" class="gray-button fleft ">
-                    <div class=" md-button" id="saveToDraft" ng-click="saveToDraftOnClick()">  Save as Draft</div>    
-                </a>
-            </div>
-        </div>
-    </div>
     <!--Main Content GENERIC--> 
  <div ng-include src="'emaileditormindbodypopup.html'"></div>     
 <div class="main-content-wrap no-side-nav" ng-init="emailEditorInit()">
@@ -207,7 +152,7 @@
                     axis: "y",
                     placeholder: 'highlight',
                     helper: function () {
-                        return $("<div class='highlight' style='height:40px;text-align:center;line-height:40px;'><div style='background-color:#1abc9c;width:600px;margin:auto; color:#ffffff;'>Moving</div></div>");
+                        return $("<div class='highlight' style='height:40px;text-align:center;line-height:40px;'><div style='background-color:#0F76A6;width:600px;margin:auto; color:#ffffff;'>Move This Block</div></div>");
                     }
                 });
 

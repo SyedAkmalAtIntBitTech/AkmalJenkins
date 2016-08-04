@@ -4798,9 +4798,9 @@ textarea.task-textarea:focus{
 
 .gallery-item-wrap-selected{
     width: 222px;
-      border: 2px solid #0f76a6;
+    border: 2px solid #0f76a6;
     border-radius: 3px;
-      margin-bottom: 20px;
+    margin-bottom: 20px;
     margin-right: 20px;
 }
 
@@ -4821,4 +4821,13 @@ textarea.task-textarea:focus{
     border-bottom: 1px solid #E2E3E7;
     background-color: #ECF0F2;
     color: #959AA6;
+}
+
+.clickProofLayer{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1; /* make sure logout_box has a z-index of 2 */
+    background-color: #ddd;
+    opacity: 0;
 }

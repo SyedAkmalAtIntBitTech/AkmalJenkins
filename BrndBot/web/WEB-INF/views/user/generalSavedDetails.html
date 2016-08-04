@@ -18,7 +18,7 @@
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div>Saved Post Details</div>
-                        <a class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Post</a>
+                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Post</a>
                     </div>
                     <div ng-show="clickedRemoveAction" class="action-pop-up remove-saved-action-template-pop-up ease-all">
                         <strong>Are you sure you want to remove this post?</strong>
@@ -55,7 +55,7 @@
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div>Saved Post Details</div>
-                        <a class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Post</a>
+                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Post</a>
                     </div>
                     <div ng-show="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all">
                         <strong>Are you sure you want to remove this saved post?</strong>
@@ -110,7 +110,7 @@
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div >SAVED EMAIL DETAILS</div>
-                        <a class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Email</a>
+                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Email</a>
                     </div>
                     <div ng-show="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all ease-all">
                         <strong>Are you sure you want to remove this saved email?</strong>
@@ -204,7 +204,7 @@
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div >SAVED EMAIL DETAILS</div>
-                        <a class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Email</a>
+                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Email</a>
                     </div>
                     <div ng-show="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all ease-all">
                         <strong>Are you sure you want to remove this saved email?</strong>
