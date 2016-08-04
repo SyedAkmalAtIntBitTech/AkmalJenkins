@@ -424,7 +424,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             tinymce.init({
                 selector: 'td.mce-content-body',
                 extended_valid_elements: 'img[class|src|style|border=0|alt|title|hspace|vspace|width|height|max-width|max-height|align|onmouseover|onmouseout|name]',
-                forced_root_block : false,
+//                forced_root_block : false,
                 width: 400,
                 inline: true,
                 plugins: [
@@ -438,7 +438,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             });
             $('.innerbg').click(function ($scope) {
                 $("#colpic").show();
-                seldiv = $(this).parents('[st-sortable]');
+                seldiv = $(this).parents('[bb-bgcolor]');
 //                            $(this).colpick({
 //                                layout: 'hex',
 //                                submit: 0,
@@ -450,6 +450,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
         $scope.blockIdOnSelected = function (selectedBlock, blockId) {
             var selectedHtmlBlockId = selectedBlock.id;
+            $("#"+selectedHtmlBlockId).children().find("table:first").children().find("table:first").addClass("template-border-Active");
+            $("#"+selectedHtmlBlockId).siblings().children().find("table:first").children().find("table:first").removeClass("template-border-Active");
             $scope.selectedBlockId = blockId;
             if (selectedBlock === "defaultblock1" || selectedHtmlBlockId === "defaultblock1")
             {
