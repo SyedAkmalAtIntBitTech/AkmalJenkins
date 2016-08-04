@@ -1011,7 +1011,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
             else
             {
-                marketingRecurringEmailFactory.getRecurringEntityPost(entity_details).then(function (data) {alert(JSON.stringify(data));
+                marketingRecurringEmailFactory.getRecurringEntityPost(entity_details).then(function (data) {
 
                     $scope.recurringEmailValidation(data);
                     if ($scope.type === "template")
@@ -1041,6 +1041,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.automationData.subject = data.recurring_email_subject;
                     $scope.automationData.fromName = data.recurring_email_from_name;
                     $scope.automationData.replyAddress = data.recurring_email_reply_to_email_address;
+                    $scope.ddSelectDateAutomationData.text = data.recurring_email_days;
+                    $scope.ddSelectEmailListAutomationData.text = data.recurring_email_email_list_name;
                     if (data.recurring_email_template_id !== null) {
                         $scope.templateId = data.recurring_email_template_id;
 //                        $scope.entityNoEmailTemplate = false;
