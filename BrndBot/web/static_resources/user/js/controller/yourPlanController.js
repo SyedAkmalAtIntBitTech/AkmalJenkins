@@ -253,6 +253,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         {
             $scope.fadeClass = '';
             $scope.addAction = false;
+            $scope.chooseActionTypeOnChange({"text":"Select","value":"0"});
         };
 
         $scope.formatDate = function (programDate) {
