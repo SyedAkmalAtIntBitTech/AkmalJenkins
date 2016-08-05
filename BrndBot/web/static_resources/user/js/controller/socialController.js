@@ -119,7 +119,11 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.ddSelectlinkUrls = {
             text: "Please select an Url"
         };
-
+        
+        $scope.fbTwitterinit = function () {
+            $scope.show_hide_ImageGalleryPopup(false);
+        };
+        
         $scope.getUrls = function () {
             $scope.ddSelectlinkUrlsOptions = [
             ];
