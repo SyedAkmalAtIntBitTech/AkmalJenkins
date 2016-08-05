@@ -74,7 +74,9 @@
                         </div>
                     </div>
                     <div class="update-container no-padding">
-                        <button class="long-button reg-button gray-button" ng-click="showPaletteChangePopUp = true">Change Palette</button>
+<!--                        <button class="long-button reg-button gray-button" ng-click="showPaletteChangePopUp = true">Change Palette</button>-->
+                        <button class="long-button reg-button gray-button" ng-click="showPaletteChangePopUp()">Change Palette</button>
+
                     </div>
 
                     <!-- Save button-->
@@ -89,11 +91,11 @@
         </div>
 
         <!--Update Palette Modal-->
-        <div ng-show="showPaletteChangePopUp" class="center-pop-ups update-palette-pop-up">
+        <div ng-show="paletteChangePopUp" class="center-pop-ups update-palette-pop-up">
             <div class="modal-pane modal-pane-width-full">
                 <div class="modal-pane-header-wrap">
                     <h2 class="">Change Palette Colors</h2>
-                    <a ng-click="showPaletteChangePopUp = false" class="modal-pane-header-exit"></a>
+                    <a ng-click="closePaletteChangePopUp()" class="modal-pane-header-exit"></a>
                 </div>
                 <div class="modal-pane-content-wrap" ng-init="getColorFromPicker()">
                     <!--PUT PALETTE CHANGING HTML IN HERE-->

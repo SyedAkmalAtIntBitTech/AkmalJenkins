@@ -30,7 +30,10 @@
                         <div class="input">
                             <input id="reply_address" class="fluid" type="text" ng-model="email_settings.reply_email_address"   name="reply_email_address"  placeholder="Enter default reply-to-address"/>
                             <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
-                            <span class="validationAlert" ng-if='email_settings.reply_email_address === "" || null'>{{replyToValidation}}</span>
+<!--                            <span class="validationAlert" ng-if='email_settings.reply_email_address === "" || null'>{{replyToValidation}}</span>-->
+                            <span class="validationAlert" ng-if='replyToAddress'>{{replyToValidation}}</span>
+                            <span class="validationAlert" ng-if="replyEmailValidation">{{emailaddrValidation}}</span>
+
                         </div>
                     </div>
                      <div class="update-container" ng-click="saveEmailSettings(email_settings)">

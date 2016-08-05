@@ -5,7 +5,23 @@
         margin:6px;
         float:left;
     }
+
+    #growl growl-notice growl-medium {
+        z-index: 99999 !important;
+        position: absolute; 
+    }
+
+    #fade {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(61,83,104,.8) !important;
+        z-index: 9999 !important;
+    }
 </style>
+
 <div  ng-show="showImageGalleryPopup" class="center-pop-ups " id="fade" ng-class="fadeClass"  >
 
     <div class="center-pop-ups" style="height:100vh;">
@@ -21,7 +37,7 @@
                 <div class="modal-pane-header-wrap">
                     <h2 class="">Your Images</h2>
                     <!--PUT UPLOAD IMAGE FUNCTIONALITY HERE-->
-                    
+
 
                     <a class="modal-pane-header-exit" id="hidepopup" ng-click="show_hide_ImageGalleryPopup(false)"></a>
                     <!--             <a ng-repeat="mindbody in mindbodylist" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=subCategoryId%>&mindbodyId={{mindbody.id}}&LookupId=<%=LookupId%>">-->
