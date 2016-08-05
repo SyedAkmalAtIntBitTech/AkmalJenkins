@@ -2599,7 +2599,9 @@ p.modal-content-header{
 }
 
 .slat-detail h2{
-    text-align: right;
+    text-align: right;  
+    overflow: visible;
+    width: 200px;
 }
 
 .slat-detail p{
