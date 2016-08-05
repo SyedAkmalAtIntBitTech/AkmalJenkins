@@ -4844,3 +4844,19 @@ textarea.task-textarea:focus{
     padding: 0px !important; 
     line-height: 40px !important; 
 }
+
+.highlightDiv{ 
+    border: 2px solid #D2D3D5;
+    background-color: #f8f8f8;
+    padding: 5px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.cat-slat-unselect{
+    border: 1px solid #D2D3D5;
+    padding: 5px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    
+}

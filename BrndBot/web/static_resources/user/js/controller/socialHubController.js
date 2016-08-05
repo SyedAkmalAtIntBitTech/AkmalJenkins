@@ -49,6 +49,11 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
         };
         
         
+        $scope.selectManagePage = function (id){ 
+            $('.cat-slat').removeClass('highlightDiv').addClass('cat-slat-unselect');
+            $("."+id).removeClass('cat-slat-unselect').addClass('highlightDiv');    
+        };
+        
         $scope.checkForCode = function () {
             var code = $scope.getUrlParameter("code");
             if (typeof code !== "undefined") {
