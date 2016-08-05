@@ -78,7 +78,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 //            $.FroalaEditor.DEFAULTS.htmlAllowedAttrs = $.merge($.FroalaEditor.DEFAULTS.htmlAllowedAttrs, ['onclick', 'ng-click']);
             companyMarketingProgramFactory.getAllUserMarketingProgramsSessionIdGet().then(function (urlList) {
 //                $('#edit').froalaEditor({key: FroalaLicenseKey, linkList: urlList});
-                $scope.blockIdOnSelected('defaultblock1', 0);
+                $scope.blockIdOnSelected('defaultblock1', 0 ,$scope.mindbodyid );
                 if (emailDraftDetails === null) {
                     modelFactory.EmailModelsIdGet($scope.subCategoryId).then(function (templateDate) {
                         var blockList = templateDate.d.details.reverse();
@@ -397,7 +397,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 //                        editorHtml = $('#tinymceEditorBody').html();
                     } else
                     {
-                        var styleHtml = '<div id=defaultblock1 class=module onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)"><div class="view">' + emailData.htmldata + '</div></div>';
+                        var styleHtml = '<div id=defaultblock1 class=module onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0,'+mindbodyId+')"><div class="view">' + emailData.htmldata + '</div></div>';
 //                    var styleHtml = '<div id=defaultblock1 class=module onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)"><div class=\"view\"><table width=\"100%\" bgcolor=\"#2a2a2a\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tbody><tr><td><table bgcolor=\"#d41b29\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\" class=\"devicewidth\"><div class=\"innerbg\"></div><div class=\"addremove\" style=\"margin-left: 975px;\"><div class=\"drag\"></div><div class=\"remove\"></div></div><tbody><tr><td width=\"100%\">' + emailData.htmldata + '</td></tr></tbody></table></div>';
                         $("#tinymceEditorBody").append(styleHtml);
                     }
@@ -412,7 +412,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         $scope.launchTinyMceEditor();
                     } else
                     {
-                        BlockHtml = '<div id=' + $scope.htmlTagId + ' onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ')>' + emailData.htmldata + '</div>';
+                        BlockHtml = '<div id=' + $scope.htmlTagId + ' onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ','+mindbodyId+')>' + emailData.htmldata + '</div>';
                         $("#tinymceEditorBody").append(BlockHtml);
                         $scope.launchTinyMceEditor();
                     }
@@ -448,8 +448,9 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $(this).find('table:first').removeClass('template-border-Active');
             });
         };
-        $scope.blockIdOnSelected = function (selectedBlock, blockId) {
+        $scope.blockIdOnSelected = function (selectedBlock, blockId,mindbodyId) {
             var selectedHtmlBlockId = selectedBlock.id;
+            $scope.mindbodyid = mindbodyId;
             $("#colpic").hide();
 //            $("#" + selectedHtmlBlockId).children().find("table:first").children().find("table:first").addClass("template-border-Active");
 //            $("#" + selectedHtmlBlockId).siblings().children().find("table:first").children().find("table:first").removeClass("template-border-Active");
