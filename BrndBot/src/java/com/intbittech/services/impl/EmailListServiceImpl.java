@@ -564,6 +564,7 @@ public class EmailListServiceImpl implements EmailListService {
                         JSONArray emailAddressesJSONArray = (JSONArray) emailListJSONObject.get(IConstants.kEmailAddressesKey);
                         if(emailAddressesJSONArray.size()>0)
                         {
+                            
                             for (int j = 0; j < emailAddressesJSONArray.size(); j++) {
                                 JSONObject emailAddressJSONObject = (JSONObject) emailAddressesJSONArray.get(j);
 
@@ -571,9 +572,10 @@ public class EmailListServiceImpl implements EmailListService {
                                 String email_address = email_info.getEmailAddress();
                                 String email_address_from_db = email_info_from_database.getEmailAddress();
                                 if (email_address.equalsIgnoreCase(email_address_from_db)) {
-                                    return true;
+                                    return false;
                                 }
                             }
+                            return true;
                         }
                         else
                             return true;
