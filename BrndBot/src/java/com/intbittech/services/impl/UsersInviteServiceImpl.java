@@ -21,7 +21,6 @@ import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.InviteDetails;
 import com.intbittech.modelmappers.TaskDetails;
-import com.intbittech.services.UserRoleLookUpService;
 import com.intbittech.services.UserRoleService;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UsersService;
@@ -32,6 +31,7 @@ import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
@@ -45,12 +45,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor = ProcessFailed.class)
 public class UsersInviteServiceImpl implements UsersInviteService{
 
-    private final static Logger logger = Logger.getLogger(SignupController.class);
+    private final static Logger logger = Logger.getLogger(UsersInviteServiceImpl.class);
 
     @Autowired
     private UsersInviteDao usersInviteDao;
-    @Autowired
-    private UserRoleLookUpService userRoleLookUpService;
     @Autowired
     private UserRoleService userRoleService;
     @Autowired
@@ -136,15 +134,16 @@ public class UsersInviteServiceImpl implements UsersInviteService{
             for (int i = 0; i<invitesList.size(); i++){
                 Invite invite = invitesList.get(i);
                 Users user = invite.getInviteSentTo();
-                JSONArray task = (JSONArray)StringUtility.stringToObject(invite.getTask());
-                
-                for (int j = 0; j< task.size(); j++){
-                    Integer role_id = (Integer)task.get(j);
-                    UserRole userRole = userRoleService.getUserRoleById(role_id);
+                JSONObject task = (JSONObject)StringUtility.stringToJSONObject(invite.getTask());
+                ArrayList roles = (ArrayList)task.get("roles");
+                for (int j = 0; j< roles.size(); j++){
+                    Double role_id = (Double)roles.get(j);
+                    UserRole userRole = userRoleService.getUserRoleById(role_id.intValue());
                     String userRoleName = userRole.getRoleName();
                     boolean isUsed = invite.getIsUsed();
                     if (isUsed){
-                        invitationStatus = AdminStatus.Invite_Success.toString();
+//                        invitationStatus = AdminStatus.Invite_Success.toString();
+                        invitationStatus = AdminStatus.valueOf("Invite_Success").toString();
                     }
                     inviteduser = new InvitedUsers(user.getUserName(), userRoleName, invitationStatus);
                     invitedUsers.add(inviteduser);
@@ -189,7 +188,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
 
         message.setKey(MANDRILL_KEY);
 //        TODO code to be modified
-         message.setHtml("<html><body><p><h2>User Invitation:</h2></p><p>You have been invited to join your company in BrndBot.</p>To create a user, click on the link below (or copy and paste the URL into your browser):<br />" + imageContextPath + "#/signup/changepassword?userid=" + hashURL + "</body></html>");
+         message.setHtml("<html><body><p><h2>User Invitation:</h2></p><p>You have been invited to join your company in BrndBot.</p>To create a user, click on the link below (or copy and paste the URL into your browser):<br />" + imageContextPath + "#/signup/userregistration?userid=" + hashURL + "</body></html>");
 //        message.setText("text");
         /** need to change the above link and below message**/
         message.setSubject("User Invitation");

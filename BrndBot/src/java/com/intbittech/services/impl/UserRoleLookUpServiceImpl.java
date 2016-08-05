@@ -8,10 +8,12 @@ package com.intbittech.services.impl;
 import com.intbittech.controller.SignupController;
 import com.intbittech.dao.UserRoleLookUpDao;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.SubCategory;
 import com.intbittech.model.UserRole;
-import com.intbittech.model.UserRoleLookup;
+import com.intbittech.model.UsersRoleLookup;
 import com.intbittech.model.Users;
 import com.intbittech.services.UserRoleLookUpService;
+import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor = ProcessFailed.class)
 public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
 
-    private final static Logger logger = Logger.getLogger(SignupController.class);
+    private final static Logger logger = Logger.getLogger(UserRoleLookUpServiceImpl.class);
 
     @Autowired
     private UserRoleLookUpDao usersRoleLookUpDao;
@@ -39,12 +41,12 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
      * {@inheritDoc}
      */
     @Override
-    public boolean isRoleExist(UserRoleLookup usersRoleLookup) throws ProcessFailed {
+    public boolean isRoleExist(UsersRoleLookup usersRoleLookup) throws ProcessFailed {
         return usersRoleLookUpDao.isRoleExist(usersRoleLookup);
     }
     
     @Override
-    public String save(UserRoleLookup usersRoleLookup) throws ProcessFailed {
+    public String save(UsersRoleLookup usersRoleLookup) throws ProcessFailed {
         String returnMessage = "false";
         try {
             usersRoleLookUpDao.save(usersRoleLookup);
@@ -59,7 +61,7 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
 
     @Override
     public void delete(Integer id) throws ProcessFailed {
-        UserRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupById(id);
+        UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupById(id);
         if(userRoleLookup == null){
             throw new ProcessFailed("No user role found with id " + id + ".");
         }
@@ -67,8 +69,8 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
     }
 
     @Override
-    public UserRoleLookup getUsersRoleLookupById(Integer id) throws ProcessFailed {
-        UserRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupById(id);
+    public UsersRoleLookup getUsersRoleLookupById(Integer id) throws ProcessFailed {
+        UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupById(id);
         if(userRoleLookup == null)
         {
              throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
@@ -76,6 +78,16 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
         return userRoleLookup;
     }
 
+    @Override
+    public UsersRoleLookup getUsersRoleLookupByUserId(Users user) throws ProcessFailed {
+        UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByUserId(user);
+        if(userRoleLookup == null)
+        {
+             throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
+        }
+        return userRoleLookup;
+    }
+    
     @Override
     public UserRole getUsersRoleByUserId(Users user) throws ProcessFailed {
         UserRole userRole = usersRoleLookUpDao.getUsersRoleByUserId(user);
@@ -86,5 +98,20 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
         return userRole;
     }
 
+   /**
+     * {@inheritDoc}
+     */
+    public List<UsersRoleLookup> getAllUserRolesByUserId(Users user) throws ProcessFailed {
+        List<UsersRoleLookup> userRoleLookup = usersRoleLookUpDao.getAllUserRolesByUserId(user);
+        if (userRoleLookup.isEmpty()) {
+            throw new ProcessFailed("No Sub Categories found.");
+        }
+        return userRoleLookup;
+    }    
+
+    @Override
+    public void update(UsersRoleLookup usersRoleLookup) throws ProcessFailed {
+            usersRoleLookUpDao.update(usersRoleLookup);
+    }
     
 }

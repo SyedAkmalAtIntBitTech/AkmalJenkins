@@ -6,7 +6,9 @@
 package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.SubCategory;
 import com.intbittech.model.UserRole;
+import java.util.List;
 
 /**
  *

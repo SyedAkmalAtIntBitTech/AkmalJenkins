@@ -27,7 +27,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UsersInviteDaoImpl implements UsersInviteDao{
 
-    private Logger logger = Logger.getLogger(UsersDaoImpl.class);
+    private Logger logger = Logger.getLogger(UsersInviteDaoImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;

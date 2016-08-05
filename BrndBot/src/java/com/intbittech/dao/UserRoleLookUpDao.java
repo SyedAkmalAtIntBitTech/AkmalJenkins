@@ -6,9 +6,11 @@
 package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.Invite;
 import com.intbittech.model.UserRole;
-import com.intbittech.model.UserRoleLookup;
+import com.intbittech.model.UsersRoleLookup;
 import com.intbittech.model.Users;
+import java.util.List;
 
 /**
  *
@@ -23,7 +25,7 @@ public interface UserRoleLookUpDao {
      * @return {@link Integer}
      * @throws ProcessFailed the process failed
      */
-    public boolean isRoleExist(UserRoleLookup userRoleLookup) throws ProcessFailed;    
+    public boolean isRoleExist(UsersRoleLookup userRoleLookup) throws ProcessFailed;    
     /**
      * This method pass userRoleLookup as input and get the {@link Integer} from database
      *
@@ -31,25 +33,41 @@ public interface UserRoleLookUpDao {
      * @return {@link Integer}
      * @throws ProcessFailed the process failed
      */
-    public Integer save(UserRoleLookup userRoleLookup) throws ProcessFailed;
+    public Integer save(UsersRoleLookup userRoleLookup) throws ProcessFailed;
     
     /**
-     * This method pass userRoleLookup as input and updates the {@link UserRoleLookup} from database
+     * This method pass userRoleLookup as input and updates the {@link UsersRoleLookup} from database
      *
      * @param userRoleLookup
      * @throws ProcessFailed the process failed
      */
-    public void delete(UserRoleLookup userRoleLookup) throws ProcessFailed;
-    
+    public void update(UsersRoleLookup userRoleLookup) throws ProcessFailed;
     /**
-     * This method pass user as input and get the {@link UserRoleLookup} from database
+     * This method pass userRoleLookup as input and updates the {@link UsersRoleLookup} from database
      *
-     * @param Id
-     * @return {@link UserRoleLookup}
+     * @param userRoleLookup
      * @throws ProcessFailed the process failed
      */
-    public UserRoleLookup getUsersRoleLookupById(Integer Id) throws ProcessFailed;
+    public void delete(UsersRoleLookup userRoleLookup) throws ProcessFailed;
+    
+    /**
+     * This method pass user as input and get the {@link UsersRoleLookup} from database
+     *
+     * @param Id
+     * @return {@link UsersRoleLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public UsersRoleLookup getUsersRoleLookupById(Integer Id) throws ProcessFailed;
 
+    /**
+     * This method pass user as input and get the {@link UsersRoleLookup} from database
+     *
+     * @param userId
+     * @return {@link UsersRoleLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public UsersRoleLookup getUsersRoleLookupByUserId(Users userId) throws ProcessFailed;
+    
     /**
      * This method pass user as input and get the {@link UserRole} from database
      *
@@ -58,5 +76,12 @@ public interface UserRoleLookUpDao {
      * @throws ProcessFailed the process failed
      */
     public UserRole getUsersRoleByUserId(Users user) throws ProcessFailed;
-    
+    /**
+     * This method retrieves the list of {@link SubCategory} from Database.
+     *
+     * @param user the categoryId
+     * @return {@link SubCategory}
+     * @throws ProcessFailed the process failed
+     */
+    public List<UsersRoleLookup> getAllUserRolesByUserId(Users user) throws ProcessFailed;    
 }

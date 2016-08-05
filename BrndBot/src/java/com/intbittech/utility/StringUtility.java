@@ -17,7 +17,8 @@ import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
 import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -81,4 +82,14 @@ public class StringUtility {
         }
         return object;
     }    
+    public static JSONObject stringToJSONObject(String content){
+        Gson gson = new Gson(); 
+        JSONObject object = null;
+        if (content != null){
+            object = gson.fromJson(content, JSONObject.class);                
+            return object;
+        }
+        return object;
+    }    
+
 }

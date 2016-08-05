@@ -8,7 +8,9 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.UserRoleDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.UserRole;
-import com.intbittech.model.UserRoleLookup;
+import com.intbittech.model.Users;
+import com.intbittech.model.UsersRoleLookup;
+import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -44,12 +46,12 @@ public class UserRoleDaoImpl implements UserRoleDao{
     @Override
     public UserRole getUserRoleById(Integer Id) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(UserRoleLookup.class)
+                .createCriteria(UserRole.class)
                 .add(Restrictions.eq("id", Id));
         if (criteria.list().isEmpty()) {
             return null;
         }
         return (UserRole) criteria.list().get(0);
     }
-    
+
 }

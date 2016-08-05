@@ -7,8 +7,6 @@ package com.intbittech.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,11 +15,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,17 +26,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "users")
 public class Users implements Serializable {
-//    @OneToMany(mappedBy = "userId")
-//    private List<UserRoleLookup> usersRoleLookupList;
-//    @OneToMany(mappedBy = "inviteSentBy")
-//    private Set<Invite> companyInviteSetSentBy;
-//    @OneToMany(mappedBy = "inviteSentTo")
-//    private Set<Invite> companyInviteSentSentTo;
-    @Column(name = "first_name")
-    private String firstName;
-    @Column(name = "last_name")
-    private String lastName;
-//    @OneToMany(mappedBy = "userId")
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -58,9 +43,13 @@ public class Users implements Serializable {
     @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
     @ManyToOne
     private Company fkCompanyId;
-    @JoinColumn(name = "fk_user_role_id", referencedColumnName = "user_role_id")
-    @ManyToOne(optional = false)
-    private UserRole fkUserRoleId;
+//    @JoinColumn(name = "fk_user_role_id", referencedColumnName = "user_role_id")
+//    @ManyToOne(optional = false)
+//    private UserRole fkUserRoleId;
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "last_name")
+    private String lastName;
 
     public Users() {
     }
@@ -109,13 +98,13 @@ public class Users implements Serializable {
         this.fkCompanyId = fkCompanyId;
     }
 
-    public UserRole getFkUserRoleId() {
-        return fkUserRoleId;
-    }
-
-    public void setFkUserRoleId(UserRole fkUserRoleId) {
-        this.fkUserRoleId = fkUserRoleId;
-    }
+//    public UserRole getFkUserRoleId() {
+//        return fkUserRoleId;
+//    }
+//
+//    public void setFkUserRoleId(UserRole fkUserRoleId) {
+//        this.fkUserRoleId = fkUserRoleId;
+//    }
 
     public String getFirstName() {
         return firstName;
@@ -132,32 +121,5 @@ public class Users implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-//    @XmlTransient
-//    public Set<Invite> getCompanyInviteSetSentBy() {
-//        return companyInviteSetSentBy;
-//    }
-//
-//    public void setCompanyInviteSetSentBy(Set<Invite> companyInviteSetSentBy) {
-//        this.companyInviteSetSentBy = companyInviteSetSentBy;
-//    }
-//
-//    @XmlTransient
-//    public Set<Invite> getCompanyInviteSetSentTo() {
-//        return companyInviteSentSentTo;
-//    }
-//
-//    public void setCompanyInviteSetSentTo(Set<Invite> companyInviteSetSentTo) {
-//        this.companyInviteSentSentTo = companyInviteSetSentTo;
-//    }
-//
-//    @XmlTransient
-//    public List<UserRoleLookup> getUsersRoleLookupList() {
-//        return usersRoleLookupList;
-//    }
-//
-//    public void setUsersRoleLookupList(List<UserRoleLookup> usersRoleLookupList) {
-//        this.usersRoleLookupList = usersRoleLookupList;
-//    }
 
 }

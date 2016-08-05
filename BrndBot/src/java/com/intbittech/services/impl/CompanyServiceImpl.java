@@ -7,6 +7,7 @@ package com.intbittech.services.impl;
 
 import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.OrganizationCompanyDao;
+import com.intbittech.dao.UserRoleLookUpDao;
 import com.intbittech.dao.UsersDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
@@ -16,8 +17,10 @@ import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCompanyLookup;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
+import com.intbittech.model.UsersRoleLookup;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.services.CompanyService;
+import com.intbittech.services.UserRoleLookUpService;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -46,6 +49,12 @@ public class CompanyServiceImpl implements CompanyService{
     
     @Autowired
     private MessageSource messageSource;
+    
+    @Autowired
+    private UserRoleLookUpDao usersRoleLookUpDao;    
+
+    @Autowired
+    private UserRoleLookUpService usersRoleLookUpService;
     
     /**
      * {@inheritDoc}
@@ -148,7 +157,7 @@ public class CompanyServiceImpl implements CompanyService{
      */
     @Override
     public String updateCompany(CompanyDetails companyDetails) throws ProcessFailed {
-        String returnMessage = "false";
+        String returnMessage = "false";UsersRoleLookup usersRoleLookUp = null;
         try {
             //update company
             Company company = companyDao.getCompanyById(companyDetails.getCompanyId());
@@ -162,11 +171,16 @@ public class CompanyServiceImpl implements CompanyService{
             {
                 throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
             }
+            
+            usersRoleLookUp = usersRoleLookUpDao.getUsersRoleLookupByUserId(user);
+
             UserRole userRole = new UserRole();
             userRole.setUserRoleId(2);
-            user.setFkUserRoleId(userRole);
-            usersDao.update(user);
 
+            usersRoleLookUp.setUserId(user);
+            usersRoleLookUp.setRoleId(userRole);
+            usersRoleLookUpDao.update(usersRoleLookUp);
+            
             //Relate company and organization
             OrganizationCompanyLookup organizationCompanyLookup = new OrganizationCompanyLookup();
 

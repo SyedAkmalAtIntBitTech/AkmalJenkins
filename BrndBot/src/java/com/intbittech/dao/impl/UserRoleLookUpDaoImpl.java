@@ -10,7 +10,8 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Invite;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
-import com.intbittech.model.UserRoleLookup;
+import com.intbittech.model.UsersRoleLookup;
+import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -40,11 +41,12 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
      * {@inheritDoc}
      */
     @Override
-    public boolean isRoleExist(UserRoleLookup userRoleLookup) {
+    public boolean isRoleExist(UsersRoleLookup userRoleLookup) {
         boolean isUserUnique = true;
         Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(UserRoleLookup.class)
-                .add(Restrictions.eq("roleId", userRoleLookup.getRoleId()));
+                .createCriteria(UsersRoleLookup.class)
+                .add(Restrictions.eq("roleId", userRoleLookup.getRoleId()))
+                .add(Restrictions.eq("userId", userRoleLookup.getUserId()));
         if (criteria.list().isEmpty()) {
             isUserUnique = true;
         } else {
@@ -56,7 +58,7 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
      * {@inheritDoc}
      */
     @Override
-    public Integer save(UserRoleLookup userRoleLookup) throws ProcessFailed {
+    public Integer save(UsersRoleLookup userRoleLookup) throws ProcessFailed {
         try {
             return (Integer) sessionFactory.getCurrentSession().save(userRoleLookup);
         } catch (Throwable throwable) {
@@ -65,8 +67,20 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public void update(UsersRoleLookup userRoleLookup) {
+        try {
+            sessionFactory.getCurrentSession().update(userRoleLookup);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message", new String[]{}, Locale.US));
+        }
+    }
+    
     @Override
-    public void delete(UserRoleLookup userRoleLookup) throws ProcessFailed {
+    public void delete(UsersRoleLookup userRoleLookup) throws ProcessFailed {
         try {
             sessionFactory.getCurrentSession().delete(userRoleLookup);
         } catch (Throwable throwable) {
@@ -76,25 +90,54 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
     }
 
     @Override
-    public UserRoleLookup getUsersRoleLookupById(Integer Id) throws ProcessFailed {
+    public UsersRoleLookup getUsersRoleLookupById(Integer Id) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(UserRoleLookup.class)
+                .createCriteria(UsersRoleLookup.class)
                 .add(Restrictions.eq("id", Id));
         if (criteria.list().isEmpty()) {
             return null;
         }
-        return (UserRoleLookup) criteria.list().get(0);
+        return (UsersRoleLookup) criteria.list().get(0);
     }
 
     @Override
+    public UsersRoleLookup getUsersRoleLookupByUserId(Users user) throws ProcessFailed {
+        Criteria criteria = sessionFactory.getCurrentSession()
+                .createCriteria(UsersRoleLookup.class)
+                .add(Restrictions.eq("userId", user));
+        if (criteria.list().isEmpty()) {
+            return null;
+        }
+        return (UsersRoleLookup) criteria.list().get(0);
+    }
+    
+    @Override
     public UserRole getUsersRoleByUserId(Users user) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(UserRoleLookup.class)
+                .createCriteria(UsersRoleLookup.class)
                 .add(Restrictions.eq("userId", user));
         if (criteria.list().isEmpty()) {
             return null;
         }
         return (UserRole) criteria.list().get(0);
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<UsersRoleLookup> getAllUserRolesByUserId(Users user) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(UsersRoleLookup.class)
+                    .add(Restrictions.eq("userId", user));
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return criteria.list();
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retreving_message",new String[]{}, Locale.US));
+        }
+
+    }        
 }

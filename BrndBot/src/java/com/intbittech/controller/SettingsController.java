@@ -131,6 +131,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             Company company = userProfile.getUser().getFkCompanyId();
             List<InvitedUsers> invitedUsers = usersInviteService.getInvitedUsers(userProfile.getUser());
             genericResponse.addDetail(StringUtility.objectListToJsonString(invitedUsers));
+//            genericResponse.setDetails(invitedUsers);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
         } catch (Throwable throwable) {
             logger.error(throwable);

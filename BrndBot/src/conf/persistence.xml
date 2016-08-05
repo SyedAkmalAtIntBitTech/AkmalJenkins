@@ -3,7 +3,7 @@
   <persistence-unit name="BrndBotPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.intbittech.model.Invite</class>
-    <class>com.intbittech.model.UserRoleLookup</class>
+    <class>com.intbittech.model.UsersRoleLookup</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/brndbot_v2"/>
