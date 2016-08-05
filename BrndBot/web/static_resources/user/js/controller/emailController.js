@@ -140,7 +140,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             }
             $scope.isEmailSubEmpty = false;
             return true;
-        };        
+        };
         $scope.redirect = function (redirect, categoryId, subCategoryId, mindbody, lookupId, mindbodyid, emailSubject, draftId)
         {
             localStorage.removeItem("emailDraftData");
@@ -304,11 +304,11 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.blockOnClick = function (id) {
-            $scope.id=id;
-            $scope.id='block-slat-active';
-            $scope.setBlockActive='block-slat';
-            $scope.activeBlock=id;
-            
+            $scope.id = id;
+            $scope.id = 'block-slat-active';
+            $scope.setBlockActive = 'block-slat';
+            $scope.activeBlock = id;
+
 //            TODO change to AngularJs, (Complicated code)
 //            $("#blockdiv li").removeClass("block-slat-active");
 //            $("#blockdiv li").addClass("block-slat");
@@ -391,20 +391,20 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 if ($scope.isBlockClicked === "false") {
                     var editorHtml = $('#tinymceEditorBody').html();
                     if (editorHtml.contains('id="defaultblock1"')) {
-                        $("#defaultblock1").html('<div class="view">'+emailData.htmldata+'</div>');
+                        $("#defaultblock1").html('<div class="view">' + emailData.htmldata + '</div>');
 //                        $("#defaultblock1").remove();
 //                        editorHtml = $('#tinymceEditorBody').html();
                     } else
                     {
-                    var styleHtml = '<div id=defaultblock1 class=module onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)"><div class="view">' + emailData.htmldata + '</div></div>';
+                        var styleHtml = '<div id=defaultblock1 class=module onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)"><div class="view">' + emailData.htmldata + '</div></div>';
 //                    var styleHtml = '<div id=defaultblock1 class=module onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)"><div class=\"view\"><table width=\"100%\" bgcolor=\"#2a2a2a\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tbody><tr><td><table bgcolor=\"#d41b29\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\" class=\"devicewidth\"><div class=\"innerbg\"></div><div class=\"addremove\" style=\"margin-left: 975px;\"><div class=\"drag\"></div><div class=\"remove\"></div></div><tbody><tr><td width=\"100%\">' + emailData.htmldata + '</td></tr></tbody></table></div>';
-                    $("#tinymceEditorBody").append(styleHtml);
+                        $("#tinymceEditorBody").append(styleHtml);
                     }
                     $scope.launchTinyMceEditor();
                 } else {
                     var editorHtml = $('#tinymceEditorBody').html();
                     if (editorHtml.contains('id="' + $scope.htmlTagId + '"')) {
-                        $("#" + $scope.htmlTagId).html('<div class="view">'+emailData.htmldata+'</div>');
+                        $("#" + $scope.htmlTagId).html('<div class="view">' + emailData.htmldata + '</div>');
 //                        $("#" + $scope.htmlTagId).remove();
 //                        var BlockHtml = '<div id=' + $scope.htmlTagId + ' onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ')>' + emailData.htmldata + '</div>';
 //                        $("#tinymceEditorBody").append(BlockHtml);
@@ -436,22 +436,22 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 toolbar1: 'undo | bold italic | alignleft aligncenter alignright | link forecolor | fontselect fontsizeselect custombutton',
                 menubar: false
             });
-            $('.innerbg').click(function ($scope) {
-                $("#colpic").show();
+            $('.innerbg').mouseenter(function (event, $scope) {
+                $("#colpic").css({position: "absolute", top: event.pageY, left: "20px"}).css(" z-index", 30000).show();
                 seldiv = $(this).parents('[bb-bgcolor]');
-//                            $(this).colpick({
-//                                layout: 'hex',
-//                                submit: 0,
-//                                onChange: function (hsb, hex, rgb, fromSetColor) {
-//                                    $(seldiv).find('table:first').attr('bgcolor', '#' + hex);
-//                                }
-//                            });
+            });
+            $('.view').find('table:first').find('td:first').mouseenter(function () {
+                $(this).find('table:first').addClass('template-border-Active');
+            });
+            $('.view').find('table:first').find('td:first').mouseleave(function () {
+                $(this).find('table:first').removeClass('template-border-Active');
             });
         };
         $scope.blockIdOnSelected = function (selectedBlock, blockId) {
             var selectedHtmlBlockId = selectedBlock.id;
-            $("#"+selectedHtmlBlockId).children().find("table:first").children().find("table:first").addClass("template-border-Active");
-            $("#"+selectedHtmlBlockId).siblings().children().find("table:first").children().find("table:first").removeClass("template-border-Active");
+            $("#colpic").hide();
+//            $("#" + selectedHtmlBlockId).children().find("table:first").children().find("table:first").addClass("template-border-Active");
+//            $("#" + selectedHtmlBlockId).siblings().children().find("table:first").children().find("table:first").removeClass("template-border-Active");
             $scope.selectedBlockId = blockId;
             if (selectedBlock === "defaultblock1" || selectedHtmlBlockId === "defaultblock1")
             {
@@ -743,7 +743,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             settingsFactory.getEmailSettingsGet().then(function (data) {
                 var parseData = JSON.parse(data.d.details);
                 $scope.email_settings = parseData;
-                $scope.replyAddress=parseData.reply_email_address;
+                $scope.replyAddress = parseData.reply_email_address;
             });
         };
 
