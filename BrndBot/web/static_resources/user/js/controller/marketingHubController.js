@@ -1055,6 +1055,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
 
         $scope.hideUnsubscribeEmailsPopup = function () {
+            $scope.csvFileValidation=false;
+            $scope.csvValidation=false;
+            $scope.csvInvalidValidation=false;
             $scope.unsubscribePopup = false;
         };
 
