@@ -49,7 +49,7 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
         };
         
         
-        $scope.selectImage = function (id){ 
+        $scope.selectManagePage = function (id){ 
             $('.cat-slat').removeClass('highlightDiv').addClass('cat-slat-unselect');
             $("."+id).removeClass('cat-slat-unselect').addClass('highlightDiv');    
         };
