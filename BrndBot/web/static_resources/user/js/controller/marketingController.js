@@ -917,9 +917,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var $iframe = $('.fr-iframe');
             $("#tinymceEditorBody").empty().append(html_data);
             $scope.templateId = id;
-            $scope.lunchTinyMceEditor();
+            $scope.launchTinyMceEditor();
         };
-        $scope.lunchTinyMceEditor = function () {
+        $scope.launchTinyMceEditor = function () {
             tinymce.EditorManager.editors = [];
             tinymce.init({
                 selector: 'td.mce-content-body',
@@ -931,8 +931,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     'insertdatetime media table contextmenu paste',
                     'template paste textcolor colorpicker textpattern imagetools'
                 ],
-                toolbar1: ' insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image ',
-                toolbar2: ' forecolor backcolor | fontselect fontsizeselect custombutton fileuploader ',
+                toolbar1: 'undo | bold italic | alignleft aligncenter alignright | link forecolor | fontselect fontsizeselect ',
                 menubar: false
             });
         };
@@ -1062,7 +1061,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.froalaHtmlData = data.recurring_email_body;
 //                    $('#edit').froalaEditor('html.set', '' + $scope.froalaHtmlData + '');
                     $("#tinymceEditorBody").empty().append($scope.froalaHtmlData);
-                    $scope.lunchTinyMceEditor();
+                    $scope.launchTinyMceEditor();
 
                 });
 
