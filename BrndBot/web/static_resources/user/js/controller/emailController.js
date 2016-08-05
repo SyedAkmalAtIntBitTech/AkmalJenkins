@@ -335,7 +335,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $scope.selectedBlockId = selectedBlockId;
                 ++$scope.addBlockCount;
                 $scope.htmlTagId = "block" + $scope.addBlockCount;
-                $scope.showStyles('true');
                 if (externalSourceKeywordLookupId === 0)
                 {
                     $scope.emailMindBodyPopup = false;
@@ -343,6 +342,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     $scope.addHTMLInEmailEditor(selectedBlockId);
                     $scope.loadingOverlay = false;
                     $scope.blockOnClick(0);
+                    $scope.showStyles('true');
                 } else
                 {
                     $scope.hideMindbodyOverlay = false;
@@ -374,7 +374,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.didSelectMindbodyDataId = function (id) {
             $scope.mindbodyid = id;
-            $scope.showStyles();
+            $scope.showStyles("true");
             $scope.addHTMLInEmailEditor($scope.firstTemplateForBlock);
             $scope.closeMindbodyPopup();
             $scope.blockOnClick(0);
