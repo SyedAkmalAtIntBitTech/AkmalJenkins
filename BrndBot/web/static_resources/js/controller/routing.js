@@ -28,7 +28,7 @@ brndBotSignupApp.config(function ($routeProvider) {
                 title: 'BrndBot- Color Palette',
                 templateUrl: 'signup/choosepalette.html'
             })
-            .otherwise({redirectTo: '/signin'});
+            .otherwise({title: 'BrndBot - Login',redirectTo: '/signin'});
 }).run(function ($rootScope) {
         $rootScope.$on("$routeChangeSuccess", function (event, currentRoute) {
             document.title = currentRoute.title;

@@ -25,6 +25,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.actionTypeValidation = false;
         $scope.dateLesser = false;
         $scope.timePickerVal = false;
+        $scope.clickedRemoveAction = false;
 
         $scope.ddSelectActionOptions = [
             {
@@ -72,7 +73,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.setCurrentDate = function (selected_date) {
-            $(".delete-button").hide();
+//            $(".delete-button").hide();
             $("#liPriority").show();
             user_selected_date = selected_date;
             $scope.getCampaigns();
@@ -885,6 +886,10 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 //        }).error(function (data, status) {
 //            growl(requesterror);
 //        });        
+        };
+        
+        $scope.promptHideShow = function (flag){
+            $scope.clickedRemoveAction = flag;
         };
     }]);
 

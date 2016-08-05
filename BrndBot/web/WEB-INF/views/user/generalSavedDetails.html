@@ -6,13 +6,13 @@
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div >SAVED EMAIL DETAILS</div>
-                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Email</a>
+                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);"> Remove Saved Email</a>
                     </div>
-                    <div ng-show="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all ease-all">
+                    <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all ease-all">
                         <strong>Are you sure you want to remove this saved email?</strong>
                         
                         <div class="cta-wrapper">
-                            <a ng-click="clickedRemoveAction = false" href="" class="cancel-button">Cancel</a>
+                            <a ng-click="promptHideShow(false);" href="" class="cancel-button">Cancel</a>
                             <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader,'')" href="" class="delete-button">Remove</a>
                         </div>
                     </div>
@@ -46,13 +46,13 @@
                  <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div>Saved Post Details</div>
-                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;setRemoveSavedPost(clickedRemoveAction);"> Remove Saved Post</a>
+                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);"> Remove Saved Post</a>
                     </div>
-                    <div ng-show="clickedRemoveAction" class="action-pop-up remove-saved-action-template-pop-up ease-all">
+                    <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-action-template-pop-up ease-all">
                         <strong>Are you sure you want to remove this post?</strong>
                        
                         <div class="cta-wrapper">
-                            <a ng-click="clickedRemoveAction = false" href="" class="cancel-button">Cancel</a>
+                            <a ng-click="promptHideShow(false);" href="" class="cancel-button">Cancel</a>
                             <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader,'')" href="" class="delete-button">Remove</a>
                         </div>
                     </div>
@@ -83,13 +83,13 @@
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div>Saved Post Details</div>
-                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Post</a>
+                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);"> Remove Saved Post</a>
                     </div>
-                    <div ng-show="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all">
+                    <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all">
                         <strong>Are you sure you want to remove this saved post?</strong>
                        
                         <div class="cta-wrapper">
-                            <a ng-click="clickedRemoveAction = false" href="" class="cancel-button">Cancel</a>
+                            <a ng-click="promptHideShow(false);" href="" class="cancel-button">Cancel</a>
                             <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader,'')" href="" class="delete-button">Remove</a>
                         </div>
                     </div>
@@ -139,13 +139,13 @@
                  <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div >SAVED EMAIL DETAILS</div>
-                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Email</a>
+                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);"> Remove Saved Email</a>
                     </div>
-                    <div ng-show="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all ease-all">
+                    <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all ease-all">
                         <strong>Are you sure you want to remove this saved email?</strong>
                         
                         <div class="cta-wrapper">
-                            <a ng-click="clickedRemoveAction = false" href="" class="cancel-button">Cancel</a>
+                            <a ng-click="promptHideShow(false);" href="" class="cancel-button">Cancel</a>
                             <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader,'')" href="" class="delete-button">Remove</a>
                         </div>
                     </div>
