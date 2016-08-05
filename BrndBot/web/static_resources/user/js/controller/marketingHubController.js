@@ -608,7 +608,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                         emailListFactory.emailListSavePost(emaildetails).then(function (data) {
                             $("#addContactButton").unbind('click');
                             var parseData = JSON.stringify(data.d.operationStatus.messages);
-                            if (parseData === '["Email list could not be saved, please try again in sometime."]') {
+                            if (parseData === '["Email list saved successfully."]') {
                                 emaildetails = {"update": "addEmailID", "emailListName": email_list_name,
                                     "emailAddress": email_address, "emailFirstName": firstName,
                                     "emailLastName": lastName};
@@ -619,8 +619,11 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                                     $scope.showAddContactPopup = false;
                                     $("#addContactButton").unbind('click');
                                 });
-                            } else if (parseData === '["Email list saved successfully."]') {
+                            } else if (parseData === '["Email list could not be saved, please try again in sometime."]') {
                                 growl(emailexist, "error");
+                                $scope.updateList();
+                                $scope.overlayFade = false;
+                                $scope.showAddContactPopup = false;
                                 $("#addContactButton").unbind('click');
                             }
                         });

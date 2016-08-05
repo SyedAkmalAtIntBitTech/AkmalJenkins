@@ -562,16 +562,21 @@ public class EmailListServiceImpl implements EmailListService {
                     if (emailListName.equals(currentListName)) {
 
                         JSONArray emailAddressesJSONArray = (JSONArray) emailListJSONObject.get(IConstants.kEmailAddressesKey);
-                        for (int j = 0; j < emailAddressesJSONArray.size(); j++) {
-                            JSONObject emailAddressJSONObject = (JSONObject) emailAddressesJSONArray.get(j);
+                        if(emailAddressesJSONArray.size()>0)
+                        {
+                            for (int j = 0; j < emailAddressesJSONArray.size(); j++) {
+                                JSONObject emailAddressJSONObject = (JSONObject) emailAddressesJSONArray.get(j);
 
-                            EmailInfo email_info_from_database = EmailInfo.fromJSON(emailAddressJSONObject.toString());
-                            String email_address = email_info.getEmailAddress();
-                            String email_address_from_db = email_info_from_database.getEmailAddress();
-                            if (email_address.equalsIgnoreCase(email_address_from_db)) {
-                                return true;
+                                EmailInfo email_info_from_database = EmailInfo.fromJSON(emailAddressJSONObject.toString());
+                                String email_address = email_info.getEmailAddress();
+                                String email_address_from_db = email_info_from_database.getEmailAddress();
+                                if (email_address.equalsIgnoreCase(email_address_from_db)) {
+                                    return true;
+                                }
                             }
                         }
+                        else
+                            return true;
                     }
                 }
             }
