@@ -47,9 +47,9 @@
                             $event.stopPropagation();"> Upload Image</div>
                     </div>
                 </div>
-                <div class="full-height-modal-pane-content-wrap modal-pane-content-social-sequence" ng-init="getUserImages()" ng-show="showUserImages" >
+                <div class="full-height-modal-pane-content-wrap pop-up-image-gallery-wrap modal-pane-content-social-sequence" ng-init="getUserImages()" ng-show="showUserImages" >
                     <div class="gallery-image-wrap {{images.companyImagesId}}">
-                        <div class="gallery-image-card" ng-repeat="images in datalists"  ng-click="selectImageToPost(images.imageName, 'gallery', companyId)">
+                        <div class="gallery-image-card image-gal-pop-up" ng-repeat="images in datalists"  ng-click="selectImageToPost(images.imageName, 'gallery', companyId)">
                             <img  class="gallery-image" id="{{images.companyImagesId}}"  src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}" alt="{{images.imageName}}"/>
                         </div>
                     </div>

@@ -4370,15 +4370,21 @@ textarea.task-textarea:focus{
 .gallery-image-wrap{
     display: flex;
     padding: 30px 30px 0px 30px;
+    flex-wrap: wrap;
 }
 
 .gallery-image-card{
     height: 150px;
-    width: 200px;
+    width: 190px;
     position: relative;
-    margin-right: 30px;
+    margin-right: 20px;
     margin-bottom: 30px;
 }
+
+.gallery-image-card.image-gal-pop-up{
+    cursor: pointer;
+}
+
 .gallery-image-card:last-child{
     margin-right: 0px;
 }
@@ -4416,6 +4422,10 @@ textarea.task-textarea:focus{
     cursor: pointer;
     margin-left: auto;
 
+}
+
+.pop-up-image-gallery-wrap{
+    flex-wrap: wrap;
 }
 
 .animate-enter {
