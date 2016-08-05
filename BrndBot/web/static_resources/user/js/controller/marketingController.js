@@ -28,6 +28,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.dateLesser = false;
         $scope.timePickerVal = false;
         $scope.validateEmailId = false;
+        $scope.clickedRemoveAction = false;
 
         $scope.ddSelectAction = {
             text: "Select"
@@ -1532,5 +1533,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
             return true;
         };
-
+        
+        $scope.promptHideShow = function (flag){
+            $scope.clickedRemoveAction = flag;
+        };
     }]);
