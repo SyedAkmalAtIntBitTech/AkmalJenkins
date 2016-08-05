@@ -1325,9 +1325,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
                         marketingRecurringEmailFactory.addupdateRecurringActionPost(recurring_action).then(function (data) {
 
-                            if ((data === "true") && ($scope.entityNoEmailTemplate === true)) {
+                            if ((data === true) && ($scope.entityNoEmailTemplate === true)) {
 //                                alert("Details saved succesfully.");
                                 $scope.automationEditor = true;
+                                $scope.entityNoEmailTemplate = false;
 //                            $("#emailautomationcontent").hide();
 //                            $scope.showEmailAutomation = true;
 //                            $scope.emailEditorContainer = true;
