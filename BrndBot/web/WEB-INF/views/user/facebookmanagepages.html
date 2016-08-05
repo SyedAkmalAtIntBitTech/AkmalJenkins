@@ -6,9 +6,9 @@
         <div class="modal-pane-content-wrap">
 
             <div class="cat-list" ng-repeat="fbDetails in fbPagesDetails">
-                <div class="cat-slat">  
+                <div class="cat-slat {{fbDetails.profileName}}"> 
                      <img src="{{fbDetails.profilPicture}}" class="social-channel-icon">
-                    <div class="cat-slat-title" ng-click="setPageAccessToken(fbDetails.pageAccessToken,fbDetails.profileName,fbProfileName);selectImage(fbDetails.profileName)"> {{fbDetails.profileName}}</div>                    
+                     <div class="cat-slat-title" ng-click="setPageAccessToken(fbDetails.pageAccessToken,fbDetails.profileName,fbProfileName);selectManagePage(fbDetails.profileName)"> {{fbDetails.profileName}}</div>                    
                 </div>
             </div>
             <div class="cat-list"  ng-show="pageName === 'marketingPrograms'" ng-repeat="displayAllMarketingProgram in displayAllMarketingPrograms">

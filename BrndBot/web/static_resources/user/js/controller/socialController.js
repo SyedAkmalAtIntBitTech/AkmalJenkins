@@ -71,6 +71,11 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             });
 
         };
+        
+        $scope.selectManagePage = function (id){ 
+            $('.cat-slat').removeClass('highlightDiv').addClass('cat-slat-unselect');
+            $("."+id).removeClass('cat-slat-unselect').addClass('highlightDiv');    
+        };
         $scope.isDefaultTwitterAccountSet = function () {
             var data = JSON.stringify({access_token_method: "getAccessToken"});
             settingsFactory.twitterPost(data).then(function (data) {
