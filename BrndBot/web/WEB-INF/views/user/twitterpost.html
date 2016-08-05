@@ -27,8 +27,7 @@
                     <span>
                         <div class="input_Label">What would you like to share?</div>
                         <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="twitterShareText" maxlength="116" ng-model="twitterPostData.text"></textarea>
-                        <span class="validationAlert" ng-if='twitterPostData.text === "" || null'>{{actionNameValidation}}</span>
-
+                        <span class="validationAlert" ng-if='twitterPostData.text === "" || null'>{{actionNameValidation}}</span><br>
                     </span>
                     <span ng-show="showTwitterLink == true" class="" id='urlDropDownSpan' ng-init="getUrls()">                               
                         <div class="input_Label pushUp_20">Choose from your Existing Links:</div>
@@ -42,8 +41,8 @@
                         <div class="input ">
                             <input class="socialLink_attached removeDrag fluid" ng-model="twitterPostData.url" placeholder="http://www.brndbot.com" id="linkOfUrls"></input></span><br>
                         </div>
+                        <span class="validationAlert" ng-if='twitterPostData.url === "" || null'>{{customLinkValidation}}</span><br>
                     </span>
-                    <span class="validationAlert" ng-if='twitterPostData.url === "" || null'>{{customLinkValidation}}</span>  
                     <div class="add-link-facebook-container" ng-click="twitterShare.url = '';changeTwitterPostType();">
                         <div class="long-button gray-button" id="postType" id="postType" >{{TwtPostType}}</div>
                     </div>

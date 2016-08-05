@@ -4832,3 +4832,15 @@ textarea.task-textarea:focus{
     background-color: #ddd;
     opacity: 0;
 }
+
+.general-action-alert {
+    width: 100%;
+    background: #FFF;
+    padding: 0px 30px 10px 75px;
+    display: flex;
+}
+.block-button{
+    width:150px !important; 
+    padding: 0px !important; 
+    line-height: 40px !important; 
+}
