@@ -247,7 +247,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.closeOverlay = function ()
         {
             $scope.fadeClass = '';
-            $scope.addAction = false;
+            $scope.addAction = false;            
+            $scope.chooseActionTypeOnChange({"text":"Select","value":"0"});
         };
         $scope.formatDate = function (programDate) {
             var dateArray = programDate.split('-');
