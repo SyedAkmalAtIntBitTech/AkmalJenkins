@@ -64,7 +64,8 @@ public class FranchiseServiceImpl implements FranchiseService {
         franchiseCompanyLookup.setFkCompanyId(new Company(companyId));
         franchiseCompanyLookup.setFkFranchiseId(new Franchise(franchiseId));
         franchiseCompanyLookup.setIsHeadQuarter(false);
-        franchiseCompanyLookupDao.save(franchiseCompanyLookup);    
+        franchiseCompanyLookupDao.save(franchiseCompanyLookup);
+        //TODO Muzamil - send out an email , you are part of the franchise.
     }
 
     @Override
