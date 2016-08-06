@@ -5,6 +5,7 @@
  */
 package com.intbittech.modelmappers;
 
+import com.intbittech.model.Franchise;
 import java.io.Serializable;
 
 /**
@@ -12,6 +13,13 @@ import java.io.Serializable;
  * @author AR
  */
 public class FranchiseDetails implements Serializable{
+
+    public static Franchise deserialize(FranchiseDetails franchiseDetails) {
+        Franchise franchise = new Franchise();
+        franchise.setFranchiseName(franchiseDetails.getFranchiseName());
+        return franchise;
+    }
+    
     String franchiseName;
 
     public FranchiseDetails(String franchiseName) {
