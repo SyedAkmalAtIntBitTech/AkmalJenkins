@@ -2600,6 +2600,9 @@ p.modal-content-header{
 
 .slat-detail h2{
     text-align: right;  
+}
+
+.overflowclass{
     overflow: visible;
     width: 200px;
 }

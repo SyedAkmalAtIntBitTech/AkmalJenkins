@@ -407,6 +407,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.templateDisapproveButton = "Disapprove";
             $scope.savedDetailsAddTemplateButton = "Go to Dashboard";
             $scope.savedDetailsAddTemplateLink = "dashboard";
+            $scope.setEmailToThisAction="Save Email to this Action";
             $scope.savedHeader = 'Post';
             $scope.isRecurring = false;
             if (entity_type === getnote()) {
@@ -893,6 +894,12 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.promptHideShow = function (flag){
             $scope.clickedRemoveAction = flag;
         };
+                
+        $scope.saveEmailByActionId = function(id){
+            localStorage.setItem("email_Schedule_Id",id);
+            window.open(getHost() + 'user/baseemaileditor#/emailcategory', "_self");
+        };
+        
     }]);
 
        
