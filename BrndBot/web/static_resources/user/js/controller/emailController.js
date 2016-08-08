@@ -1160,14 +1160,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.schedulePostToEmail = function (postData) {
             $scope.postedTo = getemail();
-            var email_scheduling = $scope.getScheduleData($scope.selectedMarketingProgrma, postData);
-            if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
-                scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
-                    $scope.schedulePopup = false;
-                    $scope.isPostSuccess = true;
-//                            window.location = "dashboard";
-                });
-            }
+            $scope.getScheduleData($scope.selectedMarketingProgrma, postData);
+            
         };
 
         $scope.getScheduleData = function (selectedMarketingProgrmaId, postData) {
@@ -1192,19 +1186,11 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     if (data.d.operationStatus.statusCode === "Success") {
                         $scope.schedulePopup = false;
                         $scope.isPostSuccess = true;
-//                        window.location = "dashboard";
+                        emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
+                        
+                        });
                     }
                 });
-
-                if (JSON.stringify(data) !== "") {
-                    emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
-                        if (responseText === "true")
-                        {
-                            growl("Your Email has been Scheduled Successfully");
-                            window.location = "dashboard";
-                        }
-                    });
-                }
             } else {
                 var schedule_title = $("#ActionName").val();
                 var schedule_date = $("#actionDate").val();
@@ -1240,18 +1226,11 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     if (data.d.operationStatus.statusCode === "Success") {
                         $scope.schedulePopup = false;
                         $scope.isPostSuccess = true;
-//                        window.location = "dashboard";
+                        emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
+                        
+                        });
                     }
                 });
-                if (JSON.stringify(data) !== "") {
-                    emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
-                        if (responseText === "true")
-                        {
-                            growl("Your Email has been Scheduled Successfully");
-                            window.location = "dashboard";
-                        }
-                    });
-                }
             }
             return email_scheduling;
         };
