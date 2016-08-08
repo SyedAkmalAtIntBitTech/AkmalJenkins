@@ -881,7 +881,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 if ($scope.emailList !== "Manual")
                 {
                     if ($scope.emailAddresses !== "")
-                    {
+                    {     
+                        $location.path("/emaildetails");
                         $scope.showEmailDetails = true;
                         $scope.emailListDiv = false;
                         $scope.emailContinueButton = false;
@@ -897,7 +898,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
                 } else {
                     if ($scope.emailAddresses !== "")
-                    {
+                    { 
+                        $location.path("/emaildetails");
                         $scope.toAddress = emailAddresses;
                         $scope.showEmailDetails = true;
                         $scope.emailListDiv = false;
@@ -919,14 +921,26 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.backToEmailList = function () {
+            $location.path('/emaillistselection');
             $scope.showEmailDetails = false;
             $scope.emailListDiv = true;
-            $scope.emailContinueButton = true;
+            $scope.emailContinueButton = false;
             $scope.emaildetailscontbtn = false;
             $scope.emailListBackButton = true;
             $scope.emailDetailsBackButton = false;
         };
 
+
+        $scope.isEmailActionSave = function (){
+            $scope.redirectBaseURL();
+            if(localStorage.getItem("email_Schedule_Id")!= null){
+                $scope.emaildetailscontbtn=false;
+                $scope.emailSaveActionbutton= true;
+            } else{
+                $scope.emailSaveActionbutton= false;
+                $scope.emaildetailscontbtn=true;
+            }           
+        };
         $scope.emailListPreviewOnClick = function () {
             $scope.iframePath = getHost() + "download/HTML?fileName=" + $scope.randomIframeFilename + ".html";
             $scope.fadeClass = 'fadeClass';
@@ -1017,6 +1031,20 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     $scope.postTypeSelectionPopUp = true;
                     $scope.postData = postData;
                     $scope.postTo = "Send Now";
+                }
+            }
+        };
+        
+        $scope.saveEmailActionByScheduleId = function (postData){
+            
+            if ($scope.emailListValidation(postData))
+            {
+                if ($scope.replyEmailValidation(postData))
+                {
+                    $scope.postData = postData;
+                    alert("email ActionSaved..");
+                    localStorage.removeItem("email_Schedule_Id");
+                    window.location = "dashboard";
                 }
             }
         };

@@ -174,7 +174,8 @@
                 <div class="empty-wrap">
                     <object type="image/svg+xml" data="/BrndBot/user/images/Overlay_EmptyStates_email.svg"></object>
                     <p>{{actionTypeNoTemplateMessage}}</p>
-                    <a class="reg-button blue-button empty-wrap-button" href="{{savedDetailsAddTemplateLink}}" ng-if="isRecurring === false">{{savedDetailsAddTemplateButton}}</a>
+                    <a class="reg-button blue-button empty-wrap-button" href="{{savedDetailsAddTemplateLink}}" ng-if="isRecurring === false && masterActionType!='Email'">{{savedDetailsAddTemplateButton}}</a>
+                    <a class="reg-button blue-button empty-wrap-button" href="" ng-click="saveEmailByActionId(schedule_id)" ng-if="isRecurring === false && masterActionType=='Email'">{{setEmailToThisAction}}</a>
                     <a class="reg-button blue-button empty-wrap-button" ng-click="redirectToEmailAutomation('emailautomation','template','', schedule_id)" ng-if="isRecurring === true">{{savedDetailsAddTemplateButton}}</a>
                 </div>
             </div>

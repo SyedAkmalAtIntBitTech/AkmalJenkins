@@ -29,6 +29,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.timePickerVal = false;
         $scope.validateEmailId = false;
         $scope.clickedRemoveAction = false;
+        $scope.setEmailToThisAction="Save Email to this Action";
 
         $scope.ddSelectAction = {
             text: "Select"
@@ -1537,4 +1538,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.promptHideShow = function (flag){
             $scope.clickedRemoveAction = flag;
         };
+        
+        $scope.saveEmailByActionId = function(id){
+            localStorage.setItem("email_Schedule_Id",id);
+            window.open(getHost() + 'user/baseemaileditor#/emailcategory', "_self");
+        };
+        
     }]);
