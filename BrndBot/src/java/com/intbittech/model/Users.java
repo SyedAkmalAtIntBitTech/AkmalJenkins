@@ -50,7 +50,17 @@ public class Users implements Serializable {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+    @Column(name = "account_status")
+    private String accountStatus;
 
+    public String getAccountStatus() {
+        return accountStatus;
+    }
+
+    public void setAccountStatus(String accountStatus) {
+        this.accountStatus = accountStatus;
+    }
+    
     public Users() {
     }
 

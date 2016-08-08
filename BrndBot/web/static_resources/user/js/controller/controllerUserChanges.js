@@ -7,6 +7,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.logoValidation = logoValidation;
         $scope.showPaletteChangePopUp="";
         $scope.addUserSettings = false;                   
+        $scope.userRoleLookUpId = "";
         // Hide & show password function
         $scope.hideShowPassword = function () {
             if ($scope.inputType == 'password')
@@ -44,20 +45,23 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
         $scope.inviteUser = function (userDetails) {
             var roles = [];
-            if (userDetails.adminCheckBox == true){
-                roles.push(1);
-            }
-            if (userDetails.managerCheckBox == true){
-                roles.push(2);
-            }
-            if (userDetails.creatorCheckBox == true){
-                roles.push(4);
-            }
-            var invitation = {"emailaddress": userDetails.email, "roles": roles, "task": 'invitation',};
+            roles.push(userDetails.adminRadio);
+            var invitation = {"userRoleLookUpId":"", "emailaddress": userDetails.email, "roles": roles, "task": 'invitation'};
            
             onboardingFactory.inviteUserPost(invitation).then(function (data) {
                 var response = data;
-                alert(JSON.stringify(response.d.message));
+                alert(data.d.message);
+                $scope.closeOverlay();
+            });
+        };
+
+        $scope.editUser = function (userDetails) {
+            var roles = [];
+            roles.push(userDetails.adminRadio);
+            var invitation = {"userRoleLookUpId":$scope.userRoleLookUpId.toString(), "emailaddress": $scope.userEmailId, "roles": roles, "task": 'invitation'};
+            
+            onboardingFactory.editUserRolePost(invitation).then(function (data) {
+                var response = data;
                 $scope.closeOverlay();
 //                if (message === "true")
 //                {
@@ -93,12 +97,17 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
         $scope.ShowAddUserSettings = function ()
         {
-//            $scope.resetActionForm();
-
-//            $scope.datePicker = "";
             $scope.fadeClass = 'fadeClass';
-//            $scope.isYourplan = true;
             $scope.addUserSettings = true;
+        };
+
+        $scope.ShowEditUserSettings = function (userRoleLookUpId,userEmailId)
+        {
+            $scope.fadeClass = 'fadeClass';
+            $scope.userRoleLookUpId = userRoleLookUpId;
+            $scope.userEmailId = userEmailId;
+            $("#editemail").val(userEmailId);
+            $scope.editUserSettings = true;
         };
 
         $scope.closeOverlay = function ()

@@ -140,4 +140,16 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
         }
 
     }        
+
+    @Override
+    public UsersRoleLookup getUsersRoleLookupByUserAndRoleId(Users user, UserRole role) throws ProcessFailed {
+        Criteria criteria = sessionFactory.getCurrentSession()
+                .createCriteria(UsersRoleLookup.class)
+                .add(Restrictions.eq("userId", user))
+                .add(Restrictions.eq("roleId", role));
+        if (criteria.list().isEmpty()) {
+            return null;
+        }
+        return (UsersRoleLookup) criteria.list().get(0);
+    }
 }

@@ -85,6 +85,14 @@ public interface UsersService {
      * @throws ProcessFailed the process failed
      */
     public void setRole(InviteDetails inviteDetails) throws ProcessFailed;
+/**
+     * This method pass user as input and get the {@link Integer} from DAO layer.
+     *
+     * @param inviteDetails
+     * @return {@link Integer}
+     * @throws ProcessFailed the process failed
+     */
+    public boolean updateRole(InviteDetails inviteDetails) throws ProcessFailed;    
     /**
      * This method pass user as input and updates the {@link Users} from DAO layer.
      *

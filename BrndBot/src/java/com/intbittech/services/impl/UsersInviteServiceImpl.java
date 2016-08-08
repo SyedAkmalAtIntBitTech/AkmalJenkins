@@ -19,8 +19,10 @@ import com.intbittech.model.Invite;
 import com.intbittech.model.InvitedUsers;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
+import com.intbittech.model.UsersRoleLookup;
 import com.intbittech.modelmappers.InviteDetails;
 import com.intbittech.modelmappers.TaskDetails;
+import com.intbittech.services.UserRoleLookUpService;
 import com.intbittech.services.UserRoleService;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UsersService;
@@ -51,6 +53,8 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     private UsersInviteDao usersInviteDao;
     @Autowired
     private UserRoleService userRoleService;
+    @Autowired
+    private UserRoleLookUpService userRoleLookUpService;
     @Autowired
     private MessageSource messageSource;
     
@@ -102,6 +106,17 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     }
 
     @Override
+    public Invite getInvitedUserByUserTo(Users userTo) throws ProcessFailed{
+        Invite invites = usersInviteDao.getInvitedUserByUserTo(userTo);
+        if(invites == null)
+        {
+            throw new ProcessFailed(messageSource.getMessage("user_list_not_found",new String[]{}, Locale.US));
+        }
+            return invites;
+
+    }
+    
+    @Override
     public Invite getInvitedUserById(Integer Id) throws ProcessFailed {
         Invite companyInvite = usersInviteDao.getInvitedUserById(Id);
         if(companyInvite == null)
@@ -123,6 +138,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
 
     public List<InvitedUsers> getInvitedUsers(Users userFrom)throws ProcessFailed {
         String invitationStatus = null;InvitedUsers inviteduser = null;
+        UsersRoleLookup userRoleLookUp = null; String userName = "";       
         try{
         List<Invite> invites = getAllInvitedUsers(userFrom);
         
@@ -134,20 +150,40 @@ public class UsersInviteServiceImpl implements UsersInviteService{
             for (int i = 0; i<invitesList.size(); i++){
                 Invite invite = invitesList.get(i);
                 Users user = invite.getInviteSentTo();
+                if (user != null){
+                    userName = user.getUserName();
+                }else {
+                    userName = invite.getInviteSentToEmailId();
+                }
                 JSONObject task = (JSONObject)StringUtility.stringToJSONObject(invite.getTask());
                 ArrayList roles = (ArrayList)task.get("roles");
+                String userRoleName = "", userRoleLookUpIds = "";
                 for (int j = 0; j< roles.size(); j++){
                     Double role_id = (Double)roles.get(j);
                     UserRole userRole = userRoleService.getUserRoleById(role_id.intValue());
-                    String userRoleName = userRole.getRoleName();
+                    userRoleLookUp = userRoleLookUpService.getUsersRoleLookupByUserAndRoleId(user, userRole);
+                    if (userRoleLookUp != null){
+                        if (userRoleLookUpIds == ""){
+                            userRoleLookUpIds = userRoleLookUp.getId().toString();
+                        }else {
+                            userRoleLookUpIds = userRoleLookUpIds + "," + userRoleLookUp.getId().toString();
+                        }
+                    }
+                    if (userRoleName == ""){
+                        userRoleName = AdminStatus.valueOf(userRole.getRoleName()).getDisplayName();
+                    }else {
+                        userRoleName = userRoleName + "," + AdminStatus.valueOf(userRole.getRoleName()).getDisplayName();
+                    }
                     boolean isUsed = invite.getIsUsed();
                     if (isUsed){
-//                        invitationStatus = AdminStatus.Invite_Success.toString();
-                        invitationStatus = AdminStatus.valueOf("Invite_Success").toString();
+                        invitationStatus = AdminStatus.valueOf("Invite_Success").getDisplayName();
+                    }else {
+                        invitationStatus = AdminStatus.valueOf("Invite_Sent").getDisplayName();
                     }
-                    inviteduser = new InvitedUsers(user.getUserName(), userRoleName, invitationStatus);
-                    invitedUsers.add(inviteduser);
                 }
+                    inviteduser = new InvitedUsers(invite.getId(), userRoleLookUpIds, userName, userRoleName, invitationStatus);
+                    invitedUsers.add(inviteduser);
+
             }
             return invitedUsers;
         }else {
@@ -181,7 +217,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
         companyInvite.setIsUsed(Boolean.FALSE);
         TaskDetails taskdetails = new TaskDetails(inviteDetails.getTask(),inviteDetails.getRoles());
         companyInvite.setTask(StringUtility.objectListToJsonString(taskdetails));
-        
+        companyInvite.setInviteSentToEmailId(inviteDetails.getEmailaddress());
         save(companyInvite);
 
         Message message = new Message();

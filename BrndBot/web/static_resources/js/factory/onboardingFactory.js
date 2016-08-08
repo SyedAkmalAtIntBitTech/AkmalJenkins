@@ -38,6 +38,15 @@ factoryApp.factory('onboardingFactory', function ($q,authenticatedServiceFactory
         return deffered.promise;
     };
 
+    onboardingFactoryObject.editUserRolePost = function (userDetails) {
+        var deffered = $q.defer();
+        var url = configurationService.editUserRoleURL();
+        authenticatedServiceFactory.makeCall("POST", url, userDetails, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+
     onboardingFactoryObject.getInvitedUsersPost = function () {
         var deffered = $q.defer();
         var url = configurationService.getInvitedUsersURL();

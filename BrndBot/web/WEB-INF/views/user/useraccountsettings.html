@@ -44,24 +44,14 @@
                      <div class="section-header">
                          <h3>List of Users</h3>
                         <p>These are the default email settings, they can be overridden when you send out an email.</p>
-                     </div>{{invitedUsers}}
+                     </div>
                     <div class="user-slat" ng-repeat="users in invitedUsers">
                         <div class="user-email-address">{{users.emailID}}</div>
-                        <div class="user-role">Admin</div>
-                        <div class="user-status">Invite Sent</div>
+                        <div class="user-role">{{users.userRole}}</div>
+                        <div class="user-status">{{users.inviteStatus}}{{users.userRoleLookUp}}</div>
                         <div class="user-slat-cta-wrap">
                              <div class="user-slat-button resend-user-email">Resend User Email</div>
-                             <div class="user-slat-button edit-user-permissions">Edit User Permissions</div>
-                             <div class=" user-slat-button remove-user-button">Remove User</div>
-                        </div>
-                    </div>
-                    <div class="user-slat">
-                        <div class="user-email-address">andy.swansburg1111@gmail.com</div>
-                        <div class="user-role">Admin</div>
-                        <div class="user-status">Invite Sent</div>
-                        <div class="user-slat-cta-wrap">
-                             <div class="user-slat-button resend-user-email">Resend User Email</div>
-                             <div class="user-slat-button edit-user-permissions">Edit User Permissions</div>
+                             <div class="user-slat-button edit-user-permissions" ng-click="ShowEditUserSettings(users.userRoleLookUp,users.emailID)">Edit User Permissions</div>
                              <div class=" user-slat-button remove-user-button">Remove User</div>
                         </div>
                     </div>

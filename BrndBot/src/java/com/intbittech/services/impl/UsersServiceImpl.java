@@ -17,6 +17,7 @@ import com.intbittech.email.mandrill.Recipient;
 import com.intbittech.email.mandrill.RecipientMetadata;
 import com.intbittech.email.mandrill.SendMail;
 import static com.intbittech.email.mandrill.SendMail.MANDRILL_KEY;
+import com.intbittech.enums.AdminStatus;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.Invite;
@@ -147,6 +148,7 @@ public class UsersServiceImpl implements UsersService {
             Company companyObject = new Company();
             companyObject.setCompanyId(companyId);
             user.setFkCompanyId(companyObject);
+            user.setAccountStatus(AdminStatus.valueOf("Account_Activated").getDisplayName());
             usersDao.save(user);
 
             usersRoleLookUp = new UsersRoleLookup();
@@ -192,6 +194,8 @@ public class UsersServiceImpl implements UsersService {
                 
                 Company companyObject = sentUser.getFkCompanyId();
                 user.setFkCompanyId(companyObject);
+                user.setAccountStatus(AdminStatus.valueOf("Account_Activated").getDisplayName());
+
 //                UserRole userRole1 = new UserRole();
 //                userRole1.setUserRoleId(3);
 //                user.setFkUserRoleId(userRole1);
@@ -310,7 +314,48 @@ public class UsersServiceImpl implements UsersService {
             roles = null;taskdetails =null;usersRoleLookUp = null;user = null;
         }
     }
-    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean updateRole(InviteDetails inviteDetails) throws ProcessFailed{
+        TaskDetails taskDetails = null, taskDetailsToSave = null;
+        List<Integer> roles = null;UsersRoleLookup usersRoleLookUp = null;
+        boolean flag = false;Users user = null;
+        try{
+            
+            taskDetails = new TaskDetails(inviteDetails.getTask(),inviteDetails.getRoles());
+            
+            user = findByUserName(inviteDetails.getEmailaddress());
+                roles = taskDetails.getRoles();
+                String UserRoleLookUpIds[] = inviteDetails.getUserRoleLookUpId().split(",");
+                for (int i = 0; i< roles.size(); i++){
+                    
+                    usersRoleLookUp = new UsersRoleLookup();
+
+                    UserRole userRole = new UserRole();
+                    userRole.setUserRoleId((Integer)roles.get(i));
+                    
+                    usersRoleLookUp.setId(Integer.parseInt(UserRoleLookUpIds[i]));
+                    usersRoleLookUp.setUserId(user);
+                    usersRoleLookUp.setRoleId(userRole);
+                    usersRoleLookUpService.update(usersRoleLookUp);
+                    
+                }
+            Users userTo = findByUserName(inviteDetails.emailaddress);
+            Invite invite = usersInviteService.getInvitedUserByUserTo(userTo);
+            
+            invite.setTask(StringUtility.objectListToJsonString(taskDetails));
+            usersInviteService.update(invite);
+            flag = true;
+        }catch (Throwable throwable){
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage(throwable.getMessage(), new String[]{}, Locale.US));
+        }finally{
+            roles = null;taskDetails =null;usersRoleLookUp = null;user = null;
+        }
+        return flag;
+    }    
     /**
      * {@inheritDoc}
      */

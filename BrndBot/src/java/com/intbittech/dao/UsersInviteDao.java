@@ -59,7 +59,7 @@ public interface UsersInviteDao {
      */
     public Invite getInvitedUserById(Integer Id) throws ProcessFailed;
     
-        /**
+    /**
      * This method pass inviteCode as input and get the {@link Invite} from database
      *
      * @param inviteCode
@@ -67,6 +67,14 @@ public interface UsersInviteDao {
      * @throws ProcessFailed the process failed
      */
     public Invite getUserByInviteCode(String inviteCode) throws ProcessFailed;
+    /**
+     * This method pass user as input and get the {@link Invite} from database
+     *
+     * @param userTo
+     * @return {@link Invite}
+     * @throws ProcessFailed the process failed
+     */
+    public Invite getInvitedUserByUserTo(Users userTo);
     
     
 }

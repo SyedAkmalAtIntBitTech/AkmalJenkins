@@ -57,6 +57,16 @@ public class Invite implements Serializable {
     @JoinColumn(name = "invite_sent_to", referencedColumnName = "user_id")
     @ManyToOne
     private Users inviteSentTo;
+    @Column(name = "invite_sent_to_email")
+    private String inviteSentToEmailId;
+
+    public String getInviteSentToEmailId() {
+        return inviteSentToEmailId;
+    }
+
+    public void setInviteSentToEmailId(String inviteSentToEmailId) {
+        this.inviteSentToEmailId = inviteSentToEmailId;
+    }
 
     public Invite() {
     }

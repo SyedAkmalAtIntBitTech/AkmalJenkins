@@ -68,6 +68,15 @@ public interface UserRoleLookUpService {
      * @throws ProcessFailed the process failed
      */
     public UsersRoleLookup getUsersRoleLookupByUserId(Users userId) throws ProcessFailed;
+
+   /**
+     * This method pass user as input and get the {@link UsersRoleLookup} from database
+     *
+     * @param userId
+     * @return {@link UsersRoleLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public UsersRoleLookup getUsersRoleLookupByUserAndRoleId(Users userId, UserRole roleId) throws ProcessFailed;
     
     /**
      * This method pass id as input and get the {@link UserRole} from DAO layer

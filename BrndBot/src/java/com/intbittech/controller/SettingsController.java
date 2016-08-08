@@ -121,17 +121,33 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
+    @RequestMapping(value = "/editUserRole", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> editUserRole(@RequestBody InviteDetails inviteDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+
+            boolean returnMessage = usersService.updateRole(inviteDetails);
+            if (returnMessage){
+                transactionResponse.setMessage(messageSource.getMessage("details_updated", new String[]{}, Locale.US));
+            }
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
     @RequestMapping(value = "/getInvitedUsers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getInvitedUsers(HttpServletRequest request,
             HttpServletResponse response) {
-        GenericResponse<String> genericResponse = new GenericResponse<>();
+        GenericResponse<InvitedUsers> genericResponse = new GenericResponse<>();
 
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             Company company = userProfile.getUser().getFkCompanyId();
             List<InvitedUsers> invitedUsers = usersInviteService.getInvitedUsers(userProfile.getUser());
-            genericResponse.addDetail(StringUtility.objectListToJsonString(invitedUsers));
-//            genericResponse.setDetails(invitedUsers);
+            genericResponse.setDetails(invitedUsers);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
         } catch (Throwable throwable) {
             logger.error(throwable);

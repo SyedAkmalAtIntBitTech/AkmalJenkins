@@ -13,9 +13,18 @@ import java.util.List;
  * @author Syed Muzamil at IntBit Technologies.
  */
 public class InviteDetails {
-    String emailaddress;
+    public String userRoleLookUpId;
+    public String emailaddress;
     public List<Integer> roles = new ArrayList<Integer>();
     public String task;
+
+    public String getUserRoleLookUpId() {
+        return userRoleLookUpId;
+    }
+
+    public void setUserRoleLookUpId(String userRoleLookUpId) {
+        this.userRoleLookUpId = userRoleLookUpId;
+    }
 
     public String getEmailaddress() {
         return emailaddress;

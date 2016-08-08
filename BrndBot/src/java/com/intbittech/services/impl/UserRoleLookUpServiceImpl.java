@@ -113,5 +113,17 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
     public void update(UsersRoleLookup usersRoleLookup) throws ProcessFailed {
             usersRoleLookUpDao.update(usersRoleLookup);
     }
+
+    @Override
+    public UsersRoleLookup getUsersRoleLookupByUserAndRoleId(Users user, UserRole role) throws ProcessFailed {
+        UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByUserAndRoleId(user, role);
+        if(userRoleLookup == null)
+        {
+            return null;
+//             throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
+        }
+        return userRoleLookup;
+        
+    }
     
 }

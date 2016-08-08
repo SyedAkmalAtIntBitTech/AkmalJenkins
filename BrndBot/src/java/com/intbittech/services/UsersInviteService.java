@@ -43,13 +43,21 @@ public interface UsersInviteService {
     public void delete(Integer id) throws ProcessFailed;
 
     /**
-     * This method pass id as input and deletes the {@link InviteUsers} from DAO layer.
+     * This method pass id as input and returns the list of {@link InviteUsers} from DAO layer.
      *
      * @param id
      * @return {@link InvitedUsers}
      * @throws ProcessFailed the process failed
      */
     public List<InvitedUsers> getInvitedUsers(Users userFrom)throws ProcessFailed;
+    /**
+     * This method pass userTo as input and returns the {@link Invite} from DAO layer.
+     *
+     * @param userTo
+     * @return {@link InvitedUsers}
+     * @throws ProcessFailed the process failed
+     */
+    public Invite getInvitedUserByUserTo(Users userTo) throws ProcessFailed;    
     /**
      * This method pass Id as input and get the {@link Invite} from DAO layer
      *

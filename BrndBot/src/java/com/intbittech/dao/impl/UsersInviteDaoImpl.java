@@ -110,4 +110,15 @@ public class UsersInviteDaoImpl implements UsersInviteDao{
         return (Invite) criteria.list().get(0);
     }
 
+    @Override
+    public Invite getInvitedUserByUserTo(Users userTo) {
+        Criteria criteria = sessionFactory.getCurrentSession()
+                .createCriteria(Invite.class)
+                .add(Restrictions.eq("inviteSentTo", userTo));
+        if (criteria.list().isEmpty()) {
+            return null;
+        }
+        return (Invite) criteria.list().get(0);
+    }
+
 }

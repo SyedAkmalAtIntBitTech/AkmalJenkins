@@ -648,6 +648,10 @@ factoryApp.service('configurationService', function (){
     this.inviteUserURL = function () {
         return getHost() + "settings/sendInvitation";
     };
+
+    this.editUserRoleURL = function () {
+        return getHost() + "settings/editUserRole";
+    };
     
     this.getInvitedUsersURL = function (){
         return getHost() + "settings/getInvitedUsers";
