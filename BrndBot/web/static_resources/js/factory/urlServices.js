@@ -871,6 +871,44 @@ factoryApp.service('configurationService', function (){
     this.getRecurringEntityURL = function () {
         return getHost() + "getRecurringEntity";
     };
+    
+    //************** franchiseFactory ********************/  
+    
+    this.getAllFranchisesURL = function () {
+        return getHost() + "getAllFranchises";
+    };
+    
+    this.getFranchisesForCompanyIdURL = function () {
+        return getHost() + "getFranchisesForCompanyId";
+    };
+    
+    this.getCompaniesForFranchiseIdURL = function () {
+        return getHost() + "getCompaniesForFranchiseId";
+    };
+    
+    this.activateCompanyAsFranchiseURL = function () {
+        return getHost() + "activateCompanyAsFranchise";
+    };
+    
+    this.associateCompanyToFranchiseURL = function () {
+        return getHost() + "associateCompanyToFranchise";
+    };
+    
+    this.removeCompanyFromFranchiseURL = function () {
+        return getHost() + "removeCompanyFromFranchise";
+    };
+    
+    this.saveFranchiseURL = function () {
+        return getHost() + "saveFranchise";
+    };
+    
+     this.updateFranchiseURL = function () {
+        return getHost() + "updateFranchise";
+    };
+    
+    this.deleteFranchiseURL = function () {
+        return getHost() + "deleteFranchise";
+    };
 });
 
 
