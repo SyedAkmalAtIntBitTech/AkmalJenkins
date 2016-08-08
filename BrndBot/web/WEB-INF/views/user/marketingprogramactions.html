@@ -63,7 +63,7 @@
                                          <img src="/BrndBot/user/images/email-auto/email-auto-icons_Play-green.svg" >
                                      </div>
                                      <div class="your-plan-icon" ng-show="emailautomation.status == 'Complete'"> 
-                                         <img src="/BrndBot/user/images/ActionComplete.svg"/>
+                                         <img src="/BrndBot/user/images/template-complete.svg"/>
                                      </div>
                         </div>
                         <div class="slat-name-wrap">
@@ -123,7 +123,7 @@
                             <img src="/BrndBot/user/images/no-template.svg"/>
                         </div>
                         <div class="your-plan-icon hint--top" ng-show="programaction.status == 'Complete'"  data-hint="Complete" > 
-                            <img src="/BrndBot/user/images/ActionComplete.svg"/>
+                            <img src="/BrndBot/user/images/template-complete.svg"/>
                         </div>
                         <div class="your-plan-icon hint--top" ng-show="programaction.status == 'Approved'"  data-hint="Approved" > 
                             <img src="/BrndBot/user/images/template-approved.svg"/>
@@ -187,6 +187,8 @@
                                 <object type="image/svg+xml" data="/BrndBot/user/images/calendar-gray.svg" style="cursor:pointer;"> </object>
                             </div>
                             <input type="text" readonly name="datepicker" id="progactdatepicker" class="fluid time-date-select" value="{{programs.programdetails.dateOfEvent| date : 'EEE MMM d y'}}">
+                            <span class="validationAlert" ng-if='dateValidation'>{{actionDateValidation}}</span>
+
                             <script>
                                 var picker = new Pikaday(
                                         {
@@ -203,6 +205,7 @@
                         <label> Marketing Campaign Link </label>
                         <div class="input">
                             <input class="fluid" id="link_url" name="link_url" ng-model="programs.programdetails.linktodestination">
+                            <span class="validationAlert" ng-if='validateLinkUrl'>{{linkUrlValidation}}</span>
                         </div>
 
                     </div>
@@ -210,6 +213,7 @@
                         <label> Marketing Campaign Link Name</label>
                         <div class="input">
                             <input id="link_name" name="link_name" class="fluid" ng-model="programs.programdetails.link_name">
+                            <span class="validationAlert" ng-if='validateLinkName'>{{linkNameValidation}}</span>
                         </div>
 
                     </div>

@@ -36,6 +36,8 @@
                 <input class="inputbox SP1" type="hidden" name="note_action_type" id="note_action_type" value='{{scheduleData.schedule_type}}'/>
                 <input class="inputbox SP1" type="hidden" name="note_status" id="note_status" value='{{scheduleData.schedule_type}}'/>
             </div>
+            <span class="validationAlert general-action-alert " ng-if='scheduleData.schedule_title === "" || null'>{{actionNameValidation}}</span>
+
             <div class="overlay-details-pane">
                 <div class="overlay-details-pane-header">TASK DESCRIPTION</div>
                 <div class="detail-sections-wrap-task-textarea">
@@ -78,6 +80,7 @@
                                                 
                                     </script>
                             </a>
+                            <span class="validationAlert" ng-if='generalTimeAction'>{{actionDateValidation}}</span>
                         </div>
                        <div class="detail-section half"  style="margin-left:20px;">
                             <label class="detail-section-label">Time of Day</label>
@@ -100,6 +103,8 @@
                             </a>
                         </div>
                     </div>
+                    <span class="validationAlert" ng-if='dateLesser'>{{lesserDateValidation}}</span>
+
                     <!--<div class="detail-sections-wrap">
                         <div class="action-sent-notice">This email was sent successfully at 10:45.
                     </div>
