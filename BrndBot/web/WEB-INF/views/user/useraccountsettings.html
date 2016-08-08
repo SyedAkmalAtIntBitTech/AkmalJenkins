@@ -15,7 +15,7 @@
                         <div class="input" >
                             <input class="" id="newpassword" type="{{inputType}}" ng-model="password" placeholder="Enter your password" ng-blur="setPassword(password)"></input>
                         </div>
-                        <span class="validationAlert" ng-if='password == "" || null'>{{newPasswordValidation}}</span>
+                        <span class="validationAlert" ng-if='password === "" || null'>{{newPasswordValidation}}</span>
 
                     </div>
                     <div class="input-wrap">

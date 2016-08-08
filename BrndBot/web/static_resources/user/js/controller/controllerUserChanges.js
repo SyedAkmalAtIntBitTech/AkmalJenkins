@@ -7,7 +7,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.confirmPasswordMissmatch = confirmPasswordMissmatch;
         $scope.logoValidation = logoValidation;
         $scope.showPaletteChangePopUp = "";
-        $scope.passwordText="";
+        $scope.passwordText = "";
 
         // Hide & show password function
         $scope.hideShowPassword = function () {
@@ -60,14 +60,17 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             }
         };
 
-        $scope.setTab = function (type) {
-            if (type == 'account') {
+        $scope.setTab = function (type, password, confirmPassword, logoImage) {
+            if (type === 'account') {
                 $scope.userAccountSetClass = 'active';
                 $scope.userLogoSetClass = '';
+                $scope.password = password;
+                $scope.confirmPassword = confirmPassword;
             }
-            if (type == 'logo') {
+            if (type === 'logo') {
                 $scope.userAccountSetClass = '';
                 $scope.userLogoSetClass = 'active';
+                $scope.logoImage = logoImage;
             }
         };
 
@@ -88,6 +91,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 settingsFactory.changeLogoPost(file).then(function (data) {
                     growl("Logo uploaded sucessfully");
                     $location.path("signup/choosepalette");
+                    $scope.password = password;
                 });
             }
         };
