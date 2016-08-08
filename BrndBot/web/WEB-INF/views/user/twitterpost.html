@@ -1,7 +1,7 @@
 <!--
     <body class="body-normal" ng-app="imageGallery"  ng-controller="displayImageFromGallery">-->
 <input type="hidden" ng-model="showTwitterLink"/>     
-<div class="contentWrap--withSideNav">
+<div class="contentWrap--withSideNav"  ng-init="fbTwitterinit()">
     <div class="topNav topNav-withSubnav clear">
         <a class="exit-button-icon" href="socialsequence#/socialsequence">      
             <div class="topNav--BackButton fleft">              
@@ -29,21 +29,21 @@
                         <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="twitterShareText" maxlength="116" ng-model="twitterPostData.text"></textarea>
                         <span class="validationAlert" ng-if='twitterPostData.text === "" || null'>{{actionNameValidation}}</span><br>
                     </span>
-                    <span ng-show="showTwitterLink == true" class="" id='urlDropDownSpan' ng-init="getUrls()">                               
+                    <span ng-if="showTwitterLink == true" class="" id='urlDropDownSpan' ng-init="getUrls()">                               
                         <div class="input_Label pushUp_20">Choose from your Existing Links:</div>
                         <!--                                <select ng-model="linkUrls" id="dropdownurl"  class="select_Field_lg removeDrag" ng-options="url.url as url.prigram_name+' - '+url.link_name+' - '+url.url for url in urls"></select>-->
                         <div dropdown-select="ddSelectlinkUrlsOptions" dropdown-model="ddSelectlinkUrls" dropdown-onchange="getSelectedUrl(selected)"></div>
                     </span>
 <!--                    <span class="validationAlert" ng-if="twitterLinkValidation">{{linkValidation}}</span>-->
 
-                    <span ng-show="showTwitterLink == true" class="" id="twitterLinkPost">
+                    <span ng-if="showTwitterLink" class="" id="twitterLinkPost">
                         <div class="input_Label pushUp_20">Write Custom Link</div>
                         <div class="input ">
                             <input class="socialLink_attached removeDrag fluid" ng-model="twitterPostData.url" placeholder="http://www.brndbot.com" id="linkOfUrls"></input></span><br>
                         </div>
                         <span class="validationAlert" ng-if='twitterPostData.url === "" || null'>{{customLinkValidation}}</span><br>
                     </span>
-                    <div class="add-link-facebook-container" ng-click="twitterShare.url = '';changeTwitterPostType();">
+                    <div class="add-link-facebook-container" ng-click="twitterShare.url = '';twitterPostData.url= undefined;changeTwitterPostType();">
                         <div class="long-button gray-button" id="postType" id="postType" >{{TwtPostType}}</div>
                     </div>
 <!--                <span class="validationAlert" ng-if="twitterCustomLink">{{customLinkValidation}}</span>-->

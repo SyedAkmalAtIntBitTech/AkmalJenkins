@@ -119,7 +119,11 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.ddSelectlinkUrls = {
             text: "Please select an Url"
         };
-
+        
+        $scope.fbTwitterinit = function () {
+            $scope.show_hide_ImageGalleryPopup(false);
+        };
+        
         $scope.getUrls = function () {
             $scope.ddSelectlinkUrlsOptions = [
             ];
@@ -348,10 +352,9 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             } else if (type === 'Change To Normal Post') {
                 $scope.linkpost = false;
                 $scope.postType = 'Change To Link Post';
-                $scope.fbPostData = null;
-                $("#linkTitle").val("");
-                $("#linkDescription").val("");
-                $("#linkUrl").val("");
+                $scope.fbPostData.linkTitle = null;
+                $scope.fbPostData.linkDescription = null;
+                $scope.fbPostData.url = null;
             }
 //            }
         };

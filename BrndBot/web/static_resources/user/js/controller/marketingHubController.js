@@ -657,7 +657,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     reader.onload = function (e) {
                         var table = document.createElement("table");
                         var rows = e.target.result.split("\n");
-                        for (var j = 1; j < rows.length; j++)
+                        for (var j = 1; j < rows.length-1; j++)
                         {
                             var csvvalue = rows[j].split(",");
 
@@ -1049,12 +1049,16 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 //        }; 
 
         $scope.openUnsubscribeEmailsPopup = function () {
+            $scope.csvInvalidValidation = false;
             $scope.csvFileValidation = false;
             $scope.unsubscribePopup = true;
             growl("Please make sure email addresses are in first column of the csv file.");
         };
 
         $scope.hideUnsubscribeEmailsPopup = function () {
+            $scope.csvFileValidation=false;
+            $scope.csvValidation=false;
+            $scope.csvInvalidValidation=false;
             $scope.unsubscribePopup = false;
         };
 
