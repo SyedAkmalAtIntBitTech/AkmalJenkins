@@ -71,6 +71,11 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             });
 
         };
+        
+        $scope.selectManagePage = function (id){ 
+            $('.cat-slat').removeClass('highlightDiv').addClass('cat-slat-unselect');
+            $("."+id).removeClass('cat-slat-unselect').addClass('highlightDiv');    
+        };
         $scope.isDefaultTwitterAccountSet = function () {
             var data = JSON.stringify({access_token_method: "getAccessToken"});
             settingsFactory.twitterPost(data).then(function (data) {
@@ -114,7 +119,11 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.ddSelectlinkUrls = {
             text: "Please select an Url"
         };
-
+        
+        $scope.fbTwitterinit = function () {
+            $scope.show_hide_ImageGalleryPopup(false);
+        };
+        
         $scope.getUrls = function () {
             $scope.ddSelectlinkUrlsOptions = [
             ];
@@ -343,10 +352,9 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             } else if (type === 'Change To Normal Post') {
                 $scope.linkpost = false;
                 $scope.postType = 'Change To Link Post';
-                $scope.fbPostData = null;
-                $("#linkTitle").val("");
-                $("#linkDescription").val("");
-                $("#linkUrl").val("");
+                $scope.fbPostData.linkTitle = null;
+                $scope.fbPostData.linkDescription = null;
+                $scope.fbPostData.url = null;
             }
 //            }
         };
@@ -908,6 +916,20 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
         $scope.getScheduleData = function (selectedMarketingProgrmaId, postData, socialMediaType) {
             var sendData = "";
+            
+            var linkTitle = "";
+            if(postData.linkTitle)
+                linkTitle = postData.linkTitle;
+            var shareText = "";
+            if(postData.shareText)
+                shareText = postData.shareText;
+            var shareUrl = "";
+            if(postData.url)
+                shareUrl = postData.url;
+            var linkDescription = "";
+            if(postData.linkDescription)
+                linkDescription = postData.linkDescription;
+            
 //            if (selectedMarketingProgrmaId !== 0) {
             if ($scope.existingActionPopup) {
                 sendData = JSON.stringify([{
@@ -920,11 +942,11 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                             access_token: $rootScope.CurrentFbAccessToken
                         },
                         metadata: {
-                            description: '"' + postData.linkDescription + '"',
-                            post_text: '"' + postData.shareText + '"',
-                            url: '"' + postData.url + '"',
+                            description: '"' + linkDescription + '"',
+                            post_text: '"' + shareText + '"',
+                            url: '"' + shareUrl + '"',
                             ManagedPage: '"' + $rootScope.CurrentFbPageName + '"',
-                            title: '"' + postData.linkTitle + '"'
+                            title: '"' + linkTitle + '"'
                         }
                     }]);
             } else {
@@ -942,6 +964,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 var myEpoch = Date.parse(dateAndTime);
 
                 console.log("Epoch: " + myEpoch);
+                
                 sendData = JSON.stringify([{
                         "schedule_time": myEpoch,
                         "schedule_title": schedule_title,
@@ -950,20 +973,20 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                         "type": socialMediaType,
                         "image_name": $scope.selectImageName,
                         "accessToken": $rootScope.CurrentFbAccessToken,
-                        "postText": postData.shareText,
-                        "title": postData.linkTitle,
-                        "url": postData.url,
-                        "description": postData.linkDescription,
+                        "postText": shareText,
+                        "title": linkTitle,
+                        "url": shareUrl,
+                        "description": linkDescription,
                         "image_type": $scope.selectImageType,
                         token_data: {
                             "access_token": $rootScope.CurrentFbAccessToken
                         },
                         metadata: {
-                            description: '"' + postData.linkDescription + '"',
-                            post_text: '"' + postData.shareText + '"',
-                            url: '"' + postData.url + '"',
+                            description: '"' + linkDescription + '"',
+                            post_text: '"' + shareText + '"',
+                            url: '"' + shareUrl + '"',
                             ManagedPage: '"' + $rootScope.CurrentFbPageName + '"',
-                            title: '"' + postData.linkTitle + '"'
+                            title: '"' + linkTitle + '"'
                         }
                     }]);
             }

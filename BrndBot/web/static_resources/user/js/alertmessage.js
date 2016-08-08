@@ -80,7 +80,7 @@ var datasaved="Data saved successfully.";
 var noemail="Please Enter Email Address!";
 var firstnameerror="Please Enter First Name!";
 var lastnameerror="Please Enter Last Name!";
-var emailexist="The Email id already exist or is an unsubscribed id, please try with some other emailid.";
+var emailexist="The email address already exists or is unsubscribed, please try with some other email address.";
 var emailnotselected="No email has been selected!";
 var noemaildraft="No email drafts present";
 var multidraftconfirm="Are you sure you want to delete these Draft(s)?";
@@ -193,6 +193,7 @@ var imageChannel = "image";
 //VALIDATION
 
 var companyValidation = "Please enter your Company name";
+var companyAddressValidation= "Please enter your Company Address";
 var dropdownValidation = "Please select your Organization";
 var newPasswordValidation = "Password not entered! Please enter the password";
 var confirmPasswordValidation = "Confirm password not entered! Please enter the confirm password";

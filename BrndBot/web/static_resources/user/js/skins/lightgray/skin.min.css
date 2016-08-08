@@ -606,11 +606,11 @@ div.mce-fullscreen {
 }
 
 .mce-window-head .mce-dragh {
-    position: absolute;
+/*    position: absolute;
     top: 0;
     left: 0;
     width: 90%;
-    height: 100%
+    height: 100%*/
 }
 
 .mce-window iframe {
@@ -973,7 +973,7 @@ body .mce-abs-layout-item,
 .mce-btn:hover,
 .mce-btn:focus {
     color: #333;
-    background-color: #e3e3e3;
+    background-color: #49665E;
     border-color: #ccc
 }
 
@@ -1023,7 +1023,7 @@ body .mce-abs-layout-item,
     border-color: transparent;
     background-color: #1EADFC;
     color: #FFFFFF;
-    padding: 9px 30px;
+    /*padding: 9px 30px;*/
     border-radius: 3px;
     text-align: center;
     font-size: 14px;
@@ -2985,19 +2985,20 @@ body .mce-abs-layout-item,
 
 .mce-btn {
     border: 1px solid #b1b1b1;
+    border-radius: 3px;
     border-color: transparent transparent transparent transparent;
     position: relative;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
     display: inline-block;
     *display: inline;
     *zoom: 1;
-    background-color: #f0f0f0
+    /*background-color: #f0f0f0*/
 }
 
 .mce-btn:hover,
 .mce-btn:focus {
     color: #333;
-    background-color: #e3e3e3;
+    background-color: #49565E;
     border-color: #ccc
 }
 
@@ -3072,7 +3073,9 @@ body .mce-abs-layout-item,
 .mce-primary button,
 .mce-primary button i {
     color: #fff;
-    text-shadow: 1px 1px none
+    text-shadow: 1px 1px none;
+    background-color: #2d8ac7;
+    
 }
 
 .mce-btn .mce-txt {
@@ -3304,7 +3307,7 @@ i.mce-i-checkbox {
     width: 13px;
     height: 2px;
     overflow: hidden;
-    display:none;
+    /*display:none;*/
 }
 
 .mce-colorbutton.mce-btn-small .mce-preview {
@@ -3317,12 +3320,12 @@ i.mce-i-checkbox {
     padding-left: 4px;
     padding-right: 4px;
     border-left: 1px solid transparent;
-    display:none;
+    /*display:none;*/
 }
 
 .mce-colorbutton:hover .mce-open {
     border-color: #ccc;
-    display:none;
+    /*display:none;*/
 }
 
 .mce-colorbutton.mce-btn-small .mce-open {
@@ -3691,7 +3694,9 @@ i.mce-i-checkbox {
     display: inline-block;
     overflow-x: hidden;
     text-overflow: ellipsis;
-    width: 90px
+    width: 90px;
+    color: white;
+        
 }
 
 .mce-menubtn.mce-fixed-width.mce-btn-small span {
@@ -4724,13 +4729,13 @@ i.mce-i-backcolor {
 }
 
 .mce-txt {
-    color: #fff !important;
+    color: #fff;
 }
 
 .mce-colorbutton .mce-preview {
     position: absolute;
-    left: 18%;
-    top: 40%;
+    left: 12%;
+    top: 55%;
     margin-left: 0px;
 }
 
@@ -4741,6 +4746,18 @@ i.mce-i-backcolor {
 .mce-open {
     border-left: 0px solid !important;
 }
-
-
+.mce-last button span{
+    color: #666;
+}
+/*.mce-menubtn,.mce-fixed-width :hover{
+ background-color: #49665E;   
+}*/
+.mce-customUrl{
+    background-color: #fff;
+}
+.mce-widget.mce-btn.mce-customUrl.mce-menubtn.mce-listbox.mce-abs-layout-item.mce-last.mce-btn-has-text:hover,
+.mce-widget.mce-btn.mce-customUrl.mce-menubtn.mce-listbox.mce-abs-layout-item.mce-last.mce-btn-has-text :focus
+{
+    background-color: #e7e7e7 !important;
+}
 /*Custom Styles Ends here...*/

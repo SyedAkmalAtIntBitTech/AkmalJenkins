@@ -9,6 +9,9 @@
     border-radius: 15px;
     opacity: 0;
 }
+.template-border-Active{
+    border: 2px solid rgb(30, 173, 252);
+}
 </style>
 <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-6.css"/>
 <div ng-include src="'emailpreview.html'"></div>
@@ -66,7 +69,7 @@
                 </div>
             </div>
     
-            <div id="colpic" class="displayNone" style="width: 200px;height:200px;margin-top: -200px" >
+            <div id="colpic" class="displayNone" style="width: 200px;height:200px;margin-top: -20px" >
                 <p ng-repeat="color in  colorcode.colors"style="display: inline-block;width: 20px;height:20px;background-color: {{color}}"  ng-click="chengeTemplateColor(color)">
                 </p>
             </div>
@@ -129,22 +132,12 @@
 </div>
 <script>
     $(document).ready(function () {
-                $('.view').find('table:first').find('td:first').mouseenter(function () {
-                    $(this).find('table:first').addClass('selecthover');
-                });
-                $('.view').find('table:first').find('td:first').mouseleave(function () {
-                    $(this).find('table:first').removeClass('selecthover');
-                });
-                 $('.innerbg').mouseenter(function () {
-                            var seldiv = $(this).parents('[st-sortable]');
-                            $(this).colpick({
-                                layout: 'hex',
-                                submit: 0,
-                                onChange: function (hsb, hex, rgb, fromSetColor) {
-                                    $(seldiv).find('table:first').attr('bgcolor', '#' + hex);
-                                }
-                            });
-                        });
+//                $('.view').find('table:first').find('td:first').mouseenter(function () {
+//                    $(this).find('table:first').addClass('template-border-Active');
+//                });
+//                $('.view').find('table:first').find('td:first').mouseleave(function () {
+//                    $(this).find('table:first').removeClass('template-border-Active');
+//                });
                 $(".editor_rightside .emailrender").sortable({
                     connectWith: ".module",
                     opacity: .8,
@@ -185,7 +178,7 @@
                         move_up_down();
                         colorselector();
                         $('.innerbg').mouseenter(function () {
-                            var seldiv = $(this).parents('[st-sortable]');
+                            var seldiv = $(this).parents('[bb-bgcolor]');
                             $(this).colpick({
                                 layout: 'hex',
                                 submit: 0,
@@ -194,20 +187,6 @@
                                 }
                             });
                         });
-
-                        $('.buttonbg').mouseenter(function () {
-                            var seldiv = $(this).parent('[st-button]');
-                            $(this).colpick({
-                                layout: 'hex',
-                                submit: 0,
-                                onChange: function (hsb, hex, rgb, fromSetColor) {
-                                    seldiv.attr('bgcolor', '#' + hex);
-                                    seldiv.css('background-color', '#' + hex);
-                                }
-                            });
-                        });
-                        //monkey
-                        //$('.imgpop').prepend('<div class="uploader_wrap"><div class="upload_buttons"><div class="img_link"></div><div class="img_upload"></div></div></div>');
                         upload_buttons();
 
                     }
@@ -226,13 +205,10 @@
                 $('.view').find('table:first').find('td:first').mouseleave(function () {
                     $(this).find('table:first').removeClass('selecthover');
                 });
-
-
-
             }
             function removeElm() {
                 $(".emailrender").delegate(".remove", "click", function (e) {
-	e.preventDefault();
+                    e.preventDefault();
                     $(this).closest('table').parents('.module ').slideUp('200', function () {
                         $(this).remove();
                     });
@@ -253,121 +229,4 @@
             function cleanHtml(e) {
                 $(e).parent().append($(e).children().html())
             }
-
-
-            function downloadLayoutSrc() {
-
-                var e = "";
-                var emailrendercontent = $(".emailrender").html();
-                $("#download-layout").html(emailrendercontent);
-                var t = $("#download-layout");
-                var contentattr = $('[st-content]').attr("st-content");
-                t.find(".preview, .configuration, .move_controls, .addremove, .colorSelectorinner").remove();
-                t.find(".module").addClass("removeClean");
-                t.find(".box-element").addClass("removeClean");
-                t.find(".module .module .module .module .module .removeClean").each(function () {
-                    cleanHtml(this)
-                });
-                t.find(".module .module .module .module .removeClean").each(function () {
-                    cleanHtml(this)
-                });
-                t.find(".module .module .module .removeClean").each(function () {
-                    cleanHtml(this)
-                });
-                t.find(".module .module .removeClean").each(function () {
-                    cleanHtml(this)
-                });
-
-                t.find(".module .removeClean").each(function () {
-                    cleanHtml(this)
-                });
-                t.find(".removeClean").each(function () {
-                    cleanHtml(this)
-                });
-                t.find(".removeClean").remove();
-                //t.find(".mce-content-body").remove();
-                t.find(".mce-content-body").removeClass("mce-content-body");
-
-
-                //$("#download-layout .emailrender").removeClass("ui-sortable");
-                //$("#download-layout .row-fluid").removeClass("clearfix").children().removeClass("column");
-
-                formatSrc = $.htmlClean($("#download-layout").html(), {
-                    format: true,
-                    allowComments: true,
-                    allowedAttributes: [
-                        ["class"],
-                        ["width"],
-                        ["height"],
-                        ["style"],
-                        ["align"],
-                        ["cellspacing"],
-                        ["cellpadding"],
-                        ["bgcolor"],
-                        ["valign"],
-                        ["border"],
-                        ["st-content"],
-                        ["st-sortable"],
-                        ["st-image"],
-                        ["st-title"],
-                        ["st-webversion"],
-                        ["st-unsubscribe"],
-                        ["mc:edit"],
-                        ['mc:label'],
-                        ["mc:repeatable"],
-                    ]
-                });
-
-                var $body = $(formatSrc).find("body");
-                for (var attrName in bodyAttrs) {
-                    var value = bodyAttrs[attrName];
-                    $body.attr(attrName, value);
-                }
-
-                $("#download-layout").html(formatSrc);
-                templateheader = $('textarea.templatehead').text();
-                templatefooter = $('textarea.templatefooter').text();
-                $("#downloadModal textarea").empty();
-                $("#downloadModal textarea").val(templateheader + formatSrc + templatefooter);
-            }
-
-
-///////////////////////////////////////////////////
-
-            var currentDocument = null;
-            var timerSave = 2e3;
-
-            $(document).ready(function () {
-                $("#edit").click(function () {
-                    $("body").removeClass("devpreview sourcepreview");
-                    $("body").addClass("edit");
-                    removeMenuClasses();
-                    $(this).addClass("active");
-                    return false
-                });
-                $("a#clear").click(function (e) {
-                    e.preventDefault();
-                    clearDemo();
-                });
-                $("#devpreview").click(function () {
-                    $("body").removeClass("edit sourcepreview");
-                    $("body").addClass("devpreview");
-                    removeMenuClasses();
-                    $(this).addClass("active");
-                    return false
-                });
-                $("#sourcepreview").click(function () {
-                    $("body").removeClass("edit");
-                    $("body").addClass("devpreview sourcepreview");
-                    removeMenuClasses();
-                    $(this).addClass("active");
-                    return false
-                });
-
-                $(".nav-header").click(function () {
-                    $(".sidebar-nav .boxes, .sidebar-nav .rows").hide();
-                    $(this).next().slideDown()
-                });
-            });
-
         </script>

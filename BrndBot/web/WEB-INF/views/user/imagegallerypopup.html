@@ -5,7 +5,23 @@
         margin:6px;
         float:left;
     }
+
+    #growl growl-notice growl-medium {
+        z-index: 99999 !important;
+        position: absolute; 
+    }
+
+    #fade {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(61,83,104,.8) !important;
+        z-index: 9999 !important;
+    }
 </style>
+
 <div  ng-show="showImageGalleryPopup" class="center-pop-ups " id="fade" ng-class="fadeClass"  >
 
     <div class="center-pop-ups" style="height:100vh;">
@@ -50,6 +66,7 @@
                 <div class="full-height-modal-pane-content-wrap pop-up-image-gallery-wrap modal-pane-content-social-sequence" ng-init="getUserImages()" ng-show="showUserImages" >
                     <div class="gallery-image-wrap {{images.companyImagesId}}">
                         <div class="gallery-image-card image-gal-pop-up" ng-repeat="images in datalists"  ng-click="selectImageToPost(images.imageName, 'gallery', companyId)">
+
                             <img  class="gallery-image" id="{{images.companyImagesId}}"  src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}" alt="{{images.imageName}}"/>
                         </div>
                     </div>

@@ -86,6 +86,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             if ($scope.userLogoValidation(logoImage))
             {
                 settingsFactory.changeLogoPost(file).then(function (data) {
+                    growl("Logo uploaded sucessfully");
                     $location.path("signup/choosepalette");
                 });
             }
@@ -133,6 +134,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             $("#colorPalete4").css("background-color", color4);
         };
         $scope.showColors = function () {
+            $scope.setTab('logo');
             settingsFactory.getColorsURLGet().then(function (data) {
                 $scope.user_preferences_colors = data.d.details;
             });
@@ -162,11 +164,22 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             $("#color2").css("backgroundColor", color2);
             $("#color3").css("backgroundColor", color3);
             $("#color4").css("backgroundColor", color4);
-            $scope.showPaletteChangePopUp = false;
+//            $scope.showPaletteChangePopUp = false;
             settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
+                growl("Color pallette changed successfully");
+                $scope.paletteChangePopUp = false;
 //                growl(JSON.stringify(data.d.operationStatus.messages));
             });
         };
+        
+        $scope.showPaletteChangePopUp = function() {
+            $scope.paletteChangePopUp = true;
+        };
+        
+        $scope.closePaletteChangePopUp = function () {
+            $scope.paletteChangePopUp = false;
+        };
+        
         $scope.clearColorPalette = function () {
             var bgColor = "background-color";
             $("#color1").css(bgColor, "");
