@@ -339,7 +339,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 {
                     $scope.emailMindBodyPopup = false;
                     $scope.mindbodyid = "0";
-                    $scope.addHTMLInEmailEditor(selectedBlockId);
+                    $scope.addHTMLInEmailEditor($scope.firstTemplateForBlock);
                     $scope.loadingOverlay = false;
                     $scope.blockOnClick(0);
                     $scope.showStyles('true');
@@ -434,7 +434,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     'insertdatetime media table contextmenu paste',
                     'template paste textcolor colorpicker textpattern imagetools'
                 ],
-                toolbar1: 'undo | bold italic | alignleft aligncenter alignright | link forecolor | fontselect fontsizeselect custombutton',
+                toolbar1: 'undo | bold italic | alignleft aligncenter alignright | link forecolor backcolor | fontselect fontsizeselect custombutton',
                 menubar: false
             });
             $('.innerbg').mouseenter(function (event, $scope) {
