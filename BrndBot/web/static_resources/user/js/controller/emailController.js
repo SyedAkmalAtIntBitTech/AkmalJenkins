@@ -102,7 +102,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 //Function to convert hex format to a rgb color
             function rgb2hex(rgb) {
                 rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-                return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+                return  hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
             }
             function hex(x) {
                 return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
@@ -412,7 +412,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         $scope.launchTinyMceEditor();
                     } else
                     {
-                        BlockHtml = '<div id=' + $scope.htmlTagId + ' onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ','+mindbodyId+')>' + emailData.htmldata + '</div>';
+                        BlockHtml = '<div id=' + $scope.htmlTagId + '  class=module onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ','+mindbodyId+')>' + emailData.htmldata + '</div>';
                         $("#tinymceEditorBody").append(BlockHtml);
                         $scope.launchTinyMceEditor();
                     }
@@ -434,12 +434,15 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     'insertdatetime media table contextmenu paste',
                     'template paste textcolor colorpicker textpattern imagetools'
                 ],
-                toolbar1: 'undo | bold italic | alignleft aligncenter alignright | link forecolor backcolor | fontselect fontsizeselect custombutton',
+                toolbar1: 'undo | bold italic | alignleft aligncenter alignright | link forecolor | fontselect fontsizeselect custombutton',
                 menubar: false
             });
-            $('.innerbg').mouseenter(function (event, $scope) {
+            $('.innerbg').mouseenter(function (event) {
                 $("#colpic").css({position: "absolute", top: event.pageY, left: "20px"}).css(" z-index", 30000).show();
                 seldiv = $(this).parents('[bb-bgcolor]');
+            });
+            $(document).click(function (){
+                $("#colpic").hide(); 
             });
             $('.view').find('table:first').find('td:first').mouseenter(function () {
                 $(this).find('table:first').addClass('template-border-Active');
