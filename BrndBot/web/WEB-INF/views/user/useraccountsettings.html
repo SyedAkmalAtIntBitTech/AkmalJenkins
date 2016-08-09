@@ -48,15 +48,15 @@
                     <div class="user-slat" ng-repeat="users in invitedUsers">
                         <div class="user-email-address">{{users.emailID}}</div>
                         <div class="user-role">{{users.userRole}}</div>
-                        <div class="user-status">{{users.inviteStatus}}{{users.userRoleLookUp}}</div>
+                        <div class="user-status">{{users.inviteStatus}}</div>
                         <div class="user-slat-cta-wrap">
-                             <div class="user-slat-button resend-user-email">Resend User Email</div>
-                             <div class="user-slat-button edit-user-permissions" ng-click="ShowEditUserSettings(users.userRoleLookUp,users.emailID)">Edit User Permissions</div>
-                             <div class=" user-slat-button remove-user-button">Remove User</div>
+                             <div class="user-slat-button resend-user-email" ng-click="resendUserInvite(users.inviteId)">Resend User Email</div>
+                             <div class="user-slat-button edit-user-permissions" ng-click="showEditUser(users.userRoleLookUp,users.emailID)">Edit User Permissions</div>
+                             <div class=" user-slat-button remove-user-button" ng-click="removeUser(users.inviteId)">Remove User</div>
                         </div>
                     </div>
                     <div class="update-container">
-                        <a class="long-button gray-button" ng-click="ShowAddUserSettings()">Invite a User</a>
+                        <a class="long-button gray-button" ng-click="showAddUser()">Invite a User</a>
                     </div>
                 </div>
                  

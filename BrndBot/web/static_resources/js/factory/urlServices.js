@@ -652,6 +652,13 @@ factoryApp.service('configurationService', function (){
     this.editUserRoleURL = function () {
         return getHost() + "settings/editUserRole";
     };
+    this.removeUserURL = function () {
+        return getHost() + "settings/removeUser";
+    };
+
+    this.resendUserInviteURL = function () {
+        return getHost() + "settings/resendInvitation";
+    };
     
     this.getInvitedUsersURL = function (){
         return getHost() + "settings/getInvitedUsers";

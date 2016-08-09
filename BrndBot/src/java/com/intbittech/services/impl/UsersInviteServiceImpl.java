@@ -5,6 +5,7 @@
  */
 package com.intbittech.services.impl;
 
+import com.controller.ApplicationContextListener;
 import com.controller.GenerateHashPassword;
 import com.intbittech.controller.SignupController;
 import com.intbittech.dao.UsersInviteDao;
@@ -17,6 +18,7 @@ import com.intbittech.enums.AdminStatus;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Invite;
 import com.intbittech.model.InvitedUsers;
+import com.intbittech.model.UserProfile;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
 import com.intbittech.model.UsersRoleLookup;
@@ -27,10 +29,13 @@ import com.intbittech.services.UserRoleService;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.StringUtility;
+import com.intbittech.utility.UserSessionUtil;
+import com.intbittech.utility.Utility;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import javax.servlet.ServletContext;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -135,7 +140,29 @@ public class UsersInviteServiceImpl implements UsersInviteService{
         }
         return companyInvite;
     }
+    
+    @Override
+    public boolean removeUsers(Integer inviteId)throws ProcessFailed{
+        boolean returnMessage = false;
+        try{
+            Invite companyInvite = usersInviteDao.getInvitedUserById(inviteId);
+            boolean isUsed = companyInvite.getIsUsed();
 
+            if (isUsed){
+                Users user = companyInvite.getInviteSentTo();
+                user.setAccountStatus(AdminStatus.valueOf("Account_Deactivated").getDisplayName());
+                usersService.update(user);
+            }else {
+                delete(inviteId);
+            }
+            returnMessage = true;
+        }catch (Throwable throwable){
+            throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
+        }
+        return returnMessage;
+    }
+
+    @Override
     public List<InvitedUsers> getInvitedUsers(Users userFrom)throws ProcessFailed {
         String invitationStatus = null;InvitedUsers inviteduser = null;
         UsersRoleLookup userRoleLookUp = null; String userName = "";       
@@ -198,15 +225,91 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     }
     
     @Override
-    public void sendMail(String from_email_id, String imageContextPath, InviteDetails inviteDetails)throws ProcessFailed {
+    public boolean reSendInvitation(Integer inviteId)throws ProcessFailed{
+        boolean returnMessage = false;
+        try{
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            String fromEmailId = userProfile.getUser().getUserName();
+
+            ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
+            String contextRealPath = servletContext.getRealPath("");
+
+            String contextPath = Utility.getServerName(contextRealPath);
+
+            reSendMail(fromEmailId, contextPath, inviteId);
+            returnMessage = true;
+        }catch (Throwable throwable){
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
+        }
+        return returnMessage;
+    }
+    
+    @Override
+    public void reSendMail(String fromEmailId, String imageContextPath, Integer inviteId)throws ProcessFailed {
         try{
             
-        Users user = usersService.getUserByEmailId(from_email_id);
+        Users user = usersService.getUserByEmailId(fromEmailId);
+        Invite companyInvite = getInvitedUserById(inviteId);
 
-        String randomVal = inviteDetails.getEmailaddress() + String.valueOf(user.getUserId()) + new Date().getTime();
+        String randomVal = companyInvite.getInviteSentToEmailId() + String.valueOf(user.getUserId()) + new Date().getTime();
         GenerateHashPassword generate_hash_password = new GenerateHashPassword();
 
         String hashURL = generate_hash_password.hashURL(randomVal);
+        
+        companyInvite.setCreatedDateTime(new Date());
+        companyInvite.setCode(hashURL);
+        companyInvite.setIsUsed(Boolean.FALSE);
+        update(companyInvite);
+
+        Message message = new Message();
+
+        message.setKey(MANDRILL_KEY);
+//        TODO code to be modified
+         message.setHtml("<html><body><p><h2>User Invitation:</h2></p><p>You have been invited to join your company in BrndBot.</p>To create a user, click on the link below (or copy and paste the URL into your browser):<br />" + imageContextPath + "#/signup/userregistration?userid=" + hashURL + "</body></html>");
+//        message.setText("text");
+        /** need to change the above link and below message**/
+        message.setSubject("User Invitation");
+        message.setFrom_email("mail@brndbot.com");
+        message.setFrom_name("BrndBot");
+        message.setAsync(true);
+
+        ArrayList<Recipient> messageToList = new ArrayList<Recipient>();
+
+        Recipient recipient = new Recipient();
+        recipient.setEmail(companyInvite.getInviteSentToEmailId());
+        recipient.setType("to");
+
+        messageToList.add(recipient);
+
+        message.setMessageTo(messageToList);
+
+        RecipientMetadata recipientMetadata = new RecipientMetadata();
+        recipientMetadata.setRcpt(companyInvite.getInviteSentToEmailId());
+
+        ArrayList<RecipientMetadata> metadataList = new ArrayList<RecipientMetadata>();
+        metadataList.add(recipientMetadata);
+        metadataList.add(recipientMetadata);
+
+        message.setRecipient_metadata(metadataList);
+        send_email.sendMail(message);
+        }catch (Throwable throwable){
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("mail_send_problem",new String[]{}, Locale.US));
+        }
+
+    }
+    
+    @Override
+    public void sendMail(String fromEmailId, String imageContextPath, InviteDetails inviteDetails)throws ProcessFailed {
+        try{
+            
+        Users user = usersService.getUserByEmailId(fromEmailId);
+
+        String randomVal = inviteDetails.getEmailaddress() + String.valueOf(user.getUserId()) + new Date().getTime();
+        GenerateHashPassword generateHashPassword = new GenerateHashPassword();
+
+        String hashURL = generateHashPassword.hashURL(randomVal);
         Invite companyInvite = new Invite();
         
         companyInvite.setCreatedDateTime(new Date());
@@ -254,7 +357,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
         }catch (Throwable throwable){
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("mail_send_problem",new String[]{}, Locale.US));
-       }
+        }
 
     }
 }

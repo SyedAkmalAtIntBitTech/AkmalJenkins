@@ -38,10 +38,27 @@ factoryApp.factory('onboardingFactory', function ($q,authenticatedServiceFactory
         return deffered.promise;
     };
 
+    onboardingFactoryObject.resendUserInvitePost = function (inviteId) {
+        var deffered = $q.defer();
+        var url = configurationService.resendUserInviteURL();
+        authenticatedServiceFactory.makeCall("POST", url, inviteId, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+
     onboardingFactoryObject.editUserRolePost = function (userDetails) {
         var deffered = $q.defer();
         var url = configurationService.editUserRoleURL();
         authenticatedServiceFactory.makeCall("POST", url, userDetails, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    onboardingFactoryObject.removeUserPost = function (inviteId) {
+        var deffered = $q.defer();
+        var url = configurationService.removeUserURL();
+        authenticatedServiceFactory.makeCall("POST", url, inviteId, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

@@ -10,8 +10,7 @@ package com.intbittech.enums;
  * @author Mohamed
  */
 public enum AdminStatus {
-    ROLE_ADMIN("Admin"), ROLE_MANAGER("Manager"),Invite_Sent("Invite Sent"),Invite_Success("Invite Success"), 
-    ROLE_CREATOR("Creator"), Account_Activated("Activated"), Account_Deactivated("Deactivated");
+    ROLE_ADMIN("Admin"), ROLE_MANAGER("Manager"),Invite_Sent("Invite Sent"),Invite_Success("Invite Success"),ROLE_CREATOR("Creator"),Account_Activated("Activated"),Account_Deactivated("Deactivated");
     
     private AdminStatus(String displayName) {
         this.displayName = displayName;

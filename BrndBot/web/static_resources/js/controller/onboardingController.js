@@ -73,6 +73,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                         "invitationCode": $scope.userHashId}
             onboardingFactory.saveInvitedUserPost(user).then(function (data) {
                 var message = data.d.message;
+                alert(message);
                 if (message === "true")
                 {
                     $("#signform").submit();

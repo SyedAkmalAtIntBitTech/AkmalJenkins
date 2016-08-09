@@ -110,7 +110,6 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         try {
             boolean returnMessage = usersService.saveNonExistingUser(inviteDetails);
             if (returnMessage){
-                
                 transactionResponse.setMessage(messageSource.getMessage("invitation_check_mail", new String[]{}, Locale.US));
             }
 
@@ -120,7 +119,21 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
+    @RequestMapping(value = "/resendInvitation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> resendInvitation(@RequestBody Integer inviteId) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            boolean returnMessage = usersInviteService.reSendInvitation(inviteId);
+            if (returnMessage){
+                transactionResponse.setMessage(messageSource.getMessage("invitation_check_mail", new String[]{}, Locale.US));
+            }
 
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
     @RequestMapping(value = "/editUserRole", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> editUserRole(@RequestBody InviteDetails inviteDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
@@ -129,6 +142,23 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             boolean returnMessage = usersService.updateRole(inviteDetails);
             if (returnMessage){
                 transactionResponse.setMessage(messageSource.getMessage("details_updated", new String[]{}, Locale.US));
+            }
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "/removeUser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> removeUser(@RequestBody Integer inviteId) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+
+            boolean returnMessage = usersInviteService.removeUsers(inviteId);
+            if (returnMessage){
+                transactionResponse.setMessage(messageSource.getMessage("user_removed", new String[]{}, Locale.US));
             }
 
         } catch (Throwable throwable) {

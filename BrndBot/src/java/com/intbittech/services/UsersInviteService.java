@@ -43,6 +43,14 @@ public interface UsersInviteService {
     public void delete(Integer id) throws ProcessFailed;
 
     /**
+     * This method pass inviteId as input and deletes the {@link Invite} from DAO layer.
+     *
+     * @param inviteId
+     * @throws ProcessFailed the process failed
+     */
+    public boolean removeUsers(Integer inviteId)throws ProcessFailed;
+    
+    /**
      * This method pass id as input and returns the list of {@link InviteUsers} from DAO layer.
      *
      * @param id
@@ -93,6 +101,24 @@ public interface UsersInviteService {
      * @param inviteDetails
      * @throws ProcessFailed the process failed
      */
-    public void sendMail(String fromEmailId, String imageContextPath, InviteDetails inviteDetails) throws ProcessFailed;    
+    public void sendMail(String fromEmailId, String imageContextPath, InviteDetails inviteDetails) throws ProcessFailed;   
     
+    /**
+     * This method pass fromEmailId,inviteId as input and sends mail from Service layer
+     *
+     * @param fromEmailId
+     * @param inviteId
+     * @throws ProcessFailed the process failed
+     */
+    public boolean reSendInvitation(Integer inviteId)throws ProcessFailed;
+    /**
+     * This method pass fromEmailId,imageContextPath,inviteDetails as input and sends mail from Service layer
+     *
+     * @param fromEmailId
+     * @param imageContextPath
+     * @param inviteDetails
+     * @throws ProcessFailed the process failed
+     */
+    public void reSendMail(String from_email_id, String imageContextPath, Integer inviteId)throws ProcessFailed;
+
 }

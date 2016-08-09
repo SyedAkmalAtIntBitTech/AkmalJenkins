@@ -52,6 +52,17 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 var response = data;
                 alert(data.d.message);
                 $scope.closeOverlay();
+                $location.path("/settings/useraccountsettings");
+            });
+        };
+
+        $scope.resendUserInvite = function (inviteId) {
+           
+            onboardingFactory.resendUserInvitePost(inviteId).then(function (data) {
+                var response = data;
+                alert(data.d.message);
+                $scope.closeOverlay();
+                $location.path("/settings/useraccountsettings");
             });
         };
 
@@ -62,12 +73,18 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             
             onboardingFactory.editUserRolePost(invitation).then(function (data) {
                 var response = data;
+                alert(data.d.message);
                 $scope.closeOverlay();
-//                if (message === "true")
-//                {
-//                    $("#signform").submit();
-//                    $location.path("/signup/company");
-//                }
+                $location.path("/settings/useraccountsettings");
+            });
+        };
+
+        $scope.removeUser = function (inviteId) {
+            
+            onboardingFactory.removeUserPost(inviteId).then(function (data) {
+                var response = data;
+                alert(data.d.message);
+                $location.path("/settings/useraccountsettings");
             });
         };
 
@@ -76,11 +93,6 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $scope.invitedUsers = data.d.details;
                 alert(JSON.stringify($scope.invitedUsers));
                 var response = data.d.details;
-//                if (message === "true")
-//                {
-//                    $("#signform").submit();
-//                    $location.path("/signup/company");
-//                }
             });
         };
         
@@ -95,18 +107,30 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             }
         };
 
-        $scope.ShowAddUserSettings = function ()
+        $scope.showAddUser = function ()
         {
             $scope.fadeClass = 'fadeClass';
             $scope.addUserSettings = true;
+            $scope.editUserSettings = false;
         };
 
-        $scope.ShowEditUserSettings = function (userRoleLookUpId,userEmailId)
+        $scope.showEditUser = function (userRoleLookUpId,userEmailId)
         {
             $scope.fadeClass = 'fadeClass';
             $scope.userRoleLookUpId = userRoleLookUpId;
             $scope.userEmailId = userEmailId;
             $("#editemail").val(userEmailId);
+            $scope.addUserSettings = false;
+            $scope.editUserSettings = true;
+        };
+
+        $scope.showResendEmailToUser = function (userRoleLookUpId,userEmailId)
+        {
+            $scope.fadeClass = 'fadeClass';
+            $scope.userRoleLookUpId = userRoleLookUpId;
+            $scope.userEmailId = userEmailId;
+            $("#editemail").val(userEmailId);
+            $scope.addUserSettings = false;
             $scope.editUserSettings = true;
         };
 
