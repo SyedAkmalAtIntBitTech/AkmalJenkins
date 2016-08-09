@@ -1835,7 +1835,6 @@ li.sub-nav-tab.active a{
     box-sizing: border-box;
     max-height: 480px;
     height: 85vh;
-    min-height: 350px;
     overflow-y: auto;
 }
 
@@ -4602,7 +4601,7 @@ textarea.task-textarea:focus{
 }
 
 .email-editor-content-wrap{
-    height: calc(100vh - 140px);
+  
 }
 
 .user-role-selection-wrap{
