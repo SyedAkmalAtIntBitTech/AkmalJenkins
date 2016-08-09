@@ -412,6 +412,11 @@ a.side-nav-logo{
     top: 0px;
 }
 
+.main-nav a:hover.account-mgr:after{
+    content: "Marketing Campaigns";
+    top: 0px;
+}
+
 .main-nav a:hover.media:after{
     content: "Media";
 }
@@ -446,6 +451,10 @@ li.main-nav:last-child{
 
 .your-plan{
     background-image:url(/BrndBot/user/images/nav-icons/nav-icons_your-plan.svg);
+}
+
+.account-mgr{
+    background-image:url(/BrndBot/user/images/nav-icons/nav-icons_account-mgr.svg);
 }
 
 .main-nav a:hover.your-plan{
