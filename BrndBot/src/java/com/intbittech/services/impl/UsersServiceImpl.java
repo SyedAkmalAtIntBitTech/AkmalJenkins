@@ -7,7 +7,6 @@ package com.intbittech.services.impl;
 
 import com.controller.ApplicationContextListener;
 import com.intbittech.AppConstants;
-import com.intbittech.controller.SignupController;
 import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.UserRoleLookUpDao;
 import com.intbittech.dao.UsersDao;
@@ -21,6 +20,7 @@ import com.intbittech.enums.AdminStatus;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.Invite;
+import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserProfile;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
@@ -28,22 +28,17 @@ import com.intbittech.model.UsersRoleLookup;
 import com.intbittech.modelmappers.InviteDetails;
 import com.intbittech.modelmappers.TaskDetails;
 import com.intbittech.modelmappers.UserDetails;
+import com.intbittech.services.UserCompanyLookupService;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UserRoleLookUpService;
 import com.intbittech.services.UsersService;
-import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.StringUtility;
 import com.intbittech.utility.UserSessionUtil;
 import com.intbittech.utility.Utility;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Properties;
 import javax.servlet.ServletContext;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
@@ -83,6 +78,8 @@ public class UsersServiceImpl implements UsersService {
     @Autowired
     private UserRoleLookUpService usersRoleLookUpService;
     
+    @Autowired
+    private UserCompanyLookupService userCompanyLookUpService;
     SendMail send_email = new SendMail();
 
     /**
@@ -132,6 +129,7 @@ public class UsersServiceImpl implements UsersService {
     public String save(UserDetails usersDetails) throws ProcessFailed {
         String returnMessage = "false";
         Company company = null;Users user = null;UsersRoleLookup usersRoleLookUp = null;
+        UserCompanyLookup userCompanyLookup = null;
         try {
             //Save temporary company
             company = new Company();
@@ -145,9 +143,6 @@ public class UsersServiceImpl implements UsersService {
             user.setLastName(usersDetails.getLastName());
 
             user.setCreatedDate(new Date());
-            Company companyObject = new Company();
-            companyObject.setCompanyId(companyId);
-            user.setFkCompanyId(companyObject);
             user.setAccountStatus(AdminStatus.valueOf("Account_Activated").getDisplayName());
             usersDao.save(user);
 
@@ -160,6 +155,15 @@ public class UsersServiceImpl implements UsersService {
             usersRoleLookUp.setRoleId(userRole);
             usersRoleLookUpDao.save(usersRoleLookUp);
             
+            userCompanyLookup = new UserCompanyLookup();
+
+            Company companyObject = new Company();
+            companyObject.setCompanyId(companyId);
+
+            userCompanyLookup.setCompanyid(company);
+            userCompanyLookup.setUserid(user);
+            
+            userCompanyLookUpService.save(userCompanyLookup);
             returnMessage = "true";
         } catch(Throwable throwable) {
             returnMessage = "false";
@@ -177,7 +181,7 @@ public class UsersServiceImpl implements UsersService {
         boolean returnMessage = false;
         Invite companyInvite = null;TaskDetails taskdetails = null;
         List roles = null;UsersRoleLookup usersRoleLookUp = null;
-        
+        UserCompanyLookup userCompanyLookup = null;
         try {
             companyInvite = usersInviteService.getInvitedUserByInviteCode(usersDetails.getInvitationCode());
         /** this step checks the validity of the invitation code **/
@@ -193,25 +197,29 @@ public class UsersServiceImpl implements UsersService {
                 Users sentUser = companyInvite.getInviteSentBy();
                 
                 Company companyObject = sentUser.getFkCompanyId();
-                user.setFkCompanyId(companyObject);
                 user.setAccountStatus(AdminStatus.valueOf("Account_Activated").getDisplayName());
 
-//                UserRole userRole1 = new UserRole();
-//                userRole1.setUserRoleId(3);
-//                user.setFkUserRoleId(userRole1);
                 if ((usersDao.checkUniqueUser(user))){
                     Integer success = usersDao.save(user);
                 }else {
                     throw new ProcessFailed(messageSource.getMessage("user_exist", new String[]{}, Locale.US));
                 }
+
+                userCompanyLookup = new UserCompanyLookup();
+
+                userCompanyLookup.setCompanyid(companyObject);
+                userCompanyLookup.setUserid(user);
+
+                userCompanyLookUpService.save(userCompanyLookup);
+                
                 companyInvite.setInviteSentTo(user);
                 companyInvite.setIsUsed(true);
                 usersInviteService.update(companyInvite);
                 taskdetails = (TaskDetails)StringUtility.stringToTaskDetails(companyInvite.getTask());
-                
+
                 roles = taskdetails.getRoles();
                 for (int i = 0; i< roles.size(); i++){
-                    
+
                     usersRoleLookUp = new UsersRoleLookup();
 
                     UserRole userRole = new UserRole();

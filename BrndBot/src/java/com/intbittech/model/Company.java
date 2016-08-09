@@ -7,8 +7,10 @@ package com.intbittech.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,6 +29,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "company")
 public class Company implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyid")
+    private List<UserCompanyLookup> userCompanyLookupList;
     @OneToMany(mappedBy = "fkCompanyId")
     private Set<Users> usersSet;
 
@@ -90,6 +94,15 @@ public class Company implements Serializable {
 
     public void setUsersSet(Set<Users> usersSet) {
         this.usersSet = usersSet;
+    }
+
+    @XmlTransient
+    public List<UserCompanyLookup> getUserCompanyLookupList() {
+        return userCompanyLookupList;
+    }
+
+    public void setUserCompanyLookupList(List<UserCompanyLookup> userCompanyLookupList) {
+        this.userCompanyLookupList = userCompanyLookupList;
     }
 
     }

@@ -14,32 +14,35 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Syed Muzamil at IntBit Technologies.
  */
 @Entity
-@Table(name = "users_role_lookup")
-public class UsersRoleLookup implements Serializable {
+@Table(name = "user_company_lookup")
+public class UserCompanyLookup implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "role_id", referencedColumnName = "user_role_id")
-    @ManyToOne
-    private UserRole roleId;
+    @JoinColumn(name = "company_id", referencedColumnName = "company_id")
+    @ManyToOne(optional = false)
+    private Company companyid;
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    @ManyToOne
-    private Users userId;
+    @ManyToOne(optional = false)
+    private Users userid;
 
-    public UsersRoleLookup() {
+    public UserCompanyLookup() {
     }
 
-    public UsersRoleLookup(Integer id) {
+    public UserCompanyLookup(Integer id) {
         this.id = id;
     }
 
@@ -51,22 +54,20 @@ public class UsersRoleLookup implements Serializable {
         this.id = id;
     }
 
-    public UserRole getRoleId() {
-        return roleId;
+    public Company getCompanyid() {
+        return companyid;
     }
 
-    public void setRoleId(UserRole roleId) {
-        this.roleId = roleId;
+    public void setCompanyid(Company companyid) {
+        this.companyid = companyid;
     }
 
-    public Users getUserId() {
-        return userId;
+    public Users getUserid() {
+        return userid;
     }
 
-    public void setUserId(Users userId) {
-        this.userId = userId;
+    public void setUserid(Users userid) {
+        this.userid = userid;
     }
-
-  
     
 }
