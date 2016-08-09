@@ -553,6 +553,16 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.emailPreviewOnClick = function () {
             settingsFactory.getAllPreferencesGet().then(function (data) {
+                var footerData = JSON.parse(data.d.details);
+                if (!footerData.userProfile) {
+                    $scope.editFooter();
+                    return false;
+                }
+
+                if (!footerData.userProfile.address) {
+                    $scope.editFooter();
+                    return false;
+                }
 //                $("#fade").show();
                 $scope.fadeClass = 'fadeClass';
                 $scope.emailPreviewPopup = true;
@@ -570,6 +580,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 emailFactory.previewServletPost(sendData).then(function () {
                     $scope.overlayFade = true;
                     $scope.iframePath = getHost() + "download/HTML?fileName=" + $scope.randomIframeFilename + ".html";
+
                     document.getElementById('dynamictable5').contentDocument.location.reload(true);
                     document.getElementById('dynamictable6').contentDocument.location.reload(true);
                 });

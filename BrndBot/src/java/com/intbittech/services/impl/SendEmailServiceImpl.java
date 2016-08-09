@@ -135,7 +135,7 @@ public class SendEmailServiceImpl implements SendEmailService {
             String htmlString = (String) requestBodyMap.get("htmlString");
             String iframeName = (String) requestBodyMap.get("iframeName");
             String htmlHeader = "";
-
+            htmlString = htmlString.replace("contenteditable=\"true\"", "contenteditable=\"false\"");
             htmlHeader = ServletUtil.getEmailHeader();
             htmlString = htmlHeader + htmlString + "</body></html>";
             File htmlFolder = new File(AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH);
