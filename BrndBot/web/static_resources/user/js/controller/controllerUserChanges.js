@@ -91,7 +91,6 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.getInvitedUsers = function () {
             onboardingFactory.getInvitedUsersPost().then(function (data) {
                 $scope.invitedUsers = data.d.details;
-                alert(JSON.stringify($scope.invitedUsers));
                 var response = data.d.details;
             });
         };
