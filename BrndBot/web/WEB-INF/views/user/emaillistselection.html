@@ -29,7 +29,6 @@
     }
 </style>
 <div class="content-main" >
-    <!--<div ng-include src="'header.html'"></div>-->
     <div ng-include src="'navbar.html'"></div> 
     <div ng-include src="'emailpreview.html'"></div> 
     <div ng-include src="'sendorschedulepopup.html'"></div> 
@@ -132,4 +131,5 @@
         <a id="emaildetailscontbtn" ng-show="emaildetailscontbtn==true" ng-click="continueEmailDetailsOnClick({'emailSubject':emailSubject,'fromName':fromName,'fromAddress':fromAddress,'toAddress':toAddress,'replyAddress':replyAddress})" class="fright">CONTINUE</a>
         <a id="emailIdContinueButton" ng-show="emailContinueButton" ng-click="continueEmailListOnClick(emailAddresses)" class="fright">CONTINUE</a>
     </div>
+</div>
 </div>

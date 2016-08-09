@@ -1,9 +1,4 @@
 
-<!--        <div ng-include src="'loadingoverlay.html'"></div>
-        <div ng-include src="'header.html'"></div>
-        <div id="controllerMarketingCampaign"  class="container content-main">
-        <div ng-include src="'genericpopup/mainpopup.html'" ></div>
---> 
 <div ng-include src="'addaction.html'"></div>
 <div class="main-content-wrap">
     <div class="top-nav-wrap">
@@ -24,7 +19,6 @@
                 <label class="datepickerClass your-plan-cal-dropdown-label dateSelection subnav-date-dropdown-text " for="jumptodatepicker" >Jump to Date</label>
                 <input type="text"  name="datepicker" id="jumptodatepicker" readonly class="hideinput"/>
             </div>
-            <!--<div class="calendar-dropdown-text" for="jumptodatepicker">Jump to Date</div>-->
 
             <script>
                 var picker = new Pikaday(
@@ -106,7 +100,6 @@
 
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">
-                                <!--ng-click="setTemplate('Email',false)">Details</div>-->
                                 <a class="reg-button slat-detail-button" 
                                    ng-click="getScheduleDetails(entitydetails.schedule_id,
                                                        entitydetails.template_status,

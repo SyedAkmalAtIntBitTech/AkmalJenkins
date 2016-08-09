@@ -4,6 +4,10 @@
             General Styling
 -----------------------------------*/
 
+::-webkit-scrollbar {
+    display: none !important;
+}
+
 body{
     display: block;
     background-color: #EFF2F6;
