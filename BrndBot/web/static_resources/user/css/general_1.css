@@ -4385,7 +4385,7 @@ textarea.task-textarea:focus{
 
 .gallery-image-card{
     height: 150px;
-    width: 190px;
+    width: 187px;
     position: relative;
     margin-right: 20px;
     margin-bottom: 30px;
@@ -4419,7 +4419,7 @@ textarea.task-textarea:focus{
     position: absolute;
     height: 30px;
     top: 120px;
-    width: 200px;
+    width: 187px;
     background-color: rgba(0,0,0,.6);
     display: flex;
     align-content: center;
@@ -4590,6 +4590,7 @@ textarea.task-textarea:focus{
     align-self: flex-start;
     background-color: #f2f2f4;
     overflow-y: scroll;
+    height: calc(100vh - 90px);
 }
 
 .email-editor-top-buttons-wrap{
@@ -4870,4 +4871,19 @@ textarea.task-textarea:focus{
     border-radius: 3px;
     margin-bottom: 10px;
     
+}
+
+.editor-slat-button{
+    margin-top: 10px;
+    
+}
+
+.email-bottom-padding{
+    height: 100px;
+    width: 100%;
+    background-color: #f2f2f4;
+    line-height: 100px;
+    text-align: center;
+    color: #666;
+    font-size: 16px;
 }

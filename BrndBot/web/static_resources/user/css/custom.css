@@ -270,7 +270,7 @@ EDITOR
     background: #465057 url(../../user/images/bgcolor.svg) no-repeat 0px 0px;
     cursor: pointer;
     position: absolute;
-    margin: 0px 0px 0px 0px;
+    margin: 0px 0px 0px -60px;
     border-radius: 3px;
     opacity: 0;
 }
