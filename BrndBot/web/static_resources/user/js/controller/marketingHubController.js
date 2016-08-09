@@ -41,7 +41,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.listDescription = "";
         $scope.listName = "";
         $scope.deafultFromName = "";
-        $scope.replyEmailValidation = false;    
+        $scope.replyEmailValidation = false;
         $scope.replyToAddress = false;
 
         $scope.displayAllEmailDrafts = function () {
@@ -80,7 +80,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             {
                 selected_emaildrafts_to_delete = selected_schedule_id + "," + selected_emaildrafts_to_delete;
                 count += 1;
-                $("#" + id).html(content + '<img src="images/check.svg" class="check-icon" style="cursor:pointer;"/>');
+                $("#" + id).html(content + '<img src="images/checkbox-check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#" + id).toggleClass('selection-icon');
             $("#" + id).toggleClass('selection-icon-selected');
@@ -107,7 +107,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             } else {
                 selectedemailids = emailListID + "," + selectedemailids;
                 count += 1;
-                $("#" + emailListID).html(content + '<img src="images/check.svg" class="check-icon" style="cursor:pointer;"/>');
+                $("#" + emailListID).html(content + '<img src="images/checkbox-check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#" + emailListID).toggleClass('selection-icon');
             $("#" + emailListID).toggleClass('selection-icon-selected');
@@ -154,7 +154,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             } else {
                 selectedemailids = id + "," + selectedemailids;
                 count += 1;
-                $("#" + id).html(content + '<img src="images/check.svg" class="check-icon" style="cursor:pointer;"/>');
+                $("#" + id).html(content + '<img src="images/checkbox-check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#" + id).toggleClass('selection-icon');
             $("#" + id).toggleClass('selection-icon-selected');
@@ -257,7 +257,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $("#reply_address").focus();
                 return false;
             }
-            
+
             var reply_email_address = email_settings.reply_email_address;
             var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
             var result = reply_email_address.replace(/\s/g, "").split(/,|;/);
@@ -269,21 +269,21 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     return false;
                 }
             }
-            $scope.replyEmailValidation = false;                    
+            $scope.replyEmailValidation = false;
             return true;
         };
 
         $scope.saveEmailSettings = function (email_settings) {
-            var from_address = email_settings.from_address;
-            var reply_email_address = email_settings.reply_email_address;
             if ($scope.emailSettingsValidation(email_settings))
             {
-                    var emailSettingsData = {"from_address": "mail@brndbot.com", "reply_email_address": reply_email_address};
-                    settingsFactory.saveEmailSettingsPost(emailSettingsData).then(function (data) {
-                        $scope.replyToAddress = false;
-                        $scope.getEmailSettings();
-                        growl("Settings saved successfully");
-                    });
+                var from_address = email_settings.from_address;
+                var reply_email_address = email_settings.reply_email_address;
+                var emailSettingsData = {"from_address": "mail@brndbot.com", "reply_email_address": reply_email_address};
+                settingsFactory.saveEmailSettingsPost(emailSettingsData).then(function (data) {
+                    $scope.replyToAddress = false;
+                    $scope.getEmailSettings();
+                    growl("Settings saved successfully");
+                });
             }
         };
         $scope.getFooterDetails = function () {
@@ -657,7 +657,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     reader.onload = function (e) {
                         var table = document.createElement("table");
                         var rows = e.target.result.split("\n");
-                        for (var j = 1; j < rows.length-1; j++)
+                        for (var j = 1; j < rows.length - 1; j++)
                         {
                             var csvvalue = rows[j].split(",");
 
@@ -957,7 +957,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             } else {
                 selectedemailids = id + "," + selectedemailids;
                 count += 1;
-                $("#" + id).html(content + '<img src="images/check.svg" class="check-icon" style="cursor:pointer;"/>');
+                $("#" + id).html(content + '<img src="images/checkbox-check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#" + id).toggleClass('selection-icon');
             $("#" + id).toggleClass('selection-icon-selected');
@@ -1056,9 +1056,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
 
         $scope.hideUnsubscribeEmailsPopup = function () {
-            $scope.csvFileValidation=false;
-            $scope.csvValidation=false;
-            $scope.csvInvalidValidation=false;
+            $scope.csvFileValidation = false;
+            $scope.csvValidation = false;
+            $scope.csvInvalidValidation = false;
             $scope.unsubscribePopup = false;
         };
 
