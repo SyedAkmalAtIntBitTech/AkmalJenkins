@@ -185,3 +185,18 @@ imagesFlowApp.config(function($routeProvider){
     .otherwise({redirectTo: '/baseimagegallery'});
     
 });
+
+
+franchiseHubApp.config(function($routeProvider){
+    $routeProvider 
+    .when('/managedaccountdash', { 
+                title: 'BrndBot - Account Manager Dashboard',
+                templateUrl: 'managedaccountdash.html'          
+    })
+   
+    .otherwise({title: 'BrndBot - Account Manager Dashboard',redirectTo: '/managedaccountdash'});
+    }).run(function ($rootScope) {
+        $rootScope.$on("$routeChangeSuccess", function (event, currentRoute) {
+            document.title = currentRoute.title;
+        });
+});
