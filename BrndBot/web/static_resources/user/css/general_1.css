@@ -1,4 +1,4 @@
-@import url("icon-fonts-styles.css");
+/*@import url("icon-fonts-styles.css");*/
 
 /*-----------------------------------
             General Styling
@@ -102,7 +102,9 @@ h2{
     font-size: 20px;
     font-weight: 400;
 }
-
+.h2 {
+    font-size: 20px;
+}
 h3{
     margin:0;
     color: #3F3F42;
@@ -4874,4 +4876,110 @@ textarea.task-textarea:focus{
     border-radius: 3px;
     margin-bottom: 10px;
     
+}
+//Page-Structure.css starts ////
+
+.contentWrap--withSideNav {
+    width: calc(100vw - 70px);
+    position: fixed;
+    left: 70px;
+    top: 0px;
+    height: 100vh;
+    overflow: auto;
+}
+.contentWrapInner {
+    width: 100%;
+    padding-top: 2%;
+    padding-bottom: 4%;
+    overflow-y: scroll;
+    padding-bottom: 45px;
+}
+///Page-Structure.css ends ////
+
+////Navigation.css starts ///////
+.topNav-withSubnav {
+    width: calc(100vw - 70px);
+}
+.topNav {
+    background-color: #FFFFFF;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0px;
+}
+.clear {
+    overflow: auto;
+    clear: both;
+}
+.topNav--TitleBar--withBackButton {
+    padding: 0px 30px;
+    height: 60px;
+    width: calc(100% - 60px);
+    box-sizing: border-box;
+    border-bottom: 1px solid #D2D3D5;
+    background-color: white;
+}
+.topNav--TitleBar--Title {
+    line-height: 60px;
+}
+.topNav--offset {
+    height: 60px;
+    width: 100%;
+}
+.topNav--BackButton {
+    background-color: #0F76A6;
+    height: 60px;
+    width: 60px;
+    box-sizing: border-box;
+    padding: 15px;
+}
+.bottomNav {
+    background-color: #FFFFFF;
+    border-top: 1px solid #D2D3D5;
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 0px;
+    height: 60px;
+}
+.bottom-ContinueButton {
+    height: 60px;
+    line-height: 60px;
+    background-color: #D2D3D5;
+    font-size: 14px;
+    color: white;
+    padding: 0px 60px;
+    font-weight: 600;
+    cursor: pointer;
+}
+////Navigation.css ends ///////
+
+//////General-Utility.css starts///
+
+.clickable-area {
+    width: 100%;
+}
+////General-Utility.css ends//
+
+.body-normal {
+    background-color: #ECF0F2;
+    box-sizing: border-box;
+    color: #3E4551;
+}
+
+.removeDrag {
+    resize: none;
+}
+.input_Field_lg {
+    width: 100%;
+    border: 1px solid #D2D3D5;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    font-size: 13px;
+    height: 100px;
+    color: black;
 }
