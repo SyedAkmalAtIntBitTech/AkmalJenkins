@@ -737,14 +737,14 @@ li.main-nav:last-child{
 .sub-nav-tab-wrap.with-back-button{
     padding-left: 90px;
     width: 100%;
-    border-bottom: 1px solid #E2E3E7 ;
+    
 
 }
 
 .sub-nav-tab-wrap.no-back-button{
     padding-left: 30px;
     width: 100%;
-    border-bottom: 1px solid #E2E3E7 ;
+    
 }
 
 

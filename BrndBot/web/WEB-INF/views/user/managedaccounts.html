@@ -5,68 +5,30 @@
         <!--USER ADDED LISTS-->
         <div class="hub-pane">
             <div class="hub-pane-header-wrap">
-                <h2 class="">Email Lists</h2>
+                <h2 class="">Managed Accounts</h2>
                 <a href="">
-                    <div id="addemlstbtn" class="long-button green-button" ng-show="addEmailListButton" ng-click="addEmailList()"> Create Email List</div>
+                    <div id="addemlstbtn" class="long-button green-button" ng-click="addEmailList()">Invite an Account</div>
                 </a>
                 <!--                <a class="long-button green-button">Create Email List</a>-->
             </div>
-            <div class="hub-pane-content-wrap" ng-init="emailListGet()">
-                <div class="hub-empty-wrap" ng-if="emailLists.length > 0">There are no email lists</div>
-                <div class="hub-slat-list-wrap" ng-show="emailLists.length > 0" ng-repeat="email in emailLists"> 
-                    <div class="slat">
-                        <div class="selection-container col-5p"> 
-                            <div class="selection-icon" id="{{email.emailListID}}" ng-click="selectedEmailCheckbox(email.emailListID)">
-                                <input type="checkbox" id="{{email.emailListID}}" value="{{email.emailListName}}" name="entityname" hidden></input>
-                            </div>
-                        </div>
+            <div class="hub-pane-content-wrap" >
+                <div class="hub-empty-wrap">There are no email lists</div>
+                <div class="hub-slat-list-wrap"> 
+                     <div class="slat" >
+                  
                         <div class="slat-name-wrap">
-                            <h2>{{email.emailListName}}</h2>
-                            <p>Created on {{email.emailListAddedDate| date: 'MM-dd-yyyy'}}</p>
+                            <h2>Account Name</h2>
+                            <p> Joined on June 16th 2016 at 9:56:05 PM</p>
                         </div>
-                        <div class="col-7of10 slat-unit fleft ">
-                            <div class="slat-detail-wrap">
-                                <div class="slat-detail">
-                                    <h2>{{email.noofcontants}}</h2>
-                                    <p>Number of Contacts</p>
-                                </div>
+                         <div class="slat-detail-wrap">
+                            <div class="slat-detail">
+                                <h2 >Active</h2>
+                                <p>Status</p>
                             </div>
-                        </div>
-                        <div class="slat-detail-wrap">
-                            <div class="slat-detail slat-detail-button ">
-                                <div class="reg-button slat-detail-button" ng-click="viewEmailListDetails(email.emailListName, 'user')">Manage Email List</div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!--MINDBODY LINKED LISTS-->
-        <div class="hub-pane">
-            <div class="hub-pane-header-wrap">
-                <h2 class="">MINDBODY Index Connected Lists</h2>
-            </div>
-            <div class="hub-pane-content-wrap" ng-init="emailListGet()">
-                <div class="hub-empty-wrap"  ng-if="emailListsMindbody.length === 0">There are no MINDBODY Index Lists</div>
-                <div class="hub-slat-list-wrap" ng-show="emailListsMindbody.length > 0" ng-repeat="email in emailListsMindbody">
-                    <div class="slat">
-                        <div class="slat-icon-wrap"></div>
-                        <div class="slat-name-wrap">
-                            <h2>{{email.emailListName}}</h2>
-                            <p>Created on {{email.emailListAddedDate| date: 'MM-dd-yyyy'}}</p>
                         </div>
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">
-                                <h2>{{email.noofcontants}}</h2>
-                                <p>Number of Contacts</p>
-                            </div>
-                        </div>
-                        <div class="slat-detail-wrap">
-                            <div class="slat-detail slat-detail-button ">
-                                <a class="reg-button slat-detail-button" href="emaillistsdetails?list_name={{email.emailListName}}&type=user">Manage Email List</a>
+                              <a class="reg-button gray-button slat-detail-button" href="">View Account Details</a>
                             </div>
                         </div>
                     </div>
@@ -74,5 +36,8 @@
             </div>
 
         </div>
+
+        
+        
     </div>
 </div
