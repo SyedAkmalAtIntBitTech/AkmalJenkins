@@ -807,7 +807,6 @@ li.sub-nav-tab.active a{
 
 .content-wrap-with-continue-bar{
     height: calc(100vh - 115px);
-    overflow-y: auto;
 }
 
 
@@ -1822,7 +1821,6 @@ li.sub-nav-tab.active a{
     padding: 20px 30px 20px 30px;  
     box-sizing: border-box;
     max-height: 430px;
-    overflow-y: auto;
 }
 
 .modal-pane-content-social-sequence{
@@ -2959,7 +2957,7 @@ p.modal-content-header{
     font-weight: normal;
     list-style: none;
     visibility: hidden;
-    max-height: 300px;
+    max-height: 200px;
     overflow-y: auto; /*Provide an auto overflow to display scroll*/
 }
 
@@ -4449,7 +4447,6 @@ textarea.task-textarea:focus{
 }
 
 .full-height-modal-pane-content-wrap{
-    /*height: 80vh;*/
     height: 100vh;
     overflow-y: scroll;
 }
