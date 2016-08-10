@@ -50,8 +50,11 @@ public class EmailListController {
         GenericResponse<String> transactionResponse = new GenericResponse();
         
         try {
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
             String data = emailListService.getEmailList(request, companyId, emailListName);
             transactionResponse.addDetail(data);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("list_success", new String[]{}, Locale.US)));
@@ -68,8 +71,11 @@ public class EmailListController {
             HttpServletResponse response) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             Boolean result = emailListService.setEmailList(requestBodyMap, companyId);

@@ -58,8 +58,11 @@ public class ImagesController {
     public ResponseEntity<ContainerResponse> getImageById(HttpServletRequest request, HttpServletResponse response) {
         GenericResponse<CompanyImages> genericResponse = new GenericResponse<>();
         try {
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
             List<CompanyImages> companyImages = companyImagesService.getAllImagesForCompany(companyId);
             genericResponse.setDetails(companyImages);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
@@ -92,7 +95,8 @@ public class ImagesController {
                 globalImages.setImageName(fileName);
                 globalImagesService.save(globalImages);
             } else {
-                Company company = userProfile.getUser().getFkCompanyId();
+//                Company company = userProfile.getUser().getFkCompanyId();
+                Company company = new Company();
                 pathSuffix = companyImagesService.getPath(company.getCompanyId());
                 fileName = FileUploadUtil.uploadFile(pathSuffix, request);
                 link = companyImagesService.getLink(fileName, company, imageURL);
@@ -121,7 +125,8 @@ public class ImagesController {
             String link = "";
             String imageURL = ServletUtil.getServerName(request.getServletContext());
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Company company = userProfile.getUser().getFkCompanyId();
+//            Company company = userProfile.getUser().getFkCompanyId();
+            Company company = new Company();
             pathSuffix = pathSuffix + File.separator + company.getCompanyId() + File.separator + AppConstants.LOGO_FOLDERNAME;
             
             fileName = FileUploadUtil.uploadLogo(pathSuffix, request);

@@ -42,7 +42,8 @@ public class UserController {
     public String UserJspPages(ModelMap model, @PathVariable(value = "htmlFileName") String htmlFileName) {
         UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
         model.addAttribute("user", userProfile);
-        model.addAttribute("companyId", userProfile.getUser().getFkCompanyId().getCompanyId());
+//            todochange it with companyid
+//        model.addAttribute("companyId", userProfile.getUser().getFkCompanyId().getCompanyId());
         return "user/" + htmlFileName;
-    }
+    }    
 }

@@ -75,9 +75,12 @@ public class ExternalContentController {
     @RequestMapping(value = "/isActivated", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> isActivated() throws SQLException {
         GenericResponse<Boolean> genericResponse = new GenericResponse<>();
-        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
-        externalContentProcessor = new ExternalContentProcessor(companyID);
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = 1;
+        externalContentProcessor = new ExternalContentProcessor(companyId);
         genericResponse.addDetail(externalContentProcessor.isActivated());
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
@@ -85,9 +88,12 @@ public class ExternalContentController {
     @RequestMapping(value = "/getActivationLink", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getActivationLink() throws SQLException {
         GenericResponse<String> genericResponse = new GenericResponse<>();
-        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
-        externalContentProcessor = new ExternalContentProcessor(companyID);
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = 1;
+        externalContentProcessor = new ExternalContentProcessor(companyId);
         genericResponse.addDetail(externalContentProcessor.getActivationLink());
 
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
@@ -97,10 +103,13 @@ public class ExternalContentController {
     public ResponseEntity<ContainerResponse> getListData(@PathVariable("externalSourceKeywordLookupId") Integer externalSourceKeywordLookupId) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
             //TODO what if the user has multiple external sources.
-            externalContentProcessor = new ExternalContentProcessor(companyID);
+            externalContentProcessor = new ExternalContentProcessor(companyId);
             ExternalSourceKeywordLookup externalSourceKeywordLookup = externalSourceKeywordLookupService.getByExternalSourceKeywordLookupId(externalSourceKeywordLookupId);
             String query = externalSourceKeywordLookup.getFkExternalSourceKeywordId().getExternalSourceKeywordName();
             ExternalSourceProcessedData externalSourceProcessedData = externalContentProcessor.getListData(query);
@@ -125,8 +134,11 @@ public class ExternalContentController {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
             String hostURL = ServletUtil.getServerName(request.getServletContext());
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
             Map<String, Object> data = new HashMap<>();
             ExternalSourceKeywordLookup externalSourceKeywordLookup = null;
             externalContentProcessor = new ExternalContentProcessor(companyId);

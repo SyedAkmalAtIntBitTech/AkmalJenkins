@@ -30,8 +30,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "users")
 public class Users implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userid")
-    private List<UserCompanyLookup> userCompanyLookupList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,27 +44,11 @@ public class Users implements Serializable {
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
-    @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
-    @ManyToOne
-    private Company fkCompanyId;
-//    @JoinColumn(name = "fk_user_role_id", referencedColumnName = "user_role_id")
-//    @ManyToOne(optional = false)
-//    private UserRole fkUserRoleId;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "account_status")
-    private String accountStatus;
 
-    public String getAccountStatus() {
-        return accountStatus;
-    }
-
-    public void setAccountStatus(String accountStatus) {
-        this.accountStatus = accountStatus;
-    }
-    
     public Users() {
     }
 
@@ -106,22 +88,6 @@ public class Users implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public Company getFkCompanyId() {
-        return fkCompanyId;
-    }
-
-    public void setFkCompanyId(Company fkCompanyId) {
-        this.fkCompanyId = fkCompanyId;
-    }
-
-//    public UserRole getFkUserRoleId() {
-//        return fkUserRoleId;
-//    }
-//
-//    public void setFkUserRoleId(UserRole fkUserRoleId) {
-//        this.fkUserRoleId = fkUserRoleId;
-//    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -136,15 +102,6 @@ public class Users implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    @XmlTransient
-    public List<UserCompanyLookup> getUserCompanyLookupList() {
-        return userCompanyLookupList;
-    }
-
-    public void setUserCompanyLookupList(List<UserCompanyLookup> userCompanyLookupList) {
-        this.userCompanyLookupList = userCompanyLookupList;
     }
 
 }

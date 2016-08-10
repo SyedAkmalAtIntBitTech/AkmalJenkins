@@ -18,12 +18,14 @@ import com.intbittech.enums.AdminStatus;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Invite;
 import com.intbittech.model.InvitedUsers;
+import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserProfile;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
 import com.intbittech.model.UsersRoleLookup;
 import com.intbittech.modelmappers.InviteDetails;
 import com.intbittech.modelmappers.TaskDetails;
+import com.intbittech.services.UserCompanyLookupService;
 import com.intbittech.services.UserRoleLookUpService;
 import com.intbittech.services.UserRoleService;
 import com.intbittech.services.UsersInviteService;
@@ -60,6 +62,8 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     private UserRoleService userRoleService;
     @Autowired
     private UserRoleLookUpService userRoleLookUpService;
+    @Autowired
+    private UserCompanyLookupService userCompanyLookupService;
     @Autowired
     private MessageSource messageSource;
     
@@ -150,8 +154,9 @@ public class UsersInviteServiceImpl implements UsersInviteService{
 
             if (isUsed){
                 Users user = companyInvite.getInviteSentTo();
-                user.setAccountStatus(AdminStatus.valueOf("Account_Deactivated").getDisplayName());
-                usersService.update(user);
+                UserCompanyLookup userCompanyLookup =  userCompanyLookupService.getUserCompanyLookupByUserAndCompanyId(user, null);
+                userCompanyLookup.setAccountStatus(AdminStatus.valueOf("Account_Deactivated").getDisplayName());
+                userCompanyLookupService.update(userCompanyLookup);
             }else {
                 delete(inviteId);
             }

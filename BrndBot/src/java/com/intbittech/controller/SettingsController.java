@@ -174,8 +174,10 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         GenericResponse<InvitedUsers> genericResponse = new GenericResponse<>();
 
         try {
+//          todochange it with companyid
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Company company = userProfile.getUser().getFkCompanyId();
+//            Company company = userProfile.getUser().getFkCompanyId();
+            Company company = new Company();
             List<InvitedUsers> invitedUsers = usersInviteService.getInvitedUsers(userProfile.getUser());
             genericResponse.setDetails(invitedUsers);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
@@ -194,7 +196,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Company company = userProfile.getUser().getFkCompanyId();
+//          todochange it with companyid
+//            Company company = userProfile.getUser().getFkCompanyId();
+            Company company = new Company();
             List<String> colorArray = companyPreferencesService.getColors(company);
             genericResponse.setDetails(colorArray);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
@@ -211,7 +215,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Company company = userProfile.getUser().getFkCompanyId();
+//          todochange it with companyid
+//            Company company = userProfile.getUser().getFkCompanyId();
+            Company company = new Company();
             companyPreferencesService.setColors(companyColorsDetails, company);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyCategories_color_update", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
@@ -228,7 +234,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Company company = userProfile.getUser().getFkCompanyId();
+//          todochange it with companyid
+//            Company company = userProfile.getUser().getFkCompanyId();
+            Company company = new Company();
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             String from_address = (String) requestBodyMap.get("from_address");
@@ -251,7 +259,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Company company = userProfile.getUser().getFkCompanyId();
+//          todochange it with companyid
+//            Company company = userProfile.getUser().getFkCompanyId();
+            Company company = new Company();
             JSONObject jsonObject = companyPreferencesService.getEmailSettings(company);
             genericResponse.addDetail(new Gson().toJson(jsonObject));
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
@@ -267,7 +277,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Company company = userProfile.getUser().getFkCompanyId();
+//          todochange it with companyid
+//            Company company = userProfile.getUser().getFkCompanyId();
+            Company company = new Company();
             CompanyPreferences companyPreferences = companyPreferencesService.getByCompany(company);
             genericResponse.addDetail(companyPreferences.getCompanyPreferences());
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
@@ -284,7 +296,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Company company = userProfile.getUser().getFkCompanyId();
+//          todochange it with companyid
+//            Company company = userProfile.getUser().getFkCompanyId();
+            Company company = new Company();
             List<String> colorArray = companyPreferencesService.getColors(company);
             JSONArray adminColors = getCustomColorFromFile(request);
             adminColors.stream().forEach((adminColor) -> {
@@ -309,8 +323,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             HttpServletResponse response) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Company company = userProfile.getUser().getFkCompanyId();
+//          todochange it with companyid
+//            Company company = userProfile.getUser().getFkCompanyId();
+            Company company = new Company();
             String filePath = null;
             String fileName = null, fieldName = null, uploadType = null;
 
@@ -400,8 +415,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             String fb_user_profile_name = (String) requestBodyMap.get("fb_user_profile_name");
             String default_page_name = (String) requestBodyMap.get("default_page_name");
             String settings = (String) requestBodyMap.get("settings");
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Company company = userProfile.getUser().getFkCompanyId();
+//          todochange it with companyid
+//            Company company = userProfile.getUser().getFkCompanyId();
+            Company company = new Company();
             Integer companyId = company.getCompanyId();
             String outputJson = "Success";
             CompanyPreferencesFacebook companyPreferencesFacebookService = new CompanyPreferencesFacebook();
@@ -459,8 +475,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             String access_token_secret = "";
             String user_name = "";
 
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Company company = userProfile.getUser().getFkCompanyId();
+//          todochange it with companyid
+//            Company company = userProfile.getUser().getFkCompanyId();
+            Company company = new Company();
             Integer companyId = company.getCompanyId();
             String outputJson = "Success";
 
@@ -587,8 +604,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
         try {
             AccessToken accessToken = null;
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Company company = userProfile.getUser().getFkCompanyId();
+//          todochange it with companyid
+//            Company company = userProfile.getUser().getFkCompanyId();
+            Company company = new Company();
             Integer companyId = company.getCompanyId();
             CompanyPreferencesTwitter companyPreferencesTwitterService = new CompanyPreferencesTwitter();
 
@@ -615,8 +633,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     public ResponseEntity<ContainerResponse> setFooter(@RequestBody FooterDetails footerDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Company company = userProfile.getUser().getFkCompanyId();
+//          todochange it with companyid
+//            Company company = userProfile.getUser().getFkCompanyId();
+            Company company = new Company();
             companyPreferencesService.setFooterDetails(footerDetails, company);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyCategories_color_update", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
@@ -635,8 +654,11 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             Runnable myRunnable = new Runnable() {
                 public void run() {
                     try {
-                        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-                        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = 1;
                         ExternalContentProcessor externalContentProcessor = new ExternalContentProcessor(companyId);
                         int partitionSize = 150;
                         List<String> partitionEmail = new ArrayList<>();
@@ -675,8 +697,11 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     public ResponseEntity<ContainerResponse> saveUnsubscribeEmails(@RequestBody List<String> emailList) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
             companyPreferencesService.saveUnsubscribeEmails(companyId, emailList);
             Runnable myRunnable = new Runnable() {
                 public void run() {

@@ -38,7 +38,17 @@ public class UserCompanyLookup implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @ManyToOne(optional = false)
     private Users userid;
+    @Column(name="account_status")
+    private String accountStatus;
 
+    public String getAccountStatus() {
+        return accountStatus;
+    }
+
+    public void setAccountStatus(String accountStatus) {
+        this.accountStatus = accountStatus;
+    }
+    
     public UserCompanyLookup() {
     }
 

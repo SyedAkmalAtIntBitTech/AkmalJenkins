@@ -45,8 +45,11 @@ public class CompanyImagesController {
     public ResponseEntity<ContainerResponse> getImages() {
         GenericResponse<CompanyImages> genericResponse = new GenericResponse<>();
         try {
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
             List<CompanyImages> companyImages = companyImagesService.getAllImagesForCompany(companyId);
             genericResponse.setDetails(companyImages);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_get_all", new String[]{}, Locale.US)));

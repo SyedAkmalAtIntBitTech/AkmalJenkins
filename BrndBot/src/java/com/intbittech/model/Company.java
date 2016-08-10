@@ -29,10 +29,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "company")
 public class Company implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyid")
-    private List<UserCompanyLookup> userCompanyLookupList;
-    @OneToMany(mappedBy = "fkCompanyId")
-    private Set<Users> usersSet;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -87,22 +83,4 @@ public class Company implements Serializable {
         this.inviteCode = inviteCode;
     }
 
-    @XmlTransient
-    public Set<Users> getUsersSet() {
-        return usersSet;
-    }
-
-    public void setUsersSet(Set<Users> usersSet) {
-        this.usersSet = usersSet;
-    }
-
-    @XmlTransient
-    public List<UserCompanyLookup> getUserCompanyLookupList() {
-        return userCompanyLookupList;
-    }
-
-    public void setUserCompanyLookupList(List<UserCompanyLookup> userCompanyLookupList) {
-        this.userCompanyLookupList = userCompanyLookupList;
-    }
-
-    }
+}

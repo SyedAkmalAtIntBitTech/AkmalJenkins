@@ -85,9 +85,10 @@ public class CompanyController {
         try {
             List<String> currentCompany = new ArrayList<>();
             
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            
-            currentCompany.add(userProfile.getUser().getFkCompanyId().getCompanyId().toString());
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            
+//            currentCompany.add(userProfile.getUser().getFkCompanyId().getCompanyId().toString());
             
             genericResponse.setDetails(currentCompany);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("company_get_all",new String[]{}, Locale.US)));
@@ -280,8 +281,12 @@ public class CompanyController {
     public ResponseEntity<ContainerResponse> getAllBlocksForCompany() {
         GenericResponse<EmailBlockDetails> genericResponse = new GenericResponse<EmailBlockDetails>();
         try {
+//            todo change it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
+
             List<OrganizationCompanyLookup> organizationCompanyDetail = new ArrayList<>();
             organizationCompanyDetail = companyService.getAllOrganizationsByCompanyId(companyId);
             List<OrganizationCompanyDetails> organizationCompanyDetailsList = new ArrayList<>();

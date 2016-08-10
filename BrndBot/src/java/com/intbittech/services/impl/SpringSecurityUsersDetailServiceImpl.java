@@ -48,6 +48,7 @@ public class SpringSecurityUsersDetailServiceImpl implements UserDetailsService 
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
         Users user = usersService.findByUserName(username);
+        
         if (user == null) {
             throw new UsernameNotFoundException("Username not found");
         }

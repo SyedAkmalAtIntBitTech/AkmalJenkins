@@ -67,8 +67,11 @@ public class YourPlanController {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try{
             List<String> messageList = new ArrayList<>();
-        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = 1;
         List<String> errorMsgs = new ArrayList<>();
             
             if ( StringUtils.isEmpty(request.getParameter("from")) ){
@@ -107,8 +110,11 @@ public class YourPlanController {
     public ResponseEntity<ContainerResponse> ChangeSchedule(HttpServletRequest request, HttpServletResponse response) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             String type = (String) requestBodyMap.get("type");
@@ -213,8 +219,11 @@ public class YourPlanController {
     public ResponseEntity<ContainerResponse> AddAction(HttpServletRequest request, HttpServletResponse response) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = 1;
         Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
         if ( requestBodyMap == null){
@@ -343,8 +352,11 @@ public class YourPlanController {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
             List<String> messageList = new ArrayList<>();
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
             if ( StringUtils.isEmpty(request.getParameter("schedule_id")) ){
                 Map<String, Object> error = new HashMap<>();
                 error.put("error", "Schedule id is missing");
@@ -382,8 +394,11 @@ public class YourPlanController {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
             List<String> messageList = new ArrayList<>();
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
             
             String scheduleId = request.getParameter("schedule_id");
             if ( StringUtils.isEmpty(scheduleId)){
@@ -409,8 +424,11 @@ public class YourPlanController {
         boolean twit = false;
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
             String htmlString = "";
             String isFacebook = request.getParameter("isFacebook");
             String isTwitter = request.getParameter("isTwitter");

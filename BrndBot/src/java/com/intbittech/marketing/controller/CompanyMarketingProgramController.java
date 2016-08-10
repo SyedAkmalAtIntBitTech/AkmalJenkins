@@ -69,7 +69,10 @@ public class CompanyMarketingProgramController {
             Date tillDate = null;
             CompanyMarketingProgram addCompanyMarketingProgram = new CompanyMarketingProgram();
             MarketingProgram marketingProgram = new MarketingProgram();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
             Company company = new Company();
             company.setCompanyId(companyId);
             Map<String, Object> requestBodyMap
@@ -141,8 +144,11 @@ public class CompanyMarketingProgramController {
     public @ResponseBody
     String listAllUserMarketingProgram(HttpServletRequest request,
             HttpServletResponse response, @RequestParam("programType") String programType) throws Throwable {
-        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = 1;
         List<CompanyMarketingProgram> companyMarketingProgramList = companyMarketingProgramService.getAllCompanyMarketingProgramByType(companyId, programType);
         JSONObject jsonObject = new JSONObject();
         JSONArray json_array = new JSONArray();
@@ -328,8 +334,11 @@ public class CompanyMarketingProgramController {
             HttpServletResponse response) {
         JSONArray json_array_marketing_program = new JSONArray();
         try {
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
 
             List<CompanyMarketingProgram> companyMarketingPrograms = companyMarketingProgramService.getAllCompanyMarketingOpenPrograms("Open", companyId);
             Integer i = 1;
@@ -355,8 +364,11 @@ public class CompanyMarketingProgramController {
             HttpServletResponse response) {
         JSONArray json_array_marketing_program = new JSONArray();
         try {
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
 
             List<CompanyMarketingProgram> companyMarketingPrograms = companyMarketingProgramService.getAllCompanyMarketingProgramByCompanyId(companyId);
             Integer i = 1;
@@ -384,8 +396,11 @@ public class CompanyMarketingProgramController {
             HttpServletResponse response) {
         JSONArray json_array_marketing_program = new JSONArray();
         try {
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
 
             List<CompanyMarketingProgram> companyMarketingPrograms = companyMarketingProgramService.getAllCompanyMarketingProgramByCompanyId(companyId);
             Integer i = 1;

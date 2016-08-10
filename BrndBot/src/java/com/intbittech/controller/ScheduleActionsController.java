@@ -56,8 +56,11 @@ public class ScheduleActionsController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
             String data = actionsService.getActions(requestBodyMap, companyId);
             transactionResponse.addDetail(AppConstants.GSON.toJson(data));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
@@ -78,8 +81,11 @@ public class ScheduleActionsController {
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             List<String> errors = validateScheduleEmailRequestBody(requestBodyMap);
             if (errors.isEmpty()) {
-                UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-                Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = 1;
                 Map<String, Integer> data = actionsService.scheduleEmail(requestBodyMap, companyId);
                 transactionResponse.addDetail(AppConstants.GSON.toJson(data));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
@@ -102,8 +108,11 @@ public class ScheduleActionsController {
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             List<String> errors = validateScheduleEmailActionsRequestBody(requestBodyMap);
             if (errors.isEmpty()) {
-                UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-                Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = 1;
                 Map<String, Integer> data = actionsService.scheduleEmailActions(requestBodyMap, companyId);
                 transactionResponse.addDetail(AppConstants.GSON.toJson(data));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
@@ -133,8 +142,11 @@ public class ScheduleActionsController {
             }
 
             if (errors.isEmpty()) {
-                UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-                Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = 1;
                 List<Map<String, Integer>> responseData = actionsService.scheduleSocialPostActions(requestBodyList, companyId);
                 transactionResponse.addDetail(AppConstants.GSON.toJson(responseData));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
@@ -163,8 +175,11 @@ public class ScheduleActionsController {
                 errors.addAll(validateMetadata(metadataString, type));
             }
             if (errors.isEmpty()) {
-                UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-                Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = 1;
                 List<Map<String, Integer>> responseData = actionsService.scheduleSocialPost(requestBodyList, companyId);
                 transactionResponse.addDetail(AppConstants.GSON.toJson(responseData));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));

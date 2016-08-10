@@ -11,6 +11,7 @@ import com.controller.SqlMethods;
 import com.intbittech.AppConstants;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
+import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserProfile;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.CompanyDetails;
@@ -21,6 +22,7 @@ import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
+import com.intbittech.services.UserCompanyLookupService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.FileHandlerUtil;
@@ -51,6 +53,9 @@ public class OnboardingController {
 
     @Autowired
     private UsersService usersService;
+    
+    @Autowired
+    private UserCompanyLookupService userCompanyLookupService;
 
     @Autowired
     private CompanyService companyService;
@@ -81,8 +86,8 @@ public class OnboardingController {
     public ResponseEntity<ContainerResponse> saveUser(@RequestBody UserDetails usersDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            String returnMessage = usersService.save(usersDetails);
-            transactionResponse.setMessage(returnMessage);
+            Integer returnMessage = usersService.save(usersDetails);
+            transactionResponse.setMessage(returnMessage.toString());
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("user_save", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -119,12 +124,16 @@ public class OnboardingController {
     public ResponseEntity<ContainerResponse> saveStudioId(@RequestParam("studioId") String studioId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
+//            todochange it with companyid
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
+            UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUserId(userProfile.getUser());
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = 1;
 
             //save studioId
             Company company = new Company();
-            company.setCompanyId(companyID);
+            company.setCompanyId(userCompanyLookup.getCompanyid().getCompanyId());
             CompanyPreferences companyPreferences = new CompanyPreferences();
             companyPreferences.setCompanyLocation(studioId);
             companyPreferences.setFkCompanyId(company);
@@ -142,16 +151,19 @@ public class OnboardingController {
     public ResponseEntity<ContainerResponse> completedActivation() {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
 
             Runnable myRunnable = new Runnable() {
                 public void run() {
                     try {
                         SqlMethods sqlMethods = new SqlMethods();
-                        Integer studioId = sqlMethods.getStudioID(companyID);
+                        Integer studioId = sqlMethods.getStudioID(companyId);
                         MindbodyEmailListProcessor mindbodyEmailListProcessor = new MindbodyEmailListProcessor();
-                        mindbodyEmailListProcessor.processEachRow(companyID, studioId);
+                        mindbodyEmailListProcessor.processEachRow(companyId, studioId);
                     } catch (Throwable throwable) {
                         logger.error(throwable);
                         transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -174,9 +186,13 @@ public class OnboardingController {
     public ResponseEntity<ContainerResponse> saveCompany(@RequestBody CompanyDetails companyDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            companyDetails.setCompanyId(userProfile.getUser().getFkCompanyId().getCompanyId());
-            companyDetails.setUserId(userProfile.getUser().getUserId());
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = 1;
+//
+//            companyDetails.setCompanyId(companyId);
             String returnMessage = companyService.updateCompany(companyDetails);
             transactionResponse.setMessage(returnMessage);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("company_save", new String[]{}, Locale.US)));
@@ -195,8 +211,11 @@ public class OnboardingController {
             GetColorFromImage getcolorsfromimages = new GetColorFromImage();
             //Change to new AppConstants
             String uploadPath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH;
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
             uploadPath = uploadPath + File.separator + companyId + File.separator + "logo";
             String FileName = AppConstants.COMPANY_LOGO_FILENAME;
             String FilePath = uploadPath + File.separator + FileName;
@@ -217,8 +236,11 @@ public class OnboardingController {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             String storableFileName = null;
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
             String filePath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + "logo";
             storableFileName = FileHandlerUtil.saveCompanyLogo(filePath, AppConstants.COMPANY_LOGO_FILENAME, companyLogoDetails.getImageData());
             transactionResponse.setMessage(storableFileName);

@@ -16,11 +16,15 @@ import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Syed Muzamil at IntBit Technologies.
  */
+@Service
+@Transactional(rollbackFor = ProcessFailed.class)
 public class UserCompanyLookupServiceImpl implements UserCompanyLookupService {
     private final static Logger logger = Logger.getLogger(UserCompanyLookupServiceImpl.class);
 

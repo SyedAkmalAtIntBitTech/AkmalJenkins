@@ -59,7 +59,7 @@ public interface UsersService {
      * @return {@link Integer}
      * @throws ProcessFailed the process failed
      */
-    public String save(UserDetails usersDetails) throws ProcessFailed;
+    public Integer save(UserDetails usersDetails) throws ProcessFailed;
     
     /**
      * This method pass user as input and get the {@link Integer} from DAO layer.

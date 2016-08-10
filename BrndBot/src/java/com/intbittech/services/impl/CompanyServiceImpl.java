@@ -9,18 +9,22 @@ import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.OrganizationCompanyDao;
 import com.intbittech.dao.UserRoleLookUpDao;
 import com.intbittech.dao.UsersDao;
+import com.intbittech.enums.AdminStatus;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.MarketingCategoryProgram;
 import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCompanyLookup;
+import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
 import com.intbittech.model.UsersRoleLookup;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.services.CompanyService;
+import com.intbittech.services.UserCompanyLookupService;
 import com.intbittech.services.UserRoleLookUpService;
+import com.intbittech.services.UsersService;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -56,6 +60,11 @@ public class CompanyServiceImpl implements CompanyService{
     @Autowired
     private UserRoleLookUpService usersRoleLookUpService;
     
+    @Autowired
+    private UserCompanyLookupService userCompanyLookUpService;
+    
+    @Autowired
+    private UsersService usersService;
     /**
      * {@inheritDoc}
      */
@@ -158,15 +167,27 @@ public class CompanyServiceImpl implements CompanyService{
     @Override
     public String updateCompany(CompanyDetails companyDetails) throws ProcessFailed {
         String returnMessage = "false";UsersRoleLookup usersRoleLookUp = null;
+        UserCompanyLookup userCompanyLookup = null;Company company = null,companyObject = null;
         try {
             //update company
-            Company company = companyDao.getCompanyById(companyDetails.getCompanyId());
+
+            company = new Company();
+            Users user = usersService.getUserById(companyDetails.getUserId());
             company.setCompanyName(companyDetails.getCompanyName());
             company.setCreatedDate(new Date());
             company.setInviteCode(RandomStringUtils.randomAlphanumeric(10));
-            companyDao.update(company);
+            Integer companyId = companyDao.save(company);
+            userCompanyLookup = new UserCompanyLookup();
+
+            companyObject = new Company();
+            companyObject.setCompanyId(companyId);
+
+            userCompanyLookup.setCompanyid(company);
+            userCompanyLookup.setUserid(user);
+            userCompanyLookup.setAccountStatus(AdminStatus.valueOf("Account_Activated").getDisplayName());
             
-            Users user = usersDao.getUserById(companyDetails.getUserId());
+            userCompanyLookUpService.save(userCompanyLookup);
+
             if(user == null)
             {
                 throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
@@ -187,8 +208,8 @@ public class CompanyServiceImpl implements CompanyService{
             Organization organization = new Organization();
             organization.setOrganizationId(companyDetails.getOrganizationId());
             
-            Company companyObject = new Company();
-            companyObject.setCompanyId(companyDetails.getCompanyId());
+            companyObject = new Company();
+            companyObject.setCompanyId(companyId);
 
             organizationCompanyLookup.setFkOrganizationId(organization);
             organizationCompanyLookup.setFkCompanyId(companyObject);

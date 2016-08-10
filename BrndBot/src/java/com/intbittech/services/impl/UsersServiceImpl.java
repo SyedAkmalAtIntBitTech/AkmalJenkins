@@ -126,15 +126,16 @@ public class UsersServiceImpl implements UsersService {
      * {@inheritDoc}
      */
     @Override
-    public String save(UserDetails usersDetails) throws ProcessFailed {
+    public Integer save(UserDetails usersDetails) throws ProcessFailed {
         String returnMessage = "false";
+        Integer returnUserId = 0;
         Company company = null;Users user = null;UsersRoleLookup usersRoleLookUp = null;
         UserCompanyLookup userCompanyLookup = null;
         try {
             //Save temporary company
-            company = new Company();
-            company.setCompanyName("none");
-            Integer companyId = companyDao.save(company);
+//            company = new Company();
+//            company.setCompanyName("none");
+//            Integer companyId = companyDao.save(company);
 
             user = new Users();
             user.setUserName(usersDetails.getUserName());
@@ -143,8 +144,7 @@ public class UsersServiceImpl implements UsersService {
             user.setLastName(usersDetails.getLastName());
 
             user.setCreatedDate(new Date());
-            user.setAccountStatus(AdminStatus.valueOf("Account_Activated").getDisplayName());
-            usersDao.save(user);
+            Integer userId = usersDao.save(user);
 
             usersRoleLookUp = new UsersRoleLookup();
 
@@ -153,25 +153,17 @@ public class UsersServiceImpl implements UsersService {
 
             usersRoleLookUp.setUserId(user);
             usersRoleLookUp.setRoleId(userRole);
+            
             usersRoleLookUpDao.save(usersRoleLookUp);
             
-            userCompanyLookup = new UserCompanyLookup();
-
-            Company companyObject = new Company();
-            companyObject.setCompanyId(companyId);
-
-            userCompanyLookup.setCompanyid(company);
-            userCompanyLookup.setUserid(user);
-            
-            userCompanyLookUpService.save(userCompanyLookup);
-            returnMessage = "true";
+            returnUserId = userId;
         } catch(Throwable throwable) {
             returnMessage = "false";
             throw new ProcessFailed(messageSource.getMessage("something_wrong", new String[]{}, Locale.US));
         } finally {
             company = null;user = null;
         } 
-        return returnMessage;
+        return returnUserId;
     }
     /**
      * {@inheritDoc}
@@ -195,10 +187,10 @@ public class UsersServiceImpl implements UsersService {
                 user.setLastName(usersDetails.getLastName());
                 user.setCreatedDate(new Date());
                 Users sentUser = companyInvite.getInviteSentBy();
+//                todo change it with companyid                
+//                Company companyObject = sentUser.getFkCompanyId();
+                Company companyObject = new Company();
                 
-                Company companyObject = sentUser.getFkCompanyId();
-                user.setAccountStatus(AdminStatus.valueOf("Account_Activated").getDisplayName());
-
                 if ((usersDao.checkUniqueUser(user))){
                     Integer success = usersDao.save(user);
                 }else {
@@ -209,6 +201,7 @@ public class UsersServiceImpl implements UsersService {
 
                 userCompanyLookup.setCompanyid(companyObject);
                 userCompanyLookup.setUserid(user);
+                userCompanyLookup.setAccountStatus(AdminStatus.valueOf("Account_Activated").getDisplayName());
 
                 userCompanyLookUpService.save(userCompanyLookup);
                 
@@ -267,7 +260,9 @@ public class UsersServiceImpl implements UsersService {
             }
             
             if (userExist){
-                boolean userExistInCompany = isUserExistInCompany(inviteDetails,userProfile.getUser().getFkCompanyId());
+//                todo change it with companyid                
+//                boolean userExistInCompany = isUserExistInCompany(inviteDetails,userProfile.getUser().getFkCompanyId());
+                boolean userExistInCompany = isUserExistInCompany(inviteDetails, new Company());
                 if (userExistInCompany){
                     setRole(inviteDetails);
                     throw new ProcessFailed(messageSource.getMessage("user_exist_role_assigned", new String[]{}, Locale.US));

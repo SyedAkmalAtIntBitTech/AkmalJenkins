@@ -13,6 +13,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.studioIdValidation = studioIdValidation;
         $scope.logoValidation = logoValidation;
         $scope.userHashId = "";
+        $scope.userId = 0;
 //        $scope.companyName = "";
         $scope.organizationId = "";
 
@@ -55,11 +56,9 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.saveUser = function (userDetails) {
             onboardingFactory.saveUserPost(userDetails).then(function (data) {
                 var message = data.d.message;
-                if (message === "true")
-                {
+                localStorage.setItem("userId",message);
                     $("#signform").submit();
                     $location.path("/signup/company");
-                }
             });
         };
 
@@ -129,7 +128,8 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $scope.organizationId = organizationId;
             if ($scope.validationcode(companyName, organizationId))
             {
-                var companyDetails = {"companyName": companyName, "organizationId": organizationId};
+                var userIdvalue = localStorage.getItem("userId");
+                var companyDetails = {"userId":userIdvalue, "companyName": companyName, "organizationId": organizationId};
                 onboardingFactory.saveCompanyPost(JSON.stringify(companyDetails)).then(function (data) {
                     $location.path("/signup/datasource");
                 });

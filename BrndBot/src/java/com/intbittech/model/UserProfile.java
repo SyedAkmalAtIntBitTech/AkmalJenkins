@@ -18,7 +18,7 @@ public class UserProfile extends User{
 
     public Users getUser() {
         return user;
-    }    
+    }
     public UserProfile(Users user, Collection<? extends GrantedAuthority> authorities) {
        this(user.getUserName(), user.getUserPassword(), authorities);
        this.user =  user;

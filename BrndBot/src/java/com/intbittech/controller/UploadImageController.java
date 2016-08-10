@@ -54,8 +54,11 @@ public class UploadImageController extends BrndBotBaseHttpServlet {
     @RequestMapping(value = "/UploadByUser", method = RequestMethod.POST)
     public void UploadImageByUser(HttpServletRequest request, HttpServletResponse response) {
         try {
+//            todochange it with companyid
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Integer companyId = 1;
             String pathSuffix = "";
             String fileName = "";
             String link = "";
