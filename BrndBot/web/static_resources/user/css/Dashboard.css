@@ -1,4 +1,4 @@
-.dashboard-MainCTA-wrap{
+/*.dashboard-MainCTA-wrap{
     width: 100%;
 }
 
@@ -53,7 +53,7 @@
 .h-dash-header{
     font-size: 22px;
 }
-/*Content Classes*/
+Content Classes
 
 .content-wrap{
     height: calc(100vh - 60px);
@@ -115,7 +115,7 @@
     color: white;
 }
 
-/* DASHBOARD */
+ DASHBOARD 
 
 .dash-main-cta-card-wrap{
    display: -webkit-flex;
@@ -158,9 +158,9 @@
 }
 
 
-/*------------------------------
+------------------------------
             Overlays
---------------------------------*/
+--------------------------------
 .overlay-dark-bg{
     z-index: 15;
     width: 100vw;
@@ -466,9 +466,9 @@
      transition: all 0.3s ease;
 }
 
-/*--------------------------------
+--------------------------------
             MODAL
------------------------------------*/
+-----------------------------------
 
 .background-pop-up{
     z-index: 100;
@@ -478,7 +478,7 @@
     background-color: rgba(57,60,70,.7);
     display: -webkit-flex;
    display: flex;
-   -webkit-flex-direction: row; /* works with row or column */
+   -webkit-flex-direction: row;  works with row or column 
    flex-direction: row;
    -webkit-align-items: center;
    align-items: center;
@@ -554,13 +554,13 @@ p.modal-content-header{
 }
 
 .modal-pane-header-exit:before{
-    /*content: url(/icons/gray-close.svg);*/
+    content: url(/icons/gray-close.svg);
 }
 
 .modal-pane-content-wrap .send-or-schedule-wrap{
    display: -webkit-flex;
    display: flex;
-   -webkit-flex-direction: row; /* works with row or column */
+   -webkit-flex-direction: row;  works with row or column 
    flex-direction: row;
    -webkit-align-items: center;
    align-items: center;
@@ -606,7 +606,7 @@ p.modal-content-header{
 .modal-pane-content-wrap .create-new-action-schedule-wrap{
     display: -webkit-flex;
    display: flex;
-   -webkit-flex-direction: row; /* works with row or column */
+   -webkit-flex-direction: row;  works with row or column 
    flex-direction: row;
    -webkit-align-items: center;
    align-items: center;
@@ -671,7 +671,7 @@ p.modal-content-header{
 
 
 
-/* CREATE NEW ACTION OR SCHEDULE TO ACTION MODAL */
+ CREATE NEW ACTION OR SCHEDULE TO ACTION MODAL 
 
 .send-or-schedule-option .create-action-icon:before{
     content: url(/icons/create-new-action-gray.svg);
@@ -732,9 +732,9 @@ p.modal-content-header{
     line-height: 130%
 }
 
-/*_________________________________
+_________________________________
             HUB PAGES
------------------------------------*/
+-----------------------------------
 
 .hub-pane{
     border: 1px solid #E2E3E7;
@@ -797,9 +797,9 @@ p.modal-content-header{
     color: #777;
 }
 
-/*------------------------------------
+------------------------------------
             Input Wrap
--------------------------------------*/
+-------------------------------------
 
 .input-wrap{
     box-sizing: border-box;
@@ -922,9 +922,9 @@ p.modal-content-header{
 }
 
 
-/*------------------------------------
+------------------------------------
             Footer in Email
--------------------------------------*/
+-------------------------------------
 
 .in-editor-footer-wrap{
     background-color: #f9f9f9;
@@ -955,9 +955,9 @@ p.modal-content-header{
     display: inline-block;
 }
 
-/*------------------------------------
+------------------------------------
             Sequence Panes
--------------------------------------*/
+-------------------------------------
 
 .sequence-pane-content-wrap{
     padding:0px 30px 45px 30px;
@@ -981,4 +981,4 @@ p.modal-content-header{
     line-height: 140%;
     max-width: 450px;
 }
-    
+    */
