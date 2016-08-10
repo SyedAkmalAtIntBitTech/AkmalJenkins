@@ -193,6 +193,15 @@ franchiseHubApp.config(function($routeProvider){
                 title: 'BrndBot - Account Manager Dashboard',
                 templateUrl: 'managedaccountdash.html'          
     })
+    
+    .when('/managedaccounts', { 
+                title: 'BrndBot - Managed Accounts',
+                templateUrl: 'managedaccounts.html'          
+    })
+    .when('/pushedemailhistory', { 
+                title: 'BrndBot - Pushed Emails',
+                templateUrl: 'pushedemailhistory.html'          
+    })
    
     .otherwise({title: 'BrndBot - Account Manager Dashboard',redirectTo: '/managedaccountdash'});
     }).run(function ($rootScope) {
