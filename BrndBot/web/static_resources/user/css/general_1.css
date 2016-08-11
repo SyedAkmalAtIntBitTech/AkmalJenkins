@@ -1832,7 +1832,7 @@ li.sub-nav-tab.active a{
     padding: 20px 30px 20px 30px;  
     box-sizing: border-box;
     max-height: 480px;
-    height: 85vh;
+    /*height: 85vh;*/
     overflow-y: auto;
 }
 
@@ -4152,14 +4152,15 @@ img.exit-button {
     font-size: 14px;
     color: #AFB0B4;
 }
-
+.addBlock-button{
+    padding: 0px 20px;
+}
 .editor-block-slat{
     border: 1px solid #D2D3D5;
     padding: 5px;
     border-radius: 3px;
     margin-bottom: 10px;
     line-height: 55px;
-    padding:0px  20px;
     box-sizing: border-box;
     font-weight: 600;
     color: #444;
@@ -4171,14 +4172,14 @@ img.exit-button {
 }
 
 .editor-block-slat-selected{
-    padding: 15px 30px;
+    padding: 0px 20px 60px 20px;
     font-size: 16px;
     color: #5C627A;
-    font-weight: 400;
-    border: 2px solid #0F76A6;
+    font-weight: 600;
+    border: 2px solid #D2D3D5;
     background-color: #f9f9f9;
+    margin-bottom: 10px;
 }
-
 .sequence-left-wrap{
     display: flex;
     width:33.3%;
@@ -4882,4 +4883,8 @@ textarea.task-textarea:focus{
     text-align: center;
     color: #666;
     font-size: 16px;
+}
+
+.hideBlockButton{
+    display: none;
 }
