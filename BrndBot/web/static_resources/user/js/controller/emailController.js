@@ -431,6 +431,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 extended_valid_elements: 'img[class|src|style|border=0|alt|title|hspace|vspace|width|height|max-width|max-height|align|onmouseover|onmouseout|name]',
 //                forced_root_block : false,
                 width: 400,
+                convert_urls: false,
                 inline: true,
                 plugins: [
                     'advlist custombutton autolink lists link image charmap print preview anchor',
