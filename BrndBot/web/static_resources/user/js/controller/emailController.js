@@ -309,8 +309,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.blockOnClick = function (id) {
             $scope.id = id;
-            $scope.id = 'block-slat-active';
-            $scope.setBlockActive = 'block-slat';
+            $scope.id = 'editor-block-slat';
+            $scope.setBlockActive = 'editor-block-slat-selected';
             $scope.activeBlock = id;
 
 //            TODO change to AngularJs, (Complicated code)
