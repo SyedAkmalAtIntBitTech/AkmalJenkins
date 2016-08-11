@@ -35,7 +35,7 @@
                 </div>
                 <div class="gallery-Card-delete"> 
                     <div ng-show="hoverEditGalleryImage" class="gallery-image gallery-image-options">
-                        <img type="image/svg+xml" id="delete" src="/BrndBot/user/images/trash-white.svg" class="gallery-image-options-trash-icon" ng-click="deleteImage(images.companyImagesId)"/>
+                        <img type="image/svg+xml" id="delete" src="/BrndBot/images/trash-white.svg" class="gallery-image-options-trash-icon" ng-click="deleteImage(images.companyImagesId)"/>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                 <div class="gallery-image-card" ng-repeat="images in datalists" ng-mouseover="hoverInGalleryImage()" ng-mouseleave="hoverOutGalleryImage()">
                     <img  class="gallery-image" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}"/>
                     <div ng-show="hoverEditGalleryImage" class="gallery-image-options">
-                        <img type="image/svg+xml" id="delete" src="/BrndBot/user/images/trash-white.svg" class="gallery-image-options-trash-icon" ng-click="deleteImage(images.companyImagesId)"/>
+                        <img type="image/svg+xml" id="delete" src="/BrndBot/images/trash-white.svg" class="gallery-image-options-trash-icon" ng-click="deleteImage(images.companyImagesId)"/>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
              
                 <div ng-show="hoverEditGalleryImage" class="gallery-image-options"> 
                     
-                        <img type="image/svg+xml" id="delete" src="/BrndBot/user/images/overlay-trash-icon.svg" class="gallery-image-options-trash-icon" ng-click="deleteImage(images.companyImagesId)"/>
+                        <img type="image/svg+xml" id="delete" src="/BrndBot/images/overlay-trash-icon.svg" class="gallery-image-options-trash-icon" ng-click="deleteImage(images.companyImagesId)"/>
                     
                 </div>
             </div>
