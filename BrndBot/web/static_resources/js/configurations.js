@@ -87,3 +87,39 @@ function growl(message,type)
         $.growl.error({message: message});
 }
 
+//EmailFlow Session properties
+var categoryId = "categoryId";
+var subCategoryId = "subCategoryId";
+var lookupId = "lookupId";
+var externalSourceName = "mindbody";
+var mindbodyId = "mindbodyId";
+var draftId = "draftId";
+var emailSubject = "emailSubject";
+
+function getCategoryId(){
+    return categoryId;
+}
+
+function getSubCategoryId(){
+    return subCategoryId;
+}
+
+function getLookupId(){
+    return lookupId;
+}
+
+function getExternalSourceName(){
+    return externalSourceName;
+}
+
+function getMindbodyId(){
+    return mindbodyId;
+}
+
+function getDraftId(){
+    return draftId;
+}
+
+function getEmailSubject(){
+    return emailSubject;
+}
