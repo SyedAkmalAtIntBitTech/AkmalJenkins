@@ -119,14 +119,16 @@ public class FranchiseServiceImpl implements FranchiseService {
         if (franchise == null) {
             throw new ProcessFailed("No Franchise with id" + franchiseId + ".");
         }
-        Franchise franchiseDeserialized = FranchiseDetails.deserialize(franchiseDetails);
-        franchiseDeserialized.setFranchiseId(franchiseId);
+        franchise.setFranchiseName(franchiseDetails.getFranchiseName());
         franchiseDao.update(franchise);
     }
 
     @Override
     public void saveFranchise(FranchiseDetails franchiseDetails ) throws ProcessFailed {
         Franchise franchiseDeserialized = FranchiseDetails.deserialize(franchiseDetails);
+        if(franchiseDeserialized.getCreatedAt() == null) {
+            franchiseDeserialized.setCreatedAt(new Date());
+        }
         franchiseDao.save(franchiseDeserialized);
     }
 }

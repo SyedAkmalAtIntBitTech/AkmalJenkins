@@ -10,72 +10,88 @@ factoryApp.factory('franchiseFactory', function ($q, authenticatedServiceFactory
         });
         return deffered.promise;
     };
-    franchiseFactoryObject.getFranchisesForCompanyId = function (imageType) {
+    franchiseFactoryObject.getFranchisesForCompanyId = function (companyId) {
         var deffered = $q.defer();
-        var url = configurationService.getFranchisesForCompanyIdURL();
-        var data = '{"imageType":"' + imageType + '"}';
+        var url = configurationService.getFranchisesForCompanyIdURL()+"?companyId="+companyId;
+        var data = '';
         authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    franchiseFactoryObject.getCompaniesForFranchiseId = function (globalColorsId) {
+    franchiseFactoryObject.getCompaniesForFranchiseId = function (franchiseId) {
         var deffered = $q.defer();
-        var url = configurationService.getCompaniesForFranchiseIdURL();
-        var data = '{"globalColorsId":"' + globalColorsId + '"}';
+        var url = configurationService.getCompaniesForFranchiseIdURL()+"?franchiseId="+franchiseId;
+        var data = '';
         authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    franchiseFactoryObject.activateCompanyAsFranchise = function (globalImageId) {
-       
+    /*
+     * This is to activate a company as the head quarter.
+     */
+    franchiseFactoryObject.activateCompanyAsFranchise = function (companyId, franchiseId) {
+
         var deffered = $q.defer();
-        var url = configurationService.activateCompanyAsFranchiseURL();
-        var data = '{"globalImageId":"' + globalImageId + '"}';
+        var url = configurationService.activateCompanyAsFranchiseURL()+"?franchiseId="+franchiseId+"&companyId="+companyId;
+        var data = '';
         authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    franchiseFactoryObject.associateCompanyToFranchise = function (globalFontsId) {
+    /*
+     * This is to link a company as the Franchise.
+     */
+    franchiseFactoryObject.associateCompanyToFranchise = function (companyId, franchiseId) {
         var deffered = $q.defer();
-        var url = configurationService.associateCompanyToFranchiseURL();
-        var data = '{"globalFontsId":"' + globalFontsId + '"}';
+        var url = configurationService.associateCompanyToFranchiseURL()+"?franchiseId="+franchiseId+"&companyId="+companyId;
+        var data = '';
         authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    franchiseFactoryObject.removeCompanyFromFranchise = function () {
+    franchiseFactoryObject.removeCompanyFromFranchise = function (companyId, franchiseId) {
         var deffered = $q.defer();
-        var url = configurationService.removeCompanyFromFranchiseURL();
-        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+        var url = configurationService.removeCompanyFromFranchiseURL()+"?franchiseId="+franchiseId+"&companyId="+companyId;
+        authenticatedServiceFactory.makeCall("DELETE", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    franchiseFactoryObject.saveFranchise = function () {
+    franchiseFactoryObject.saveFranchise = function (franchiseName) {
         var deffered = $q.defer();
+        //TODO Send Franchise Details
+//        var data = JSON.stringify({
+//                        franchiseDetails: {
+//                            franchiseName: franchiseName
+//                        }
+//                    });
+//                    data = JSON.stringify(data);
         var url = configurationService.saveFranchiseURL();
-        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, franchiseName, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    franchiseFactoryObject.updateFranchise = function () {
+    franchiseFactoryObject.updateFranchise = function (franchiseId,franchiseName) {
         var deffered = $q.defer();
-        var url = configurationService.updateFranchiseURL();
-        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+        var url = configurationService.updateFranchiseURL()+"?franchiseId="+franchiseId;
+                //TODO Send Franchise Details
+//        var data = '{franchiseDetails: {franchiseName:' + franchiseName + '}}';
+//        data = JSON.stringify(data);
+        authenticatedServiceFactory.makeCall("POST", url, franchiseName, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    franchiseFactoryObject.deleteFranchise = function (fontsObject) {
+    franchiseFactoryObject.deleteFranchise = function (franchiseId) {
         var deffered = $q.defer();
-        var url = configurationService.deleteFranchiseURL();
-        var data = '{"fontsObject":"' + fontsObject + '"}';
-        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
+        var url = configurationService.deleteFranchiseURL()+"?franchiseId="+franchiseId;
+        var data = '';
+        authenticatedServiceFactory.makeCall("DELETE", url, data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
