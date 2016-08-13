@@ -413,7 +413,7 @@ a.side-nav-logo{
 }
 
 .main-nav a:hover.account-mgr:after{
-    content: "Marketing Campaigns";
+    content: "Account Manager";
     top: 0px;
 }
 
@@ -588,7 +588,7 @@ li.main-nav:last-child{
 }
 
 .top-nav-wrap .header{
-    height: 60px;
+    height: 50px;
     width: 100%;
     box-sizing: border-box;
     display:flex;
@@ -600,8 +600,8 @@ li.main-nav:last-child{
 
 .top-nav-wrap .header .back-button{
     width: 60px;
-    height: 60px;
-    background: #0F76A6;
+    height: 100%;
+    background: #C3CED9;
     padding: 18px;
 }
 
@@ -613,7 +613,7 @@ li.main-nav:last-child{
 }
 
 .top-nav-wrap .header h2{
-    line-height: 60px;
+    line-height: 50px;
     padding: 0px 0px 0px 30px;
     margin-top: 0px
 
@@ -621,7 +621,6 @@ li.main-nav:last-child{
 
 
 .top-nav-wrap .header .top-nav-cta-container{
-    padding-right: 30px;
     margin-left: auto;
     display: inline-flex;
     align-content: center;
@@ -2409,6 +2408,75 @@ p.modal-content-header{
     margin-bottom:30px;
 }
 
+.your-plan-add-action-btn{
+    background-color: #30B7FA;
+    border-radius: 3px;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 26px;
+    height: 30px;
+    width: 30px;
+    margin-left: 30px;
+    margin-right: 10px;
+    margin-top: 4px;
+    text-align: center;
+    color: white;
+}
+
+.your-plan-cal-dropdown-btn{
+    background-color: #DCE2E8;
+    background-position: 50% 50%;
+    border-radius: 3px;
+    margin-top: 4px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.notification-popup-btn{
+    background-color: #F4F4F5;
+    background-image: url(/BrndBot/user/images/notification.svg);
+    background-position: 50% 50%;
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    border-radius: 3px;
+    margin-top: 10px;
+    margin-right: 15px;
+    position: relative;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.your-plan-add-action-btn:hover{
+    background-color: #0C9AE9;
+}
+
+.user-setting-dropdown-wrap{
+    height: 100%;
+    padding: 0px 15px 0px 15px;
+    line-height: 50px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.user-setting-dropdown-wrap:hover{
+    background-color:#f2f2f4;
+}
+
+.user-setting-dropdown-wrap-icon{
+    background-image: url(/BrndBot/user/images/dropdown.svg);
+    height: 12px;
+    width: 12px;
+}
+
+.user-setting-dropdown-wrap-text{
+    margin-right: 10px;
+    color: #373D46;
+    font-size: 14px;
+}
+
 .your-plan-pane{
     border: 1px solid #E2E3E7;
     border-radius: 3px;
@@ -4106,7 +4174,7 @@ img.exit-button {
 .sequence-page-back-button{
     width: 60px;
     height: 100%;
-    background: #0F76A6;
+    background-color: #DCE2E8;;
     padding: 18px;
 }
 
