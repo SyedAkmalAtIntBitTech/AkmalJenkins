@@ -119,7 +119,7 @@ public class FranchiseController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse),HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "removeCompanyFromFranchise", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "removeCompanyFromFranchise", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> removeCompanyFromFranchise(@RequestParam("companyId") Integer companyId, @RequestParam("franchiseId") Integer franchiseId) {
                 TransactionResponse transactionResponse = new TransactionResponse();
         try {
@@ -134,9 +134,10 @@ public class FranchiseController {
     }
     
     @RequestMapping(value = "saveFranchise", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> saveFranchise(@RequestBody FranchiseDetails franchiseDetails) {
+    public ResponseEntity<ContainerResponse> saveFranchise(@RequestBody String franchiseName) {       
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
+            FranchiseDetails franchiseDetails = new FranchiseDetails(franchiseName);
             franchiseService.saveFranchise(franchiseDetails);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Franchise created successfully"));
         } catch (Throwable ex) {
@@ -148,9 +149,11 @@ public class FranchiseController {
     }
 
     @RequestMapping(value = "updateFranchise", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> updateFranchise(@RequestBody FranchiseDetails franchiseDetails, @RequestParam("franchiseId") Integer franchiseId) {
+    public ResponseEntity<ContainerResponse> updateFranchise(@RequestBody String franchiseName, @RequestParam("franchiseId") Integer franchiseId) {
+        
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
+            FranchiseDetails franchiseDetails = new FranchiseDetails(franchiseName);
             franchiseService.updateFranchise(franchiseDetails, franchiseId);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Franchise updated successfully"));
 
@@ -162,7 +165,7 @@ public class FranchiseController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "deleteFranchise", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "deleteFranchise", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteFranchise(@RequestParam("franchiseId") Integer franchiseId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {

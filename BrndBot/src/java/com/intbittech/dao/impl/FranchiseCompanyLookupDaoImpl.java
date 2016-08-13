@@ -40,9 +40,9 @@ public class FranchiseCompanyLookupDaoImpl implements FranchiseCompanyLookupDao 
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(FranchiseCompanyLookup.class)
-                    .setFetchMode("fk_franchise_id", FetchMode.JOIN)
-                    .setFetchMode("fk_company_id", FetchMode.JOIN)
-                    .add(Restrictions.eq("fk_franchise_id", franchise.getFranchiseId()));
+                    .setFetchMode("fkFranchiseId", FetchMode.JOIN)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkFranchiseId.franchiseId", franchise.getFranchiseId()));
             List<FranchiseCompanyLookup> franchises = criteria.list();
             if (franchises.isEmpty()) {
                 return null;
@@ -62,9 +62,9 @@ public class FranchiseCompanyLookupDaoImpl implements FranchiseCompanyLookupDao 
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(FranchiseCompanyLookup.class)
-                    .setFetchMode("fk_franchise_id", FetchMode.JOIN)
-                    .setFetchMode("fk_company_id", FetchMode.JOIN)
-                    .add(Restrictions.eq("fk_company_id", company.getCompanyId()));
+                    .setFetchMode("fkFranchiseId", FetchMode.JOIN)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkCompanyId.companyId", company.getCompanyId()));
             List<FranchiseCompanyLookup> franchiseCompanyLookups = criteria.list();
             if (franchiseCompanyLookups.isEmpty()) {
                 return null;
@@ -114,10 +114,10 @@ public class FranchiseCompanyLookupDaoImpl implements FranchiseCompanyLookupDao 
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(FranchiseCompanyLookup.class)
-                    .setFetchMode("fk_franchise_id", FetchMode.JOIN)
-                    .setFetchMode("fk_company_id", FetchMode.JOIN)
-                    .add(Restrictions.eq("fk_company_id", companyId))
-                    .add(Restrictions.eq("fk_franchise_id", franchiseId));
+                    .setFetchMode("fkFranchiseId", FetchMode.JOIN)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkCompanyId.companyId", companyId))
+                    .add(Restrictions.eq("fkFranchiseId.franchiseId", franchiseId));
             List<FranchiseCompanyLookup> franchiseCompanyLookups = criteria.list();
             if (franchiseCompanyLookups.isEmpty()) {
                 return null;

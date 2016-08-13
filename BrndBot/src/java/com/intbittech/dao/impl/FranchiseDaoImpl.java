@@ -37,7 +37,7 @@ public class FranchiseDaoImpl implements FranchiseDao {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(Franchise.class)
-                    .add(Restrictions.eq("franchise_id", franchiseId));
+                    .add(Restrictions.eq("franchiseId", franchiseId));
             List<Franchise> franchises = criteria.list();
             if (franchises.isEmpty()) {
                 return null;
