@@ -134,7 +134,7 @@ function emailBlocksController($scope, $http, fileReader) {
             method: 'GET',
             url: getHost() + '/getEmailBlockModelById?emailBlockModelId=' + emailBlockIdTag
         }).success(function (data, status, headers, config) {
-            $('.fr-element').html(eval(JSON.stringify(data.d.details[0].htmlData)));
+            $('#editor').html(eval(JSON.stringify(data.d.details[0].htmlData)));
             $('#showFileName').text(eval(JSON.stringify(data.d.details[0].imageFileName)));
               $('#imageEditSrc').attr('src','data:image;base64,'+(data.d.details[0].imageFileData));
             $scope.getEmailModels = data.d.details[0];
