@@ -18,16 +18,16 @@ import java.util.List;
  * @author Syed Muzamil at IntBit Technologies.
  */
 public interface UserCompanyLookupDao {
-/**
-     * This method pass userRoleLookup as input and get the {@link Integer} from database
+    /**
+     * This method pass userCompanyLookup as input and get the {@link Integer} from database
      *
      * @param userCompanyLookup
      * @return {@link Integer}
      * @throws ProcessFailed the process failed
      */
-    public boolean isCompanyExist(UserCompanyLookup userCompanyLookup) throws ProcessFailed;    
+    public boolean isCompanyExist(UserCompanyLookup userCompanyLookup) throws ProcessFailed;  
     /**
-     * This method pass userRoleLookup as input and get the {@link Integer} from database
+     * This method pass userCompanyLookup as input and get the {@link Integer} from database
      *
      * @param userCompanyLookup
      * @return {@link Integer}
@@ -36,14 +36,14 @@ public interface UserCompanyLookupDao {
     public Integer save(UserCompanyLookup userCompanyLookup) throws ProcessFailed;
     
     /**
-     * This method pass userRoleLookup as input and updates the {@link UsersRoleLookup} from database
+     * This method pass userCompanyLookup as input and updates the {@link UsersRoleLookup} from database
      *
      * @param userCompanyLookup
      * @throws ProcessFailed the process failed
      */
     public void update(UserCompanyLookup userCompanyLookup) throws ProcessFailed;
     /**
-     * This method pass userRoleLookup as input and updates the {@link UsersRoleLookup} from database
+     * This method pass userCompanyLookup as input and updates the {@link UsersRoleLookup} from database
      *
      * @param userCompanyLookup
      * @throws ProcessFailed the process failed
@@ -84,7 +84,7 @@ public interface UserCompanyLookupDao {
      * @return {@link UserRole}
      * @throws ProcessFailed the process failed
      */
-    public Company getUsersCompanyByUserId(Users user) throws ProcessFailed;
+    public UserCompanyLookup getUsersCompanyByUserId(Users user) throws ProcessFailed;
     /**
      * This method retrieves the list of {@link SubCategory} from Database.
      *

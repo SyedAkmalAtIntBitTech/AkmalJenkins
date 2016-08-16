@@ -14,9 +14,9 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.logoValidation = logoValidation;
         $scope.userHashId = "";
         $scope.userId = 0;
+        $scope.hideDataOverlay = true;
 //        $scope.companyName = "";
         $scope.organizationId = "";
-
         function validateSignUp()
         {
             var emailId = $scope.signUpEmail;
@@ -173,7 +173,23 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 }
             });
         };
+        $scope.getAllCompanies = function (){
+            onboardingFactory.getAllCompaniesGet().then(function(data){
+               $scope.companies = data.d.details; 
+               alert(JSON.stringify($scope.companies));
+               $scope.hideDataOverlay = false;
+            });
+        };
 
+        $scope.getAccountStatusGet = function(companyDetails){
+            alert(JSON.stringify(companyDetails))
+            onboardingFactory.getAccountStatusGet(companyDetails).then(function(data){
+               $scope.message = data.d.message; 
+               alert(data.d.message);
+               $scope.hideDataOverlay = false;
+            });
+        };
+        
         $scope.getActivationLink = function (studioId) {
             onboardingFactory.saveStudioIdPost(studioId).then(function (data) {
                 var studioIdSaved = eval(JSON.stringify(data.d.message));

@@ -5,12 +5,15 @@
  */
 package com.intbittech.services.impl;
 
+import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.UserCompanyLookupDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
+import com.intbittech.model.UserCompanyDetails;
 import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.Users;
 import com.intbittech.services.UserCompanyLookupService;
+import com.intbittech.services.UsersService;
 import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -30,10 +33,16 @@ public class UserCompanyLookupServiceImpl implements UserCompanyLookupService {
 
     @Autowired
     private UserCompanyLookupDao usersCompanyLookUpDao;
-    
+
     @Autowired
     private MessageSource messageSource;
 
+    @Autowired
+    private UsersService usersService;
+
+    @Autowired
+    private CompanyDao companyDao;
+    
     @Override
     public boolean isCompanyExist(UserCompanyLookup usersCompanyLookup) throws ProcessFailed {
         return usersCompanyLookUpDao.isCompanyExist(usersCompanyLookup);
@@ -99,8 +108,8 @@ public class UserCompanyLookupServiceImpl implements UserCompanyLookupService {
     }
 
     @Override
-    public Company getUsersCompanyByUserId(Users user) throws ProcessFailed {
-        Company company = usersCompanyLookUpDao.getUsersCompanyByUserId(user);
+    public UserCompanyLookup getUsersCompanyByUserId(Users user) throws ProcessFailed {
+        UserCompanyLookup company = usersCompanyLookUpDao.getUsersCompanyByUserId(user);
         if(company == null)
         {
              throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
@@ -117,4 +126,21 @@ public class UserCompanyLookupServiceImpl implements UserCompanyLookupService {
         return userCompanyLookup;
     }
     
+    @Override
+    public String getStatus(UserCompanyDetails userCompanyDetails)throws ProcessFailed{
+        
+        String statusReturn = "";
+        try{
+            Users user = usersService.getUserByEmailId(userCompanyDetails.getUserId());
+            Company company = companyDao.getCompanyById(userCompanyDetails.getCompanyId());
+
+            UserCompanyLookup userCompanyLookup = getUserCompanyLookupByUserAndCompanyId(user,company);
+            
+            statusReturn = userCompanyLookup.getAccountStatus();
+        }catch (Throwable throwable){
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("something_wrong",new String[]{}, Locale.US));
+        }
+        return statusReturn;
+    }
 }

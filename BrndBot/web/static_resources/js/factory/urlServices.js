@@ -663,7 +663,7 @@ factoryApp.service('configurationService', function (){
     this.getInvitedUsersURL = function (){
         return getHost() + "settings/getInvitedUsers";
     };
-    
+
     this.setColorsURL = function () {
         return getHost() + "settings/setColors";
     };
@@ -720,6 +720,14 @@ factoryApp.service('configurationService', function (){
     
     this.userWelcomePageURL = function () {
         return getHost() + "user";
+    };
+    
+    this.getAllCompaniesURL = function (){
+        return getHost() + "user/getUserCompanyDetails";
+    };
+
+    this.getAccountStatusURL = function (){
+        return getHost() + "user/checkUserCompanyActivation";
     };
     
     this.userJspPagesURL = function () {

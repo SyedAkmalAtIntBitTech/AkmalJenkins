@@ -6,6 +6,7 @@
 package com.intbittech.model;
 
 import java.util.Collection;
+import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
@@ -15,7 +16,7 @@ import org.springframework.security.core.userdetails.User;
  */
 public class UserProfile extends User{
     private Users user;
-
+    
     public Users getUser() {
         return user;
     }

@@ -8,12 +8,10 @@ package com.intbittech.services.impl;
 import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.OrganizationCompanyDao;
 import com.intbittech.dao.UserRoleLookUpDao;
-import com.intbittech.dao.UsersDao;
 import com.intbittech.enums.AdminStatus;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
-import com.intbittech.model.MarketingCategoryProgram;
 import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCompanyLookup;
 import com.intbittech.model.UserCompanyLookup;
@@ -23,7 +21,6 @@ import com.intbittech.model.UsersRoleLookup;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.UserCompanyLookupService;
-import com.intbittech.services.UserRoleLookUpService;
 import com.intbittech.services.UsersService;
 import java.util.Date;
 import java.util.List;
@@ -49,17 +46,11 @@ public class CompanyServiceImpl implements CompanyService{
     private OrganizationCompanyDao organizationCompanyDao;
     
     @Autowired
-    private UsersDao usersDao;
-    
-    @Autowired
     private MessageSource messageSource;
     
     @Autowired
     private UserRoleLookUpDao usersRoleLookUpDao;    
 
-    @Autowired
-    private UserRoleLookUpService usersRoleLookUpService;
-    
     @Autowired
     private UserCompanyLookupService userCompanyLookUpService;
     
@@ -235,5 +226,5 @@ public class CompanyServiceImpl implements CompanyService{
             throw new ProcessFailed(messageSource.getMessage("company_preferences_save_error", new String[]{}, Locale.US));
         }
     }
-    
+   
 }

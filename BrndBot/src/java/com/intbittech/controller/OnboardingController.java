@@ -127,9 +127,6 @@ public class OnboardingController {
 //            todochange it with companyid
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUserId(userProfile.getUser());
-//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//            Integer companyId = 1;
 
             //save studioId
             Company company = new Company();
@@ -155,7 +152,8 @@ public class OnboardingController {
 //            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
 //            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = 1;
+            UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUserId(userProfile.getUser());
+            Integer companyId = userCompanyLookup.getCompanyid().getCompanyId();
 
             Runnable myRunnable = new Runnable() {
                 public void run() {
@@ -212,10 +210,10 @@ public class OnboardingController {
             //Change to new AppConstants
             String uploadPath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH;
 //            todochange it with companyid
-//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
 //            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = 1;
+            UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUserId(userProfile.getUser());
+            Integer companyId = userCompanyLookup.getCompanyid().getCompanyId();
             uploadPath = uploadPath + File.separator + companyId + File.separator + "logo";
             String FileName = AppConstants.COMPANY_LOGO_FILENAME;
             String FilePath = uploadPath + File.separator + FileName;
@@ -240,7 +238,8 @@ public class OnboardingController {
 //            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
 //            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = 1;
+            UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUserId(userProfile.getUser());
+            Integer companyId = userCompanyLookup.getCompanyid().getCompanyId();
             String filePath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + "logo";
             storableFileName = FileHandlerUtil.saveCompanyLogo(filePath, AppConstants.COMPANY_LOGO_FILENAME, companyLogoDetails.getImageData());
             transactionResponse.setMessage(storableFileName);

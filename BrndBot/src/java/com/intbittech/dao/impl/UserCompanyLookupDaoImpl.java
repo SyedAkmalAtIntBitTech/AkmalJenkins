@@ -9,9 +9,7 @@ import com.intbittech.dao.UserCompanyLookupDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.UserCompanyLookup;
-import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
-import com.intbittech.model.UsersRoleLookup;
 import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -41,8 +39,8 @@ public class UserCompanyLookupDaoImpl implements UserCompanyLookupDao {
         boolean isUserUnique = true;
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(UserCompanyLookup.class)
-                .add(Restrictions.eq("companyId", userCompanyLookup.getCompanyid()))
-                .add(Restrictions.eq("userId", userCompanyLookup.getUserid()));
+                .add(Restrictions.eq("companyid", userCompanyLookup.getCompanyid()))
+                .add(Restrictions.eq("userid", userCompanyLookup.getUserid()));
         if (criteria.list().isEmpty()) {
             isUserUnique = true;
         } else {
@@ -96,7 +94,7 @@ public class UserCompanyLookupDaoImpl implements UserCompanyLookupDao {
     public UserCompanyLookup getUsersCompanyLookupByUserId(Users userId) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(UserCompanyLookup.class)
-                .add(Restrictions.eq("userId", userId));
+                .add(Restrictions.eq("userid", userId));
         if (criteria.list().isEmpty()) {
             return null;
         }
@@ -107,8 +105,8 @@ public class UserCompanyLookupDaoImpl implements UserCompanyLookupDao {
     public UserCompanyLookup getUsersCompanyLookupByUserAndCompanyId(Users user, Company company) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(UserCompanyLookup.class)
-                .add(Restrictions.eq("userId", user))
-                .add(Restrictions.eq("companyId", company));
+                .add(Restrictions.eq("userid", user))
+                .add(Restrictions.eq("companyid", company));
         if (criteria.list().isEmpty()) {
             return null;
         }
@@ -116,14 +114,14 @@ public class UserCompanyLookupDaoImpl implements UserCompanyLookupDao {
     }
 
     @Override
-    public Company getUsersCompanyByUserId(Users user) throws ProcessFailed {
+    public UserCompanyLookup getUsersCompanyByUserId(Users user) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(UserCompanyLookup.class)
-                .add(Restrictions.eq("userId", user));
+                .add(Restrictions.eq("userid", user));
         if (criteria.list().isEmpty()) {
             return null;
         }
-        return (Company) criteria.list().get(0);
+        return (UserCompanyLookup) criteria.list().get(0);
     }
 
     @Override
@@ -131,7 +129,7 @@ public class UserCompanyLookupDaoImpl implements UserCompanyLookupDao {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(UserCompanyLookup.class)
-                    .add(Restrictions.eq("userId", user));
+                    .add(Restrictions.eq("userid", user));
             if (criteria.list().isEmpty()) {
                 return null;
             }

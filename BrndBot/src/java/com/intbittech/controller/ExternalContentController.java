@@ -15,6 +15,7 @@ import com.intbittech.model.EmailBlockModelLookup;
 import com.intbittech.model.ExternalSourceKeywordLookup;
 import com.intbittech.model.SubCategoryEmailModel;
 import com.intbittech.model.SubCategoryExternalSource;
+import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
@@ -24,6 +25,7 @@ import com.intbittech.services.EmailModelService;
 import com.intbittech.services.ExternalSourceKeywordLookupService;
 import com.intbittech.services.SubCategoryEmailModelService;
 import com.intbittech.services.SubCategoryExternalSourceService;
+import com.intbittech.services.UserCompanyLookupService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.UserSessionUtil;
 import java.sql.SQLException;
@@ -71,6 +73,8 @@ public class ExternalContentController {
     private EmailBlockExternalSourceService emailBlockExternalSourceService;
     @Autowired
     private SubCategoryEmailModelService subCategoryEmailModelService;
+    @Autowired
+    private UserCompanyLookupService userCompanyLookupService;
 
     @RequestMapping(value = "/isActivated", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> isActivated() throws SQLException {
@@ -78,8 +82,9 @@ public class ExternalContentController {
 //            todochange it with companyid
 //            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
 //            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = 1;
+        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+        UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUserId(userProfile.getUser());
+        Integer companyId = userCompanyLookup.getCompanyid().getCompanyId();
         externalContentProcessor = new ExternalContentProcessor(companyId);
         genericResponse.addDetail(externalContentProcessor.isActivated());
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
@@ -88,12 +93,9 @@ public class ExternalContentController {
     @RequestMapping(value = "/getActivationLink", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getActivationLink() throws SQLException {
         GenericResponse<String> genericResponse = new GenericResponse<>();
-//            todochange it with companyid
-//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = 1;
-        externalContentProcessor = new ExternalContentProcessor(companyId);
+        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+        UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUserId(userProfile.getUser());
+        externalContentProcessor = new ExternalContentProcessor(userCompanyLookup.getCompanyid().getCompanyId());
         genericResponse.addDetail(externalContentProcessor.getActivationLink());
 
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);

@@ -28,6 +28,23 @@ factoryApp.factory('onboardingFactory', function ($q,authenticatedServiceFactory
         });
         return deffered.promise;
     };
+    onboardingFactoryObject.getAllCompaniesGet = function () {
+        var deffered = $q.defer();
+        var url = configurationService.getAllCompaniesURL();
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+
+    onboardingFactoryObject.getAccountStatusGet = function (companyDetails) {
+        var deffered = $q.defer();
+        var url = configurationService.getAccountStatusURL();
+        authenticatedServiceFactory.makeCall("POST", url, companyDetails, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
 
     onboardingFactoryObject.inviteUserPost = function (userDetails) {
         var deffered = $q.defer();

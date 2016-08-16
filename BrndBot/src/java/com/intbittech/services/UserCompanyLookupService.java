@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
+import com.intbittech.model.UserCompanyDetails;
 import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
@@ -35,13 +36,20 @@ public interface UserCompanyLookupService {
      */
     public String save(UserCompanyLookup usersCompanyLookup) throws ProcessFailed;
     /**
+     * This method pass usersRoleLookup as input and get the {@link String} from DAO layer.
+     *
+     * @param usersCompanyLookup
+     * @return {@link String}
+     * @throws ProcessFailed the process failed
+     */
+    public String getStatus(UserCompanyDetails userCompanyDetails)throws ProcessFailed;    
+    /**
      * This method pass usersRoleLookup as input and updates the {@link UsersRoleLookup} from DAO layer.
      *
      * @param usersCompanyLookup
      * @return {@link String}
      * @throws ProcessFailed the process failed
      */
-    
     public void update(UserCompanyLookup usersCompanyLookup)throws ProcessFailed;
     /**
      * This method pass id as input and deletes the {@link UsersRoleLookup} from DAO layer.
@@ -85,7 +93,7 @@ public interface UserCompanyLookupService {
      * @return {@link UserRole}
      * @throws ProcessFailed the process failed
      */
-    public Company getUsersCompanyByUserId(Users user) throws ProcessFailed;    
+    public UserCompanyLookup getUsersCompanyByUserId(Users user) throws ProcessFailed;    
     /**
      * This method retrieves the list of {@link SubCategory} from Database.
      *

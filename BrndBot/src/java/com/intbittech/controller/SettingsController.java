@@ -17,6 +17,7 @@ import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.InvitedUsers;
+import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserProfile;
 import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.modelmappers.FooterDetails;
@@ -27,6 +28,7 @@ import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.EmailListService;
 import com.intbittech.services.ForgotPasswordService;
+import com.intbittech.services.UserCompanyLookupService;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
@@ -103,6 +105,8 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     private CompanyPreferencesService companyPreferencesService;
     @Autowired
     private EmailListService emailListService;
+    @Autowired
+    private UserCompanyLookupService userCompanyLookupService;
 
     @RequestMapping(value = "/sendInvitation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> sendInvitation(@RequestBody InviteDetails inviteDetails) {
@@ -215,9 +219,10 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUserId(userProfile.getUser());
 //          todochange it with companyid
 //            Company company = userProfile.getUser().getFkCompanyId();
-            Company company = new Company();
+            Company company = userCompanyLookup.getCompanyid();
             companyPreferencesService.setColors(companyColorsDetails, company);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyCategories_color_update", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {

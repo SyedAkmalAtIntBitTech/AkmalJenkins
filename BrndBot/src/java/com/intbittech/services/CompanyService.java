@@ -45,7 +45,7 @@ public interface CompanyService {
      * @throws ProcessFailed the process failed
      */
     public OrganizationCompanyLookup getOrganizationCompanyById(Integer companyId) throws ProcessFailed;
-    
+       
     /**
      * This method retrieves the {@link OrganizationCompanyLookup} from DAO layer.
      *
