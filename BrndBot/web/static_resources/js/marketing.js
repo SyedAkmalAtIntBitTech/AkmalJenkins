@@ -495,7 +495,7 @@ var count=0;
             {
                 selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
                 count+=1;
-                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+                $("#"+id).html(content+'<img src="../images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#"+id).toggleClass('selection-icon');
             $("#"+id).toggleClass('selection-icon-selected');

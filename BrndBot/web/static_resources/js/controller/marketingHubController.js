@@ -80,7 +80,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             {
                 selected_emaildrafts_to_delete = selected_schedule_id + "," + selected_emaildrafts_to_delete;
                 count += 1;
-                $("#" + id).html(content + '<img src="images/checkbox-check.svg" class="check-icon" style="cursor:pointer;"/>');
+                $("#" + id).html(content + '<img src="../images/checkbox-check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#" + id).toggleClass('selection-icon');
             $("#" + id).toggleClass('selection-icon-selected');
@@ -107,7 +107,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             } else {
                 selectedemailids = emailListID + "," + selectedemailids;
                 count += 1;
-                $("#" + emailListID).html(content + '<img src="images/checkbox-check.svg" class="check-icon" style="cursor:pointer;"/>');
+                $("#" + emailListID).html(content + '<img src="../images/checkbox-check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#" + emailListID).toggleClass('selection-icon');
             $("#" + emailListID).toggleClass('selection-icon-selected');
@@ -154,7 +154,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             } else {
                 selectedemailids = id + "," + selectedemailids;
                 count += 1;
-                $("#" + id).html(content + '<img src="images/checkbox-check.svg" class="check-icon" style="cursor:pointer;"/>');
+                $("#" + id).html(content + '<img src="../images/checkbox-check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#" + id).toggleClass('selection-icon');
             $("#" + id).toggleClass('selection-icon-selected');
@@ -957,7 +957,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             } else {
                 selectedemailids = id + "," + selectedemailids;
                 count += 1;
-                $("#" + id).html(content + '<img src="images/checkbox-check.svg" class="check-icon" style="cursor:pointer;"/>');
+                $("#" + id).html(content + '<img src="../images/checkbox-check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#" + id).toggleClass('selection-icon');
             $("#" + id).toggleClass('selection-icon-selected');

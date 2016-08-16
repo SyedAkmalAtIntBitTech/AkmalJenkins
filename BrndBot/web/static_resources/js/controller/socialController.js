@@ -22,7 +22,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.displayImage = 'https://daks2k3a4ib2z.cloudfront.net/562feb3ef5fe5a8c1fd02272/56b8940906817e9a2bbb57ca_Deafult-Image_680x330.jpg';
         $scope.addImageToPostButton = true;
         $scope.twitterImageDivToPost = false;
-        $scope.imageToBeUploaded = 'images/uploadPhoto.svg';
+        $scope.imageToBeUploaded = '../images/uploadPhoto.svg';
         $scope.postType = 'Change To Link Post';
         $scope.TwtPostType="Change To Link Post";
         $scope.existingAction = false;
