@@ -151,28 +151,24 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             if (lookupId)
             {
                 appSessionFactory.setEmail(getLookupId(),lookupId).then(function(data){
-                    alert("saved?"+data);
                 });
 //                $scope.lookupId = lookupId;
             }
             if (categoryId)
             {
                 appSessionFactory.setEmail(getCategoryId(),categoryId).then(function(data){
-                    alert("saved?"+data);
                 });
 //                $scope.categoryId = categoryId;
             }
             if (subCategoryId)
             {
                 appSessionFactory.setEmail(getSubCategoryId(),subCategoryId).then(function(data){
-                    alert("saved?"+data);
                 });
 //                $scope.subCategoryId = subCategoryId;
             }
             if (mindbody === 'Mindbody')
             {
                 appSessionFactory.setEmail(getExternalSourceName(),'mindbody').then(function(data){
-                    alert("saved?"+data);
                 });
 //                $scope.externalSourceName = 'mindbody';
                 redirect = $scope.forwardone;
@@ -187,21 +183,18 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             if (mindbodyId)
             {
                 appSessionFactory.setEmail(getMindbodyId(),mindbodyId).then(function(data){
-                    alert("saved?"+data);
                 });
 //                $scope.mindbodyid = mindbodyid;
             }
             if (draftId)
             {
                 appSessionFactory.setEmail(getDraftId(),draftId).then(function(data){
-                    alert("saved?"+data);
                 });
 //                $scope.draftId = draftId;
             }
             if (emailSubject)
             {
                 appSessionFactory.setEmail(getEmailSubject(),emailSubject).then(function(data){
-                    alert("saved?"+data);
                 });
 //                $scope.emailSubject = emailSubject;
             }
