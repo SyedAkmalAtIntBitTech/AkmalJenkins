@@ -722,10 +722,14 @@ factoryApp.service('configurationService', function (){
         return getHost() + "user";
     };
     
-    this.getAllCompaniesURL = function (){
-        return getHost() + "user/getUserCompanyDetails";
+    this.getAllUserCompaniesURL = function (){
+        return getHost() + "user/getAllUserCompanyDetails";
     };
 
+    this.getLoggedInUserId = function(){
+        return getHost() + "user/getLoggedInUserId";
+    };
+    
     this.getAccountStatusURL = function (){
         return getHost() + "user/checkUserCompanyActivation";
     };

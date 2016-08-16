@@ -1,7 +1,11 @@
+
 <div class="main-content-wrap">
     <div class="top-nav-wrap">
-        <div class="header">
+        <div class="header" ng-init="getUserDetails()">
             <h2 class="">Your Dashboard</h2>
+            <h2>{{companyName}} {{userFirstName}} {{userLastName}} {{userRole}} {{logourl}}</h2>
+            <input type="button" name="changeCompany" id="changeCompany" value="change company" ng-click="showCompanyList();" />
+          
         </div>
     </div>
     <div class="top-nav-bar-offset"></div>

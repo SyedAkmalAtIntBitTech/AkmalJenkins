@@ -87,8 +87,8 @@ public class UserCompanyLookupServiceImpl implements UserCompanyLookupService {
     }
 
     @Override
-    public UserCompanyLookup getUserCompanyLookupByUserId(Users userId) throws ProcessFailed {
-        UserCompanyLookup userCompanyLookup = usersCompanyLookUpDao.getUsersCompanyLookupByUserId(userId);
+    public UserCompanyLookup getUserCompanyLookupByUser(Users user) throws ProcessFailed {
+        UserCompanyLookup userCompanyLookup = usersCompanyLookUpDao.getUsersCompanyLookupByUser(user);
         if(userCompanyLookup == null)
         {
              throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
@@ -97,8 +97,8 @@ public class UserCompanyLookupServiceImpl implements UserCompanyLookupService {
     }
 
     @Override
-    public UserCompanyLookup getUserCompanyLookupByUserAndCompanyId(Users userId, Company companyId) throws ProcessFailed {
-        UserCompanyLookup userCompanyLookup = usersCompanyLookUpDao.getUsersCompanyLookupByUserAndCompanyId(userId, companyId);
+    public UserCompanyLookup getUserCompanyLookupByUserAndCompany(Users user, Company company) throws ProcessFailed {
+        UserCompanyLookup userCompanyLookup = usersCompanyLookUpDao.getUsersCompanyLookupByUserAndCompany(user, company);
         if(userCompanyLookup == null)
         {
             return null;
@@ -108,8 +108,8 @@ public class UserCompanyLookupServiceImpl implements UserCompanyLookupService {
     }
 
     @Override
-    public UserCompanyLookup getUsersCompanyByUserId(Users user) throws ProcessFailed {
-        UserCompanyLookup company = usersCompanyLookUpDao.getUsersCompanyByUserId(user);
+    public UserCompanyLookup getUsersCompanyByUser(Users user) throws ProcessFailed {
+        UserCompanyLookup company = usersCompanyLookUpDao.getUsersCompanyByUser(user);
         if(company == null)
         {
              throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
@@ -118,8 +118,8 @@ public class UserCompanyLookupServiceImpl implements UserCompanyLookupService {
     }
 
     @Override
-    public List<UserCompanyLookup> getAllUserCompaniesByUserId(Users user) throws ProcessFailed {
-        List<UserCompanyLookup> userCompanyLookup = usersCompanyLookUpDao.getAllUserCompaniesByUserId(user);
+    public List<UserCompanyLookup> getAllUserCompaniesByUser(Users user) throws ProcessFailed {
+        List<UserCompanyLookup> userCompanyLookup = usersCompanyLookUpDao.getAllUserCompaniesByUser(user);
         if (userCompanyLookup.isEmpty()) {
             throw new ProcessFailed("No Sub Categories found.");
         }
@@ -134,7 +134,7 @@ public class UserCompanyLookupServiceImpl implements UserCompanyLookupService {
             Users user = usersService.getUserByEmailId(userCompanyDetails.getUserId());
             Company company = companyDao.getCompanyById(userCompanyDetails.getCompanyId());
 
-            UserCompanyLookup userCompanyLookup = getUserCompanyLookupByUserAndCompanyId(user,company);
+            UserCompanyLookup userCompanyLookup = getUserCompanyLookupByUserAndCompany(user,company);
             
             statusReturn = userCompanyLookup.getAccountStatus();
         }catch (Throwable throwable){

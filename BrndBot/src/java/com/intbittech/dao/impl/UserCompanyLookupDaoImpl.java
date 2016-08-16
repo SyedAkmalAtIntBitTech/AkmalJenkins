@@ -91,10 +91,10 @@ public class UserCompanyLookupDaoImpl implements UserCompanyLookupDao {
     }
 
     @Override
-    public UserCompanyLookup getUsersCompanyLookupByUserId(Users userId) throws ProcessFailed {
+    public UserCompanyLookup getUsersCompanyLookupByUser(Users user) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(UserCompanyLookup.class)
-                .add(Restrictions.eq("userid", userId));
+                .add(Restrictions.eq("userid", user));
         if (criteria.list().isEmpty()) {
             return null;
         }
@@ -102,7 +102,7 @@ public class UserCompanyLookupDaoImpl implements UserCompanyLookupDao {
     }
 
     @Override
-    public UserCompanyLookup getUsersCompanyLookupByUserAndCompanyId(Users user, Company company) throws ProcessFailed {
+    public UserCompanyLookup getUsersCompanyLookupByUserAndCompany(Users user, Company company) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(UserCompanyLookup.class)
                 .add(Restrictions.eq("userid", user))
@@ -114,7 +114,7 @@ public class UserCompanyLookupDaoImpl implements UserCompanyLookupDao {
     }
 
     @Override
-    public UserCompanyLookup getUsersCompanyByUserId(Users user) throws ProcessFailed {
+    public UserCompanyLookup getUsersCompanyByUser(Users user) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(UserCompanyLookup.class)
                 .add(Restrictions.eq("userid", user));
@@ -125,7 +125,7 @@ public class UserCompanyLookupDaoImpl implements UserCompanyLookupDao {
     }
 
     @Override
-    public List<UserCompanyLookup> getAllUserCompaniesByUserId(Users user) throws ProcessFailed {
+    public List<UserCompanyLookup> getAllUserCompaniesByUser(Users user) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(UserCompanyLookup.class)

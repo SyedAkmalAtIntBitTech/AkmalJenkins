@@ -1,4 +1,4 @@
-dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$location', 'categoryFactory', 'subCategoryFactory','externalContentFactory','redirectFactory','SharedService', function ($scope, $window, $location, categoryFactory, subCategoryFactory,externalContentFactory,redirectFactory,SharedService) {
+dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$location', 'categoryFactory', 'subCategoryFactory','externalContentFactory','redirectFactory','SharedService','onboardingFactory', function ($scope, $window, $location, categoryFactory, subCategoryFactory,externalContentFactory,redirectFactory,SharedService,onboardingFactory) {
         $scope.emailChannelId = 3;
         $scope.printChannelId = 2;
         $scope.imageChannelId = 1;
@@ -11,6 +11,34 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
         $scope.emailsubject="";
         $scope.emailSubjectError="";
         $scope.sharedData="";
+        $scope.companyName = "";
+        $scope.userFirstName = "";
+        $scope.userLastName = "";
+        $scope.userRole = "";
+        $scope.logourl = "";
+        $scope.companyList = false;        
+        
+        $scope.getUserDetails = function(){
+            var companyDetails = JSON.parse(localStorage.getItem("companyDetails"));
+            
+            $scope.companyName = companyDetails.companyName;
+            $scope.userFirstName = companyDetails.userFirstName;
+            $scope.userLastName = companyDetails.userLastName;
+            $scope.userRole = companyDetails.roleName; 
+            $scope.logourl = companyDetails.logourl;
+        };
+        
+        $scope.showCompanyList = function(){
+         window.location = getHost() + "user/loading";
+        };
+        
+        $scope.getAllUserCompanies = function (){
+            onboardingFactory.getAllUserCompanies().then(function(data){
+               $scope.companies = data.d.details; 
+               $scope.hideDataOverlay = false;
+            });
+        };
+        
         $scope.redirect = function (redirect, categoryId, mindbody,lookupId, mindbodyid)
         {            
             $scope.lookupId=lookupId;

@@ -7,7 +7,6 @@ package com.intbittech.services.impl;
 
 import com.controller.ApplicationContextListener;
 import com.controller.GenerateHashPassword;
-import com.intbittech.controller.SignupController;
 import com.intbittech.dao.UsersInviteDao;
 import com.intbittech.email.mandrill.Message;
 import com.intbittech.email.mandrill.Recipient;
@@ -39,7 +38,6 @@ import java.util.List;
 import java.util.Locale;
 import javax.servlet.ServletContext;
 import org.apache.log4j.Logger;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -154,7 +152,10 @@ public class UsersInviteServiceImpl implements UsersInviteService{
 
             if (isUsed){
                 Users user = companyInvite.getInviteSentTo();
-                UserCompanyLookup userCompanyLookup =  userCompanyLookupService.getUserCompanyLookupByUserAndCompanyId(user, null);
+                Users fromUser = companyInvite.getInviteSentBy();
+                UserCompanyLookup company = userCompanyLookupService.getUserCompanyLookupByUser(fromUser);
+                
+                UserCompanyLookup userCompanyLookup =  userCompanyLookupService.getUserCompanyLookupByUserAndCompany(user, company.getCompanyid());
                 userCompanyLookup.setAccountStatus(AdminStatus.valueOf("Account_Deactivated").getDisplayName());
                 userCompanyLookupService.update(userCompanyLookup);
             }else {

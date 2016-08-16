@@ -66,7 +66,7 @@ public interface UserCompanyLookupDao {
      * @return {@link UsersRoleLookup}
      * @throws ProcessFailed the process failed
      */
-    public UserCompanyLookup getUsersCompanyLookupByUserId(Users userId) throws ProcessFailed;
+    public UserCompanyLookup getUsersCompanyLookupByUser(Users userId) throws ProcessFailed;
 
    /**
      * This method pass user as input and get the {@link UsersRoleLookup} from database
@@ -75,7 +75,7 @@ public interface UserCompanyLookupDao {
      * @return {@link UsersRoleLookup}
      * @throws ProcessFailed the process failed
      */
-    public UserCompanyLookup getUsersCompanyLookupByUserAndCompanyId(Users user, Company role) throws ProcessFailed;
+    public UserCompanyLookup getUsersCompanyLookupByUserAndCompany(Users user, Company role) throws ProcessFailed;
     
     /**
      * This method pass user as input and get the {@link UserRole} from database
@@ -84,7 +84,7 @@ public interface UserCompanyLookupDao {
      * @return {@link UserRole}
      * @throws ProcessFailed the process failed
      */
-    public UserCompanyLookup getUsersCompanyByUserId(Users user) throws ProcessFailed;
+    public UserCompanyLookup getUsersCompanyByUser(Users user) throws ProcessFailed;
     /**
      * This method retrieves the list of {@link SubCategory} from Database.
      *
@@ -92,6 +92,6 @@ public interface UserCompanyLookupDao {
      * @return {@link SubCategory}
      * @throws ProcessFailed the process failed
      */
-    public List<UserCompanyLookup> getAllUserCompaniesByUserId(Users user) throws ProcessFailed;    
+    public List<UserCompanyLookup> getAllUserCompaniesByUser(Users user) throws ProcessFailed;    
     
 }

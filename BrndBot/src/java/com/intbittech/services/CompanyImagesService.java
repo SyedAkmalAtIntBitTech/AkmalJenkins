@@ -8,10 +8,6 @@ package com.intbittech.services;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyImages;
-import com.intbittech.model.CompanyPreferences;
-import com.intbittech.model.Organization;
-import com.intbittech.model.OrganizationCompanyLookup;
-import com.intbittech.modelmappers.CompanyDetails;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
@@ -54,5 +50,7 @@ public interface CompanyImagesService {
     public String getPath(Integer companyId);
 
     public String getLink(String fileName, Company company, String imageURL);
-  
+    
+    public CompanyImages getCompanyImagesByCompany(Company company);
+
 }

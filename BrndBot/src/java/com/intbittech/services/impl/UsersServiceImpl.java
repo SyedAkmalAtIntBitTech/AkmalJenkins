@@ -174,6 +174,7 @@ public class UsersServiceImpl implements UsersService {
         Invite companyInvite = null;TaskDetails taskdetails = null;
         List roles = null;UsersRoleLookup usersRoleLookUp = null;
         UserCompanyLookup userCompanyLookup = null;
+        Integer userId =0;
         try {
             companyInvite = usersInviteService.getInvitedUserByInviteCode(usersDetails.getInvitationCode());
         /** this step checks the validity of the invitation code **/
@@ -187,19 +188,17 @@ public class UsersServiceImpl implements UsersService {
                 user.setLastName(usersDetails.getLastName());
                 user.setCreatedDate(new Date());
                 Users sentUser = companyInvite.getInviteSentBy();
-//                todo change it with companyid                
-//                Company companyObject = sentUser.getFkCompanyId();
-                Company companyObject = new Company();
-                
                 if ((usersDao.checkUniqueUser(user))){
-                    Integer success = usersDao.save(user);
-                }else {
-                    throw new ProcessFailed(messageSource.getMessage("user_exist", new String[]{}, Locale.US));
+                    userId = usersDao.save(user);
                 }
+            userCompanyLookup = userCompanyLookUpService.getUserCompanyLookupByUser(sentUser);
+//          todochange it with companyid
+//            Company company = userProfile.getUser().getFkCompanyId();
+            Company company = userCompanyLookup.getCompanyid();
 
                 userCompanyLookup = new UserCompanyLookup();
 
-                userCompanyLookup.setCompanyid(companyObject);
+                userCompanyLookup.setCompanyid(company);
                 userCompanyLookup.setUserid(user);
                 userCompanyLookup.setAccountStatus(AdminStatus.valueOf("Account_Activated").getDisplayName());
 
@@ -228,7 +227,7 @@ public class UsersServiceImpl implements UsersService {
                         throw new ProcessFailed(messageSource.getMessage("role_exist", new String[]{}, Locale.US));
                     }
                 }
-                sendAcknowledgementEMail(usersDetails.getUserName());
+                sendAcknowledgementEmail(usersDetails.getUserName());
                 
             }else {
                 throw new ProcessFailed(messageSource.getMessage("validity_expired", new String[]{}, Locale.US));
@@ -249,7 +248,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public boolean saveNonExistingUser(InviteDetails inviteDetails)throws ProcessFailed{
         boolean returnMessage = false;
-        boolean userExist = false;
+        boolean userExist = false;UserCompanyLookup userCompanyLookup = null;
         try{
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             String fromEmailId = userProfile.getUser().getUserName();
@@ -260,9 +259,8 @@ public class UsersServiceImpl implements UsersService {
             }
             
             if (userExist){
-//                todo change it with companyid                
-//                boolean userExistInCompany = isUserExistInCompany(inviteDetails,userProfile.getUser().getFkCompanyId());
-                boolean userExistInCompany = isUserExistInCompany(inviteDetails, new Company());
+                userCompanyLookup = userCompanyLookUpService.getUserCompanyLookupByUser(userProfile.getUser());
+                boolean userExistInCompany = isUserExistInCompany(inviteDetails,userCompanyLookup.getCompanyid());
                 if (userExistInCompany){
                     setRole(inviteDetails);
                     throw new ProcessFailed(messageSource.getMessage("user_exist_role_assigned", new String[]{}, Locale.US));
@@ -416,7 +414,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public void sendAcknowledgementEMail(String toEmailId)throws ProcessFailed {
+    public void sendAcknowledgementEmail(String toEmailId)throws ProcessFailed {
         try{
             
         Message message = new Message();

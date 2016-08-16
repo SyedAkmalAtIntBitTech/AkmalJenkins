@@ -83,7 +83,7 @@ public class ExternalContentController {
 //            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
 //            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
         UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUserId(userProfile.getUser());
+        UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUser(userProfile.getUser());
         Integer companyId = userCompanyLookup.getCompanyid().getCompanyId();
         externalContentProcessor = new ExternalContentProcessor(companyId);
         genericResponse.addDetail(externalContentProcessor.isActivated());
@@ -94,7 +94,7 @@ public class ExternalContentController {
     public ResponseEntity<ContainerResponse> getActivationLink() throws SQLException {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUserId(userProfile.getUser());
+        UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUser(userProfile.getUser());
         externalContentProcessor = new ExternalContentProcessor(userCompanyLookup.getCompanyid().getCompanyId());
         genericResponse.addDetail(externalContentProcessor.getActivationLink());
 

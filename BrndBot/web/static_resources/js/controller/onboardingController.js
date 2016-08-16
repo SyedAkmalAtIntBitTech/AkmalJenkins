@@ -55,8 +55,8 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 
         $scope.saveUser = function (userDetails) {
             onboardingFactory.saveUserPost(userDetails).then(function (data) {
-                var message = data.d.message;
-                localStorage.setItem("userId",message);
+                var userId = data.d.message;
+                localStorage.setItem("userId",userId);
                     $("#signform").submit();
                     $location.path("/signup/company");
             });
@@ -64,6 +64,12 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 
         $scope.getUserId = function (){
             $scope.userHashId = $location.search().userid;
+        };
+        $scope.getLoggedInUserId = function(){
+            onboardingFactory.getLoggedInUserId().then(function (data){
+                alert(data);
+//                localStorage.setItem("userId",data);
+            });
         };
         $scope.saveInvitedUser = function (userDetails) {
             
@@ -73,11 +79,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             onboardingFactory.saveInvitedUserPost(user).then(function (data) {
                 var message = data.d.message;
                 alert(message);
-                if (message === "true")
-                {
-                    $("#signform").submit();
-                    $location.path("/signup/company");
-                }
+                window.location = getHost() + "user/loading";
             });
         };
 
@@ -173,19 +175,24 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 }
             });
         };
-        $scope.getAllCompanies = function (){
-            onboardingFactory.getAllCompaniesGet().then(function(data){
+        $scope.getAllUserCompanies = function (){
+            var userId = $location.search().userId;
+            onboardingFactory.getAllUserCompanies(userId).then(function(data){
                $scope.companies = data.d.details; 
-               alert(JSON.stringify($scope.companies));
                $scope.hideDataOverlay = false;
             });
         };
 
-        $scope.getAccountStatusGet = function(companyDetails){
-            alert(JSON.stringify(companyDetails))
+        $scope.getAccountStatus = function(companyDetails){
+            localStorage.setItem("companyDetails",JSON.stringify(companyDetails));
             onboardingFactory.getAccountStatusGet(companyDetails).then(function(data){
                $scope.message = data.d.message; 
-               alert(data.d.message);
+               if (data.d.message == 'Activated'){
+                   window.location = getHost() + "user/dashboard";
+               }else if (data.d.message == 'Deactivated'){
+                   alert("your account has been deactivated, please contact system admin");
+                   window.location = getHost() + "login";
+               }
                $scope.hideDataOverlay = false;
             });
         };

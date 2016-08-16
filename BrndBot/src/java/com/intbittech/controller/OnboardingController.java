@@ -108,8 +108,7 @@ public class OnboardingController {
              **/
             boolean returnValue = usersService.saveUser(usersDetails);
             if (returnValue){
-                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(
-                        messageSource.getMessage("user_save", new String[]{}, Locale.US)));
+                transactionResponse.setMessage(messageSource.getMessage("user_save", new String[]{}, Locale.US));
             }else {
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation("something_wrong"));
             }            
@@ -126,7 +125,7 @@ public class OnboardingController {
         try {
 //            todochange it with companyid
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUserId(userProfile.getUser());
+            UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUser(userProfile.getUser());
 
             //save studioId
             Company company = new Company();
@@ -152,7 +151,7 @@ public class OnboardingController {
 //            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
 //            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUserId(userProfile.getUser());
+            UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUser(userProfile.getUser());
             Integer companyId = userCompanyLookup.getCompanyid().getCompanyId();
 
             Runnable myRunnable = new Runnable() {
@@ -212,7 +211,7 @@ public class OnboardingController {
 //            todochange it with companyid
 //            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUserId(userProfile.getUser());
+            UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUser(userProfile.getUser());
             Integer companyId = userCompanyLookup.getCompanyid().getCompanyId();
             uploadPath = uploadPath + File.separator + companyId + File.separator + "logo";
             String FileName = AppConstants.COMPANY_LOGO_FILENAME;
@@ -238,7 +237,7 @@ public class OnboardingController {
 //            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
 //            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUserId(userProfile.getUser());
+            UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUser(userProfile.getUser());
             Integer companyId = userCompanyLookup.getCompanyid().getCompanyId();
             String filePath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + "logo";
             storableFileName = FileHandlerUtil.saveCompanyLogo(filePath, AppConstants.COMPANY_LOGO_FILENAME, companyLogoDetails.getImageData());

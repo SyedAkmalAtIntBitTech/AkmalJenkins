@@ -4664,3 +4664,13 @@ textarea.task-textarea:focus{
        transform: rotate(360deg);
    }
 }
+
+
+
+.companyListPopup{
+    float: right;
+    width:25%;
+}
+.companyListDiv{
+    width:100% !important;
+}

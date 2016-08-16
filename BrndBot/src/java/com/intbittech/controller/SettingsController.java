@@ -219,7 +219,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUserId(userProfile.getUser());
+            UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUser(userProfile.getUser());
 //          todochange it with companyid
 //            Company company = userProfile.getUser().getFkCompanyId();
             Company company = userCompanyLookup.getCompanyid();

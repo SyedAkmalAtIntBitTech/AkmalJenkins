@@ -28,16 +28,24 @@ factoryApp.factory('onboardingFactory', function ($q,authenticatedServiceFactory
         });
         return deffered.promise;
     };
-    onboardingFactoryObject.getAllCompaniesGet = function () {
+    onboardingFactoryObject.getAllUserCompanies = function (userId) {
         var deffered = $q.defer();
-        var url = configurationService.getAllCompaniesURL();
-        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+        var url = configurationService.getAllUserCompaniesURL();
+        authenticatedServiceFactory.makeCall("GET", url, userId, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
 
-    onboardingFactoryObject.getAccountStatusGet = function (companyDetails) {
+    onboardingFactoryObject.getLoggedInUserId = function (){
+        var deffered = $q.defer();
+        var url = configurationService.getLoggedInUserId();
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    }
+    onboardingFactoryObject.getAccountStatus = function (companyDetails) {
         var deffered = $q.defer();
         var url = configurationService.getAccountStatusURL();
         authenticatedServiceFactory.makeCall("POST", url, companyDetails, "").then(function (data) {

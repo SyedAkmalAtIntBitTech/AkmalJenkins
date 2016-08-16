@@ -133,5 +133,5 @@ public interface UsersService {
      * @param fromEmailId
      * @throws ProcessFailed the process failed
      */
-    public void sendAcknowledgementEMail(String fromEmailId) throws ProcessFailed;
+    public void sendAcknowledgementEmail(String fromEmailId) throws ProcessFailed;
 }

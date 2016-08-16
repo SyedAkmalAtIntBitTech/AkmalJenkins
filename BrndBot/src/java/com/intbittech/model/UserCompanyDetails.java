@@ -16,27 +16,49 @@ public class UserCompanyDetails {
     private Integer roleId;
     private String logourl;
     private String accountStatus;
-    private String userId;
+    private String userEmailId;
+    private String userFirstName;
+    private String userLastName;
+
+    public String getUserFirstName() {
+        return userFirstName;
+    }
+
+    public void setUserFirstName(String userFirstName) {
+        this.userFirstName = userFirstName;
+    }
+
+    public String getUserLastName() {
+        return userLastName;
+    }
+
+    public void setUserLastName(String userLastName) {
+        this.userLastName = userLastName;
+    }
     
     public UserCompanyDetails() {
     }
 
-    public UserCompanyDetails(Integer companyId, String companyName, 
-            String roleName, Integer roleId, String logourl, String accountStatus) {
+    public UserCompanyDetails(Integer companyId, String companyName, String userEmailId,
+            String roleName, Integer roleId, String logourl, String accountStatus, 
+            String userFirstName, String userLastName) {
         this.companyId = companyId;
         this.companyName = companyName;
         this.roleName = roleName;
         this.roleId = roleId;
         this.logourl = logourl;
         this.accountStatus = accountStatus;
+        this.userFirstName = userFirstName;
+        this.userLastName = userLastName;
+        this.userEmailId = userEmailId;
     }
 
     public String getUserId() {
-        return userId;
+        return userEmailId;
     }
 
     public void setUserId(String userId) {
-        this.userId = userId;
+        this.userEmailId = userId;
     }
 
     public Integer getCompanyId() {

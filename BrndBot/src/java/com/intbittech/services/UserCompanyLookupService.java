@@ -71,20 +71,20 @@ public interface UserCompanyLookupService {
    /**
      * This method pass user as input and get the {@link UsersRoleLookup} from database
      *
-     * @param userId
+     * @param user
      * @return {@link UsersRoleLookup}
      * @throws ProcessFailed the process failed
      */
-    public UserCompanyLookup getUserCompanyLookupByUserId(Users userId) throws ProcessFailed;
+    public UserCompanyLookup getUserCompanyLookupByUser(Users user) throws ProcessFailed;
 
    /**
      * This method pass user as input and get the {@link UsersRoleLookup} from database
      *
-     * @param userId
+     * @param user
      * @return {@link UsersRoleLookup}
      * @throws ProcessFailed the process failed
      */
-    public UserCompanyLookup getUserCompanyLookupByUserAndCompanyId(Users userId, Company companyId) throws ProcessFailed;
+    public UserCompanyLookup getUserCompanyLookupByUserAndCompany(Users user, Company company) throws ProcessFailed;
     
     /**
      * This method pass id as input and get the {@link UserRole} from DAO layer
@@ -93,7 +93,7 @@ public interface UserCompanyLookupService {
      * @return {@link UserRole}
      * @throws ProcessFailed the process failed
      */
-    public UserCompanyLookup getUsersCompanyByUserId(Users user) throws ProcessFailed;    
+    public UserCompanyLookup getUsersCompanyByUser(Users user) throws ProcessFailed;    
     /**
      * This method retrieves the list of {@link SubCategory} from Database.
      *
@@ -101,7 +101,7 @@ public interface UserCompanyLookupService {
      * @return {@link SubCategory}
      * @throws ProcessFailed the process failed
      */
-    public List<UserCompanyLookup> getAllUserCompaniesByUserId(Users user) throws ProcessFailed;    
+    public List<UserCompanyLookup> getAllUserCompaniesByUser(Users user) throws ProcessFailed;    
     
     
 }
