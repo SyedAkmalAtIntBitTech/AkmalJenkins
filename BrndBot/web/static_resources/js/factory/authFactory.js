@@ -11,8 +11,6 @@ factoryApp.factory('authenticatedServiceFactory', function ($http, $q) {
         var config = "";
         config = {headers: {'Content-type': 'application/json'}};
 
-            var userId = localStorage.getItem("userId");
-//            alert(JSON.stringify(userId));
         if (authType === "UPLOADIMAGE")
         {
             if (methodType === "POST") {

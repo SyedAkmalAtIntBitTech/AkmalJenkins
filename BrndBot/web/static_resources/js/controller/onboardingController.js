@@ -191,7 +191,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 
         $scope.getAccountStatus = function(companyDetails){
             localStorage.setItem("companyDetails",JSON.stringify(companyDetails));
-            localStorage.setItem("companyID", companyDetails.companyId);
+            localStorage.setItem("companyId", companyDetails.companyId);
             onboardingFactory.getAccountStatus(companyDetails).then(function(data){
                $scope.message = data.d.message; 
                if (data.d.message == 'Activated'){

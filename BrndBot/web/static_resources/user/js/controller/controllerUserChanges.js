@@ -49,7 +49,6 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             var invitation = {"userRoleLookUpId":"", "emailaddress": userDetails.email, "roles": roles, "task": 'invitation'};
            
             onboardingFactory.inviteUserPost(invitation).then(function (data) {
-                var response = data;
                 alert(data.d.message);
                 $scope.closeOverlay();
                 $location.path("/settings/useraccountsettings");
@@ -59,7 +58,6 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.resendUserInvite = function (inviteId) {
            
             onboardingFactory.resendUserInvitePost(inviteId).then(function (data) {
-                var response = data;
                 alert(data.d.message);
                 $scope.closeOverlay();
                 $location.path("/settings/useraccountsettings");
@@ -72,7 +70,6 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             var invitation = {"userRoleLookUpId":$scope.userRoleLookUpId.toString(), "emailaddress": $scope.userEmailId, "roles": roles, "task": 'invitation'};
             
             onboardingFactory.editUserRolePost(invitation).then(function (data) {
-                var response = data;
                 alert(data.d.message);
                 $scope.closeOverlay();
                 $location.path("/settings/useraccountsettings");
@@ -82,7 +79,6 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.removeUser = function (inviteId) {
             
             onboardingFactory.removeUserPost(inviteId).then(function (data) {
-                var response = data;
                 alert(data.d.message);
                 $location.path("/settings/useraccountsettings");
             });
@@ -91,7 +87,6 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.getInvitedUsers = function () {
             onboardingFactory.getInvitedUsersPost().then(function (data) {
                 $scope.invitedUsers = data.d.details;
-                var response = data.d.details;
             });
         };
         
