@@ -39,10 +39,7 @@ public class Franchise implements Serializable {
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkFranchiseId")
-    private Set<PushedScheduledEntityList> pushedScheduledEntityListSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkFranchiseId")
-    private Set<FranchiseCompanyLookup> franchiseCompanyLookupSet;
+ 
 
     public Franchise() {
     }

@@ -16,26 +16,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Haider Khan @ Intbit
+ * @author ajit @ Intbit
  */
 @Entity
 @Table(name = "pushed_scheduled_entity_list")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "PushedScheduledEntityList.findAll", query = "SELECT p FROM PushedScheduledEntityList p"),
-    @NamedQuery(name = "PushedScheduledEntityList.findByPushedScheduledEntityListId", query = "SELECT p FROM PushedScheduledEntityList p WHERE p.pushedScheduledEntityListId = :pushedScheduledEntityListId"),
-    @NamedQuery(name = "PushedScheduledEntityList.findByAutoApproved", query = "SELECT p FROM PushedScheduledEntityList p WHERE p.autoApproved = :autoApproved"),
-    @NamedQuery(name = "PushedScheduledEntityList.findByStatus", query = "SELECT p FROM PushedScheduledEntityList p WHERE p.status = :status"),
-    @NamedQuery(name = "PushedScheduledEntityList.findByEditable", query = "SELECT p FROM PushedScheduledEntityList p WHERE p.editable = :editable")})
 public class PushedScheduledEntityList implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -122,38 +111,6 @@ public class PushedScheduledEntityList implements Serializable {
         this.fkScheduledEntityListId = fkScheduledEntityListId;
     }
 
-    @XmlTransient
-    public Set<PushedScheduledActionCompanies> getPushedScheduledActionCompaniesSet() {
-        return pushedScheduledActionCompaniesSet;
-    }
-
-    public void setPushedScheduledActionCompaniesSet(Set<PushedScheduledActionCompanies> pushedScheduledActionCompaniesSet) {
-        this.pushedScheduledActionCompaniesSet = pushedScheduledActionCompaniesSet;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (pushedScheduledEntityListId != null ? pushedScheduledEntityListId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PushedScheduledEntityList)) {
-            return false;
-        }
-        PushedScheduledEntityList other = (PushedScheduledEntityList) object;
-        if ((this.pushedScheduledEntityListId == null && other.pushedScheduledEntityListId != null) || (this.pushedScheduledEntityListId != null && !this.pushedScheduledEntityListId.equals(other.pushedScheduledEntityListId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.intbittech.model.PushedScheduledEntityList[ pushedScheduledEntityListId=" + pushedScheduledEntityListId + " ]";
-    }
+     
     
 }
