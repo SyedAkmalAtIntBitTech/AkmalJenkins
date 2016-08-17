@@ -972,6 +972,16 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     emailAutomationObject["value"] = emailAutomationData[i].emailListName;
                     $scope.ddSelectEmailListAutomationDataOptions.push(emailAutomationObject);
                 }
+                
+                //For mindbody emaillist
+                emailAutomationData = parseData.allEmailListWithNoOfContacts.mindbody;
+                for (var i = 0; i < emailAutomationData.length; i++)
+                {
+                    var emailAutomationObject = {};
+                    emailAutomationObject["text"] = emailAutomationData[i].emailListName;
+                    emailAutomationObject["value"] = emailAutomationData[i].emailListName;
+                    $scope.ddSelectEmailListAutomationDataOptions.push(emailAutomationObject);
+                }
             });
         };
 
@@ -1086,6 +1096,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 var emailListName = $.parseJSON(emailListData.d.details);
                 for (var i = 0; i < emailListName.user_emailAddresses.length; i++) {
                     var emails = emailListName.user_emailAddresses[i];
+                    $scope.emailLists = $scope.emailLists + eval(JSON.stringify(emails.emailAddress)) + ",";
+                }
+                for (var i = 0; i < emailListName.mindbody_emailAddresses.length; i++) {
+                    var emails = emailListName.mindbody_emailAddresses[i];
                     $scope.emailLists = $scope.emailLists + eval(JSON.stringify(emails.emailAddress)) + ",";
                 }
                 $scope.emailListName = emailListName.emailListName;
