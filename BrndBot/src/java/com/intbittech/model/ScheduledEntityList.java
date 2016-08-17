@@ -7,7 +7,9 @@ package com.intbittech.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,6 +29,21 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "scheduled_entity_list")
 public class ScheduledEntityList implements Serializable {
+
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+    @Column(name = "updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkScheduledEntityListId")
+    private Set<PushedScheduledEntityList> pushedScheduledEntityListSet;
+    @JoinColumn(name = "assigned_to", referencedColumnName = "user_id")
+    @ManyToOne
+    private Users assignedTo;
+    @JoinColumn(name = "created_by", referencedColumnName = "user_id")
+    @ManyToOne
+    private Users createdBy;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -173,5 +191,23 @@ public class ScheduledEntityList implements Serializable {
     public void setFkRecurringEmailId(RecurringEmailTemplate fkRecurringEmailId) {
         this.fkRecurringEmailId = fkRecurringEmailId;
     }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+   
 
 }
