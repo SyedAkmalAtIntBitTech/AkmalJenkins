@@ -156,7 +156,9 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             }
             if (categoryId)
             {
-                appSessionFactory.setEmail(getCategoryId(),categoryId).then(function(data){
+                appSessionFactory.clearAllEmail().then(function(checkCleared){
+                    appSessionFactory.setEmail(getCategoryId(),categoryId).then(function(data){
+                    });
                 });
 //                $scope.categoryId = categoryId;
             }
