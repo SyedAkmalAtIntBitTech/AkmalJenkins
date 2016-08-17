@@ -1,4 +1,4 @@
-dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$location', 'categoryFactory', 'subCategoryFactory','externalContentFactory','redirectFactory','SharedService', function ($scope, $window, $location, categoryFactory, subCategoryFactory,externalContentFactory,redirectFactory,SharedService) {
+dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$location', 'categoryFactory', 'subCategoryFactory','externalContentFactory','redirectFactory','SharedService', 'appSessionFactory', function ($scope, $window, $location, categoryFactory, subCategoryFactory,externalContentFactory,redirectFactory,SharedService, appSessionFactory) {
         $scope.emailChannelId = 3;
         $scope.printChannelId = 2;
         $scope.imageChannelId = 1;
@@ -42,6 +42,7 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
         };
         $scope.redirectToEmailFlow = function(forwardone)
         {
+            appSessionFactory.clearAllEmail().then(function(checkCleared){
             redirectFactory.redirectFlowTo(forwardone);
             $window.location = getHost()+"user/"+forwardone;
             var emailsubject=$scope.emailsubject;
@@ -49,6 +50,7 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
             {
                 $scope.emailSubjectError="Email Subject Required!";
             }
+            });
         };
         $scope.getCategories = function (forwardone)
         {

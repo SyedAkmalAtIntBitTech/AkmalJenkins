@@ -897,9 +897,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 
         $scope.saveEmailByActionId = function(id){
 //            localStorage.setItem("email_Schedule_Id",id);
-            appSessionFactory.setEmail(getEmailScheduleId(),id).then(function(data){
-                if(data===true)
-                    window.open(getHost() + 'user/baseemaileditor#/emailcategory', "_self");
+            appSessionFactory.clearAllEmail().then(function(checkCleared){
+                appSessionFactory.setEmail(getEmailScheduleId(),id).then(function(data){
+                    if(data===true)
+                        window.open(getHost() + 'user/baseemaileditor#/emailcategory', "_self");
+                });
             });
         };
         

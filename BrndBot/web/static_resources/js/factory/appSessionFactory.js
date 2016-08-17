@@ -12,6 +12,10 @@ factoryApp.factory('appSessionFactory', function ($q) {
         if(key && value)
         {
 //            var keyString = email+"."+key;
+            var emailLocalObject = JSON.parse(localStorage.getItem(emailObjectName));
+            if(emailLocalObject){
+                email = emailLocalObject;
+            }
             email[key] = value
             localStorage.setItem(emailObjectName,JSON.stringify(email));
             data = true;
