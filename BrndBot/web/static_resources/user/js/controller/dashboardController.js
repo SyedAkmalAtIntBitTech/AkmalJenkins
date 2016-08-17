@@ -19,26 +19,29 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
         $scope.companyList = false;        
         
         $scope.getUserDetails = function(){
-            var companyDetails = JSON.parse(localStorage.getItem("companyDetails"));
+            var userId = localStorage.getItem("userId");
+            onboardingFactory.userCompanyDetailsGet(userId).then(function(data){
+               var companyDetails = data.d.details[0]; 
+                $scope.companyName = companyDetails.companyName;
+                $scope.userFirstName = companyDetails.userFirstName;
+                $scope.userLastName = companyDetails.userLastName;
+                $scope.userRole = companyDetails.roleName; 
+                $scope.logourl = companyDetails.logourl;
+            });
             
-            $scope.companyName = companyDetails.companyName;
-            $scope.userFirstName = companyDetails.userFirstName;
-            $scope.userLastName = companyDetails.userLastName;
-            $scope.userRole = companyDetails.roleName; 
-            $scope.logourl = companyDetails.logourl;
         };
         
         $scope.showCompanyList = function(){
          window.location = getHost() + "user/loading";
         };
         
-        $scope.getAllUserCompanies = function (){
-            onboardingFactory.getAllUserCompanies().then(function(data){
-               $scope.companies = data.d.details; 
-               $scope.hideDataOverlay = false;
-            });
-        };
-        
+//        $scope.getAllUserCompanies = function (){
+//            onboardingFactory.getAllUserCompanies().then(function(data){
+//               $scope.companies = data.d.details; 
+//               $scope.hideDataOverlay = false;
+//            });
+//        };
+//        
         $scope.redirect = function (redirect, categoryId, mindbody,lookupId, mindbodyid)
         {            
             $scope.lookupId=lookupId;

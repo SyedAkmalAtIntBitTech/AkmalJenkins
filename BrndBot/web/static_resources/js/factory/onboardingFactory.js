@@ -30,8 +30,17 @@ factoryApp.factory('onboardingFactory', function ($q,authenticatedServiceFactory
     };
     onboardingFactoryObject.getAllUserCompanies = function (userId) {
         var deffered = $q.defer();
-        var url = configurationService.getAllUserCompaniesURL();
+        var url = configurationService.getAllUserCompaniesURL()+"?userId="+userId;
         authenticatedServiceFactory.makeCall("GET", url, userId, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+
+    onboardingFactoryObject.userCompanyDetailsGet = function (userId) {
+        var deffered = $q.defer();
+        var url = configurationService.getUserCompanyDetailsURL()+"?userId="+userId;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

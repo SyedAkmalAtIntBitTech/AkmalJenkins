@@ -11,12 +11,14 @@ import com.intbittech.utility.ServletUtil;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyImages;
 import com.intbittech.model.GlobalImages;
+import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.CompanyImagesService;
 import com.intbittech.services.GlobalImagesService;
+import com.intbittech.services.UserCompanyLookupService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.UserSessionUtil;
 import java.io.File;
@@ -53,6 +55,9 @@ public class ImagesController {
     private GlobalImagesService globalImagesService;
     @Autowired
     private CompanyImagesService companyImagesService;
+    
+    @Autowired
+    private UserCompanyLookupService userCompanyLookupService;
 
     @RequestMapping(value = "/get/{imageId}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<ContainerResponse> getImageById(HttpServletRequest request, HttpServletResponse response) {
@@ -95,6 +100,7 @@ public class ImagesController {
                 globalImages.setImageName(fileName);
                 globalImagesService.save(globalImages);
             } else {
+//            todochange it with companyid
 //                Company company = userProfile.getUser().getFkCompanyId();
                 Company company = new Company();
                 pathSuffix = companyImagesService.getPath(company.getCompanyId());
@@ -124,9 +130,11 @@ public class ImagesController {
             String fileName = "";
             String link = "";
             String imageURL = ServletUtil.getServerName(request.getServletContext());
+            
+//            todochange it with companyid
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//            Company company = userProfile.getUser().getFkCompanyId();
-            Company company = new Company();
+            UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUser(userProfile.getUser());
+            Company company = userCompanyLookup.getCompanyid();
             pathSuffix = pathSuffix + File.separator + company.getCompanyId() + File.separator + AppConstants.LOGO_FOLDERNAME;
             
             fileName = FileUploadUtil.uploadLogo(pathSuffix, request);

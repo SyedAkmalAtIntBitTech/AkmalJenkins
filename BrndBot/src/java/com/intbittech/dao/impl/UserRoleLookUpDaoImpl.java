@@ -46,6 +46,7 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(UsersRoleLookup.class)
                 .add(Restrictions.eq("roleId", userRoleLookup.getRoleId()))
+                .add(Restrictions.eq("companyId", userRoleLookup.getCompanyId()))
                 .add(Restrictions.eq("userId", userRoleLookup.getUserId()));
         if (criteria.list().isEmpty()) {
             isUserUnique = true;

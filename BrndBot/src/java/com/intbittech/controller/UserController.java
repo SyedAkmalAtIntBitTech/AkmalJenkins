@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -67,13 +68,15 @@ public class UserController {
     }
     
     @RequestMapping(value = "/getLoggedInUserId", method = RequestMethod.GET)
-    public String getLoggedInUserId(){
+    public ResponseEntity<ContainerResponse> getLoggedInUserId(){
+        GenericResponse<Integer> genericResponse = new GenericResponse<>();
         UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        return userProfile.getUser().getUserId().toString();
+        genericResponse.addDetail(userProfile.getUser().getUserId());
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     };
     
     @RequestMapping(value = "/getAllUserCompanyDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getAllUserCompanyDetails(@RequestBody Integer userId) {
+    public ResponseEntity<ContainerResponse> getAllUserCompanyDetails(@RequestParam("userId") Integer userId) {
         GenericResponse<UserCompanyDetails> genericResponse = new GenericResponse<>();
         try{
             Users user = usersService.getUserById(userId);
@@ -97,8 +100,6 @@ public class UserController {
                 userCompanyDetails.setUserFirstName(user.getFirstName());
                 userCompanyDetails.setUserLastName(user.getLastName());
                 
-                CompanyImages companyImages = companyImagesService.getCompanyImagesByCompany(userCompanyLookup.getCompanyid());
-                userCompanyDetails.setLogourl(companyImages.getImageName());
                 listUserCompanyDetails.add(userCompanyDetails);
             }
             genericResponse.setDetails(listUserCompanyDetails);
@@ -112,6 +113,41 @@ public class UserController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
+    @RequestMapping(value = "/getUserCompanyDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getUserCompanyDetails(@RequestParam("userId") Integer userId) {
+        GenericResponse<UserCompanyDetails> genericResponse = new GenericResponse<>();
+        try{
+            Users user = usersService.getUserById(userId);
+            List<UserCompanyDetails> listUserCompanyDetails = new ArrayList<UserCompanyDetails>();
+
+                UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUser(user);
+
+                UsersRoleLookup userRoleLookUp = userRoleLookUpService.getUsersRoleLookupByUserId(user);
+                
+                UserCompanyDetails userCompanyDetails = new UserCompanyDetails();
+
+                userCompanyDetails.setCompanyId(userCompanyLookup.getCompanyid().getCompanyId());
+                userCompanyDetails.setCompanyName(userCompanyLookup.getCompanyid().getCompanyName());
+                userCompanyDetails.setRoleId(userRoleLookUp.getRoleId().getUserRoleId());
+                userCompanyDetails.setRoleName(AdminStatus.valueOf(userRoleLookUp.getRoleId().getRoleName()).getDisplayName());
+                userCompanyDetails.setAccountStatus(userCompanyLookup.getAccountStatus());
+                userCompanyDetails.setUserId(user.getUserName());
+                userCompanyDetails.setUserFirstName(user.getFirstName());
+                userCompanyDetails.setUserLastName(user.getLastName());
+                
+                listUserCompanyDetails.add(userCompanyDetails);
+            
+            genericResponse.setDetails(listUserCompanyDetails);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
+            
+        }catch (Throwable throwable){
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+            
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    
     @RequestMapping(value = "/checkUserCompanyActivation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> checkUserCompanyActivation(@RequestBody UserCompanyDetails userCompanyDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();

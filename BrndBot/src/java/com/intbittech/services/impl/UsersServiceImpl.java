@@ -173,7 +173,7 @@ public class UsersServiceImpl implements UsersService {
         boolean returnMessage = false;
         Invite companyInvite = null;TaskDetails taskdetails = null;
         List roles = null;UsersRoleLookup usersRoleLookUp = null;
-        UserCompanyLookup userCompanyLookup = null;
+        UserCompanyLookup userCompanyLookup = null;Users existingUser = null;
         Integer userId =0;
         try {
             companyInvite = usersInviteService.getInvitedUserByInviteCode(usersDetails.getInvitationCode());
@@ -190,6 +190,8 @@ public class UsersServiceImpl implements UsersService {
                 Users sentUser = companyInvite.getInviteSentBy();
                 if ((usersDao.checkUniqueUser(user))){
                     userId = usersDao.save(user);
+                }else {
+                    user = usersDao.getUserByEmailId(usersDetails.getUserName());
                 }
             userCompanyLookup = userCompanyLookUpService.getUserCompanyLookupByUser(sentUser);
 //          todochange it with companyid
@@ -219,6 +221,7 @@ public class UsersServiceImpl implements UsersService {
 
                     usersRoleLookUp.setUserId(user);
                     usersRoleLookUp.setRoleId(userRole);
+                    usersRoleLookUp.setCompanyId(company);
                     boolean isRole = usersRoleLookUpService.isRoleExist(usersRoleLookUp);
                     if (isRole){
                         usersRoleLookUpDao.save(usersRoleLookUp);

@@ -23,6 +23,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "users_role_lookup")
 public class UsersRoleLookup implements Serializable {
+    @JoinColumn(name = "company_id", referencedColumnName = "company_id")
+    @ManyToOne
+    private Company companyId;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,6 +70,12 @@ public class UsersRoleLookup implements Serializable {
         this.userId = userId;
     }
 
-  
+    public Company getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Company companyId) {
+        this.companyId = companyId;
+    }
     
 }
