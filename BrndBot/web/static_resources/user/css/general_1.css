@@ -4888,3 +4888,7 @@ textarea.task-textarea:focus{
 .hideBlockButton{
     display: none;
 }
+.spanwidthclip{
+    max-width: 300px;
+    overflow: hidden;
+}
