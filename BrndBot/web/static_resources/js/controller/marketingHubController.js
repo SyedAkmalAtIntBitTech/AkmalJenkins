@@ -366,8 +366,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 if (data === "") {
                     $scope.emaildraftsstatus = noemaildraft;
                 } else {
-                    $scope.htmlbody = data.htmlbody;
-                    $('#draftshow').empty().append(data.htmlbody);
+                    $scope.htmlbody = data.htmlbody.replace(/contenteditable="true" /g, 'contenteditable="false"');;
+                    $('#draftshow').empty().append($scope.htmlbody);
                 }
             });
             $scope.id = Id;

@@ -51,7 +51,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                 $scope.selectImageToPost = function (imageName, imageFrom, companyId, id) {
                     angular.element(document.getElementsByClassName('gallery-item-wrap-selected-true')).addClass('gallery-item-wrap-selected').removeClass('gallery-item-wrap-selected-true');
                     angular.element(document.getElementById(id)).removeClass('gallery-item-wrap-selected').addClass('gallery-item-wrap-selected-true');
-                    imageurl = "/BrndBot/downloadImage?imageType=GALLERY&imageName=" + imageName + "&companyId=" + companyId + "";
+                    imageurl = getHost() + "downloadImage?imageType=GALLERY&imageName=" + imageName + "&companyId=" + companyId + "";
                     $("#imageDiv").val(imageurl);
                 };
                 $scope.selectImageFromGallery = function (popmpMode) {

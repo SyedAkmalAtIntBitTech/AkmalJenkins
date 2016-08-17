@@ -930,6 +930,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 selector: 'td.mce-content-body',
                 width: 400,
                 inline: true,
+                convert_urls: false,
                 plugins: [
                     'advlist custombutton autolink lists link image charmap print preview anchor',
                     'searchreplace visualblocks code fullscreen',
