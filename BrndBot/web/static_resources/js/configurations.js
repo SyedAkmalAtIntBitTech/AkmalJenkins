@@ -95,6 +95,7 @@ var externalSourceName = "mindbody";
 var mindbodyId = "mindbodyId";
 var draftId = "draftId";
 var emailSubject = "emailSubject";
+var emailScheduleId = "email_Schedule_Id";
 
 function getCategoryId(){
     return categoryId;
@@ -122,4 +123,7 @@ function getDraftId(){
 
 function getEmailSubject(){
     return emailSubject;
+}
+function getEmailScheduleId(){
+    return emailScheduleId;
 }

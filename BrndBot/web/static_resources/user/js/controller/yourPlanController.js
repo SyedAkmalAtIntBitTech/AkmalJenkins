@@ -1,5 +1,5 @@
 
-yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory) {
+yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'appSessionFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, appSessionFactory) {
 
 //$scope.iframeLoad = function (){
 //    growl($('iframe').contents().find('body').height());
@@ -896,8 +896,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
                 
         $scope.saveEmailByActionId = function(id){
-            localStorage.setItem("email_Schedule_Id",id);
-            window.open(getHost() + 'user/baseemaileditor#/emailcategory', "_self");
+//            localStorage.setItem("email_Schedule_Id",id);
+            appSessionFactory.setEmail(getEmailScheduleId(),id).then(function(data){
+                if(data===true)
+                    window.open(getHost() + 'user/baseemaileditor#/emailcategory', "_self");
+            });
         };
         
     }]);
