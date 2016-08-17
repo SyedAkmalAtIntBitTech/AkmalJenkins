@@ -42,7 +42,7 @@ public class MindbodyEmailListScheduler {
             Duration duration = Duration.between(zonedNow, zonedNext5);
             long initalDelay = duration.getSeconds();
             long periodicTime = 24 * 60 * 60;
-//            initalDelay = 0;
+//            initalDelay = 100;
             mindbodyEmailListRunnable = new MindbodyEmailListProcessor();
             mindbodyEmailListRunnable.startThread();
             scheduler.scheduleAtFixedRate(mindbodyEmailListRunnable, initalDelay, periodicTime, TimeUnit.SECONDS);

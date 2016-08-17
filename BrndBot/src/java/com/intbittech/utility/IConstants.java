@@ -31,6 +31,7 @@ public interface IConstants {
     final static String kEmailListListDescription = "listDescription";
     final static String kEmailListAddedDate = "emailListAddedDate";
     final static String kEmailAddressesKey = "emailAddresses";
+    final static String kEmailMindbodyEmailAddresses = "mindbody_emailAddresses";
     final static String kEmailAddressKey = "emailAddress";
     final static String kEmailAddressAddedKey = "addedDate";
     final static String kEmailKey = "Email";

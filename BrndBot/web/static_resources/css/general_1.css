@@ -5110,3 +5110,7 @@ img#prevfbimg {
 .hideBlockButton{
     display: none;
 } 
+.spanwidthclip{
+    max-width: 300px;
+    overflow: hidden;
+}
