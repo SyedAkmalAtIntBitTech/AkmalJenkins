@@ -35,8 +35,7 @@
                         </div>
                     </div>
                 </div>
-                <!--                    <ul  class="main-container fleft" ng-show="current_programs!=''">
-                                           <li class="slat-container fleft selfclear" ng-repeat="program in current_programs">-->
+               
                 <div class="hub-slat-list-wrap" id="currprogs" ng-show="currProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
                     <div class="slat" ng-repeat="program in currentPrograms | orderBy:'start_date':true">
                         <div class="slat-name-wrap">
@@ -47,7 +46,6 @@
                             <div class="slat-detail slat-detail-button ">
                                 <a class="reg-button slat-detail-button" ng-click="redirectToActions(forward, program.id, past = 0, program.end_date)">View Campaign</a>
                             </div>
-                            <!--ng-click="sendProgramId(program.id,'0')"--> 
                         </div>
                     </div>
                 </div>
@@ -71,8 +69,6 @@
                         </div>
                     </div>
                 </div>
-                <!--                    <ul  class="main-container fleft" ng-show="current_programs!=''">
-                                           <li class="slat-container fleft selfclear" ng-repeat="program in current_programs">-->
                 <div class="hub-slat-list-wrap" id="currprogs" ng-show="pastProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
                     <div class="slat" ng-repeat="program in pastPrograms  | orderBy:'start_date':true">
                         <div class="slat-name-wrap">
@@ -84,7 +80,6 @@
                                 <a class="reg-button slat-detail-button" ng-click="redirectToActions(forward, program.id, past = 0, program.end_date);
                                         disableArchive();">View Campaign</a>
                             </div>
-                            <!--ng-click="sendProgramId(program.id,'0')"--> 
                         </div>
                     </div>
                 </div>

@@ -41,11 +41,9 @@
                     <div class="input-wrap">
                         <label>Choose a Link</label>
                         <div class="input " id='urlDropDownSpan' ng-init="getUrls()">
-<!--                            <select ng-model="linkUrls" id="dropdownurl"  class="select_Field_lg removeDrag" ng-options="url.url as url.prigram_name + ' - ' + url.link_name + ' - ' + url.url for url in urls"></select>-->
                             <div dropdown-select="ddSelectlinkUrlsOptions" dropdown-model="ddSelectlinkUrls" dropdown-onchange="getSelectedUrl(selected)"></div>
                             <p class="input-label">If you have a custom link write it below</p>
                         </div>
-<!--                        <span class="validationAlert" ng-if="fbLinkValidation">{{linkValidation}}</span>-->
                                                 
                     </div>
                     <div class="input-wrap">
@@ -86,4 +84,3 @@
  <div ng-include src="'schedulepopup.html'"></div>
     <div ng-include src="'sendorschedulepopup.html'"></div>
     <div ng-include src="'sociallistselection.html'"></div>
-    <!--<div ng-include src="'facebookpostsuccesspopup.html'"></div>--> 

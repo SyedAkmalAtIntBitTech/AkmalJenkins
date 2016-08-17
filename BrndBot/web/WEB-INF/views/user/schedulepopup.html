@@ -4,12 +4,10 @@
             <h2 class="">Send or Schedule</h2>
             <a class="modal-pane-header-exit" ng-click="hidePopup('schedulePopup')"></a>
         </div>
-        <!--        <div ng-click="previousButton()">-->
         <a class="modal-pane-back-step" ng-click="previousButton()">
             <i></i>
             <span>Go to Previous Step</span>
         </a>
-        <!--        </div>-->
         <div class="modal-pane-content-wrap secondary-option">
             <div class="create-new-action-schedule-wrap">
                 <a class="send-or-schedule-option send-or-schedule-15pad ease-all " ng-class='activeClassNew' ng-click="createNewAction()">
@@ -23,25 +21,10 @@
             </div>
         </div>
         <div class="modal-pane-content-wrap create-new-schedule-modal"  ng-if="existingActionPopup">
-<!--            <div class="input-wrap">
-                <label>Marketing Campaign Name</label>          
-                <select ng-model="selectedMarketingProgrma"  class="input-field-textfield input-placeholder full" ng-options="programs.program_id as programs.name for programs in marketing_programs" ng-change="getActions(selectedSocialmedia, selectedMarketingProgrma)"></select>
-            </div>-->
             <div class="input-wrap">
                 <label>Marketing Campaign Name</label>
                 <div class="fluid" dropdown-select="ddSelectMarketingCampaignName" dropdown-model="ddSelectMarketingCampaign" dropdown-onchange="getActions(selectedSocialmedia, selected)"></div>
             </div>
-<!--            <div class="input-wrap">
-                <label>Action Name</label>
-                <select ng-model="socialAction"  class="input-field-textfield input-placeholder full" ng-options="action.id as action.schedule_title for action in SocialActionsDetails" ng-change="setAction(socialAction)"></select>
-                       
-                <a class="input dropdown-right">
-                    <input  size="10" class="fluid" ></input>
-                    <div class="dropdown"></div>
-                </a>
-                
-            </div>-->
-
             <div class="input-wrap">
                 <label>Action Name</label>
                 <div class="fluid" dropdown-select="ddSelectActionName" dropdown-model="ddSelectAction" dropdown-onchange="setAction(selected)"></div>
@@ -81,7 +64,7 @@
                     <label>Action Time</label>
                     <a class="input">
                         <input  class="fluid" id="actionTime" type="text" ng-model="actionTimeVal" name="actionTime"  size="10"  placeholder="Enter Action Time"  /> 
-                        <script src="../js/timepicki.js" type="text/javascript"></script>
+                        <script src="../js/utilities/timepicki.js" type="text/javascript"></script>
                         <script>
                         $('#actionTime').timepicki({
                             show_meridian: true,
@@ -93,7 +76,6 @@
                             disable_keyboard_mobile: true
                         });
                         </script>
-                        <!--                        <div class="dropdown"></div>-->
                     </a>
                     <span class="validationAlert" ng-if='actionTimeVal === "" || null'>{{scheduleTimeValidation}}</span>
 

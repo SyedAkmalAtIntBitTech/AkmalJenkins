@@ -6,9 +6,6 @@
             <h2 class="">Your Plan</h2>
             <div class="top-nav-cta-container">
                 <a href="javascript:void(0)" class="reg-button green-button" id="liPriority" ng-click="ShowAddAction()">Add Action</a>
-                <!--<a href="" class="delete-button reg-button">
-                    <div class=" md-button" ng-click="deleteSchedule('0','deleteMultiple')" id="deleteactionbutton">Delete Action</div>   
-                </a>-->
             </div>
         </div>
    
@@ -47,10 +44,8 @@
         <div class="your-plan-wrap" ng-repeat="entity in entitySet">
             <div class="your-plan-pane" >
                 <div class="action-list-pane-header">
-                    <!--<div class="page-content-title h2" ng-show='entity.date==tomorrow_date'>Tomorrow's Actions</div>-->
                     <h3 class="your-plan-date" ng-show="entity.date == today_date">Today's Actions</h3>
                     <h3 class="your-plan-date" ng-show="(entity.date != today_date)">{{getDayOfMonth(entity.date)}} {{myYear(mySplit(entity.date, 1))}} {{mySplit(entity.date, 2)}} {{mySplit(entity.date, 0)}}</h3>
-                    <!--<h3 class="your-plan-date" ng-show="(entity.date != today_date)">{{entity.date | date:'EEEE, MMMM d, y'}}</h3>-->
                 </div>
                 <div class="your-plan-action-wrap" ng-repeat="entitydetails in entity.dataArray">
                     <div class="slat">
@@ -82,7 +77,7 @@
                         </div>
 
                         <div class="slat-name-wrap">
-                            <!--<div class="slat-title email-list-slat-title col-1of1 sh1" ng-hide="entitydetails.is_recurring">{{entitydetails.schedule_title}}</div>-->
+                            
                             <h2>{{entitydetails.schedule_title}}</h2>
                             <p ng-show="entitydetails.user_marketing_program_id > 0">{{entitydetails.marketingName}}</p>
                             <p ng-show="entitydetails.user_marketing_program_id == 0">No Marketing Program</p>

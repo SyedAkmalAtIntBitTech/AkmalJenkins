@@ -28,12 +28,6 @@
                         <div id="triggerfile" class="md-button gray-button">Browse your Images</div>
                         <input type="file"  name="filesToUpload[]" id="filesToUpload" file-model="myFile" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">
                         <span class="validationAlert" ng-if='myFile === "" || null'>{{logoValidation}}</span>
-
-                        <!--                        <input type="file" file-model="logoImage" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">
-                                                <input type="file"  name="filesToUpload[]" id="filesToUpload" file-model="myFile" class="Add_Button Button--Gray logoUpload--button upload fileupld"/>-->
-                        <!--                            <input type="file" file-model="myFile1" class="Add_Button Button--Gray logoUpload--button upload fileupld"/>-->
-
-                        <!--                            <input type="file" name="filesToUpload[]" id="filesToUpload" class="upload fileupld" onchange="changeimagetext()" file-model="myFile1"/>-->
                     </div>
                     <div ng-repeat="image in imageModal">
                         <img class="thumb" src="{{image}}" />

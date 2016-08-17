@@ -1,5 +1,4 @@
-<!--
-    <body class="body-normal" ng-app="imageGallery"  ng-controller="displayImageFromGallery">-->
+
 <input type="hidden" ng-model="showTwitterLink"/>     
 <div class="main-content-wrap" ng-init="fbTwitterinit()">
     <div class="top-nav-wrap">
@@ -28,12 +27,9 @@
                     <div class="input-wrap">
                         <label>Choose from your Existing Links:</label>
                         <div class="input " id='urlDropDownSpan' >
-<!--                            <select ng-model="linkUrls" id="dropdownurl"  class="select_Field_lg removeDrag" ng-options="url.url as url.prigram_name + ' - ' + url.link_name + ' - ' + url.url for url in urls"></select>-->
                             <div dropdown-select="ddSelectlinkUrlsOptions" dropdown-model="ddSelectlinkUrls" dropdown-onchange="getSelectedUrl(selected)"></div>
                             <p class="input-label">If you have a custom link write it below</p>
-                        </div>
-<!--                        <span class="validationAlert" ng-if="fbLinkValidation">{{linkValidation}}</span>-->
-                                                
+                        </div>                                                
                     </div>
                     <span ng-if="showTwitterLink" class="" id="twitterLinkPost">
                     <div class="input-wrap">
@@ -65,9 +61,6 @@
                 <div class="edit-Image-Button fleft" id="changeImage"  ng-click="show_hide_ImageGalleryPopup(true)">
                     Change Image
                 </div>
-                <!--                            <div class="edit-Image-Button fleft">
-                                                Edit Image
-                                            </div>-->
             </div>
         </div>
         <span class="validationAlert Social-Add-Image-Wrap" ng-if="twitterImageValidation">{{facebookImageValidation}}</span>

@@ -1,19 +1,12 @@
            
                 <div class="top-nav-wrap"> 
                     <div class="header">
-<!--                    <div class="exit-button-detail"></div>-->
                         <h2>Your Email Hub</h2>
                     </div>
                     <div class="page-cta-container">
                         <a href="">
                             <div class="delete-button md-button button fleft"  id="deleteEmaildraft" ng-show="deletDraftsButton" ng-click="deleteDrafts('deleteMultiple');" > Delete Email Drafts</div>
                         </a>
-<!--                        <a href="">
-                            <div id="addemlstbtn" class="add-action-button md-button button-text-1" ng-show="addEmailListButton" ng-click="addEmailList()"> Add Email List</div>
-                        </a>-->
-<!--                        <a href="">
-                            <div id="savesetbtn" class="add-action-button md-button button-text-1" ng-show="saveEmailSettingsButton" ng-click="saveEmailSettings(email_settings)">Save</div>
-                        </a>-->
                     </div>
              
                 <div class="top-sub-nav">
@@ -45,11 +38,6 @@
                         </div>
                     </div>
             </div>
-<!--            <div class="bottom-cta-bar padleft" id="removeselactions" >
-                <div class="bottom-cta-button-container padright">
-                    <div class="remove-action-detail md-button button-text-1" id="deleteEmailList" ng-show="deleteEmailListButton" ng-click="deleteEmailList();">Remove Selected Email List(s)</div>
-                </div>
-            </div>-->
             <div class="bottom-cta-bar padleft" id="removeselactions" ng-show="showDeleteEmailList" >
                 <div class="bottom-cta-button-container padright">
                     <div class="remove-action-detail md-button button-text-1" id="deleteEmailList" ng-click="deleteEmailList();">Remove Selected Email List(s)</div>

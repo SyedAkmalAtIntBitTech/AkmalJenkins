@@ -1,4 +1,3 @@
-/*@import url("icon-fonts-styles.css");*/
 
 /*-----------------------------------
             General Styling
@@ -2903,9 +2902,6 @@ p.modal-content-header{
     color: #ff0000;
 }
 
-/*.input input:focus{
-    border-color: #ff0000 !important;
-}*/
 
 
 /****** dropdown-select *******/
@@ -2965,7 +2961,7 @@ p.modal-content-header{
     font-weight: normal;
     list-style: none;
     visibility: hidden;
-    max-height: 300px;
+    max-height: 200px;
     overflow-y: auto; /*Provide an auto overflow to display scroll*/
 }
 
@@ -3779,9 +3775,6 @@ p.modal-content-header{
     text-align: center;
 }
 
-/*.input input:focus{
-    border-color: #64B6EE !important;
-}*/
 
 input:focus,
 select:focus,
@@ -4161,7 +4154,9 @@ img.exit-button {
     font-size: 14px;
     color: #AFB0B4;
 }
-
+.addBlock-button{
+    padding: 0px 20px;
+}
 .editor-block-slat{
     border: 1px solid #D2D3D5;
     padding: 5px;
@@ -4179,14 +4174,14 @@ img.exit-button {
 }
 
 .editor-block-slat-selected{
-    padding: 15px 30px;
+    padding: 0px 20px 60px 20px;
     font-size: 16px;
     color: #5C627A;
-    font-weight: 400;
-    border: 2px solid #0F76A6;
+    font-weight: 600;
+    border: 2px solid #D2D3D5;
     background-color: #f9f9f9;
+    margin-bottom: 10px;
 }
-
 .sequence-left-wrap{
     display: flex;
     width:33.3%;
@@ -4196,11 +4191,6 @@ img.exit-button {
     height: calc(100vh - 130px);
     padding: 0px;
 }
-/*.r-col-editor-wrap-block
-{
-    height: 100px;
-    padding: 15px;
-}*/
 
 .sequence-logo-svg{
     height: 33px;
@@ -4241,7 +4231,6 @@ img.exit-button {
 .email-overlay-iFrame{
     border: none;
     width:100%;
-    /*height: auto;*/
     height:100%;
 }
 textarea.task-textarea{
@@ -4390,7 +4379,7 @@ textarea.task-textarea:focus{
 
 .gallery-image-card{
     height: 150px;
-    width: 190px;
+    width: 187px;
     position: relative;
     margin-right: 20px;
     margin-bottom: 30px;
@@ -4407,8 +4396,6 @@ textarea.task-textarea:focus{
 .gallery-image{
     width: 200px;
     height: 150px;
-    /*    max-height: 100%;
-        max-width: 100%;*/
 }
 
 
@@ -4424,7 +4411,7 @@ textarea.task-textarea:focus{
     position: absolute;
     height: 30px;
     top: 120px;
-    width: 200px;
+    width: 187px;
     background-color: rgba(0,0,0,.6);
     display: flex;
     align-content: center;
@@ -4454,7 +4441,6 @@ textarea.task-textarea:focus{
 }
 
 .full-height-modal-pane-content-wrap{
-    /*height: 80vh;*/
     height: 100vh;
     overflow-y: scroll;
 }
@@ -4572,8 +4558,6 @@ textarea.task-textarea:focus{
     border-radius: 30px;
     background-color: #1EADFC;
     position: absolute;
-    /*    top: 11px;
-        left: -6px;*/
     top: 12px;
     left: 8px;
 
@@ -4595,6 +4579,7 @@ textarea.task-textarea:focus{
     align-self: flex-start;
     background-color: #f2f2f4;
     overflow-y: scroll;
+    height: calc(100vh - 90px);
 }
 
 .email-editor-top-buttons-wrap{
@@ -4606,7 +4591,7 @@ textarea.task-textarea:focus{
 }
 
 .email-editor-content-wrap{
-    height: calc(100vh - 140px);
+  
 }
 
 .user-role-selection-wrap{
@@ -5010,7 +4995,6 @@ textarea.task-textarea:focus{
     position: fixed;
     z-index: 999999;
     height: 100%;
-    /* overflow-y: auto; */
     max-height: 100%;
     width: 900px;
     right: 0px;
@@ -5107,3 +5091,22 @@ img#prevfbimg {
     font-size: 14px;
 }
 //popup.css and style_detail_overlay_6.css Ends ///
+
+.editor-slat-button{
+    margin-top: 10px;
+    
+}
+
+.email-bottom-padding{
+    height: 100px;
+    width: 100%;
+    background-color: #f2f2f4;
+    line-height: 100px;
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+}
+
+.hideBlockButton{
+    display: none;
+} 

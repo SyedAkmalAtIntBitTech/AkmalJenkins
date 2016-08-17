@@ -17,13 +17,6 @@
                         <div class="logo-container">
                             <label class="top55 left10 right10 long-button reg-button gray-button" id="filetext1" for="uploadlogo">Upload a New Logo</label>
                             <input hidden id="uploadlogo" type="file" name="uploadlogo" file-model="logoImage" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">
-                            <!--                            <input type="hidden" name="upload" value="update"></input>
-                            <input type="file" name="fileUpload" style="border: 1px solid;" class="upload" id="filevalue" onchange="changefilename()"></input>-->
-                            <!--<div ng-repeat="step in stepsModel">
-                                                <img class="thumb" ng-src="{{step}}" />
-                                                </div>-->
-                            <!--<input type="file" file-model="logoImage" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">-->
-
                         </div><br>
                         <span class="validationAlert" ng-if='logoImage === "" || null'>{{logoValidation}}</span>
 
@@ -41,15 +34,6 @@
                             clear:both;
                         }
                     </style>
-
-
-
-
-                    <!--                    <div ng-repeat="step in stepsModel">
-                                        <img class="thumb" ng-src="{{step}}" />
-                                        </div>-->
-
-                    <!--                    <input type='file' ng-model-instant onchange="angular.element(this).scope().imageUpload(this)" />-->
 
 
                     <div class="update-container ">
@@ -74,17 +58,9 @@
                         </div>
                     </div>
                     <div class="update-container no-padding">
-<!--                        <button class="long-button reg-button gray-button" ng-click="showPaletteChangePopUp = true">Change Palette</button>-->
                         <button class="long-button reg-button gray-button" ng-click="showPaletteChangePopUp()">Change Palette</button>
 
                     </div>
-
-                    <!-- Save button-->
-                    <!--<div class="update-container ">
-                       <button  type="button" class="long-button reg-button gray-button" style="margin-left: -6%;" ng-click="saveColorPalette()">Save</button>
-                       <div class="resetpalette ptr" ng-click="clearColorPalette()"> <p id="resetpalette" >RESET ORIGINAL PALETTE</p></div>
-                   </div>-->
-
 
                 </div>
             </div>            
@@ -138,7 +114,6 @@
                             </div>
                             <div ng-if="colorFrom === 'logo'" class="palette-wrap" id="logocolor1" >
                                 <div class="palette clear" id="picktheme">
-                                    <!--<div><button type="button" class="btn btn-primary" value="click to display colors" >click to display colors</button></div>-->
                                     <div ng-repeat="col in color">
                                         <div  class="palette-colorswab-global fleft" style="background-color:{{col}};" ng-click="getColorID(col)"></div>
                                     </div>
