@@ -1,5 +1,5 @@
         <link href="../css/jquerygrowl.css" rel="stylesheet" type="text/css"/>
-        <script src="../js/jquerygrowl.js" type="text/javascript"></script>
+        <script src="../js/utilities/jquerygrowl.js" type="text/javascript"></script>
 <div id="fade" ng-class="fadeClass" class="center-pop-ups">
     <div class="">
         <div class="modal-pane modal-pane-width-reg" id="addAction" ng-if="addAction">
@@ -19,15 +19,7 @@
                 </div>
                 <div class="input-wrap">
                     <label>Action Type</label>
-                    <!--                    <select id="actiontype" class="full" name="actiontype" ng-model="actionType" >
-                                            <option value="0">Select</option>
-                                            <option value="Facebook">Facebook Post</option>
-                                            <option value="Twitter">Twitter Post</option>
-                                            <option value="Email">Email</option>
-                                            <option value="Reminder" ng-show="isYourplan">Reminder</option>
-                                        </select>-->
                     <div dropdown-select="ddSelectActionOptions" dropdown-model="ddSelectAction" dropdown-onchange="chooseActionTypeOnChange(selected)"></div>
-<!--                    <div dropdown-select="ddSelectActionOptions" dropdown-onchange="selectedOrganization(selected)" dropdown-model="ddSelectAction"></div>-->
                     <span class="validationAlert" ng-if="actionTypeValidation">{{actionDropdownValidation}}</span>
                 </div>
 
@@ -36,7 +28,7 @@
                         <label>Action Date</label>
                         <a class="clickable-input fluid">
                             <div class="date-time-select-icon">
-                                <object type="image/svg+xml" data="/BrndBot/user/images/calendar-gray.svg" style="cursor:pointer;"> </object>
+                                <object type="image/svg+xml" data="/BrndBot/images/calendar-gray.svg" style="cursor:pointer;"> </object>
                             </div>
                             <input type="text" name="datepicker" ng-model="datePicker" id="datepicker" readonly class="time-date-select" placeholder="Enter Action Date" />
 
@@ -52,18 +44,16 @@
                             </script>
                         </a>
                         <span class="validationAlert" ng-if='datePicker === "" || null'>{{actionDateValidation}}</span>
-<!--                        <span class="validationAlert" ng-if="dateGreater">{{greaterDateValidation}}</span>-->
                                                 
                     </div>
                     <div class="input-wrap half">
                         <label>Action Time</label>
                         <a class="clickable-input fluid">
                             <div class="date-time-select-icon">
-                                <object type="image/svg+xml" data="/BrndBot/user/images/time-gray.svg" style="cursor:pointer;"> </object>
+                                <object type="image/svg+xml" data="/BrndBot/images/time-gray.svg" style="cursor:pointer;"> </object>
                             </div>
                             <input id="timepicker1" ng-model="timePicker123" type="text" name="" class="time-date-select" placeholder="Enter Action Time"  /> 
-                            <!--<input id="programDate" ng-model="programDate" type="text" value="{{programaction.postDate}}"  placeholder=""  />--> 
-                            <script src="js/timepicki.js" type="text/javascript"></script>
+                            <script src="../js/utilities/timepicki.js" type="text/javascript"></script>
                             <script>
                                 $('#timepicker1').timepicki({
                                     show_meridian: true,
@@ -76,7 +66,6 @@
                                 });
                             </script>
                         </a>
-<!--                        <span class="validationAlert" ng-if='timePicker123 === "" || null'>{{actionDateValidation}}</span>-->
                         <span class="validationAlert" ng-if="timePickerVal">{{actionDateValidation}}</span>
 
                     </div>

@@ -8,35 +8,17 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="css/General-Utility.css">
-        <link rel="stylesheet" type="text/css" href="css/Navigation.css">
-        <link rel="shortcut icon" href="images/favicon.png"/>
-        <link rel="stylesheet" type="text/css" href="css/Page-Structure.css">
-        <link rel="stylesheet" type="text/css" href="css/Pane.css">
-        <link rel="stylesheet" type="text/css" href="css/Dashboard.css">
-        <link rel="stylesheet" type="text/css" href="css/Email.css">
-        <link rel="stylesheet" type="text/css" href="css/normalize.css">
-        <link rel="stylesheet" type="text/css" href="css/Form-Input.css">
-        <link rel="stylesheet" type="text/css" href="css/overlay-drawer.css">
-        <link rel="stylesheet" type="text/css" href="css/sequence-Pages.css">
-        <link rel="stylesheet" type="text/css" href="css/slats.css">
-        <link rel="stylesheet" type="text/css" href="css/onboarding.css">
-        <link rel="stylesheet" type="text/css" href="css/login-onboarding.css">
-        <link rel="stylesheet" type="text/css" href="css/admin.css">
-        <link href="css/popup.css" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" type="text/css" href="css/gallery-user.css"/>
-        <link rel="stylesheet" type="text/css" href="css/general_1.css" />
-        <!--<link href="css/style_detail_overlay-1.css" rel="stylesheet" type="text/css"/>-->
-        <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
+        <link rel="stylesheet" type="text/css" href="../css/general_1.css" />
+        <script src="../js/utilities/jquery-1.11.3.min.js" type="text/javascript"></script> 
         <link href="css/style_detail_overlay-1.css" rel="stylesheet" type="text/css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
+        <script src="../js/utilities/jquery-1.11.3.min.js" type="text/javascript"></script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-animate.min.js"></script>
         <script src="../js/configurations.js"></script>
         <link href="../css/jquerygrowl.css" rel="stylesheet" type="text/css"/>
-        <script src="../js/jquerygrowl.js" type="text/javascript"></script>
+        <script src="../js/utilities/jquerygrowl.js" type="text/javascript"></script>
         <script>
             var appp = angular.module("imgPopup", []);
             appp.directive('customOnChange', function () {
@@ -50,7 +32,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
             });
 
             appp.controller("imgPopupController", function ($scope, $http, $q) {
-                $scope.imageToBeUploaded = 'images/uploadPhoto.svg';
+                $scope.imageToBeUploaded = '../images/uploadPhoto.svg';
                 $scope.imageSelected = 'gallery-item-wrap-selected-true';
                 $scope.imageUnSelect = 'gallery-item-wrap-selected';
                 var imageurl = "";
@@ -128,7 +110,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                             <div class="imageGallery-inner-popup">
                                 <div class="imageUpload-container">
                                     <div class="browse-button">
-                                        <input type="file" class="displayNone" id="filesToUpload" custom-on-change="uploadFile"/>
+                                        <input type="file"  hidden="" id="filesToUpload" custom-on-change="uploadFile"/>
                                     </div>
                                 </div>                     
                             </div>
