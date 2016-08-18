@@ -24,6 +24,24 @@ factoryApp.factory('appSessionFactory', function ($q) {
         return deffered.promise;
     };
     
+    AppSessionFactoryObject.setEmailWithObject = function (object) {
+        var deffered = $q.defer();
+        var data = false;
+        if(object)
+        {
+//            var keyString = email+"."+key;
+            var emailLocalObject = JSON.parse(localStorage.getItem(emailObjectName));
+            if(emailLocalObject){
+                email = emailLocalObject;
+            }
+            email = object;
+            localStorage.setItem(emailObjectName,JSON.stringify(email));
+            data = true;
+        }
+        deffered.resolve(data);
+        return deffered.promise;
+    };
+    
     AppSessionFactoryObject.getEmail = function (key) {
         var deffered = $q.defer();
         var requestedValue = "";

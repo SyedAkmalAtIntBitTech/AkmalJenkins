@@ -1,4 +1,4 @@
-emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'blockModelFactory', 'companyFactory', 'categoryFactory', 'emailDraftFactory', 'subCategoryFactory', 'externalContentFactory', 'redirectFactory', 'SharedService', 'settingsFactory', 'companyMarketingProgramFactory', 'emailFactory', 'modelFactory', 'emailListFactory', 'scheduleActionsFactory', 'appSessionFactory', function ($scope, $window, $location, blockModelFactory, companyFactory, categoryFactory, emailDraftFactory, subCategoryFactory, externalContentFactory, redirectFactory, SharedService, settingsFactory, companyMarketingProgramFactory, emailFactory, modelFactory, emailListFactory, scheduleActionsFactory, appSessionFactory) {
+emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'blockModelFactory', 'companyFactory', 'categoryFactory', 'emailDraftFactory', 'subCategoryFactory', 'externalContentFactory', 'redirectFactory', 'SharedService', 'settingsFactory', 'companyMarketingProgramFactory', 'emailFactory', 'modelFactory', 'emailListFactory', 'scheduleActionsFactory', 'appSessionFactory', 'yourPlanFactory', function ($scope, $window, $location, blockModelFactory, companyFactory, categoryFactory, emailDraftFactory, subCategoryFactory, externalContentFactory, redirectFactory, SharedService, settingsFactory, companyMarketingProgramFactory, emailFactory, modelFactory, emailListFactory, scheduleActionsFactory, appSessionFactory, yourPlanFactory) {
         $scope.footerEmailPopup = false;
         $scope.emailChannelId = 3;
         $scope.printChannelId = 2;
@@ -66,7 +66,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 var paramLookupId = JSON.parse(emailDraftDetails).lookupId;
                 var paramEmailSubject = JSON.parse(emailDraftDetails).email_subject;
                 var paramMindbodyId = JSON.parse(emailDraftDetails).mindbodyId;
-                appSessionFactory.getEmail(getPreHeader()).then(function (preHeader){alert(preHeader);
+                appSessionFactory.getEmail(getPreHeader()).then(function (preHeader){
                     $scope.redirect('emaileditor', paramCategoryId, paramSubCategoryId, '', paramLookupId, paramMindbodyId, paramDraftId, paramEmailSubject,preHeader);
                 });
             }
@@ -83,28 +83,39 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 }
             });
 
-//            var redirectFromDraft = localStorage.getItem("emailDraftData");
-//            $.FroalaEditor.DEFAULTS.htmlAllowedAttrs = $.merge($.FroalaEditor.DEFAULTS.htmlAllowedAttrs, ['onclick', 'ng-click']);
-            appSessionFactory.getAllEmail().then(function(sessionMap){
-            companyMarketingProgramFactory.getAllUserMarketingProgramsSessionIdGet().then(function (urlList) {
-//                $('#edit').froalaEditor({key: FroalaLicenseKey, linkList: urlList});
-                $scope.blockIdOnSelected('defaultblock1', 0 ,sessionMap[getMindbodyId()]);
-                if (emailDraftDetails === null) {
-                    modelFactory.EmailModelsIdGet(sessionMap[getSubCategoryId()]).then(function (templateDate) {
-                        var blockList = templateDate.d.details.reverse();
-                        $scope.addHTMLInEmailEditor(blockList[0].modelId);
+        //            var redirectFromDraft = localStorage.getItem("emailDraftData");
+        //            $.FroalaEditor.DEFAULTS.htmlAllowedAttrs = $.merge($.FroalaEditor.DEFAULTS.htmlAllowedAttrs, ['onclick', 'ng-click']);
+                    appSessionFactory.getAllEmail().then(function(sessionMap){
+                        
+                    if(!sessionMap[getEmailScheduleId()]) {    
+                        companyMarketingProgramFactory.getAllUserMarketingProgramsSessionIdGet().then(function (urlList) {
+            //                $('#edit').froalaEditor({key: FroalaLicenseKey, linkList: urlList});
+                            $scope.blockIdOnSelected('defaultblock1', 0 ,sessionMap[getMindbodyId()]);
+                            if (emailDraftDetails === null) {
+                                modelFactory.EmailModelsIdGet(sessionMap[getSubCategoryId()]).then(function (templateDate) {
+                                    var blockList = templateDate.d.details.reverse();
+                                    $scope.addHTMLInEmailEditor(blockList[0].modelId);
+                                });
+                            } else {
+                                var DraftId = JSON.parse(emailDraftDetails).draftid;
+                                $scope.getEmailDrafts(DraftId);
+                            }
+                            $scope.loadingOverlay = false; //stop Loading Overlay
+                            $scope.hideEmailEditorOverlay = true;
+                            $scope.showBlocks();
+                        });
+                    
+                    } else {
+                        $("#tinymceEditorBody").append($(sessionMap[getEmailBody()]));
+                        $scope.launchTinyMceEditor();
+                        $scope.loadingOverlay = false; //stop Loading Overlay
+                        $scope.hideEmailEditorOverlay = true;
+                        $scope.showBlocks();
+                    }
+                    
                     });
-                } else {
-                    var DraftId = JSON.parse(emailDraftDetails).draftid;
-                    $scope.getEmailDrafts(DraftId);
-                }
-                $scope.loadingOverlay = false; //stop Loading Overlay
-                $scope.hideEmailEditorOverlay = true;
-                $scope.showBlocks();
-            });
-            });
-            $scope.getColor();
-
+                    $scope.getColor();
+                
         };
         $scope.getColor = function () {
             var colorcodeArray = [];
@@ -160,9 +171,9 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
         $scope.redirect = function (redirect, categoryId, subCategoryId, mindbody, lookupId, mindbodyId, draftId, emailSubject, preHeader)
         {
-//            localStorage.removeItem("emailDraftData");
-            appSessionFactory.clearKeyEmail(getDraftDetails()).then(function (data){
-            });
+            localStorage.removeItem("emailDraftData");
+//            appSessionFactory.clearKeyEmail(getDraftDetails()).then(function (data){
+//            });
             if (lookupId)
             {
                 appSessionFactory.setEmail(getLookupId(),lookupId).then(function(data){
@@ -715,44 +726,48 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 };
                 emailFactory.previewServletPost(sendData).then(function (data) {
                     appSessionFactory.getAllEmail().then(function(sessionMap){
-                    if (!sessionMap[getDraftId()]) {
-                        var draftData = {
-                            bodyString: $('#tinymceEditorBody').html(),
-                            lookupId: sessionMap[getLookupId()].toString(),
-                            mindbodyData: sessionMap[getMindbodyId()].toString(),
-                            categoryId: sessionMap[getCategoryId()].toString(),
-                            subCategoryId: sessionMap[getSubCategoryId()].toString(),
-                            emailSubject: sessionMap[getEmailSubject()],
-                            emailPreHeader: sessionMap[getPreHeader()]
-                        };
-                        emailDraftFactory.saveEmailDraftsPost(draftData).then(function (responseText) {
-                            if (responseText !== "0") {
-                                $scope.redirect('emaillistselection', '', '', '', '', '', responseText, '', '');
-//                                document.location.href = "emaillistselection?draftid=" + responseText + "&subject=" + sessionMap["emailSubject"] + "&iframeName=" + $scope.randomIframeFilename + "&categoryId=" + categoryId + "&subCategoryId=" + subCategoryId + "&emailSubject=" + email_subject + "&mindbodyId=" + mindbodydata + "&LookupId=" + LookupId;
+
+                        if(!sessionMap[getEmailScheduleId()]) {
+                            if (!sessionMap[getDraftId()]) {
+                                var draftData = {
+                                    bodyString: $('#tinymceEditorBody').html(),
+                                    lookupId: sessionMap[getLookupId()].toString(),
+                                    mindbodyData: sessionMap[getMindbodyId()].toString(),
+                                    categoryId: sessionMap[getCategoryId()].toString(),
+                                    subCategoryId: sessionMap[getSubCategoryId()].toString(),
+                                    emailSubject: sessionMap[getEmailSubject()],
+                                    emailPreHeader: sessionMap[getPreHeader()]
+                                };
+                                emailDraftFactory.saveEmailDraftsPost(draftData).then(function (responseText) {
+                                    if (responseText !== "0") {
+                                      $scope.redirect('emaillistselection', '', '', '', '', '', responseText, '', '');
+        //                                document.location.href = "emaillistselection?draftid=" + responseText + "&subject=" + sessionMap["emailSubject"] + "&iframeName=" + $scope.randomIframeFilename + "&categoryId=" + categoryId + "&subCategoryId=" + subCategoryId + "&emailSubject=" + email_subject + "&mindbodyId=" + mindbodydata + "&LookupId=" + LookupId;
+                                    } else {
+                                        growl("There was a problem while saving the draft! Please try again later.");
+                                    }
+                                });
                             } else {
-                                growl("There was a problem while saving the draft! Please try again later.");
+                                var draftData = {
+                                    draftId: sessionMap[getDraftId()].toString(),
+                                    bodyString: $('#tinymceEditorBody').html(),
+                                    lookupId: sessionMap[getLookupId()].toString(),
+                                    mindbodyData: sessionMap[getMindbodyId()].toString(),
+                                    categoryId: sessionMap[getCategoryId()].toString(),
+                                    subCategoryId: sessionMap[getSubCategoryId()].toString(),
+                                    emailSubject: sessionMap[getEmailSubject()]
+                                };
+                                emailDraftFactory.updateEmailDraftPost(draftData).then(function (responseText) {
+                                    if (responseText) {
+                                        $scope.redirect('emaillistselection', sessionMap[getCategoryId()], '', '', '', '', sessionMap[getDraftId()], '', '');
+        //                                document.location.href = "emaillistselection?draftid=" + draft_id + "&subject=" + email_subject + "&iframeName=" + rendomIframeFilename;
+                                    } else {
+                                        growl("There was a problem while saving the draft! Please try again later.");
+                                    }
+                                });
                             }
-                        });
-                    } else {
-                        var draftData = {
-                            draftId: sessionMap[getDraftId()].toString(),
-                            bodyString: $('#tinymceEditorBody').html(),
-                            lookupId: sessionMap[getLookupId()].toString(),
-                            mindbodyData: sessionMap[getMindbodyId()].toString(),
-                            categoryId: sessionMap[getCategoryId()].toString(),
-                            subCategoryId: sessionMap[getSubCategoryId()].toString(),
-                            emailSubject: sessionMap[getEmailSubject()],
-                            emailPreHeader: sessionMap[getPreHeader()]
-                        };
-                        emailDraftFactory.updateEmailDraftPost(draftData).then(function (responseText) {
-                            if (responseText) {
-                                $scope.redirect('emaillistselection', sessionMap[getCategoryId()], '', '', '', '',sessionMap[getDraftId()], '', '');
-//                                document.location.href = "emaillistselection?draftid=" + draft_id + "&subject=" + email_subject + "&iframeName=" + rendomIframeFilename;
-                            } else {
-                                growl("There was a problem while saving the draft! Please try again later.");
-                            }
-                        });
-                    }
+                        } else {
+                            $scope.redirect('emaillistselection', '', '', '', '', '', '', '');
+                        }
                 });
                 });
             });
@@ -1002,8 +1017,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.isEmailActionSave = function (){
 //            $scope.redirectBaseURL();
-            appSessionFactory.getEmail(getEmailScheduleId()).then(function(emailScheduleId){
-                if(emailScheduleId){
+            appSessionFactory.getEmail(getEntityScheduleId()).then(function(entityScheduleId){
+                if(entityScheduleId){
                     $scope.emaildetailscontbtn=false;
                     $scope.emailSaveActionbutton= true;
                 } else{
@@ -1117,37 +1132,88 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 {
                     $scope.postData = postData;
                     
-                    
                     appSessionFactory.getAllEmail().then(function(sessionMap){
-                        var email_scheduling = {
-                            from_name: $scope.postData.fromName,
-                            schedule_id: sessionMap[getEmailScheduleId()].toString(),
-                            email_subject: $scope.postData.emailSubject,
-                            email_preheader:sessionMap[getPreHeader()],
-                            to_email_addresses: $scope.postData.toAddress,
-                            from_email_address: getDefaultEmailId(),
-                            reply_to_email_address: $scope.postData.replyAddress,
-                            email_list: $scope.emailList,
-                            email_body: $("#dynamictable").contents().find("html").html(),
-                            schedule_desc: ",,,",
-                            iframeName: $scope.randomIframeFilename.toString()
-                        };
-                        
-                        scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
-                            if (data.d.operationStatus.statusCode === "Success") {
-                                $scope.schedulePopup = false;
-                                $scope.isPostSuccess = true;
-        //                        window.location = "dashboard";
-                                appSessionFactory.getEmail(getDraftId()).then(function(sessionDraftId){
-                                emailDraftFactory.deleteEmailDraftPost(sessionDraftId).then(function (responseText) {
-                                    appSessionFactory.clearAllEmail().then(function(){
+                        if(sessionMap[getEmailScheduleId()])
+                        {
+                            var requestBody = {"type": "removetemplate",
+                                               "schedule_ids": sessionMap[getEntityScheduleId()], "entity_type": "Email",
+                                               "isRecurring": ""
+                                               };
+                            yourPlanFactory.changeSchedulePost(requestBody).then(function (data) {
+                                
+                                var email_scheduling = {
+                                    from_name: $scope.postData.fromName,
+                                    schedule_id: sessionMap[getEntityScheduleId()].toString(),
+                                    email_subject: $scope.postData.emailSubject,
+                                    email_preheader:sessionMap[getPreHeader()],
+                                    to_email_addresses: $scope.postData.toAddress,
+                                    from_email_address: getDefaultEmailId(),
+                                    reply_to_email_address: $scope.postData.replyAddress,
+                                    email_list: $scope.emailList,
+                                    email_body: $("#dynamictable").contents().find("html").html(),
+                                    schedule_desc: ",,,",
+                                    iframeName: $scope.randomIframeFilename.toString()
+                                };
+
+                                scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
+                                    if (data.d.operationStatus.statusCode === "Success") {
+                                        $scope.schedulePopup = false;
+                                        $scope.isPostSuccess = true;
                 //                        window.location = "dashboard";
-                                    });
+                                        appSessionFactory.getEmail(getDraftId()).then(function(sessionDraftId){
+                                            if(sessionDraftId) {
+                                                emailDraftFactory.deleteEmailDraftPost(sessionDraftId).then(function (responseText) {
+
+                                                    appSessionFactory.clearAllEmail().then(function(){
+                                //                        window.location = "dashboard";
+                                                    });
+                                                });
+                                            }
+                                        });
+
+                                    }
                                 });
+                            
+                            });
+                        } else {
+                            appSessionFactory.getEmail(getEntityScheduleId()).then(function(sessionEntityScheduleId){
+                                var email_scheduling = {
+                                    from_name: $scope.postData.fromName,
+                                    schedule_id: sessionEntityScheduleId.toString(),
+                                    email_subject: $scope.postData.emailSubject,
+                                    email_preheader:sessionMap[getPreHeader()],
+                                    to_email_addresses: $scope.postData.toAddress,
+                                    from_email_address: getDefaultEmailId(),
+                                    reply_to_email_address: $scope.postData.replyAddress,
+                                    email_list: $scope.emailList,
+                                    email_body: $("#dynamictable").contents().find("html").html(),
+                                    schedule_desc: ",,,",
+                                    iframeName: $scope.randomIframeFilename.toString()
+                                };
+
+                                scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
+                                    if (data.d.operationStatus.statusCode === "Success") {
+                                        $scope.schedulePopup = false;
+                                        $scope.isPostSuccess = true;
+                //                        window.location = "dashboard";
+                                        
+                                        appSessionFactory.getEmail(getDraftId()).then(function(sessionDraftId){
+                                            if(sessionDraftId) {
+                                                emailDraftFactory.deleteEmailDraftPost(sessionDraftId).then(function (responseText) {
+
+                                                    appSessionFactory.clearAllEmail().then(function(){
+                                //                        window.location = "dashboard";
+                                                    });
+                                                });
+                                            }
+                                        });
+
+                                    }
                                 });
-                            }
-                        });
+                            });
+                        }
                     });
+                    
                     
                     
                     

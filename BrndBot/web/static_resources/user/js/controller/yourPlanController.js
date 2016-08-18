@@ -898,11 +898,32 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.saveEmailByActionId = function(id){
 //            localStorage.setItem("email_Schedule_Id",id);
             appSessionFactory.clearAllEmail().then(function(checkCleared){
-                appSessionFactory.setEmail(getEmailScheduleId(),id).then(function(data){
+                appSessionFactory.setEmail(getEntityScheduleId(),id).then(function(data){
                     if(data===true)
                         window.open(getHost() + 'user/baseemaileditor#/emailcategory', "_self");
                 });
             });
+        };
+        
+        $scope.editSavedEmail = function(scheduleId,entitiesdetails){
+            
+            appSessionFactory.clearAllEmail().then(function(checkCleared){
+                var savedEmail = {};
+                savedEmail[getEntityScheduleId()] = scheduleId;
+                savedEmail[getEmailScheduleId()] = entitiesdetails.schedule_email_id;
+                savedEmail[getEmailSubject()] = entitiesdetails.subject;
+                savedEmail[getToEmailAddresses()] = entitiesdetails.to_email_addresses;
+                savedEmail[getEmailBody()] = entitiesdetails.body;
+                savedEmail[getEmailListName()] = entitiesdetails.email_list_name;
+                savedEmail[getFromName()] = entitiesdetails.from_name;
+                savedEmail[getFromAddress()] = getDefaultEmailId();
+                savedEmail[getReplyToEmailAddress()] = entitiesdetails.reply_to_email_address;
+                appSessionFactory.setEmailWithObject(savedEmail).then(function(saved){
+                    if(saved===true)
+                        window.open(getHost() + 'user/baseemaileditor#/emailsubjects', "_self");
+                });
+            });
+            
         };
         
     }]);

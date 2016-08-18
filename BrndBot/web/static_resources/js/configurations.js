@@ -40,6 +40,24 @@ var defaultSendEmailFrom = "mail@brndbot.com";
 var bitlyUserName = "sandeep264328";
 var bitlyKey = "R_63e2f83120b743bc9d9534b841d41be6";
 
+//EmailFlow Session vars
+
+var categoryId = "categoryId";
+var subCategoryId = "subCategoryId";
+var lookupId = "lookupId";
+var externalSourceName = "mindbody";
+var mindbodyId = "mindbodyId";
+var draftId = "draftId";
+var emailSubject = "emailSubject";
+var entityScheduleId = "entityScheduleId";
+var emailScheduleId = "email_Schedule_Id";
+var toEmailAddresses = "to_email_addresses";
+var emailBody = "body";
+var emailListName = "email_list_name";
+var fromName = "from_name";
+var replyToEmailAddress = "reply_to_email_address";
+var fromAddress = "from_address";
+
 function getHost(){
      return global_host_address;
 }
@@ -126,6 +144,11 @@ function getDraftId(){
 function getEmailSubject(){
     return emailSubject;
 }
+
+function getEntityScheduleId() {
+    return entityScheduleId;
+}
+
 function getEmailScheduleId(){
     return emailScheduleId;
 }
@@ -134,4 +157,27 @@ function getPreHeader(){
 }
 function getDraftDetails(){
     return emailDraftData;
+}
+function getToEmailAddresses(){
+    return toEmailAddresses;
+}
+
+function getEmailBody() {
+    return emailBody;
+}
+
+function getEmailListName() {
+    return emailListName;
+}
+
+function getFromName() {
+    return fromName;
+}
+
+function getReplyToEmailAddress() {
+    return replyToEmailAddress;
+}
+
+function getFromAddress() {
+    return fromAddress;
 }
