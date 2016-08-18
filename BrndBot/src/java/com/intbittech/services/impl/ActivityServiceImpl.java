@@ -12,36 +12,66 @@ import com.intbittech.services.ActivityService;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author ajit @ Intbit
+ * @author ajit
  */
-public class ActivityServiceImpl implements ActivityService{
+@Service
+@Transactional(rollbackFor = ProcessFailed.class)
+public class ActivityServiceImpl implements ActivityService {
 
     private static Logger logger = Logger.getLogger(ActivityServiceImpl.class);
     @Autowired
     private ActivityDao activityDao;
-   
 
     /**
      * {@inheritDoc}
      */
     public Integer save(Activity activity) throws ProcessFailed {
-     return  activityDao.save(activity);
+        return activityDao.save(activity);
     }
 
-   /**
+    /**
      * {@inheritDoc}
      */
     public List<Activity> getAllActivity() throws ProcessFailed {
-         List<Activity> activityList = activityDao.getAllActivity();
-        if(activityList == null)
-        {
-             throw new ProcessFailed("No activity found.");
+        List<Activity> activityList = activityDao.getAllActivity();
+        if (activityList == null) {
+            throw new ProcessFailed("No activity found.");
         }
-              return  activityList;
+        return activityList;
     }
-    
-    
+
+    /**
+     * {@inheritDoc}
+     */
+    public void update(Activity activity) throws ProcessFailed {
+       activityDao.update(activity);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void delete(Integer activityId) throws ProcessFailed {
+        Activity activity = activityDao.getActivityByactivityId(activityId);
+        if (activity == null) {
+            throw new ProcessFailed("No activity with id" + activityId + ".");
+        }
+        activityDao.delete(activity);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Activity getActivityByactivityId(Integer activityId) throws ProcessFailed {
+        Activity activity = activityDao.getActivityByactivityId(activityId);
+        if (activity == null) {
+            throw new ProcessFailed("No activity with id" + activityId + ".");
+        }
+        return activity;
+    }
+
 }

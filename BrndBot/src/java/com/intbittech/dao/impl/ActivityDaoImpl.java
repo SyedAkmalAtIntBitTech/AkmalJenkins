@@ -12,6 +12,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -41,7 +42,9 @@ public class ActivityDaoImpl implements ActivityDao{
         }
     }
 
-    @Override
+   /**
+     * {@inheritDoc}
+     */
     public List<Activity> getAllActivity() throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
@@ -50,6 +53,49 @@ public class ActivityDaoImpl implements ActivityDao{
                 return null;
             }
             return criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
+        }
+    }
+
+   /**
+     * {@inheritDoc}
+     */
+    public void update(Activity activity) throws ProcessFailed {
+      try {
+             sessionFactory.getCurrentSession().update(activity);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while updating record.");
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void delete(Activity activity) throws ProcessFailed {
+        try {
+             sessionFactory.getCurrentSession().delete(activity);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while deleting record.");
+        }
+    }
+
+   /**
+     * {@inheritDoc}
+     */
+    public Activity getActivityByactivityId(Integer activityId) throws ProcessFailed {
+         try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(Activity.class)
+                    .add(Restrictions.eq("activityId", activityId));
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return (Activity)criteria.list().get(0);
 
         } catch (Throwable throwable) {
             logger.error(throwable);
