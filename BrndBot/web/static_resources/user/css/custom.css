@@ -660,6 +660,7 @@ EDITOR
     transition: all 300ms ease;
     height: 35px;
     width: 80px;
+    top: 0px;
 }
 .emailrender .remove
 {
