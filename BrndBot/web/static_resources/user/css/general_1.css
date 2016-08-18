@@ -4922,3 +4922,9 @@ textarea.task-textarea:focus{
     overflow-y: scroll;
     height: 445px;
 }
+
+.spanwidthclip{
+    max-width: 300px;
+    overflow: hidden;
+
+}
