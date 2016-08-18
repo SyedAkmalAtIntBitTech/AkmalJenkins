@@ -138,6 +138,7 @@
                  <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div >SAVED EMAIL DETAILS</div>
+                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="editSavedEmail(entitiesdetails);"> Edit Saved Email</a>
                         <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);"> Remove Saved Email</a>
                     </div>
                     <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all ease-all">

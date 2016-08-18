@@ -905,6 +905,24 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             });
         };
         
+        $scope.editSavedEmail = function(entitiesdetails){
+            appSessionFactory.clearAllEmail().then(function(checkCleared){
+                var savedEmail = {};
+                savedEmail[getEmailScheduleId()] = entitiesdetails.schedule_email_id;
+                savedEmail[getEmailSubject()] = entitiesdetails.subject;
+                savedEmail[getToEmailAddresses()] = entitiesdetails.to_email_addresses;
+                savedEmail[getEmailBody()] = entitiesdetails.body;
+                savedEmail[getEmailListName()] = entitiesdetails.email_list_name;
+                savedEmail[getFromName()] = entitiesdetails.from_name;
+                savedEmail[getFromAddress()] = getDefaultEmailId();
+                savedEmail[getReplyToEmailAddress()] = entitiesdetails.reply_to_email_address;
+                appSessionFactory.setEmailWithObject(savedEmail).then(function(saved){
+                    if(saved===true)
+                        window.open(getHost() + 'user/baseemaileditor#/emailsubjects', "_self");
+                });
+            });
+        };
+        
     }]);
 
        
