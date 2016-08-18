@@ -912,6 +912,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 savedEmail[getEntityScheduleId()] = scheduleId;
                 savedEmail[getEmailScheduleId()] = entitiesdetails.schedule_email_id;
                 savedEmail[getEmailSubject()] = entitiesdetails.subject;
+                savedEmail[getPreHeader()] = entitiesdetails.preheader;
                 savedEmail[getToEmailAddresses()] = entitiesdetails.to_email_addresses;
                 savedEmail[getEmailBody()] = entitiesdetails.body;
                 savedEmail[getEmailListName()] = entitiesdetails.email_list_name;

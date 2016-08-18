@@ -592,7 +592,8 @@ public class ScheduleDAO {
 
                         scheduleEmailDetails.put("schedule_email_id", rs.getInt("scheduled_email_list_id"));
                         scheduleEmailDetails.put("user_id", rs.getInt("fk_company_id"));
-                        scheduleEmailDetails.put("subject", rs.getString("subject"));
+                        scheduleEmailDetails.put("subject", rs.getString("subject"));                        
+                        scheduleEmailDetails.put("preheader", rs.getString("preheader"));
                         scheduleEmailDetails.put("body", rs.getString("body"));
                         scheduleEmailDetails.put("from_address", rs.getString("from_address"));
                         scheduleEmailDetails.put("reply_to_email_address", rs.getString("reply_to_email_address"));

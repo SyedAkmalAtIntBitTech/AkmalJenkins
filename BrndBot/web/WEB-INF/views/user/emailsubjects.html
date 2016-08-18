@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="css/popup.css">
     <div ng-include src="'navbar.html'"></div> 
 
-<div class="main-content-wrap">
+<div class="main-content-wrap" ng-init="getSubject_preHeader()">
     <div class="top-nav-wrap">
         <!--        <input type="hidden" value="<%=categoryId%>" id="categoryIdTag"/>
         <input type="hidden" value="<%=subCategoryId%>" id="subCategoryIdTag"/>
@@ -24,7 +24,7 @@
             <h2 class="">Create an Email</h2>
         </div>
     </div> 
-    <div class="top-nav-bar-offset" ng-init="redirectBaseURL()"></div>
+    <div class="top-nav-bar-offset" ></div>
     <div class="content-wrap content-wrap-flex content-wrap-with-continue-bar">
         <div class="modal-pane modal-pane-width-reg">
             <div class="modal-pane-header-wrap">
@@ -40,7 +40,7 @@
 
                 </div>
                  <div class="input-wrap">
-                    <label> Enter Pre header Text</label>
+                    <label> Enter Preheader Text</label>
                     <div class="input ">
                         <input id="preHeader" ng-model="$parent.preheader" type="text" value="{{preheader}}"  spellcheck="true" placeholder="Enter Preheader Text of email" name="preheader"  class="fluid"/>
                     </div>

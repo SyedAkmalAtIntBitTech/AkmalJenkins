@@ -48,6 +48,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.dateLesser = false;
         $scope.validateEmailAddress = false;
         $scope.validateEmailAddress = false;
+        $scope.isEmailSaveAction=false;
         var sliderDialog = "#emaileditorexternalpopup";
         var emailDraftDetails = localStorage.getItem('emailDraftData');
 //        appSessionFactory.getEmail(getDraftDetails()).then(function (data){
@@ -57,6 +58,11 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         //OnPageLoad
         $scope.emailEditorInit = function () {
             $scope.loadingOverlay = true; //start Loading Overlay
+            
+            appSessionFactory.getEmail(getEntityScheduleId()).then(function (getEntityScheduleId){
+                if(getEntityScheduleId)
+                    $scope.isEmailSaveAction=true;
+            });
             
             //TODO Ilyas refactor this, need to go into email object
             if (emailDraftDetails !== null) {
@@ -106,7 +112,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         });
                     
                     } else {
-                        $("#tinymceEditorBody").append($(sessionMap[getEmailBody()]));
+                        var htmlData=sessionMap[getEmailBody()];
+                        $("#tinymceEditorBody").append(htmlData);
                         $scope.launchTinyMceEditor();
                         $scope.loadingOverlay = false; //stop Loading Overlay
                         $scope.hideEmailEditorOverlay = true;
@@ -242,11 +249,16 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             }
         };
 
-//        $scope.redirectBaseURL = function () {
-//            if (($scope.categoryId === "") && (emailDraftDetails === null)) {
-//                $location.path("/" + "baseemaileditor#/emailcategory");
-//            }
-//        };
+        $scope.getSubject_preHeader = function () {
+            appSessionFactory.getAllEmail().then(function (sessionMap){
+                if(sessionMap[getEntityScheduleId()]){                    
+                    var emailSub=sessionMap[getEmailSubject()];
+                    var emailPreHead=sessionMap[getPreHeader()];
+                    $scope.emailsubject = emailSub;
+                    $scope.preheader = emailPreHead;
+                }
+            });
+        };
 
         $scope.redirectToEmailFlow = function (forwardone)
         {
@@ -780,12 +792,30 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.showEmailList = function () {
-            $scope.ddSelectEmailListOptions = [
-//                {
-//                    text: "Manual",
-//                    value: "1"
-//                }
-            ];
+            
+            appSessionFactory.getAllEmail().then(function (sessionMap){
+                if(sessionMap[getEntityScheduleId()]){
+//                    $scope.ddSelectEmailListOptions = [
+//                    {
+//                        text: sessionMap[getEmailListName()],
+//                        value: sessionMap[getEmailListName()]
+//                    }
+//                    ];
+                }else{
+//                        $scope.ddSelectEmailListOptions = [
+//            //                {
+//            //                    text: "Manual",
+//            //                    value: "1"
+//            //                }
+//                        ];
+                }
+                });
+                $scope.ddSelectEmailListOptions = [
+            //                {
+            //                    text: "Manual",
+            //                    value: "1"
+            //                }
+                        ];
 //            $scope.redirectBaseURL();       //this function redirects to base if page is refreshed.            
             emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
                 var parseData = JSON.parse(data.d.details);
@@ -1017,8 +1047,10 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.isEmailActionSave = function (){
 //            $scope.redirectBaseURL();
-            appSessionFactory.getEmail(getEntityScheduleId()).then(function(entityScheduleId){
-                if(entityScheduleId){
+            appSessionFactory.getAllEmail().then(function(sessionMap){
+                if(sessionMap[getEntityScheduleId()]){
+                    $scope.emailSubject=sessionMap[getEmailSubject()];
+                    $scope.fromName=sessionMap[getFromName()];
                     $scope.emaildetailscontbtn=false;
                     $scope.emailSaveActionbutton= true;
                 } else{
@@ -1159,6 +1191,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                                     if (data.d.operationStatus.statusCode === "Success") {
                                         $scope.schedulePopup = false;
                                         $scope.isPostSuccess = true;
+                                        $scope.postedTo = getemail();
                 //                        window.location = "dashboard";
                                         appSessionFactory.getEmail(getDraftId()).then(function(sessionDraftId){
                                             if(sessionDraftId) {
@@ -1195,6 +1228,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                                     if (data.d.operationStatus.statusCode === "Success") {
                                         $scope.schedulePopup = false;
                                         $scope.isPostSuccess = true;
+                                        $scope.postedTo = getemail();
                 //                        window.location = "dashboard";
                                         
                                         appSessionFactory.getEmail(getDraftId()).then(function(sessionDraftId){
