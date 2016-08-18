@@ -49,6 +49,7 @@ var externalSourceName = "mindbody";
 var mindbodyId = "mindbodyId";
 var draftId = "draftId";
 var emailSubject = "emailSubject";
+var entityScheduleId = "entityScheduleId";
 var emailScheduleId = "email_Schedule_Id";
 var toEmailAddresses = "to_email_addresses";
 var emailBody = "body";
@@ -132,6 +133,10 @@ function getDraftId(){
 
 function getEmailSubject(){
     return emailSubject;
+}
+
+function getEntityScheduleId() {
+    return entityScheduleId;
 }
 
 function getEmailScheduleId(){

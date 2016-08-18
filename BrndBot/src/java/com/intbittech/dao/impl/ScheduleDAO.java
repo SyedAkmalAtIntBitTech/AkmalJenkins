@@ -678,7 +678,7 @@ public class ScheduleDAO {
                         Integer entity_id = result_set.getInt("entity_id");
                         String entity_type = result_set.getString("entity_type");
                         if (entity_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
-                            String query_string1 = "Delete from scheduled_entity_list"
+                            String query_string1 = "Delete from scheduled_email_list"
                                     + " where scheduled_email_list_id = ?";
                             try (PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)) {
                                 prepared_statement1.setInt(1, entity_id);
