@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ActivityLog;
+import com.intbittech.responsemappers.ActivityLogResponse;
 import java.util.List;
 
 /**
@@ -31,7 +32,7 @@ public interface ActivityLogService {
      * @return {@link ActivityLog}
      * @throws ProcessFailed the process failed
      */
-    public List<ActivityLog> getAllActivityLog() throws ProcessFailed;
+    public List<ActivityLogResponse> getAllActivityLog() throws ProcessFailed;
     
      /**
      * This method retrieves the list of {@link ActivityLog} from DAO layer.
@@ -39,7 +40,7 @@ public interface ActivityLogService {
      * @return {@link ActivityLog}
      * @throws ProcessFailed the process failed
      */
-    public List<ActivityLog> getAllActivityLogByScheduledEntityListId(Integer scheduledEntityListId ) throws ProcessFailed;
+    public List<ActivityLogResponse> getAllActivityLogByScheduledEntityListId(Integer scheduledEntityListId ) throws ProcessFailed;
     
     /**
      * This method retrieves the list of {@link ActivityLog} from DAO layer.

@@ -34,8 +34,8 @@ public class ActivityLog implements Serializable {
     @Column(name = "activity_log_id")
     private Integer activityLogId;
     @Basic(optional = false)
-    @Column(name = "created_by")
-    private int createdBy;
+    @JoinColumn(name = "created_by", referencedColumnName = "user_id")
+    private Users createdBy;
     @Basic(optional = false)
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
@@ -57,9 +57,8 @@ public class ActivityLog implements Serializable {
         this.activityLogId = activityLogId;
     }
 
-    public ActivityLog(Integer activityLogId, int createdBy, Date createdAt) {
+    public ActivityLog(Integer activityLogId,Date createdAt) {
         this.activityLogId = activityLogId;
-        this.createdBy = createdBy;
         this.createdAt = createdAt;
     }
 
@@ -71,14 +70,15 @@ public class ActivityLog implements Serializable {
         this.activityLogId = activityLogId;
     }
 
-    public int getCreatedBy() {
+    public Users getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(int createdBy) {
+    public void setCreatedBy(Users createdBy) {
         this.createdBy = createdBy;
     }
 
+    
     public Date getCreatedAt() {
         return createdAt;
     }
