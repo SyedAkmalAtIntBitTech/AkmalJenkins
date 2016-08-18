@@ -1091,11 +1091,45 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 if ($scope.replyEmailValidation(postData))
                 {
                     $scope.postData = postData;
-                    alert("email ActionSaved..");
-//                    localStorage.removeItem("email_Schedule_Id");
-                    appSessionFactory.clearAllEmail().then(function(){
-                        window.location = "dashboard";
+                    
+                    
+                    appSessionFactory.getEmail(getEmailScheduleId()).then(function(sessionEmailScheduleId){
+                        var email_scheduling = {
+                            from_name: $scope.postData.fromName,
+                            schedule_id: sessionEmailScheduleId.toString(),
+                            email_subject: $scope.postData.emailSubject,
+                            to_email_addresses: $scope.postData.toAddress,
+                            from_email_address: getDefaultEmailId(),
+                            reply_to_email_address: $scope.postData.replyAddress,
+                            email_list: $scope.emailList,
+                            email_body: $("#dynamictable").contents().find("html").html(),
+                            schedule_desc: ",,,",
+                            iframeName: $scope.randomIframeFilename.toString()
+                        };
+                        
+                        scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
+                            if (data.d.operationStatus.statusCode === "Success") {
+                                $scope.schedulePopup = false;
+                                $scope.isPostSuccess = true;
+        //                        window.location = "dashboard";
+                                appSessionFactory.getEmail(getDraftId()).then(function(sessionDraftId){
+                                emailDraftFactory.deleteEmailDraftPost(sessionDraftId).then(function (responseText) {
+                                    appSessionFactory.clearAllEmail().then(function(){
+                //                        window.location = "dashboard";
+                                    });
+                                });
+                                });
+                            }
+                        });
                     });
+                    
+                    
+                    
+                    
+                    
+//                    alert("email ActionSaved..");
+//                    localStorage.removeItem("email_Schedule_Id");
+                    
                     
                 }
             }
@@ -1261,7 +1295,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     schedule_desc: ",,,",
                     iframeName: $scope.randomIframeFilename.toString()
                 };
-
+                
                 scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
                     if (data.d.operationStatus.statusCode === "Success") {
                         $scope.schedulePopup = false;
