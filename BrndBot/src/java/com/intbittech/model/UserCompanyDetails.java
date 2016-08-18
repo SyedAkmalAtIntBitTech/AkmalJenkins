@@ -9,7 +9,7 @@ package com.intbittech.model;
  *
  * @author Syed Muzamil at IntBit Technologies.
  */
-public class UserCompanyDetails {
+public class UserCompanyDetails  extends UserCompanyIds {
     private Integer companyId;
     private String companyName;
     private String roleName;

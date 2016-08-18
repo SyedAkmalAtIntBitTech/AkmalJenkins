@@ -5,6 +5,7 @@
  */
 package com.intbittech.modelmappers;
 
+import com.intbittech.model.UserCompanyIds;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,7 +13,7 @@ import java.util.Date;
  *
  * @author ilyas
  */
-public class UserDetails  implements Serializable {
+public class UserDetails   extends UserCompanyIds implements Serializable {
     
     private Integer userId;
     private String userName;

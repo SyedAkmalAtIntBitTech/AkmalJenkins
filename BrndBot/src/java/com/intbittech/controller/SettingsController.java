@@ -6,12 +6,9 @@
 package com.intbittech.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
-import com.intbittech.utility.IConstants;
-import com.intbittech.schedulers.MindbodyEmailListProcessor;
 import com.controller.SqlMethods;
 import com.google.gson.Gson;
 import com.intbit.util.CustomStyles;
-import com.intbittech.utility.ServletUtil;
 import com.intbittech.AppConstants;
 import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.model.Company;
@@ -25,15 +22,21 @@ import com.intbittech.modelmappers.InviteDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.schedulers.MindbodyEmailListProcessor;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.EmailListService;
 import com.intbittech.services.ForgotPasswordService;
-import com.intbittech.services.UserCompanyLookupService;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UsersService;
+import com.intbittech.social.CompanyPreferencesFacebook;
+import com.intbittech.social.CompanyPreferencesTwitter;
+import com.intbittech.utility.EmailValidator;
 import com.intbittech.utility.ErrorHandlingUtil;
+import com.intbittech.utility.IConstants;
+import com.intbittech.utility.ServletUtil;
 import com.intbittech.utility.StringUtility;
+import com.intbittech.utility.Utility;
 import facebook4j.Account;
 import facebook4j.Facebook;
 import facebook4j.FacebookFactory;
@@ -41,10 +44,10 @@ import facebook4j.ResponseList;
 import java.io.BufferedReader;
 import java.io.File;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import com.intbittech.utility.EmailValidator;
 import java.util.Map;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
@@ -66,10 +69,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import com.intbittech.social.CompanyPreferencesFacebook;
-import com.intbittech.social.CompanyPreferencesTwitter;
-import com.intbittech.utility.Utility;
-import java.util.ArrayList;
 import org.springframework.web.bind.annotation.RequestParam;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -636,6 +635,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
+    //TODO Muzamil. This request body is not a model. Create one.
     @RequestMapping(value = "/unsubscribeEmails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> unsubscribeEmails(HttpServletRequest request,@RequestBody List<String> emailList) {
         TransactionResponse transactionResponse = new TransactionResponse();
@@ -681,6 +681,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
+    //TODO Muzamil. This one too.
     @RequestMapping(value = "/saveUnsubscribeEmails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveUnsubscribeEmails(HttpServletRequest request,@RequestBody List<String> emailList) {
         TransactionResponse transactionResponse = new TransactionResponse();
