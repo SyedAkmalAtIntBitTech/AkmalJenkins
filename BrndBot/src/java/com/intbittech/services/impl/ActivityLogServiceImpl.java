@@ -8,6 +8,7 @@ package com.intbittech.services.impl;
 import com.intbittech.dao.ActivityLogDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ActivityLog;
+import com.intbittech.services.ActivityLogService;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional(rollbackFor = ProcessFailed.class)
-public class ActivityLogServiceImpl implements ActivityLogDao{
+public class ActivityLogServiceImpl implements ActivityLogService{
     
      private static Logger logger = Logger.getLogger(ActivityLogServiceImpl.class);
     @Autowired
@@ -38,17 +39,16 @@ public class ActivityLogServiceImpl implements ActivityLogDao{
      * {@inheritDoc}
      */
     public List<ActivityLog> getAllActivityLog() throws ProcessFailed {
-            List<ActivityLog> activityLogList = activityLogDao.getAllActivityLog();
-        if(activityLogList == null)
-        {
-             throw new ProcessFailed("No activity log found.");
+           List<ActivityLog> activityLogList = activityLogDao.getAllActivityLog();
+        if (activityLogList == null) {
+            throw new ProcessFailed("No activity log found.");
         }
-              return  activityLogList;
+        return activityLogList;
     }
-
-    /**
+ /**
      * {@inheritDoc}
      */
+   
     public List<ActivityLog> getAllActivityLogByScheduledEntityListId(Integer scheduledEntityListId) throws ProcessFailed {
         List<ActivityLog> activityLogList = activityLogDao.getAllActivityLogByScheduledEntityListId(scheduledEntityListId);
         if(activityLogList == null)
