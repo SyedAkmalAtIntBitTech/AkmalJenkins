@@ -87,7 +87,7 @@ public class ActivityDaoImpl implements ActivityDao{
    /**
      * {@inheritDoc}
      */
-    public Activity getActivityByactivityId(Integer activityId) throws ProcessFailed {
+    public Activity getActivityByActivityId(Integer activityId) throws ProcessFailed {
          try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(Activity.class)

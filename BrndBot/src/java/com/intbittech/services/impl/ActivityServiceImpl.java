@@ -56,7 +56,7 @@ public class ActivityServiceImpl implements ActivityService {
      * {@inheritDoc}
      */
     public void delete(Integer activityId) throws ProcessFailed {
-        Activity activity = activityDao.getActivityByactivityId(activityId);
+        Activity activity = activityDao.getActivityByActivityId(activityId);
         if (activity == null) {
             throw new ProcessFailed("No activity with id" + activityId + ".");
         }
@@ -66,8 +66,8 @@ public class ActivityServiceImpl implements ActivityService {
     /**
      * {@inheritDoc}
      */
-    public Activity getActivityByactivityId(Integer activityId) throws ProcessFailed {
-        Activity activity = activityDao.getActivityByactivityId(activityId);
+    public Activity getActivityByActivityId(Integer activityId) throws ProcessFailed {
+        Activity activity = activityDao.getActivityByActivityId(activityId);
         if (activity == null) {
             throw new ProcessFailed("No activity with id" + activityId + ".");
         }

@@ -59,5 +59,5 @@ public interface ActivityService {
      * @return {@link Activity}
      * @throws ProcessFailed the process failed
      */
-    public Activity getActivityByactivityId(Integer activityId) throws ProcessFailed;
+    public Activity getActivityByActivityId(Integer activityId) throws ProcessFailed;
 }
