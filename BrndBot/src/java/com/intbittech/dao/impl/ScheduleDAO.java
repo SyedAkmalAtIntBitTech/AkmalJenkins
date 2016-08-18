@@ -363,7 +363,7 @@ public class ScheduleDAO {
         String sql = "SELECT DISTINCT ON (scheduled_entity_list_id) slist.*, concat(date(programtable.date_event) - slist.days, ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time, concat(date(programtable.date_event), ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time_recurring, date(schedule_time) schedule_date "
                 + " FROM scheduled_entity_list slist, "
                 + " company_marketing_program programtable"
-                + " WHERE slist.fk_company_id = ? "
+                + " WHERE programtable.status = 'Open' AND slist.fk_company_id = ? "
                 + " AND ((date(schedule_time) <= ? "
                 + " AND date(schedule_time) >= ?) "
                 + " OR ((slist.is_recurring = 'false' AND date(programtable.date_event) - slist.days <= ? "
@@ -679,7 +679,7 @@ public class ScheduleDAO {
                         Integer entity_id = result_set.getInt("entity_id");
                         String entity_type = result_set.getString("entity_type");
                         if (entity_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
-                            String query_string1 = "Delete from scheduled_entity_list"
+                            String query_string1 = "Delete from scheduled_email_list"
                                     + " where scheduled_email_list_id = ?";
                             try (PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)) {
                                 prepared_statement1.setInt(1, entity_id);
