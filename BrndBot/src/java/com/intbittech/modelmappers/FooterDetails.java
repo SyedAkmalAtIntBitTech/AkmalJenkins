@@ -5,13 +5,14 @@
  */
 package com.intbittech.modelmappers;
 
+import com.intbittech.model.UserCompanyIds;
 import java.io.Serializable;
 
 /**
  *
  * @author sandeep
  */
-public class FooterDetails implements Serializable {
+public class FooterDetails extends UserCompanyIds implements Serializable {
 
     private String facebookUrl;
     private String twitterUrl;

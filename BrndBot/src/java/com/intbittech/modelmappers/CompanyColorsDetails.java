@@ -5,13 +5,14 @@
  */
 package com.intbittech.modelmappers;
 
+import com.intbittech.model.UserCompanyIds;
 import java.io.Serializable;
 
 /**
  *
  * @author ilyas
  */
-public class CompanyColorsDetails implements Serializable{
+public class CompanyColorsDetails extends UserCompanyIds implements Serializable{
     
     private String color1;
     private String color2;

@@ -5,6 +5,7 @@
  */
 package com.intbittech.modelmappers;
 
+import com.intbittech.model.UserCompanyIds;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author Syed Muzamil at IntBit Technologies.
  */
-public class InviteDetails {
+public class InviteDetails extends UserCompanyIds {
     public String userRoleLookUpId;
     public String emailaddress;
     public List<Integer> roles = new ArrayList<Integer>();

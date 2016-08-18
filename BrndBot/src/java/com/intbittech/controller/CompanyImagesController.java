@@ -25,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -42,14 +43,9 @@ public class CompanyImagesController {
     private MessageSource messageSource;
 
     @RequestMapping(value = "/get", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getImages() {
+    public ResponseEntity<ContainerResponse> getImages(@RequestParam("companyId") Integer companyId) {
         GenericResponse<CompanyImages> genericResponse = new GenericResponse<>();
         try {
-//            todochange it with companyid
-//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = 1;
             List<CompanyImages> companyImages = companyImagesService.getAllImagesForCompany(companyId);
             genericResponse.setDetails(companyImages);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_get_all", new String[]{}, Locale.US)));

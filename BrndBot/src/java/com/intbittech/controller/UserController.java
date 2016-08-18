@@ -6,7 +6,7 @@
 package com.intbittech.controller;
 
 import com.intbittech.enums.AdminStatus;
-import com.intbittech.model.CompanyImages;
+import com.intbittech.model.Company;
 import com.intbittech.model.UserCompanyDetails;
 import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserProfile;
@@ -15,7 +15,7 @@ import com.intbittech.model.UsersRoleLookup;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
-import com.intbittech.services.CompanyImagesService;
+import com.intbittech.services.CompanyService;
 import com.intbittech.services.ForgotPasswordService;
 import com.intbittech.services.UserCompanyLookupService;
 import com.intbittech.services.UserRoleLookUpService;
@@ -56,9 +56,9 @@ public class UserController {
     @Autowired
     private UserRoleLookUpService userRoleLookUpService;
     @Autowired
-    private CompanyImagesService companyImagesService;
-    @Autowired
     private UsersService usersService;
+    @Autowired
+    private CompanyService companyService;
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String userWelcomePage(ModelMap model) {
@@ -96,7 +96,7 @@ public class UserController {
                 userCompanyDetails.setRoleId(userRoleLookUp.getRoleId().getUserRoleId());
                 userCompanyDetails.setRoleName(AdminStatus.valueOf(userRoleLookUp.getRoleId().getRoleName()).getDisplayName());
                 userCompanyDetails.setAccountStatus(userCompanyLookup.getAccountStatus());
-                userCompanyDetails.setUserId(user.getUserName());
+                userCompanyDetails.setUserEmailId(user.getUserName());
                 userCompanyDetails.setUserFirstName(user.getFirstName());
                 userCompanyDetails.setUserLastName(user.getLastName());
                 
@@ -114,13 +114,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/getUserCompanyDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getUserCompanyDetails(@RequestParam("userId") Integer userId) {
+    public ResponseEntity<ContainerResponse> getUserCompanyDetails(@RequestParam("userId") Integer userId,@RequestParam("companyId") Integer companyId) {
         GenericResponse<UserCompanyDetails> genericResponse = new GenericResponse<>();
         try{
             Users user = usersService.getUserById(userId);
+            Company company = companyService.getCompanyById(companyId);
             List<UserCompanyDetails> listUserCompanyDetails = new ArrayList<UserCompanyDetails>();
 
-                UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUser(user);
+                UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUserAndCompany(user, company);
 
                 UsersRoleLookup userRoleLookUp = userRoleLookUpService.getUsersRoleLookupByUserId(user);
                 
@@ -131,7 +132,7 @@ public class UserController {
                 userCompanyDetails.setRoleId(userRoleLookUp.getRoleId().getUserRoleId());
                 userCompanyDetails.setRoleName(AdminStatus.valueOf(userRoleLookUp.getRoleId().getRoleName()).getDisplayName());
                 userCompanyDetails.setAccountStatus(userCompanyLookup.getAccountStatus());
-                userCompanyDetails.setUserId(user.getUserName());
+                userCompanyDetails.setUserEmailId(user.getUserName());
                 userCompanyDetails.setUserFirstName(user.getFirstName());
                 userCompanyDetails.setUserLastName(user.getLastName());
                 
@@ -168,7 +169,7 @@ public class UserController {
         UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
         model.addAttribute("user", userProfile);
 //            todochange it with companyid
-//        model.addAttribute("companyId", userProfile.getUser().getFkCompanyId().getCompanyId());
+//        model.addAttribute("companyId", companyId);
         return "user/" + htmlFileName;
     }    
 }

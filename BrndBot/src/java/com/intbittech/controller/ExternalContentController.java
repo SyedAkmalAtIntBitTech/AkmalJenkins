@@ -15,8 +15,6 @@ import com.intbittech.model.EmailBlockModelLookup;
 import com.intbittech.model.ExternalSourceKeywordLookup;
 import com.intbittech.model.SubCategoryEmailModel;
 import com.intbittech.model.SubCategoryExternalSource;
-import com.intbittech.model.UserCompanyLookup;
-import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.services.EmailBlockExternalSourceService;
@@ -25,9 +23,7 @@ import com.intbittech.services.EmailModelService;
 import com.intbittech.services.ExternalSourceKeywordLookupService;
 import com.intbittech.services.SubCategoryEmailModelService;
 import com.intbittech.services.SubCategoryExternalSourceService;
-import com.intbittech.services.UserCompanyLookupService;
 import com.intbittech.utility.ErrorHandlingUtil;
-import com.intbittech.utility.UserSessionUtil;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Locale;
@@ -73,43 +69,28 @@ public class ExternalContentController {
     private EmailBlockExternalSourceService emailBlockExternalSourceService;
     @Autowired
     private SubCategoryEmailModelService subCategoryEmailModelService;
-    @Autowired
-    private UserCompanyLookupService userCompanyLookupService;
 
     @RequestMapping(value = "/isActivated", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> isActivated() throws SQLException {
+    public ResponseEntity<ContainerResponse> isActivated(@RequestParam("companyId") Integer companyId) throws SQLException {
         GenericResponse<Boolean> genericResponse = new GenericResponse<>();
-//            todochange it with companyid
-//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUser(userProfile.getUser());
-        Integer companyId = userCompanyLookup.getCompanyid().getCompanyId();
         externalContentProcessor = new ExternalContentProcessor(companyId);
         genericResponse.addDetail(externalContentProcessor.isActivated());
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "/getActivationLink", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getActivationLink() throws SQLException {
+    public ResponseEntity<ContainerResponse> getActivationLink(@RequestParam("companyId") Integer companyId) throws SQLException {
         GenericResponse<String> genericResponse = new GenericResponse<>();
-        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUser(userProfile.getUser());
-        externalContentProcessor = new ExternalContentProcessor(userCompanyLookup.getCompanyid().getCompanyId());
+        externalContentProcessor = new ExternalContentProcessor(companyId);
         genericResponse.addDetail(externalContentProcessor.getActivationLink());
 
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "/getListData/{externalSourceKeywordLookupId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getListData(@PathVariable("externalSourceKeywordLookupId") Integer externalSourceKeywordLookupId) {
+    public ResponseEntity<ContainerResponse> getListData(@RequestParam("companyId") Integer companyId,@PathVariable("externalSourceKeywordLookupId") Integer externalSourceKeywordLookupId) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
-//            todochange it with companyid
-//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = 1;
             //TODO what if the user has multiple external sources.
             externalContentProcessor = new ExternalContentProcessor(companyId);
             ExternalSourceKeywordLookup externalSourceKeywordLookup = externalSourceKeywordLookupService.getByExternalSourceKeywordLookupId(externalSourceKeywordLookupId);
@@ -130,17 +111,12 @@ public class ExternalContentController {
 
     @RequestMapping(value = "/getLayoutEmailModelById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getLayoutEmailModelById(@RequestParam("emailModelId") Integer modelId,
-            @RequestParam("isBlock") Boolean isBlock,
+            @RequestParam("isBlock") Boolean isBlock,@RequestParam("companyId") Integer companyId,
             @RequestParam("externalDataId") Integer externalDataId,
             HttpServletRequest request, HttpServletResponse response) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
             String hostURL = ServletUtil.getServerName(request.getServletContext());
-//            todochange it with companyid
-//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = 1;
             Map<String, Object> data = new HashMap<>();
             ExternalSourceKeywordLookup externalSourceKeywordLookup = null;
             externalContentProcessor = new ExternalContentProcessor(companyId);

@@ -8,12 +8,11 @@ package com.intbittech.controller;
 import com.controller.ApplicationContextListener;
 import com.intbittech.AppConstants;
 import com.intbittech.model.ForgotPassword;
-import com.intbittech.model.UserProfile;
+import com.intbittech.model.UserCompanyIds;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.ForgotPasswordService;
 import com.intbittech.utility.ErrorHandlingUtil;
-import com.intbittech.utility.UserSessionUtil;
 import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
 import java.util.Locale;
@@ -89,16 +88,14 @@ public class SignupController {
         try {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
 
             String type = (String) requestBodyMap.get("type");
             String password = (String) requestBodyMap.get("password");
             String hashURL = (String) requestBodyMap.get("hashURL");
-            Integer userId;
             String hashPassword = passwordEncoder.encode(password);
             if (type.equalsIgnoreCase("update")) {
-                UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-                userId = userProfile.getUser().getUserId();
-                forgotPasswordService.updatePassword(userId, hashPassword);
+                forgotPasswordService.updatePassword(userCompanyIds.getUserId(), hashPassword);
             } else if (type.equalsIgnoreCase("change")) {
                 ForgotPassword forgotPassword = forgotPasswordService.getByRandomHash(hashURL);
                 forgotPasswordService.updatePassword(forgotPassword.getFkUserId().getUserId(), hashPassword);

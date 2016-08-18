@@ -30,8 +30,8 @@ factoryApp.factory('onboardingFactory', function ($q,authenticatedServiceFactory
     };
     onboardingFactoryObject.getAllUserCompanies = function (userId) {
         var deffered = $q.defer();
-        var url = configurationService.getAllUserCompaniesURL()+"?userId="+userId;
-        authenticatedServiceFactory.makeCall("GET", url, userId, "").then(function (data) {
+        var url = configurationService.getAllUserCompaniesURL();
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
@@ -39,7 +39,7 @@ factoryApp.factory('onboardingFactory', function ($q,authenticatedServiceFactory
 
     onboardingFactoryObject.userCompanyDetailsGet = function (userId) {
         var deffered = $q.defer();
-        var url = configurationService.getUserCompanyDetailsURL()+"?userId="+userId;
+        var url = configurationService.getUserCompanyDetailsURL();
         authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
@@ -74,8 +74,8 @@ factoryApp.factory('onboardingFactory', function ($q,authenticatedServiceFactory
 
     onboardingFactoryObject.resendUserInvitePost = function (inviteId) {
         var deffered = $q.defer();
-        var url = configurationService.resendUserInviteURL();
-        authenticatedServiceFactory.makeCall("POST", url, inviteId, "").then(function (data) {
+        var url = configurationService.resendUserInviteURL()+"?inviteId="+inviteId;
+        authenticatedServiceFactory.makeCall("POST", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
@@ -91,8 +91,8 @@ factoryApp.factory('onboardingFactory', function ($q,authenticatedServiceFactory
     };
     onboardingFactoryObject.removeUserPost = function (inviteId) {
         var deffered = $q.defer();
-        var url = configurationService.removeUserURL();
-        authenticatedServiceFactory.makeCall("POST", url, inviteId, "").then(function (data) {
+        var url = configurationService.removeUserURL()+"?inviteId="+inviteId;
+        authenticatedServiceFactory.makeCall("POST", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
