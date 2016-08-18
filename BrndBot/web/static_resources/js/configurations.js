@@ -96,6 +96,8 @@ var mindbodyId = "mindbodyId";
 var draftId = "draftId";
 var emailSubject = "emailSubject";
 var emailScheduleId = "email_Schedule_Id";
+var preHeader = "preHeader";
+var emailDraftData= "emailDraftData";
 
 function getCategoryId(){
     return categoryId;
@@ -126,4 +128,10 @@ function getEmailSubject(){
 }
 function getEmailScheduleId(){
     return emailScheduleId;
+}
+function getPreHeader(){
+    return preHeader;
+}
+function getDraftDetails(){
+    return emailDraftData;
 }

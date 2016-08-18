@@ -48,6 +48,7 @@ public class ScheduleDAO {
 
     public static Map<String, Integer> addToScheduledEmailList(int companyId,
             String subject,
+            String preheader,
             Integer marketing_program_id,
             String body,
             String fromAddress,
@@ -72,8 +73,8 @@ public class ScheduleDAO {
             connection.setAutoCommit(false);
             try {
                 String sql = "INSERT INTO scheduled_email_list "
-                        + " (fk_company_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address) VALUES "
-                        + " (?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
+                        + " (fk_company_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address, preheader) VALUES "
+                        + " (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
                 try (PreparedStatement ps = connection.prepareStatement(sql)) {
                     ps.setInt(1, companyId);
                     ps.setString(2, subject);
@@ -89,6 +90,7 @@ public class ScheduleDAO {
                     pg_object.setValue(json_email_addresses.toJSONString());
                     ps.setObject(7, pg_object);
                     ps.setString(8, replytoEmailAddress);
+                    ps.setString(9, preheader);
                     ps.execute();
                     try (ResultSet resultSet = ps.getResultSet()) {
 
@@ -130,6 +132,7 @@ public class ScheduleDAO {
             int companyId,
             int scheduleid,
             String subject,
+            String preheader,
             String body,
             String fromAddress,
             String emailListName,
@@ -151,8 +154,8 @@ public class ScheduleDAO {
             connection.setAutoCommit(false);
             try {
                 String sql = "INSERT INTO scheduled_email_list "
-                        + " (fk_company_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address) VALUES "
-                        + " (?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
+                        + " (fk_company_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address, preheader) VALUES "
+                        + " (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
                 try (PreparedStatement ps = connection.prepareStatement(sql)) {
                     ps.setInt(1, companyId);
                     ps.setString(2, subject);
@@ -168,6 +171,7 @@ public class ScheduleDAO {
                     pg_object.setValue(json_email_addresses.toJSONString());
                     ps.setObject(7, pg_object);
                     ps.setString(8, replytoEmailAddress);
+                    ps.setString(9, preheader);
                     ps.execute();
                     try (ResultSet resultSet = ps.getResultSet()) {
 

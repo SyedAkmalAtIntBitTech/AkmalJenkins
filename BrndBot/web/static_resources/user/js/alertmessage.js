@@ -205,6 +205,7 @@ var emailAddressValidation = "Please enter email address with a valid email id";
 var emailValidation = "Invalid email address";
 var emailaddrValidation = "Invalid email address";
 var subjectValidation = "Please enter the email subject";
+var preHeaderValidation = "Please enter preheader for email"
 var listValidation = "This email list contains Invalid email";
 var colorValidation = "Please choose all four colors";
 var actionNameValidation = "Title not entered, Please enter the title";
