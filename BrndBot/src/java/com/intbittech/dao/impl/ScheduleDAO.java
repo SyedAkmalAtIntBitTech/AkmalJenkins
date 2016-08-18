@@ -363,7 +363,7 @@ public class ScheduleDAO {
         String sql = "SELECT DISTINCT ON (scheduled_entity_list_id) slist.*, concat(date(programtable.date_event) - slist.days, ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time, concat(date(programtable.date_event), ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time_recurring, date(schedule_time) schedule_date "
                 + " FROM scheduled_entity_list slist, "
                 + " company_marketing_program programtable"
-                + " WHERE slist.fk_company_id = ? "
+                + " WHERE programtable.status = 'Open' AND slist.fk_company_id = ? "
                 + " AND ((date(schedule_time) <= ? "
                 + " AND date(schedule_time) >= ?) "
                 + " OR ((slist.is_recurring = 'false' AND date(programtable.date_event) - slist.days <= ? "
