@@ -49,7 +49,9 @@ public class ActivityLogDaoImpl implements ActivityLogDao {
     public List<ActivityLog> getAllActivityLog() throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(ActivityLog.class);
+                    .createCriteria(ActivityLog.class)
+                    .setFetchMode("fkScheduledEntityid", FetchMode.JOIN)
+                    .setFetchMode("fkActivityId", FetchMode.JOIN);
             if (criteria.list().isEmpty()) {
                 return null;
             }
