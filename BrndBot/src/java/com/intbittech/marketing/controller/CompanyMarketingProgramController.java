@@ -16,10 +16,12 @@ import com.intbittech.model.MarketingAction;
 import com.intbittech.model.MarketingProgram;
 import com.intbittech.model.RecurringEmailTemplate;
 import com.intbittech.model.ScheduledEntityList;
+import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.UserProfile;
 import com.intbittech.services.MarketingActionService;
 import com.intbittech.services.RecurringEmailTemplateService;
 import com.intbittech.utility.UserSessionUtil;
+import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -64,19 +66,17 @@ public class CompanyMarketingProgramController {
     String setUserMarketingProgram(HttpServletRequest request,
             HttpServletResponse response) throws IOException, Throwable {
         try {
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             SimpleDateFormat formatter = null;
             Date tillDate = null;
             CompanyMarketingProgram addCompanyMarketingProgram = new CompanyMarketingProgram();
             MarketingProgram marketingProgram = new MarketingProgram();
-//            todochange it with companyid
-//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            Integer companyId = 1;
-            Company company = new Company();
-            company.setCompanyId(companyId);
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+            Company company = new Company();
+            company.setCompanyId(userCompanyIds.getCompanyId());
+            
             addCompanyMarketingProgram.setCompanyMarketingProgramName(requestBodyMap.get("program_name").toString());
             String target = requestBodyMap.get("program_date_time").toString();
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -143,12 +143,7 @@ public class CompanyMarketingProgramController {
     @RequestMapping(value = "/listAllMarketingProgram", method = RequestMethod.GET)
     public @ResponseBody
     String listAllUserMarketingProgram(HttpServletRequest request,
-            HttpServletResponse response, @RequestParam("programType") String programType) throws Throwable {
-//            todochange it with companyid
-//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = 1;
+            HttpServletResponse response, @RequestParam("programType") String programType, @RequestParam("companyId") Integer companyId) throws Throwable {
         List<CompanyMarketingProgram> companyMarketingProgramList = companyMarketingProgramService.getAllCompanyMarketingProgramByType(companyId, programType);
         JSONObject jsonObject = new JSONObject();
         JSONArray json_array = new JSONArray();
@@ -331,15 +326,9 @@ public class CompanyMarketingProgramController {
     @RequestMapping(value = "/getAllUserMarketingPrograms", method = RequestMethod.GET)
     public @ResponseBody
     String getAllUserMarketingPrograms(HttpServletRequest request,
-            HttpServletResponse response) {
+            HttpServletResponse response, @RequestParam("companyId") Integer companyId) {
         JSONArray json_array_marketing_program = new JSONArray();
         try {
-//            todochange it with companyid
-//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = 1;
-
             List<CompanyMarketingProgram> companyMarketingPrograms = companyMarketingProgramService.getAllCompanyMarketingOpenPrograms("Open", companyId);
             Integer i = 1;
             for (CompanyMarketingProgram marketing_program : companyMarketingPrograms) {
@@ -361,14 +350,9 @@ public class CompanyMarketingProgramController {
     @RequestMapping(value = "/getAllUserMarketingProgramsByUserId", method = RequestMethod.GET)
     public @ResponseBody
     String getAllUserMarketingProgramsByUserId(HttpServletRequest request,
-            HttpServletResponse response) {
+            HttpServletResponse response, @RequestParam("companyId") Integer companyId) {
         JSONArray json_array_marketing_program = new JSONArray();
         try {
-//            todochange it with companyid
-//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = 1;
 
             List<CompanyMarketingProgram> companyMarketingPrograms = companyMarketingProgramService.getAllCompanyMarketingProgramByCompanyId(companyId);
             Integer i = 1;
@@ -393,14 +377,9 @@ public class CompanyMarketingProgramController {
     @RequestMapping(value = "/getAllUserMarketingProgramsBySessionUserId", method = RequestMethod.GET)
     public @ResponseBody
     String getAllUserMarketingProgramBySessionUserId(HttpServletRequest request,
-            HttpServletResponse response) {
+            HttpServletResponse response, @RequestParam("companyId") Integer companyId) {
         JSONArray json_array_marketing_program = new JSONArray();
         try {
-//            todochange it with companyid
-//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = 1;
 
             List<CompanyMarketingProgram> companyMarketingPrograms = companyMarketingProgramService.getAllCompanyMarketingProgramByCompanyId(companyId);
             Integer i = 1;

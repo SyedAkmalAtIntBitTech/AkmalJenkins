@@ -5,13 +5,14 @@
  */
 package com.intbittech.modelmappers;
 
+import com.intbittech.model.UserCompanyIds;
 import java.io.Serializable;
 
 /**
  *
  * @author ilyas
  */
-public class GlobalColorsDetails implements Serializable {
+public class GlobalColorsDetails  extends UserCompanyIds implements Serializable {
 
     private Integer globalColorsId;
     private String colorName;

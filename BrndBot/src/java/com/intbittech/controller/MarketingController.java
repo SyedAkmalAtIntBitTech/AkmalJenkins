@@ -11,7 +11,6 @@ import com.intbittech.model.MarketingCategoryProgram;
 import com.intbittech.model.MarketingProgram;
 import com.intbittech.model.OrganizationCompanyLookup;
 import com.intbittech.model.OrganizationMarketingCategoryLookup;
-import com.intbittech.model.UserProfile;
 import com.intbittech.modelmappers.MarketingActionDetails;
 import com.intbittech.modelmappers.MarketingActionsObjectDetails;
 import com.intbittech.modelmappers.MarketingCategoryDetails;
@@ -29,7 +28,6 @@ import com.intbittech.services.MarketingCategoryService;
 import com.intbittech.services.MarketingProgramService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.StringUtility;
-import com.intbittech.utility.UserSessionUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -298,14 +296,9 @@ public class MarketingController {
     }
     
     @RequestMapping(value = "getCompanyMarketingCategories", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getCompanyMarketingCategories() {
+    public ResponseEntity<ContainerResponse> getCompanyMarketingCategories(@RequestParam("companyId") Integer companyId) {
         GenericResponse<MarketingCategoryDetails> genericResponse = new GenericResponse<>();
         try {
-//            todochange it with companyid
-//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = 1;
             List<OrganizationCompanyLookup> organizationCompanyDetail = new ArrayList<>();
             organizationCompanyDetail = companyService.getAllOrganizationsByCompanyId(companyId);
             List<OrganizationCompanyDetails> organizationCompanyDetailsList = new ArrayList<>();

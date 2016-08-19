@@ -156,7 +156,7 @@ public class CompanyServiceImpl implements CompanyService{
      * {@inheritDoc}
      */
     @Override
-    public String updateCompany(CompanyDetails companyDetails) throws ProcessFailed {
+    public String saveCompany(CompanyDetails companyDetails) throws ProcessFailed {
         String returnMessage = "false";UsersRoleLookup usersRoleLookUp = null;
         UserCompanyLookup userCompanyLookup = null;Company company = null,companyObject = null;
         try {
@@ -207,7 +207,7 @@ public class CompanyServiceImpl implements CompanyService{
 
             organizationCompanyDao.save(organizationCompanyLookup);
             
-            returnMessage = "true";
+            returnMessage = companyId.toString();
         } catch(Throwable throwable) {
             returnMessage = "false";
             throw new ProcessFailed(messageSource.getMessage("company_save_error", new String[]{}, Locale.US));
@@ -225,6 +225,16 @@ public class CompanyServiceImpl implements CompanyService{
         } catch (Throwable throwable) {
             throw new ProcessFailed(messageSource.getMessage("company_preferences_save_error", new String[]{}, Locale.US));
         }
+    }
+
+    @Override
+    public Company getCompanyById(Integer companyId) throws ProcessFailed {
+        Company company = companyDao.getCompanyById(companyId);
+        if(company == null)
+        {
+             throw new ProcessFailed(messageSource.getMessage("company_list_not_found",new String[]{}, Locale.US));
+        }
+        return company;
     }
    
 }

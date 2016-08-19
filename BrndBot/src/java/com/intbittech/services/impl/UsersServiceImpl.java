@@ -169,8 +169,8 @@ public class UsersServiceImpl implements UsersService {
      * {@inheritDoc}
      */
     @Override
-    public boolean saveUser(UserDetails usersDetails) throws ProcessFailed {
-        boolean returnMessage = false;
+    public Integer saveUser(UserDetails usersDetails) throws ProcessFailed {
+        Integer returnMessage = 0;
         Invite companyInvite = null;TaskDetails taskdetails = null;
         List roles = null;UsersRoleLookup usersRoleLookUp = null;
         UserCompanyLookup userCompanyLookup = null;Users existingUser = null;
@@ -225,7 +225,11 @@ public class UsersServiceImpl implements UsersService {
                     boolean isRole = usersRoleLookUpService.isRoleExist(usersRoleLookUp);
                     if (isRole){
                         usersRoleLookUpDao.save(usersRoleLookUp);
-                        returnMessage = true;
+                        if (userId != 0){
+                            returnMessage = userId;
+                        }else {
+                            returnMessage = user.getUserId();
+                        }
                     }else {
                         throw new ProcessFailed(messageSource.getMessage("role_exist", new String[]{}, Locale.US));
                     }
@@ -237,7 +241,7 @@ public class UsersServiceImpl implements UsersService {
             }
         
         } catch(Throwable throwable) {
-            returnMessage = false;
+            returnMessage = 0;
             logger.log(Priority.ERROR, throwable);
             throw new ProcessFailed(messageSource.getMessage("something_wrong", new String[]{}, Locale.US));
         }finally {
@@ -338,16 +342,18 @@ public class UsersServiceImpl implements UsersService {
                     usersRoleLookUp = new UsersRoleLookup();
 
                     UserRole userRole = new UserRole();
+                    Company company = companyDao.getCompanyById(inviteDetails.getCompanyId());
                     userRole.setUserRoleId((Integer)roles.get(i));
                     
                     usersRoleLookUp.setId(Integer.parseInt(UserRoleLookUpIds[i]));
                     usersRoleLookUp.setUserId(user);
                     usersRoleLookUp.setRoleId(userRole);
+                    usersRoleLookUp.setCompanyId(company);
                     usersRoleLookUpService.update(usersRoleLookUp);
                     
                 }
             Users userTo = findByUserName(inviteDetails.emailaddress);
-            Invite invite = usersInviteService.getInvitedUserByUserTo(userTo);
+            Invite invite = usersInviteService.getInvitedUserById(inviteDetails.getInviteId());
             
             invite.setTask(StringUtility.objectListToJsonString(taskDetails));
             usersInviteService.update(invite);

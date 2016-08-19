@@ -131,7 +131,7 @@ public class UserCompanyLookupServiceImpl implements UserCompanyLookupService {
         
         String statusReturn = "";
         try{
-            Users user = usersService.getUserByEmailId(userCompanyDetails.getUserId());
+            Users user = usersService.getUserByEmailId(userCompanyDetails.getUserEmailId());
             Company company = companyDao.getCompanyById(userCompanyDetails.getCompanyId());
 
             UserCompanyLookup userCompanyLookup = getUserCompanyLookupByUserAndCompany(user,company);

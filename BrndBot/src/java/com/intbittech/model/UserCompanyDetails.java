@@ -9,7 +9,7 @@ package com.intbittech.model;
  *
  * @author Syed Muzamil at IntBit Technologies.
  */
-public class UserCompanyDetails {
+public class UserCompanyDetails  extends UserCompanyIds {
     private Integer companyId;
     private String companyName;
     private String roleName;
@@ -19,7 +19,16 @@ public class UserCompanyDetails {
     private String userEmailId;
     private String userFirstName;
     private String userLastName;
+    private Integer userId;
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+    
     public String getUserFirstName() {
         return userFirstName;
     }
@@ -53,11 +62,11 @@ public class UserCompanyDetails {
         this.userEmailId = userEmailId;
     }
 
-    public String getUserId() {
+    public String getUserEmailId() {
         return userEmailId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserEmailId(String userId) {
         this.userEmailId = userId;
     }
 

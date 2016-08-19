@@ -9,6 +9,7 @@ import com.intbittech.model.Category;
 import com.intbittech.model.Channel;
 import com.intbittech.model.OrganizationCategoryLookup;
 import com.intbittech.model.OrganizationCompanyLookup;
+import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.UserProfile;
 import com.intbittech.modelmappers.CategoryDetails;
 import com.intbittech.modelmappers.ChannelDetails;
@@ -166,14 +167,9 @@ public class CategoryController {
     }
     
     @RequestMapping(value = "getAllCompanyCategories",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getAllCompanyCategories(@RequestParam("channelId") Integer channelId) {
+    public ResponseEntity<ContainerResponse> getAllCompanyCategories(@RequestParam("channelId") Integer channelId,@RequestParam("companyId") Integer companyId) {
         GenericResponse<CategoryDetails> genericResponse = new GenericResponse<CategoryDetails>();
         try {
-//            todochange it with companyid
-//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = 1;
 
             List<OrganizationCompanyLookup> organizationCompanyDetail = new ArrayList<>();
             organizationCompanyDetail = companyService.getAllOrganizationsByCompanyId(companyId);
