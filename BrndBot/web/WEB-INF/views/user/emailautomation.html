@@ -163,11 +163,12 @@
         <div id="email_previewdiv">
             <div class="pop-up-background">
                 <div class="pop-up-container-emailPreview" ng-show="emailPreviewPopup"> 
-                    <a class=" closeemailpreview modal-pane-header-exit" href="" id="closePrev" ng-click="closeEmailPreviewPopup()">
+
+                    <div class="modal-pane-header-wrap"> 
+                        <div class="emailPreview-header fleft">Email Preview</div>
+                                            <a class=" closeemailpreview modal-pane-header-exit" href="" id="closePrev" ng-click="closeEmailPreviewPopup()">
                         <img alt="" src="" class="" style="cursor:pointer;"/> 
                     </a>
-                    <div class="pop-up-title-emailpreview "> 
-                        <div class="emailPreview-header fleft">Email Preview</div>
                     </div>
                     <!--inner-->
                     <div class="pop-up-inner-ep height400">

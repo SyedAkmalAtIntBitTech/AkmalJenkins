@@ -484,7 +484,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.savedEmail = true;
                     $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
                     $scope.deleteScheduleButton = "Remove Saved Email";
-                    $scope.htmlbody = $scope.recurringEntitiesDetails.body.replace('contenteditable="true" /g', 'contenteditable="false"');
+                    $scope.htmlbody = $scope.recurringEntitiesDetails.body.replace(/contenteditable="true" /g, 'contenteditable="false"');
                     iframe.contentDocument.body.innerHTML = $scope.htmlbody;
                 } else {
                     $scope.savedEmail = false;
