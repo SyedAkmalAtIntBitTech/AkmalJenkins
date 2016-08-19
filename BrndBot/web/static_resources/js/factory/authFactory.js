@@ -25,7 +25,13 @@ factoryApp.factory('authenticatedServiceFactory', function ($http, $q) {
         if (authType === "UPLOADIMAGE")
         {
             if (methodType === "POST") {
-                data = dataWithUserAndCompanyId(data);
+                var userId = localStorage.getItem("userId");
+                var companyId = localStorage.getItem("companyId");
+                if (URL.indexOf("?") > 0){
+                    URL = URL + "&userId="+ userId + "&companyId=" + companyId;
+                }else {
+                    URL = URL + "?userId="+ userId + "&companyId=" + companyId;
+                }
                 $http.post(URL, data, {
                     transformRequest: angular.identity,
                     headers: {'Content-Type': undefined}

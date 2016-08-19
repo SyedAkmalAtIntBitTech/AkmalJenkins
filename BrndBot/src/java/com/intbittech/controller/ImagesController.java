@@ -38,6 +38,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -120,21 +121,18 @@ public class ImagesController {
     }
 
     @RequestMapping(value = "/uploadLogo", method = RequestMethod.POST)
-    public ResponseEntity<ContainerResponse> uploadLogo(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<ContainerResponse> uploadLogo(HttpServletRequest request, 
+            HttpServletResponse response,@RequestParam("companyId") Integer companyId) {
         TransactionResponse transactionResponse = new TransactionResponse();
 
         try {
-            Map<String, Object> requestBodyMap
-                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
- 
-            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);            
 
             String pathSuffix = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH;
             String fileName = "";
             String link = "";
             String imageURL = ServletUtil.getServerName(request.getServletContext());
             
-            pathSuffix = pathSuffix + File.separator + userCompanyIds.getCompanyId() + File.separator + AppConstants.LOGO_FOLDERNAME;
+            pathSuffix = pathSuffix + File.separator + companyId + File.separator + AppConstants.LOGO_FOLDERNAME;
             
             fileName = FileUploadUtil.uploadLogo(pathSuffix, request);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_save", new String[]{}, Locale.US)));

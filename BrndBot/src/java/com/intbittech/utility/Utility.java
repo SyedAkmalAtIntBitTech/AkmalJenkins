@@ -134,8 +134,10 @@ public class Utility {
         UserCompanyIds userCompanyIds = new UserCompanyIds();
         
         if (requestBodyMap != null){
-            userCompanyIds.setCompanyId((Integer.parseInt(requestBodyMap.get("companyId").toString())));
-            userCompanyIds.setUserId((Integer.parseInt(requestBodyMap.get("userId").toString())));
+            Double companyId = Double.parseDouble(requestBodyMap.get("companyId").toString());
+            Double userId = Double.parseDouble(requestBodyMap.get("userId").toString());
+            userCompanyIds.setCompanyId((companyId.intValue()));
+            userCompanyIds.setUserId((userId.intValue()));
         }
         return userCompanyIds;
     }

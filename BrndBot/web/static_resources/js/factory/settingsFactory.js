@@ -65,6 +65,7 @@ factoryApp.factory('settingsFactory', function ($q, authenticatedServiceFactory,
         var deffered = $q.defer();
         var fd = new FormData();
         fd.append('file', file);
+        alert(fd);
         var url = configurationService.saveLogoURL();
         authenticatedServiceFactory.makeCall("POST", url, fd, "UPLOADIMAGE").then(function (data) {
             deffered.resolve(data);

@@ -180,7 +180,6 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         GenericResponse<InvitedUsers> genericResponse = new GenericResponse<>();
 
         try {
-//          todochange it with companyid
             Users user = usersService.getUserById(userId);
             List<InvitedUsers> invitedUsers = usersInviteService.getInvitedUsers(user);
             genericResponse.setDetails(invitedUsers);
@@ -199,8 +198,6 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         GenericResponse<String> genericResponse = new GenericResponse<>();
 
         try {
-//          todochange it with companyid
-//            Company company = userProfile.getUser().getFkCompanyId();
             Company company = companyService.getCompanyById(companyId);
             List<String> colorArray = companyPreferencesService.getColors(company);
             genericResponse.setDetails(colorArray);
