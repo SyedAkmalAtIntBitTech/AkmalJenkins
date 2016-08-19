@@ -14,10 +14,20 @@ import java.util.List;
  * @author Syed Muzamil at IntBit Technologies.
  */
 public class InviteDetails extends UserCompanyIds {
+    private Integer inviteId;
     public String userRoleLookUpId;
     public String emailaddress;
     public List<Integer> roles = new ArrayList<Integer>();
     public String task;
+
+
+    public Integer getInviteId() {
+        return inviteId;
+    }
+
+    public void setInviteId(Integer inviteId) {
+        this.inviteId = inviteId;
+    }
 
     public String getUserRoleLookUpId() {
         return userRoleLookUpId;

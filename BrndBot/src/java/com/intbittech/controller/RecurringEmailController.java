@@ -8,6 +8,7 @@ package com.intbittech.controller;
 import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationRecurringEmailLookup;
 import com.intbittech.model.RecurringEmailTemplate;
+import com.intbittech.model.RecurringEmailTemplateModel;
 import com.intbittech.modelmappers.RecurringEmailDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
@@ -115,15 +116,16 @@ public class RecurringEmailController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
-    //TODO Muzamil. The Request body here is an entity mobile
     @RequestMapping(value = "updateRecurringEmail", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> updateRecurringEmail(@RequestBody RecurringEmailTemplate recurringEmailTemplate) {
+    public ResponseEntity<ContainerResponse> updateRecurringEmail(@RequestBody RecurringEmailTemplateModel recurringEmailTemplateModel) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-
-            recurringEmailTemplate.setRecurringEmailTemplateId(recurringEmailTemplate.getRecurringEmailTemplateId());
-            recurringEmailTemplate.setTemplateName(recurringEmailTemplate.getTemplateName());
-            recurringEmailTemplate.setHtmlData(recurringEmailTemplate.getHtmlData());
+            
+            RecurringEmailTemplate recurringEmailTemplate = new RecurringEmailTemplate();
+            
+            recurringEmailTemplate.setRecurringEmailTemplateId(recurringEmailTemplateModel.getRecurringEmailTemplateId());
+            recurringEmailTemplate.setTemplateName(recurringEmailTemplateModel.getTemplateName());
+            recurringEmailTemplate.setHtmlData(recurringEmailTemplateModel.getHtmlData());
             recurringEmailTemplateService.update(recurringEmailTemplate);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurringEmail_update", new String[]{}, Locale.US)));
 

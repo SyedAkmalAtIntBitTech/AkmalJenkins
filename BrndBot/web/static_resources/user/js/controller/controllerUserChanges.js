@@ -8,6 +8,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.showPaletteChangePopUp="";
         $scope.addUserSettings = false;                   
         $scope.userRoleLookUpId = "";
+        $scope.inviteId = "";
         // Hide & show password function
         $scope.hideShowPassword = function () {
             if ($scope.inputType == 'password')
@@ -67,7 +68,8 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.editUser = function (userDetails) {
             var roles = [];
             roles.push(userDetails.adminRadio);
-            var invitation = {"userRoleLookUpId":$scope.userRoleLookUpId.toString(), "emailaddress": $scope.userEmailId, "roles": roles, "task": 'invitation'};
+            var companyId = localStorage.getItem("companyId");
+            var invitation = {"inviteId":$scope.inviteId, "userRoleLookUpId":$scope.userRoleLookUpId.toString(), "emailaddress": $scope.userEmailId, "roles": roles, "task": 'invitation'};
             
             onboardingFactory.editUserRolePost(invitation).then(function (data) {
                 alert(data.d.message);
@@ -108,11 +110,12 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             $scope.editUserSettings = false;
         };
 
-        $scope.showEditUser = function (userRoleLookUpId,userEmailId)
+        $scope.showEditUser = function (inviteId,userRoleLookUpId,userEmailId)
         {
             $scope.fadeClass = 'fadeClass';
             $scope.userRoleLookUpId = userRoleLookUpId;
             $scope.userEmailId = userEmailId;
+            $scope.inviteId = inviteId;
             $("#editemail").val(userEmailId);
             $scope.addUserSettings = false;
             $scope.editUserSettings = true;

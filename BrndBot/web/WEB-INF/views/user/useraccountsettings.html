@@ -51,7 +51,7 @@
                         <div class="user-status">{{users.inviteStatus}}</div>
                         <div class="user-slat-cta-wrap">
                              <div class="user-slat-button resend-user-email" ng-click="resendUserInvite(users.inviteId)">Resend User Email</div>
-                             <div class="user-slat-button edit-user-permissions" ng-click="showEditUser(users.userRoleLookUp,users.emailID)">Edit User Permissions</div>
+                             <div class="user-slat-button edit-user-permissions" ng-click="showEditUser(users.inviteId,users.userRoleLookUp,users.emailID)">Edit User Permissions</div>
                              <div class=" user-slat-button remove-user-button" ng-click="removeUser(users.inviteId)">Remove User</div>
                         </div>
                     </div>

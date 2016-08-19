@@ -104,9 +104,10 @@ public class OnboardingController {
              * if the validity is expired the it return false. From this part of 
              * the program we will show right messages to the user 
              **/
-            boolean returnValue = usersService.saveUser(usersDetails);
-            if (returnValue){
+            Integer returnValue = usersService.saveUser(usersDetails);
+            if (returnValue != 0){
                 transactionResponse.setMessage(messageSource.getMessage("user_save", new String[]{}, Locale.US));
+                transactionResponse.setId(returnValue.toString());
             }else {
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation("something_wrong"));
             }            

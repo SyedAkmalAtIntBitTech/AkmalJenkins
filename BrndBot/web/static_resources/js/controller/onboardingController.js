@@ -79,8 +79,10 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                         "invitationCode": $scope.userHashId}
             onboardingFactory.saveInvitedUserPost(user).then(function (data) {
                 var message = data.d.message;
+                var userId = data.d.id;
+                localStorage.setItem("userId",userId);
                 alert(message);
-                window.location = getHost() + "user/loading";
+                window.location = getHost() + "user/";
             });
         };
 

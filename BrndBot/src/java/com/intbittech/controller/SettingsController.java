@@ -13,6 +13,7 @@ import com.intbittech.AppConstants;
 import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
+import com.intbittech.model.EmailList;
 import com.intbittech.model.InvitedUsers;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
@@ -622,8 +623,6 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     public ResponseEntity<ContainerResponse> setFooter(@RequestBody FooterDetails footerDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-//          todochange it with companyid
-//            Company company = userProfile.getUser().getFkCompanyId();
             Company company = companyService.getCompanyById(footerDetails.getCompanyId());
             companyPreferencesService.setFooterDetails(footerDetails, company);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyCategories_color_update", new String[]{}, Locale.US)));
@@ -635,9 +634,8 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
-    //TODO Muzamil. This request body is not a model. Create one.
     @RequestMapping(value = "/unsubscribeEmails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> unsubscribeEmails(HttpServletRequest request,@RequestBody List<String> emailList) {
+    public ResponseEntity<ContainerResponse> unsubscribeEmails(HttpServletRequest request,@RequestBody EmailList emailList) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
 
@@ -651,9 +649,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
                         int partitionSize = 150;
                         List<String> partitionEmail = new ArrayList<>();
                         EmailValidator emailValidator = new EmailValidator();
-                        for (int i = 0; i < emailList.size(); i++) {
-                            if (!StringUtility.isEmpty(emailList.get(i)) && emailValidator.validate(emailList.get(i))) {
-                                partitionEmail.add(emailList.get(i));
+                        for (int i = 0; i < emailList.getEmailList().size(); i++) {
+                            if (!StringUtility.isEmpty(emailList.getEmailList().get(i)) && emailValidator.validate(emailList.getEmailList().get(i))) {
+                                partitionEmail.add(emailList.getEmailList().get(i));
                             }
                             if (i != 0 && i % partitionSize == 0) {
                                 externalContentProcessor.searchEmailAndUpdateEmailOptIn(partitionEmail);
@@ -681,15 +679,14 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
-    //TODO Muzamil. This one too.
     @RequestMapping(value = "/saveUnsubscribeEmails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> saveUnsubscribeEmails(HttpServletRequest request,@RequestBody List<String> emailList) {
+    public ResponseEntity<ContainerResponse> saveUnsubscribeEmails(HttpServletRequest request,@RequestBody EmailList emailList) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
-            companyPreferencesService.saveUnsubscribeEmails(userCompanyIds.getCompanyId(), emailList);
+            companyPreferencesService.saveUnsubscribeEmails(userCompanyIds.getCompanyId(), emailList.getEmailList());
             Runnable myRunnable = new Runnable() {
                 public void run() {
                     try {
