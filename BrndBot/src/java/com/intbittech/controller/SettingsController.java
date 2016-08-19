@@ -408,8 +408,6 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             String fb_user_profile_name = (String) requestBodyMap.get("fb_user_profile_name");
             String default_page_name = (String) requestBodyMap.get("default_page_name");
             String settings = (String) requestBodyMap.get("settings");
-//          todochange it with companyid
-//            Company company = userProfile.getUser().getFkCompanyId();
             String outputJson = "Success";
             CompanyPreferencesFacebook companyPreferencesFacebookService = new CompanyPreferencesFacebook();
 
@@ -468,8 +466,6 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             String access_token_secret = "";
             String user_name = "";
 
-//          todochange it with companyid
-//            Company company = userProfile.getUser().getFkCompanyId();
             String outputJson = "Success";
 
             if (!StringUtility.isEmpty(access_token)) {

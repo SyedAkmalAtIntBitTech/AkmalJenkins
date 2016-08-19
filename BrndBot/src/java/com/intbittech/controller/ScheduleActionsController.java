@@ -134,9 +134,6 @@ public class ScheduleActionsController {
             }
 
             if (errors.isEmpty()) {
-//            todochange it with companyid
-//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
                 List<Map<String, Integer>> responseData = actionsService.scheduleSocialPostActions(requestBodyList, userCompanyIds.getCompanyId());
                 transactionResponse.addDetail(AppConstants.GSON.toJson(responseData));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
@@ -168,9 +165,6 @@ public class ScheduleActionsController {
                 errors.addAll(validateMetadata(metadataString, type));
             }
             if (errors.isEmpty()) {
-//            todochange it with companyid
-//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
                 List<Map<String, Integer>> responseData = actionsService.scheduleSocialPost(requestBodyList, userCompanyIds.getCompanyId());
                 transactionResponse.addDetail(AppConstants.GSON.toJson(responseData));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));

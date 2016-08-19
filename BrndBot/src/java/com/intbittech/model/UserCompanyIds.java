@@ -5,11 +5,13 @@
  */
 package com.intbittech.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Syed Muzamil at IntBit Technologies.
  */
-public class UserCompanyIds {
+public class UserCompanyIds implements Serializable {
     private Integer userId;
     private Integer companyId;
 
