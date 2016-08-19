@@ -20,6 +20,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.automatedEmailListValidation = automatedEmailListValidation;
         $scope.automationDayValidation = automationDayValidation;
         $scope.emailValidation = emailValidation;
+        $scope.linkNameValidation = linkNameValidation;
+        $scope.linkUrlValidation = linkUrlValidation;
         $scope.programDate = "";
         $scope.randomIframeFilename = event.timeStamp;
         $scope.showCampaignDetails = false;
@@ -29,6 +31,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.timePickerVal = false;
         $scope.validateEmailId = false;
         $scope.clickedRemoveAction = false;
+        $scope.dateValidation = false;
+        $scope.validateLinkName = false;
+        $scope.validateLinkUrl = false;
 
         $scope.ddSelectAction = {
             text: "Select"
@@ -247,8 +252,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.closeOverlay = function ()
         {
             $scope.fadeClass = '';
-            $scope.addAction = false;            
-            $scope.chooseActionTypeOnChange({"text":"Select","value":"0"});
+            $scope.addAction = false;
+            $scope.chooseActionTypeOnChange({"text": "Select", "value": "0"});
         };
         $scope.formatDate = function (programDate) {
             var dateArray = programDate.split('-');
@@ -668,7 +673,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             };
             yourPlanFactory.addActionPost(action).then(function (data) {
                 $scope.dateLesser = false;
-                alert("Action saved succesfully");
+//                alert("Action saved succesfully");
                 $scope.closePopup();
                 $scope.getProgramActions();
             });
@@ -925,6 +930,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 selector: 'td.mce-content-body',
                 width: 400,
                 inline: true,
+                convert_urls: false,
                 plugins: [
                     'advlist custombutton autolink lists link image charmap print preview anchor',
                     'searchreplace visualblocks code fullscreen',
@@ -959,6 +965,16 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
                 //angulardd
                 var emailAutomationData = parseData.allEmailListWithNoOfContacts.user;
+                for (var i = 0; i < emailAutomationData.length; i++)
+                {
+                    var emailAutomationObject = {};
+                    emailAutomationObject["text"] = emailAutomationData[i].emailListName;
+                    emailAutomationObject["value"] = emailAutomationData[i].emailListName;
+                    $scope.ddSelectEmailListAutomationDataOptions.push(emailAutomationObject);
+                }
+                
+                //For mindbody emaillist
+                emailAutomationData = parseData.allEmailListWithNoOfContacts.mindbody;
                 for (var i = 0; i < emailAutomationData.length; i++)
                 {
                     var emailAutomationObject = {};
@@ -1080,6 +1096,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 var emailListName = $.parseJSON(emailListData.d.details);
                 for (var i = 0; i < emailListName.user_emailAddresses.length; i++) {
                     var emails = emailListName.user_emailAddresses[i];
+                    $scope.emailLists = $scope.emailLists + eval(JSON.stringify(emails.emailAddress)) + ",";
+                }
+                for (var i = 0; i < emailListName.mindbody_emailAddresses.length; i++) {
+                    var emails = emailListName.mindbody_emailAddresses[i];
                     $scope.emailLists = $scope.emailLists + eval(JSON.stringify(emails.emailAddress)) + ",";
                 }
                 $scope.emailListName = emailListName.emailListName;
@@ -1489,6 +1509,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //   };
         $scope.updateUserProgram = function (programs) {
             if ($scope.validate_program_link_details()) {
+                $scope.dateValidation = false;
+                $scope.validateLinkName = false;
+                $scope.validateLinkUrl = false;
                 var program = $scope.programId.toString();
                 var program_name = programs.programdetails.programName;
                 var event_date = $("#progactdatepicker").val();
@@ -1515,26 +1538,27 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var link_url = $("#link_url").val();
             var link_name = $("#link_name").val();
 
-            if (event_date == "") {
-                growl(dateerror, "error");
+            if (!event_date) {
                 $("#progactdatepicker").focus();
+                $scope.dateValidation = true;
                 return false;
             }
-            if (link_name == "") {
-                growl(linknameerror, "error");
-                $("#link_name").focus();
-                return false;
-            }
-            if ((link_url == "") || (!myRegExp.test(link_url))) {
-                growl(linkurlerror, "error");
+            if ((!link_url) || (!myRegExp.test(link_url))) {
                 $("#link_url").focus();
                 $("#link_url").val('http://');
+                $scope.validateLinkUrl = true;
+                return false;
+            }
+            if (!link_name) {
+                $scope.validateLinkUrl = false;
+                $("#link_name").focus();
+                $scope.validateLinkName = true;
                 return false;
             }
             return true;
         };
-        
-        $scope.promptHideShow = function (flag){
+
+        $scope.promptHideShow = function (flag) {
             $scope.clickedRemoveAction = flag;
         };
     }]);

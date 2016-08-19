@@ -52,7 +52,8 @@ public class EmailListController {
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            String data = emailListService.getEmailList(request, companyId, emailListName);
+            String queryParameter = (String) request.getParameter("update");
+            String data = emailListService.getEmailList(queryParameter, companyId, emailListName);
             transactionResponse.addDetail(data);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("list_success", new String[]{}, Locale.US)));
             

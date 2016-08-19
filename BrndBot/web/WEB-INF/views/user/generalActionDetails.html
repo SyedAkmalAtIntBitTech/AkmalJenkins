@@ -23,7 +23,7 @@
                                         <img ng-show="action_template_status == 'No Template'" src="/BrndBot/user/images/no-template.svg"/>
                                  
                                     
-                                        <img ng-show="action_template_status == 'Complete'" src="/BrndBot/user/images/ActionComplete.svg"/>
+                                        <img ng-show="action_template_status == 'Complete'" src="/BrndBot/user/images/template-complete.svg"/>
                                    
                                    
                                         <img ng-show="action_template_status == 'Approved'" src="/BrndBot/user/images/template-approved.svg"/>
@@ -146,7 +146,7 @@
                                 <span class="user-data" ng-click="hideShowEditDot(true)">{{recurringScheduleData.days}}</span>
                                 <span class=""> days after being added to</span>
                                 <span class="user-data unselected" ng-click="hideShowEditDot(true)" ng-hide="hideShowEmailList">Need to Select an Email List</span>
-                                <span class="user-data" ng-click="hideShowEditDot(true)" ng-show="hideShowEmailList">{{recurringScheduleData.entities_list_name}}</span>
+                                <span class="user-data spanwidthclip" ng-click="hideShowEditDot(true)" ng-show="hideShowEmailList">{{recurringScheduleData.entities_list_name}}</span>
                                 <span class="">email list.</span>
                             </div> 
                        </div>

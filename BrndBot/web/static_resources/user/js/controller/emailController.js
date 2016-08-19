@@ -78,7 +78,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 //            $.FroalaEditor.DEFAULTS.htmlAllowedAttrs = $.merge($.FroalaEditor.DEFAULTS.htmlAllowedAttrs, ['onclick', 'ng-click']);
             companyMarketingProgramFactory.getAllUserMarketingProgramsSessionIdGet().then(function (urlList) {
 //                $('#edit').froalaEditor({key: FroalaLicenseKey, linkList: urlList});
-                $scope.blockIdOnSelected('defaultblock1', 0 ,$scope.mindbodyid );
+                $scope.blockIdOnSelected('defaultblock1', 0, $scope.mindbodyid);
                 if (emailDraftDetails === null) {
                     modelFactory.EmailModelsIdGet($scope.subCategoryId).then(function (templateDate) {
                         var blockList = templateDate.d.details.reverse();
@@ -102,7 +102,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 //Function to convert hex format to a rgb color
             function rgb2hex(rgb) {
                 rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-                return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+                return  hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
             }
             function hex(x) {
                 return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
@@ -145,6 +145,10 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         {
             localStorage.removeItem("emailDraftData");
             if (lookupId)
+            {
+                $scope.lookupId = lookupId;
+            }
+            if (lookupId === 0)
             {
                 $scope.lookupId = lookupId;
             }
@@ -305,8 +309,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.blockOnClick = function (id) {
             $scope.id = id;
-            $scope.id = 'block-slat-active';
-            $scope.setBlockActive = 'block-slat';
+            $scope.id = 'editor-block-slat';
+            $scope.setBlockActive = 'editor-block-slat-selected';
             $scope.activeBlock = id;
 
 //            TODO change to AngularJs, (Complicated code)
@@ -339,7 +343,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 {
                     $scope.emailMindBodyPopup = false;
                     $scope.mindbodyid = "0";
-                    $scope.addHTMLInEmailEditor(selectedBlockId);
+                    $scope.addHTMLInEmailEditor($scope.firstTemplateForBlock);
                     $scope.loadingOverlay = false;
                     $scope.blockOnClick(0);
                     $scope.showStyles('true');
@@ -397,7 +401,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 //                        editorHtml = $('#tinymceEditorBody').html();
                     } else
                     {
-                        var styleHtml = '<div id=defaultblock1 class=module onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0,'+mindbodyId+')"><div class="view">' + emailData.htmldata + '</div></div>';
+                        var styleHtml = '<div id=defaultblock1 class=module onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0,' + mindbodyId + ')"><div class="view">' + emailData.htmldata + '</div></div>';
 //                    var styleHtml = '<div id=defaultblock1 class=module onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)"><div class=\"view\"><table width=\"100%\" bgcolor=\"#2a2a2a\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tbody><tr><td><table bgcolor=\"#d41b29\" width=\"600\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\" class=\"devicewidth\"><div class=\"innerbg\"></div><div class=\"addremove\" style=\"margin-left: 975px;\"><div class=\"drag\"></div><div class=\"remove\"></div></div><tbody><tr><td width=\"100%\">' + emailData.htmldata + '</td></tr></tbody></table></div>';
                         $("#tinymceEditorBody").append(styleHtml);
                     }
@@ -412,7 +416,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         $scope.launchTinyMceEditor();
                     } else
                     {
-                        BlockHtml = '<div id=' + $scope.htmlTagId + ' onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ','+mindbodyId+')>' + emailData.htmldata + '</div>';
+                        BlockHtml = '<div id=' + $scope.htmlTagId + '  class=module onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ',' + mindbodyId + ')>' + emailData.htmldata + '</div>';
                         $("#tinymceEditorBody").append(BlockHtml);
                         $scope.launchTinyMceEditor();
                     }
@@ -427,6 +431,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 extended_valid_elements: 'img[class|src|style|border=0|alt|title|hspace|vspace|width|height|max-width|max-height|align|onmouseover|onmouseout|name]',
 //                forced_root_block : false,
                 width: 400,
+                convert_urls: false,
                 inline: true,
                 plugins: [
                     'advlist custombutton autolink lists link image charmap print preview anchor',
@@ -437,9 +442,12 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 toolbar1: 'undo | bold italic | alignleft aligncenter alignright | link forecolor | fontselect fontsizeselect custombutton',
                 menubar: false
             });
-            $('.innerbg').mouseenter(function (event, $scope) {
+            $('.innerbg').mouseenter(function (event) {
                 $("#colpic").css({position: "absolute", top: event.pageY, left: "20px"}).css(" z-index", 30000).show();
                 seldiv = $(this).parents('[bb-bgcolor]');
+            });
+            $(document).click(function () {
+                $("#colpic").hide();
             });
             $('.view').find('table:first').find('td:first').mouseenter(function () {
                 $(this).find('table:first').addClass('template-border-Active');
@@ -448,7 +456,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $(this).find('table:first').removeClass('template-border-Active');
             });
         };
-        $scope.blockIdOnSelected = function (selectedBlock, blockId,mindbodyId) {
+        $scope.blockIdOnSelected = function (selectedBlock, blockId, mindbodyId) {
             var selectedHtmlBlockId = selectedBlock.id;
             $scope.mindbodyid = mindbodyId;
             $("#colpic").hide();
@@ -549,7 +557,18 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
 
         $scope.emailPreviewOnClick = function () {
+            $("#tinymceEditorBody").find("p").removeAttr("style").css("margin","0px");
             settingsFactory.getAllPreferencesGet().then(function (data) {
+                var footerData = JSON.parse(data.d.details);
+                if (!footerData.userProfile) {
+                    $scope.editFooter();
+                    return false;
+                }
+
+                if (!footerData.userProfile.address) {
+                    $scope.editFooter();
+                    return false;
+                }
 //                $("#fade").show();
                 $scope.fadeClass = 'fadeClass';
                 $scope.emailPreviewPopup = true;
@@ -567,6 +586,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 emailFactory.previewServletPost(sendData).then(function () {
                     $scope.overlayFade = true;
                     $scope.iframePath = getHost() + "download/HTML?fileName=" + $scope.randomIframeFilename + ".html";
+
                     document.getElementById('dynamictable5').contentDocument.location.reload(true);
                     document.getElementById('dynamictable6').contentDocument.location.reload(true);
                 });
@@ -587,10 +607,14 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
                 emailFactory.previewServletPost(sendData).then(function () {
                     if (!$scope.draftId) {
+                        var tempMindbodyId = "null";
+                        if ($scope.mindbodyid.toString() !== "") {
+                            tempMindbodyId = $scope.mindbodyid.toString();
+                        }
                         var draftData = {
                             bodyString: $('#tinymceEditorBody').html(),
                             lookupId: $scope.lookupId.toString(),
-                            mindbodyData: $scope.mindbodyid.toString(),
+                            mindbodyData: tempMindbodyId,
                             categoryId: $scope.categoryId.toString(),
                             subCategoryId: $scope.subCategoryId.toString(),
                             emailSubject: $scope.emailSubject
@@ -629,6 +653,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         };
         $scope.saveButtonOnClick = function () {
+             $("#tinymceEditorBody").find("p").removeAttr("style").css("margin","0px");
             settingsFactory.getAllPreferencesGet().then(function (footerResponseData) {
                 var footerData = JSON.parse(footerResponseData.d.details);
                 if (!footerData.userProfile) {
@@ -650,10 +675,14 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 };
                 emailFactory.previewServletPost(sendData).then(function (data) {
                     if (!$scope.draftId) {
+                        var tempMindbodyId = "null";
+                        if ($scope.mindbodyid.toString() !== "") {
+                            tempMindbodyId = $scope.mindbodyid.toString();
+                        }
                         var draftData = {
                             bodyString: $('#tinymceEditorBody').html(),
                             lookupId: $scope.lookupId.toString(),
-                            mindbodyData: $scope.mindbodyid.toString(),
+                            mindbodyData: tempMindbodyId,
                             categoryId: $scope.categoryId.toString(),
                             subCategoryId: $scope.subCategoryId.toString(),
                             emailSubject: $scope.emailSubject
@@ -1160,14 +1189,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.schedulePostToEmail = function (postData) {
             $scope.postedTo = getemail();
-            var email_scheduling = $scope.getScheduleData($scope.selectedMarketingProgrma, postData);
-            if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
-                scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
-                    $scope.schedulePopup = false;
-                    $scope.isPostSuccess = true;
-//                            window.location = "dashboard";
-                });
-            }
+            $scope.getScheduleData($scope.selectedMarketingProgrma, postData);
+
         };
 
         $scope.getScheduleData = function (selectedMarketingProgrmaId, postData) {
@@ -1192,19 +1215,11 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     if (data.d.operationStatus.statusCode === "Success") {
                         $scope.schedulePopup = false;
                         $scope.isPostSuccess = true;
-//                        window.location = "dashboard";
+                        emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
+
+                        });
                     }
                 });
-
-                if (JSON.stringify(data) !== "") {
-                    emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
-                        if (responseText === "true")
-                        {
-                            growl("Your Email has been Scheduled Successfully");
-                            window.location = "dashboard";
-                        }
-                    });
-                }
             } else {
                 var schedule_title = $("#ActionName").val();
                 var schedule_date = $("#actionDate").val();
@@ -1240,18 +1255,11 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     if (data.d.operationStatus.statusCode === "Success") {
                         $scope.schedulePopup = false;
                         $scope.isPostSuccess = true;
-//                        window.location = "dashboard";
+                        emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
+
+                        });
                     }
                 });
-                if (JSON.stringify(data) !== "") {
-                    emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
-                        if (responseText === "true")
-                        {
-                            growl("Your Email has been Scheduled Successfully");
-                            window.location = "dashboard";
-                        }
-                    });
-                }
             }
             return email_scheduling;
         };
