@@ -256,6 +256,12 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     var emailPreHead=sessionMap[getPreHeader()];
                     $scope.emailsubject = emailSub;
                     $scope.preheader = emailPreHead;
+                    if(sessionMap[getEmailSubject()]){
+                        $scope.isEmailSaveAction=true;
+                    }
+                    else{
+                        $scope.isEmailSaveAction=false;
+                    }
                 }
             });
         };
@@ -791,31 +797,14 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             text: "Please select an email list"
         };
 
-        $scope.showEmailList = function () {
+        $scope.showEmailList = function () {            
             
-            appSessionFactory.getAllEmail().then(function (sessionMap){
-                if(sessionMap[getEntityScheduleId()]){
-//                    $scope.ddSelectEmailListOptions = [
-//                    {
-//                        text: sessionMap[getEmailListName()],
-//                        value: sessionMap[getEmailListName()]
-//                    }
-//                    ];
-                }else{
-//                        $scope.ddSelectEmailListOptions = [
-//            //                {
-//            //                    text: "Manual",
-//            //                    value: "1"
-//            //                }
-//                        ];
-                }
-                });
                 $scope.ddSelectEmailListOptions = [
-            //                {
-            //                    text: "Manual",
-            //                    value: "1"
-            //                }
-                        ];
+//                {
+//                    text: "Manual",
+//                    value: "1"
+//                }
+                ];
 //            $scope.redirectBaseURL();       //this function redirects to base if page is refreshed.            
             emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
                 var parseData = JSON.parse(data.d.details);
@@ -842,6 +831,16 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 }
 
             });
+            
+                
+            appSessionFactory.getEmail(getEmailListName()).then(function (emailListName){
+                if(emailListName){
+                    var emailList=emailListName;
+                    var emailObject = {"text": emailList, "value": emailList};
+                    $scope.ddSelectEmailList.text =emailList;
+                    $scope.chooseEmailListOnChange(emailObject);
+                }
+                });
             $scope.emailList = "1";
             $scope.getEmailSettings();
         };
@@ -1048,9 +1047,9 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.isEmailActionSave = function (){
 //            $scope.redirectBaseURL();
             appSessionFactory.getAllEmail().then(function(sessionMap){
-                if(sessionMap[getEntityScheduleId()]){
                     $scope.emailSubject=sessionMap[getEmailSubject()];
                     $scope.fromName=sessionMap[getFromName()];
+                if(sessionMap[getEntityScheduleId()]){
                     $scope.emaildetailscontbtn=false;
                     $scope.emailSaveActionbutton= true;
                 } else{

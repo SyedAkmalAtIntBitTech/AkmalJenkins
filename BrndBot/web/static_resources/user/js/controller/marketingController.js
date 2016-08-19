@@ -1,4 +1,4 @@
-marketingFlowApp.controller("marketingController", ['$scope', '$location', '$filter', '$sce', 'marketingFactory', 'companyMarketingProgramFactory', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'marketingRecurringEmailFactory', 'emailFactory', 'emailListFactory', function ($scope, $location, $filter, $sce, marketingFactory, companyMarketingProgramFactory, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, marketingRecurringEmailFactory, emailFactory, emailListFactory) {
+marketingFlowApp.controller("marketingController", ['$scope', '$location', '$filter', '$sce', 'marketingFactory', 'companyMarketingProgramFactory', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'marketingRecurringEmailFactory', 'emailFactory', 'emailListFactory', 'appSessionFactory',function ($scope, $location, $filter, $sce, marketingFactory, companyMarketingProgramFactory, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, marketingRecurringEmailFactory, emailFactory, emailListFactory, appSessionFactory) {
         $scope.marketingCategoryId = "";
         $scope.marketingProgramId = "";
         $scope.past = "";
@@ -1555,6 +1555,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 savedEmail[getEntityScheduleId()] = scheduleId;
                 savedEmail[getEmailScheduleId()] = entitiesdetails.schedule_email_id;
                 savedEmail[getEmailSubject()] = entitiesdetails.subject;
+                savedEmail[getPreHeader()] = entitiesdetails.preheader;
                 savedEmail[getToEmailAddresses()] = entitiesdetails.to_email_addresses;
                 savedEmail[getEmailBody()] = entitiesdetails.body;
                 savedEmail[getEmailListName()] = entitiesdetails.email_list_name;
