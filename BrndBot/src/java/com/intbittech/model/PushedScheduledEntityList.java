@@ -47,9 +47,7 @@ public class PushedScheduledEntityList implements Serializable {
     @JoinColumn(name = "fk_scheduled_entity_list_id", referencedColumnName = "scheduled_entity_list_id")
     @ManyToOne(optional = false)
     private ScheduledEntityList fkScheduledEntityListId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkPushedScheduledActionEntityListId")
-    private Set<PushedScheduledActionCompanies> pushedScheduledActionCompaniesSet;
-
+    
     public PushedScheduledEntityList() {
     }
 

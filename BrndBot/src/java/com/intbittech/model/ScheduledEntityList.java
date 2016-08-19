@@ -7,9 +7,7 @@ package com.intbittech.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,8 +33,6 @@ public class ScheduledEntityList implements Serializable {
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkScheduledEntityListId")
-    private Set<PushedScheduledEntityList> pushedScheduledEntityListSet;
     @JoinColumn(name = "assigned_to", referencedColumnName = "user_id")
     @ManyToOne
     private Users assignedTo;
@@ -206,6 +201,22 @@ public class ScheduledEntityList implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Users getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(Users assignedTo) {
+        this.assignedTo = assignedTo;
+    }
+
+    public Users getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Users createdBy) {
+        this.createdBy = createdBy;
     }
 
    
