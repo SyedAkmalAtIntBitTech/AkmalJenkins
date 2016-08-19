@@ -123,7 +123,7 @@
                                     <img id="prevfbimg" src="/BrndBot/downloadImage?imageType=LAYOUT_IMAGES&amp;imageName=13.jpg">
                                 </div>
                                 <div ng-show="entitiesdetails.image_type == 'url'" style="display: none;">
-                                    <img id="prevfbimg" src="13.jpg">
+                                    <img id="prevfbimg" src="">
                                 </div>
                             </div>
                         </div>
@@ -172,7 +172,7 @@
         <div class="overlay-content">
             <div class="overlay-empty-container">
                 <div class="empty-wrap">
-                    <object type="image/svg+xml" data="/BrndBot/user/images/Overlay_EmptyStates_email.svg"></object>
+                    <object type="image/svg+xml" data="/BrndBot/images/Overlay_EmptyStates_email.svg"></object>
                     <p>{{actionTypeNoTemplateMessage}}</p>
                     <a class="reg-button blue-button empty-wrap-button" href="{{savedDetailsAddTemplateLink}}" ng-if="isRecurring === false">{{savedDetailsAddTemplateButton}}</a>
                     <a class="reg-button blue-button empty-wrap-button" ng-click="redirectToEmailAutomation('emailautomation','template','', schedule_id)" ng-if="isRecurring === true">{{savedDetailsAddTemplateButton}}</a>

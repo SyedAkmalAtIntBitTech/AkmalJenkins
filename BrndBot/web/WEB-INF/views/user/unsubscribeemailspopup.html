@@ -21,16 +21,8 @@
         <div class="modal-pane-content-wrap" style="overflow-y: scroll;">
             <p class="modal-content-header">Please select a csv file with email addresses to unsubscribe them.</p>
             <div class="input-wrap">
-                <!--<label>Choose file </label>-->
                 <div class="input">
-                    <!--<input type="file" id="fileid" ng-change="angular.element(this).scope().uploadEmailListOnClick(this)">-->
                     <input type="file" id="fileid">
-
-                    <!--<input type="file" id="fileid" file-reader="fileContent" />-->
-<!--                    <br><br>
-                    <p><center>
-                        <a class="small-button slat-button" ng-click="uploadEmailListOnClick()">Upload CSV</a></center>
-        </p>-->
                 </div>
                 <span class="validationAlert" ng-show="csvFileValidation">{{uploadCsvValidation}}</span>
                 <span class="validationAlert" ng-show="csvValidation">{{validCsvFileValidation}}</span>

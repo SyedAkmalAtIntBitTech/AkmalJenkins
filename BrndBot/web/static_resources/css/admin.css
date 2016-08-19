@@ -88,7 +88,6 @@ width:75%;}
     border-radius: 3px;
     font-size: 13px;
     height: 175px;
-    /*color: #D2D3D5;*/
     resize: none;
 }
 .body-normal{
@@ -241,8 +240,6 @@ padding: 0px 20px;
     height: calc(100vh - 90px);
     margin-left: auto;
     margin-right: auto;
-/*    position: relative;
-    top: 70px;*/
     background-color: #FFFFFF;
     display: block;
     border-radius: 3px;
@@ -444,7 +441,6 @@ padding: 5px 45px;
 .inputSection{
     margin-top:30px;
     overflow: hidden;
-    /*overflow: auto;*/
     clear: both;
     box-sizing: border-box;
     font-size: 13px;
@@ -481,9 +477,6 @@ padding: 5px 45px;
     z-index: 1000;
 }
 .popUp_background{
-    /* width: 100vw; */
-    /* height: 100vh; */
-    /* background-color: rgba(62,69,81,.64); */
     position: absolute;
     top: 0;
     left: 0;
@@ -527,9 +520,7 @@ padding: 5px 45px;
     color: #3E4551; 
 }
 .bb-logo{
-/*    width: 40px;*/
     width:120px;
-    /*margin: auto;*/
     margin-left:15px;
 }
 .width50{
@@ -664,15 +655,6 @@ div#editor {
 .createTemplate{
    margin-top: 5%; 
 }
-/*.popUp_background_colors{
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(62,69,81,.64);
-    position: fixed;
-    top:0;
-    left: 0;
-    z-index: 1000;
-}*/
 .popUp_wide{
     z-index: 1100;
         background-color: #FFFFFF;
@@ -702,7 +684,6 @@ width: 100%;
     box-sizing: border-box;
     background-color: #FFFFFF ;
     display: block;
-    /* scroll;*/
     overflow-y:auto;
 }
 
@@ -886,4 +867,15 @@ height: 150px;
 .addPopUp{
     margin-top: 30vh;
     margin-left: 30vh;
+}
+
+#addOrganizationPopup,#addOrganizationPopupDiv,#addPrintCategoryPopup,#addImageCategory,#addSubCategoryPopup,#addEmailBlockPopUp,
+#addEmailTemplatePopUp,#relateEmailTemplateAddButton,#relateImageTemplateAddButton,#relatePrintTemplateAddButton,#addRecurringEmailTemplatePopUp,
+#addRecurringPopUp,#editMarketingProgramsPopup,#addMarketingProgramsPopup,#addMarketingPopUp,#addOneTimeActionsPopup,#createRecurringActionButton,
+#createOneTimeActionButton,#createOneTimeActionPopUpTitle,#createRecurringActionPopUpTitle,#noTemplatesMessage,#addMarketingTemplatePopUp,
+#EmailBlockPopUp,#noEmailTemplatesMessage,#noMarketingTemplatesMessage,#updateMarketingProgramSaveButton,#addMarketingProgramSaveButton,
+#addMarketingTemplatePopUp,#noGroup,#addGroup,#fontPopup,.popUp_background_colors,#globalImageId,#editImage
+{
+
+    display:none;
 }
