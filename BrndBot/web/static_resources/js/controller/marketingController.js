@@ -773,6 +773,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         $scope.emailPreviewOnClick = function () {
+             $("#tinymceEditorBody").find("p").removeAttr("style").css("margin","0px");
             var rendomIframeFilename = "";
             rendomIframeFilename = event.timeStamp;
             settingsFactory.getAllPreferencesGet().then(function (data) {
@@ -1281,7 +1282,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         $scope.addUpdateRecuringAction = function () {
-
+             $("#tinymceEditorBody").find("p").removeAttr("style").css("margin","0px");
             if ($scope.recuringActionValidation())
             {
                 if ($scope.replyAddressValidation())
