@@ -20,9 +20,9 @@
                     <span class="validationAlert" ng-if='fbPostData.shareText === "" || null'>{{facebookPostValidation}}</span>
 
                 </div>
-                
+
                 <div ng-if="linkpost" id="linkPostFields">
-                   <div class="input-wrap">
+                    <div class="input-wrap">
                         <label> Link Title </label>
                         <div class="input ">
                             <input placeholder="Type post here" id="linkTitle" ng-model="fbPostData.linkTitle" class="fluid"></input>
@@ -41,12 +41,12 @@
                     <div class="input-wrap">
                         <label>Choose a Link</label>
                         <div class="input " id='urlDropDownSpan' ng-init="getUrls()">
-<!--                            <select ng-model="linkUrls" id="dropdownurl"  class="select_Field_lg removeDrag" ng-options="url.url as url.prigram_name + ' - ' + url.link_name + ' - ' + url.url for url in urls"></select>-->
+                            <!--                            <select ng-model="linkUrls" id="dropdownurl"  class="select_Field_lg removeDrag" ng-options="url.url as url.prigram_name + ' - ' + url.link_name + ' - ' + url.url for url in urls"></select>-->
                             <div dropdown-select="ddSelectlinkUrlsOptions" dropdown-model="ddSelectlinkUrls" dropdown-onchange="getSelectedUrl(selected)"></div>
                             <p class="input-label">If you have a custom link write it below</p>
                         </div>
-<!--                        <span class="validationAlert" ng-if="fbLinkValidation">{{linkValidation}}</span>-->
-                                                
+                        <!--                        <span class="validationAlert" ng-if="fbLinkValidation">{{linkValidation}}</span>-->
+
                     </div>
                     <div class="input-wrap">
                         <label>Write a Custom Link</label>
@@ -65,25 +65,29 @@
                 <img  src="/BrndBot/user/images/add-Image.svg" ng-model="twitterShare.img" class="add-image-icon" style="cursor:pointer;">
                 <div class="Add-Image-Button"> Add Image to Post</div>
             </div>
+            <div ng-show="twitterImageDivToPost" class="Social-Add-Image-Wrap " ng-click="show_hide_ImageGalleryPopup(true)">
+                <img  src="/BrndBot/user/images/add-Image.svg" ng-model="twitterShare.img" class="add-image-icon" style="cursor:pointer;">
+                <div class="Add-Image-Button">  Change Image</div>
+            </div>
             <div ng-show="twitterImageDivToPost" class="Social-Add-Image-Wrap-with-img " id="addImageDivToTwitterPost">
                 <img ng-src="{{displayImage}}" ng-model="fbPostData.img = displayImage" alt="alt_text" border="0" align="center" id="selectedImage" class="imageAdded">
-                <div class=\">
+<!--                <div class=\">
                     <div class="reg-button" id="changeImage"  ng-click="show_hide_ImageGalleryPopup(true)">
                         Change Image
                     </div>
-                </div>
+                </div>-->
             </div>
             <span class="validationAlert Social-Add-Image-Wrap" ng-if="imageValidation">{{facebookImageValidation}}</span>
 
         </div>
-        
+
     </div>
     <div class="continue-bar-offset"></div>  
 </div>
 <div class="continue-bar">
-        <a id="continue-bar-button" class="fright" ng-click="openPostOrShedulePopup('facebook', fbPostData)">CONTINUE</a>
-    </div>
- <div ng-include src="'schedulepopup.html'"></div>
-    <div ng-include src="'sendorschedulepopup.html'"></div>
-    <div ng-include src="'sociallistselection.html'"></div>
-    <!--<div ng-include src="'facebookpostsuccesspopup.html'"></div>--> 
+    <a id="continue-bar-button" class="fright" ng-click="openPostOrShedulePopup('facebook', fbPostData)">CONTINUE</a>
+</div>
+<div ng-include src="'schedulepopup.html'"></div>
+<div ng-include src="'sendorschedulepopup.html'"></div>
+<div ng-include src="'sociallistselection.html'"></div>
+<!--<div ng-include src="'facebookpostsuccesspopup.html'"></div>--> 

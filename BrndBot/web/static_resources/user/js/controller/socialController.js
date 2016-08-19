@@ -1046,7 +1046,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             $scope.$apply(function () {
                 $scope.imageModal = [];
                 $scope.imageModal.push(e.target.result);
-                $scope.showImageUploaded = false;
+//                $scope.showImageUploaded = false;
             });
             var showImage = document.getElementById('upload');
             angular.element(showImage).triggerHandler('click');
@@ -1055,8 +1055,8 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             var file = myFile;
             imageFactory.saveImagePost(file).then(function (data) {
                 growl("Image Uploaded successfully");
-                $scope.hidePopup = false;
-                $("#fade").hide();
+//                $scope.hidePopup = false;
+//                $("#fade").hide();
                 $scope.getUserImages();
             });
         };
