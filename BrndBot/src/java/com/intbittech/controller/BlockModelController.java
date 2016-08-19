@@ -180,6 +180,7 @@ public class BlockModelController {
             EmailBlockModel emailBlockModel = new EmailBlockModel();
             emailBlockModel.setEmailBlockModelName(emailBlockModelDetails.getEmailBlockModelName());
             emailBlockModel.setHtmlData(emailBlockModelDetails.getHtmlData());
+            emailBlockModel.setIsRecurring(emailBlockModelDetails.getIsRecurring());
             String storableImageFileName = null;
             try {
                 storableImageFileName = FileHandlerUtil.saveAdminEmailBlockModelImage(emailBlockModelDetails.getImageFileName(),
