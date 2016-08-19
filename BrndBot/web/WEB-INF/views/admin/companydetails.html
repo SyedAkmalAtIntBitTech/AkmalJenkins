@@ -36,7 +36,6 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
          <div ng-include src="'header.html'"></div>
          <div ng-include src="'addgroup.html'"></div>
         <div class="content-area" >         
-        
             <div ng-init="companyDetailsByID()">
                 <input id="companyId" hidden value="{{companyId}}"/>
                 <input id="organizationName" hidden value="{{organizationName}}"/>
@@ -50,6 +49,13 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
             <div class="subnav-tab fleft">Overview and Brand</div>
             <div class="subnav-tab fleft">Templates</div>
         </div>    
+            <br>
+            <div ng-init="organization()">
+                Organization Name : <select>
+                                    <option ng-repeat="organization in organizationDetails" value="{{organization.organizationId}}" id="organization">{{organization.organizationName}}</option>
+                                    </select>
+                <input type="button" name="changeOrganization" ng-click="changeOrganization()" value="change organization"/>
+            </div>    
         <div class="input_Label pushUp_30">User Groups</div>
         <ul class="groupArea" ng-init="userGroups()">
             <li class="listItem" ng-repeat="groupNames in groupName.slice().reverse()">

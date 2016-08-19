@@ -48,6 +48,37 @@ function allCompaniesController($scope,$http){
     
   };
 
+    $scope.organization = function () {
+
+        $http({
+            method: 'GET',
+            url: getHost() + '/onboarding/getAllOnlyOrganizations'
+        }).success(function (data, status, headers, config) {
+            $scope.organizationDetails = data.d.details;
+        }).error(function (data, status, headers, config) {
+            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+        });
+
+    };
+
+    $scope.changeOrganization = function(){
+        var organizationId = $("#organization").val();
+        var updateorganization = {"organizationId":organizationId,"companyId": $scope.companyId};
+        
+             $http({
+                    method : 'POST',
+                    url : getHost()+'saveGroup.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(updateorganization)
+                }).success(function(data, status, headers, config) { 
+                    alert("Organization updated successfully");
+                    window.open(getHost() + 'admin/companydetails?companyId='+$scope.companyId+'&companyName='+$scope.companyName+'&organizationName='+$scope.organizationName, "_self");
+                      
+                }).error(function(data, status, headers, config) {
+                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });   
+    };
   $scope.companyEmailcategories= function (){
       
             var companyId=$scope.companyId;
