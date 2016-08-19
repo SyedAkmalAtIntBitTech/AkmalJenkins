@@ -54,14 +54,16 @@
                 </div>
             </span>
         </div>
-        <div ng-show="twitterImageDivToPost" class="Social-Add-Image-Wrap clear" id="addImageDivToTwitterPost">
-            <img ng-src="{{displayImage}}" ng-model="twitterPostData.img = displayImage"alt="alt_text" border="0" align="center" id="selectedImage" class="imageAdded pushUp_10 fleft">
-
-            <div class="col-1of1 clear">
-                <div class="edit-Image-Button fleft" id="changeImage"  ng-click="show_hide_ImageGalleryPopup(true)">
+        <div ng-show="twitterImageDivToPost" class="Social-Add-Image-Wrap clear"  ng-click="show_hide_ImageGalleryPopup(true)">
+            <span class="clickable-area">
+                <img  src="/BrndBot/images/add-Image.svg" ng-model="twitterShare.img" class="add-image-icon fleft" style="cursor:pointer;">
+                <div class="Add-Image-Button fleft">
                     Change Image
                 </div>
-            </div>
+            </span>
+        </div>
+        <div ng-show="twitterImageDivToPost" class="Social-Add-Image-Wrap clear" id="addImageDivToTwitterPost">
+            <img ng-src="{{displayImage}}" ng-model="twitterPostData.img = displayImage"alt="alt_text" border="0" align="center" id="selectedImage" class="imageAdded pushUp_10 fleft">
         </div>
         <span class="validationAlert Social-Add-Image-Wrap" ng-if="twitterImageValidation">{{facebookImageValidation}}</span>
 
