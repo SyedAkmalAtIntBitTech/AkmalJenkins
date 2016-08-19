@@ -62,7 +62,7 @@ public class ScheduleAnEmail implements Runnable {
                         //To-do Ajit check this.. AR/Ilyas please review
                             
                             Integer companyId = currentScheduledEmail.getFkCompanyId().getCompanyId();
-                             String emailList =  emailListService.getEmailList("", companyId, sendAnEmail.getEmailListName());
+                             String emailList =  emailListService.getEmailList("allEmailListNames", companyId, sendAnEmail.getEmailListName());
                         String html_text = sendAnEmail.getBody();
                         String email_subject = sendAnEmail.getSubject();
                         String jsonString = emailList;
