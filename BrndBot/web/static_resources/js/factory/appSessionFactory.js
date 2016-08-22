@@ -1,5 +1,94 @@
 //************************ @author Syed Ilyas @ Intbit *************************
 
+var kSessionCategoryId = "categoryId";
+var kSessionSubCategoryId = "subCategoryId";
+var kSessionLookupId = "lookupId";
+var kSessionExternalSourceName = "mindbody";
+var kSessionMindbodyId = "mindbodyId";
+var kSessionDraftId = "draftId";
+var kSessionEmailSubject = "emailSubject";
+var kSessionEntityScheduleId = "entityScheduleId";
+var kSessionEmailScheduleId = "email_Schedule_Id";
+var kSessionToEmailAddresses = "to_email_addresses";
+var kSessionEmailBody = "body";
+var kSessionEmailListName = "email_list_name";
+var kSessionFromName = "from_name";
+var kSessionReplyToEmailAddress = "reply_to_email_address";
+var kSessionFromAddress = "from_address";
+var kSessionPreHeader = "preHeader";
+var kSessionEmailDraftData= "emailDraftData";
+var kSessionHtmlBody="htmlBody";
+
+function getHtmlBody(){
+    return kSessionHtmlBody;
+}
+
+function getCategoryId(){
+    return kSessionCategoryId;
+}
+
+function getSubCategoryId(){
+    return kSessionSubCategoryId;
+}
+
+function getLookupId(){
+    return kSessionLookupId;
+}
+
+function getExternalSourceName(){
+    return kSessionExternalSourceName;
+}
+
+function getMindbodyId(){
+    return kSessionMindbodyId;
+}
+
+function getDraftId(){
+    return kSessionDraftId;
+}
+
+function getEmailSubject(){
+    return kSessionEmailSubject;
+}
+
+function getEntityScheduleId() {
+    return kSessionEntityScheduleId;
+}
+
+function getEmailScheduleId(){
+    return kSessionEmailScheduleId;
+}
+function getPreHeader(){
+    return kSessionPreHeader;
+}
+function getDraftDetails(){
+    return kSessionEmailDraftData;
+}
+function getToEmailAddresses(){
+    return kSessionToEmailAddresses;
+}
+
+function getEmailBody() {
+    return kSessionEmailBody;
+}
+
+function getEmailListName() {
+    return kSessionEmailListName;
+}
+
+function getFromName() {
+    return kSessionFromName;
+}
+
+function getReplyToEmailAddress() {
+    return kSessionReplyToEmailAddress;
+}
+
+function getFromAddress() {
+    return kSessionFromAddress;
+}
+
+
 factoryApp.factory('appSessionFactory', function ($q) {
     var AppSessionFactoryObject = {};
     

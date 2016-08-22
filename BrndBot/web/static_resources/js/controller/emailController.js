@@ -50,10 +50,9 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.validateEmailAddress = false;
         $scope.isEmailSaveAction=false;
         var sliderDialog = "#emaileditorexternalpopup";
-        var emailDraftDetails = localStorage.getItem('emailDraftData');
-//        appSessionFactory.getEmail(getDraftDetails()).then(function (data){
-//            alert(JSON.stringify(data));
-//        });
+//        var emailDraftDetails = localStorage.getItem('emailDraftData');
+        appSessionFactory.getEmail(getDraftDetails()).then(function (data){
+        });
 //        
         //OnPageLoad
         $scope.emailEditorInit = function () {
@@ -182,9 +181,9 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
         $scope.redirect = function (redirect, categoryId, subCategoryId, mindbody, lookupId, mindbodyId, draftId, emailSubject, preHeader)
         {
-            localStorage.removeItem("emailDraftData");
-//            appSessionFactory.clearKeyEmail(getDraftDetails()).then(function (data){
-//            });
+//            localStorage.removeItem("emailDraftData");
+            appSessionFactory.clearKeyEmail(getDraftDetails()).then(function (data){
+            });
             if (lookupId)
             {
                 appSessionFactory.setEmail(getLookupId(),lookupId).then(function(data){
