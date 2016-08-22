@@ -9,6 +9,7 @@ import com.intbittech.dao.PushedScheduledEntityListDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.PushedScheduledEntityList;
 import com.intbittech.services.PushedScheduledEntityListService;
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,9 +68,9 @@ public class PushedScheduledEntityListServiceImpl implements PushedScheduledEnti
     /**
      * {@inheritDoc}
      */
-    public PushedScheduledEntityList getByPushedScheduledEntityListIdByFranchiseId(Integer franchiseId) throws ProcessFailed {
+    public List<PushedScheduledEntityList> getAllPushedScheduledEntityListIdByFranchiseId(Integer franchiseId) throws ProcessFailed {
 
-        PushedScheduledEntityList pushedScheduledEntityList = pushedScheduledEntityListDao.getByPushedScheduledEntityListIdByFranchiseId(franchiseId);
+        List<PushedScheduledEntityList> pushedScheduledEntityList = pushedScheduledEntityListDao.getAllPushedScheduledEntityListIdByFranchiseId(franchiseId);
         if (pushedScheduledEntityList == null) {
             throw new ProcessFailed("No pushed scheduled entity with id" + franchiseId + ".");
         }
@@ -79,9 +80,9 @@ public class PushedScheduledEntityListServiceImpl implements PushedScheduledEnti
     /**
      * {@inheritDoc}
      */
-    public PushedScheduledEntityList getByPushedScheduledEntityListIdByScheduledEntityListId(Integer scheduledEntityListId) throws ProcessFailed {
+    public List<PushedScheduledEntityList> getAllPushedScheduledEntityListIdByScheduledEntityListId(Integer scheduledEntityListId) throws ProcessFailed {
         
-        PushedScheduledEntityList pushedScheduledEntityList = pushedScheduledEntityListDao.getByPushedScheduledEntityListIdByScheduledEntityListId(scheduledEntityListId);
+        List<PushedScheduledEntityList> pushedScheduledEntityList = pushedScheduledEntityListDao.getAllPushedScheduledEntityListIdByScheduledEntityListId(scheduledEntityListId);
         if (pushedScheduledEntityList == null) {
             throw new ProcessFailed("No pushed scheduled entity with id" + scheduledEntityListId + ".");
         }

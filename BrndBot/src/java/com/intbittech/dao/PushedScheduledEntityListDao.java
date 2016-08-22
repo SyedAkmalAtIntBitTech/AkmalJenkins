@@ -7,6 +7,7 @@ package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.PushedScheduledEntityList;
+import java.util.List;
 
 /**
  * <code> {@link PushedScheduledEntityListDao} </code> Interface to get Pushed Scheduled Entity List details from
@@ -59,7 +60,7 @@ public interface PushedScheduledEntityListDao {
      * @return {@link PushedScheduledEntityList}
      * @throws ProcessFailed the process failed
      */
-    public PushedScheduledEntityList getByPushedScheduledEntityListIdByFranchiseId(Integer franchiseId) throws ProcessFailed;
+    public List<PushedScheduledEntityList> getAllPushedScheduledEntityListIdByFranchiseId(Integer franchiseId) throws ProcessFailed;
 
     /**
      * This method pass id as input and get the {@link PushedScheduledEntityList} from DAO
@@ -68,6 +69,6 @@ public interface PushedScheduledEntityListDao {
      * @return {@link PushedScheduledEntityList}
      * @throws ProcessFailed the process failed
      */
-    public PushedScheduledEntityList getByPushedScheduledEntityListIdByScheduledEntityListId(Integer scheduledEntityListId) throws ProcessFailed;
+    public List<PushedScheduledEntityList> getAllPushedScheduledEntityListIdByScheduledEntityListId(Integer scheduledEntityListId) throws ProcessFailed;
     
 }

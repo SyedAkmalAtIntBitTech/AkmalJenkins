@@ -94,7 +94,7 @@ public class PushedScheduledEntityListDaoImpl implements PushedScheduledEntityLi
    /**
      * {@inheritDoc}
      */
-    public PushedScheduledEntityList getByPushedScheduledEntityListIdByFranchiseId(Integer franchiseId) throws ProcessFailed {
+    public List<PushedScheduledEntityList> getAllPushedScheduledEntityListIdByFranchiseId(Integer franchiseId) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(PushedScheduledEntityList.class)
@@ -105,7 +105,7 @@ public class PushedScheduledEntityListDaoImpl implements PushedScheduledEntityLi
             if (pushedScheduledEntityList.isEmpty()) {
                 return null;
             }
-            return (PushedScheduledEntityList) criteria.list().get(0);
+            return  criteria.list();
 
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -116,7 +116,7 @@ public class PushedScheduledEntityListDaoImpl implements PushedScheduledEntityLi
     /**
      * {@inheritDoc}
      */
-    public PushedScheduledEntityList getByPushedScheduledEntityListIdByScheduledEntityListId(Integer scheduledEntityListId) throws ProcessFailed {
+    public List<PushedScheduledEntityList> getAllPushedScheduledEntityListIdByScheduledEntityListId(Integer scheduledEntityListId) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(PushedScheduledEntityList.class)
@@ -127,7 +127,7 @@ public class PushedScheduledEntityListDaoImpl implements PushedScheduledEntityLi
             if (pushedScheduledEntityList.isEmpty()) {
                 return null;
             }
-            return (PushedScheduledEntityList) criteria.list().get(0);
+            return  criteria.list();
 
         } catch (Throwable throwable) {
             logger.error(throwable);
