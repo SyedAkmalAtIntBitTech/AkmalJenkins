@@ -36,11 +36,11 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
     </head>
     <body  class="body-normal" ng-app ng-controller="franchiseController" >
         <div ng-include src="'header.html'"></div>
-        <div ng-include src="'addfranchise.html'"></div>
+        <div ng-include src="'addcompanytofranchise.html'"></div>
       <div class="content-area" ng-init="getFranchiseId()">
         <div class="content-area_header">
             <div class="header_path fleft">All Companies / {{franchiseId}}</div>
-            <div class="CTA_Button Button--Blue fright" id="addOrganization" ng-click="addFranchisePopup=true">Add Company</div>
+            <div class="CTA_Button Button--Blue fright" id="addOrganization" ng-click="addCompanyPopup=true">Add Company</div>
         </div>
         <div class="slatSection">
             <div class="slatHeaders">

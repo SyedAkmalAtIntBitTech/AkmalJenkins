@@ -7,6 +7,7 @@ function franchiseController($scope, $http) {
     $scope.addFranchisePopup = false;
     $scope.addFranchisePopupDiv = false;
     $scope.franchiseId = "";    
+    $scope.addCompanyPopup = false;
     
   $scope.getFranchiseId = function(){
     var qs = (function(a) {
@@ -77,6 +78,19 @@ function franchiseController($scope, $http) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
         
-    }
+    };
+    
+    $scope.getAllCompanies = function(){
+            $.ajax({
+                method: 'GET',
+                url: getHost() + 'getAllCompanies'
+            }).success(function (data, status, headers, config)
+            {
+                $scope.companies = data.d.details;
+//                window.open(getHost() + 'admin/franchise', "_self");
+            }).error(function (data, status, headers, config) {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            });
+    };
 }
 
