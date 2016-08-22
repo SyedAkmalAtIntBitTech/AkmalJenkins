@@ -26,6 +26,13 @@
                         <p class="input-wrap-label"> Make this something that your clients will recognize</p>
                     </div>
                     <div class="input-wrap">
+                        <label> Default From Name </label>
+                        <div class="input">
+                            <input id="from_address" class="fluid" type="text" ng-model="email_settings.from_name"   name="from_address"  placeholder="Enter default from name"/>
+                        </div>
+                        <p class="input-wrap-label"> This is the name your clients will see in their inbox</p>
+                    </div>
+                    <div class="input-wrap">
                         <label> Default Reply-to Address </label>
                         <div class="input">
                             <input id="reply_address" class="fluid" type="text" ng-model="email_settings.reply_email_address"   name="reply_email_address"  placeholder="Enter default reply-to-address"/>
