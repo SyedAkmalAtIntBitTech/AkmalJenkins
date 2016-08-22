@@ -809,6 +809,12 @@ li.sub-nav-tab.active a{
     height: calc(100vh - 115px);
 }
 
+.facebook-post-content-wrap{
+    position: fixed;
+    top: 60px;
+    overflow-y: scroll;
+}
+
 
 .bottom-offset{
     display: block;
@@ -4892,3 +4898,4 @@ textarea.task-textarea:focus{
     max-width: 300px;
     overflow: hidden;
 }
+
