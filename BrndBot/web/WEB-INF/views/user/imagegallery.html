@@ -1,5 +1,4 @@
 
-<!--    <input type="text"  value="${user}"/>-->
 <div class="main-content-wrap" ng-init="showImage()">
     <div class="top-nav-wrap">
         <div class="header">
@@ -8,63 +7,23 @@
     </div>
     <div class="top-nav-bar-offset"></div>
     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav">
-
-        <!--        <div class="browse-button">
-                    <div id="triggerfile" class="md-button gray-button">Browse your Images</div>
-                    <input type="file"  name="filesToUpload[]" id="filesToUpload" file-model="myFile" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">
-                    <span class="validationAlert" ng-if='myFile === "" || null'>{{logoValidation}}</span>
-                    <div class="browse-button">
-                        <div class="add-action-button md-button button-text-1 uploadimgbtn" id="upload" ng-click="uploadLogo(myFile)"> Upload Image</div>
-                    </div>
-                </div>-->
-
         <div class="hub-pane" ng-init="getAllCompanyImages()">
             <div class="hub-pane-header-wrap">
                 <h2 class="">Your Images</h2>
                     <a id="liPriority" href="" class=" reg-button gray-button" ng-click="showImageUploadPopup()"> Upload an Image</a>
             </div>
-<!--            <div class="browse-button">
-                <div id="triggerfile" class="md-button gray-button">Browse your Images</div>
-                <input type="file" file-model="myFile" onchange="angular.element(this).scope().imageUpload(this)"/>
-                <span class="validationAlert" ng-if='myFile === "" || null'>{{logoValidation}}</span>
-            </div>
-            <div class="gallery-page-background">
-            <div class="imageGallery-container  fleft" ng-repeat="images in datalists" ng-mouseover="hoverInGalleryImage()" ng-mouseleave="hoverOutGalleryImage()">
-                <div class="galCard-image col-1of1">
-                    <img class="gallery-image" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}"/>
-                </div>
-                <div class="gallery-Card-delete"> 
-                    <div ng-show="hoverEditGalleryImage" class="gallery-image gallery-image-options">
-                        <img type="image/svg+xml" id="delete" src="/BrndBot/user/images/trash-white.svg" class="gallery-image-options-trash-icon" ng-click="deleteImage(images.companyImagesId)"/>
-                    </div>
-                </div>
-            </div>
-            </div>-->
-        <!--
-        <div class="hub-pane-content-wrap">
             <div class="gallery-image-wrap">
                 <div class="gallery-image-card" ng-repeat="images in datalists" ng-mouseover="hoverInGalleryImage()" ng-mouseleave="hoverOutGalleryImage()">
-                    <img  class="gallery-image" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}"/>
-                    <div ng-show="hoverEditGalleryImage" class="gallery-image-options">
-                        <img type="image/svg+xml" id="delete" src="/BrndBot/user/images/trash-white.svg" class="gallery-image-options-trash-icon" ng-click="deleteImage(images.companyImagesId)"/>
+
+                        <img  class="gallery-image" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}"/>
+
+                    <div ng-show="hoverEditGalleryImage" class="gallery-image-options"> 
+
+                            <img type="image/svg+xml" id="delete" src="/BrndBot/images/overlay-trash-icon.svg" class="gallery-image-options-trash-icon" ng-click="deleteImage(images.companyImagesId)"/>
+
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>  -->                              
-        <div class="gallery-image-wrap">
-            <div class="gallery-image-card" ng-repeat="images in datalists" ng-mouseover="hoverInGalleryImage()" ng-mouseleave="hoverOutGalleryImage()">
-               
-                    <img  class="gallery-image" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}"/>
-             
-                <div ng-show="hoverEditGalleryImage" class="gallery-image-options"> 
-                    
-                        <img type="image/svg+xml" id="delete" src="/BrndBot/user/images/overlay-trash-icon.svg" class="gallery-image-options-trash-icon" ng-click="deleteImage(images.companyImagesId)"/>
-                    
-                </div>
-            </div>
-        </div>
         </div>
     </div><div ng-include src="'imageuploadpopup.html'"></div>
 

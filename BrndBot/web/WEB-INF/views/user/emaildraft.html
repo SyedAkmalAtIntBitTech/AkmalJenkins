@@ -20,8 +20,7 @@
                 <h2 class="">Your Email Drafts</h2>
             </div>
             <div class="hub-pane-content-wrap">
-                <div class="hub-empty-wrap" ng-show="emaildraftnumber === '0'"><div class="slat" ><div class="selection-container col-5p" id="deleteids"> asasd{{emaildraftsstatus}}</div></div></div>
-                <!--<div class="hub-slat-list-wrap" ng-repeat="drafts in emaildrafts" ng-show="emaildrafts.length > 0">-->
+                <div class="hub-empty-wrap" ng-show="emaildraftnumber === '0'"><div class="slat" ><div class="selection-container col-5p" id="deleteids"> {{emaildraftsstatus}}</div></div></div>
                     <div class="slat" id="li{{drafts.id}}" ng-repeat="drafts in emaildrafts | filter:userSearch">
                         <div class="selection-container col-5p" id="deleteids"> 
                             <div class="selection-icon" id="{{drafts.id}}" ng-click="emailDraftCheckbox(drafts.id)">
@@ -35,12 +34,10 @@
                         </div>
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">
-                                 <!--                                        <a class="small-button slat-button detail-button-font" ng-click="editDrafts(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</a>-->
                                 <a class="reg-button gray-button slat-detail-button" ng-click="showDraftPopup(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.editdate, drafts.subcategoryid, drafts.mindbodyid, drafts.lookupid)">Manage Draft</a>
                             </div>
                         </div>
                     </div>
-                <!--</div>-->
             </div>
         </div>
     </div>
