@@ -9,6 +9,7 @@ import com.intbittech.dao.PushedScheduledActionCompaniesDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.PushedScheduledActionCompanies;
 import com.intbittech.services.PushedScheduledActionCompaniesService;
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,21 +42,58 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
      * {@inheritDoc}
      */
     public Integer save(PushedScheduledActionCompanies pushedScheduledActionCompanies) throws ProcessFailed {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return pushedScheduledActionCompaniesDao.save(pushedScheduledActionCompanies);
     }
 
     /**
      * {@inheritDoc}
      */
     public void update(PushedScheduledActionCompanies pushedScheduledActionCompanies) throws ProcessFailed {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+          pushedScheduledActionCompaniesDao.update(pushedScheduledActionCompanies);
     }
 
     /**
      * {@inheritDoc}
      */
-    public void delete(PushedScheduledActionCompanies pushedScheduledActionCompanies) throws ProcessFailed {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(Integer pushedScheduledActionCompaniesId) throws ProcessFailed {
+        PushedScheduledActionCompanies pushedScheduledActionCompanies = pushedScheduledActionCompaniesDao.getByPushedScheduledActionCompaniesId(pushedScheduledActionCompaniesId);
+        if (pushedScheduledActionCompanies == null) {
+            throw new ProcessFailed("No pushed scheduled action companies with id" + pushedScheduledActionCompaniesId + ".");
+        }
+        pushedScheduledActionCompaniesDao.delete(pushedScheduledActionCompanies);
+    }
+
+     /**
+     * {@inheritDoc}
+     */
+    public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByScheduledEntityListId(Integer ScheduledEntityListId) throws ProcessFailed {
+        List<PushedScheduledActionCompanies> pushedScheduledActionCompaniesList = pushedScheduledActionCompaniesDao.getAllPushedScheduledActionCompaniesByScheduledEntityListId(ScheduledEntityListId);
+        if (pushedScheduledActionCompaniesList == null) {
+            throw new ProcessFailed("No pushed scheduled action companies with id" + ScheduledEntityListId + ".");
+        }
+        return pushedScheduledActionCompaniesList;
+    }
+
+     /**
+     * {@inheritDoc}
+     */
+    public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByFranchiseId(Integer franchiseId) throws ProcessFailed {
+         List<PushedScheduledActionCompanies> pushedScheduledActionCompaniesList = pushedScheduledActionCompaniesDao.getAllPushedScheduledActionCompaniesByFranchiseId(franchiseId);
+        if (pushedScheduledActionCompaniesList == null) {
+            throw new ProcessFailed("No pushed scheduled action companies with id" + franchiseId + ".");
+        }
+        return pushedScheduledActionCompaniesList;
+    }
+
+     /**
+     * {@inheritDoc}
+     */
+    public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByCompanyId(Integer companyId) throws ProcessFailed {
+        List<PushedScheduledActionCompanies> pushedScheduledActionCompaniesList = pushedScheduledActionCompaniesDao.getAllPushedScheduledActionCompaniesByCompanyId(companyId);
+        if (pushedScheduledActionCompaniesList == null) {
+            throw new ProcessFailed("No pushed scheduled action companies with id" + companyId + ".");
+        }
+        return pushedScheduledActionCompaniesList;
     }
     
 }

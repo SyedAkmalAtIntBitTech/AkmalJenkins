@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.PushedScheduledActionCompanies;
+import java.util.List;
 
 /**
  * <code>{@link PushedScheduledActionCompaniesService}</code> is service layer interface for
@@ -19,11 +20,11 @@ public interface PushedScheduledActionCompaniesService {
     /**
      * This method pass id as input and get the {@link PushedScheduledActionCompanies} from DAO
      * layer.
-     * @param pushedScheduledActionCompanies the pushedScheduledActionCompanies
+     * @param pushedScheduledActionCompaniesId the pushedScheduledActionCompaniesId
      * @return {@link PushedScheduledActionCompanies}
      * @throws ProcessFailed the process failed
      */
-    public PushedScheduledActionCompanies getByPushedScheduledActionCompaniesId(Integer pushedScheduledActionCompanies) throws ProcessFailed;
+    public PushedScheduledActionCompanies getByPushedScheduledActionCompaniesId(Integer pushedScheduledActionCompaniesId) throws ProcessFailed;
     
     /**
      * This method save {@link PushedScheduledActionCompanies} into the database.
@@ -47,10 +48,37 @@ public interface PushedScheduledActionCompaniesService {
      * This method delete particular {@link PushedScheduledActionCompanies} based on the
      * Pushed Scheduled Action Companies from the database.
      *
-     * @param pushedScheduledActionCompanies the pushedScheduledActionCompanies
+     * @param pushedScheduledActionCompaniesId the pushedScheduledActionCompaniesId
      * @throws ProcessFailed the process failed
      */
-    public void delete(PushedScheduledActionCompanies pushedScheduledActionCompanies) throws ProcessFailed;
-  
+    public void delete(Integer pushedScheduledActionCompaniesId) throws ProcessFailed;
+    
+     /**
+     * This method pass id as input and get the {@link PushedScheduledActionCompanies} from DAO
+     * layer.
+     * @param ScheduledEntityListId the ScheduledEntityListId
+     * @return {@link PushedScheduledActionCompanies}
+     * @throws ProcessFailed the process failed
+     */
+    public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByScheduledEntityListId(Integer ScheduledEntityListId) throws ProcessFailed;
+    
+     /**
+     * This method pass id as input and get the {@link PushedScheduledActionCompanies} from DAO
+     * layer.
+     * @param franchiseId the franchiseId
+     * @return {@link PushedScheduledActionCompanies}
+     * @throws ProcessFailed the process failed
+     */
+    public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByFranchiseId(Integer franchiseId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link PushedScheduledActionCompanies} from DAO
+     * layer.
+     * @param companyId the companyId
+     * @return {@link PushedScheduledActionCompanies}
+     * @throws ProcessFailed the process failed
+     */
+    public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByCompanyId(Integer companyId) throws ProcessFailed;
+
     
 }
