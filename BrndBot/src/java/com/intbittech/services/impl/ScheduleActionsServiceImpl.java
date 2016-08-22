@@ -106,7 +106,8 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                     requestBodyMap.get("schedule_title").toString(),
                     scheduleDesc,
                     new Timestamp(schedule.longValue()),
-                    TemplateStatus.template_saved.toString()
+                    TemplateStatus.template_saved.toString(),
+                    requestBodyMap.get("html_body").toString()
             );
 
             if (!path.equals("")) {
@@ -150,7 +151,8 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                     requestBodyMap.get("reply_to_email_address").toString(),
                     requestBodyMap.get("to_email_addresses").toString().split(","),
                     scheduleDesc,
-                    TemplateStatus.template_saved.toString()
+                    TemplateStatus.template_saved.toString(),
+                    requestBodyMap.get("html_body").toString()
             );
 
             if (!path.equals("")) {

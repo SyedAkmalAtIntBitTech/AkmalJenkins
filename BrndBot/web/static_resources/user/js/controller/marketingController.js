@@ -1562,6 +1562,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 savedEmail[getFromName()] = entitiesdetails.from_name;
                 savedEmail[getFromAddress()] = getDefaultEmailId();
                 savedEmail[getReplyToEmailAddress()] = entitiesdetails.reply_to_email_address;
+                savedEmail[getHtmlBody()] = entitiesdetails.html_body;
                 appSessionFactory.setEmailWithObject(savedEmail).then(function(saved){
                     if(saved===true)
                         window.open(getHost() + 'user/baseemaileditor#/emailsubjects', "_self");

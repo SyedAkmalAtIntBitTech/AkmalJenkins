@@ -59,7 +59,9 @@ public class ScheduleDAO {
             String scheduledTitle,
             String scheduleDesc,
             Timestamp scheduledTime,
-            String templateStatus
+            String templateStatus,
+            String html_body
+            
     ) throws SQLException {
 
         int emailScheduleId = -1;
@@ -73,8 +75,8 @@ public class ScheduleDAO {
             connection.setAutoCommit(false);
             try {
                 String sql = "INSERT INTO scheduled_email_list "
-                        + " (fk_company_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address, preheader) VALUES "
-                        + " (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
+                        + " (fk_company_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address, preheader, html_body) VALUES "
+                        + " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
                 try (PreparedStatement ps = connection.prepareStatement(sql)) {
                     ps.setInt(1, companyId);
                     ps.setString(2, subject);
@@ -82,6 +84,7 @@ public class ScheduleDAO {
                     ps.setString(4, fromAddress);
                     ps.setString(5, emailListName);
                     ps.setString(6, fromName);
+                    
                     for (int i = 0; i < toAddress.length; i++) {
                         json_array_email_address.add(toAddress[i].trim());
                     }
@@ -91,6 +94,7 @@ public class ScheduleDAO {
                     ps.setObject(7, pg_object);
                     ps.setString(8, replytoEmailAddress);
                     ps.setString(9, preheader);
+                    ps.setString(10, html_body);
                     ps.execute();
                     try (ResultSet resultSet = ps.getResultSet()) {
 
@@ -140,7 +144,8 @@ public class ScheduleDAO {
             String replytoEmailAddress,
             String[] toAddress,
             String scheduleDesc,
-            String templateStatus
+            String templateStatus,
+            String html_body
     ) throws SQLException {
 
         int emailScheduleId = -1;
@@ -154,8 +159,8 @@ public class ScheduleDAO {
             connection.setAutoCommit(false);
             try {
                 String sql = "INSERT INTO scheduled_email_list "
-                        + " (fk_company_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address, preheader) VALUES "
-                        + " (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
+                        + " (fk_company_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address, preheader, html_body) VALUES "
+                        + " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
                 try (PreparedStatement ps = connection.prepareStatement(sql)) {
                     ps.setInt(1, companyId);
                     ps.setString(2, subject);
@@ -172,6 +177,7 @@ public class ScheduleDAO {
                     ps.setObject(7, pg_object);
                     ps.setString(8, replytoEmailAddress);
                     ps.setString(9, preheader);
+                    ps.setString(10, html_body);
                     ps.execute();
                     try (ResultSet resultSet = ps.getResultSet()) {
 
@@ -600,6 +606,7 @@ public class ScheduleDAO {
                         scheduleEmailDetails.put("email_list_name", rs.getString("email_list_name"));
                         scheduleEmailDetails.put("from_name", rs.getString("from_name"));
                         scheduleEmailDetails.put("to_email_addresses", email_ids);
+                        scheduleEmailDetails.put("html_body", rs.getString("html_body"));
 
                     }
                 }

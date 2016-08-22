@@ -433,7 +433,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 yourPlanFactory.scheduledEmailGet($scope.scheduleData.schedule_id).then(function (data) {
                     $scope.entitiesdetails = JSON.parse(data.d.details);
                     var iframe = document.getElementById('iframeForAction');
-
+                    
                     if (data.d.details != "{}") {
                         $scope.savedEmail = true;
                         $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
@@ -919,6 +919,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 savedEmail[getFromName()] = entitiesdetails.from_name;
                 savedEmail[getFromAddress()] = getDefaultEmailId();
                 savedEmail[getReplyToEmailAddress()] = entitiesdetails.reply_to_email_address;
+                savedEmail[getHtmlBody()] = entitiesdetails.html_body;
                 appSessionFactory.setEmailWithObject(savedEmail).then(function(saved){
                     if(saved===true)
                         window.open(getHost() + 'user/baseemaileditor#/emailsubjects', "_self");

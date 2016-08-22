@@ -116,6 +116,12 @@ var emailSubject = "emailSubject";
 var emailScheduleId = "email_Schedule_Id";
 var preHeader = "preHeader";
 var emailDraftData= "emailDraftData";
+var htmlBody="htmlBody";
+
+
+function getHtmlBody(){
+    return htmlBody;
+}
 
 function getCategoryId(){
     return categoryId;
