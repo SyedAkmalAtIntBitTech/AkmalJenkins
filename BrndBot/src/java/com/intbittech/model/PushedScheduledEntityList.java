@@ -6,9 +6,7 @@
 package com.intbittech.model;
 
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -37,8 +34,6 @@ public class PushedScheduledEntityList implements Serializable {
     @Column(name = "auto_approved")
     private boolean autoApproved;
     @Basic(optional = false)
-    @Column(name = "status")
-    private String status;
     @Column(name = "editable")
     private Boolean editable;
     @JoinColumn(name = "fk_franchise_id", referencedColumnName = "franchise_id")
@@ -55,10 +50,10 @@ public class PushedScheduledEntityList implements Serializable {
         this.pushedScheduledEntityListId = pushedScheduledEntityListId;
     }
 
-    public PushedScheduledEntityList(Integer pushedScheduledEntityListId, boolean autoApproved, String status) {
+    public PushedScheduledEntityList(Integer pushedScheduledEntityListId, boolean autoApproved) {
         this.pushedScheduledEntityListId = pushedScheduledEntityListId;
         this.autoApproved = autoApproved;
-        this.status = status;
+        
     }
 
     public Integer getPushedScheduledEntityListId() {
@@ -75,14 +70,6 @@ public class PushedScheduledEntityList implements Serializable {
 
     public void setAutoApproved(boolean autoApproved) {
         this.autoApproved = autoApproved;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public Boolean getEditable() {
