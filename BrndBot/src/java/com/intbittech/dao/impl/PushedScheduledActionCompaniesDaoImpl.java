@@ -92,4 +92,80 @@ public class PushedScheduledActionCompaniesDaoImpl implements PushedScheduledAct
         }
     }
 
+     /**
+     * {@inheritDoc}
+     */
+    public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByScheduledEntityListId(Integer ScheduledEntityListId) throws ProcessFailed {
+       try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(PushedScheduledActionCompanies.class)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .setFetchMode("fkPushedScheduledActionEntityListId", FetchMode.JOIN)
+                    .setFetchMode("fkPushedScheduledActionEntityListId.fkScheduledEntityListId", FetchMode.JOIN)
+                    .createAlias("fkPushedScheduledActionEntityListId.fkScheduledEntityListId", "pscId")
+                    .add(Restrictions.eq("pscId.scheduledEntityListId", ScheduledEntityListId));
+          List<PushedScheduledActionCompanies> pushedScheduledActionCompanies = criteria.list();
+
+            if (pushedScheduledActionCompanies.isEmpty()) {
+              
+                return null;
+            }
+            return  criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
+        }
+    }
+
+     /**
+     * {@inheritDoc}
+     */
+    public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByFranchiseId(Integer franchiseId) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(PushedScheduledActionCompanies.class)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .setFetchMode("fkPushedScheduledActionEntityListId", FetchMode.JOIN)
+                    .setFetchMode("fkPushedScheduledActionEntityListId.fkFranchiseId", FetchMode.JOIN)
+                    .createAlias("fkPushedScheduledActionEntityListId.fkFranchiseId", "psfId")
+                    .add(Restrictions.eq("psfId.franchiseId", franchiseId));
+          List<PushedScheduledActionCompanies> pushedScheduledActionCompanies = criteria.list();
+
+            if (pushedScheduledActionCompanies.isEmpty()) {
+              
+                return null;
+            }
+            return  criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
+        }
+    }
+
+     /**
+     * {@inheritDoc}
+     */
+    public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByCompanyId(Integer companyId) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(PushedScheduledActionCompanies.class)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .setFetchMode("fkPushedScheduledActionEntityListId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkCompanyId.companyId", companyId));
+          List<PushedScheduledActionCompanies> pushedScheduledActionCompanies = criteria.list();
+
+            if (pushedScheduledActionCompanies.isEmpty()) {
+              
+                return null;
+            }
+            return  criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
+        }
+    }
+
 }
