@@ -24,10 +24,12 @@ public interface EmailDraftDao {
    
    /**
 	 * This method retrieves all {@link EmailDraft}
+         * @param companyId the companyId
+         * @param isPushed the isPushed
 	 * @return {@link EmailDraft}
 	 * @throws java.lang.Throwable 
     */
-   public List<EmailDraft> getAllEmailDrafts(Integer companyId) throws Throwable;
+   public List<EmailDraft> getAllEmailDrafts(Integer companyId,Boolean isPushed) throws Throwable;
 
    /**
 	 * This method save {@link emailDraft} by passing emailDraft
