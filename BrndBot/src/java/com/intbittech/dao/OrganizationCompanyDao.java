@@ -61,6 +61,15 @@ public interface OrganizationCompanyDao {
      * @throws ProcessFailed the process failed
      */
     public Integer save(OrganizationCompanyLookup organizationCompanyLookup) throws ProcessFailed;
+
+    /**
+     * This method updates the {@link OrganizationCompanyLookup} in database.
+     *
+     * @param organizationCompanyLookup
+     * @return {@link organizationCompanyLookupId}
+     * @throws ProcessFailed the process failed
+     */
+    public void update(OrganizationCompanyLookup organizationCompanyLookup) throws ProcessFailed;
     
     /**
      * This method retrieves the {@link OrganizationCompanyLookup} from database.

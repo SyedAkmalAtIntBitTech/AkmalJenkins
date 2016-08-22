@@ -51,8 +51,8 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         </div>    
             <br>
             <div ng-init="organization()">
-                Organization Name : <select>
-                                    <option ng-repeat="organization in organizationDetails" value="{{organization.organizationId}}" id="organization">{{organization.organizationName}}</option>
+                Organization Name : <select id="organization">
+                                    <option ng-repeat="organization in organizationDetails" value="{{organization.organizationId}}" >{{organization.organizationName}}</option>
                                     </select>
                 <input type="button" name="changeOrganization" ng-click="changeOrganization()" value="change organization"/>
             </div>    

@@ -28,7 +28,7 @@ function allCompaniesController($scope,$http){
   };   
   
   $scope.companyDetailsByID = function(){
-    var qs = (function(a) {
+    var queryString = (function(a) {
         if (a == "") return {};
         var b = {};
         for (var i = 0; i < a.length; ++i)
@@ -42,10 +42,10 @@ function allCompaniesController($scope,$http){
         return b;
     })(window.location.search.substr(1).split('&'));
     
-    $scope.companyName = qs["companyName"];    // 123
-    $scope.companyId = qs["companyId"];     // query string
-    $scope.organizationName = qs["organizationName"]; 
-    
+    $scope.companyName = queryString["companyName"];    // 123
+    $scope.companyId = queryString["companyId"];     // query string
+    $scope.organizationName = queryString["organizationName"]; 
+    $scope.organizationId = queryString["organizationId"];
   };
 
     $scope.organization = function () {
@@ -55,6 +55,10 @@ function allCompaniesController($scope,$http){
             url: getHost() + '/onboarding/getAllOnlyOrganizations'
         }).success(function (data, status, headers, config) {
             $scope.organizationDetails = data.d.details;
+            var organization = $scope.organizationId;
+            setTimeout(function() {
+                $("#organization > [value=" + organization + "]").attr("selected", "true");
+            }, 0);
         }).error(function (data, status, headers, config) {
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
         });
@@ -62,18 +66,20 @@ function allCompaniesController($scope,$http){
     };
 
     $scope.changeOrganization = function(){
-        var organizationId = $("#organization").val();
-        var updateorganization = {"organizationId":organizationId,"companyId": $scope.companyId};
+        var selectedOrganizationIdValue = $("#organization option:selected").val();
+        var selectedOrganizationName = $("#organization option:selected").text();
+        var updateorganization = {"organizationId":selectedOrganizationIdValue ,"companyId": $scope.companyId};
         
              $http({
                     method : 'POST',
-                    url : getHost()+'saveGroup.do',
+                    url : getHost()+'changeOrganization.do',
                     dataType: "json",
                     contentType: "application/json",
                     data: JSON.stringify(updateorganization)
                 }).success(function(data, status, headers, config) { 
                     alert("Organization updated successfully");
-                    window.open(getHost() + 'admin/companydetails?companyId='+$scope.companyId+'&companyName='+$scope.companyName+'&organizationName='+$scope.organizationName, "_self");
+
+                window.open(getHost() + 'admin/companydetails?companyId='+$scope.companyId+'&companyName='+$scope.companyName+'&organizationName='+selectedOrganizationName+'&organizationId='+selectedOrganizationIdValue, "_self");
                       
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));

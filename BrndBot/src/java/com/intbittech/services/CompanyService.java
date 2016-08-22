@@ -72,6 +72,15 @@ public interface CompanyService {
      * @throws ProcessFailed the process failed
      */
     public Integer save(OrganizationCompanyLookup organizationCompanyLookup) throws ProcessFailed;
+
+    /**
+     * This method updates the {@link OrganizationCompanyLookup} from DAO layer.
+     *
+     * @param organizationCompanyLookup
+     * @return {@link organizationCompanyLookupId}
+     * @throws ProcessFailed the process failed
+     */
+    public void updateOrganizationCompanyLookUp(OrganizationCompanyLookup organizationCompanyLookup) throws ProcessFailed;
     
     /**
      * This method retrieves the {@link OrganizationCompanyLookup} from DAO layer.
