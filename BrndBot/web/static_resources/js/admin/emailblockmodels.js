@@ -147,9 +147,17 @@ function emailBlocksController($scope, $http, fileReader) {
     $scope.addEmailBlockModel = function () {
         var emailBlockModelName = $("#emailModelName").val();
 //        var htmlData = $("#edit").froalaEditor('html.get');
+        var recurring = false;
         var htmlData = $("#editor").val();
+        if ($('#automation').is(":checked"))
+        {
+            recurring = true; 
+        }
+            
         var imgDataObj = getImageData();
-        var emailBlockModel = {"emailBlockModelName": emailBlockModelName, "htmlData": htmlData, "imageFileName": imgDataObj.imageFileName, "imageFileData": imgDataObj.base64ImgString};
+        var emailBlockModel = {"emailBlockModelName": emailBlockModelName, "htmlData": htmlData, 
+                                "imageFileName": imgDataObj.imageFileName, 
+                                "imageFileData": imgDataObj.base64ImgString, "isRecurring": recurring};
         var validate = function () {
             if (emailBlockModelName === "") {
                 alert("Please enter Template Name!");

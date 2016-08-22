@@ -112,6 +112,7 @@ public class CompanyController {
                 companyDetails.setCompanyId(organizationCompanyObject.getFkCompanyId().getCompanyId());
                 companyDetails.setCompanyName(organizationCompanyObject.getFkCompanyId().getCompanyName());
                 companyDetails.setOrganizationName(organizationCompanyObject.getFkOrganizationId().getOrganizationName());
+                companyDetails.setOrganizationId(organizationCompanyObject.getFkOrganizationId().getOrganizationId());
                 companyDetailsList.add(companyDetails);
             }
             genericResponse.setDetails(companyDetailsList);
@@ -345,6 +346,29 @@ public class CompanyController {
             organizationCompanyLookup.setFkCompanyId(company);
             organizationCompanyLookup.setFkOrganizationId(organization);
             companyService.save(organizationCompanyLookup);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("group_save",new String[]{}, Locale.US)));
+            
+        } catch(Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "changeOrganization",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> changeOrganization(@RequestBody CompanyDetails companyDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try
+        {
+            OrganizationCompanyLookup organizationCompanyLookup = companyService.getOrganizationCompanyById(companyDetails.getCompanyId());
+            Company company = new Company();
+            company.setCompanyId(companyDetails.getCompanyId());
+            Organization organization = new Organization();
+            organization.setOrganizationId(companyDetails.getOrganizationId());
+            organizationCompanyLookup.setFkCompanyId(company);
+            organizationCompanyLookup.setFkOrganizationId(organization);
+            companyService.updateOrganizationCompanyLookUp(organizationCompanyLookup);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("group_save",new String[]{}, Locale.US)));
             
         } catch(Throwable throwable) {
