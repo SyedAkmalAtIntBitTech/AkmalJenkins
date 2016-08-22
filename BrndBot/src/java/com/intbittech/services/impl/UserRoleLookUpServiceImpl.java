@@ -61,7 +61,7 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
 
     @Override
     public void delete(Integer id) throws ProcessFailed {
-        UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupById(id);
+        UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByLookUpId(id);
         if(userRoleLookup == null){
             throw new ProcessFailed("No user role found with id " + id + ".");
         }
@@ -70,7 +70,7 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
 
     @Override
     public UsersRoleLookup getUsersRoleLookupById(Integer id) throws ProcessFailed {
-        UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupById(id);
+        UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByLookUpId(id);
         if(userRoleLookup == null)
         {
              throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
@@ -80,7 +80,7 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
 
     @Override
     public UsersRoleLookup getUsersRoleLookupByUserId(Users user) throws ProcessFailed {
-        UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByUserId(user);
+        UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByUser(user);
         if(userRoleLookup == null)
         {
              throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
@@ -90,7 +90,7 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
     
     @Override
     public UserRole getUsersRoleByUserId(Users user) throws ProcessFailed {
-        UserRole userRole = usersRoleLookUpDao.getUsersRoleByUserId(user);
+        UserRole userRole = usersRoleLookUpDao.getUsersRoleByUser(user);
         if(userRole == null)
         {
              throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
@@ -102,7 +102,7 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
      * {@inheritDoc}
      */
     public List<UsersRoleLookup> getAllUserRolesByUserId(Users user) throws ProcessFailed {
-        List<UsersRoleLookup> userRoleLookup = usersRoleLookUpDao.getAllUserRolesByUserId(user);
+        List<UsersRoleLookup> userRoleLookup = usersRoleLookUpDao.getAllUserRolesByUser(user);
         if (userRoleLookup.isEmpty()) {
             throw new ProcessFailed("No Sub Categories found.");
         }
@@ -116,7 +116,7 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
 
     @Override
     public UsersRoleLookup getUsersRoleLookupByUserAndRoleId(Users user, UserRole role) throws ProcessFailed {
-        UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByUserAndRoleId(user, role);
+        UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByUserAndRole(user, role);
         if(userRoleLookup == null)
         {
             return null;

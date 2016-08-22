@@ -9,6 +9,7 @@ import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.OrganizationCompanyDao;
 import com.intbittech.dao.UserRoleLookUpDao;
 import com.intbittech.enums.AdminStatus;
+import com.intbittech.enums.InvitationStatus;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
@@ -97,10 +98,10 @@ public class CompanyServiceImpl implements CompanyService{
      */
     public List<OrganizationCompanyLookup> getAllOrganizationCompanyById(Integer companyId) throws ProcessFailed {
         List<OrganizationCompanyLookup> companyList = organizationCompanyDao.getAllOrganizationCompanyById(companyId);
-//        if(companyList == null)
-//        {
-//             throw new ProcessFailed(messageSource.getMessage("company_not_found",new String[]{}, Locale.US));
-//        }
+        if(companyList == null)
+        {
+             throw new ProcessFailed(messageSource.getMessage("company_not_found",new String[]{}, Locale.US));
+        }
               return companyList;
     }
     
@@ -109,10 +110,10 @@ public class CompanyServiceImpl implements CompanyService{
      */
     public List<OrganizationCompanyLookup> getAllOrganizationsByCompanyId(Integer companyId) throws ProcessFailed {
         List<OrganizationCompanyLookup> companyList = organizationCompanyDao.getAllOrganizationsByCompanyId(companyId);
-//        if(companyList == null)
-//        {
-//             throw new ProcessFailed(messageSource.getMessage("company_not_found",new String[]{}, Locale.US));
-//        }
+        if(companyList == null)
+        {
+             throw new ProcessFailed(messageSource.getMessage("company_not_found",new String[]{}, Locale.US));
+        }
               return companyList;
     }
 
@@ -175,7 +176,7 @@ public class CompanyServiceImpl implements CompanyService{
 
             userCompanyLookup.setCompanyid(company);
             userCompanyLookup.setUserid(user);
-            userCompanyLookup.setAccountStatus(AdminStatus.valueOf("Account_Activated").getDisplayName());
+            userCompanyLookup.setAccountStatus(InvitationStatus.valueOf("Account_Activated").getDisplayName());
             
             userCompanyLookUpService.save(userCompanyLookup);
 
@@ -184,7 +185,7 @@ public class CompanyServiceImpl implements CompanyService{
                 throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
             }
             
-            usersRoleLookUp = usersRoleLookUpDao.getUsersRoleLookupByUserId(user);
+            usersRoleLookUp = usersRoleLookUpDao.getUsersRoleLookupByUser(user);
 
             UserRole userRole = new UserRole();
             userRole.setUserRoleId(2);

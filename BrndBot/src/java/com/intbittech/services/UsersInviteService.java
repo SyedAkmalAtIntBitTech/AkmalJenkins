@@ -48,7 +48,7 @@ public interface UsersInviteService {
      * @param inviteId
      * @throws ProcessFailed the process failed
      */
-    public boolean removeUsers(Integer inviteId)throws ProcessFailed;
+    public boolean removeUsersByInviteId(Integer inviteId)throws ProcessFailed;
     
     /**
      * This method pass id as input and returns the list of {@link InviteUsers} from DAO layer.

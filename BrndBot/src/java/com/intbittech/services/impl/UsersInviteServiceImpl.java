@@ -14,6 +14,7 @@ import com.intbittech.email.mandrill.RecipientMetadata;
 import com.intbittech.email.mandrill.SendMail;
 import static com.intbittech.email.mandrill.SendMail.MANDRILL_KEY;
 import com.intbittech.enums.AdminStatus;
+import com.intbittech.enums.InvitationStatus;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Invite;
 import com.intbittech.model.InvitedUsers;
@@ -144,7 +145,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     }
     
     @Override
-    public boolean removeUsers(Integer inviteId)throws ProcessFailed{
+    public boolean removeUsersByInviteId(Integer inviteId)throws ProcessFailed{
         boolean returnMessage = false;
         try{
             Invite companyInvite = usersInviteDao.getInvitedUserById(inviteId);
@@ -156,7 +157,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
                 UserCompanyLookup company = userCompanyLookupService.getUserCompanyLookupByUser(fromUser);
                 
                 UserCompanyLookup userCompanyLookup =  userCompanyLookupService.getUserCompanyLookupByUserAndCompany(user, company.getCompanyid());
-                userCompanyLookup.setAccountStatus(AdminStatus.valueOf("Account_Deactivated").getDisplayName());
+                userCompanyLookup.setAccountStatus(InvitationStatus.valueOf("Account_Deactivated").getDisplayName());
                 userCompanyLookupService.update(userCompanyLookup);
             }else {
                 delete(inviteId);
@@ -209,9 +210,9 @@ public class UsersInviteServiceImpl implements UsersInviteService{
                     }
                     boolean isUsed = invite.getIsUsed();
                     if (isUsed){
-                        invitationStatus = AdminStatus.valueOf("Invite_Success").getDisplayName();
+                        invitationStatus = InvitationStatus.valueOf("Invite_Success").getDisplayName();
                     }else {
-                        invitationStatus = AdminStatus.valueOf("Invite_Sent").getDisplayName();
+                        invitationStatus = InvitationStatus.valueOf("Invite_Sent").getDisplayName();
                     }
                 }
                     inviteduser = new InvitedUsers(invite.getId(), userRoleLookUpIds, userName, userRoleName, invitationStatus);

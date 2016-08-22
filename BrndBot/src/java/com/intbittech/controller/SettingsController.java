@@ -117,6 +117,8 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             boolean returnMessage = usersService.saveNonExistingUser(inviteDetails);
             if (returnMessage){
                 transactionResponse.setMessage(messageSource.getMessage("invitation_check_mail", new String[]{}, Locale.US));
+            }else {
+                transactionResponse.setMessage(messageSource.getMessage("invitation_failure", new String[]{}, Locale.US));
             }
 
         } catch (Throwable throwable) {
@@ -132,6 +134,8 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             boolean returnMessage = usersInviteService.reSendInvitation(inviteId);
             if (returnMessage){
                 transactionResponse.setMessage(messageSource.getMessage("invitation_check_mail", new String[]{}, Locale.US));
+            }else {
+                transactionResponse.setMessage(messageSource.getMessage("invitation_failure", new String[]{}, Locale.US));
             }
 
         } catch (Throwable throwable) {
@@ -148,6 +152,8 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             boolean returnMessage = usersService.updateRole(inviteDetails);
             if (returnMessage){
                 transactionResponse.setMessage(messageSource.getMessage("details_updated", new String[]{}, Locale.US));
+            }else {
+                transactionResponse.setMessage(messageSource.getMessage("update_failure", new String[]{}, Locale.US));
             }
 
         } catch (Throwable throwable) {
@@ -162,9 +168,11 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
 
-            boolean returnMessage = usersInviteService.removeUsers(inviteId);
+            boolean returnMessage = usersInviteService.removeUsersByInviteId(inviteId);
             if (returnMessage){
                 transactionResponse.setMessage(messageSource.getMessage("user_removed", new String[]{}, Locale.US));
+            }else {
+                transactionResponse.setMessage(messageSource.getMessage("user_remove_failure", new String[]{}, Locale.US));
             }
 
         } catch (Throwable throwable) {

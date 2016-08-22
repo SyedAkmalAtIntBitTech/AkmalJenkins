@@ -91,7 +91,7 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
     }
 
     @Override
-    public UsersRoleLookup getUsersRoleLookupById(Integer Id) throws ProcessFailed {
+    public UsersRoleLookup getUsersRoleLookupByLookUpId(Integer Id) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(UsersRoleLookup.class)
                 .add(Restrictions.eq("id", Id));
@@ -102,7 +102,7 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
     }
 
     @Override
-    public UsersRoleLookup getUsersRoleLookupByUserId(Users user) throws ProcessFailed {
+    public UsersRoleLookup getUsersRoleLookupByUser(Users user) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(UsersRoleLookup.class)
                 .add(Restrictions.eq("userId", user));
@@ -113,7 +113,7 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
     }
     
     @Override
-    public UserRole getUsersRoleByUserId(Users user) throws ProcessFailed {
+    public UserRole getUsersRoleByUser(Users user) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(UsersRoleLookup.class)
                 .add(Restrictions.eq("userId", user));
@@ -126,7 +126,7 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
     /**
      * {@inheritDoc}
      */
-    public List<UsersRoleLookup> getAllUserRolesByUserId(Users user) throws ProcessFailed {
+    public List<UsersRoleLookup> getAllUserRolesByUser(Users user) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(UsersRoleLookup.class)
@@ -143,7 +143,7 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
     }        
 
     @Override
-    public UsersRoleLookup getUsersRoleLookupByUserAndRoleId(Users user, UserRole role) throws ProcessFailed {
+    public UsersRoleLookup getUsersRoleLookupByUserAndRole(Users user, UserRole role) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(UsersRoleLookup.class)
                 .add(Restrictions.eq("userId", user))

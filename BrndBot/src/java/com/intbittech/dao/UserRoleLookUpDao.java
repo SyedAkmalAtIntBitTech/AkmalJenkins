@@ -57,16 +57,16 @@ public interface UserRoleLookUpDao {
      * @return {@link UsersRoleLookup}
      * @throws ProcessFailed the process failed
      */
-    public UsersRoleLookup getUsersRoleLookupById(Integer Id) throws ProcessFailed;
+    public UsersRoleLookup getUsersRoleLookupByLookUpId(Integer Id) throws ProcessFailed;
 
     /**
      * This method pass user as input and get the {@link UsersRoleLookup} from database
      *
-     * @param userId
+     * @param user
      * @return {@link UsersRoleLookup}
      * @throws ProcessFailed the process failed
      */
-    public UsersRoleLookup getUsersRoleLookupByUserId(Users userId) throws ProcessFailed;
+    public UsersRoleLookup getUsersRoleLookupByUser(Users user) throws ProcessFailed;
 
    /**
      * This method pass user as input and get the {@link UsersRoleLookup} from database
@@ -75,7 +75,7 @@ public interface UserRoleLookUpDao {
      * @return {@link UsersRoleLookup}
      * @throws ProcessFailed the process failed
      */
-    public UsersRoleLookup getUsersRoleLookupByUserAndRoleId(Users user, UserRole role) throws ProcessFailed;
+    public UsersRoleLookup getUsersRoleLookupByUserAndRole(Users user, UserRole role) throws ProcessFailed;
     
     /**
      * This method pass user as input and get the {@link UserRole} from database
@@ -84,7 +84,7 @@ public interface UserRoleLookUpDao {
      * @return {@link UserRole}
      * @throws ProcessFailed the process failed
      */
-    public UserRole getUsersRoleByUserId(Users user) throws ProcessFailed;
+    public UserRole getUsersRoleByUser(Users user) throws ProcessFailed;
     /**
      * This method retrieves the list of {@link SubCategory} from Database.
      *
@@ -92,5 +92,5 @@ public interface UserRoleLookUpDao {
      * @return {@link SubCategory}
      * @throws ProcessFailed the process failed
      */
-    public List<UsersRoleLookup> getAllUserRolesByUserId(Users user) throws ProcessFailed;    
+    public List<UsersRoleLookup> getAllUserRolesByUser(Users user) throws ProcessFailed;    
 }

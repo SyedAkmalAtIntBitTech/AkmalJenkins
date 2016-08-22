@@ -16,7 +16,7 @@ import com.intbittech.email.mandrill.Recipient;
 import com.intbittech.email.mandrill.RecipientMetadata;
 import com.intbittech.email.mandrill.SendMail;
 import static com.intbittech.email.mandrill.SendMail.MANDRILL_KEY;
-import com.intbittech.enums.AdminStatus;
+import com.intbittech.enums.InvitationStatus;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.Invite;
@@ -194,15 +194,13 @@ public class UsersServiceImpl implements UsersService {
                     user = usersDao.getUserByEmailId(usersDetails.getUserName());
                 }
             userCompanyLookup = userCompanyLookUpService.getUserCompanyLookupByUser(sentUser);
-//          todochange it with companyid
-//            Company company = userProfile.getUser().getFkCompanyId();
             Company company = userCompanyLookup.getCompanyid();
 
                 userCompanyLookup = new UserCompanyLookup();
 
                 userCompanyLookup.setCompanyid(company);
                 userCompanyLookup.setUserid(user);
-                userCompanyLookup.setAccountStatus(AdminStatus.valueOf("Account_Activated").getDisplayName());
+                userCompanyLookup.setAccountStatus(InvitationStatus.valueOf("Account_Activated").getDisplayName());
 
                 userCompanyLookUpService.save(userCompanyLookup);
                 
@@ -361,8 +359,6 @@ public class UsersServiceImpl implements UsersService {
         }catch (Throwable throwable){
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage(throwable.getMessage(), new String[]{}, Locale.US));
-        }finally{
-            roles = null;taskDetails =null;usersRoleLookUp = null;user = null;
         }
         return flag;
     }    

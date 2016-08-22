@@ -15,7 +15,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.userHashId = "";
         $scope.userId = 0;
         $scope.hideDataOverlay = true;
-//        $scope.companyName = "";
         $scope.organizationId = "";
         function validateSignUp()
         {
@@ -102,7 +101,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 $scope.defaultOrganisation = [{organizationId: 0, organizationName: 'Please select an industry'}];
                 $scope.organizations = $scope.defaultOrganisation.concat(data.d.details);
                 $scope.organizationId = $scope.organizations[0].organizationId;
-//                alert(JSON.stringify(data));
                 //angular DD
                 var organizationsData = data.d.details;
                 for (var i = 0; i < organizationsData.length; i++) {
@@ -138,6 +136,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 onboardingFactory.saveCompanyPost(JSON.stringify(companyDetails)).then(function (data) {
                     var companyId = data.d.message;
                     localStorage.setItem("companyId",companyId);
+                    //TODO Set the companyId in Auth factory file
                     $location.path("/signup/datasource");
                 });
             }
