@@ -70,5 +70,5 @@ public interface FranchiseService {
 
     public FranchiseCompanyLookup getFranchiseLookup(Integer companyId, Integer franchiseId)throws ProcessFailed;
     
-    public String getHeadquarter()throws ProcessFailed;
+    public String getFranchiseHeadquarter(Integer franchiseId)throws ProcessFailed;
 }

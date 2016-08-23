@@ -98,11 +98,11 @@ public class FranchiseController {
 
     }
 
-    @RequestMapping(value = "getHeadquarter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getHeadquarter() {
-            TransactionResponse transactionResponse = new TransactionResponse();
+    @RequestMapping(value = "getFranchiseHeadquarter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getFranchiseHeadquarter(@RequestParam("franchiseId") Integer franchiseId) {
+        TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            String CompanyName = franchiseService.getHeadquarter();
+            String CompanyName = franchiseService.getFranchiseHeadquarter(franchiseId);
             transactionResponse.setMessage(CompanyName);
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -141,7 +141,7 @@ public class FranchiseController {
     //This method will be called in the admin of BrndBot. Not in user experience.
     @RequestMapping(value = "activateCompanyAsFranchise", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> activateCompanyAsFranchise(@RequestParam("companyId") Integer companyId, @RequestParam("franchiseId") Integer franchiseId) {
-                TransactionResponse transactionResponse = new TransactionResponse();
+        TransactionResponse transactionResponse = new TransactionResponse();
         try {
             franchiseService.activateCompanyAsFranchise(companyId, franchiseId);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email block created successfully."));

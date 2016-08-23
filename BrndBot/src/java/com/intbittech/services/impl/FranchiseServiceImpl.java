@@ -146,8 +146,8 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
 
     @Override
-    public String getHeadquarter() throws ProcessFailed {
-        FranchiseCompanyLookup franchiseCompanyLookup = franchiseCompanyLookupDao.getHeadquarter();
+    public String getFranchiseHeadquarter(Integer franchiseId) throws ProcessFailed {
+        FranchiseCompanyLookup franchiseCompanyLookup = franchiseCompanyLookupDao.getFranchiseHeadquarter(franchiseId);
         
         if (franchiseCompanyLookup != null){
             Company company = companyDao.getCompanyById(franchiseCompanyLookup.getFkCompanyId().getCompanyId());

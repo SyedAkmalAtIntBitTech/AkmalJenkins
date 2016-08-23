@@ -27,7 +27,7 @@ function franchiseController($scope, $http) {
     })(window.location.search.substr(1).split('&'));
     
     $scope.franchiseId = qs["franchiseId"];    
-    $scope.getHeadquarter();
+    $scope.getFranchiseHeadquarter();
   };
 
     $scope.franchise = function () {
@@ -124,10 +124,11 @@ function franchiseController($scope, $http) {
         
     };
     
-    $scope.getHeadquarter = function(){
+    $scope.getFranchiseHeadquarter = function(){
+        var franchiseId = $scope.franchiseId;
         $http({
             method: 'GET',
-            url: getHost() + 'getHeadquarter'
+            url: getHost() + 'getFranchiseHeadquarter?franchiseId='+franchiseId
         }).success(function (data, status, headers, config)
         {   
             $scope.headquarterCompany = data.d.message;

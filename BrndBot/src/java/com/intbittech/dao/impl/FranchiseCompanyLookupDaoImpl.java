@@ -133,11 +133,13 @@ public class FranchiseCompanyLookupDaoImpl implements FranchiseCompanyLookupDao 
     }
 
     @Override
-    public FranchiseCompanyLookup getHeadquarter() throws ProcessFailed {
+    public FranchiseCompanyLookup getFranchiseHeadquarter(Integer franchiseId) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(FranchiseCompanyLookup.class)
-                    .add(Restrictions.eq("isHeadQuarter", true));
+                    .setFetchMode("fkFranchiseId", FetchMode.JOIN)
+                    .add(Restrictions.eq("isHeadQuarter", true))
+                    .add(Restrictions.eq("fkFranchiseId.franchiseId", franchiseId));
             if (criteria.list().isEmpty()) {
                 return null;
             }
