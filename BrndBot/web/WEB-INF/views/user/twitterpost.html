@@ -54,14 +54,16 @@
                 </div>
             </span>
         </div>
-        <div ng-show="twitterImageDivToPost" class="Social-Add-Image-Wrap clear"  ng-click="show_hide_ImageGalleryPopup(true)">
-            <span class="clickable-area">
+        <div ng-show="twitterImageDivToPost" class="Social-Add-Image-Wrap clear"  >
+            <span class="clickable-area" ng-click="show_hide_ImageGalleryPopup(true)">
                 <img  src="/BrndBot/images/add-Image.svg" ng-model="twitterShare.img" class="add-image-icon fleft" style="cursor:pointer;">
                 <div class="Add-Image-Button fleft">
                     Change Image
                 </div>
             </span>
+            <span class="clickable-area magginLeftAuto" ng-click="openAviaryEditor('selectedImage')"> edit image</span>
         </div>
+            
         <div ng-show="twitterImageDivToPost" class="Social-Add-Image-Wrap clear" id="addImageDivToTwitterPost">
             <img ng-src="{{displayImage}}" ng-model="twitterPostData.img = displayImage"alt="alt_text" border="0" align="center" id="selectedImage" class="imageAdded pushUp_10 fleft">
         </div>

@@ -1,5 +1,5 @@
 <div class="main-content-wrap">
-    <div ng-include="'facebookmanagepages.html'"></div>
+<!--    <div ng-include="'facebookmanagepages.html'"></div>-->
     <div ng-include="'twitterpopupsocialhub.html'"></div>
     <div class="top-nav-wrap">
         <div class="header">
@@ -14,8 +14,8 @@
                 <h2>Select a Social Channel</h2>
             </div>
             <div class="modal-pane-content-wrap">
-                <div class="cat-list" ng-init="checkForCode()">
-                    <div class="cat-slat" ng-click="getManagePage()">
+                <div class="cat-list">
+                    <div class="cat-slat" ng-click="setChannel('facebook')">
                         <img  src="../images/F_icon.svg" class="social-channel-icon" style="cursor:pointer;" alt=""/>
                         <div class="cat-slat-title" >Facebook</div>
                     </div>  
