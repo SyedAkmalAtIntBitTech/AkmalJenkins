@@ -6,13 +6,13 @@
 package com.intbittech.controller;
 
 import com.intbittech.AppConstants;
-import com.intbittech.model.UserProfile;
+import com.intbittech.model.UserCompanyIds;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.EmailListService;
 import com.intbittech.utility.ErrorHandlingUtil;
-import com.intbittech.utility.UserSessionUtil;
+import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
 import java.util.Locale;
 import java.util.Map;
@@ -46,12 +46,10 @@ public class EmailListController {
     
     @RequestMapping(value = "/get", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getEmailList(@RequestParam("emailListName") String emailListName, HttpServletRequest request,
-            HttpServletResponse response) {
+            HttpServletResponse response,@RequestParam("companyId") Integer companyId) {
         GenericResponse<String> transactionResponse = new GenericResponse();
         
         try {
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             String queryParameter = (String) request.getParameter("update");
             String data = emailListService.getEmailList(queryParameter, companyId, emailListName);
             transactionResponse.addDetail(data);
@@ -69,11 +67,11 @@ public class EmailListController {
             HttpServletResponse response) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-            Boolean result = emailListService.setEmailList(requestBodyMap, companyId);
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+
+            Boolean result = emailListService.setEmailList(requestBodyMap, userCompanyIds.getCompanyId());
             if (result) {
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("save_success", new String[]{}, Locale.US)));
             } else {

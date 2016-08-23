@@ -6,7 +6,9 @@
 package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.Company;
 import com.intbittech.model.Users;
+import com.intbittech.modelmappers.InviteDetails;
 
 /**
  * <code> {@link UsersDao} </code> Interface to get User details from
@@ -34,6 +36,14 @@ public interface UsersDao {
      * @throws ProcessFailed the process failed
      */
     public Boolean checkUniqueUser(Users user) throws ProcessFailed;
+    /**
+     * This method pass user as input and get the {@link Boolean} from database
+     *
+     * @param user
+     * @return {@link Boolean}
+     * @throws ProcessFailed the process failed
+     */
+    public Boolean isUserExistInCompany(InviteDetails inviteDetails,Company company) throws ProcessFailed;
     
     /**
      * This method pass user as input and get the {@link Integer} from database

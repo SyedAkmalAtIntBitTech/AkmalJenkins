@@ -572,6 +572,10 @@ factoryApp.service('configurationService', function (){
     this.saveUserURL = function () {
         return getHost() + "onboarding/saveUser";
     };
+
+    this.saveInvitedUserURL = function () {
+        return getHost() + "onboarding/saveInvitedUser";
+    };
     
     this.saveStudioIdURL = function () {
         return getHost() + "onboarding/saveStudioId";
@@ -641,6 +645,25 @@ factoryApp.service('configurationService', function (){
         return getHost() + "settings/saveUnsubscribeEmails";
     };
     
+    this.inviteUserURL = function () {
+        return getHost() + "settings/sendInvitation";
+    };
+
+    this.editUserRoleURL = function () {
+        return getHost() + "settings/editUserRole";
+    };
+    this.removeUserURL = function () {
+        return getHost() + "settings/removeUser";
+    };
+
+    this.resendUserInviteURL = function () {
+        return getHost() + "settings/resendInvitation";
+    };
+    
+    this.getInvitedUsersURL = function (){
+        return getHost() + "settings/getInvitedUsers";
+    };
+
     this.setColorsURL = function () {
         return getHost() + "settings/setColors";
     };
@@ -697,6 +720,21 @@ factoryApp.service('configurationService', function (){
     
     this.userWelcomePageURL = function () {
         return getHost() + "user";
+    };
+    
+    this.getAllUserCompaniesURL = function (){
+        return getHost() + "user/getAllUserCompanyDetails";
+    };
+
+    this.getUserCompanyDetailsURL = function (){
+        return getHost() + "user/getUserCompanyDetails";
+    };
+    this.getLoggedInUserId = function(){
+        return getHost() + "user/getLoggedInUserId";
+    };
+    
+    this.getAccountStatusURL = function (){
+        return getHost() + "user/checkUserCompanyActivation";
     };
     
     this.userJspPagesURL = function () {

@@ -11,8 +11,10 @@ import com.intbittech.marketing.model.EmailDraftModel;
 import com.intbittech.marketing.service.EmailDraftService;
 import com.intbittech.model.Company;
 import com.intbittech.model.EmailDraft;
+import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.UserProfile;
 import com.intbittech.utility.UserSessionUtil;
+import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Date;
@@ -51,10 +53,11 @@ public class EmailDraftController {
                     HttpServletResponse response) throws IOException, Throwable {
         try {
 
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+            
             String emailSubject = (String) requestBodyMap.get("emailSubject");
             String emailPreHeader = (String) requestBodyMap.get("emailPreHeader");
             String bodyString = (String) requestBodyMap.get("bodyString");
@@ -92,7 +95,7 @@ public class EmailDraftController {
             JSONParser json_parser = new JSONParser();
             JSONObject json_object = (JSONObject) json_parser.parse(str_model);
             Company company = new Company();
-            company.setCompanyId(companyId);
+            company.setCompanyId(userCompanyIds.getCompanyId());
             email_draft.setFkCompanyId(company);
             email_draft.setDraftJson(json_object.toString());
             Integer draftID = emaildraftservice.save(email_draft);
@@ -111,11 +114,9 @@ public class EmailDraftController {
         JSONObject json_object_email_draft = new JSONObject();
         try {
 
-                       
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            
             String emailSubject = (String) requestBodyMap.get("emailSubject");
             String emailPreHeader = (String) requestBodyMap.get("emailPreHeader");
             Integer categoryId = Integer.parseInt((String)requestBodyMap.get("categoryId"));
@@ -156,12 +157,11 @@ public class EmailDraftController {
     @RequestMapping(value = "/displayAllEmailDrafts", method = RequestMethod.GET)
     public @ResponseBody
     String displayAllEmailDrafts(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException, Throwable {
+            HttpServletResponse response, @RequestParam("companyId") Integer companyId) throws ServletException, IOException, Throwable {
         JSONObject json_object_email_draft = new JSONObject();
         try {
 
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             List<EmailDraft> emaildraftlist = emaildraftservice.getAllEmailDrafts(companyId);
 
             JSONArray json_array_email_draft = new JSONArray();

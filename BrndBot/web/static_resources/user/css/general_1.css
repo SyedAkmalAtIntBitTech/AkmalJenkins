@@ -4707,11 +4707,9 @@ textarea.task-textarea:focus{
     text-align: center;
     width:300px;
 }
-
 .loader-description{
     color: #AFB0B4;
     font-size:14px;
-
 }
 
 .loader{
@@ -4737,6 +4735,13 @@ textarea.task-textarea:focus{
     width: 50px;
     height: 50px;
 }
+.companyListPopup{
+    float: right;
+    width:25%;
+}
+.companyListDiv{
+    width:100% !important;}
+
 @-webkit-keyframes load8 {
     0% {
         -webkit-transform: rotate(0deg);
@@ -4872,5 +4877,4 @@ textarea.task-textarea:focus{
     padding: 5px;
     border-radius: 3px;
     margin-bottom: 10px;
-    
 }

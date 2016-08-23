@@ -44,7 +44,6 @@ public class LoginController {
     public String changePassword(ModelMap model) {
         return "changepassword";
     }
-   
     
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {

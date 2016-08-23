@@ -14,6 +14,7 @@ import com.intbittech.model.OrganizationCategoryLookup;
 import com.intbittech.model.OrganizationCompanyLookup;
 import com.intbittech.model.OrganizationEmailBlockLookup;
 import com.intbittech.model.OrganizationMarketingCategoryLookup;
+import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.UserProfile;
 import com.intbittech.modelmappers.CategoryDetails;
 import com.intbittech.modelmappers.ChannelDetails;
@@ -80,15 +81,12 @@ public class CompanyController {
     private MessageSource messageSource;
     
     @RequestMapping(value = "getCurrentCompany",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getCurrentCompany() {
+    public ResponseEntity<ContainerResponse> getCurrentCompany(@RequestParam("companyId") Integer companyId) {
         GenericResponse<String> genericResponse = new GenericResponse<String>();
         try {
             List<String> currentCompany = new ArrayList<>();
             
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            
-            currentCompany.add(userProfile.getUser().getFkCompanyId().getCompanyId().toString());
-            
+            currentCompany.add(companyId.toString());
             genericResponse.setDetails(currentCompany);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("company_get_all",new String[]{}, Locale.US)));
             
@@ -277,11 +275,10 @@ public class CompanyController {
     }
     
     @RequestMapping(value = "getAllBlocksForCompany",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getAllBlocksForCompany() {
+    public ResponseEntity<ContainerResponse> getAllBlocksForCompany(@RequestParam("companyId") Integer companyId) {
         GenericResponse<EmailBlockDetails> genericResponse = new GenericResponse<EmailBlockDetails>();
         try {
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+
             List<OrganizationCompanyLookup> organizationCompanyDetail = new ArrayList<>();
             organizationCompanyDetail = companyService.getAllOrganizationsByCompanyId(companyId);
             List<OrganizationCompanyDetails> organizationCompanyDetailsList = new ArrayList<>();

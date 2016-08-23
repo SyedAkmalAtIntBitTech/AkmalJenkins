@@ -5,11 +5,14 @@
  */
 package com.intbittech.modelmappers;
 
+import com.intbittech.model.UserCompanyIds;
+import java.io.Serializable;
+
 /**
  *
  * @author intbit
  */
-public class MarketingCategoryDetails {
+public class MarketingCategoryDetails  extends UserCompanyIds implements Serializable{
     private Integer marketingCategoryId;
     private String marketingCategoryName;
     private Integer organizationId;

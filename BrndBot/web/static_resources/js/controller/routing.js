@@ -16,6 +16,9 @@ brndBotSignupApp.config(function ($routeProvider) {
                 title: 'BrndBot-On Boarding',
                 templateUrl: 'signup/company.html'
             })
+            .when('/signup/userregistration', {
+                templateUrl: 'signup/userregistration.html'
+            })            
             .when('/signup/datasource', {
                 title: 'BrndBot-On Boarding',
                 templateUrl: 'signup/datasource.html'
