@@ -6,6 +6,8 @@
 function franchiseController($scope, $http) {
     $scope.addFranchisePopup = false;
     $scope.addFranchisePopupDiv = false;
+    $scope.editFranchisePopup = false;
+    $scope.editFranchisePopupDiv = false;
     $scope.franchiseId = "";    
     $scope.addCompanyPopup = false;
     
@@ -64,6 +66,31 @@ function franchiseController($scope, $http) {
             });
         }
     };    
+
+    $scope.editFranchise = function () {
+
+        var franchiseName = $("#editfranchiseName").val();
+        var franchiseId = $scope.franchiseId;
+        if (franchiseName === "") {
+
+            alert(enterFranchiseName);
+            $("#editfranchiseName").focus();
+        } else {
+            $.ajax({
+                method: 'POST',
+                url: getHost() + 'updateFranchise?franchiseId='+franchiseId,
+                dataType: "json",
+                contentType: "application/json",
+                data: franchiseName.toString()
+            }).success(function (data, status, headers, config)
+            {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
+                window.open(getHost() + 'admin/franchise', "_self");
+            }).error(function (data, status, headers, config) {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            });
+        }
+    };    
     
     $scope.getCompaniesForFranchiseId = function(){
         var franchiseId = $scope.franchiseId;
@@ -72,25 +99,54 @@ function franchiseController($scope, $http) {
                 url: getHost() + 'getCompaniesForFranchiseId?franchiseId='+franchiseId
             }).success(function (data, status, headers, config)
             {
-                $scope.companies = data.d.details;
-//                window.open(getHost() + 'admin/franchise', "_self");
+                $scope.franchiseCompanies = data.d.details;
             }).error(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
         
     };
     
-    $scope.getAllCompanies = function(){
+    $scope.getAllNonSelectedCompanies = function(){
+        var franchiseId = $scope.franchiseId;
             $.ajax({
                 method: 'GET',
-                url: getHost() + 'getAllCompanies'
+                url: getHost() + 'getAllNonSelectedCompanies?franchiseId='+franchiseId
             }).success(function (data, status, headers, config)
             {
-                $scope.companies = data.d.details;
-//                window.open(getHost() + 'admin/franchise', "_self");
+                $scope.nonSelectedcompanies = data.d.details;
             }).error(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
     };
+    
+    $scope.associateCompanyToFranchise = function(){
+        var franchiseId = $scope.franchiseId;
+        var companyId = $("#company option:selected").val();
+            $.ajax({
+                method: 'GET',
+                url: getHost() + 'associateCompanyToFranchise?franchiseId='+franchiseId+'&companyId='+companyId
+            }).success(function (data, status, headers, config)
+            {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                window.open(getHost() + 'admin/franchiseCompanies?franchiseId='+franchiseId, "_self");
+            }).error(function (data, status, headers, config) {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            });
+    };
+
+    $scope.removeCompanyFromFranchise = function(companyId){
+        var franchiseId = $scope.franchiseId;
+            $.ajax({
+                method: 'DELETE',
+                url: getHost() + 'removeCompanyFromFranchise?franchiseId='+franchiseId+'&companyId='+companyId
+            }).success(function (data, status, headers, config)
+            {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                window.open(getHost() + 'admin/franchiseCompanies?franchiseId='+franchiseId, "_self");
+            }).error(function (data, status, headers, config) {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            });
+    };
+    
 }
 

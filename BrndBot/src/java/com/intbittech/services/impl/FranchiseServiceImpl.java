@@ -131,5 +131,15 @@ public class FranchiseServiceImpl implements FranchiseService {
         }
         franchiseDao.save(franchiseDeserialized);
     }
+
+    @Override
+    public FranchiseCompanyLookup getFranchiseLookup(Integer companyId, Integer franchiseId)throws ProcessFailed{
+        FranchiseCompanyLookup franchiseCompanyLookup = franchiseCompanyLookupDao.getFranchiseLookup(companyId, franchiseId);
+        if (franchiseCompanyLookup != null){
+            return franchiseCompanyLookup;
+        }else {
+            return null;
+        }
+    }
 }
   

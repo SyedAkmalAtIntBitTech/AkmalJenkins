@@ -18,14 +18,13 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                <div class="popUp_title fleft"> Add Company to Franchise</div>
             </div>
             <div class="inputSection col1of2">
-                <div class="input_Label" ng-init="getAllCompanies()"></div>
-                
+                <div class="input_Label" ng-init="getAllNonSelectedCompanies()"></div>
+                Select the company :
                 <select id="company">
-                    <option ng-repeat="company in companies">{{company.companyName}}</option>
+                    <option ng-repeat="company in nonSelectedcompanies" value="{{company.companyId}}">{{company.companyName}}</option>
                 </select>
-                <input id="franchiseName" class="input_Field" type="text" placeholder="Franchise Name" />
 
-                <div id="createOrganization" class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addFranchise()">Create this Franchise</div>
+                <div id="createOrganization" class="CTA_Button Button--Gray fleft pushUp_30" ng-click="associateCompanyToFranchise()">Select the company</div>
             </div>
         </div>
         </div> 

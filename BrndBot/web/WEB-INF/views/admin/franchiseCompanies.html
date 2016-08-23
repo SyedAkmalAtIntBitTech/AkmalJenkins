@@ -32,7 +32,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <script src="js/marketingprogramdetails.js" type="text/javascript"></script>
         <script src="js/franchise.js" type="text/javascript"></script>
 
-       <title>All Companies</title>
+       <title>All Franchise Companies</title>
     </head>
     <body  class="body-normal" ng-app ng-controller="franchiseController" >
         <div ng-include src="'header.html'"></div>
@@ -47,20 +47,17 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                 <div class="listHeaderCol col1of2 fleft">
                     <span class="listCol_Header fleft"> Company Name </span>
                 </div>
-                <div class="listHeaderCol col1of4 fleft">
-                    <span class="listCol_Header fleft"> Organization </span>
-                </div>
             </div>
             <ul class="slatArea" ng-init="getCompaniesForFranchiseId()">
-                <li class="listItem" ng-repeat="company in companies.slice().reverse()">
+                <li class="listItem" ng-repeat="company in franchiseCompanies.slice().reverse()">
                     <div class="listCol col1of2 fleft">
                         <span class="listCol_Text fleft">{{company.companyName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <span class="listCol_Text fleft">{{company.organizationName}}</span>
+                        <a href=""><div class="CTA_Button Button--Gray fright" ng-click="removeCompanyFromFranchise(company.companyId)">Remove Company</div></a>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <!--<a href="/BrndBot/admin/companydetails?companyId={{companies.companyId}}&companyName={{companies.companyName}}&organizationName={{companies.organizationName}}"><div class="CTA_Button Button--Gray fright">Manage Company</div></a>-->
+                        <a href=""><div class="CTA_Button Button--Gray fright" ng-click="headQuarterCompany(company.companyId)">Head Quarter Company</div></a>
                     </div>
                 </li>
             </ul>

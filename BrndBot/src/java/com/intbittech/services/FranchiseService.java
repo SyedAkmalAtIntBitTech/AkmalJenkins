@@ -9,6 +9,7 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Category;
 import com.intbittech.model.Company;
 import com.intbittech.model.Franchise;
+import com.intbittech.model.FranchiseCompanyLookup;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.FranchiseDetails;
 import java.util.List;
@@ -67,4 +68,5 @@ public interface FranchiseService {
      */
     public void saveFranchise(FranchiseDetails franchiseDetails) throws ProcessFailed;
 
+    public FranchiseCompanyLookup getFranchiseLookup(Integer companyId, Integer franchiseId);
 }
