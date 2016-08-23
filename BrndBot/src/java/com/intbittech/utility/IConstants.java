@@ -62,4 +62,8 @@ public interface IConstants {
     final static String kTwitterURLKey = "shorturl";
     final static String kFooters = "userProfile";
     final static String kUnsubscribeEmails = "unsubscribeEMails";
+    
+    // for external source 
+    final static Integer EXTERNAL_SOURCE_NON_MINDBODY = 0;
+    final static Integer EXTERNAL_SOURCE_MINDBODY = 1;
 }
