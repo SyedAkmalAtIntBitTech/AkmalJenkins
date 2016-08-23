@@ -187,6 +187,7 @@ var emailChannelId = 3;
 var printChannelId = 2;
 var imageChannelId = 1;
 var genericError="Oops, something went wrong please try again later."
+var enterFranchiseName="Please enter Franchise Name!";
 /// ADMIN alerts Ends////
 
 /// ADMIN alerts Ends////

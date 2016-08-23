@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+Copyright 2015 Intbit Technologies. This software and documentation contains
+confidential and proprietary information that is owned by Intbit
+Technologies. Unauthorized use and distribution are strictly prohibited.
+-->
+<html>
+    <head>        
+       <link rel="shortcut icon" href="images/favicon.png"/>       
+        <link rel="shortcut icon" href="images/favicon.png"/>
+        <link rel="shortcut icon" href="images/favicon.png"/> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script type="text/javascript" src="js/angular.min.js"></script>
+        <meta name="format-detection" content="telephone=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/admin.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/basecss.css"/>
+        <link rel="stylesheet" type="text/css" href="css/dropdown.css"/>
+        <link rel="shortcut icon" href="../images/favicon.png"/> 
+        <script src="js/globalimage.js" type="text/javascript"></script>
+        <script src="js/configurations.js" type="text/javascript"></script>   
+        <script src="js/basejs.js" type="text/javascript"></script>
+        <script src="js/socialtemplates.js" type="text/javascript"></script>
+        <script src="js/alertmessage.js" type="text/javascript"></script>
+        <script src="js/emailtemplate.js" type="text/javascript"></script>
+        <script src="js/emailblockmodels.js" type="text/javascript"></script>
+        <script src="js/assets.js" type="text/javascript"></script>
+        <script src="js/recurringemail.js" type="text/javascript"></script>
+        <script src="js/imageToBase64Converter.js" type="text/javascript"></script>
+        <script src="js/marketingprogramdetails.js" type="text/javascript"></script>
+        <script src="js/franchise.js" type="text/javascript"></script>
+
+       <title>All Franchise Companies</title>
+    </head>
+    <body  class="body-normal" ng-app ng-controller="franchiseController" >
+        <div ng-include src="'header.html'"></div>
+        <div ng-include src="'addcompanytofranchise.html'"></div>
+      <div class="content-area" ng-init="getFranchiseId()">
+          <div class="content-area_header">
+            <div class="header_path fleft">All Companies / </div>
+            <div class="CTA_Button Button--Blue fright" id="addOrganization" ng-click="addCompanyPopup=true">Add Company</div>
+          </div>
+          <div><br>
+              {{headquarterCompany}} company has been selected as a Headquarter.
+          </div>
+          <div class="slatSection" ng-init="getCompaniesForFranchiseId()">
+            <div class="slatHeaders">
+                <div class="listHeaderCol col1of2 fleft">
+                    <span class="listCol_Header fleft"> Company Name </span>
+                </div>
+            </div>
+            <ul class="slatArea" >
+                <li class="listItem" ng-repeat="company in franchiseCompanies.slice().reverse()">
+                    <div class="listCol col1of2 fleft">
+                        <span class="listCol_Text fleft">{{company.companyName}}</span>
+                    </div>
+                    <div class="listCol col1of4 fleft">
+                        <a href=""><div class="CTA_Button Button--Gray fright" ng-click="removeCompanyFromFranchise(company.companyId)">Remove Company</div></a>
+                    </div>
+                    <div class="listCol col1of4 fleft">
+                        <a href=""><div class="CTA_Button Button--Gray fright" ng-click="activateCompanyAsHeadquarter(company.companyId)">Head Quarter Company</div></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </body>
+</html>
+
