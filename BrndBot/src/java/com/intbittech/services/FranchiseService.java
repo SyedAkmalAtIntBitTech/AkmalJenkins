@@ -68,5 +68,7 @@ public interface FranchiseService {
      */
     public void saveFranchise(FranchiseDetails franchiseDetails) throws ProcessFailed;
 
-    public FranchiseCompanyLookup getFranchiseLookup(Integer companyId, Integer franchiseId);
+    public FranchiseCompanyLookup getFranchiseLookup(Integer companyId, Integer franchiseId)throws ProcessFailed;
+    
+    public String getHeadquarter()throws ProcessFailed;
 }

@@ -38,17 +38,20 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <div ng-include src="'header.html'"></div>
         <div ng-include src="'addcompanytofranchise.html'"></div>
       <div class="content-area" ng-init="getFranchiseId()">
-        <div class="content-area_header">
-            <div class="header_path fleft">All Companies / {{franchiseId}}</div>
+          <div class="content-area_header">
+            <div class="header_path fleft">All Companies / </div>
             <div class="CTA_Button Button--Blue fright" id="addOrganization" ng-click="addCompanyPopup=true">Add Company</div>
-        </div>
-        <div class="slatSection">
+          </div>
+          <div><br>
+              {{headquarterCompany}} company has been selected as a Headquarter.
+          </div>
+          <div class="slatSection" ng-init="getCompaniesForFranchiseId()">
             <div class="slatHeaders">
                 <div class="listHeaderCol col1of2 fleft">
                     <span class="listCol_Header fleft"> Company Name </span>
                 </div>
             </div>
-            <ul class="slatArea" ng-init="getCompaniesForFranchiseId()">
+            <ul class="slatArea" >
                 <li class="listItem" ng-repeat="company in franchiseCompanies.slice().reverse()">
                     <div class="listCol col1of2 fleft">
                         <span class="listCol_Text fleft">{{company.companyName}}</span>
@@ -57,7 +60,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                         <a href=""><div class="CTA_Button Button--Gray fright" ng-click="removeCompanyFromFranchise(company.companyId)">Remove Company</div></a>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href=""><div class="CTA_Button Button--Gray fright" ng-click="headQuarterCompany(company.companyId)">Head Quarter Company</div></a>
+                        <a href=""><div class="CTA_Button Button--Gray fright" ng-click="activateCompanyAsHeadquarter(company.companyId)">Head Quarter Company</div></a>
                     </div>
                 </li>
             </ul>

@@ -27,7 +27,7 @@ function franchiseController($scope, $http) {
     })(window.location.search.substr(1).split('&'));
     
     $scope.franchiseId = qs["franchiseId"];    
-    
+    $scope.getHeadquarter();
   };
 
     $scope.franchise = function () {
@@ -43,6 +43,11 @@ function franchiseController($scope, $http) {
 
     };
 
+    $scope.showEditFranchisePopup = function(franchiseId){
+        $scope.editFranchisePopup = true;
+        $scope.editFranchisePopupDiv = true;
+        $scope.franchiseId = franchiseId;
+    };
     $scope.addFranchise = function () {
 
         var franchiseName = $("#franchiseName").val();
@@ -92,9 +97,22 @@ function franchiseController($scope, $http) {
         }
     };    
     
+    $scope.deleteFranchise = function(franchiseId){
+        $.ajax({
+            method: 'DELETE',
+            url: getHost() + 'deleteFranchise?franchiseId='+franchiseId,
+        }).success(function (data, status, headers, config)
+        {
+            alert(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
+            window.open(getHost() + 'admin/franchise', "_self");
+        }).error(function (data, status, headers, config) {
+            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+        });        
+    };
+    
     $scope.getCompaniesForFranchiseId = function(){
         var franchiseId = $scope.franchiseId;
-            $.ajax({
+            $http({
                 method: 'GET',
                 url: getHost() + 'getCompaniesForFranchiseId?franchiseId='+franchiseId
             }).success(function (data, status, headers, config)
@@ -104,6 +122,18 @@ function franchiseController($scope, $http) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
         
+    };
+    
+    $scope.getHeadquarter = function(){
+        $http({
+            method: 'GET',
+            url: getHost() + 'getHeadquarter'
+        }).success(function (data, status, headers, config)
+        {   
+            $scope.headquarterCompany = data.d.message;
+        }).error(function (data, status, headers, config) {
+            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+        });
     };
     
     $scope.getAllNonSelectedCompanies = function(){
@@ -132,6 +162,24 @@ function franchiseController($scope, $http) {
             }).error(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
+    };
+    
+    $scope.activateCompanyAsHeadquarter = function(companyId){
+        var r = confirm("Do you want to make this company headquarter!");
+        var franchiseId = $scope.franchiseId;
+        if (r == true) {
+            $.ajax({
+                method: 'GET',
+                url: getHost() + 'activateCompanyAsFranchise?franchiseId='+franchiseId+'&companyId='+companyId
+            }).success(function (data, status, headers, config)
+            {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                window.open(getHost() + 'admin/franchiseCompanies?franchiseId='+franchiseId, "_self");
+            }).error(function (data, status, headers, config) {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            });
+        }
+
     };
 
     $scope.removeCompanyFromFranchise = function(companyId){

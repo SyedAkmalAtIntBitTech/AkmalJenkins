@@ -56,7 +56,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <div class="content-area" >
         <div class="content-area_header">
             <div class="header_path fleft"> All Franchise </div>
-            <div class="CTA_Button Button--Blue fright" id="addOrganization" ng-click="addFranchisePopup=true">Add Franchise</div>
+            <div class="CTA_Button Button--Blue fright" id="addFranchise" ng-click="addFranchisePopup=true">Add Franchise</div>
         </div>
         <div class="slatSection" ng-init="franchise()">
             <div class="slatHeaders">
@@ -74,10 +74,10 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                         <a href="/BrndBot/admin/franchiseCompanies?franchiseId={{franchise.franchiseId}}"><div class="CTA_Button Button--Gray fright">Manage Franchise</div></a>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href=""><div class="CTA_Button Button--Gray fright" ng-click="editFranchisePopup=true">Change Franchise</div></a>
+                       <div class="CTA_Button Button--Gray fright" id="editFranchise" ng-click="showEditFranchisePopup(franchise.franchiseId)">Change Franchise</div>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href=""><div class="CTA_Button Button--Gray fright">Delete Franchise</div></a>
+                        <a href=""><div class="CTA_Button Button--Gray fright" ng-click="deleteFranchise(franchise.franchiseId)">Delete Franchise</div></a>
                     </div>
                 </li>                
             </ul>

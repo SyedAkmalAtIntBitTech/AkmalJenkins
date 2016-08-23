@@ -98,6 +98,19 @@ public class FranchiseController {
 
     }
 
+    @RequestMapping(value = "getHeadquarter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getHeadquarter() {
+            TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            String CompanyName = franchiseService.getHeadquarter();
+            transactionResponse.setMessage(CompanyName);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
     @RequestMapping(value = "getAllNonSelectedCompanies",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllNonSelectedCompanies(@RequestParam("franchiseId") Integer franchiseId) {
         GenericResponse<CompanyDetails> genericResponse = new GenericResponse<CompanyDetails>();

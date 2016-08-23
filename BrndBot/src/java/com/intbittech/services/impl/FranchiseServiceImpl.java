@@ -5,6 +5,7 @@
  */
 package com.intbittech.services.impl;
 
+import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.FranchiseCompanyLookupDao;
 import com.intbittech.dao.FranchiseDao;
 import com.intbittech.exception.ProcessFailed;
@@ -34,6 +35,8 @@ public class FranchiseServiceImpl implements FranchiseService {
     private FranchiseDao franchiseDao;
     @Autowired
     private FranchiseCompanyLookupDao franchiseCompanyLookupDao;
+    @Autowired
+    private CompanyDao companyDao;
 
     @Override
     public void activateCompanyAsFranchise(Integer companyId, Integer franchiseId) throws ProcessFailed {
@@ -137,6 +140,18 @@ public class FranchiseServiceImpl implements FranchiseService {
         FranchiseCompanyLookup franchiseCompanyLookup = franchiseCompanyLookupDao.getFranchiseLookup(companyId, franchiseId);
         if (franchiseCompanyLookup != null){
             return franchiseCompanyLookup;
+        }else {
+            return null;
+        }
+    }
+
+    @Override
+    public String getHeadquarter() throws ProcessFailed {
+        FranchiseCompanyLookup franchiseCompanyLookup = franchiseCompanyLookupDao.getHeadquarter();
+        
+        if (franchiseCompanyLookup != null){
+            Company company = companyDao.getCompanyById(franchiseCompanyLookup.getFkCompanyId().getCompanyId());
+            return company.getCompanyName();
         }else {
             return null;
         }

@@ -66,6 +66,7 @@ public interface FranchiseCompanyLookupDao {
      */
     public void delete(FranchiseCompanyLookup franchiseCompanyLookup) throws ProcessFailed;
 
-    public FranchiseCompanyLookup getFranchiseLookup(Integer companyId, Integer franchiseId);
+    public FranchiseCompanyLookup getFranchiseLookup(Integer companyId, Integer franchiseId)throws ProcessFailed;
     
+    public FranchiseCompanyLookup getHeadquarter()throws ProcessFailed;
 }

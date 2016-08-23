@@ -12,6 +12,7 @@ import com.intbittech.model.Category;
 import com.intbittech.model.Company;
 import com.intbittech.model.Franchise;
 import com.intbittech.model.FranchiseCompanyLookup;
+import com.intbittech.model.Users;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -129,6 +130,24 @@ public class FranchiseCompanyLookupDaoImpl implements FranchiseCompanyLookupDao 
             logger.error(throwable);
             throw new ProcessFailed("Database error while retrieving record");
         }
+    }
+
+    @Override
+    public FranchiseCompanyLookup getHeadquarter() throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(FranchiseCompanyLookup.class)
+                    .add(Restrictions.eq("isHeadQuarter", true));
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return (FranchiseCompanyLookup) criteria.list().get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
+        }
+
     }
 
 }
