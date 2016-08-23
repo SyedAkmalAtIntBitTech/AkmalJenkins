@@ -31,6 +31,7 @@ public interface IConstants {
     final static String kEmailListListDescription = "listDescription";
     final static String kEmailListAddedDate = "emailListAddedDate";
     final static String kEmailAddressesKey = "emailAddresses";
+    final static String kEmailMindbodyEmailAddresses = "mindbody_emailAddresses";
     final static String kEmailAddressKey = "emailAddress";
     final static String kEmailAddressAddedKey = "addedDate";
     final static String kEmailKey = "Email";
@@ -39,6 +40,7 @@ public interface IConstants {
     final static String kEmailSettings = "emailSettings";
     final static String kEmailFromAddress = "from_address";
     final static String kEmailReplyAddress = "reply_email_address";
+    final static String kFromName = "from_name";
     final static String kMarketingActionsKey = "actions";
     final static String kColors = "colors";
     final static String kMarketingProgramTemplateTillDate = "tillDate";

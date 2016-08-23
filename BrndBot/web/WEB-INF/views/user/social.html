@@ -1,10 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html >
     <head>
-        <link rel="import" href="header.html"></link>
         <script src="../js/configurations.js" type="text/javascript"></script>
-        <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
-        <script src="../js/angularappconfiguration.js"></script>
+        <script src="../js/utilities/jquery-1.11.3.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-animate.min.js"></script>
+        <script src="../js/utilities/angularappconfiguration.js"></script>
         <link rel="shortcut icon" href="../images/favicon.png"/>
         <script src="../js/factory/categoryFactory.js" type="text/javascript"></script>
         <script src="../js/factory/subCategoryFactory.js" type="text/javascript"></script>
@@ -20,108 +22,66 @@
         <script src="../js/factory/imagesFactory.js" type="text/javascript"></script>
         <script src="../js/factory/socialPostFactory.js" type="text/javascript"></script>
         <script src="../js/factory/scheduleActionsFactory.js" type="text/javascript"></script>
-        <script src="js/controller/dashboardController.js" type="text/javascript"></script>
-        <script src="js/controller/routing.js" type="text/javascript"></script>
-        <script src="js/controller/socialController.js" type="text/javascript"></script>        
-        <script src="js/controller/socialHubController.js" type="text/javascript"></script>  
-        <link rel="stylesheet" type="text/css" href="css/general_1.css"/>
-        <link rel="stylesheet" type="text/css" href="css/popup.css"/>
+        <script src="../js/controller/dashboardController.js" type="text/javascript"></script>
+        <script src="../js/controller/routing.js" type="text/javascript"></script>
+        <script src="../js/controller/socialController.js" type="text/javascript"></script>        
+        <script src="../js/controller/socialHubController.js" type="text/javascript"></script>  
+        <link rel="stylesheet" type="text/css" href="../css/general_1.css"/>
+        <link href="../css/jquerygrowl.css" rel="stylesheet" type="text/css"/>
+        <script src="../js/utilities/jquerygrowl.js" type="text/javascript"></script>
         <title>Brndbot - Marketing Hub</title>  
     </head>    
 
     <div ng-include src="'navbar.html'"></div>
-        <div ng-include src="'loadingoverlay.html'"></div>
+    <div ng-include src="'loadingoverlay.html'"></div>
     <body ng-app="socialhubFlowApp" ng-controller="controllerSocial">
-              <div class="main-content-wrap">   
-        <div ng-include src="'twitterpopupsocialhub.html'"></div>
-        <div  id="controllerSocial"> 
-            <!--SideNav-->
+        <div class="main-content-wrap">   
+            <div ng-include src="'twitterpopupsocialhub.html'"></div>
+            <div  id="controllerSocial"> 
+                <!--SideNav-->
 
-            <!--Top Nav   
-            <div class="top-nav">
-                <div class="page-title-bar col-1of1"> 
-                
-                    <div class="page-title-regular page-title-font">Your Social Hub</div>
-                </div>
-                <div class="page-subnav-bar-with-dropdown"> 
-                    <div class="subnav-dropdown pushright"  id="socialclick">
-                        <span class="hub-dropdown-text">Social</span>
-                        <img type="image/svg+xml" src="images/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"> </img>
-                    </div>
-                    <div class="top-subnav-tabs-container">
-                        <ul class="top-subnav-nav-elements">
-                            <li class="top-subnav-link-active" id="fbsetting"> <a class="h3-active-subnav" ng-click="getFacebookDetails()">Facebook Settings</a></li>
-                            <li class="top-subnav-links" id="twsetting"> <a class="h3" ng-click="twitterDetails()">Twitter Settings</a></li>
-                        </ul>
-                    </div>
-                    <div class="dropdown-hub" id="socialdropdown">
-                        <div class="dropdown-inner">
-                            <a class="hub-dropdown-section" href="/BrndBot/user/social" id="socialhubli">
-                                <img type="image/svg+xml" src="images/Hub-Dropdowns_social.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"/>
-                                <div class=" dropdown-label-active">Social Hub</div>
-                            </a>
-                            <div class="hub-dropdown-section" href="/BrndBot/user/basemarketinghub#/" id="emailhubli">
-                                <img type="image/svg+xml" src="images/Hub-Dropdowns_email.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"/>
-                                <div class=" dropdown-label">Email Hub</div>
-                            </div>                     
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </div>-->
-            
-            <div class="top-nav-wrap"> 
+                <div class="top-nav-wrap"> 
                     <div class="header">
-<!--                    <div class="exit-button-detail"></div>-->
                         <h2>Your Social Hub</h2>
                     </div>
-             
-                <div class="top-sub-nav">
-                    <div class="hub-dropdown" ng-click="showDropDown()" id="socialclick">
-                        <span class="hub-dropdown-text" id="emlsclspanid">Social</span>
-                        <img type="image/svg+xml" src="/BrndBot/user/images/dropdown.svg" class="hub-dropdown-icon" style="cursor:pointer;"></img>
-                    </div>
 
-                   
+                    <div class="top-sub-nav">
+                        <div class="hub-dropdown" ng-click="showDropDown()" id="socialclick">
+                            <span class="hub-dropdown-text" id="emlsclspanid">Social</span>
+                            <img type="image/svg+xml" src="/BrndBot/images/dropdown.svg" class="hub-dropdown-icon" style="cursor:pointer;"></img>
+                        </div>
+
+
                         <ul class=>
                             <li class="sub-nav-tab" id="fbsetting" ng-click="getFacebookDetails()"> <a >Social Profile Settings</a></li>
-                           
+
                         </ul>
-                   
-                </div>
-                
+
+                    </div>
+
                     <div class="dropdown-hub" ng-show="emaildropdown">
                         <div class="dropdown-inner-hub">
                             <a class="hub-dropdown-section" href="/BrndBot/user/social" id="socialhubli">
-                                <img type="image/svg+xml" src="images/Hub-Dropdowns_social.svg" class="hub-dropdown-section-icon" style="cursor:pointer;"/>
+                                <img type="image/svg+xml" src="../images/Hub-Dropdowns_social.svg" class="hub-dropdown-section-icon" style="cursor:pointer;"/>
                                 <div class=" dropdown-label-active">Social Hub</div>
                             </a>
                             <a class="hub-dropdown-section" href="/BrndBot/user/basemarketinghub#/emaildrafts" id="emailhubli">
-                                <img type="image/svg+xml" src="images/Hub-Dropdowns_email.svg" class="hub-dropdown-section-icon" style="cursor:pointer;"/>
+                                <img type="image/svg+xml" src="../images/Hub-Dropdowns_email.svg" class="hub-dropdown-section-icon" style="cursor:pointer;"/>
                                 <div class=" dropdown-label">Email Hub</div>
                             </a>                     
                         </div>
                     </div>
-            </div>
-            <!--Main Content GENERIC--> 
-            
-              <div class="top-nav-bar-offset"></div>
-    <div class="top-subnav-bar-offset"></div>
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav">
-                                                    <div ng-include src="'socialfacebooksettings.html'"></div>
-                                                    <div ng-include src="'socialtwittersettings.html'"></div>
-                                                </div>
-                                            </div>                        
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>            
                 </div>
-            </div>
-            
-        </div>
-        <div ng-include src="'facebookmanagepages.html'"></div>                               
+                <!--Main Content GENERIC--> 
+
+                <div class="top-nav-bar-offset"></div>
+                <div class="top-subnav-bar-offset"></div>
+                <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav">
+                    <div ng-include src="'socialfacebooksettings.html'"></div>
+                    <div ng-include src="'socialtwittersettings.html'"></div>
+                    <div ng-include src="'facebookmanagepages.html'"></div>  
+                </div>
+            </div>                        
+        </div>                            
     </body>
 </html>

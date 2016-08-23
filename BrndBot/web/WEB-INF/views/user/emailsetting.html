@@ -7,7 +7,7 @@
 <div class="top-nav-bar-offset"></div>
     <div class="top-subnav-bar-offset"></div>
 
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav">
+    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-init="getEmailSettings()">
         <div class="hub-pane">
             <div class="hub-pane-header-wrap">
                 <h2 class="">Email Settings</h2>                
@@ -26,10 +26,20 @@
                         <p class="input-wrap-label"> Make this something that your clients will recognize</p>
                     </div>
                     <div class="input-wrap">
+                        <label> Default From Name </label>
+                        <div class="input">
+                            <input id="from_address" class="fluid" type="text" ng-model="email_settings.from_name"   name="from_address"  placeholder="Enter default from name"/>
+                        </div>
+                        <p class="input-wrap-label"> This is the name your clients will see in their inbox</p>
+                    </div>
+                    <div class="input-wrap">
                         <label> Default Reply-to Address </label>
                         <div class="input">
-                            <input id="from_address" class="fluid" type="text" ng-model="email_settings.reply_email_address"   name="reply_email_address"  placeholder="Enter default email address"/>
+                            <input id="reply_address" class="fluid" type="text" ng-model="email_settings.reply_email_address"   name="reply_email_address"  placeholder="Enter default reply-to-address"/>
                             <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
+                            <span class="validationAlert" ng-if='replyToAddress'>{{replyToValidation}}</span>
+                            <span class="validationAlert" ng-if="replyEmailValidation">{{emailaddrValidation}}</span>
+
                         </div>
                     </div>
                      <div class="update-container" ng-click="saveEmailSettings(email_settings)">
@@ -44,35 +54,37 @@
                     <div class="input-wrap">
                         <label>Company Address</label>
                         <div class="input">
-                            <input id="from_address" class="fluid"  type="text" name="from_address" ng-model="company.address" placeholder="Enter default email address" />
+                            <input id="company_address" class="fluid"  type="text" name="from_address" ng-model="company.address" placeholder="Enter company address" />
                             <p class="input-wrap-label"> We need this to comply with email spam (CANSPAM) laws</p>
                         </div>
+                        <span class="validationAlert" ng-if='company.address === "" || null'>{{companyAddressValidation}}</span>
+
                     </div>
                     <div class="input-wrap">
                         <label> Website URL </label>
                         <div class="input">
-                           <input id="reply_email_address" class="fluid" type="text" ng-model="company.websiteUrl" name="reply_email_address" placeholder="Enter reply-to-email address" />
+                           <input id="reply_email_address" class="fluid" type="text" ng-model="company.websiteUrl" name="reply_email_address" placeholder="Enter website Url address" />
                             <p class="input-wrap-label"> This can be copied from the browser</p>
                         </div>
                     </div>
                     <div class="input-wrap">
                         <label> Facebook URL </label>
                         <div class="input">
-                            <input id="reply_email_address" class="fluid"  type="text" ng-model="company.facebookUrl" name="reply_email_address" placeholder="Enter reply-to-email address" />
+                            <input id="reply_email_address" class="fluid"  type="text" ng-model="company.facebookUrl" name="reply_email_address" placeholder="Enter Facebook Url address" />
                             <p class="input-wrap-label"> Log into your company's Facebook page and copy the URL</p>
                         </div>
                     </div>
                     <div class="input-wrap">
                         <label> Twitter URL </label>
                         <div class="input">
-                            <input id="reply_email_address" class="fluid"  type="text" ng-model="company.twitterUrl" name="reply_email_address" placeholder="Enter reply-to-email address" />
+                            <input id="reply_email_address" class="fluid"  type="text" ng-model="company.twitterUrl" name="reply_email_address" placeholder="Enter Twitter Url address" />
                             <p class="input-wrap-label"> Log into your company's Twitter page and copy the URL</p>
                         </div>
                     </div>
                     <div class="input-wrap">
                         <label> Instagram URL </label>
                         <div class="input">
-                            <input id="reply_email_address" class="fluid"  type="text" ng-model="company.instagramUrl" name="reply_email_address" placeholder="Enter reply-to-email address" />
+                            <input id="reply_email_address" class="fluid"  type="text" ng-model="company.instagramUrl" name="reply_email_address" placeholder="Enter Instagram Url address" />
                             <p class="input-wrap-label"> Log into your company's Instagram page and copy the URL</p>
                         </div>
                     </div>
@@ -80,81 +92,6 @@
                         <a class="long-button gray-button" ng-click="changeFooterDetails(company)" href="">Update Email Footer</a>
                     </div>
                 </div>
-
-
-
-<!--<div class="page-background">
-<div class="page-content-container email-list-contact-page email-draft-page" id="footerdiv">
-    <div class="fleft content ">-->
-        
-        <!--<div class="hub-section" ng-init="getFooterDetails()">
-        <div class="page-content-title"><span class="h2">Email Footer Settings</span><p>This footer will be added to the bottom all emails being sent out. </p></div>
-       
-        <div class="emailSettings-container fleft  main-container main-container70width col-8of10">
-            <div class="col-1of1 fleft">
-                <div class="col-7of10 fleft">
-                    <div class="h4" style="">
-                        Company Address 
-                    </div>
-                    <input id="from_address" class="fluid"  type="text" name="from_address" value="{{footerDetails.address}}" placeholder="Enter default email address" readonly/>
-                    <p> We need this to comply with email spam (CANSPAM) laws</p>
-                </div>
-            </div>
-            <div class="col-1of1 fleft pushUp">
-                <div class="col-7of10 fleft">
-                    <div class="h4" style="">
-                        Website URL
-                    </div>
-                    <input id="reply_email_address" class="fluid" type="text" value="{{footerDetails.websiteUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
-                    <p> This can be copied from the browser <a class="input-help" href="#">Click to learn how</a></p>
-                </div>
-            </div>
-            <div class="col-1of1 fleft pushUp">
-                <div class="col-7of10 fleft">
-                    <div class="h4" style="">
-                       Facebook URL
-                    </div>
-                    <input id="reply_email_address" class="fluid"  type="text" value="{{footerDetails.facebookUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
-                     <p> Log into your company's Facebook page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
-                </div>
-            </div>
-            <div class="col-1of1 fleft pushUp">
-                <div class="col-7of10 fleft">
-                    <div class="h4" style="">
-                       Twitter URL
-                    </div>
-                    <input id="reply_email_address" class="fluid"  type="text" value="{{footerDetails.twitterUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
-                   <p> Log into your company's Twitter page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
-                </div>
-            </div>
-            <div class="col-1of1 fleft pushUp">
-                <div class="col-7of10 fleft">
-                    <div class="h4" style="">
-                        Instagram URL 
-                    </div>
-                    <input id="reply_email_address" class="fluid"  type="text" value="{{footerDetails.instagramUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
-                    <p> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
-                </div>
-            </div>
-            <div class="col-1of1 fleft pushUp">
-                <div class="col-7of10 fleft">
-                    <div class="h4" style="" ng-click="emailFooterPopup()">
-                        <div class="update-container">
-                            <span class="small-button slat-button">Update Email Footer</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>   
-        </div>-->
-        
-<!--    </div>   
-</div>
-</div>-->
-<!--<div ng-include="'emailfooterpopup.html'"></div>-->
-
-
-
                 <div class="hub-section">
                      <div class="section-header">
                          <h3>Upload Unsubscribed Emails</h3>

@@ -5,14 +5,14 @@
  */
 package com.intbittech.services.impl;
 
-import com.intbittech.utility.IConstants;
-import com.intbittech.divtohtml.StringUtil;
 import com.google.gson.Gson;
+import com.intbittech.divtohtml.StringUtil;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.EmailInfo;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.EmailListService;
+import com.intbittech.utility.IConstants;
 import com.intbittech.utility.StringUtility;
 import com.intbittech.utility.Utility;
 import java.sql.SQLException;
@@ -20,12 +20,10 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
-import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.simple.JSONArray;
@@ -60,7 +58,7 @@ public class EmailListServiceImpl implements EmailListService {
     private CompanyPreferencesService companyPreferencesService;
 
     @Override
-    public String getEmailList(HttpServletRequest request, Integer companyId, String emailListName) throws Exception {
+    public String getEmailList(String queryParameter, Integer companyId, String emailListName) throws Exception {
 
         JSONObject responseObject = new JSONObject();
         JSONArray emailListNames = new JSONArray();
@@ -73,8 +71,6 @@ public class EmailListServiceImpl implements EmailListService {
         }
         
         JSONObject emailListJSONObject = (JSONObject) jsonParser.parse(companyPreferences.getEmailList());
-
-        String queryParameter = (String) request.getParameter("update");
 
         if (queryParameter.equalsIgnoreCase("allEmailListNames")) {
             emailListNames = getEmailListNames(emailListJSONObject, EmailListType.Regular);
@@ -562,16 +558,23 @@ public class EmailListServiceImpl implements EmailListService {
                     if (emailListName.equals(currentListName)) {
 
                         JSONArray emailAddressesJSONArray = (JSONArray) emailListJSONObject.get(IConstants.kEmailAddressesKey);
-                        for (int j = 0; j < emailAddressesJSONArray.size(); j++) {
-                            JSONObject emailAddressJSONObject = (JSONObject) emailAddressesJSONArray.get(j);
+                        if(emailAddressesJSONArray.size()>0)
+                        {
+                            
+                            for (int j = 0; j < emailAddressesJSONArray.size(); j++) {
+                                JSONObject emailAddressJSONObject = (JSONObject) emailAddressesJSONArray.get(j);
 
-                            EmailInfo email_info_from_database = EmailInfo.fromJSON(emailAddressJSONObject.toString());
-                            String email_address = email_info.getEmailAddress();
-                            String email_address_from_db = email_info_from_database.getEmailAddress();
-                            if (email_address.equalsIgnoreCase(email_address_from_db)) {
-                                return true;
+                                EmailInfo email_info_from_database = EmailInfo.fromJSON(emailAddressJSONObject.toString());
+                                String email_address = email_info.getEmailAddress();
+                                String email_address_from_db = email_info_from_database.getEmailAddress();
+                                if (email_address.equalsIgnoreCase(email_address_from_db)) {
+                                    return false;
+                                }
                             }
+                            return true;
                         }
+                        else
+                            return true;
                     }
                 }
             }

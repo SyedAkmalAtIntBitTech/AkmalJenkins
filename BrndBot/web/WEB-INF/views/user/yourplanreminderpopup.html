@@ -5,7 +5,7 @@
         
         <!--TOP NAV BAR-->
         <div class="header">
-            <a class="exit-button" ng-click="closePopup()" href="">
+            <a class="exit-button" ng-click="closePopup();clickedDeleteAction=false;" href="">
             </a>
             <h2> Task Detail</h2>
             <div class="overlay-header-cta-wrap">
@@ -36,23 +36,14 @@
                 <input class="inputbox SP1" type="hidden" name="note_action_type" id="note_action_type" value='{{scheduleData.schedule_type}}'/>
                 <input class="inputbox SP1" type="hidden" name="note_status" id="note_status" value='{{scheduleData.schedule_type}}'/>
             </div>
+            <span class="validationAlert general-action-alert " ng-if='scheduleData.schedule_title === "" || null'>{{actionNameValidation}}</span>
+
             <div class="overlay-details-pane">
                 <div class="overlay-details-pane-header">TASK DESCRIPTION</div>
                 <div class="detail-sections-wrap-task-textarea">
                     <textarea ng-model="scheduleData.schedule_desc" ng-change="showReminderSaveButton()" class="task-textarea" id="reminderdesc{{scheduleData.schedule_id}}" placeholder="Text Goes here!">{{scheduleData.schedule_desc}}</textarea>
                 </div>
             </div>
-            <!--<div class="overlay-details-pane">
-                <div class="overlay-details-pane-header">TASK DETAILS</div>
-                <div class="detail-sections-wrap">
-                    <div class="detail-section half">
-                        <label class="detail-section-label">Action Status</label>
-                        <div class="status-icon-details">
-                            <div class="overlay-detail-status">{{scheduleData.email_template_status}}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
             <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">TASK DETAILS</div>
                     <div class="detail-sections-wrap">
@@ -61,9 +52,8 @@
                         <div class="detail-section half">
                             <label class="detail-section-label">Date</label>
                             <a class="overlay-detail-input date-input ease-all">
-                                <img type="" class="date-time-input-img" src="/BrndBot/user/images/calendar-gray.svg" />
-                                <input type="text" ng-blur="showSaveButton()" id="emaildatetime1" name="emaildatetime1" />
-                                <!--<input type="hidden" value="{{scheduleData.entities_selected_time| date:'MMM dd yyyy'}}" id="emaildateid"/>-->
+                                <img type="" class="date-time-input-img" src="/BrndBot/images/calendar-gray.svg" />
+                                <input type="text" ng-blur="showReminderSaveButton()" id="emaildatetime1" name="emaildatetime1" />
                                     <script>
                                         
                                         var picker = new Pikaday(
@@ -78,14 +68,14 @@
                                                 
                                     </script>
                             </a>
+                            <span class="validationAlert" ng-if='generalTimeAction'>{{actionDateValidation}}</span>
                         </div>
                        <div class="detail-section half"  style="margin-left:20px;">
                             <label class="detail-section-label">Time of Day</label>
                             <a class="overlay-detail-input time-input ease-all">
-                                <img type="" class="date-time-input-img" src="/BrndBot/user/images/time-gray.svg" />
-                                <input type="text" ng-blur="showSaveButton()" id="timepickertextbox" name="timepickertextbox" value="{{scheduleData.schedule_time}}" readonly />
-                                 <!--                            <input id="timepickeremail123" class="timepickertextbox "  value ="{{scheduleData.schedule_time| date:'hh : mm : a': 'UTC'}}">-->
-                                <!--<script src="js/timepicki.js" type="text/javascript"></script>-->
+                                <img type="" class="date-time-input-img" src="/BrndBot/images/time-gray.svg" />
+                                <input type="text" ng-blur="showReminderSaveButton()" id="timepickertextbox" name="timepickertextbox" value="{{scheduleData.schedule_time}}" readonly />
+                                
                                 <script>
                                         $('#timepickertextbox').timepicki({
                                             show_meridian: true,
@@ -100,10 +90,7 @@
                             </a>
                         </div>
                     </div>
-                    <!--<div class="detail-sections-wrap">
-                        <div class="action-sent-notice">This email was sent successfully at 10:45.
-                    </div>
-                </div>-->
+                    <span class="validationAlert" ng-if='dateLesser'>{{lesserDateValidation}}</span>
             </div>
              
         </div>
@@ -112,124 +99,3 @@
         <a class="reg-button success-button" id="updateAction" ng-click="updateAction(scheduleData)" ng-show="isRecurring === false" >Save Reminder</a>
     </div>    
    </div>
-   
-
-
-
-        <!--<div ng-if="reminderDetailsTab" class="below-nav-container-saved-post-detail" id="reminderdetailsdiv">
-            <div class="inner-content-container-detail">
-                <!--                            <div class="saved-post-header-detail">
-                                                <div id="twtemptyheader" class="h4" ng-show="schedule_desc ===''">Write Notes about this Action</div> 
-                                                <div id="twtnoteheader" class="h4" ng-show="schedule_desc !==''">Notes</div>-->
-                
-                <!--</div>-->
-    <!--            <div class="inner-content-detail">
-                    <div class="fields-note-detail">
-
-                        <!--SAVED POST GOES HERE-->
-
-     <!--                   <div class="input-header-actionDetail" style="">
-                            TITLE
-                        </div>
-                        <input type="text" id="edit_note_title" ng-model="scheduleData.schedule_title"  name="edit_note_title" value="{{scheduleData.schedule_title}}" class="input-field-textfield full"/>
-                        <input class="inputbox SP1" type="hidden" name="note_scheduleid" id="note_scheduleid" value='{{scheduleData.schedule_id}}'/>
-                        <input class="inputbox SP1" type="hidden" name="note_action_type" id="note_action_type" value='{{scheduleData.schedule_type}}'/>
-                        <input class="inputbox SP1" type="hidden" name="note_status" id="note_status" value='{{scheduleData.schedule_type}}'/>
-
-
-                        <div class="inlineFlex">
-                            <!--                                        <div class="half"> 
-                                                                        <div class="input-header-actionDetail" style="">
-                                                                            Status
-                                                                        </div>
-                                                                        <input type="text" id="twnotemplate" value="{{note_template_status}}" class="input-field-textfield width75  " readonly/>
-                                                                    </div>-->
-     <!--                       <div class="half">
-                                <div class="input-header-actionDetail" style="">
-                                    Marketing Program
-                                </div>
-                                <input type="text" id="Generalid" ng-model="scheduleData.marketing_program_name" value="{{scheduleData.marketing_program_name}}" class="input-field-textfield width75" readonly/>
-
-                            </div>
-                        </div>
-                        <div class="input-header-actionDetail h3" style="">
-                            POSTING DETAILS
-                        </div>
-                        <div class="inlineFlex">
-                            <div class="half">
-                                <div class="input-header-actionDetail" style="">
-                                    POSTING TO
-                                </div>
-                                <input type="text" ng-model="scheduleData.schedule_type" value="{{scheduleData.schedule_type}}" class="input-field-textfield width75" readonly/>
-                            </div>
-                        </div>
-                        <div class="input-header-actionDetail h3" style="">
-                            SCHEDULED TO POST ON
-                        </div>
-                        <div class="inlineFlex">
-                            <div class="half">
-                                <div>
-                                    <div class="input-header-actionDetail " >
-                                        DATE  
-                                    </div>
-                                    <input type="text"  ng-model="scheduleData.entities_selected_time"  id="datepickernote"  class="input-field-textfield width75" value="{{scheduleData.entities_selected_time}}" readonly/>                                        
-                                    
-                                </div>
-                            </div>
-                            <div class="half">
-                                <div class="input-header-actionDetail">
-                                    TIME
-                                </div>
-                                <input type="text" ng-model="scheduleData.schedule_time" name="timepickernote" class="timepickertextbox " value="{{scheduleData.schedule_time}}" id="timepickernote"/> 
-<!--                                <script>
-                                    $('#timepickernote').timepicki({
-                                        show_meridian: true,
-                                        min_hour_value: 0,
-                                        max_hour_value: 12,
-                                        step_size_minutes: 01,
-                                        overflow_minutes: true,
-                                        increase_direction: 'up',
-                                        disable_keyboard_mobile: true
-                                    });
-                                </script>-->
-     <!--                       </div>
-                        </div>
-                    </div>
-                </div>
-            </div><script>
-                                        var picker = new Pikaday(
-                                                {
-                                                    field: document.getElementById('datepickernote'),
-                                                    firstDay: 1,
-                                                    minDate: new Date(2000, 0, 1),
-                                                    maxDate: new Date(2050, 12, 31),
-                                                    format: 'MMM DD YYYY',
-                                                    yearRange: [2000, 2050]
-                                                });
-
-                                    </script>
-                                    <textarea ng-model="scheduleData.schedule_desc" class="notes-container-textarea" id="reminderdesc{{scheduleData.schedule_id}}" placeholder="Text Goes here!">{{scheduleData.schedule_desc}}</textarea>
-        </div>
-
-        <div ng-if="savedReminderTab" class="below-nav-container-saved-post-detail" id="savedreminderdiv">
-            <div class="below-nav-container-saved-post-detail">
-                <div class="inner-content-container-detail">
-                    <div class="inner-content-detail">
-                        <div class="saved-note-detail">
-                            <div class="notes-container">
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--CTA Bar-->
- <!--       <div ng-if="reminderDetailsTab" class="" id="reminderactionsave" ng-if="savedReminderTab" class="" id="remindernotesave">
-            <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateNote(scheduleData)" ng-click="updateReminderDescription(scheduleData.schedule_id)">Save Reminder</div>
-            </div>
-        </div>
-       
-    </div>
-</div>

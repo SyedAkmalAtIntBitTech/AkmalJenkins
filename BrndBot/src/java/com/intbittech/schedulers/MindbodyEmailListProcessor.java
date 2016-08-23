@@ -5,7 +5,6 @@
  */
 package com.intbittech.schedulers;
 
-import com.intbittech.divtohtml.StringUtil;
 import com.intbit.ConnectionManager;
 import com.intbittech.component.SpringContextBridge;
 import com.intbittech.divtohtml.StringUtil;
@@ -25,6 +24,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
@@ -56,7 +57,7 @@ public class MindbodyEmailListProcessor implements Runnable {
                 logger.log(Level.INFO, "Started the automation");
                 startProcessing();
             } catch (Exception e) {
-                logger.log(Level.SEVERE, "Interupted the thread of Mindbody email list");
+                logger.log(Level.SEVERE, "Exception Interupted the thread of Mindbody email list."+e.getMessage());
             }
         }
     }
@@ -77,56 +78,58 @@ public class MindbodyEmailListProcessor implements Runnable {
 
     public void processEachRow(Integer companyId, Integer companyLocation) throws ParseException {
         JSONArray json_email_array = new JSONArray();
-        
+
         int[] siteids = new int[]{companyLocation};
         MindBodyClass mind_body_class = new MindBodyClass(siteids);
         HashMap<String, List<Client>> clientIndexesHashmap = new HashMap<String, List<Client>>();
         CompanyPreferencesService companyPreferencesService = SpringContextBridge.services().getCompanyPreferencesService();
         CompanyPreferences companyPreferences = companyPreferencesService.getByCompanyId(companyId);
         Map<String, String> unsubscribedEmailsMap = companyPreferencesService.getUnsubscribedEmailsMap(companyPreferences);
+
         try {
-                long startTime = System.currentTimeMillis();
-                logger.log(Level.INFO, "Started working on getting email lists for :" + siteids[0]);
-                //String key is the Email List Name. And the value is the clients associated with it.
-                try {
-                    clientIndexesHashmap = mind_body_class.getAllClientIndexes();
-                } catch (Exception ex) {
-                    logger.log(Level.SEVERE, "Mindbody email list processor", ex);
-                }
-                logger.log(Level.INFO, "Ended working on getting email lists for :" + siteids[0] + " Processing time:" + ((System.currentTimeMillis() - startTime) / 1000.0) + " Email Indexes Present:" + clientIndexesHashmap.keySet().size());
-                //convert clientIndexesHashmap to JSONObject and update table
-                //Email list name : [clientEmailAddresses].
-                //iterates through every emaillist
-                for (String email_list_name : clientIndexesHashmap.keySet()) {
-                    org.json.JSONObject json_email_object = new org.json.JSONObject();
-                    List email_client = (List<Client>) clientIndexesHashmap.get(email_list_name);
-                    org.json.JSONArray json_array_emailclient = new org.json.JSONArray();
-                    //iterates throught every email in emaillist
-                    for (int i = 0; i < email_client.size(); i++) {
-                        Client email_object1 = (Client) email_client.get(i);
-                        String email_id = email_object1.getEmail();
-
-                        String first_name = email_object1.getFirstName();
-                        String last_name = email_object1.getLastName();
-                        if (!Utility.checkIfUnsubscribed(email_id, unsubscribedEmailsMap)) {
-                            EmailInfo email_info = new EmailInfo(email_id, first_name, last_name, dateFormat.format(new Date()));
-                            json_array_emailclient.put(email_info.getEmailInfoJSONObject());
-                        }                        
-                    }
-                    
-                    json_email_object.put(IConstants.kEmailListNameKey, "Mindbody - " + email_list_name);
-                    json_email_object.put(IConstants.kEmailAddressesKey, json_array_emailclient);
-                    json_email_array.add(json_email_object);
-
-                }
-
-                if (json_email_array.size() >= 0) {
-                    updateUserPreferencesTable(companyId, json_email_array);
-                }
-
-            } catch (Exception e) {
-                logger.log(Level.SEVERE, "Mindbody email list processor", e);
+            long startTime = System.currentTimeMillis();
+            logger.log(Level.INFO, "Started working on getting email lists for :" + siteids[0] + " - " + companyId);
+            //String key is the Email List Name. And the value is the clients associated with it.
+            try {
+                clientIndexesHashmap = mind_body_class.getAllClientIndexes();
+            } catch (Exception ex) {
+                logger.log(Level.SEVERE, "Mindbody email list processor", ex);
             }
+            logger.log(Level.INFO, "Ended working on getting email lists for :" + siteids[0] + " Processing time:" + ((System.currentTimeMillis() - startTime) / 1000.0) + " Email Indexes Present:" + clientIndexesHashmap.keySet().size());
+                //convert clientIndexesHashmap to JSONObject and update table
+            //Email list name : [clientEmailAddresses].
+            //iterates through every emaillist
+            for (String email_list_name : clientIndexesHashmap.keySet()) {
+                JSONObject savedMindBodyEmailList = getMindBodySavedEmailList(email_list_name, companyId);
+                
+                
+                org.json.JSONObject json_email_object = new org.json.JSONObject();
+                List email_client = (List<Client>) clientIndexesHashmap.get(email_list_name);
+                org.json.JSONArray json_array_emailclient = new org.json.JSONArray();
+                //iterates throught every email in emaillist
+                for (int i = 0; i < email_client.size(); i++) {
+                    Client client = (Client) email_client.get(i);
+                    String email_id = client.getEmail();
+                    EmailInfo email_info = checkIfExistingInSavedEmailList(savedMindBodyEmailList, client);
+
+                    if (!Utility.checkIfUnsubscribed(email_id, unsubscribedEmailsMap)) {
+                        json_array_emailclient.put(email_info.getEmailInfoJSONObject());
+                    }
+                }
+
+                json_email_object.put(IConstants.kEmailListNameKey, MBEmailListName(email_list_name));
+                json_email_object.put(IConstants.kEmailAddressesKey, json_array_emailclient);
+                json_email_array.add(json_email_object);
+
+            }
+
+            if (json_email_array.size() >= 0) {
+                updateUserPreferencesTable(companyId, json_email_array);
+            }
+
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Mindbody email list processor", e);
+        }
 //        }
     }
 
@@ -137,4 +140,41 @@ public class MindbodyEmailListProcessor implements Runnable {
         map.put(IConstants.kEmailListMindbodyKey, mindbodyEmails);
         emailListService.setEmailList(map, companyId);
     }
+    
+    private String MBEmailListName(String name) {
+        return "Mindbody - " + name;
+    }
+
+    private JSONObject getMindBodySavedEmailList(String email_list_name, Integer companyId) throws Exception {
+        EmailListService emailListService = SpringContextBridge.services().getEmailListService();
+
+        String savedEmailListsString = emailListService.getEmailList("emailsForEmailList", companyId, MBEmailListName(email_list_name));
+        JSONParser jsonParser = new JSONParser();
+        if (!StringUtil.isEmpty(savedEmailListsString)) {
+            JSONObject savedEmailJSONObject = (JSONObject) jsonParser.parse(savedEmailListsString);
+            return savedEmailJSONObject;
+        }
+        return null;
+    }
+
+    private EmailInfo checkIfExistingInSavedEmailList(JSONObject savedMindBodyEmailList, Client client) {
+        JSONArray emailAddressesJSONArray = (JSONArray) savedMindBodyEmailList.get(IConstants.kEmailMindbodyEmailAddresses);
+        if (emailAddressesJSONArray != null && emailAddressesJSONArray.size() > 0) {
+            for (Object emailAddressesObject : emailAddressesJSONArray) {
+                JSONObject emailAddressJSONObject = (JSONObject) emailAddressesObject;
+                EmailInfo savedEmailModel = EmailInfo.fromJSON(emailAddressJSONObject.toString());
+                if (StringUtil.isEqualIgnoreCase(savedEmailModel.getEmailAddress(), client.getEmail())) {
+                    //This is for backward checking
+                    if (StringUtil.isEmpty(savedEmailModel.getAddedDate())) {
+                        savedEmailModel.setAddedDate(dateFormat.format(new Date()));
+                    }
+                    return savedEmailModel;
+                }
+            }
+        }
+
+        EmailInfo emailModel = new EmailInfo(client.getEmail(), client.getFirstName(), client.getLastName(), dateFormat.format(new Date()));
+        return emailModel;
+    }
+    
 }

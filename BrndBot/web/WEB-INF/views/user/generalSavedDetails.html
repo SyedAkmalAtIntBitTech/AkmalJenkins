@@ -1,30 +1,58 @@
 <div  ng-show='generalSavedDetails'>
     
-    <div id="noemailsdiv" ng-if="savedEmail === false">
-        <div class="overlay-content">
-            <div class="overlay-empty-container">
-                <div class="empty-wrap">
-                    <object type="image/svg+xml" data="/BrndBot/user/images/Overlay_EmptyStates_email.svg"></object>
-                    <p>{{actionTypeNoTemplateMessage}}</p>
-                    <a class="reg-button blue-button empty-wrap-button" href="{{savedDetailsAddTemplateLink}}" ng-if="isRecurring === false">{{savedDetailsAddTemplateButton}}</a>
-                    <a class="reg-button blue-button empty-wrap-button" ng-click="redirectToEmailAutomation('emailautomation','template','', schedule_id)" ng-if="isRecurring === true">{{savedDetailsAddTemplateButton}}</a>
-                </div>
-            </div>
-        </div>
-    </div>
      <div class="overlay-content" ng-show="savedEmail">
-         <div ng-show="masterActionType=='Twitter'">
-             <div class="overlay-content">
+         <div ng-if="isRecurring === true">
+        <div class="overlay-content" >
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
-                        <div>Saved Post Details</div>
-                        <a class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Post</a>
+                        <div >SAVED EMAIL DETAILS</div>
+                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);"> Remove Saved Email</a>
                     </div>
-                    <div ng-show="clickedRemoveAction" class="action-pop-up remove-saved-action-template-pop-up ease-all">
+                    <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all ease-all">
+                        <strong>Are you sure you want to remove this saved email?</strong>
+                        
+                        <div class="cta-wrapper">
+                            <a ng-click="promptHideShow(false);" href="" class="cancel-button">Cancel</a>
+                            <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader,'')" href="" class="delete-button">Remove</a>
+                        </div>
+                    </div>
+                    <div class="detail-sections-wrap">
+                        <div class="detail-section">  
+                            <div class="detail-section-item">
+                                <label class="detail-section-label">Subject Line</label>
+                                <p class="detail-section-data">{{recurringScheduleData.entities_subject}}</p>
+                            </div>
+                            <div class="detail-section-item">
+                                <label class="detail-section-label">Reply-to-address:</label>
+                                <p class="detail-section-data">{{recurringScheduleData.entities_reply_to_email_address}}</p>
+                            </div>
+                            <div class="detail-section-item">
+                                <label class="detail-section-label"> From name:</label>
+                                <p class="detail-section-data">{{recurringScheduleData.entities_from_name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           
+                <div class="email-preview-bar">EMAIL PREVIEW</div>
+                <div class="overlay-email-preview"><iframe id="iframeForRecurringEmail" class="email-overlay-iFrame"></iframe>
+                    <!--iframe goes here-->
+                </div>
+        </div>
+         </div>
+         
+         <div ng-show="masterActionType=='Twitter'">
+             <div class="overlay-content">
+                 <div class="overlay-details-pane">
+                    <div class="overlay-details-pane-header">
+                        <div>Saved Post Details</div>
+                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);"> Remove Saved Post</a>
+                    </div>
+                    <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-action-template-pop-up ease-all">
                         <strong>Are you sure you want to remove this post?</strong>
                        
                         <div class="cta-wrapper">
-                            <a ng-click="clickedRemoveAction = false" href="" class="cancel-button">Cancel</a>
+                            <a ng-click="promptHideShow(false);" href="" class="cancel-button">Cancel</a>
                             <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader,'')" href="" class="delete-button">Remove</a>
                         </div>
                     </div>
@@ -55,13 +83,13 @@
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div>Saved Post Details</div>
-                        <a class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Post</a>
+                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);"> Remove Saved Post</a>
                     </div>
-                    <div ng-show="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all">
+                    <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all">
                         <strong>Are you sure you want to remove this saved post?</strong>
                        
                         <div class="cta-wrapper">
-                            <a ng-click="clickedRemoveAction = false" href="" class="cancel-button">Cancel</a>
+                            <a ng-click="promptHideShow(false);" href="" class="cancel-button">Cancel</a>
                             <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader,'')" href="" class="delete-button">Remove</a>
                         </div>
                     </div>
@@ -71,7 +99,7 @@
                                 <label class="detail-section-label">Post Text</label>
                                 <p class="detail-section-data">{{entitiesdetails.metadata.post_text}}</p>
                             </div>
-                            <div ng-show="entitiesdetails.metadata.url != 'undefined'">
+                            <div ng-show="entitiesdetails.metadata.url != ''">
                                 <div class="detail-section-item">
                                     <label class="detail-section-label">Post Url</label>
                                     <p class="detail-section-data">{{entitiesdetails.metadata.url}}</p>
@@ -95,7 +123,7 @@
                                     <img id="prevfbimg" src="/BrndBot/downloadImage?imageType=LAYOUT_IMAGES&amp;imageName=13.jpg">
                                 </div>
                                 <div ng-show="entitiesdetails.image_type == 'url'" style="display: none;">
-                                    <img id="prevfbimg" src="13.jpg">
+                                    <img id="prevfbimg" src="">
                                 </div>
                             </div>
                         </div>
@@ -107,16 +135,17 @@
          
          
          <div class="overlay-content" ng-show="masterActionType=='Email'">
-                <div class="overlay-details-pane">
+                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div >SAVED EMAIL DETAILS</div>
-                        <a class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Email</a>
+                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="editSavedEmail(schedule_id,entitiesdetails);"> Edit Saved Email</a>
+                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);"> Remove Saved Email</a>
                     </div>
-                    <div ng-show="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all ease-all">
+                    <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all ease-all">
                         <strong>Are you sure you want to remove this saved email?</strong>
                         
                         <div class="cta-wrapper">
-                            <a ng-click="clickedRemoveAction = false" href="" class="cancel-button">Cancel</a>
+                            <a ng-click="promptHideShow(false);" href="" class="cancel-button">Cancel</a>
                             <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader,'')" href="" class="delete-button">Remove</a>
                         </div>
                     </div>
@@ -125,6 +154,7 @@
                             <div class="detail-section-item">
                                 <label class="detail-section-label">subject line</label>
                                 <p class="detail-section-data">{{entitiesdetails.subject}}</p>
+                                <p hidden="">{{entitiesdetails.preheader}}{{entitiesdetails.html_body}}</p>
                             </div>
                             <div class="detail-section-item">
                                 <label class="detail-section-label">send to list</label>
@@ -134,111 +164,24 @@
                     </div>
                 </div>
            
-                <div class="email-preview-bar">EMAIL PREVIEW</div>
+                <div class="email-preview-bar">EMAIL PREVIEW </div>
                 <div class="overlay-email-preview"><iframe id="iframeForAction" class="email-overlay-iFrame"></iframe>
                     <!--iframe goes here-->
                 </div>
         </div>
-<!--                <div class="overlay-name-bar">
-                    <input size="40" value="Email Action Name"></input>
-                    <a class="reg-button gray-button dropdown">
-                        <span>Edit Saved Template</span>
-                        <i></i>
-                    </a>
+    </div>
+    <div id="noemailsdiv" ng-if="savedEmail === false">
+        <div class="overlay-content">
+            <div class="overlay-empty-container">
+                <div class="empty-wrap">
+                    <object type="image/svg+xml" data="/BrndBot/images/Overlay_EmptyStates_email.svg"></object>
+                    <p>{{actionTypeNoTemplateMessage}}</p>
+                    <!--need to have a bunch of button state management. We should have a factory -->
+                    <a class="reg-button blue-button empty-wrap-button" href="{{savedDetailsAddTemplateLink}}" ng-if="isRecurring === false && masterActionType!='Email'">{{savedDetailsAddTemplateButton}}</a>
+                    <a class="reg-button blue-button empty-wrap-button" href="" ng-click="saveEmailByActionId(schedule_id)" ng-if="isRecurring === false && masterActionType=='Email'">{{setEmailToThisAction}}</a>
+                    <a class="reg-button blue-button empty-wrap-button" ng-click="redirectToEmailAutomation('emailautomation','template','', schedule_id)" ng-if="isRecurring === true">{{savedDetailsAddTemplateButton}}</a>
                 </div>
-                <div class="overlay-details-pane">
-                    <div class="overlay-details-pane-header">SAVED EMAIL DETAILS</div>
-                    <div class="detail-sections-wrap">
-                        <div class="detail-section">
-                            <div class="detail-section-item">
-                                <label>Subject Line</label>
-                                <span class="email-overlay-saved-info">{{entitiesdetails.subject}}</span>
-                            </div>
-                            <div class="detail-section-item">
-                                <label>Send to List</label>
-                                <div class="email-send-to-list-item">{{entitiesdetails.email_list_name}}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
-           
-<!--                <div class="overlay-email-preview-header">
-                    <h3>SAVED EMAIL</h3>
-                    <p >Last Saved on Decemaber 3rd 2016 10:15 AM</p>
-                </div>-->
-               <!-- <div class="overlay-email-preview">
-<!--                    <div ng-show="masterActionType=='Email'"><iframe id="iframeForAction" width="500" height="400"></iframe></div>
-                    <div ng-show="masterActionType=='Twitter'">
-                        <div>Tweet text: <input ng-model="entitiesdetails.metadata.text" readonly/></div>
-                        <div ng-hide="entitiesdetails.metadata.shorturl==''">Tweet Url: <input ng-model="entitiesdetails.metadata.shorturl" readonly/></div>
-                        <div class="Facebook-link-container">
-                            <div ng-show="entitiesdetails.image_type == 'gallery'">
-                                <img id="prevfbimg" src="/BrndBot/downloadImage?imageName="+entitiesdetails.image_name+"&imageType=GALLERY&companyId="+companyId"/>
-                            </div>
-                        </div>
-                    </div>-->
-<!--                    <div ng-show="masterActionType=='Facebook'">
-                       <div class="Facebook-preview-name ng-binding">Facebook text: <input ng-model="entitiesdetails.metadata.post_text" readonly/></div>
-                       <div class="Facebook-preview-desc ng-binding">Facebook description: <input ng-model="entitiesdetails.metadata.description" readonly/></div>
-                        <div class="Facebook-link-container">
-                            <div class="Facebook-preview-image">
-                                <div ng-show="entitiesdetails.image_type == 'gallery'">
-                                    <img id="prevfbimg" src="/BrndBot/downloadImage?imageType=GALLERY&amp;imageName="+entitiesdetails.image_name+"&amp;companyId="+companyId/>
-                                </div>
-                                            <div ng-show="entitiesdetails.image_type == 'layout'" style="display: none;">
-                                              <img id="prevfbimg" src="/BrndBot/downloadImage?imageType=LAYOUT_IMAGES&amp;imageName=13.jpg">
-                                            </div>
-                                            <div ng-show="entitiesdetails.image_type == 'url'" style="display: none;">
-                                              <img id="prevfbimg" src="13.jpg">
-                                            </div>
-                            </div>
-                            <div class="Facebook-preview-link-container">
-                                <div class="Facebook-preview-link-title ng-binding">Facebook title: <input ng-model="entitiesdetails.metadata.title" readonly/></div>
-                                <div class="Facebook-preview-link-description ng-binding">Facebook description: <input ng-model="entitiesdetails.metadata.description" readonly/></div>
-                                <div class="Facebook-preview-link-url ng-binding">Facebook Url: <input ng-model="entitiesdetails.metadata.url" readonly/></div>
-                            </div>
-                        </div>
-                    </div>-->
-<div ng-if="isRecurring === true">
-        <div class="overlay-content" >
-                <div class="overlay-details-pane">
-                    <div class="overlay-details-pane-header">
-                        <div >SAVED EMAIL DETAILS</div>
-                        <a class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Email</a>
-                    </div>
-                    <div ng-show="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all ease-all">
-                        <strong>Are you sure you want to remove this saved email?</strong>
-                        
-                        <div class="cta-wrapper">
-                            <a ng-click="clickedRemoveAction = false" href="" class="cancel-button">Cancel</a>
-                            <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader,'')" href="" class="delete-button">Remove</a>
-                        </div>
-                    </div>
-                    <div class="detail-sections-wrap">
-                        <div class="detail-section">  
-                            <div class="detail-section-item">
-                                <label class="detail-section-label">Subject Line</label>
-                                <p class="detail-section-data">{{recurringScheduleData.entities_subject}}</p>
-                            </div>
-                            <div class="detail-section-item">
-                                <label class="detail-section-label">Reply-to-address:</label>
-                                <p class="detail-section-data">{{recurringScheduleData.entities_reply_to_email_address}}</p>
-                            </div>
-                            <div class="detail-section-item">
-                                <label class="detail-section-label"> From name:</label>
-                                <p class="detail-section-data">{{recurringScheduleData.entities_from_name}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-           
-                <div class="email-preview-bar">EMAIL PREVIEW</div>
-                <div class="overlay-email-preview"><iframe id="iframeForRecurringEmail" class="email-overlay-iFrame"></iframe>
-                    <!--iframe goes here-->
-                </div>
+            </div>
         </div>
     </div>
-                </div>
-    
-        </div>
-</div>
+    </div>

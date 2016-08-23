@@ -14,25 +14,23 @@
             <h2 class="">Unsubscribe Emails Settings</h2>
             <a class="modal-pane-header-exit">
                 <div class="popUp_close " ng-click="hideUnsubscribeEmailsPopup()">
-                    <img type="image/svg+xml" src="../images/Pop-Up-Exit-Button.svg" class="fleft popUp_close-icon cursor-shape">
+                    <img  src="../images/Pop-Up-Exit-Button.svg" class="fleft cursor-shape">
                 </div>
             </a>
         </div>
         <div class="modal-pane-content-wrap" style="overflow-y: scroll;">
             <p class="modal-content-header">Please select a csv file with email addresses to unsubscribe them.</p>
             <div class="input-wrap">
-                <!--<label>Choose file </label>-->
                 <div class="input">
-                    <!--<input type="file" id="fileid" ng-change="angular.element(this).scope().uploadEmailListOnClick(this)">-->
                     <input type="file" id="fileid">
-                    <!--<input type="file" id="fileid" file-reader="fileContent" />-->
-<!--                    <br><br>
-                    <p><center>
-                        <a class="small-button slat-button" ng-click="uploadEmailListOnClick()">Upload CSV</a></center>
-        </p>-->
                 </div>
+                <span class="validationAlert" ng-show="csvFileValidation">{{uploadCsvValidation}}</span>
+                <span class="validationAlert" ng-show="csvValidation">{{validCsvFileValidation}}</span>
+                <span class="validationAlert" ng-show="csvInvalidValidation">{{invalidCsvValidation}}</span>
+
+
             </div>
-            
+
         </div>
         <div class="modal-cta-container" ng-click="uploadEmailListOnClick()">
             <a class="long-button blue-button">Unsubscribe Now</a>

@@ -40,12 +40,13 @@ var defaultSendEmailFrom = "mail@brndbot.com";
 var bitlyUserName = "sandeep264328";
 var bitlyKey = "R_63e2f83120b743bc9d9534b841d41be6";
 
+
 function getHost(){
      return global_host_address;
 }
 
 function debugAlert(message){
-    alert(message);
+    growl(message);
 }
 
 function kUserPreference_HasLoggedInFacebook (){
@@ -79,4 +80,10 @@ function getBitlyUserName(){
 function getBitlyKey(){
     return bitlyKey;
 }
-
+function growl(message,type)
+{
+    if(!type)
+        $.growl.notice({message: message});
+    else
+        $.growl.error({message: message});
+}

@@ -1,153 +1,99 @@
 <style>
-/*    .rcorners2 {
-        border-radius: 5px;
-        border: 2px solid #00b386;
-        padding: 2px; 
-                        width: 200px;
-                        height: 150px; 
-    }*/
     .rcorners2 {
     width: 30px;
     height: 23px;
-    background: #DFDFDF url('images/backbutton.svg') no-repeat 0px -252px;
+    background: #DFDFDF url('../images/backbutton.svg') no-repeat 0px -252px;
     cursor: pointer;
     position: absolute;
     margin: -10px 0px 0px -12px;
     border-radius: 15px;
     opacity: 0;
 }
+.template-border-Active{
+    border: 2px solid rgb(30, 173, 252);
+}
 </style>
-<link rel="stylesheet" type="text/css" href="css/style_detail_overlay-6.css"/>
-<!--<div ng-show="overlayFade" id="fade" class="black_overlay"></div>-->
 <div ng-include src="'emailpreview.html'"></div>
-<!--<div ng-include src="'emailpreview.html'"></div>--> 
-<script>
-//                tinymce.init({
-//                    selector: 'td.mce-content-body',
-//                    width:400,
-//                    inline: true,
-//                    plugins: [
-//                        'advlist custombutton autolink lists link image charmap print preview anchor',
-//                        'searchreplace visualblocks code fullscreen',
-//                        'insertdatetime media table contextmenu paste',
-//                        'template paste textcolor colorpicker textpattern imagetools'
-//                    ],
-//                    toolbar1: ' insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image ',
-//                    toolbar2: ' forecolor backcolor | fontselect fontsizeselect custombutton fileuploader ',
-//                     menubar: false,
-//    });
-
-</script>
-
-<!--<div id="boxes" >
-    <div id="dialog" class="window" >
-    </div>
-    <div id="mask"></div>
-</div> -->
-
-<!--SideNav-->
-<!--<div class="content-main" ng-controller="MyController">   -->
-<div class="content-main" ng-init="emailEditorInit()">  
-    <div ng-include src="'emaileditormindbodypopup.html'">
-    </div> 
-    <!--Top Nav-->   
-    <div class="top-nav-full">
-        <div class="page-title-bar col-1of1" ng-init="redirectBaseURL()">
-            <!--<a class="exit-button-icon" href="emailsubjects?categoryId={{categoryId}}&subCategoryId=<{{categoryId}}&mindbodyId={{mindbodyId}}&LookupId={{LookupId}}&emailSubject={{emailSubject}}">-->    
-            <a class="exit-button-icon" href="baseemaileditor#/emailsubjects" >
-                <div class="exit-button-detail">
-                        <img  src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/> 
-                </div>
-            </a>    
-                <!--</a>-->
-            <div class="page-title-with-back page-title-font">Email Editor</div>
-            <div class="page-cta-container">
-                <a href="" class="gray-button fleft pushright">
-                    <div class="nounderline md-button" id="emailpreview" ng-click="emailPreviewOnClick()">  Preview Email</div>  
-                </a>
-                <a href="" class="gray-button fleft ">
-                    <div class=" md-button" id="saveToDraft" ng-click="saveToDraftOnClick()">  Save as Draft</div>    
-                </a>
-            </div>
-        </div>
-    </div>
     <!--Main Content GENERIC--> 
-    <div class="emailEditor-page-background fleft">
-
-
-
-
-
-
-        <!--...................tinyMce test code...............-->
-        <div  class="emailEditor-page-background" style="width: 75%; height: 100%;float: left;">
-            <div style="max-height: 62%;overflow: auto">
-                <div  id ="defaultBlock" >
-                     <div class="editor_rightside ui-sortable" style="min-height: 438px; width: 1275px;">
-
-            <div class="emailrender ui-sortable" id="tinymceEditorBody" style="min-height: 523px; height: auto;">
+ <div ng-include src="'emaileditormindbodypopup.html'"></div>     
+<div class="main-content-wrap no-side-nav" ng-init="emailEditorInit()">
+   
+    <div class="top-nav-wrap full">
+        <div class="sequence-page-header">
+            <div class="sequence-left-wrap" ng-init="redirectBaseURL()">
+                
+                <a class="sequence-page-back-button" href="baseemaileditor#/emailsubjects"></a>
+                <h2 class="sequence-page-title"> Create an Email</h2>
+            </div>
+            <div class="sequence-step-wrap">
+                <ul>
+                    <a class="sequence-step">Subject</a>
+                    <a class="sequence-step active">Design</a>
+                    <a class="sequence-step ">Send To</a>
+                    <a class="sequence-step">Final Details</a>
+                </ul>
+            </div>
+            <div class="sequence-page-header-cta-wrap">
+                <!--<a>Exit</a>-->
+                <div ng-hide="isEmailSaveAction" class="email-editor-save-exit-button" id="saveToDraft" ng-click="saveToDraftOnClick()"  >Save as Draft and Exit</div> 
             </div>
         </div>
-<!--    <div ng-init="hideEmailEditorOverlay = false" ng-if="hideEmailEditorOverlay" class="emailEditor-page-background fleft">
-        <div class="emailEditor-leftCol ">
-            <script>
-                       
-            </script>   
-            <div id="editor">
-                <div id='edit' class="editorclass" style="margin-top: 5px;">-->
+    </div>
+    <div class="top-s-nav-bar-offset"></div>   
+   <div class="content-wrap content-wrap-sequence-page-editor" >
+        <!--...................tinyMce test code...............-->
+         <div  class="email-editor-wrap">
+                <div class="email-editor-top-buttons-wrap">
+                    <a class="reg-button slat-detail-button" id="emailpreview" ng-click="emailPreviewOnClick()">Preview Email</a>
+                </div>
+            <div class="email-editor-content-wrap">
+                <div  id ="defaultBlock" >
+                    <div class="editor_rightside ui-sortable" >
+                        <div class="emailrender ui-sortable" id="tinymceEditorBody" ></div>
+                    </div>
                 </div>
             </div>
+             <div class="email-bottom-padding">Your Footer Will Be Added On Previewing and Sending</div>
             <div class="emailEditor-leftCol float-lt" style="">
                 <div class="in-editor-footer-wrap" style="position: fixed; bottom: 6%;width: 75%;">
                     <h3>Email Footer</h3>
                     <p>Your email footer is the same on every email. You 
                         see the footer in this email by previewing your email. To edit
                         the footer click email footer settings.</p>
-                    <!--                                        <span class="reg-button gray-button" onclick="editFooter()">Edit Email Footer</span>-->
                     <span class="reg-button gray-button" ng-click="editFooter()">Edit Email Footer</span>
                 </div>
             </div>
-
+    
+            <div id="colpic" class="displayNone" style="width: 200px;height:200px;margin-top: -20px" >
+                <p ng-repeat="color in  colorcode.colors"style="display: inline-block;width: 20px;height:20px;background-color: {{color}}"  ng-click="chengeTemplateColor(color)">
+                </p>
+            </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div class="" style="width: 25%; float: left;">
-            <div class="emailSideBar-Header">
-                <div class="col-1of2 fleft">
+        <div class="email-editor-right-col">
+            <div class="email-editor-tab-wrap">
+                <div class="editor-col-tab">
                     <div class="{{blocktab}}" id="blocktab" ng-init="showBlocks()" ng-click="showBlocks()">
                         Add Block
                     </div>
                 </div>
-                <div class="col-1of2 fleft">
+                <div class="editor-col-tab">
                     <div class="{{styletab}}" id="styletab" ng-init="showStyles('false')" ng-click="showStyles('true')">
                         Change Style
                     </div>
                 </div> 
             </div>
-            <div class="email-Block-Selection right-email-select">
-                <div class="email-Block-Header" id="blockdivheader" ng-show="blockdivheader">Select a block to add:</div>
-                <div class="email-Block-Header" id="styledivheader" ng-show="styledivheader">Select a style for this block:</div>
+            <div class="r-col-editor-wrap">
+                <div class="r-col-editor-header-wrap" id="blockdivheader" ng-show="blockdivheader">Select a block to add:</div>
+                <div class="r-col-editor-header-wrap" id="styledivheader" ng-show="styledivheader">Select a style for this block:</div>
                 <div class="block-selection-divider"></div>
-                <ul class="block-list" id="blockdiv" ng-show="blockdivheader">
-                    <li class="block-slat"  ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="blockOnClick(blocks.emailBlockId)">
-                        <div class="block-name" id="blklist----{{blocks.emailBlockId}}" >{{blocks.emailBlockName}}</div>                            
-                        <div class="block-button hide" ng-click="didChooseBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)" id="div2{{blocks.emailBlockId}}">Add Block</div>
+                <ul class="r-col-block-wrap" id="blockdiv" ng-show="blockdivheader">
+                    <li class="editor-block-slat" ng-class="{'editor-block-slat-selected': activeBlock === blocks.emailBlockId}" ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="blockOnClick(blocks.emailBlockId)">
+                        <div id="blklist----{{blocks.emailBlockId}}" class="blockName">{{blocks.emailBlockName}}</div>                            
+                        <div class="addBlock-button reg-button slat-detail-button hideBlockButton" ng-class="{'hideBlockButton': activeBlock !== blocks.emailBlockId}" ng-click="didChooseBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)" >Add Block</div>
                     </li>
                 </ul>
 
-                <ul class="block-list"  ng-show="styledivheader">
+                <ul class="r-col-block-wrap"  ng-show="styledivheader">
                     <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.modelId}}" ng-click="addActive('stylelistid' + styles.modelId)">
                         <div class="block-name">
                             <img id="{{styles.modelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" ng-click="addHTMLInEmailEditor(styles.modelId)" width="100%" />
@@ -161,9 +107,6 @@
         <div ng-include src="'emailfooterpopup.html'"></div> 
     </span>
 </div>  
-
-<div ng-show="overlayFade" id="fade" class="black_overlay" ></div>
-
 <div class="bottom-cta-bar" id="bottomdiv">
     <div class="bottom-cta-button-container-lg">
         <a href="">
@@ -174,87 +117,19 @@
 <div id="light" class="white_content closepopup">
     <a href = "javascript:void(0)" style="text-decoration:none;">
         <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
-            <p style="margin-top:-7px;"><img src="images/Icons/yourPlan.svg" height="25" width="25" /></p>
+            <p style="margin-top:-7px;">
+                <img src="../images/yourPlan.svg" height="25" width="25" /></p>
         </div>
     </a>
 </div>
-<!--<script type="text/javascript" src="js/plugins/align.min.js"></script>
-<script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
-<script type="text/javascript" src="js/plugins/font_size.min.js"></script>
-<script type="text/javascript" src="js/plugins/font_family.min_editor.js"></script>
-<script type="text/javascript" src="js/plugins/image.min.js"></script>
-<script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
-<script type="text/javascript" src="js/plugins/file.min.js"></script>
-<script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
-<script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
-<script type="text/javascript" src="js/plugins/url.min.js"></script>
-<script type="text/javascript" src="js/plugins/entities.min.js"></script>
-<script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
-<script type="text/javascript" src="js/plugins/save.min.js"></script>
-<script type="text/javascript" src="js/plugins/quote.min.js"></script>
-<script type="text/javascript" src="js/plugins/link.min.js"></script>-->
 <script>
-//            function dragactions() {
-//
+    $(document).ready(function () {
 //                $('.view').find('table:first').find('td:first').mouseenter(function () {
-//                    $(this).find('table:first').addClass('selecthover');
+//                    $(this).find('table:first').addClass('template-border-Active');
 //                });
 //                $('.view').find('table:first').find('td:first').mouseleave(function () {
-//                    $(this).find('table:first').removeClass('selecthover');
+//                    $(this).find('table:first').removeClass('template-border-Active');
 //                });
-//
-//
-//
-//            }
-//
-//
-///////////COLOR SELECTOR///////////////////////
-//            function colorselector() {
-//
-//                $('.colorSelectorinner').hover(function () {
-//                    var seldiv = $(this);
-//
-//                    $(seldiv).ColorPicker({
-//                        color: '#0000ff',
-//                        onShow: function (colpkr) {
-//                            $(colpkr).fadeIn(500);
-//                            return false;
-//                        },
-//                        onHide: function (colpkr) {
-//                            $(colpkr).fadeOut(500);
-//                            return false;
-//                        },
-//                        onChange: function (hsb, hex, rgb) {
-//                            $(seldiv).css('background-color', '#' + hex).attr('bgcolor', '#' + hex);
-//                            //var color = $(this).css( "background-color" );
-//                            $(seldiv).parent('[st-bgcolor="edit"]').attr('bgcolor', '#' + hex);
-//                            //$('.sort table:first td:first table:first').css('backgroundColor', '#' + hex).attr('bgcolor','#' + hex);
-//                        }
-//                    });
-//
-//                });
-//
-//            }
-
-
-
-            $(document).ready(function () {
-                $('.view').find('table:first').find('td:first').mouseenter(function () {
-                    $(this).find('table:first').addClass('selecthover');
-                });
-                $('.view').find('table:first').find('td:first').mouseleave(function () {
-                    $(this).find('table:first').removeClass('selecthover');
-                });
-                 $('.innerbg').mouseenter(function () {
-                            var seldiv = $(this).parents('[st-sortable]');
-                            $(this).colpick({
-                                layout: 'hex',
-                                submit: 0,
-                                onChange: function (hsb, hex, rgb, fromSetColor) {
-                                    $(seldiv).find('table:first').attr('bgcolor', '#' + hex);
-                                }
-                            });
-                        });
                 $(".editor_rightside .emailrender").sortable({
                     connectWith: ".module",
                     opacity: .8,
@@ -262,7 +137,7 @@
                     axis: "y",
                     placeholder: 'highlight',
                     helper: function () {
-                        return $("<div class='highlight' style='height:40px;text-align:center;line-height:40px;'><div style='background-color:#1abc9c;width:600px;margin:auto; color:#ffffff;'>Moving</div></div>");
+                        return $("<div class='highlight' style='height:40px;text-align:center;line-height:40px;'><div style='background-color:#0F76A6;width:600px;margin:auto; color:#ffffff;'>Move This Block</div></div>");
                     }
                 });
 
@@ -291,15 +166,11 @@
                         $('.emailrender a').click(function (event) {
                             event.preventDefault();
                         });
-
-                        //mouseover();
-                        //handleJsIds()
                         dragactions();
                         move_up_down();
                         colorselector();
-//                        tinymcereload();
                         $('.innerbg').mouseenter(function () {
-                            var seldiv = $(this).parents('[st-sortable]');
+                            var seldiv = $(this).parents('[bb-bgcolor]');
                             $(this).colpick({
                                 layout: 'hex',
                                 submit: 0,
@@ -308,41 +179,11 @@
                                 }
                             });
                         });
-
-                        $('.buttonbg').mouseenter(function () {
-                            var seldiv = $(this).parent('[st-button]');
-                            $(this).colpick({
-                                layout: 'hex',
-                                submit: 0,
-                                onChange: function (hsb, hex, rgb, fromSetColor) {
-                                    seldiv.attr('bgcolor', '#' + hex);
-                                    seldiv.css('background-color', '#' + hex);
-                                }
-                            });
-                        });
-                        //monkey
-                        //$('.imgpop').prepend('<div class="uploader_wrap"><div class="upload_buttons"><div class="img_link"></div><div class="img_upload"></div></div></div>');
                         upload_buttons();
-
-
-                        //$('[st-content]')attr("mc:allowdesigner","");
-                        //$('[st-content]').attr(" mc:allowtext","contentattr");
-
-                        //monkey
-                        // var winh=$(".emailrender").height();
-                        // $(".emailrender").css("height",winh-100);
-
 
                     }
                 });
-
-
-
             });
-
-
-
-
         </script>
         <script>
             $(document).ready(function () {
@@ -356,13 +197,10 @@
                 $('.view').find('table:first').find('td:first').mouseleave(function () {
                     $(this).find('table:first').removeClass('selecthover');
                 });
-
-
-
             }
             function removeElm() {
                 $(".emailrender").delegate(".remove", "click", function (e) {
-	e.preventDefault();
+                    e.preventDefault();
                     $(this).closest('table').parents('.module ').slideUp('200', function () {
                         $(this).remove();
                     });
@@ -370,24 +208,6 @@
                     $(this).parents('.view').find('table:first').find('table:first').removeClass('selecthoverred');
                     $(this).parents('.view').find('.move_controls').show();
                 });
-
-
-// $(".emailrender").delegate(".confirmyes", "click", function (e) { 
-
-//         $(this).closest('table').parents('table').parents('.module ').slideUp('200', function(){  $(this).remove(); } );
-//         $(this).closest('.remove').css("opacity","0");
-//         $(this).closest('.confirmbox').remove();
-//         $(this).parents('.view').find('table:first').find('table:first').removeClass('selecthoverred');
-//         $(this).parents('.view').find('.move_controls').show();
-//     });
-
-// $(".emailrender").delegate(".confirmno", "click", function (e) { 
-
-//         $(this).parents('.confirmbox').css({"opacity":"0"}).delay(300).slideUp(1);
-//         $(this).parents('.view').find('table:first').find('table:first').removeClass('selecthoverred');
-//         $(this).parents('.view').find('.move_controls').show();
-//     });
-
             }
 
             function clearDemo() {
@@ -398,141 +218,7 @@
                 $("#menu-layoutit li button").removeClass("active")
             }
 
-
             function cleanHtml(e) {
                 $(e).parent().append($(e).children().html())
             }
-
-
-            function downloadLayoutSrc() {
-
-                var e = "";
-                var emailrendercontent = $(".emailrender").html();
-                $("#download-layout").html(emailrendercontent);
-                var t = $("#download-layout");
-                var contentattr = $('[st-content]').attr("st-content");
-                t.find(".preview, .configuration, .move_controls, .addremove, .colorSelectorinner").remove();
-                t.find(".module").addClass("removeClean");
-                t.find(".box-element").addClass("removeClean");
-                t.find(".module .module .module .module .module .removeClean").each(function () {
-                    cleanHtml(this)
-                });
-                t.find(".module .module .module .module .removeClean").each(function () {
-                    cleanHtml(this)
-                });
-                t.find(".module .module .module .removeClean").each(function () {
-                    cleanHtml(this)
-                });
-                t.find(".module .module .removeClean").each(function () {
-                    cleanHtml(this)
-                });
-
-                t.find(".module .removeClean").each(function () {
-                    cleanHtml(this)
-                });
-                t.find(".removeClean").each(function () {
-                    cleanHtml(this)
-                });
-                t.find(".removeClean").remove();
-                //t.find(".mce-content-body").remove();
-                t.find(".mce-content-body").removeClass("mce-content-body");
-
-
-                //$("#download-layout .emailrender").removeClass("ui-sortable");
-                //$("#download-layout .row-fluid").removeClass("clearfix").children().removeClass("column");
-
-                formatSrc = $.htmlClean($("#download-layout").html(), {
-                    format: true,
-                    allowComments: true,
-                    allowedAttributes: [
-                        ["class"],
-                        ["width"],
-                        ["height"],
-                        ["style"],
-                        ["align"],
-                        ["cellspacing"],
-                        ["cellpadding"],
-                        ["bgcolor"],
-                        ["valign"],
-                        ["border"],
-                        ["st-content"],
-                        ["st-sortable"],
-                        ["st-image"],
-                        ["st-title"],
-                        ["st-webversion"],
-                        ["st-unsubscribe"],
-                        ["mc:edit"],
-                        ['mc:label'],
-                        ["mc:repeatable"],
-                    ]
-                });
-
-                var $body = $(formatSrc).find("body");
-                for (var attrName in bodyAttrs) {
-                    var value = bodyAttrs[attrName];
-                    $body.attr(attrName, value);
-                }
-
-                $("#download-layout").html(formatSrc);
-                templateheader = $('textarea.templatehead').text();
-                templatefooter = $('textarea.templatefooter').text();
-                $("#downloadModal textarea").empty();
-                $("#downloadModal textarea").val(templateheader + formatSrc + templatefooter);
-            }
-
-
-///////////////////////////////////////////////////
-
-            var currentDocument = null;
-            var timerSave = 2e3;
-
-            $(document).ready(function () {
-
-//                $("[data-target=#downloadModal]").click(function (e) {
-//                    e.preventDefault();
-//
-//                    downloadLayoutSrc()
-//                });
-
-
-
-                $("#edit").click(function () {
-                    $("body").removeClass("devpreview sourcepreview");
-                    $("body").addClass("edit");
-                    removeMenuClasses();
-                    $(this).addClass("active");
-                    return false
-                });
-                $("a#clear").click(function (e) {
-                    e.preventDefault();
-                    clearDemo();
-                });
-                $("#devpreview").click(function () {
-                    $("body").removeClass("edit sourcepreview");
-                    $("body").addClass("devpreview");
-                    removeMenuClasses();
-                    $(this).addClass("active");
-                    return false
-                });
-                $("#sourcepreview").click(function () {
-                    $("body").removeClass("edit");
-                    $("body").addClass("devpreview sourcepreview");
-                    removeMenuClasses();
-                    $(this).addClass("active");
-                    return false
-                });
-
-                $(".nav-header").click(function () {
-                    $(".sidebar-nav .boxes, .sidebar-nav .rows").hide();
-                    $(this).next().slideDown()
-                });
-
-
-                //configurationElm();
-                //gridSystemGenerator();
-//    setInterval(function () {
-//        //handleSaveLayout()
-//    }, timerSave)
-            });
-
         </script>

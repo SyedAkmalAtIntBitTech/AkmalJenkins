@@ -50,7 +50,8 @@ public class EmailListController {
         GenericResponse<String> transactionResponse = new GenericResponse();
         
         try {
-            String data = emailListService.getEmailList(request, companyId, emailListName);
+            String queryParameter = (String) request.getParameter("update");
+            String data = emailListService.getEmailList(queryParameter, companyId, emailListName);
             transactionResponse.addDetail(data);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("list_success", new String[]{}, Locale.US)));
             

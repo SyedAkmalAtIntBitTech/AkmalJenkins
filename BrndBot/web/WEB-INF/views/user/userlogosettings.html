@@ -14,17 +14,11 @@
                         <div ng-repeat="step in stepsModel">
                             <img class="thumb" src="{{step}}" />
                         </div>
-                        <div class="logo-container"><textarea class="top55 left10 right10" id="filetext1">Choose an Image to upload</textarea>
-                            <input id="uploadlogo" type="file" file-model="logoImage" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">
-                            <!--                            <input type="hidden" name="upload" value="update"></input>
-                            <input type="file" name="fileUpload" style="border: 1px solid;" class="upload" id="filevalue" onchange="changefilename()"></input>-->
-                            <!--<div ng-repeat="step in stepsModel">
-                                                <img class="thumb" ng-src="{{step}}" />
-                                                </div>-->
-                            <!--<input type="file" file-model="logoImage" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">-->
-
-                        </div>
-                        <span class="validationAlert" ng-if='logoImage == "" || null'>{{logoValidation}}</span>
+                        <div class="logo-container">
+                            <label class="top55 left10 right10 long-button reg-button gray-button" id="filetext1" for="uploadlogo">Upload a New Logo</label>
+                            <input hidden id="uploadlogo" type="file" name="uploadlogo" file-model="logoImage" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">
+                        </div><br>
+                        <span class="validationAlert" ng-if='logoImage === "" || null'>{{logoValidation}}</span>
 
                     </div>
 
@@ -42,17 +36,8 @@
                     </style>
 
 
-
-
-                    <!--                    <div ng-repeat="step in stepsModel">
-                                        <img class="thumb" ng-src="{{step}}" />
-                                        </div>-->
-
-                    <!--                    <input type='file' ng-model-instant onchange="angular.element(this).scope().imageUpload(this)" />-->
-
-
                     <div class="update-container ">
-                        <button class="long-button reg-button gray-button" type="submit" id="Servicecontinue" ng-click="changeLogo(logoImage)"> Change Logo </button>
+                        <button class="long-button reg-button gray-button" type="submit" id="Servicecontinue" ng-click="changeLogo(logoImage)"> Save Logo Changes </button>
                     </div>
                 </form>
             </div>
@@ -72,27 +57,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="update-container ">
-                        <button class="long-button reg-button gray-button" ng-click="showPaletteChangePopUp = true">Change Palette</button>
+                    <div class="update-container no-padding">
+                        <button class="long-button reg-button gray-button" ng-click="showPaletteChangePopUp()">Change Palette</button>
+
                     </div>
-
-                    <!-- Save button-->
-                    <!--<div class="update-container ">
-                       <button  type="button" class="long-button reg-button gray-button" style="margin-left: -6%;" ng-click="saveColorPalette()">Save</button>
-                       <div class="resetpalette ptr" ng-click="clearColorPalette()"> <p id="resetpalette" >RESET ORIGINAL PALETTE</p></div>
-                   </div>-->
-
 
                 </div>
             </div>            
         </div>
 
         <!--Update Palette Modal-->
-        <div ng-show="showPaletteChangePopUp" class="center-pop-ups update-palette-pop-up">
+        <div ng-show="paletteChangePopUp" class="center-pop-ups update-palette-pop-up">
             <div class="modal-pane modal-pane-width-full">
                 <div class="modal-pane-header-wrap">
                     <h2 class="">Change Palette Colors</h2>
-                    <a ng-click="showPaletteChangePopUp = false" class="modal-pane-header-exit"></a>
+                    <a ng-click="closePaletteChangePopUp()" class="modal-pane-header-exit"></a>
                 </div>
                 <div class="modal-pane-content-wrap" ng-init="getColorFromPicker()">
                     <!--PUT PALETTE CHANGING HTML IN HERE-->
@@ -135,9 +114,8 @@
                             </div>
                             <div ng-if="colorFrom === 'logo'" class="palette-wrap" id="logocolor1" >
                                 <div class="palette clear" id="picktheme">
-                                    <!--<div><button type="button" class="btn btn-primary" value="click to display colors" >click to display colors</button></div>-->
                                     <div ng-repeat="col in color">
-                                        <div  class="logo-palette-colorswab fleft" style="background-color:{{col}};" ng-click="getColorID(col)"></div>
+                                        <div  class="palette-colorswab-global fleft" style="background-color:{{col}};" ng-click="getColorID(col)"></div>
                                     </div>
                                 </div>
                             </div>

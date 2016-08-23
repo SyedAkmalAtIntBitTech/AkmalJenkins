@@ -1,10 +1,14 @@
 
 <div class="overlay-content" id="emailactionsection" ng-init='hideSaveButton()' ng-show='generalActions' ng-form name="actionDetailsForm">
+    <div ng-show="isProgramArchived" class="clickProofLayer"></div>
     <div class="overlay-name-bar" ng-show="isRecurring === false">
-        <input size="40" value="Email Action Name" id="email_edit_title" name="email_edit_title" ng-model='scheduleData.schedule_title' ng-change="showSaveButton()" value="{{scheduleData.schedule_title}}">
+        <input size="40" value="Email Action Name" id="email_edit_title" name="email_edit_title" ng-model='scheduleData.schedule_title' ng-change="showSaveButton()" value="{{scheduleData.schedule_title}}"><br/>
         <input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{scheduleData.schedule_id}}' />
         <input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{scheduleData.schedule_type}}'/>
     </div>
+    <span class="validationAlert general-action-alert " ng-if='scheduleData.schedule_title === "" || null'>{{actionNameValidation}}</span>
+
+
                 <div class="overlay-details-pane" ng-show="isRecurring === false">
                     <div class="overlay-details-pane-header">GENERAL DETAILS</div>
                     <div class="detail-sections-wrap">
@@ -13,35 +17,20 @@
                             <div class="status-icon-details">
                                 <div class="status-show">
                                     
-                                        <img ng-show="action_template_status == 'Template Saved'" src="/BrndBot/user/images/template-saved.svg" />
+                                        <img ng-show="action_template_status == 'Template Saved'" src="/BrndBot/images/template-saved.svg" />
                                   
                                  
-                                        <img ng-show="action_template_status == 'No Template'" src="/BrndBot/user/images/no-template.svg"/>
+                                        <img ng-show="action_template_status == 'No Template'" src="/BrndBot/images/no-template.svg"/>
                                  
                                     
-                                        <img ng-show="action_template_status == 'Complete'" src="/BrndBot/user/images/ActionComplete.svg"/>
+                                        <img ng-show="action_template_status == 'Complete'" src="/BrndBot/images/template-complete.svg"/>
                                    
                                    
-                                        <img ng-show="action_template_status == 'Approved'" src="/BrndBot/user/images/template-approved.svg"/>
+                                        <img ng-show="action_template_status == 'Approved'" src="/BrndBot/images/template-approved.svg"/>
                                    
                                  
                                 </div>
                                 <div class="overlay-detail-status">{{action_template_status}}</div>
-<!--                                <div class="overlay-detail-status">{{scheduleData.email_template_status}}</div>
-                                <div class="status-show">
-                                   
-                                        <img ng-show="scheduleData.email_template_status == 'Template Saved'" src="/BrndBot/user/images/template-saved.svg" />
-                                  
-                                 
-                                        <img ng-show="scheduleData.email_template_status == 'No Template'" src="/BrndBot/user/images/no-template.svg"/>
-                                 
-                                    
-                                        <img ng-show="scheduleData.email_template_status == 'Complete'" src="/BrndBot/user/images/ActionComplete.svg"/>
-                                   
-                                   
-                                        <img ng-show="scheduleData.email_template_status == 'Approved'" src="/BrndBot/user/images/template-approved.svg"/>
-                                                                
-                                </div>-->
                             </div>
                         </div>
                         <div class="detail-section half">
@@ -58,9 +47,8 @@
                         <div class="detail-section half">
                             <label class="detail-section-label">Date</label>
                             <a class="overlay-detail-input date-input ease-all">
-                                <img type="" class="date-time-input-img" src="/BrndBot/user/images/calendar-gray.svg" />
+                                <img type="" class="date-time-input-img" src="/BrndBot/images/calendar-gray.svg" />
                                 <input type="text" ng-blur="showSaveButton()" id="emaildatetime" name="emaildatetime" />
-                                <!--<input type="hidden" value="{{scheduleData.entities_selected_time| date:'MMM dd yyyy'}}" id="emaildateid"/>-->
                                     <script>
                                         
                                         var picker = new Pikaday(
@@ -75,14 +63,13 @@
                                                 
                                     </script>
                             </a>
+                            <span class="validationAlert" ng-if='generalTimeAction'>{{actionDateValidation}}</span>
                         </div>
                         <div class="detail-section half" style="margin-left:20px;">
                             <label class="detail-section-label">Time of Day </label>
                             <a class="overlay-detail-input time-input ease-all">
-                                <img type="" class="date-time-input-img" src="/BrndBot/user/images/time-gray.svg" />
+                                <img type="" class="date-time-input-img" src="/BrndBot/images/time-gray.svg" />
                                 <input type="text" ng-blur="showSaveButton()" id="timepickertextbox" name="timepickertextbox" value="{{scheduleData.schedule_time}}" readonly />
-                                 <!--                            <input id="timepickeremail123" class="timepickertextbox "  value ="{{scheduleData.schedule_time| date:'hh : mm : a': 'UTC'}}">-->
-                                <!--<script src="js/timepicki.js" type="text/javascript"></script>-->
                                 <script>
                                         $('#timepickertextbox').timepicki({
                                             show_meridian: true,
@@ -97,14 +84,11 @@
                             </a>
                         </div>
                     </div>
-                    <!--<div class="detail-sections-wrap">
-                        <div class="action-sent-notice">This email was sent successfully at 10:45.
-                    </div>
-                </div>-->
+                    <span class="validationAlert" ng-if='dateLesser'>{{lesserDateValidation}}</span>
             </div>
     
     
-            <div class="bottom-cta-button-container-overlay"  ng-show="showUpdateBtn">
+            <div class="bottom-cta-button-container-overlay"  ng-show="showUpdateBtn && !isProgramArchived">
                 <a class="reg-button success-button" id="updateAction1" ng-click="updateAction(scheduleData)" ng-show="isRecurring === false" >Save Action</a>
             </div>
            
@@ -113,19 +97,19 @@
                    
             <div class="overlay-content" id="recurringactiondiv" ng-show="isRecurring===true">
                 <div class="overlay-name-bar">
-                    <div class="overlay-name-bar-recurring-title"  >{{recurringScheduleData.schedule_title}}</div>
-                    <input type="hidden"  id="recurring_email_title" value="{{schedule_title}}" class="input-field-textfield" readonly/>
+                    <div class="overlay-name-bar-recurring-title" ng-click="hideShowEditDot(true)" >{{recurringScheduleData.schedule_title}}</div>
+                    <input type="hidden" id="recurring_email_title" value="{{schedule_title}}" class="input-field-textfield" readonly/>
                     <input class="inputbox SP1" type="hidden" name="fb_scheduletype" id="fb_scheduletype" value='{{schedule_type}}'/>
                     <input class="inputbox SP1" type="hidden" name="fb_scheduleid" id="fb_scheduleid" value='{{schedule_id}}'/>
-                    <a class="reg-button slat-detail-button edit-email-auto-button" ng-click="redirectToEmailAutomation('emailautomation','edit','', schedule_id)"> Edit Email Automation Details
-                    <div ng-show="editEmailAutoHint=true" class="email-automation-hint"></div></a>
+                    <a ng-hide="isProgramArchived"  class="reg-button slat-detail-button edit-email-auto-button" ng-click="redirectToEmailAutomation('emailautomation','edit','', schedule_id)"> Edit Email Automation Details
+                        <div class="email-automation-hint" ng-show="editAutomationHint"></div></a>
                 </div>
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">GENERAL DETAILS</div>
                     <div class="detail-sections-wrap">
                         <div class="detail-section-item">
                             <label class="detail-section-label">Email Description</label>
-                            <p class="detail-section-data" ng-click="editEmailAutoHint=true">{{recurringScheduleData.schedule_desc}}</p>
+                            <p class="detail-section-data" ng-click="hideShowEditDot(true)">{{recurringScheduleData.schedule_desc}}</p>
                         </div>
                     </div>
                 </div>
@@ -136,10 +120,10 @@
                             <label class="detail-section-label">Trigger to send</label>
                             <div class="recurring-email-trigger-sentence-wrap">
                                 <span class="">Send an email</span>
-                                <span class="user-data" ng-click="editEmailAutoHint=true">{{recurringScheduleData.days}}</span>
+                                <span class="user-data" ng-click="hideShowEditDot(true)">{{recurringScheduleData.days}}</span>
                                 <span class=""> days after being added to</span>
-                                <span class="user-data unselected" ng-click="editEmailAutoHint=false" ng-show="recurringScheduleData.entities_list_name!==''">Need to Select an Email List</span>
-                                <span class="user-data" ng-click="editEmailAutoHint=true" ng-show="recurringScheduleData.entities_list_name!==undefined">{{recurringScheduleData.entities_list_name}}</span>
+                                <span class="user-data unselected" ng-click="hideShowEditDot(true)" ng-hide="hideShowEmailList">Need to Select an Email List</span>
+                                <span class="user-data spanwidthclip" ng-click="hideShowEditDot(true)" ng-show="hideShowEmailList">{{recurringScheduleData.entities_list_name}}</span>
                                 <span class="">email list.</span>
                             </div> 
                        </div>
@@ -147,12 +131,3 @@
                 </div>
             </div>
 </div>
-
-<!--Commented this out not sure if we need this--> 
-
-<!-- <div class="bottom-cta-button-container" ng-show="isRecurring === false">
-    <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateAction(recurringScheduleData)" >Save Action</div>
-</div>
-<div class="bottom-cta-button-container"  ng-show="isRecurring === true">
-     <div class="edit-button-detail md-button button-text-1 edit-button-detailrecemail" ng-click="redirectToEmailAutomation('emailautomation','edit','', schedule_id)">Edit Automation Details</div>
-</div>-->

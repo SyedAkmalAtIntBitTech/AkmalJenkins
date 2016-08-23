@@ -6,8 +6,8 @@ factoryApp.factory('onboardingFactory', function ($q,authenticatedServiceFactory
     onboardingFactoryObject.userPost = function (usersDetails) {
         var deffered = $q.defer();
         var url = configurationService.usersURL();
-        var data = '{"usersDetails":"' + usersDetails + '"}';
-        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
+//        var data = '{"usersDetails":"' + usersDetails + '"}';
+        authenticatedServiceFactory.makeCall("POST", url, usersDetails, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

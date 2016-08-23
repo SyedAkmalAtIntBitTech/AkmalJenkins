@@ -9,7 +9,7 @@
         <div class="top-sub-nav">
             <ul class="sub-nav-tab-wrap sub-nav-tab-wrap-hub">
                 <li class="sub-nav-tab" id="curmarprogli" ng-click="showCurrentPrograms()"> <a ng-class="currentCampaignClass" id="curmarprog">Current Campaigns</a></li>
-                <li class="sub-nav-tab" id="pstmarprogli" ng-click="showPastPrograms()"><a ng-class="archivedCampaignClass" >Archived Campaigns</a></li>
+                <li class="sub-nav-tab" id="pstmarprogli" ng-click="getUserMarketingProgramsClosed('marketingprogramactions');showPastPrograms()"><a ng-class="archivedCampaignClass" >Archived Campaigns</a></li>
 
             </ul>
         </div>
@@ -24,9 +24,18 @@
                 <a id="crtmarkprog" ng-click="rediectToCreateCampaign('createmarketingprogram')" class="long-button green-button">Create a Campaign</a>
             </div>
             <div class="hub-pane-content-wrap">
-                <div ng-show="currentPrograms == ''" id="noprogramsavailable" class="hub-empty-wrap">No campaigns</div>
-                <!--                    <ul  class="main-container fleft" ng-show="current_programs!=''">
-                                           <li class="slat-container fleft selfclear" ng-repeat="program in current_programs">-->
+                <div class="hub-slat-list-wrap" ng-show="currentPrograms == ''">
+                    <div class="slat" >
+                        <div class="slat-name-wrap">
+                            <h2>No Campaigns</h2>
+                        </div>
+                        <div class="slat-detail-wrap">
+                            <div class="slat-detail slat-detail-button ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
                 <div class="hub-slat-list-wrap" id="currprogs" ng-show="currProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
                     <div class="slat" ng-repeat="program in currentPrograms | orderBy:'start_date':true">
                         <div class="slat-name-wrap">
@@ -37,14 +46,13 @@
                             <div class="slat-detail slat-detail-button ">
                                 <a class="reg-button slat-detail-button" ng-click="redirectToActions(forward, program.id, past = 0, program.end_date)">View Campaign</a>
                             </div>
-                            <!--ng-click="sendProgramId(program.id,'0')"--> 
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-show="pastProgramsDiv"   ng-init="getUserMarketingProgramsClosed('marketingprogramactions')">
+    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-show="pastProgramsDiv"  >
         <div class="hub-pane" >
             <div class="hub-pane-header-wrap">
                 <h2 class="">Archived Marketing Campaigns</h2>
@@ -61,8 +69,6 @@
                         </div>
                     </div>
                 </div>
-                <!--                    <ul  class="main-container fleft" ng-show="current_programs!=''">
-                                           <li class="slat-container fleft selfclear" ng-repeat="program in current_programs">-->
                 <div class="hub-slat-list-wrap" id="currprogs" ng-show="pastProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
                     <div class="slat" ng-repeat="program in pastPrograms  | orderBy:'start_date':true">
                         <div class="slat-name-wrap">
@@ -74,7 +80,6 @@
                                 <a class="reg-button slat-detail-button" ng-click="redirectToActions(forward, program.id, past = 0, program.end_date);
                                         disableArchive();">View Campaign</a>
                             </div>
-                            <!--ng-click="sendProgramId(program.id,'0')"--> 
                         </div>
                     </div>
                 </div>

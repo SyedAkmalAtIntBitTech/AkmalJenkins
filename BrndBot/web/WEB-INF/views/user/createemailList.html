@@ -1,5 +1,4 @@
 <div id="fade" ng-class="fadeClass" class="center-pop-ups">
-        <!-- took this out id="addActionemllist"-->
         <div class="modal-pane modal-pane-width-reg create-email-popup"  ng-show="createEmailListPopup">
             <div class="modal-pane-header-wrap">
                 <h2 class="">Create New Email List</h2>
@@ -25,13 +24,14 @@
                 <div class="input-wrap">
                     <label>Default from Address</label>
                     <div class="input">
-                        <input id="default_from_name" ng-model="email.deafultFromName" type="email"  placeholder="Default from Address" class="fluid" />
+                        <input id="default_from_name" ng-model="email.deafultFromName" type="text"  placeholder="Default from Address" class="fluid" />
                     </div>
-                 <span class="validationAlert" ng-if='email.deafultFromName === "" || null'>{{fromAddressValidation}}</span>
+                <span class="validationAlert" ng-if='email.deafultFromName === "" || null'>{{fromAddressValidation}}</span>
+                <span class="validationAlert" ng-if="createEmailValidation">{{emailaddrValidation}}</span>
                 </div>
             </div>
             <div class="modal-cta-container" >
-                <a class="long-button blue-button" id="createEmailListButton" ng-click="createEmailList(email)" href="javascript:void(0)">Create this Action</a>
+                <a class="long-button blue-button" id="createEmailListButton" ng-click="createEmailList(email)" href="javascript:void(0)">Create Email List</a>
             </div>
         </div>
 </div>

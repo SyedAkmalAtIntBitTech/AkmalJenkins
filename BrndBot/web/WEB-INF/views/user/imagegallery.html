@@ -1,6 +1,4 @@
-<div ng-include src="'imageuploadpopup.html'"></div>
 
-    <!--<input type="text"  value="${user}"/>-->
 <div class="main-content-wrap" ng-init="showImage()">
     <div class="top-nav-wrap">
         <div class="header">
@@ -12,22 +10,22 @@
         <div class="hub-pane" ng-init="getAllCompanyImages()">
             <div class="hub-pane-header-wrap">
                 <h2 class="">Your Images</h2>
-                <a id="liPriority" href="" class=" reg-button gray-button" ng-click="showImageUploadPopup()"> Upload an Image</a>
+                    <a id="liPriority" href="" class=" reg-button gray-button" ng-click="showImageUploadPopup()"> Upload an Image</a>
             </div>
-            <div class="hub-pane-content-wrap">
-                <div class="gallery-image-wrap">
-                    <div class="gallery-image-card" ng-repeat="images in datalists" ng-mouseover="hoverInGalleryImage()" ng-mouseleave="hoverOutGalleryImage()">
+            <div class="gallery-image-wrap">
+                <div class="gallery-image-card" ng-repeat="images in (filteredItems = (datalists| orderBy: 'createdDate':true))" ng-mouseover="hoverInGalleryImage()" ng-mouseleave="hoverOutGalleryImage()">
+                        
                         <img  class="gallery-image" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}"/>
-                        <div ng-show="hoverEditGalleryImage" class="gallery-image-options">
-                            <img type="image/svg+xml" id="delete" src="/BrndBot/user/images/trash-white.svg" class="gallery-image-options-trash-icon" ng-click="deleteImage(images.companyImagesId)"/>
-                        </div>
+
+                    <div ng-show="hoverEditGalleryImage" class="gallery-image-options"> 
+
+                            <img type="image/svg+xml" id="delete" src="/BrndBot/images/overlay-trash-icon.svg" class="gallery-image-options-trash-icon" ng-click="deleteImage(images.companyImagesId)"/>
+
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-   
-    
-    </div>
-    </body>
-</html>
+    </div><div ng-include src="'imageuploadpopup.html'"></div>
+
+
+

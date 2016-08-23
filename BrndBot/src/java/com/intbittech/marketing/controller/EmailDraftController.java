@@ -59,6 +59,7 @@ public class EmailDraftController {
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             
             String emailSubject = (String) requestBodyMap.get("emailSubject");
+            String emailPreHeader = (String) requestBodyMap.get("emailPreHeader");
             String bodyString = (String) requestBodyMap.get("bodyString");
             Integer categoryId = Integer.parseInt((String)requestBodyMap.get("categoryId"));
             Integer subCategoryId = Integer.parseInt((String) requestBodyMap.get("subCategoryId"));
@@ -83,6 +84,7 @@ public class EmailDraftController {
             EmailDraftModel emaildraftmodel = new EmailDraftModel();
 
             emaildraftmodel.setEmailsubject(emailSubject);
+            emaildraftmodel.setPreheader(emailPreHeader);
             emaildraftmodel.setLookupid(lookupId);
             emaildraftmodel.setMindbodyid(mindbodyId);
             emaildraftmodel.setCategoryid(categoryId);
@@ -116,6 +118,7 @@ public class EmailDraftController {
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             
             String emailSubject = (String) requestBodyMap.get("emailSubject");
+            String emailPreHeader = (String) requestBodyMap.get("emailPreHeader");
             Integer categoryId = Integer.parseInt((String)requestBodyMap.get("categoryId"));
             Integer subCategoryId = Integer.parseInt((String) requestBodyMap.get("subCategoryId"));
             Integer lookupId = Integer.parseInt((String)requestBodyMap.get("lookupId"));
@@ -127,6 +130,7 @@ public class EmailDraftController {
             EmailDraftModel emaildraftmodel = new EmailDraftModel();
 
             emaildraftmodel.setEmailsubject(emailSubject);
+            emaildraftmodel.setPreheader(emailPreHeader);
             emaildraftmodel.setHtmlbodystring(bodyString);
             emaildraftmodel.setCategoryid(categoryId);
             emaildraftmodel.setSubcategoryid(subCategoryId);

@@ -5,7 +5,7 @@
       <div class="top-nav-bar-offset"></div>
     <div class="top-subnav-bar-offset"></div>
     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav">
-        <div class="hub-pane">
+        <div class="hub-pane" ng-init="displayEmailHistory()">
             <div class="hub-pane-header-wrap">
                 <h2 class="">Email History</h2>
                 <input type="text" class="search-bar" placeholder="Search" ng-model="userSearch"  ng-show="email_history.length > 0">
@@ -23,13 +23,13 @@
                         </div>
                          <div class="slat-detail-wrap">
                             <div class="slat-detail">
-                                <h2 ng-show="(email.opens / email.sent) * 100 != 'NaN'">{{(email.opens / email.sent) * 100 | number : 2}}%</h2>
-                                <h2 ng-show="(email.opens / email.sent) * 100 == 'NaN'">--</h2>
+                                <h2 ng-show="(email.unique_opens / email.sent) * 100 != 'NaN'">{{(email.unique_opens / email.sent) * 100 | number : 2}}%</h2>
+                                <h2 ng-show="(email.unique_opens / email.sent) * 100 == 'NaN'">--</h2>
                                 <p>Open Rate</p>
                             </div>
                              <div class="slat-detail">
-                                <h2 ng-show="(email.clicks / email.sent) * 100 != 'NaN'">{{(email.clicks / email.sent) * 100 | number : 2}}%</h2>
-                                <h2 ng-show="(email.clicks / email.sent) * 100 == 'NaN'">--</h2>
+                                <h2 ng-show="(email.unique_clicks / email.sent) * 100 != 'NaN'">{{(email.unique_clicks / email.sent) * 100 | number : 2}}%</h2>
+                                <h2 ng-show="(email.unique_clicks / email.sent) * 100 == 'NaN'">--</h2>
 
                                 <p>Click Through Rate</p>
                             </div>
@@ -40,7 +40,6 @@
                         </div>
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">
-                                <!--<a class="reg-button gray-button slat-detail-button">View Email</a>-->
                             </div>
                         </div>
                     </div>

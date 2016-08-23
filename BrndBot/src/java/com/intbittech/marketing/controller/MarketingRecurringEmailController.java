@@ -579,7 +579,7 @@ public class MarketingRecurringEmailController {
             json_entity_list.put("recurring_email_title", schedule_entity_list.getScheduleTitle());
             json_entity_list.put("recurring_email_status", schedule_entity_list.getStatus());
             json_entity_list.put("recurring_email_user_marketing_program_id", schedule_entity_list.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId());
-            json_entity_list.put("recurring_email_till_date", schedule_entity_list.getTillDate().getTime());
+            json_entity_list.put("recurring_email_till_date", (Long) 7289548200000L);
             
         if (schedule_entity_list.getEntityId().intValue() != 0){
             ScheduledEmailList schedule_email_list = schedule_email_list_service.getById(schedule_entity_list.getEntityId().intValue());
