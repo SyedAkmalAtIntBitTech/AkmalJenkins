@@ -5,6 +5,7 @@
  */
 package com.intbittech.social;
 
+import com.intbittech.component.SpringContextBridge;
 import com.intbittech.utility.IConstants;
 import com.intbittech.model.ScheduledEmailList;
 import com.intbittech.model.ScheduledEntityList;
@@ -16,6 +17,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import com.intbittech.utility.DateTimeUtil;
 import com.intbittech.email.mandrill.SendMail;
+import com.intbittech.services.EmailListService;
 
 /**
  *
@@ -54,15 +56,20 @@ public class ScheduleAnEmail implements Runnable {
                     logger.info("Current time:" + new Date());
                     if (shouldPostNow) {
                         logger.info("Should post now is true: Sending Mail");
-
+                                EmailListService emailListService = SpringContextBridge.services().getEmailListService();
+                            
                         ScheduledEmailList sendAnEmail = getSendEmail(currentScheduledEmail);
+                        //To-do Ajit check this.. AR/Ilyas please review
+                            
+                            Integer companyId = currentScheduledEmail.getFkCompanyId().getCompanyId();
+                             String emailList =  emailListService.getEmailList("allEmailListNames", companyId, sendAnEmail.getEmailListName());
                         String html_text = sendAnEmail.getBody();
                         String email_subject = sendAnEmail.getSubject();
-                        String jsonString = sendAnEmail.getToEmailAddresses();
+                        String jsonString = emailList;
                         JSONObject json = (JSONObject) new JSONParser().parse(jsonString);
                         String to_email_addresses = "";
                         String emaillist_name = sendAnEmail.getEmailListName();
-                        Integer companyId = currentScheduledEmail.getFkCompanyId().getCompanyId();
+                       
                         String reply_to_address = sendAnEmail.getReplyToEmailAddress();
                         String from_email_address = sendAnEmail.getFromAddress();
                         String message = "";

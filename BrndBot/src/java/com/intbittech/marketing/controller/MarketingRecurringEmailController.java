@@ -23,6 +23,7 @@ import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserProfile;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
+import com.intbittech.services.EmailListService;
 import com.intbittech.services.RecurringEmailTemplateService;
 import com.intbittech.utility.UserSessionUtil;
 import java.io.BufferedReader;
@@ -63,6 +64,8 @@ public class MarketingRecurringEmailController {
     private CompanyPreferencesService companyPreferencesService;
     @Autowired
     private CompanyService companyService;
+    @Autowired
+    private EmailListService  emailListService;
     String return_response = "false";
     /*
         this method is used to get all of the recurring email templates from the database
@@ -306,7 +309,8 @@ public class MarketingRecurringEmailController {
         schedule_email_list.setFromName(from_name);
         schedule_email_list.setReplyToEmailAddress(reply_to_address);
         schedule_email_list.setSubject(subject);
-        schedule_email_list.setToEmailAddresses(json_object.toString());
+        // To-do Ajit delete after AR/Ilyas review
+       // schedule_email_list.setToEmailAddresses(json_object.toString());
         schedule_email_list.setFkScheduledEntityListId(null);
         
         Integer email_list_id = schedule_email_list_service.save(schedule_email_list);
@@ -389,7 +393,8 @@ public class MarketingRecurringEmailController {
         schedule_email_list.setFromName(from_name);
         schedule_email_list.setReplyToEmailAddress(reply_to_address);
         schedule_email_list.setSubject(subject);
-        schedule_email_list.setToEmailAddresses(json_object.toString());
+        // To-do Ajit delete after AR/Ilyas review
+        //schedule_email_list.setToEmailAddresses(json_object.toString());
         schedule_email_list.setFkScheduledEntityListId(null);
         
         Integer email_list_id = schedule_email_list_service.save(schedule_email_list);
@@ -506,7 +511,9 @@ public class MarketingRecurringEmailController {
         schedule_email_list.setFromName(from_name);
         schedule_email_list.setReplyToEmailAddress(reply_to_address);
         schedule_email_list.setSubject(subject);
-        schedule_email_list.setToEmailAddresses(json_object.toString());
+        
+        //To-do Ajit delete after AR/Ilyas review
+        //schedule_email_list.setToEmailAddresses(json_object.toString());
         schedule_email_list.setFkScheduledEntityListId(null);
         
         schedule_email_list_service.update(schedule_email_list);
@@ -586,12 +593,16 @@ public class MarketingRecurringEmailController {
             
         if (schedule_entity_list.getEntityId().intValue() != 0){
             ScheduledEmailList schedule_email_list = schedule_email_list_service.getById(schedule_entity_list.getEntityId().intValue());
+            // To-do Ajit after AR/Ilyas review
+            //   remove companyId
+            Integer companyId =1;
+            String emailList = emailListService.getEmailList("allEmailListNames", companyId, schedule_email_list.getEmailListName());
             json_entity_list.put("recurring_email_body", schedule_email_list.getBody());
             json_entity_list.put("recurring_email_email_list_name", schedule_email_list.getEmailListName());
             json_entity_list.put("recurring_email_from_address", schedule_email_list.getFromAddress());
             json_entity_list.put("recurring_email_reply_to_email_address", schedule_email_list.getReplyToEmailAddress());
             json_entity_list.put("recurring_email_subject", schedule_email_list.getSubject());
-            json_entity_list.put("recurring_email_to_email_addresses", schedule_email_list.getToEmailAddresses());
+            json_entity_list.put("recurring_email_to_email_addresses", emailList);
             json_entity_list.put("recurring_email_from_name", schedule_email_list.getFromName());
             
         }
