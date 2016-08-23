@@ -15,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
@@ -46,9 +45,7 @@ public class ScheduledEmailList implements Serializable {
     private String emailListName;
     @Column(name = "from_name")
     private String fromName;
-    @Column(name = "to_email_addresses")
-    @Type(type = "StringJsonObject")
-    private String toEmailAddresses;
+  
     @Column(name = "reply_to_email_address")
     private String replyToEmailAddress;
     @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
@@ -113,15 +110,7 @@ public class ScheduledEmailList implements Serializable {
         this.fromName = fromName;
     }
 
-    public String getToEmailAddresses() {
-        return toEmailAddresses;
-    }
-
-    public void setToEmailAddresses(String toEmailAddresses) {
-        this.toEmailAddresses = toEmailAddresses;
-    }
-
-    public String getReplyToEmailAddress() {
+      public String getReplyToEmailAddress() {
         return replyToEmailAddress;
     }
 
