@@ -7,6 +7,7 @@ package com.intbittech.services.impl;
 
 import com.controller.ApplicationContextListener;
 import com.controller.GenerateHashPassword;
+import com.intbittech.AppConstants;
 import com.intbittech.dao.UsersInviteDao;
 import com.intbittech.email.mandrill.Message;
 import com.intbittech.email.mandrill.Recipient;
@@ -14,7 +15,6 @@ import com.intbittech.email.mandrill.RecipientMetadata;
 import com.intbittech.email.mandrill.SendMail;
 import static com.intbittech.email.mandrill.SendMail.MANDRILL_KEY;
 import com.intbittech.enums.AdminStatus;
-import com.intbittech.enums.InvitationStatus;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Invite;
 import com.intbittech.model.InvitedUsers;
@@ -157,7 +157,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
                 UserCompanyLookup company = userCompanyLookupService.getUserCompanyLookupByUser(fromUser);
                 
                 UserCompanyLookup userCompanyLookup =  userCompanyLookupService.getUserCompanyLookupByUserAndCompany(user, company.getCompanyid());
-                userCompanyLookup.setAccountStatus(InvitationStatus.valueOf("Account_Deactivated").getDisplayName());
+                userCompanyLookup.setAccountStatus(AppConstants.Account_Deactivated);
                 userCompanyLookupService.update(userCompanyLookup);
             }else {
                 delete(inviteId);
@@ -210,9 +210,9 @@ public class UsersInviteServiceImpl implements UsersInviteService{
                     }
                     boolean isUsed = invite.getIsUsed();
                     if (isUsed){
-                        invitationStatus = InvitationStatus.valueOf("Invite_Success").getDisplayName();
+                        invitationStatus = AppConstants.Invite_Success;
                     }else {
-                        invitationStatus = InvitationStatus.valueOf("Invite_Sent").getDisplayName();
+                        invitationStatus = AppConstants.Invite_Sent;
                     }
                 }
                     inviteduser = new InvitedUsers(invite.getId(), userRoleLookUpIds, userName, userRoleName, invitationStatus);

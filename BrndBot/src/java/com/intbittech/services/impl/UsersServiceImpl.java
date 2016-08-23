@@ -149,7 +149,7 @@ public class UsersServiceImpl implements UsersService {
             usersRoleLookUp = new UsersRoleLookup();
 
             UserRole userRole = new UserRole();
-            userRole.setUserRoleId(3);
+            userRole.setUserRoleId(AppConstants.UserRoleTempManagerValue);
 
             usersRoleLookUp.setUserId(user);
             usersRoleLookUp.setRoleId(userRole);
@@ -200,7 +200,7 @@ public class UsersServiceImpl implements UsersService {
 
                 userCompanyLookup.setCompanyid(company);
                 userCompanyLookup.setUserid(user);
-                userCompanyLookup.setAccountStatus(InvitationStatus.valueOf("Account_Activated").getDisplayName());
+                userCompanyLookup.setAccountStatus(AppConstants.Account_Activated);
 
                 userCompanyLookUpService.save(userCompanyLookup);
                 

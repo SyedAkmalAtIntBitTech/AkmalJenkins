@@ -5,10 +5,10 @@
  */
 package com.intbittech.services.impl;
 
+import com.intbittech.AppConstants;
 import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.OrganizationCompanyDao;
 import com.intbittech.dao.UserRoleLookUpDao;
-import com.intbittech.enums.AdminStatus;
 import com.intbittech.enums.InvitationStatus;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
@@ -176,7 +176,7 @@ public class CompanyServiceImpl implements CompanyService{
 
             userCompanyLookup.setCompanyid(company);
             userCompanyLookup.setUserid(user);
-            userCompanyLookup.setAccountStatus(InvitationStatus.valueOf("Account_Activated").getDisplayName());
+            userCompanyLookup.setAccountStatus(AppConstants.Account_Activated);
             
             userCompanyLookUpService.save(userCompanyLookup);
 
@@ -188,7 +188,7 @@ public class CompanyServiceImpl implements CompanyService{
             usersRoleLookUp = usersRoleLookUpDao.getUsersRoleLookupByUser(user);
 
             UserRole userRole = new UserRole();
-            userRole.setUserRoleId(2);
+            userRole.setUserRoleId(AppConstants.UserRoleManagerValue);
 
             usersRoleLookUp.setUserId(user);
             usersRoleLookUp.setRoleId(userRole);
