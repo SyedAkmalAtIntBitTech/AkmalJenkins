@@ -1,41 +1,3 @@
-brndBotSignupApp.config(function ($routeProvider) {
-    $routeProvider
-            .when('/signin', {
-                title: 'BrndBot - Login',
-                templateUrl: 'signup/loginform.html'
-            })
-            .when('/signup/resetpassword', {
-                title: 'BrndBot - Reset-Password',
-                templateUrl: 'signup/resetpassword.html'
-            })
-            .when('/signup/changepassword', {
-                title: 'BrndBot - Reset-Password',
-                templateUrl: 'signup/changepassword.html'
-            })
-            .when('/signup/company', {
-                title: 'BrndBot-On Boarding',
-                templateUrl: 'signup/company.html'
-            })
-            .when('/signup/datasource', {
-                title: 'BrndBot-On Boarding',
-                templateUrl: 'signup/datasource.html'
-            })
-            .when('/signup/uploadlogo', {
-                title: 'BrndBot-On Boarding',
-                templateUrl: 'signup/uploadlogo.html'
-            })
-            .when('/signup/choosepalette', {
-                title: 'BrndBot- Color Palette',
-                templateUrl: 'signup/choosepalette.html'
-            })
-            .otherwise({title: 'BrndBot - Login',redirectTo: '/signin'});
-}).run(function ($rootScope) {
-        $rootScope.$on("$routeChangeSuccess", function (event, currentRoute) {
-            document.title = currentRoute.title;
-        });
-});
-
-
 dashboardFlowApp.config(function ($routeProvider) {
     $routeProvider
             .when('/dashboard', {
@@ -70,11 +32,11 @@ emailFlowApp.config(function ($routeProvider) {
             .when('/emaillistselection', {
                 title: 'BrndBot - Email List Selection',
                 templateUrl: 'emaillistselection.html'
-            })   
+            })    
             .when('/emaildetails', {
                 title: 'BrndBot - Email Details',
                 templateUrl: 'emaildetails.html'
-            })          
+            })    
             .otherwise({title: 'Category',redirectTo: '/emailcategory'});
 }).run(function ($rootScope) {
         $rootScope.$on("$routeChangeSuccess", function (event, currentRoute) {

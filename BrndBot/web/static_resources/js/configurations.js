@@ -40,6 +40,7 @@ var defaultSendEmailFrom = "mail@brndbot.com";
 var bitlyUserName = "sandeep264328";
 var bitlyKey = "R_63e2f83120b743bc9d9534b841d41be6";
 
+
 function getHost(){
      return global_host_address;
 }
@@ -86,4 +87,3 @@ function growl(message,type)
     else
         $.growl.error({message: message});
 }
-
