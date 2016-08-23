@@ -3,15 +3,15 @@
 <head>
     <link rel="shortcut icon" href="../images/favicon.png">
         <title>Dashboard</title>
-        <link rel="stylesheet" type="text/css" href="css/general_1.css">
-        <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
+        <link rel="stylesheet" type="text/css" href="../css/general_1.css">
+        <script src="../js/utilities/jquery-1.11.3.min.js" type="text/javascript"></script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-animate.min.js"></script>
-        <script src="js/alertmessage.js" type="text/javascript"></script>
+        <script src="../js/utilities/alertmessageuser.js" type="text/javascript"></script>
         <script src="../js/configurations.js"></script>  
-        <script src="../js/angularappconfiguration.js"></script> 
-        <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
+        <script src="../js/utilities/angularappconfiguration.js"></script> 
+        <link href="../css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="../js/factory/categoryFactory.js" type="text/javascript"></script>
         <script src="../js/factory/subCategoryFactory.js" type="text/javascript"></script>
         <script src="../js/factory/settingsFactory.js" type="text/javascript"></script>
@@ -22,11 +22,13 @@
         <script src="../js/factory/authFactory.js" type="text/javascript"></script>
         <script src="../js/factory/genericRedirectFactory.js" type="text/javascript"></script>
         <script src="../js/factory/sharedFactory.js" type="text/javascript"></script>
-        <script src="js/controller/dashboardController.js" type="text/javascript"></script>
-        <script src="js/controller/routing.js" type="text/javascript"></script>
+
+        <script src="../js/factory/appSessionFactory.js" type="text/javascript"></script>
+        <script src="../js/controller/dashboardController.js" type="text/javascript"></script>
+        <script src="../js/controller/routing.js" type="text/javascript"></script>
         <script src="../js/factory/companyMarketingFactory.js" type="text/javascript"></script>
         <link href="../css/jquerygrowl.css" rel="stylesheet" type="text/css"/>
-        <script src="../js/jquerygrowl.js" type="text/javascript"></script>
+        <script src="../js/utilities/jquerygrowl.js" type="text/javascript"></script>
 </head>    
 
     <body ng-app="dashboardFlowApp" class="body-normal" ng-controller="dashboardController">

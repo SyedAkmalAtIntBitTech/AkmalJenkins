@@ -29,18 +29,10 @@
                     <h3 class="onboarding-content-header">Would you like to connect your new profile with tools you currently use?</h3>
                 </div> 
 <div class="upload-icon-box dropzone">
-<!--                <div class="upload-icon-box dropzone" file-dropzone="[image/png, image/jpeg, image/gif]"
-                     file="image" file-name="imageFileName" data-max-file-size="3">-->
                     <div ng-repeat="step in stepsModel">
-<!--                            <input type="file" fileread="uploadme.src">
-                            <img ng-src="{{ uploadme.src}}">-->
                         <img class="thumb" src="{{step}}" />
                     </div>
                     <h3 class="upload-icon-text">Drag and Drop your Logo</h3>
-<!--                    <div class="image-container">
-                        <img ng-src={{image}} />
-                        <span class="file-name">{{imageFileName}}</span>
-                    </div>-->
 
                     <span class="validationAlert" ng-if='myFile === "" || null'>{{logoValidation}}</span>
                     <div class="upload-icon-button-wrap">
@@ -54,7 +46,6 @@
         </div>     
     </div>
     <div class="continue-bar-offset"></div>
-</div>
 </div>
 <div class="continue-bar sequence-continue-bar">
     <a id="uploadLogoContinueButton" ng-click="uploadLogo(myFile)"h class="fright">CONTINUE</a>

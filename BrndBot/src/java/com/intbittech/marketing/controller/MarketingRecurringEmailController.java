@@ -8,6 +8,7 @@ package com.intbittech.marketing.controller;
 import com.intbittech.utility.IConstants;
 import com.controller.SqlMethods;
 import com.intbittech.AppConstants;
+import com.intbittech.dao.CompanyDao;
 import com.intbittech.enums.ScheduledEntityType;
 import com.intbittech.enums.TemplateStatus;
 import com.intbittech.marketing.service.ScheduledEmailListService;
@@ -20,12 +21,14 @@ import com.intbittech.model.OrganizationRecurringEmailLookup;
 import com.intbittech.model.RecurringEmailTemplate;
 import com.intbittech.model.ScheduledEmailList;
 import com.intbittech.model.ScheduledEntityList;
+import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.UserProfile;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.EmailListService;
 import com.intbittech.services.RecurringEmailTemplateService;
 import com.intbittech.utility.UserSessionUtil;
+import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -45,6 +48,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -73,11 +77,9 @@ public class MarketingRecurringEmailController {
      */
     @RequestMapping(value = "/getAllRecurringEmailTemplates", method = RequestMethod.GET)
     public @ResponseBody
-    String getAllRecurringEmailTemplates() {
+    String getAllRecurringEmailTemplates(@RequestParam("companyId") Integer companyId) {
         JSONArray json_array_recurring_email_template = new JSONArray();
         try {
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             List<OrganizationCompanyLookup> organizationCompanyDetail = new ArrayList<>();
             organizationCompanyDetail = companyService.getAllOrganizationsByCompanyId(companyId);
             Integer organizationCompanySize = organizationCompanyDetail.size();
@@ -208,14 +210,13 @@ public class MarketingRecurringEmailController {
     public @ResponseBody String setEmailTemplateToRecurringAction(HttpServletRequest request,
             HttpServletResponse response){
         try{
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+ 
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             SqlMethods sql_methods = new SqlMethods();
             
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-
-            Company company = new Company(companyId);
+            Company company = new Company(userCompanyIds.getCompanyId());
             org.json.simple.JSONObject json_object_email_settings = companyPreferencesService.getEmailSettings(company);
 
             Double entity_id = (Double)requestBodyMap.get("entity_id");
@@ -262,13 +263,11 @@ public class MarketingRecurringEmailController {
     public @ResponseBody String addRecurringAction(HttpServletRequest request,
             HttpServletResponse response)throws IOException, ParseException{
         try {
-         UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        Map<String, Object> requestBodyMap
-                = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-        SqlMethods sql_methods = new SqlMethods();
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+ 
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
 
-        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            
         String days = (String)requestBodyMap.get("days");
         String emaillist = (String)requestBodyMap.get("emaillist");
         ArrayList email_addresses = (ArrayList)requestBodyMap.get("to_email_addresses");
@@ -297,10 +296,10 @@ public class MarketingRecurringEmailController {
         
         schedule_email_list.setScheduledEmailListId(0);
         Company company = new Company();
-        company.setCompanyId(userProfile.getUser().getFkCompanyId().getCompanyId());
+        company.setCompanyId(userCompanyIds.getCompanyId());
         schedule_email_list.setFkCompanyId(company);
         schedule_email_list.setEmailListName(emaillist);
-        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(companyId);
+        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(userCompanyIds.getCompanyId());
         
         if (jsonFromAddress != null){
             schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
@@ -346,13 +345,11 @@ public class MarketingRecurringEmailController {
     public @ResponseBody String addupdateRecurringAction(HttpServletRequest request,
             HttpServletResponse response)throws IOException, ParseException{
         try{
-         UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser(); 
-        Map<String, Object> requestBodyMap
-                = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-        SqlMethods sql_methods = new SqlMethods();
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+ 
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
 
-        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            
         String entity_id = (String)requestBodyMap.get("entity_id");
         String days = (String)requestBodyMap.get("days");
         String emaillist = (String)requestBodyMap.get("emaillist");
@@ -382,9 +379,10 @@ public class MarketingRecurringEmailController {
         
         schedule_email_list.setScheduledEmailListId(0);
     
-        schedule_email_list.setFkCompanyId(userProfile.getUser().getFkCompanyId());
+        Company company = companyService.getCompanyById(userCompanyIds.getCompanyId());
+        schedule_email_list.setFkCompanyId(company);
         schedule_email_list.setEmailListName(emaillist);
-        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(companyId);
+        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(userCompanyIds.getCompanyId());
         
         if (jsonFromAddress != null){
             schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
@@ -416,7 +414,7 @@ public class MarketingRecurringEmailController {
         schedule_entity_list.setFkCompanyMarketingProgramId(companyMarketingProgram);
         schedule_entity_list.setDays(Integer.parseInt(days));
         schedule_entity_list.setTillDate(till_date);
-        schedule_entity_list.setFkCompanyId(userProfile.getUser().getFkCompanyId());
+        schedule_entity_list.setFkCompanyId(company);
         
         scheduledEntityListService.update(schedule_entity_list);
         return "true";
@@ -432,13 +430,11 @@ public class MarketingRecurringEmailController {
     public @ResponseBody String updateRecurringAction(HttpServletRequest request,
             HttpServletResponse response)throws IOException, ParseException{
         try {
-             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser(); 
-        Map<String, Object> requestBodyMap
-                = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-        SqlMethods sql_methods = new SqlMethods();
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+ 
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
 
-        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            
         String entity_id = (String)requestBodyMap.get("entity_id");
         String days = (String)requestBodyMap.get("days");
         String emaillist = (String)requestBodyMap.get("emaillist");
@@ -496,14 +492,16 @@ public class MarketingRecurringEmailController {
         schedule_entity_list.setFkCompanyMarketingProgramId(companyMarketingProgram);
         schedule_entity_list.setDays(Integer.parseInt(days));
         schedule_entity_list.setTillDate(till_date);
-        schedule_entity_list.setFkCompanyId(userProfile.getUser().getFkCompanyId());
+        
+        Company company = companyService.getCompanyById(userCompanyIds.getCompanyId());
+        schedule_entity_list.setFkCompanyId(company);
         
         ScheduledEmailList schedule_email_list = schedule_email_list_service.getById(email_list_id);
-        schedule_email_list.setFkCompanyId(userProfile.getUser().getFkCompanyId());
-      
+        schedule_email_list.setFkCompanyId(company);
+              
         schedule_email_list.setEmailListName(emaillist);
         schedule_email_list.setBody(html_data);
-        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(companyId);
+        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(userCompanyIds.getCompanyId());
         
         if (jsonFromAddress != null){
             schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
@@ -543,11 +541,9 @@ public class MarketingRecurringEmailController {
     
     @RequestMapping (value = "/getUserPreferences", method = RequestMethod.GET)
     public @ResponseBody String getUserPreferences(HttpServletRequest request,
-            HttpServletResponse response)throws IOException{
+            HttpServletResponse response, @RequestParam("companyId") Integer companyId)throws IOException{
 
         SqlMethods sql_methods = new SqlMethods();
-        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
         
         org.json.simple.JSONObject from_address = (org.json.simple.JSONObject)getFromAddress(companyId);
 

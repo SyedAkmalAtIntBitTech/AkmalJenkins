@@ -95,6 +95,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
             Map<String, Integer> idMap = ScheduleDAO.addToScheduledEmailList(
                     companyId,
                     requestBodyMap.get("email_subject").toString(),
+                    requestBodyMap.get("email_preheader").toString(),
                     Integer.parseInt(marketing_program_id),
                     html_text,
                     requestBodyMap.get("from_email_address").toString(),
@@ -105,7 +106,8 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                     requestBodyMap.get("schedule_title").toString(),
                     scheduleDesc,
                     new Timestamp(schedule.longValue()),
-                    TemplateStatus.template_saved.toString()
+                    TemplateStatus.template_saved.toString(),
+                    requestBodyMap.get("html_body").toString()
             );
 
             if (!path.equals("")) {
@@ -141,6 +143,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                     companyId,
                     Integer.parseInt(schedule_id),
                     requestBodyMap.get("email_subject").toString(),
+                    requestBodyMap.get("email_preheader").toString(),
                     html_text,
                     requestBodyMap.get("from_email_address").toString(),
                     requestBodyMap.get("email_list").toString(),
@@ -148,7 +151,8 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                     requestBodyMap.get("reply_to_email_address").toString(),
                     requestBodyMap.get("to_email_addresses").toString().split(","),
                     scheduleDesc,
-                    TemplateStatus.template_saved.toString()
+                    TemplateStatus.template_saved.toString(),
+                    requestBodyMap.get("html_body").toString()
             );
 
             if (!path.equals("")) {

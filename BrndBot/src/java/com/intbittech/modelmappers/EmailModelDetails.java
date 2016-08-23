@@ -5,12 +5,13 @@
  */
 package com.intbittech.modelmappers;
 
+import com.intbittech.model.UserCompanyIds;
 import java.io.Serializable;
 /**
  *
  * @author Akmal
  */
-public class EmailModelDetails implements Serializable{
+public class EmailModelDetails  extends UserCompanyIds implements Serializable{
     
     private Integer modelId;
     private Integer emailModelId;

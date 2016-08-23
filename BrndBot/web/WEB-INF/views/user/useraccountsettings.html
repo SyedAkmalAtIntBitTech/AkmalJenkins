@@ -1,5 +1,5 @@
-   
-<div class="hub-pane" id="accountsettingdiv" ng-init="setTab('account')">
+        
+    <div class="hub-pane" id="accountsettingdiv" ng-init="setTab('account')">
             <div class="hub-pane-header-wrap">
                 <h2 class="">User Account Settings</h2>
                 
@@ -35,46 +35,31 @@
             </div>
         </div>
 
-<!--        <div class="hub-pane" id="accountsettingdiv" ng-init="setTab('account')">
+        <div class="hub-pane" id="accountsettingdiv" ng-init="setTab('account')">
             <div class="hub-pane-header-wrap">
                 <h2 class="">Company Settings</h2>
                 
             </div>
-            <div class="hub-pane-content-wrap">
+            <div class="hub-pane-content-wrap" ng-init="getInvitedUsers()">
                 <div class="hub-section">
                      <div class="section-header">
                          <h3>List of Users</h3>
                         <p>These are the default email settings, they can be overridden when you send out an email.</p>
                      </div>
-                    <div class="user-slat">
-                        <div class="user-email-address">andy.swansburg1111@gmail.com</div>
-                        <div class="user-role">Admin</div>
-                        <div class="user-status">Invite Sent</div>
+                    <div class="user-slat" ng-repeat="users in invitedUsers">
+                        <div class="user-email-address">{{users.emailID}}</div>
+                        <div class="user-role">{{users.userRole}}</div>
+                        <div class="user-status">{{users.inviteStatus}}</div>
                         <div class="user-slat-cta-wrap">
-                             <div class="user-slat-button resend-user-email">Resend User Email</div>
-                             <div class="user-slat-button edit-user-permissions">Edit User Permissions</div>
-                             <div class=" user-slat-button remove-user-button">Remove User</div>
+                             <div class="user-slat-button resend-user-email" ng-click="resendUserInvite(users.inviteId)">Resend User Email</div>
+                             <div class="user-slat-button edit-user-permissions" ng-click="showEditUser(users.inviteId,users.userRoleLookUp,users.emailID)">Edit User Permissions</div>
+                             <div class=" user-slat-button remove-user-button" ng-click="removeUser(users.inviteId)">Remove User</div>
                         </div>
                     </div>
-                    <div class="user-slat">
-                        <div class="user-email-address">andy.swansburg1111@gmail.com</div>
-                        <div class="user-role">Admin</div>
-                        <div class="user-status">Invite Sent</div>
-                        <div class="user-slat-cta-wrap">
-                             <div class="user-slat-button resend-user-email">Resend User Email</div>
-                             <div class="user-slat-button edit-user-permissions">Edit User Permissions</div>
-                             <div class=" user-slat-button remove-user-button">Remove User</div>
-                        </div>
-                    </div>
-                     <div class="update-container">
-                        <a class="long-button gray-button">Invite a User</a>
+                    <div class="update-container">
+                        <a class="long-button gray-button" ng-click="showAddUser()">Invite a User</a>
                     </div>
                 </div>
                  
             </div>
-        </div>-->
-
-
-
-
-
+        </div>

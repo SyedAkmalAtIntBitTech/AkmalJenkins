@@ -13,7 +13,9 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.studioIdValidation = studioIdValidation;
         $scope.inActiveMindbodyValidation = inActiveMindbodyValidation;
         $scope.logoValidation = logoValidation;
-//        $scope.companyName = "";
+        $scope.userHashId = "";
+        $scope.userId = 0;
+        $scope.hideDataOverlay = true;
         $scope.organizationId = "";
         $scope.emailAddressValidation = emailAddressValidation;
         $scope.emailaddrValidation = emailaddrValidation;
@@ -125,6 +127,30 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             }
         };
 
+        $scope.getUserId = function (){
+            $scope.userHashId = $location.search().userid;
+        };
+        $scope.getLoggedInUserId = function(){
+            onboardingFactory.getLoggedInUserId().then(function (data){
+                localStorage.setItem("userId",data.d.details[0]);
+                $scope.getAllUserCompanies(data.d.details[0]); 
+            });
+        };
+        
+        $scope.saveInvitedUser = function (userDetails) {
+            
+            var user = {"userName": userDetails.userName, "firstName": userDetails.firstName, 
+                        "lastName": userDetails.lastName, "userPassword": userDetails.userPassword,
+                        "invitationCode": $scope.userHashId}
+            onboardingFactory.saveInvitedUserPost(user).then(function (data) {
+                var message = data.d.message;
+                var userId = data.d.id;
+                localStorage.setItem("userId",userId);
+                alert(message);
+                window.location = getHost() + "user/";
+            });    
+        };
+
         $scope.isUserUnique = function () {
             var emailId = $scope.userDetails.userName;
             var userEmailId = {"userName": emailId};
@@ -155,6 +181,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 $scope.defaultOrganisation = [{organizationId: 0, organizationName: 'Please select an industry'}];
                 $scope.organizations = $scope.defaultOrganisation.concat(data.d.details);
                 $scope.organizationId = $scope.organizations[0].organizationId;
+
 //                growl(JSON.stringify(data));
                 //angular DD
                 var organizationsData = data.d.details;
@@ -186,8 +213,12 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $scope.organizationId = organizationId;
             if ($scope.validationcode(companyName, organizationId))
             {
-                var companyDetails = {"companyName": companyName, "organizationId": organizationId};
+                var userIdvalue = localStorage.getItem("userId");
+                var companyDetails = {"userId":userIdvalue, "companyName": companyName, "organizationId": organizationId};
                 onboardingFactory.saveCompanyPost(JSON.stringify(companyDetails)).then(function (data) {
+                    var companyId = data.d.message;
+                    localStorage.setItem("companyId",companyId);
+                    //TODO Set the companyId in Auth factory file
                     $location.path("/signup/datasource");
                 });
             }
@@ -230,7 +261,34 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 }
             });
         };
+        $scope.getAllUserCompanies = function (userId){
+            onboardingFactory.getAllUserCompanies(userId).then(function(data){
+               var detail = data.d.details;
+               if (detail.length === 1){
+                   var companyDetails = detail[0];
+                   $scope.getAccountStatus(companyDetails);
+                }else{
+                   $scope.companies = data.d.details; 
+                }
+               $scope.hideDataOverlay = false;
+            });
+        };
 
+        $scope.getAccountStatus = function(companyDetails){
+            localStorage.setItem("companyDetails",JSON.stringify(companyDetails));
+            localStorage.setItem("companyId", companyDetails.companyId);
+            onboardingFactory.getAccountStatus(companyDetails).then(function(data){
+               $scope.message = data.d.message; 
+               if (data.d.message == 'Activated'){
+                   window.location = getHost() + "user/dashboard";
+               }else if (data.d.message == 'Deactivated'){
+                   alert("your account has been deactivated, please contact system admin");
+                   window.location = getHost() + "login";
+               }
+               $scope.hideDataOverlay = false;
+            });
+        };
+        
         $scope.getActivationLink = function (studioId) {
             $scope.mindbodyActive = false;
             onboardingFactory.saveStudioIdPost(studioId).then(function (data) {
@@ -386,7 +444,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 //        });
 
         $scope.stepsModel = [];
-        $scope.stepsModel.push("/BrndBot/user/images/upload-icon.svg");
+        $scope.stepsModel.push("/BrndBot/images/upload-icon.svg");
 
         $scope.imageUpload = function (element) {
             var reader = new FileReader();

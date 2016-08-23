@@ -28,14 +28,13 @@
                     <div class="input-wrap">
                         <label> Campaign Name </label>
                         <div class="input ">
-                            <input class="fluid" id="campaignname" type="text" ng-model="programName" >
+                            <input class="fluid" id="campaignname" type="text" ng-model="programName" ng-change="programUrlName=programName" >
                         </div>
                         <span class="validationAlert" ng-if='programName === "" || null'>{{campaignNameValidation}}</span>
 
                         <p> This is for internal use only</p>
                     </div>
                     <div class="input-wrap ">
-                        <!--<label> Date of Campaign Inserted Here </label>-->
                         <label>{{htmlData}}</label>
                         <div class="input">
                             <input class="fluid" type="text" ng-model="programDateTime" name="programdatetime" id="programdatetime" value="" readonly="">
@@ -72,7 +71,7 @@
                     <div class="input-wrap">
                         <label> Link Name </label>
                         <div class="input">
-                            <input class="fluid" id="program_url_name" ng-model="programUrlName"  type="text">
+                            <input class="fluid" id="program_url_name" ng-model="programUrlName" type="text">
                             <p> This is for internal use only to reference this link URL. </p>
                         </div>
                     </div>

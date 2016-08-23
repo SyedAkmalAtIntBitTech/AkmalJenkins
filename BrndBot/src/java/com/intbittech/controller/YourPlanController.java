@@ -13,12 +13,11 @@ import com.intbittech.dao.impl.ScheduleDAO;
 import com.intbittech.AppConstants;
 import com.intbittech.dao.impl.ScheduleSocialPostDAO;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.UserProfile;
+import com.intbittech.model.UserCompanyIds;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.utility.ErrorHandlingUtil;
-import com.intbittech.utility.UserSessionUtil;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.PrintWriter;
@@ -48,6 +47,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.intbittech.social.PostToFacebook;
 import com.intbittech.social.PostToTwitter;
+import com.intbittech.utility.Utility;
 
 /**
  *
@@ -67,8 +67,10 @@ public class YourPlanController {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try{
             List<String> messageList = new ArrayList<>();
-        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+ 
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
         List<String> errorMsgs = new ArrayList<>();
             
             if ( StringUtils.isEmpty(request.getParameter("from")) ){
@@ -91,7 +93,7 @@ public class YourPlanController {
             toDate = LocalDate.parse(request.getParameter("to"));
             
             JSONObject scheduledEntities = 
-                     ScheduleDAO.getScheduledEntities(companyId, fromDate, toDate);
+                     ScheduleDAO.getScheduledEntities(userCompanyIds.getCompanyId(), fromDate, toDate);
             messageList.add(AppConstants.GSON.toJson(scheduledEntities));
             genericResponse.setDetails(messageList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success",new String[]{}, Locale.US)));
@@ -107,10 +109,9 @@ public class YourPlanController {
     public ResponseEntity<ContainerResponse> ChangeSchedule(HttpServletRequest request, HttpServletResponse response) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             String type = (String) requestBodyMap.get("type");
             String messageStatus = "";
             if (type.equalsIgnoreCase("updatesocial")) {
@@ -124,7 +125,7 @@ public class YourPlanController {
 
                 String schedule_desc = (String) requestBodyMap.get("schedule_desc");
 
-                ScheduleSocialPostDAO.updateScheduleSocialPostDetails(companyId,
+                ScheduleSocialPostDAO.updateScheduleSocialPostDetails(userCompanyIds.getCompanyId(),
                         Integer.parseInt(schedule_id),
                         Integer.parseInt(entity_id),
                         schedule_title,
@@ -142,7 +143,7 @@ public class YourPlanController {
 
                 Timestamp scheduleTimeStamp = new Timestamp(schedule.longValue());
 
-                ScheduleDAO.updateScheduleEmailDetails(companyId,
+                ScheduleDAO.updateScheduleEmailDetails(userCompanyIds.getCompanyId(),
                         Integer.parseInt(schedule_id),
                         Integer.parseInt(entity_id),
                         requestBodyMap.get("email_subject").toString(),
@@ -160,19 +161,19 @@ public class YourPlanController {
                 String entity_type = (String) requestBodyMap.get("entity_type");
                 String is_recurring = (String) requestBodyMap.get("isRecurring");
 
-                ScheduleDAO.deleteSchedules(companyId, schedule_ids);
+                ScheduleDAO.deleteSchedules(userCompanyIds.getCompanyId(), schedule_ids);
                 messageStatus = "true";
             } else if (type.equalsIgnoreCase("delete")) {
                 Double schedule_ids = (Double) requestBodyMap.get("schedule_ids");
                 String entity_type = (String) requestBodyMap.get("entity_type");
                 String is_recurring = (String) requestBodyMap.get("isRecurring");
-                ScheduleDAO.deleteSchedule(companyId, schedule_ids.intValue());
+                ScheduleDAO.deleteSchedule(userCompanyIds.getCompanyId(), schedule_ids.intValue());
                 messageStatus="true";
             } else if (type.equalsIgnoreCase("removetemplate")) {
                 Double schedule_ids = (Double) requestBodyMap.get("schedule_ids");
                 String entity_type = (String) requestBodyMap.get("entity_type");
                 String is_recurring = (String) requestBodyMap.get("isRecurring");
-                ScheduleDAO.removeSavedTemplate(companyId, schedule_ids.intValue());
+                ScheduleDAO.removeSavedTemplate(userCompanyIds.getCompanyId(), schedule_ids.intValue());
                 
                 messageStatus = "true";
             } else if (type.equalsIgnoreCase(ScheduledEntityType.Reminder.toString())) {
@@ -183,7 +184,7 @@ public class YourPlanController {
                 Double schedule = (Double) requestBodyMap.get("schedule_time");
 
                 Timestamp scheduleTimeStamp = new Timestamp(schedule.longValue());
-                ScheduleDAO.updateNoteDetails(companyId, Integer.parseInt(schedule_id),
+                ScheduleDAO.updateNoteDetails(userCompanyIds.getCompanyId(), Integer.parseInt(schedule_id),
                         schedule_title, schedule_desc, status, scheduleTimeStamp);
                 messageStatus = "true";
             } else if (type.equalsIgnoreCase("updateSchedule")) {
@@ -213,10 +214,9 @@ public class YourPlanController {
     public ResponseEntity<ContainerResponse> AddAction(HttpServletRequest request, HttpServletResponse response) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
         Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+        UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
         if ( requestBodyMap == null){
             throw new ProcessFailed(messageSource.getMessage("something_wrong",new String[]{}, Locale.US));
         }
@@ -243,7 +243,7 @@ public class YourPlanController {
                             requestBodyMap.get("actiontype").toString(), 
                             days.toString().trim(),
                             templateStatus,
-                            companyId,
+                            userCompanyIds.getCompanyId(),
                             conn
                         );
                     conn.commit();
@@ -264,7 +264,7 @@ public class YourPlanController {
                         requestBodyMap.get("description").toString(),
                         new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()), 
                         requestBodyMap.get("actiontype").toString(), 
-                        companyId,
+                        userCompanyIds.getCompanyId(),
                         Integer.parseInt(requestBodyMap.get("days").toString()),
                         conn
                     );
@@ -343,8 +343,10 @@ public class YourPlanController {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
             List<String> messageList = new ArrayList<>();
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+ 
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             if ( StringUtils.isEmpty(request.getParameter("schedule_id")) ){
                 Map<String, Object> error = new HashMap<>();
                 error.put("error", "Schedule id is missing");
@@ -354,7 +356,7 @@ public class YourPlanController {
             try{
                 Integer scheduleEmailId = Integer.parseInt(request.getParameter("schedule_id"));
                 Map<String, Object> scheduleEmailDetails = 
-                        ScheduleDAO.getScheduleEmailDetails(companyId, scheduleEmailId);
+                        ScheduleDAO.getScheduleEmailDetails(userCompanyIds.getCompanyId(), scheduleEmailId);
                 messageList.add(AppConstants.GSON.toJson(scheduleEmailDetails));
                 genericResponse.setDetails(messageList);
                 genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success",new String[]{}, Locale.US)));
@@ -382,8 +384,10 @@ public class YourPlanController {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
             List<String> messageList = new ArrayList<>();
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+ 
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             
             String scheduleId = request.getParameter("schedule_id");
             if ( StringUtils.isEmpty(scheduleId)){
@@ -391,7 +395,7 @@ public class YourPlanController {
             }
             
             Map<String, Object> schedulePostDetails =
-                    ScheduleSocialPostDAO.getScheduleSocialPostDetails(companyId, Integer.parseInt(scheduleId));
+                    ScheduleSocialPostDAO.getScheduleSocialPostDetails(userCompanyIds.getCompanyId(), Integer.parseInt(scheduleId));
             
             messageList.add(AppConstants.GSON.toJson(schedulePostDetails));
             genericResponse.setDetails(messageList);
@@ -409,8 +413,10 @@ public class YourPlanController {
         boolean twit = false;
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+ 
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             String htmlString = "";
             String isFacebook = request.getParameter("isFacebook");
             String isTwitter = request.getParameter("isTwitter");
@@ -424,7 +430,7 @@ public class YourPlanController {
             if (imageType.equals("layout")){
 //                file_image_path = com.intbit.AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
             }else if (imageType.equals("gallery")) {
-                file_image_path = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + AppConstants.GALLERY_FOLDERNAME + File.separator + getImageFile;
+                file_image_path = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + userCompanyIds.getCompanyId() + File.separator + AppConstants.GALLERY_FOLDERNAME + File.separator + getImageFile;
             }else if (imageType.equals("url")){
                 file_image_path = getImageFile;
             }
@@ -438,14 +444,14 @@ public class YourPlanController {
                 String url1 = request.getParameter("url");
                 returnMessage = PostToFacebook.postStatus(title, 
                         file_image_path, posttext, imagePostURL, getImageFile, url1, 
-                        description, imageType, companyId, htmlString);
+                        description, imageType, userCompanyIds.getCompanyId(), htmlString);
             }if (isTwitter.equalsIgnoreCase("true")) {
 
                 String text = request.getParameter("text");
                 String shortURL = request.getParameter("shorturl");
                 PrintWriter out1 = response.getWriter();
                 returnMessage = PostToTwitter.postStatus( 
-                        imageType, text, shortURL, file_image_path, companyId, htmlString, getImageFile);
+                        imageType, text, shortURL, file_image_path, userCompanyIds.getCompanyId(), htmlString, getImageFile);
                 transactionResponse.setMessage(returnMessage);
             }
             logger.log(Priority.DEBUG, "message while facebook post:"+returnMessage);

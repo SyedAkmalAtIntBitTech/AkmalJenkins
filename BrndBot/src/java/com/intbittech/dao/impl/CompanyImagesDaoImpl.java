@@ -91,4 +91,21 @@ public class CompanyImagesDaoImpl implements CompanyImagesDao {
         }
     }
 
+    @Override
+    public CompanyImages getCompanyImagesByCompany(Company company) {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(CompanyImages.class).add(Restrictions.eq("fkCompanyId", company));
+
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return (CompanyImages) criteria.list().get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
+        }
+    }
+    
 }

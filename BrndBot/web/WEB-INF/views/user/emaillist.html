@@ -3,7 +3,6 @@
     <div ng-include src="'createemailList.html'"></div>
     <div class="top-nav-bar-offset"></div>
     <div class="top-subnav-bar-offset"></div>
-    <!--<div class="page-content-container email-list-contact-page" id="emaillistsdiv" ng-controller="EmailListController">-->
     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" d="emaillistsdiv" ng-show="emallistdetails">
 
         <!--USER ADDED LISTS-->
@@ -13,10 +12,9 @@
                 <a href="">
                     <div id="addemlstbtn" class="long-button green-button" ng-show="addEmailListButton" ng-click="addEmailList()"> Create Email List</div>
                 </a>
-                <!--                <a class="long-button green-button">Create Email List</a>-->
             </div>
             <div class="hub-pane-content-wrap" ng-init="emailListGet()">
-                <div class="hub-empty-wrap" ng-if="emailLists.length > 0">There are no email lists</div>
+                <div class="hub-empty-wrap" ng-if="emailLists.length <= 0 || emailLists.length == undefined">No email list present</div>
                 <div class="hub-slat-list-wrap" ng-show="emailLists.length > 0" ng-repeat="email in emailLists"> 
                     <div class="slat">
                         <div class="selection-container col-5p"> 
@@ -70,7 +68,6 @@
                         </div>
                         <div class="slat-detail-wrap">
                             <div class="slat-detail slat-detail-button ">
-<!--                                <a class="reg-button slat-detail-button" href="emaillistsdetails?list_name={{email.emailListName}}&type=user">Manage Email List</a>-->
                                     <a class="reg-button slat-detail-button" ng-click="viewEmailListDetails(email.emailListName, 'user')">Manage Email List</a>
                             </div>
                         </div>

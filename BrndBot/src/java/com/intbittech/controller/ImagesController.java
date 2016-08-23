@@ -11,6 +11,7 @@ import com.intbittech.utility.ServletUtil;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyImages;
 import com.intbittech.model.GlobalImages;
+import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
@@ -19,11 +20,14 @@ import com.intbittech.services.CompanyImagesService;
 import com.intbittech.services.GlobalImagesService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.UserSessionUtil;
+import com.intbittech.utility.Utility;
+import java.io.BufferedReader;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
@@ -34,8 +38,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -53,13 +59,11 @@ public class ImagesController {
     private GlobalImagesService globalImagesService;
     @Autowired
     private CompanyImagesService companyImagesService;
-
+    
     @RequestMapping(value = "/get/{imageId}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<ContainerResponse> getImageById(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<ContainerResponse> getImageById(HttpServletRequest request, HttpServletResponse response, @RequestParam("companyId") Integer companyId) {
         GenericResponse<CompanyImages> genericResponse = new GenericResponse<>();
         try {
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             List<CompanyImages> companyImages = companyImagesService.getAllImagesForCompany(companyId);
             genericResponse.setDetails(companyImages);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
@@ -75,6 +79,11 @@ public class ImagesController {
         TransactionResponse transactionResponse = new TransactionResponse();
 
         try {
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+ 
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);            
+
             String pathSuffix = "";
             String fileName = "";
             String link = "";
@@ -92,8 +101,8 @@ public class ImagesController {
                 globalImages.setImageName(fileName);
                 globalImagesService.save(globalImages);
             } else {
-                Company company = userProfile.getUser().getFkCompanyId();
-                pathSuffix = companyImagesService.getPath(company.getCompanyId());
+                Company company = new Company();
+                pathSuffix = companyImagesService.getPath(userCompanyIds.getCompanyId());
                 fileName = FileUploadUtil.uploadFile(pathSuffix, request);
                 link = companyImagesService.getLink(fileName, company, imageURL);
                 CompanyImages companyImages = new CompanyImages();
@@ -112,17 +121,18 @@ public class ImagesController {
     }
 
     @RequestMapping(value = "/uploadLogo", method = RequestMethod.POST)
-    public ResponseEntity<ContainerResponse> uploadLogo(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<ContainerResponse> uploadLogo(HttpServletRequest request, 
+            HttpServletResponse response,@RequestParam("companyId") Integer companyId) {
         TransactionResponse transactionResponse = new TransactionResponse();
 
         try {
+
             String pathSuffix = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH;
             String fileName = "";
             String link = "";
             String imageURL = ServletUtil.getServerName(request.getServletContext());
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Company company = userProfile.getUser().getFkCompanyId();
-            pathSuffix = pathSuffix + File.separator + company.getCompanyId() + File.separator + AppConstants.LOGO_FOLDERNAME;
+            
+            pathSuffix = pathSuffix + File.separator + companyId + File.separator + AppConstants.LOGO_FOLDERNAME;
             
             fileName = FileUploadUtil.uploadLogo(pathSuffix, request);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_save", new String[]{}, Locale.US)));
