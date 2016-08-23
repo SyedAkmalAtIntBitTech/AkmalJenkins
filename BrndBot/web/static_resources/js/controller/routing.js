@@ -70,7 +70,11 @@ emailFlowApp.config(function ($routeProvider) {
             .when('/emaillistselection', {
                 title: 'BrndBot - Email List Selection',
                 templateUrl: 'emaillistselection.html'
-            })           
+            })   
+            .when('/emaildetails', {
+                title: 'BrndBot - Email Details',
+                templateUrl: 'emaildetails.html'
+            })          
             .otherwise({title: 'Category',redirectTo: '/emailcategory'});
 }).run(function ($rootScope) {
         $rootScope.$on("$routeChangeSuccess", function (event, currentRoute) {

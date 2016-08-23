@@ -174,7 +174,7 @@ factoryApp.factory('appSessionFactory', function ($q) {
         if(emailLocalObject){
             if(emailLocalObject[key])
                 emailLocalObject[key] = "";
-            localStorage.setItem(emailLocalObject);
+            localStorage.setItem(emailObjectName,JSON.stringify(emailLocalObject));
         }
         deffered.resolve(data);
         return deffered.promise;

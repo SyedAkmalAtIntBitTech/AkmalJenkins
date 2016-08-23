@@ -64,17 +64,18 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             });
             
             //TODO Ilyas refactor this, need to go into email object
-            if (emailDraftDetails !== null) {
-                var paramDraftId = JSON.parse(emailDraftDetails).draftid;
-                var paramCategoryId = JSON.parse(emailDraftDetails).category_id;
-                var paramSubCategoryId = JSON.parse(emailDraftDetails).sub_category_id;
-                var paramLookupId = JSON.parse(emailDraftDetails).lookupId;
-                var paramEmailSubject = JSON.parse(emailDraftDetails).email_subject;
-                var paramMindbodyId = JSON.parse(emailDraftDetails).mindbodyId;
-                appSessionFactory.getEmail(getPreHeader()).then(function (preHeader){
-                    $scope.redirect('emaileditor', paramCategoryId, paramSubCategoryId, '', paramLookupId, paramMindbodyId, paramDraftId, paramEmailSubject,preHeader);
-                });
+             appSessionFactory.getAllEmail().then(function (sessionMap){
+            if (sessionMap[getDraftDetails()]) {
+                var paramDraftId = sessionMap[getDraftId()];//JSON.parse(emailDraftDetails).draftid;
+                var paramCategoryId = sessionMap[getCategoryId()];//JSON.parse(emailDraftDetails).category_id;
+                var paramSubCategoryId = sessionMap[getSubCategoryId()];//JSON.parse(emailDraftDetails).sub_category_id;
+                var paramLookupId = sessionMap[getLookupId()];//JSON.parse(emailDraftDetails).lookupId;
+                var paramEmailSubject = sessionMap[getEmailSubject()];//JSON.parse(emailDraftDetails).email_subject;
+                var paramMindbodyId = sessionMap[getMindbodyId()];//JSON.parse(emailDraftDetails).mindbodyId;
+                
+                    $scope.redirect('emaileditor', paramCategoryId, paramSubCategoryId, '', paramLookupId, paramMindbodyId, paramDraftId, paramEmailSubject,sessionMap[getPreHeader()]);     
             }
+             });
 
             $('#slider-button').click(function () {
                 if ($('#slider-button').css("margin-right") === "900px")
