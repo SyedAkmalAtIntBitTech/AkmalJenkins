@@ -79,7 +79,7 @@
                 <a ng-hide="isProgramArchived" id="onetimeactbtn" class="long-button green-button" ng-click="ShowAddAction()">Add a One Time Action</a>
             </div>
             <div class="your-plan-action-wrap">
-                <div class="slat" ng-repeat="programaction in (filteredItems = (programs.programactions| orderBy: 'postDate':true))">
+                <div class="slat" ng-repeat="programaction in (filteredItems = (programs.programactions| orderBy: 'postDate':false))">
                     <div class="your-plan-icon-wrap no-template-icon">
                         <div class="your-plan-icon hint--top" ng-show="programaction.status == 'Template Saved'"  data-hint="Template Saved" > 
                         <img src="/BrndBot/images/template-saved.svg" />

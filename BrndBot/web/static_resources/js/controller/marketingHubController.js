@@ -278,7 +278,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             {
                 var from_address = email_settings.from_address;
                 var reply_email_address = email_settings.reply_email_address;
-                var emailSettingsData = {"from_address": "mail@brndbot.com", "reply_email_address": reply_email_address};
+                var emailSettingsData = {"from_address": "mail@brndbot.com", "reply_email_address": reply_email_address, "from_name": email_settings.from_name};
                 settingsFactory.saveEmailSettingsPost(emailSettingsData).then(function (data) {
                     $scope.replyToAddress = false;
                     $scope.getEmailSettings();

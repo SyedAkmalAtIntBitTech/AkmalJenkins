@@ -775,6 +775,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 var parseData = JSON.parse(data.d.details);
                 $scope.email_settings = parseData;
                 $scope.replyAddress = parseData.reply_email_address;
+                $scope.fromName = parseData.from_name;
             });
         };
 

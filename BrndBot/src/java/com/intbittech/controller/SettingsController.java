@@ -140,9 +140,11 @@ public class SettingsController extends BrndBotBaseHttpServlet {
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             String from_address = (String) requestBodyMap.get("from_address");
             String reply_email_address = (String) requestBodyMap.get("reply_email_address");
+            String from_name = (String) requestBodyMap.get("from_name");
             JSONObject json_object = new JSONObject();
             json_object.put(IConstants.kEmailFromAddress, from_address);
             json_object.put(IConstants.kEmailReplyAddress, reply_email_address);
+            json_object.put(IConstants.kFromName, from_name);
             companyPreferencesService.updateEmailSettings(json_object, company);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
