@@ -22,7 +22,7 @@ function allCompaniesController($scope,$http){
             
             $scope.company = data.d.details;            
         }).error(function(data, status, headers, config){
-            alert(eval(JSON.stringify(data.d.operationStatus.messages)));          
+            growl(eval(JSON.stringify(data.d.operationStatus.messages)));          
         });     
       
   };   
@@ -60,7 +60,7 @@ function allCompaniesController($scope,$http){
                 $("#organization > [value=" + organization + "]").attr("selected", "true");
             }, 0);
         }).error(function (data, status, headers, config) {
-            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            growl(eval(JSON.stringify(data.d.operationStatus.messages)));
         });
 
     };
@@ -77,12 +77,12 @@ function allCompaniesController($scope,$http){
                     contentType: "application/json",
                     data: JSON.stringify(updateorganization)
                 }).success(function(data, status, headers, config) { 
-                    alert("Organization updated successfully");
+                    growl("Organization updated successfully");
 
                 window.open(getHost() + 'admin/companydetails?companyId='+$scope.companyId+'&companyName='+$scope.companyName+'&organizationName='+selectedOrganizationName+'&organizationId='+selectedOrganizationIdValue, "_self");
                       
                 }).error(function(data, status, headers, config) {
-                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                        growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });   
     };
   $scope.companyEmailcategories= function (){
@@ -129,7 +129,7 @@ function allCompaniesController($scope,$http){
                 }
                 
             }).error(function(data, status, headers, config) {
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    growl(eval(JSON.stringify(data.d.operationStatus.messages)));
             });         
     };      
   
@@ -151,7 +151,7 @@ function allCompaniesController($scope,$http){
                 }
                 
             }).error(function(data, status, headers, config) {
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    growl(eval(JSON.stringify(data.d.operationStatus.messages)));
             });         
     };      
     
@@ -174,7 +174,7 @@ function allCompaniesController($scope,$http){
                 }
                 
             }).error(function(data, status, headers, config) {
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    growl(eval(JSON.stringify(data.d.operationStatus.messages)));
             });         
     };   
     
@@ -194,7 +194,7 @@ function allCompaniesController($scope,$http){
                    $("#noGroupMessage").empty().append(eval(JSON.stringify(data.d.operationStatus.messages)));
                }
            }).error(function(data, status, headers, config) {
-                   alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                   growl(eval(JSON.stringify(data.d.operationStatus.messages)));
            });
     };
     
@@ -225,11 +225,11 @@ function allCompaniesController($scope,$http){
                     contentType: "application/json",
                     data: JSON.stringify(updateorganization)
                 }).success(function(data, status, headers, config) { 
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                     window.open(getHost() + 'admin/companydetails?companyId='+companyId, "_self");
                       
                 }).error(function(data, status, headers, config) {
-                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                        growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });   
         };
         
@@ -247,11 +247,11 @@ function allCompaniesController($scope,$http){
                     data: JSON.stringify(groupAddTemplate)
                 }).success(function (data)
                 {   
-                       alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                       growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                        window.open(getHost() + 'admin/companydetails?companyId='+companyId+'&organizationName='+organizationName+'&companyName='+companyName,"_self");
                     
                 }).error(function(data){
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });   
         
         
@@ -271,10 +271,10 @@ function allCompaniesController($scope,$http){
                     url : getHost()+ 'deleteGroup.do?organizationCompanyLookupId='+organizationCompanyLookupId,
                 }).success(function(data, status, headers, config) {
                     $scope.groupDetails= data.d.details;
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                      window.open(getHost() + 'admin/companydetails?companyId='+companyId+'&organizationName='+organizationName+'&companyName='+companyName,"_self");
                 }).error(function(data, status, headers, config) {
-                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                        growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });     
             }
     }
@@ -294,7 +294,7 @@ function allCompaniesController($scope,$http){
 
             }
         }).error(function(data, status, headers, config) {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                growl(eval(JSON.stringify(data.d.operationStatus.messages)));
         });
     };
 
