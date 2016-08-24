@@ -69,7 +69,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             var invitation = {"userRoleLookUpId":"", "emailaddress": userDetails.email, "roles": roles, "task": 'invitation'};
            
             onboardingFactory.inviteUserPost(invitation).then(function (data) {
-                alert(data.d.message);
+                growl(data.d.message);
                 $scope.closeOverlay();
                 $location.path("/settings/useraccountsettings");
             });
@@ -78,7 +78,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.resendUserInvite = function (inviteId) {
            
             onboardingFactory.resendUserInvitePost(inviteId).then(function (data) {
-                alert(data.d.message);
+                growl(data.d.message);
                 $scope.closeOverlay();
                 $location.path("/settings/useraccountsettings");
             });
@@ -91,7 +91,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             var invitation = {"inviteId":$scope.inviteId, "userRoleLookUpId":$scope.userRoleLookUpId.toString(), "emailaddress": $scope.userEmailId, "roles": roles, "task": 'invitation'};
             
             onboardingFactory.editUserRolePost(invitation).then(function (data) {
-                alert(data.d.message);
+                growl(data.d.message);
                 $scope.closeOverlay();
                 $location.path("/settings/useraccountsettings");
             });
@@ -100,7 +100,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.removeUser = function (inviteId) {
             
             onboardingFactory.removeUserPost(inviteId).then(function (data) {
-                alert(data.d.message);
+                growl(data.d.message);
                 $location.path("/settings/useraccountsettings");
             });
         };

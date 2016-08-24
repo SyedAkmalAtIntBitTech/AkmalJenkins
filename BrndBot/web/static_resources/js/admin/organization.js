@@ -17,7 +17,6 @@ $(document).ready(function () {
 
 
     $("#addOrganizationPopupDiv").click(function () {
-        alert("test");
         $("#addOrganizationPopup").hide();
         $("#addOrganizationPopupDiv").hide();
 

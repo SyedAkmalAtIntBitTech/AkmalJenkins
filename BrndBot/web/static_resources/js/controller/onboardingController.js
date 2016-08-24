@@ -147,7 +147,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 var message = data.d.message;
                 var userId = data.d.id;
                 localStorage.setItem("userId",userId);
-                alert(message);
+                growl(message);
                 window.location = getHost() + "login";
             });    
         };
@@ -283,7 +283,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                if (data.d.message == 'Activated'){
                    window.location = getHost() + "user/dashboard";
                }else if (data.d.message == 'Deactivated'){
-                   alert("your account has been deactivated, please contact system admin");
+                   growl("your account has been deactivated, please contact system admin");
                    window.location = getHost() + "login";
                }
                $scope.hideDataOverlay = false;
