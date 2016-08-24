@@ -70,7 +70,6 @@ public class YourPlanController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
  
-//          UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
         List<String> errorMsgs = new ArrayList<>();
             
             if ( StringUtils.isEmpty(request.getParameter("from")) ){
@@ -346,7 +345,6 @@ public class YourPlanController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
  
-//            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             
             if ( StringUtils.isEmpty(request.getParameter("schedule_id")) ){
                 Map<String, Object> error = new HashMap<>();
