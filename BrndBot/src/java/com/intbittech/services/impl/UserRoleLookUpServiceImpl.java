@@ -5,10 +5,9 @@
  */
 package com.intbittech.services.impl;
 
-import com.intbittech.controller.SignupController;
 import com.intbittech.dao.UserRoleLookUpDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.SubCategory;
+import com.intbittech.model.Company;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.UsersRoleLookup;
 import com.intbittech.model.Users;
@@ -69,7 +68,7 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
     }
 
     @Override
-    public UsersRoleLookup getUsersRoleLookupById(Integer id) throws ProcessFailed {
+    public UsersRoleLookup getUsersRoleLookupByLookUpId(Integer id) throws ProcessFailed {
         UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByLookUpId(id);
         if(userRoleLookup == null)
         {
@@ -79,7 +78,7 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
     }
 
     @Override
-    public UsersRoleLookup getUsersRoleLookupByUserId(Users user) throws ProcessFailed {
+    public UsersRoleLookup getUsersRoleLookupByUser(Users user) throws ProcessFailed {
         UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByUser(user);
         if(userRoleLookup == null)
         {
@@ -89,7 +88,7 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
     }
     
     @Override
-    public UserRole getUsersRoleByUserId(Users user) throws ProcessFailed {
+    public UserRole getUsersRoleByUser(Users user) throws ProcessFailed {
         UserRole userRole = usersRoleLookUpDao.getUsersRoleByUser(user);
         if(userRole == null)
         {
@@ -101,7 +100,7 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
    /**
      * {@inheritDoc}
      */
-    public List<UsersRoleLookup> getAllUserRolesByUserId(Users user) throws ProcessFailed {
+    public List<UsersRoleLookup> getAllUserRolesByUser(Users user) throws ProcessFailed {
         List<UsersRoleLookup> userRoleLookup = usersRoleLookUpDao.getAllUserRolesByUser(user);
         if (userRoleLookup.isEmpty()) {
             throw new ProcessFailed("No Sub Categories found.");
@@ -115,7 +114,7 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
     }
 
     @Override
-    public UsersRoleLookup getUsersRoleLookupByUserAndRoleId(Users user, UserRole role) throws ProcessFailed {
+    public UsersRoleLookup getUsersRoleLookupByUserAndRole(Users user, UserRole role) throws ProcessFailed {
         UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByUserAndRole(user, role);
         if(userRoleLookup == null)
         {
@@ -124,6 +123,17 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
         }
         return userRoleLookup;
         
+    }
+
+    @Override
+    public UsersRoleLookup getUsersRoleLookupByUserAndCompany(Users user, Company company) throws ProcessFailed {
+        UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByUserAndCompany(user, company);
+        if(userRoleLookup == null)
+        {
+            return null;
+//             throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
+        }
+        return userRoleLookup;
     }
     
 }

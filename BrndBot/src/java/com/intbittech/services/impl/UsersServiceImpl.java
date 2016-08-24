@@ -16,7 +16,6 @@ import com.intbittech.email.mandrill.Recipient;
 import com.intbittech.email.mandrill.RecipientMetadata;
 import com.intbittech.email.mandrill.SendMail;
 import static com.intbittech.email.mandrill.SendMail.MANDRILL_KEY;
-import com.intbittech.enums.InvitationStatus;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.Invite;

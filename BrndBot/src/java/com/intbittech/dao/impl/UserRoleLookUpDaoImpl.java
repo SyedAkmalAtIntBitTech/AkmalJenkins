@@ -7,7 +7,7 @@ package com.intbittech.dao.impl;
 
 import com.intbittech.dao.UserRoleLookUpDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.Invite;
+import com.intbittech.model.Company;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
 import com.intbittech.model.UsersRoleLookup;
@@ -148,6 +148,18 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
                 .createCriteria(UsersRoleLookup.class)
                 .add(Restrictions.eq("userId", user))
                 .add(Restrictions.eq("roleId", role));
+        if (criteria.list().isEmpty()) {
+            return null;
+        }
+        return (UsersRoleLookup) criteria.list().get(0);
+    }
+
+    @Override
+    public UsersRoleLookup getUsersRoleLookupByUserAndCompany(Users user, Company company) throws ProcessFailed {
+        Criteria criteria = sessionFactory.getCurrentSession()
+                .createCriteria(UsersRoleLookup.class)
+                .add(Restrictions.eq("userId", user))
+                .add(Restrictions.eq("companyId", company));
         if (criteria.list().isEmpty()) {
             return null;
         }
