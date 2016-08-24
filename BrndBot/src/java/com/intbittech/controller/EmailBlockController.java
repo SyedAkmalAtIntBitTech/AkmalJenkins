@@ -12,6 +12,7 @@ import com.intbittech.modelmappers.EmailBlockDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.services.EmailBlockExternalSourceService;
 import com.intbittech.services.EmailBlockService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import java.util.ArrayList;
@@ -38,6 +39,8 @@ public class EmailBlockController {
     
     @Autowired
     private EmailBlockService emailBlockService;
+    @Autowired
+    private EmailBlockExternalSourceService emailBlockExternalSourceService;
     
     @RequestMapping(value = "saveEmailBlock", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveEmailBlock(@RequestBody EmailBlockDetails emailBlockDetails) {
@@ -115,4 +118,5 @@ public class EmailBlockController {
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse),HttpStatus.ACCEPTED);
     }
-}
+    
+   }

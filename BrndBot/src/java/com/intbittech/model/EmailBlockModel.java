@@ -34,6 +34,8 @@ public class EmailBlockModel implements Serializable {
     private String imageFileName;
     @Column(name = "html_data")
     private String htmlData;
+    @Column(name ="is_recurring")
+    private boolean isRecurring;
 
     public EmailBlockModel() {
     }
@@ -73,4 +75,14 @@ public class EmailBlockModel implements Serializable {
     public void setHtmlData(String htmlData) {
         this.htmlData = htmlData;
     }
+
+    public boolean isIsRecurring() {
+        return isRecurring;
+    }
+
+    public void setIsRecurring(boolean isRecurring) {
+        this.isRecurring = isRecurring;
+    }
+    
+    
 }

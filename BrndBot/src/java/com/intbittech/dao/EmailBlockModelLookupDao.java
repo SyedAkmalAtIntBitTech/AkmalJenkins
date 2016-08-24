@@ -65,5 +65,15 @@ public interface EmailBlockModelLookupDao {
     public void delete(EmailBlockModelLookup emailBlockModelLookup) throws ProcessFailed;
 
     public EmailBlockModelLookup getEmailBlockModelByEmailModelId(Integer emailModelId);
+    
+    /**
+     * This method pass id as input and get the {@link EmailBlockModelLookup}
+     * from database.
+     *
+     * @param emailBlockId is the emailBlockId
+     * @return list of {@link EmailBlockModelLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailBlockModelLookup> getAllRecuringEmailBlockModel(Integer emailBlockId) throws ProcessFailed;
 
 }

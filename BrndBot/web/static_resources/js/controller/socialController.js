@@ -24,7 +24,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.twitterImageDivToPost = false;
         $scope.imageToBeUploaded = '../images/uploadPhoto.svg';
         $scope.postType = 'Change To Link Post';
-        $scope.TwtPostType="Change To Link Post";
+        $scope.TwtPostType = "Change To Link Post";
         $scope.existingAction = false;
         $scope.managepage = "";
         $scope.actionNameValidation = actionNameValidation;
@@ -53,30 +53,30 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         var schedule_desc = "";
         $rootScope.CurrentFbAccessToken = "";
 
-        $scope.getManagePage = function () {
+        $scope.getManagePage = function (selectedSocialmedia, postData) {
             var fbData = JSON.stringify({access_token_method: "getAccessToken"});
             settingsFactory.facebookPost(fbData).then(function (fbResponseData) {
                 var fbAccessToken = fbResponseData.d.message.split(",");
                 if (fbAccessToken[0] === 'null')
                 {
-                    var data = JSON.stringify({redirectUrl: "user/socialsequence"});
+                    var data = JSON.stringify({redirectUrl: "user/socialsequence%23/facebookpost"});
                     settingsFactory.fbLoginPost(data).then(function (data) {
                         $window.location = data.d.details[0];
                     });
-                }
-                else {
+                } else {
                     $rootScope.CurrentFbAccessToken = fbAccessToken[0];
-                    $location.path('/facebookpost');
+//                    $location.path('/facebookpost');
+                   $scope.openPostOrShedulePopup(selectedSocialmedia, postData); 
                 }
             });
 
         };
-        
-        $scope.selectManagePage = function (id){ 
+
+        $scope.selectManagePage = function (id) {
             $('.cat-slat').removeClass('highlightDiv').addClass('cat-slat-unselect');
-            $("."+id).removeClass('cat-slat-unselect').addClass('highlightDiv');    
+            $("." + id).removeClass('cat-slat-unselect').addClass('highlightDiv');
         };
-        $scope.isDefaultTwitterAccountSet = function () {
+        $scope.isDefaultTwitterAccountSet = function (selectedSocialmedia, postData) {
             var data = JSON.stringify({access_token_method: "getAccessToken"});
             settingsFactory.twitterPost(data).then(function (data) {
                 var twitterAccessToken = data.d.message;
@@ -88,7 +88,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                     });
                 } else {
                     $scope.showTwitterPopup = false;
-                    $location.path('/twitterpost');
+                    $scope.openPostOrShedulePopup(selectedSocialmedia, postData);
                 }
             });
         };
@@ -119,11 +119,11 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.ddSelectlinkUrls = {
             text: "Please select an Url"
         };
-        
+
         $scope.fbTwitterinit = function () {
             $scope.show_hide_ImageGalleryPopup(false);
         };
-        
+
         $scope.getUrls = function () {
             $scope.ddSelectlinkUrlsOptions = [
             ];
@@ -247,10 +247,10 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
         $scope.changeTwitterPostType = function () {
             if ($scope.showTwitterLink === true) {
-                $scope.TwtPostType="Change To Link Post";
+                $scope.TwtPostType = "Change To Link Post";
                 $scope.showTwitterLink = false;
             } else {
-                $scope.TwtPostType="Change To Normal Post";
+                $scope.TwtPostType = "Change To Normal Post";
                 $scope.showTwitterLink = true;
             }
         };
@@ -455,7 +455,6 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.postToSocialMedia = function (selectedSocialmedia, postData) {
             var data = "";
             var linktitle = "";
-
             if (selectedSocialmedia === "facebook") {
                 if (postData.linkTitle) {
                     linktitle = postData.linkTitle;
@@ -739,17 +738,16 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 
         $scope.setTwitterAccessTokenFromSocialHub = function (pinCode) {
             var pin = pinCode;
-                settingsFactory.twitterGetTokenGet(pin).then(function (data) {
-                    if (pin.length > 0) {
-                        $location.path('/twitterpost');
-                        $scope.showTwitterPopup = false;
-                    } else {
-                        growl(pinerror);
-                        $("#pinTextBox").focus();
-                    }
-                });
+            settingsFactory.twitterGetTokenGet(pin).then(function (data) {
+                if (pin.length > 0) {
+                    $scope.showTwitterPopup = false;
+                } else {
+                    growl(pinerror);
+                    $("#pinTextBox").focus();
+                }
+            });
         };
-        
+
         $scope.closeTwitterPopup = function ()
         {
             $scope.showTwitterPopup = false;
@@ -916,20 +914,20 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
         $scope.getScheduleData = function (selectedMarketingProgrmaId, postData, socialMediaType) {
             var sendData = "";
-            
+
             var linkTitle = "";
-            if(postData.linkTitle)
+            if (postData.linkTitle)
                 linkTitle = postData.linkTitle;
             var shareText = "";
-            if(postData.shareText)
+            if (postData.shareText)
                 shareText = postData.shareText;
             var shareUrl = "";
-            if(postData.url)
+            if (postData.url)
                 shareUrl = postData.url;
             var linkDescription = "";
-            if(postData.linkDescription)
+            if (postData.linkDescription)
                 linkDescription = postData.linkDescription;
-            
+
 //            if (selectedMarketingProgrmaId !== 0) {
             if ($scope.existingActionPopup) {
                 sendData = JSON.stringify([{
@@ -964,7 +962,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 var myEpoch = Date.parse(dateAndTime);
 
                 console.log("Epoch: " + myEpoch);
-                
+
                 sendData = JSON.stringify([{
                         "schedule_time": myEpoch,
                         "schedule_title": schedule_title,
@@ -1057,6 +1055,64 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 $scope.getUserImages();
             });
         };
+        $scope.openAviaryEditor = function (imageId) {
+            $scope.launchEditor(imageId);
+        };
+        var featherEditor = new Aviary.Feather({
+            apiKey: getAviaryApiKey(),
+            apiVersion: 3,
+            theme: 'dark', // Check out our new 'light' and 'dark' themes!
+            tools: 'all',
+            appendTo: '',
+            onSave: function (imageID, newURL) {
+                var img = document.getElementById(imageID);
+                $.ajax({
+                    url: getHost() + 'DownloadImageFromUrl',
+                    method: 'POST',
+                    async: false,
+                    data: {
+                        folderName: "aviary",
+                        imageUrl: newURL
+                    },
+                    success: function (responseText) {
+                        img.src = responseText.link;
+                        featherEditor.close();
+                    }
+                });
+
+
+            },
+            onError: function (errorObj) {
+                alert(errorObj.message);
+            }
+        });
+
+        $scope.launchEditor = function (id, src) {
+
+            featherEditor.launch({
+                image: id,
+                url: src,
+                cropPresets: [
+                    'Custom',
+                    'Original',
+                    ['680x330', '68:33'],
+                    ['350x350', '35:35'],
+                    ['310x370', '31:37']
+                ]
+            });
+            return false;
+        };
+        $scope.setChannel = function (channel) {
+            $scope.selectedChannel = channel;
+            if (channel === 'facebook') {
+                $location.path('/facebookpost');
+
+            } else if (channel === 'twitter') {
+                 $location.path('/twitterpost');
+            }
+
+        };
+
     }]);
 //socialFlowApp.directive('toggleClass', function() {
 //    return {

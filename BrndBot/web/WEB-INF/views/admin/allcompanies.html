@@ -6,7 +6,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
 -->
 <html>
     <head>        
-       <link rel="shortcut icon" href="images/favicon.png"/>   
+        <link rel="shortcut icon" href="images/favicon.png"/>   
         <script type="text/javascript" src="../js/utilities/angular.min.js"></script>
         <script type="text/javascript" src="../js/utilities/jquery-1.11.3.min.js"></script>
         <meta name="format-detection" content="telephone=no">
@@ -26,39 +26,41 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <script src="../js/admin/assets.js" type="text/javascript"></script>
         <script src="../js/admin/recurringemail.js" type="text/javascript"></script>
         <script src="../js/admin/marketingprogramdetails.js" type="text/javascript"></script>
-        <script src="../js/admin/allcompanies.js" type="text/javascript"></script>        
+        <script src="../js/admin/allcompanies.js" type="text/javascript"></script> 
+        <link href="../css/jquerygrowl.css" rel="stylesheet" type="text/css"/>
+        <script src="../js/utilities/jquerygrowl.js" type="text/javascript"></script>
 
-       <title>All Companies</title>
+        <title>All Companies</title>
     </head>
     <body  class="body-normal" ng-app ng-controller="allCompaniesController" >
         <div ng-include src="'header.html'"></div>
-      <div class="content-area" >
-        <div class="content-area_header">
-            <div class="header_path fleft">All Companies </div>
-        </div>
-        <div class="slatSection">
-            <div class="slatHeaders">
-                <div class="listHeaderCol col1of2 fleft">
-                    <span class="listCol_Header fleft"> Company Name </span>
-                </div>
-                <div class="listHeaderCol col1of4 fleft">
-                    <span class="listCol_Header fleft"> Organization </span>
-                </div>
+        <div class="content-area" >
+            <div class="content-area_header">
+                <div class="header_path fleft">All Companies </div>
             </div>
-            <ul class="slatArea" ng-init="allCompanyDetails()">
-                <li class="listItem" ng-repeat="companies in company.slice().reverse()">
-                    <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft">{{companies.companyName}}</span>
+            <div class="slatSection">
+                <div class="slatHeaders">
+                    <div class="listHeaderCol col1of2 fleft">
+                        <span class="listCol_Header fleft"> Company Name </span>
                     </div>
-                    <div class="listCol col1of4 fleft">
-                        <span class="listCol_Text fleft">{{companies.organizationName}}</span>
+                    <div class="listHeaderCol col1of4 fleft">
+                        <span class="listCol_Header fleft"> Organization </span>
                     </div>
-                    <div class="listCol col1of4 fleft">
-                        <a href="/BrndBot/admin/companydetails?companyId={{companies.companyId}}&companyName={{companies.companyName}}&organizationName={{companies.organizationName}}"><div class="CTA_Button Button--Gray fright">Manage Company</div></a>
-                    </div>
-                </li>
-            </ul>
+                </div>
+                <ul class="slatArea" ng-init="allCompanyDetails()">
+                    <li class="listItem" ng-repeat="companies in company.slice().reverse()">
+                        <div class="listCol col1of2 fleft">
+                            <span class="listCol_Text fleft">{{companies.companyName}}</span>
+                        </div>
+                        <div class="listCol col1of4 fleft">
+                            <span class="listCol_Text fleft">{{companies.organizationName}}</span>
+                        </div>
+                        <div class="listCol col1of4 fleft">
+                            <a href="/BrndBot/admin/companydetails?companyId={{companies.companyId}}&companyName={{companies.companyName}}&organizationName={{companies.organizationName}}&organizationId={{companies.organizationId}}"><div class="CTA_Button Button--Gray fright">Manage Company</div></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
     </body>
 </html>
