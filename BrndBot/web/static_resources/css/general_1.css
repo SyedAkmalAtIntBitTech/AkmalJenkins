@@ -459,7 +459,7 @@ li.main-nav:last-child{
 }
 
 .account-mgr{
-    background-image:url(/BrndBot/user/images/nav-icons/nav-icons_account-mgr.svg);
+    background-image:url(/BrndBot/images/nav-icons/nav-icons_account-mgr.svg);
 }
 
 .main-nav a:hover.your-plan{
@@ -2442,7 +2442,7 @@ p.modal-content-header{
 
 .notification-popup-btn{
     background-color: #F4F4F5;
-    background-image: url(/BrndBot/user/images/notification.svg);
+    background-image: url(/BrndBot/images/notification.svg);
     background-position: 50% 50%;
     background-size: 80% 80%;
     background-repeat: no-repeat;
@@ -2473,7 +2473,7 @@ p.modal-content-header{
 }
 
 .user-setting-dropdown-wrap-icon{
-    background-image: url(/BrndBot/user/images/dropdown.svg);
+    background-image: url(/BrndBot/images/dropdown.svg);
     height: 12px;
     width: 12px;
 }
