@@ -6,7 +6,10 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.confirmPasswordValidation = confirmPasswordValidation;
         $scope.confirmPasswordMissmatch = confirmPasswordMissmatch;
         $scope.logoValidation = logoValidation;
-        $scope.showPaletteChangePopUp = "";
+        $scope.showPaletteChangePopUp="";
+        $scope.addUserSettings = false;                   
+        $scope.userRoleLookUpId = "";
+        $scope.inviteId = "";
         $scope.passwordText = "";
 
         // Hide & show password function
@@ -60,6 +63,55 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             }
         };
 
+        $scope.inviteUser = function (userDetails) {
+            var roles = [];
+            roles.push(userDetails.adminRadio);
+            var invitation = {"userRoleLookUpId":"", "emailaddress": userDetails.email, "roles": roles, "task": 'invitation'};
+           
+            onboardingFactory.inviteUserPost(invitation).then(function (data) {
+                growl(data.d.message);
+                $scope.closeOverlay();
+                $location.path("/settings/useraccountsettings");
+            });
+        };
+
+        $scope.resendUserInvite = function (inviteId) {
+           
+            onboardingFactory.resendUserInvitePost(inviteId).then(function (data) {
+                growl(data.d.message);
+                $scope.closeOverlay();
+                $location.path("/settings/useraccountsettings");
+            });
+        };
+
+        $scope.editUser = function (userDetails) {
+            var roles = [];
+            roles.push(userDetails.adminRadio);
+            //TODO change with the latest after merge Muzamil
+            var invitation = {"inviteId":$scope.inviteId, "userRoleLookUpId":$scope.userRoleLookUpId.toString(), "emailaddress": $scope.userEmailId, "roles": roles, "task": 'invitation'};
+            
+            onboardingFactory.editUserRolePost(invitation).then(function (data) {
+                growl(data.d.message);
+                $scope.closeOverlay();
+                $location.path("/settings/useraccountsettings");
+            });
+        };
+
+        $scope.removeUser = function (inviteId) {
+            
+            onboardingFactory.removeUserPost(inviteId).then(function (data) {
+                growl(data.d.message);
+                $location.path("/settings/useraccountsettings");
+            });
+        };
+
+        $scope.getInvitedUsers = function () {
+            onboardingFactory.getInvitedUsersPost().then(function (data) {
+                $scope.invitedUsers = data.d.details;
+            });
+        };
+        
+
         $scope.setTab = function (type, password, confirmPassword, logoImage) {
             if (type === 'account') {
                 $scope.userAccountSetClass = 'active';
@@ -74,6 +126,40 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             }
         };
 
+        $scope.showAddUser = function ()
+        {
+            $scope.fadeClass = 'fadeClass';
+            $scope.addUserSettings = true;
+            $scope.editUserSettings = false;
+        };
+
+        $scope.showEditUser = function (inviteId,userRoleLookUpId,userEmailId)
+        {
+            $scope.fadeClass = 'fadeClass';
+            $scope.userRoleLookUpId = userRoleLookUpId;
+            $scope.userEmailId = userEmailId;
+            $scope.inviteId = inviteId;
+            $("#editemail").val(userEmailId);
+            $scope.addUserSettings = false;
+            $scope.editUserSettings = true;
+        };
+
+        $scope.showResendEmailToUser = function (userRoleLookUpId,userEmailId)
+        {
+            $scope.fadeClass = 'fadeClass';
+            $scope.userRoleLookUpId = userRoleLookUpId;
+            $scope.userEmailId = userEmailId;
+            $("#editemail").val(userEmailId);
+            $scope.addUserSettings = false;
+            $scope.editUserSettings = true;
+        };
+
+        $scope.closeOverlay = function ()
+        {
+            $scope.fadeClass = '';
+            $scope.addUserSettings = false;
+        };
+        
         $scope.userLogoValidation = function (logoImage) {
             if (!logoImage) {
                 $scope.logoImage = "";

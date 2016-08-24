@@ -6,11 +6,10 @@
 package com.intbittech.controller;
 
 import com.intbittech.AppConstants;
-import com.intbittech.model.UserProfile;
+import com.intbittech.model.UserCompanyIds;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.utility.ErrorHandlingUtil;
-import com.intbittech.utility.UserSessionUtil;
 import java.io.BufferedReader;
 import java.io.File;
 import java.util.Map;
@@ -27,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.intbittech.social.PostToFacebook;
 import com.intbittech.social.PostToTwitter;
+import com.intbittech.utility.Utility;
 
 /**
  *
@@ -48,9 +48,9 @@ public class SocialPostController {
         try {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+ 
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
 
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             String accessToken = (String) requestBodyMap.get("accessToken");
             String title = (String) requestBodyMap.get("title");
             String file_image_path = (String) requestBodyMap.get("file_image_path");
@@ -61,8 +61,8 @@ public class SocialPostController {
             String description = (String) requestBodyMap.get("description");
             String imageType = (String) requestBodyMap.get("imageType");
             String htmlString = (String) requestBodyMap.get("htmlString");
-            String fileImagePath = getImageTypePrefix(imageType, companyId, getImageFile);
-            String status = PostToFacebook.postStatus(title, fileImagePath, posttext, imagePostURL, getImageFile, url, description, imageType, companyId, htmlString,accessToken);
+            String fileImagePath = getImageTypePrefix(imageType, userCompanyIds.getCompanyId(), getImageFile);
+            String status = PostToFacebook.postStatus(title, fileImagePath, posttext, imagePostURL, getImageFile, url, description, imageType, userCompanyIds.getCompanyId(), htmlString,accessToken);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(status));
             transactionResponse.setMessage(status);
         } catch (Throwable throwable) {
@@ -81,20 +81,16 @@ public class SocialPostController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
 
             String text = (String) requestBodyMap.get("text");
             String shortURL = (String) requestBodyMap.get("shorturl");
             String fileImagePath = (String) requestBodyMap.get("imageToPost");
             String htmlString = (String) requestBodyMap.get("htmlString");
             String imageType = (String) requestBodyMap.get("imageType");
-            String getImageFile = getImageTypePrefix(imageType, companyId, fileImagePath);
+            String getImageFile = getImageTypePrefix(imageType, userCompanyIds.getCompanyId(), fileImagePath);
             
-
-//            String fileImagePath = getImageTypePrefix(image_type, companyId, getImageFile);
-
-            String status = PostToTwitter.postStatus(imageType, text, shortURL, fileImagePath, companyId, htmlString, getImageFile);
+            String status = PostToTwitter.postStatus(imageType, text, shortURL, fileImagePath, userCompanyIds.getCompanyId(), htmlString, getImageFile);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(status));
             transactionResponse.setMessage(status);
         } catch (Throwable throwable) {

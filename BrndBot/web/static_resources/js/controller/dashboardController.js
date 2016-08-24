@@ -1,4 +1,4 @@
-dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$location', 'categoryFactory', 'subCategoryFactory','externalContentFactory','redirectFactory','SharedService', function ($scope, $window, $location, categoryFactory, subCategoryFactory,externalContentFactory,redirectFactory,SharedService) {
+dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$location', 'categoryFactory', 'subCategoryFactory','externalContentFactory','redirectFactory','SharedService','onboardingFactory','appSessionFactory', function ($scope, $window, $location, categoryFactory, subCategoryFactory,externalContentFactory,redirectFactory,SharedService,onboardingFactory,appSessionFactory) {
         $scope.emailChannelId = 3;
         $scope.printChannelId = 2;
         $scope.imageChannelId = 1;
@@ -11,6 +11,37 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
         $scope.emailsubject="";
         $scope.emailSubjectError="";
         $scope.sharedData="";
+        $scope.companyName = "";
+        $scope.userFirstName = "";
+        $scope.userLastName = "";
+        $scope.userRole = "";
+        $scope.logourl = "";
+        $scope.companyList = false;        
+        
+        $scope.getUserDetails = function(){
+            var userId = localStorage.getItem("userId");
+            onboardingFactory.userCompanyDetailsGet(userId).then(function(data){
+               var companyDetails = data.d.details[0]; 
+                $scope.companyName = companyDetails.companyName;
+                $scope.userFirstName = companyDetails.userFirstName;
+                $scope.userLastName = companyDetails.userLastName;
+                $scope.userRole = companyDetails.roleName; 
+                $scope.logourl = companyDetails.logourl;
+            });
+            
+        };
+        
+        $scope.showCompanyList = function(){
+         window.location = getHost() + "user/loading";
+        };
+        
+//        $scope.getAllUserCompanies = function (){
+//            onboardingFactory.getAllUserCompanies().then(function(data){
+//               $scope.companies = data.d.details; 
+//               $scope.hideDataOverlay = false;
+//            });
+//        };
+//        
         $scope.redirect = function (redirect, categoryId, mindbody,lookupId, mindbodyid)
         {            
             $scope.lookupId=lookupId;
@@ -42,6 +73,7 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
         };
         $scope.redirectToEmailFlow = function(forwardone)
         {
+            appSessionFactory.clearAllEmail().then(function(checkCleared){
             redirectFactory.redirectFlowTo(forwardone);
             $window.location = getHost()+"user/"+forwardone;
             var emailsubject=$scope.emailsubject;
@@ -49,6 +81,7 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
             {
                 $scope.emailSubjectError="Email Subject Required!";
             }
+            });
         };
         $scope.getCategories = function (forwardone)
         {

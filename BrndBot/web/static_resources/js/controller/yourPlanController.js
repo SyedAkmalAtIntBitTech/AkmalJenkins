@@ -1,5 +1,5 @@
 
-yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory) {
+yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'appSessionFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, appSessionFactory) {
 
 //$scope.iframeLoad = function (){
 //    growl($('iframe').contents().find('body').height());
@@ -407,6 +407,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.templateDisapproveButton = "Disapprove";
             $scope.savedDetailsAddTemplateButton = "Go to Dashboard";
             $scope.savedDetailsAddTemplateLink = "dashboard";
+            $scope.setEmailToThisAction="Save Email to this Action";
             $scope.savedHeader = 'Post';
             $scope.isRecurring = false;
             if (entity_type === getnote()) {
@@ -432,7 +433,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 yourPlanFactory.scheduledEmailGet($scope.scheduleData.schedule_id).then(function (data) {
                     $scope.entitiesdetails = JSON.parse(data.d.details);
                     var iframe = document.getElementById('iframeForAction');
-
+                    
                     if (data.d.details != "{}") {
                         $scope.savedEmail = true;
                         $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
@@ -893,6 +894,40 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.promptHideShow = function (flag){
             $scope.clickedRemoveAction = flag;
         };
+                
+        $scope.saveEmailByActionId = function(id){
+//            localStorage.setItem("email_Schedule_Id",id);
+            appSessionFactory.clearAllEmail().then(function(checkCleared){
+                appSessionFactory.setEmail(getEntityScheduleId(),id).then(function(data){
+                    if(data===true)
+                        window.open(getHost() + 'user/baseemaileditor#/emailcategory', "_self");
+                });
+            });
+        };
+        
+        $scope.editSavedEmail = function(scheduleId,entitiesdetails){
+            
+            appSessionFactory.clearAllEmail().then(function(checkCleared){
+                var savedEmail = {};
+                savedEmail[getEntityScheduleId()] = scheduleId;
+                savedEmail[getEmailScheduleId()] = entitiesdetails.schedule_email_id;
+                savedEmail[getEmailSubject()] = entitiesdetails.subject;
+                savedEmail[getPreHeader()] = entitiesdetails.preheader;
+                savedEmail[getToEmailAddresses()] = entitiesdetails.to_email_addresses;
+                savedEmail[getEmailBody()] = entitiesdetails.body;
+                savedEmail[getEmailListName()] = entitiesdetails.email_list_name;
+                savedEmail[getFromName()] = entitiesdetails.from_name;
+                savedEmail[getFromAddress()] = getDefaultEmailId();
+                savedEmail[getReplyToEmailAddress()] = entitiesdetails.reply_to_email_address;
+                savedEmail[getHtmlBody()] = entitiesdetails.html_body;
+                appSessionFactory.setEmailWithObject(savedEmail).then(function(saved){
+                    if(saved===true)
+                        window.open(getHost() + 'user/baseemaileditor#/emailsubjects', "_self");
+                });
+            });
+            
+        };
+        
     }]);
 
        

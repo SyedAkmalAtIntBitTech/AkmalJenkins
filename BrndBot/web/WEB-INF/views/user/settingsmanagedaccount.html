@@ -1,0 +1,40 @@
+   
+<div class="hub-pane">
+            <div class="hub-pane-header-wrap">
+                <h2 class="">Managed Account Settings</h2>
+                
+            </div>
+            <div class="hub-pane-content-wrap">
+                <div class="hub-section">
+                     <div class="section-header">
+                         <h3>Parent Accounts</h3>
+                        <p>These are accounts that are allowed to manage your account remotely.</p>
+                     </div>
+                    <div class="user-slat">
+                        <div class="user-email-address">andy.swansburg1111@gmail.com</div>
+                        <div class="user-slat-cta-wrap">
+                             <div class=" user-slat-button remove-user-button">Remove Account Manager</div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="hub-section">
+                     <div class="section-header">
+                         <h3>Managed Account Push Through Email List</h3>
+                        <p>Select an default email address that will be used when your account manager pushes an email into your account</p>
+                     </div>
+                    <div class="input-wrap">
+                        <label> Email List Dropdown </label>
+                        <div class="input">
+                            <input id="confirmpassword" type="{{inputType}}" ng-model="confirmPassword" placeholder="Confirm password" ng-blur="isConfirmPasswordSame(confirmPassword)"></input>
+                        </div>
+                        <p>By selecting this list you are agreeing for the account manager to push emails to this list.</p>
+                    </div>
+                     <div class="update-container">
+                        <a class="long-button gray-button" ng-click="changePassword(password,confirmPassword)">Save Default Push Through List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+

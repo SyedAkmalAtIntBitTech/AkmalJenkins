@@ -202,7 +202,8 @@ public class SchedulerUtilityMethods {
                     result.setFromAddress(resultSet.getString("from_address"));
                     result.setEmailListName(resultSet.getString("email_list_name"));
                     result.setFromName(resultSet.getString("from_name"));
-                    result.setToEmailAddresses(resultSet.getString("to_email_addresses"));
+                    // To-do Ajit delete after AR/Ilyas review 
+                    //result.setToEmailAddresses(resultSet.getString("to_email_addresses"));
                     result.setReplyToEmailAddress(resultSet.getString("reply_to_email_address"));
                     result.setFkScheduledEntityListId(new ScheduledEntityList(resultSet.getInt("fk_scheduled_entity_list_id")));
                     result.setFkCompanyId(new Company(resultSet.getInt("fk_company_id")));

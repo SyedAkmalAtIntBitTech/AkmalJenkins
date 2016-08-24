@@ -73,4 +73,13 @@ public class CompanyImagesServiceImpl implements CompanyImagesService {
         return ""+imageURL+"downloadImage?imageType=GALLERY&companyId=" + company.getCompanyId() + "&imageName=" + fileName;
     }
 
+    public CompanyImages getCompanyImagesByCompany(Company company) throws ProcessFailed {
+        CompanyImages companyImages = companyImagesDao.getCompanyImagesByCompany(company);
+        if(companyImages == null)
+        {
+             throw new ProcessFailed(messageSource.getMessage("company_not_found",new String[]{}, Locale.US));
+        }
+              return companyImages;
+    }
+    
 }

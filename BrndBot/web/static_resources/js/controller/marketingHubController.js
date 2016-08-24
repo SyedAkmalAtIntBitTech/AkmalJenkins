@@ -1,4 +1,4 @@
-marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location', 'settingsFactory', 'emailListFactory', 'emailDraftFactory', 'emailFactory', function ($scope, $location, settingsFactory, emailListFactory, emailDraftFactory, emailFactory) {
+marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location', 'settingsFactory', 'emailListFactory', 'emailDraftFactory', 'emailFactory', 'appSessionFactory', function ($scope, $location, settingsFactory, emailListFactory, emailDraftFactory, emailFactory, appSessionFactory) {
 
 //$scope.emailhubHeader = true;
         $scope.addEmailListButton = true;
@@ -222,7 +222,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.editDrafts = function (draft_id, category_id, email_subject, sub_category_id, mindbodyId, lookupId) {
             var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id,
                 "sub_category_id": sub_category_id, "mindbodyId": mindbodyId, "lookupId": lookupId};
-            localStorage.setItem("emailDraftData", JSON.stringify(draftdetails));
+                appSessionFactory.setEmail(getDraftDetails(),draftdetails).then(function(data){
+                });
+//            localStorage.setItem("emailDraftData", JSON.stringify(draftdetails));
             emailDraftFactory.getEmailDraftGet(draft_id).then(function (data) {
                 if (data === "false") {
                     growl("There was a problem while saving the draft! Please try again later", "error");
@@ -278,7 +280,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             {
                 var from_address = email_settings.from_address;
                 var reply_email_address = email_settings.reply_email_address;
-                var emailSettingsData = {"from_address": "mail@brndbot.com", "reply_email_address": reply_email_address};
+                var emailSettingsData = {"from_address": "mail@brndbot.com", "reply_email_address": reply_email_address, "from_name": email_settings.from_name};
                 settingsFactory.saveEmailSettingsPost(emailSettingsData).then(function (data) {
                     $scope.replyToAddress = false;
                     $scope.getEmailSettings();

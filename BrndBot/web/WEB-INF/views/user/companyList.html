@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+Copyright 2015 Intbit Technologies. This software and documentation contains
+confidential and proprietary information that is owned by Intbit
+Technologies. Unauthorized use and distribution are strictly prohibited.
+-->
+<div id="companyList" ng-init="getAllCompanies()" ng-show="companyList">
+    <a id="addactionClose" ng-click = "closeOverlay()" class="modal-pane-header-exit"></a>
+    <div class="main-content-wrap">
+
+        <div class="top-nav-bar-offset"></div>
+        <div class="content-wrap content-wrap-flex">
+            <div class="modal-pane modal-pane-width-full">
+                <div class="modal-pane-header-wrap">
+                    <h2>Select the company</h2>
+                </div>
+                <div class="modal-pane-content-wrap sequence-page">
+                    <div ng-if="hideDataOverlay">
+                    <div class="external-data-loading-wrap">
+                        <div class="external-data-loading-block">
+                            <div class="loader"></div>
+                            <div class="loader-description">Loading your content</div>
+                        </div>
+                    </div>
+                    </div>
+                    <a ng-repeat="companyDetail in companies" ng-click="getAccountStatusGet(companyDetail)" class="slat external-data">
+                        <div class="slat-name-wrap">
+                            <h2>{{companyDetail.companyName}}</h2>
+                        </div>
+                        <div class="slat-detail-wrap">
+                            <div class="slat-detail">
+                                <h2>{{companyDetail.roleName}}</h2>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

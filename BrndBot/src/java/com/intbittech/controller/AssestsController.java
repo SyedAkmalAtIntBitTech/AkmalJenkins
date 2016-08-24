@@ -120,8 +120,6 @@ public class AssestsController {
         try {
             ImageType imageTypeEnum = ImageType.valueOf(imageType);
             String imageBasePath = "";
-//        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             switch (imageTypeEnum) {
                 case GALLERY:
                     imageBasePath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + AppConstants.GALLERY_FOLDERNAME;

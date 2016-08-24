@@ -5,12 +5,13 @@
  */
 package com.intbittech.modelmappers;
 
+import com.intbittech.model.UserCompanyIds;
 import java.io.Serializable;
 /**
  *
  * @author Syed Akmal
  */
-public class CompanyLogoDetails implements Serializable{
+public class CompanyLogoDetails extends UserCompanyIds implements Serializable{
     private String imageType;
     private String imageData;
     private Integer companyId;

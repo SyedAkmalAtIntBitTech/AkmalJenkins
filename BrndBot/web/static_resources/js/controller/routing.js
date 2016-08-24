@@ -16,6 +16,9 @@ brndBotSignupApp.config(function ($routeProvider) {
                 title: 'BrndBot-On Boarding',
                 templateUrl: 'signup/company.html'
             })
+            .when('/signup/userregistration', {
+                templateUrl: 'signup/userregistration.html'
+            })            
             .when('/signup/datasource', {
                 title: 'BrndBot-On Boarding',
                 templateUrl: 'signup/datasource.html'
@@ -70,7 +73,11 @@ emailFlowApp.config(function ($routeProvider) {
             .when('/emaillistselection', {
                 title: 'BrndBot - Email List Selection',
                 templateUrl: 'emaillistselection.html'
-            })           
+            })   
+            .when('/emaildetails', {
+                title: 'BrndBot - Email Details',
+                templateUrl: 'emaildetails.html'
+            })          
             .otherwise({title: 'Category',redirectTo: '/emailcategory'});
 }).run(function ($rootScope) {
         $rootScope.$on("$routeChangeSuccess", function (event, currentRoute) {

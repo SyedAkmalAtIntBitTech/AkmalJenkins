@@ -138,6 +138,7 @@
                  <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div >SAVED EMAIL DETAILS</div>
+                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="editSavedEmail(schedule_id,entitiesdetails);"> Edit Saved Email</a>
                         <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);"> Remove Saved Email</a>
                     </div>
                     <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all ease-all">
@@ -153,6 +154,7 @@
                             <div class="detail-section-item">
                                 <label class="detail-section-label">subject line</label>
                                 <p class="detail-section-data">{{entitiesdetails.subject}}</p>
+                                <p hidden="">{{entitiesdetails.preheader}}{{entitiesdetails.html_body}}</p>
                             </div>
                             <div class="detail-section-item">
                                 <label class="detail-section-label">send to list</label>
@@ -162,7 +164,7 @@
                     </div>
                 </div>
            
-                <div class="email-preview-bar">EMAIL PREVIEW</div>
+                <div class="email-preview-bar">EMAIL PREVIEW </div>
                 <div class="overlay-email-preview"><iframe id="iframeForAction" class="email-overlay-iFrame"></iframe>
                     <!--iframe goes here-->
                 </div>
@@ -174,7 +176,9 @@
                 <div class="empty-wrap">
                     <object type="image/svg+xml" data="/BrndBot/images/Overlay_EmptyStates_email.svg"></object>
                     <p>{{actionTypeNoTemplateMessage}}</p>
-                    <a class="reg-button blue-button empty-wrap-button" href="{{savedDetailsAddTemplateLink}}" ng-if="isRecurring === false">{{savedDetailsAddTemplateButton}}</a>
+                    <!--need to have a bunch of button state management. We should have a factory -->
+                    <a class="reg-button blue-button empty-wrap-button" href="{{savedDetailsAddTemplateLink}}" ng-if="isRecurring === false && masterActionType!='Email'">{{savedDetailsAddTemplateButton}}</a>
+                    <a class="reg-button blue-button empty-wrap-button" href="" ng-click="saveEmailByActionId(schedule_id)" ng-if="isRecurring === false && masterActionType=='Email'">{{setEmailToThisAction}}</a>
                     <a class="reg-button blue-button empty-wrap-button" ng-click="redirectToEmailAutomation('emailautomation','template','', schedule_id)" ng-if="isRecurring === true">{{savedDetailsAddTemplateButton}}</a>
                 </div>
             </div>

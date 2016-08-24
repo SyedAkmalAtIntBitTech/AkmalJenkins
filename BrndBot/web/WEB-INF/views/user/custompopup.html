@@ -48,11 +48,10 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                         deffered.resolve(getData.data);
                     });
                 };
-                $scope.selectImageToPost = function (imageName, imageFrom, companyId, id) {
-                    angular.element(document.getElementsByClassName('gallery-item-wrap-selected-true')).addClass('gallery-item-wrap-selected').removeClass('gallery-item-wrap-selected-true');
-                    angular.element(document.getElementById(id)).removeClass('gallery-item-wrap-selected').addClass('gallery-item-wrap-selected-true');
+                $scope.selectImageToPost = function (imageName, imageFrom, companyId, imageId) {
                     imageurl = getHost() + "downloadImage?imageType=GALLERY&imageName=" + imageName + "&companyId=" + companyId + "";
                     $("#imageDiv").val(imageurl);
+                    $scope.setImageBorder=imageId;
                 };
                 $scope.selectImageFromGallery = function (popmpMode) {
                     if (popmpMode) {
@@ -93,6 +92,9 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
             .mce-rank-button button {
                 color: red !important;
             }
+            .imageBorder{
+                border: #006A9E 3px solid;
+            }
         </style>
     </head>
     <body ng-app="imgPopup" class="center-pop-ups" ng-controller="imgPopupController">
@@ -116,8 +118,8 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                             </div>
                             <div class="full-height-modal-pane-content-wrap modal-pane-content-social-sequence" ng-show="showUserImages" >
                                 <div class="gallery-image-wrap {{images.companyImagesId}}">
-                                    <div class="gallery-image-card" ng-repeat="images in datalists"  ng-click="selectImageToPost(images.imageName, 'gallery', companyId)">
-                                        <img  class="gallery-image" id="{{images.companyImagesId}}"  src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}" alt="{{images.imageName}}"/>
+                                    <div class="gallery-image-card" ng-repeat="images in datalists"  ng-click="selectImageToPost(images.imageName, 'gallery', companyId,images.companyImagesId)">
+                                        <img ng-class="{'imageBorder': setImageBorder === images.companyImagesId}"  class="gallery-image" id="{{images.companyImagesId}}"  src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}" alt="{{images.imageName}}"/>
                                     </div>
                                 </div>
                             </div>

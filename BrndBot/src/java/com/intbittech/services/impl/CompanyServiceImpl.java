@@ -5,19 +5,24 @@
  */
 package com.intbittech.services.impl;
 
+import com.intbittech.AppConstants;
 import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.OrganizationCompanyDao;
-import com.intbittech.dao.UsersDao;
+import com.intbittech.dao.UserRoleLookUpDao;
+import com.intbittech.enums.InvitationStatus;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
-import com.intbittech.model.MarketingCategoryProgram;
 import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCompanyLookup;
+import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
+import com.intbittech.model.UsersRoleLookup;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.services.CompanyService;
+import com.intbittech.services.UserCompanyLookupService;
+import com.intbittech.services.UsersService;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -42,11 +47,16 @@ public class CompanyServiceImpl implements CompanyService{
     private OrganizationCompanyDao organizationCompanyDao;
     
     @Autowired
-    private UsersDao usersDao;
-    
-    @Autowired
     private MessageSource messageSource;
     
+    @Autowired
+    private UserRoleLookUpDao usersRoleLookUpDao;    
+
+    @Autowired
+    private UserCompanyLookupService userCompanyLookUpService;
+    
+    @Autowired
+    private UsersService usersService;
     /**
      * {@inheritDoc}
      */
@@ -88,10 +98,10 @@ public class CompanyServiceImpl implements CompanyService{
      */
     public List<OrganizationCompanyLookup> getAllOrganizationCompanyById(Integer companyId) throws ProcessFailed {
         List<OrganizationCompanyLookup> companyList = organizationCompanyDao.getAllOrganizationCompanyById(companyId);
-//        if(companyList == null)
-//        {
-//             throw new ProcessFailed(messageSource.getMessage("company_not_found",new String[]{}, Locale.US));
-//        }
+        if(companyList == null)
+        {
+             throw new ProcessFailed(messageSource.getMessage("company_not_found",new String[]{}, Locale.US));
+        }
               return companyList;
     }
     
@@ -100,10 +110,10 @@ public class CompanyServiceImpl implements CompanyService{
      */
     public List<OrganizationCompanyLookup> getAllOrganizationsByCompanyId(Integer companyId) throws ProcessFailed {
         List<OrganizationCompanyLookup> companyList = organizationCompanyDao.getAllOrganizationsByCompanyId(companyId);
-//        if(companyList == null)
-//        {
-//             throw new ProcessFailed(messageSource.getMessage("company_not_found",new String[]{}, Locale.US));
-//        }
+        if(companyList == null)
+        {
+             throw new ProcessFailed(messageSource.getMessage("company_not_found",new String[]{}, Locale.US));
+        }
               return companyList;
     }
 
@@ -147,41 +157,59 @@ public class CompanyServiceImpl implements CompanyService{
      * {@inheritDoc}
      */
     @Override
-    public String updateCompany(CompanyDetails companyDetails) throws ProcessFailed {
-        String returnMessage = "false";
+    public String saveCompany(CompanyDetails companyDetails) throws ProcessFailed {
+        String returnMessage = "false";UsersRoleLookup usersRoleLookUp = null;
+        UserCompanyLookup userCompanyLookup = null;Company company = null,companyObject = null;
         try {
             //update company
-            Company company = companyDao.getCompanyById(companyDetails.getCompanyId());
+
+            company = new Company();
+            Users user = usersService.getUserById(companyDetails.getUserId());
             company.setCompanyName(companyDetails.getCompanyName());
             company.setCreatedDate(new Date());
             company.setInviteCode(RandomStringUtils.randomAlphanumeric(10));
-            companyDao.update(company);
+            Integer companyId = companyDao.save(company);
+            userCompanyLookup = new UserCompanyLookup();
+
+            companyObject = new Company();
+            companyObject.setCompanyId(companyId);
+
+            userCompanyLookup.setCompanyid(company);
+            userCompanyLookup.setUserid(user);
+            userCompanyLookup.setAccountStatus(AppConstants.Account_Activated);
             
-            Users user = usersDao.getUserById(companyDetails.getUserId());
+            userCompanyLookUpService.save(userCompanyLookup);
+
             if(user == null)
             {
                 throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
             }
-            UserRole userRole = new UserRole();
-            userRole.setUserRoleId(2);
-            user.setFkUserRoleId(userRole);
-            usersDao.update(user);
+            
+            usersRoleLookUp = usersRoleLookUpDao.getUsersRoleLookupByUser(user);
 
+            UserRole userRole = new UserRole();
+            userRole.setUserRoleId(AppConstants.UserRoleManagerValue);
+
+            usersRoleLookUp.setUserId(user);
+            usersRoleLookUp.setRoleId(userRole);
+            usersRoleLookUp.setCompanyId(company);
+            usersRoleLookUpDao.update(usersRoleLookUp);
+            
             //Relate company and organization
             OrganizationCompanyLookup organizationCompanyLookup = new OrganizationCompanyLookup();
 
             Organization organization = new Organization();
             organization.setOrganizationId(companyDetails.getOrganizationId());
             
-            Company companyObject = new Company();
-            companyObject.setCompanyId(companyDetails.getCompanyId());
+            companyObject = new Company();
+            companyObject.setCompanyId(companyId);
 
             organizationCompanyLookup.setFkOrganizationId(organization);
             organizationCompanyLookup.setFkCompanyId(companyObject);
 
             organizationCompanyDao.save(organizationCompanyLookup);
             
-            returnMessage = "true";
+            returnMessage = companyId.toString();
         } catch(Throwable throwable) {
             returnMessage = "false";
             throw new ProcessFailed(messageSource.getMessage("company_save_error", new String[]{}, Locale.US));
@@ -201,7 +229,6 @@ public class CompanyServiceImpl implements CompanyService{
         }
     }
 
-    @Override
     public void updateOrganizationCompanyLookUp(OrganizationCompanyLookup organizationCompanyLookup) throws ProcessFailed {
         try {
             organizationCompanyDao.update(organizationCompanyLookup);
@@ -209,4 +236,12 @@ public class CompanyServiceImpl implements CompanyService{
             throw new ProcessFailed(messageSource.getMessage("group_save_error", new String[]{}, Locale.US));
         }    }
     
+    public Company getCompanyById(Integer companyId) throws ProcessFailed {
+        Company company = companyDao.getCompanyById(companyId);
+        if(company == null)
+        {
+             throw new ProcessFailed(messageSource.getMessage("company_list_not_found",new String[]{}, Locale.US));
+        }
+        return company;
+    }
 }

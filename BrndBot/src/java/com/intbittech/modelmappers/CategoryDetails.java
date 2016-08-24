@@ -5,13 +5,14 @@
  */
 package com.intbittech.modelmappers;
 
+import com.intbittech.model.UserCompanyIds;
 import java.io.Serializable;
 
 /**
  *
  * @author ajit
  */
-public class CategoryDetails implements Serializable {
+public class CategoryDetails  extends UserCompanyIds implements Serializable {
 
     private Integer categoryId;
     private String categoryName;
