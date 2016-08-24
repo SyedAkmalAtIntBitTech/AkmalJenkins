@@ -76,7 +76,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             $('.cat-slat').removeClass('highlightDiv').addClass('cat-slat-unselect');
             $("." + id).removeClass('cat-slat-unselect').addClass('highlightDiv');
         };
-        $scope.isDefaultTwitterAccountSet = function () {
+        $scope.isDefaultTwitterAccountSet = function (selectedSocialmedia, postData) {
             var data = JSON.stringify({access_token_method: "getAccessToken"});
             settingsFactory.twitterPost(data).then(function (data) {
                 var twitterAccessToken = data.d.message;
@@ -88,7 +88,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                     });
                 } else {
                     $scope.showTwitterPopup = false;
-                    $location.path('/twitterpost');
+                    $scope.openPostOrShedulePopup(selectedSocialmedia, postData);
                 }
             });
         };
@@ -740,7 +740,6 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             var pin = pinCode;
             settingsFactory.twitterGetTokenGet(pin).then(function (data) {
                 if (pin.length > 0) {
-                    $location.path('/twitterpost');
                     $scope.showTwitterPopup = false;
                 } else {
                     growl(pinerror);
@@ -1109,7 +1108,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 $location.path('/facebookpost');
 
             } else if (channel === 'twitter') {
-
+                 $location.path('/twitterpost');
             }
 
         };

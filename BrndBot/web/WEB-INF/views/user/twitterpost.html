@@ -75,8 +75,9 @@
       
 </div>
 <div class="bottomNav">
-    <div class="bottom-ContinueButton fright" ng-click="openPostOrShedulePopup('twitter', twitterPostData)">CONTINUE</div>
+    <div class="bottom-ContinueButton fright" ng-click="isDefaultTwitterAccountSet('twitter', twitterPostData)">CONTINUE</div>
 </div>
+<div ng-include="'twitterpopupsocialhub.html'"></div>
 <div ng-include src="'schedulepopup.html'"></div>
 <div ng-include src="'sendorschedulepopup.html'"></div>
 <div ng-include src="'sociallistselection.html'"></div>
