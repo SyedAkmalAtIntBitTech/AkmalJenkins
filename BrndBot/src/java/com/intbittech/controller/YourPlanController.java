@@ -70,7 +70,6 @@ public class YourPlanController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
  
-            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
         List<String> errorMsgs = new ArrayList<>();
             
             if ( StringUtils.isEmpty(request.getParameter("from")) ){
@@ -91,9 +90,9 @@ public class YourPlanController {
             //Dates have to follow the format: 2011-12-03
             fromDate = LocalDate.parse(request.getParameter("from"));
             toDate = LocalDate.parse(request.getParameter("to"));
-            
+            Integer companyId= Integer.parseInt(request.getParameter("companyId"));
             JSONObject scheduledEntities = 
-                     ScheduleDAO.getScheduledEntities(userCompanyIds.getCompanyId(), fromDate, toDate);
+                     ScheduleDAO.getScheduledEntities(companyId, fromDate, toDate);
             messageList.add(AppConstants.GSON.toJson(scheduledEntities));
             genericResponse.setDetails(messageList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success",new String[]{}, Locale.US)));
@@ -346,7 +345,7 @@ public class YourPlanController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
  
-            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+            
             if ( StringUtils.isEmpty(request.getParameter("schedule_id")) ){
                 Map<String, Object> error = new HashMap<>();
                 error.put("error", "Schedule id is missing");
@@ -355,8 +354,9 @@ public class YourPlanController {
         
             try{
                 Integer scheduleEmailId = Integer.parseInt(request.getParameter("schedule_id"));
+                Integer companyId= Integer.parseInt(request.getParameter("companyId"));
                 Map<String, Object> scheduleEmailDetails = 
-                        ScheduleDAO.getScheduleEmailDetails(userCompanyIds.getCompanyId(), scheduleEmailId);
+                        ScheduleDAO.getScheduleEmailDetails(companyId, scheduleEmailId);
                 messageList.add(AppConstants.GSON.toJson(scheduleEmailDetails));
                 genericResponse.setDetails(messageList);
                 genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success",new String[]{}, Locale.US)));
