@@ -195,7 +195,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
                 for (int j = 0; j< roles.size(); j++){
                     Double role_id = (Double)roles.get(j);
                     UserRole userRole = userRoleService.getUserRoleById(role_id.intValue());
-                    userRoleLookUp = userRoleLookUpService.getUsersRoleLookupByUserAndRoleId(user, userRole);
+                    userRoleLookUp = userRoleLookUpService.getUsersRoleLookupByUserAndRole(user, userRole);
                     if (userRoleLookUp != null){
                         if (userRoleLookUpIds == ""){
                             userRoleLookUpIds = userRoleLookUp.getId().toString();

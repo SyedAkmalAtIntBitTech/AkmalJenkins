@@ -87,7 +87,7 @@ public class UserController {
             for (int i = 0; i< listCompanyLookup.size(); i++){
 
                 UserCompanyLookup userCompanyLookup = listCompanyLookup.get(i);
-                UsersRoleLookup userRoleLookUp = userRoleLookUpService.getUsersRoleLookupByUserId(user);
+                UsersRoleLookup userRoleLookUp = userRoleLookUpService.getUsersRoleLookupByUserAndCompany(user, userCompanyLookup.getCompanyid());
                 
                 UserCompanyDetails userCompanyDetails = new UserCompanyDetails();
 
@@ -123,7 +123,7 @@ public class UserController {
 
                 UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUserAndCompany(user, company);
 
-                UsersRoleLookup userRoleLookUp = userRoleLookUpService.getUsersRoleLookupByUserId(user);
+                UsersRoleLookup userRoleLookUp = userRoleLookUpService.getUsersRoleLookupByUser(user);
                 
                 UserCompanyDetails userCompanyDetails = new UserCompanyDetails();
 
