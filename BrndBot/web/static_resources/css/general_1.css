@@ -1792,11 +1792,15 @@ li.sub-nav-tab.active a{
 }
 
 .modal-pane-width-full{
-    /*width:1000px;*/
-    width:90%;
+    width:1000px;
+    /*width:90%;*/
     margin: auto;
 }
 
+.emailpreview-model-pane-width-full{
+    width:90% !important;
+    margin: auto;
+}
 
 .modal-pane-header-wrap{
     height: 55px;
@@ -2307,7 +2311,9 @@ p.modal-content-header{
     padding-top: 20px; 
     display: inline-flex;
 }
-
+.update-container-change-palette{
+    margin-top: 20px; 
+}
 .no-padding{
     padding-top:0px;
 }
@@ -4579,8 +4585,27 @@ textarea.task-textarea:focus{
     width: 450px;
 }
 
+.palette-wrap{
+    margin-top: 10px;
+}
+
+.palette{
+    width: 450px;
+    margin: auto;
+}
+
+.logo-palette-colorswab{
+    width: 80px;
+    height: 35px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    margin:10px 5px 0px 10px;
+    cursor:pointer;
+}
+
 .clear-colors {
-    padding-top: 60px;
+    margin-top: 60px;
+    width: 30%;
 }
 
 .recurring-email-trigger-sentence-wrap{
