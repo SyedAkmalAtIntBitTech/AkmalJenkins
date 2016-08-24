@@ -252,7 +252,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public boolean saveNonExistingUser(InviteDetails inviteDetails)throws ProcessFailed{
         boolean returnMessage = false;
-        boolean userExist = false;UserCompanyLookup userCompanyLookup = null;
+        boolean userExist = true;UserCompanyLookup userCompanyLookup = null;
         try{
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             String fromEmailId = userProfile.getUser().getUserName();
@@ -262,7 +262,7 @@ public class UsersServiceImpl implements UsersService {
                 userExist = checkUniqueUser(user);
             }
             
-            if (userExist){
+            if (!userExist){
                 userCompanyLookup = userCompanyLookUpService.getUserCompanyLookupByUser(userProfile.getUser());
                 boolean userExistInCompany = isUserExistInCompany(inviteDetails,userCompanyLookup.getCompanyid());
                 if (userExistInCompany){
@@ -271,7 +271,7 @@ public class UsersServiceImpl implements UsersService {
                 }else {
                     throw new ProcessFailed(messageSource.getMessage("user_does_not_exist_in_company", new String[]{}, Locale.US));
                 }    
-            }else if(!userExist) {
+            }else if(userExist) {
                 ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
                 String contextRealPath = servletContext.getRealPath("");
 
@@ -281,7 +281,7 @@ public class UsersServiceImpl implements UsersService {
                 returnMessage = true;
             }
         }catch (Throwable throwable){
-            throw new ProcessFailed(throwable.getMessage());
+            throw new ProcessFailed(messageSource.getMessage("user_exist", new String[]{}, Locale.US));
         }
         return returnMessage;
     }
@@ -302,13 +302,14 @@ public class UsersServiceImpl implements UsersService {
                 for (int i = 0; i< roles.size(); i++){
                     
                     usersRoleLookUp = new UsersRoleLookup();
-
+                    Company company = companyDao.getCompanyById(inviteDetails.getCompanyId());
                     UserRole userRole = new UserRole();
                     userRole.setUserRoleId((Integer)roles.get(i));
 
                     usersRoleLookUp.setUserId(user);
                     usersRoleLookUp.setRoleId(userRole);
-                    usersRoleLookUpService.save(usersRoleLookUp);
+                    usersRoleLookUp.setCompanyId(company);
+                   usersRoleLookUpService.save(usersRoleLookUp);
                     
                 }
             

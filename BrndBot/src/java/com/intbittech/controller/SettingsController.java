@@ -123,7 +123,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
         } catch (Throwable throwable) {
             logger.error(throwable);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getLocalizedMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
