@@ -192,6 +192,7 @@ public class CompanyServiceImpl implements CompanyService{
 
             usersRoleLookUp.setUserId(user);
             usersRoleLookUp.setRoleId(userRole);
+            usersRoleLookUp.setCompanyId(company);
             usersRoleLookUpDao.update(usersRoleLookUp);
             
             //Relate company and organization
