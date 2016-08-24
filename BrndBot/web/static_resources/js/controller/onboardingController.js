@@ -118,11 +118,12 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             {
                 onboardingFactory.saveUserPost(userDetails).then(function (data) {
                     var message = data.d.message;
-                    if (message === "true")
-                    {
+                    localStorage.setItem("userId",message);
+//                    if (message === "true")
+//                    {
                         $("#signform").submit();
                         $location.path("/signup/company");
-                    }
+//                    }
                 });
             }
         };
@@ -147,7 +148,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 var userId = data.d.id;
                 localStorage.setItem("userId",userId);
                 alert(message);
-                window.location = getHost() + "user/";
+                window.location = getHost() + "login";
             });    
         };
 
