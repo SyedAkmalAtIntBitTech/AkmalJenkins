@@ -308,6 +308,32 @@ public class BlockModelController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
-    
+    @RequestMapping(value = "getAllRecuringEmailBlockModelsByBlockId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllRecuringEmailBlockModelsByBlockId(@RequestParam("emailBlockId") Integer emailBlockId) {
+        GenericResponse<EmailBlockModelDetails> genericResponse = new GenericResponse<>();
+        try {
+            List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupService.getAllRecuringEmailBlockModel(emailBlockId);
+            List<EmailBlockModelDetails> emailModelDetailsList = new ArrayList<>();
+            for (EmailBlockModelLookup emailBlockModelLookupObject : emailBlockModelLookupList) {
+                EmailBlockModelDetails emailBlockModelDetails = new EmailBlockModelDetails();
+                emailBlockModelDetails.setEmailBlockId(emailBlockModelLookupObject.getFkEmailBlockId().getEmailBlockId());
+                emailBlockModelDetails.setModelId(emailBlockModelLookupObject.getFkEmailBlockModelId().getEmailBlockModelId());
+                emailBlockModelDetails.setEmailBlockModelName(emailBlockModelLookupObject.getFkEmailBlockModelId().getEmailBlockModelName());
+                emailBlockModelDetails.setHtmlData(emailBlockModelLookupObject.getFkEmailBlockModelId().getHtmlData());
+                emailBlockModelDetails.setImageFileName(emailBlockModelLookupObject.getFkEmailBlockModelId().getImageFileName());
+                emailBlockModelDetails.setEmailBlockModelLookupId(emailBlockModelLookupObject.getEmailBlockModelLookupId());
+                emailBlockModelDetails.setIsRecurring(emailBlockModelLookupObject.getFkEmailBlockModelId().isIsRecurring());
+                emailModelDetailsList.add(emailBlockModelDetails);
+            }
+
+            genericResponse.setDetails(emailModelDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email block templates retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
     
 }

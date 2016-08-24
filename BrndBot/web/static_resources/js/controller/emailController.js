@@ -557,7 +557,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
 
         $scope.emailPreviewOnClick = function () {
-            $("#tinymceEditorBody").find("p").removeAttr("style").css("margin","0px");
+            $("#tinymceEditorBody").find("p").removeAttr("style").css("margin", "0px");
             settingsFactory.getAllPreferencesGet().then(function (data) {
                 var footerData = JSON.parse(data.d.details);
                 if (!footerData.userProfile) {
@@ -653,7 +653,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         };
         $scope.saveButtonOnClick = function () {
-             $("#tinymceEditorBody").find("p").removeAttr("style").css("margin","0px");
+            $("#tinymceEditorBody").find("p").removeAttr("style").css("margin", "0px");
             settingsFactory.getAllPreferencesGet().then(function (footerResponseData) {
                 var footerData = JSON.parse(footerResponseData.d.details);
                 if (!footerData.userProfile) {

@@ -108,6 +108,9 @@ factoryApp.service('configurationService', function () {
         return getHost() + "getAllEmailBlockModelsByBlockId";
     };
 
+    this.getAllRecurringStyleByBlockIdURL = function () {
+        return getHost() + "getAllRecuringEmailBlockModelsByBlockId";
+    };
     this.emailBlockModelURL = function () {
         return getHost() + "getAllEmailBlockModel";
     };
