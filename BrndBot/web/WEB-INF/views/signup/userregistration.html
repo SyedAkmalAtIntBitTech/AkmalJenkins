@@ -6,26 +6,12 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>User Registration</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="format-detection" content="telephone=no">
         <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-<!--        <link rel="stylesheet" type="text/css" href="css/General-Utility.css">
-        <link rel="stylesheet" type="text/css" href="css/Navigation.css">
-        <link rel="stylesheet" type="text/css" href="css/Pane.css">
-        <link rel="stylesheet" type="text/css" href="css/Page-Structure.css">
-        <link rel="stylesheet" type="text/css" href="css/Dashboard.css">
-        <link rel="stylesheet" type="text/css" href="css/Email.css">
-        <link rel="stylesheet" type="text/css" href="css/normalize.css">
-        <link rel="stylesheet" type="text/css" href="css/Form-Input.css">
-        <link rel="stylesheet" type="text/css" href="css/overlay-drawer.css">
-        <link rel="stylesheet" type="text/css" href="css/sequence-Pages.css">
-        <link rel="stylesheet" type="text/css" href="css/slats.css">
-        <link rel="stylesheet" type="text/css" href="css/onboarding.css">-->
-<!--        <link rel="stylesheet" type="text/css" href="css/login-onboarding.css">
-        <link rel="stylesheet" type="text/css" href="css/admin.css">-->
         <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
@@ -61,27 +47,27 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                 <div class="input-wrap">
                     <div class="login">
                         <input type="hidden" ng-model="userDetails.invitationCode" placeholder="" ng-value="userHashId"/>
-                        <input ng-model="userDetails.userName" placeholder="Email"  ng-blur="isUserUnique()" class="fluid"></input>
+                        <input ng-model="userDetails.userName" placeholder="Email"  ng-blur="isUserUnique()" class="fluid"/>
                     </div>
                 </div>
                 <div class="input-wrap">
                     <div class="login ">
-                        <input ng-model="userDetails.firstName" type="text" class="fluid" placeholder="First Name"></input>
+                        <input ng-model="userDetails.firstName" type="text" class="fluid" placeholder="First Name"/>
                     </div>
                 </div>
                 <div class="input-wrap">
                     <div class="login ">
-                        <input ng-model="userDetails.lastName" type="text" class="fluid" placeholder="Last Name"></input>
+                        <input ng-model="userDetails.lastName" type="text" class="fluid" placeholder="Last Name"/>
                     </div>
                 </div>
                 <div class="input-wrap">
                     <div class="login ">
-                        <input ng-model="userDetails.userPassword" type="password" class="fluid" placeholder="Create a Password"></input>
+                        <input ng-model="userDetails.userPassword" type="password" class="fluid" placeholder="Create a Password"/>
                     </div>
                 </div>
                 <div class="input-wrap">
                     <div class="login ">
-                        <input  type="password" class="fluid" placeholder="Retype Password"></input>
+                        <input  type="password" class="fluid" placeholder="Retype Password"/>
                     </div>
                 </div>
             </form>

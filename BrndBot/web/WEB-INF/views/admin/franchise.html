@@ -28,7 +28,9 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <script src="../js/admin/recurringemail.js" type="text/javascript"></script>
         <script src="../js/admin/marketingprogramdetails.js" type="text/javascript"></script>
         <script src="../js/admin/allcompanies.js" type="text/javascript"></script>        
-        <title>BrndBot-Admin Franchise</title>
+        <link href="../css/jquerygrowl.css" rel="stylesheet" type="text/css"/>
+       <script src="../js/utilities/jquerygrowl.js" type="text/javascript"></script>
+   <title>BrndBot-Admin Franchise</title>
     <style type="text/css">
       ul {list-style: none;padding: 0px;margin: 0px;}
       ul li {display: block;position: relative;float: left;text-align:center}
@@ -71,11 +73,11 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                         <a href="/BrndBot/admin/franchiseCompanies?franchiseId={{franchise.franchiseId}}"><div class="CTA_Button Button--Gray fright">Manage Franchise</div></a>
                     </div>
                     <div class="listCol col1of4 fleft">
-                       <div class="CTA_Button Button--Gray fright" id="editFranchise" ng-click="showEditFranchisePopup(franchise.franchiseId)">Change Franchise</div>
+                       <div class="CTA_Button Button--Gray fright" id="editFranchise" ng-click="showEditFranchisePopup(franchise.franchiseId)">Edit Franchise</div>
                     </div>
-                    <div class="listCol col1of4 fleft">
+<!--                    <div class="listCol col1of4 fleft">
                         <a href=""><div class="CTA_Button Button--Gray fright" ng-click="deleteFranchise(franchise.franchiseId)">Delete Franchise</div></a>
-                    </div>
+                    </div>-->
                 </li>                
             </ul>
         </div>

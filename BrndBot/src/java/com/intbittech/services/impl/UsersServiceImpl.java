@@ -405,7 +405,7 @@ public class UsersServiceImpl implements UsersService {
             Long Datedifference = todayDate - createdDate ;
             
             boolean isUsed = companyInvite.getIsUsed();
-            if ((Datedifference <= AppConstants.Datedifference) && (!isUsed)){
+            if ((Datedifference <= AppConstants.Datedifference) && (isUsed == false)){
                 status = true;
             }else {
                 status = false;
