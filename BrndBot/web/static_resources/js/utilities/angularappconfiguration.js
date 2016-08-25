@@ -17,7 +17,7 @@ var marketinghubFlowApp = angular.module('marketinghubFlowApp', ['factorys','ngR
 var socialhubFlowApp = angular.module('socialhubFlowApp', ['factorys','ngRoute']);
 var sharedServiceApp = angular.module('sharedService', []);
 var imagesFlowApp = angular.module('imagesFlowApp', ['factorys','ngRoute']);
-var franchiseHubApp = angular.module('franchiseHubApp', ['factorys','ngRoute']);
+var franchiseHubApp = angular.module('franchiseHubApp', ['factorys']);
 
 factoryApp.directive('fileModel', ['$parse', function ($parse) {
         return {

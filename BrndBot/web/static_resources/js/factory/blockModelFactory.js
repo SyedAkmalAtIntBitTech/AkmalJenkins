@@ -14,7 +14,15 @@ factoryApp.factory('blockModelFactory', function ($q, authenticatedServiceFactor
     };
     blockModelFactoryObject.allEmailBlockModelGet = function (emailBlockId) {
         var deffered = $q.defer();
-        var url = configurationService.allEmailBlockModelURL()+"?emailBlockId="+emailBlockId;
+        var url = configurationService.allEmailBlockModelURL() + "?emailBlockId=" + emailBlockId;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    blockModelFactoryObject.getAllRecurringStyleByBlockIdGet = function (emailBlockId) {
+        var deffered = $q.defer();
+        var url = configurationService.getAllRecurringStyleByBlockIdURL() + "?emailBlockId=" + emailBlockId;
         authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });

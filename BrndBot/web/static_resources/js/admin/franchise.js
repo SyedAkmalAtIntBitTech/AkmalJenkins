@@ -38,7 +38,7 @@ function franchiseController($scope, $http) {
         }).success(function (data, status, headers, config) {
             $scope.franchiseDetails = data.d.details;
         }).error(function (data, status, headers, config) {
-            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            growl(eval(JSON.stringify(data.d.operationStatus.messages)));
         });
 
     };
@@ -52,8 +52,7 @@ function franchiseController($scope, $http) {
 
         var franchiseName = $("#franchiseName").val();
         if (franchiseName === "") {
-
-            alert(enterFranchiseName);
+            growl(enterFranchiseName);
             $("#franchiseName").focus();
         } else {
             $.ajax({
@@ -64,10 +63,10 @@ function franchiseController($scope, $http) {
                 data: franchiseName.toString()
             }).success(function (data, status, headers, config)
             {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
+                growl(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
                 window.open(getHost() + 'admin/franchise', "_self");
             }).error(function (data, status, headers, config) {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                growl(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
         }
     };    
@@ -78,7 +77,7 @@ function franchiseController($scope, $http) {
         var franchiseId = $scope.franchiseId;
         if (franchiseName === "") {
 
-            alert(enterFranchiseName);
+            growl(enterFranchiseName);
             $("#editfranchiseName").focus();
         } else {
             $.ajax({
@@ -89,10 +88,10 @@ function franchiseController($scope, $http) {
                 data: franchiseName.toString()
             }).success(function (data, status, headers, config)
             {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
+                growl(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
                 window.open(getHost() + 'admin/franchise', "_self");
             }).error(function (data, status, headers, config) {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                growl(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
         }
     };    
@@ -103,10 +102,10 @@ function franchiseController($scope, $http) {
             url: getHost() + 'deleteFranchise?franchiseId='+franchiseId,
         }).success(function (data, status, headers, config)
         {
-            alert(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
+            growl(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
             window.open(getHost() + 'admin/franchise', "_self");
         }).error(function (data, status, headers, config) {
-            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            growl(eval(JSON.stringify(data.d.operationStatus.messages)));
         });        
     };
     
@@ -119,7 +118,7 @@ function franchiseController($scope, $http) {
             {
                 $scope.franchiseCompanies = data.d.details;
             }).error(function (data, status, headers, config) {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                growl(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
         
     };
@@ -133,7 +132,7 @@ function franchiseController($scope, $http) {
         {   
             $scope.headquarterCompany = data.d.message;
         }).error(function (data, status, headers, config) {
-            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            growl(eval(JSON.stringify(data.d.operationStatus.messages)));
         });
     };
     
@@ -146,7 +145,7 @@ function franchiseController($scope, $http) {
             {
                 $scope.nonSelectedcompanies = data.d.details;
             }).error(function (data, status, headers, config) {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                growl(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
     };
     
@@ -158,10 +157,10 @@ function franchiseController($scope, $http) {
                 url: getHost() + 'associateCompanyToFranchise?franchiseId='+franchiseId+'&companyId='+companyId
             }).success(function (data, status, headers, config)
             {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                 window.open(getHost() + 'admin/franchiseCompanies?franchiseId='+franchiseId, "_self");
             }).error(function (data, status, headers, config) {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                growl(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
     };
     
@@ -174,10 +173,10 @@ function franchiseController($scope, $http) {
                 url: getHost() + 'activateCompanyAsFranchise?franchiseId='+franchiseId+'&companyId='+companyId
             }).success(function (data, status, headers, config)
             {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                 window.open(getHost() + 'admin/franchiseCompanies?franchiseId='+franchiseId, "_self");
             }).error(function (data, status, headers, config) {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                growl(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
         }
 
@@ -190,10 +189,10 @@ function franchiseController($scope, $http) {
                 url: getHost() + 'removeCompanyFromFranchise?franchiseId='+franchiseId+'&companyId='+companyId
             }).success(function (data, status, headers, config)
             {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                 window.open(getHost() + 'admin/franchiseCompanies?franchiseId='+franchiseId, "_self");
             }).error(function (data, status, headers, config) {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                growl(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
     };
     

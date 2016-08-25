@@ -73,7 +73,7 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
         };
         $scope.redirectToEmailFlow = function(forwardone)
         {
-            appSessionFactory.clearAllEmail().then(function(checkCleared){
+            appSessionFactory.clearEmail().then(function(checkCleared){
             redirectFactory.redirectFlowTo(forwardone);
             $window.location = getHost()+"user/"+forwardone;
             var emailsubject=$scope.emailsubject;

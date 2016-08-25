@@ -22,13 +22,13 @@ function allCompaniesController($scope,$http){
             
             $scope.company = data.d.details;            
         }).error(function(data, status, headers, config){
-            alert(eval(JSON.stringify(data.d.operationStatus.messages)));          
+            growl(eval(JSON.stringify(data.d.operationStatus.messages)));          
         });     
       
   };   
   
   $scope.companyDetailsByID = function(){
-    var qs = (function(a) {
+    var queryString = (function(a) {
         if (a == "") return {};
         var b = {};
         for (var i = 0; i < a.length; ++i)
@@ -42,12 +42,49 @@ function allCompaniesController($scope,$http){
         return b;
     })(window.location.search.substr(1).split('&'));
     
-    $scope.companyName = qs["companyName"];    // 123
-    $scope.companyId = qs["companyId"];     // query string
-    $scope.organizationName = qs["organizationName"]; 
-    
+    $scope.companyName = queryString["companyName"];    // 123
+    $scope.companyId = queryString["companyId"];     // query string
+    $scope.organizationName = queryString["organizationName"]; 
+    $scope.organizationId = queryString["organizationId"];
   };
 
+    $scope.organization = function () {
+
+        $http({
+            method: 'GET',
+            url: getHost() + '/onboarding/getAllOnlyOrganizations'
+        }).success(function (data, status, headers, config) {
+            $scope.organizationDetails = data.d.details;
+            var organization = $scope.organizationId;
+            setTimeout(function() {
+                $("#organization > [value=" + organization + "]").attr("selected", "true");
+            }, 0);
+        }).error(function (data, status, headers, config) {
+            growl(eval(JSON.stringify(data.d.operationStatus.messages)));
+        });
+
+    };
+
+    $scope.changeOrganization = function(){
+        var selectedOrganizationIdValue = $("#organization option:selected").val();
+        var selectedOrganizationName = $("#organization option:selected").text();
+        var updateorganization = {"organizationId":selectedOrganizationIdValue ,"companyId": $scope.companyId};
+        
+             $http({
+                    method : 'POST',
+                    url : getHost()+'changeOrganization.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(updateorganization)
+                }).success(function(data, status, headers, config) { 
+                    growl("Organization updated successfully");
+
+                window.open(getHost() + 'admin/companydetails?companyId='+$scope.companyId+'&companyName='+$scope.companyName+'&organizationName='+selectedOrganizationName+'&organizationId='+selectedOrganizationIdValue, "_self");
+                      
+                }).error(function(data, status, headers, config) {
+                        growl(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });   
+    };
   $scope.companyEmailcategories= function (){
       
             var companyId=$scope.companyId;
@@ -92,7 +129,7 @@ function allCompaniesController($scope,$http){
                 }
                 
             }).error(function(data, status, headers, config) {
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    growl(eval(JSON.stringify(data.d.operationStatus.messages)));
             });         
     };      
   
@@ -114,7 +151,7 @@ function allCompaniesController($scope,$http){
                 }
                 
             }).error(function(data, status, headers, config) {
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    growl(eval(JSON.stringify(data.d.operationStatus.messages)));
             });         
     };      
     
@@ -137,7 +174,7 @@ function allCompaniesController($scope,$http){
                 }
                 
             }).error(function(data, status, headers, config) {
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    growl(eval(JSON.stringify(data.d.operationStatus.messages)));
             });         
     };   
     
@@ -157,7 +194,7 @@ function allCompaniesController($scope,$http){
                    $("#noGroupMessage").empty().append(eval(JSON.stringify(data.d.operationStatus.messages)));
                }
            }).error(function(data, status, headers, config) {
-                   alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                   growl(eval(JSON.stringify(data.d.operationStatus.messages)));
            });
     };
     
@@ -188,11 +225,11 @@ function allCompaniesController($scope,$http){
                     contentType: "application/json",
                     data: JSON.stringify(updateorganization)
                 }).success(function(data, status, headers, config) { 
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                     window.open(getHost() + 'admin/companydetails?companyId='+companyId, "_self");
                       
                 }).error(function(data, status, headers, config) {
-                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                        growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });   
         };
         
@@ -210,11 +247,11 @@ function allCompaniesController($scope,$http){
                     data: JSON.stringify(groupAddTemplate)
                 }).success(function (data)
                 {   
-                       alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                       growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                        window.open(getHost() + 'admin/companydetails?companyId='+companyId+'&organizationName='+organizationName+'&companyName='+companyName,"_self");
                     
                 }).error(function(data){
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });   
         
         
@@ -234,10 +271,10 @@ function allCompaniesController($scope,$http){
                     url : getHost()+ 'deleteGroup.do?organizationCompanyLookupId='+organizationCompanyLookupId,
                 }).success(function(data, status, headers, config) {
                     $scope.groupDetails= data.d.details;
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                      window.open(getHost() + 'admin/companydetails?companyId='+companyId+'&organizationName='+organizationName+'&companyName='+companyName,"_self");
                 }).error(function(data, status, headers, config) {
-                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                        growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });     
             }
     }
@@ -257,7 +294,7 @@ function allCompaniesController($scope,$http){
 
             }
         }).error(function(data, status, headers, config) {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                growl(eval(JSON.stringify(data.d.operationStatus.messages)));
         });
     };
 

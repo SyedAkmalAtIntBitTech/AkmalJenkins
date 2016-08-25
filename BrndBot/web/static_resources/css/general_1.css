@@ -5225,3 +5225,6 @@ img#prevfbimg {
     max-width: 300px;
     overflow: hidden;
 }
+.magginLeftAuto{
+   margin-left: auto;
+}

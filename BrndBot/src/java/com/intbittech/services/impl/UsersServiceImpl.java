@@ -16,7 +16,6 @@ import com.intbittech.email.mandrill.Recipient;
 import com.intbittech.email.mandrill.RecipientMetadata;
 import com.intbittech.email.mandrill.SendMail;
 import static com.intbittech.email.mandrill.SendMail.MANDRILL_KEY;
-import com.intbittech.enums.InvitationStatus;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.Invite;
@@ -282,7 +281,7 @@ public class UsersServiceImpl implements UsersService {
                 returnMessage = true;
             }
         }catch (Throwable throwable){
-            throw new ProcessFailed(throwable.getMessage());
+            throw new ProcessFailed(messageSource.getMessage("user_exist", new String[]{}, Locale.US));
         }
         return returnMessage;
     }
@@ -303,13 +302,14 @@ public class UsersServiceImpl implements UsersService {
                 for (int i = 0; i< roles.size(); i++){
                     
                     usersRoleLookUp = new UsersRoleLookup();
-
+                    Company company = companyDao.getCompanyById(inviteDetails.getCompanyId());
                     UserRole userRole = new UserRole();
                     userRole.setUserRoleId((Integer)roles.get(i));
 
                     usersRoleLookUp.setUserId(user);
                     usersRoleLookUp.setRoleId(userRole);
-                    usersRoleLookUpService.save(usersRoleLookUp);
+                    usersRoleLookUp.setCompanyId(company);
+                   usersRoleLookUpService.save(usersRoleLookUp);
                     
                 }
             
@@ -405,7 +405,7 @@ public class UsersServiceImpl implements UsersService {
             Long Datedifference = todayDate - createdDate ;
             
             boolean isUsed = companyInvite.getIsUsed();
-            if ((Datedifference <= AppConstants.Datedifference) && (!isUsed)){
+            if ((Datedifference <= AppConstants.Datedifference) && (isUsed == false)){
                 status = true;
             }else {
                 status = false;

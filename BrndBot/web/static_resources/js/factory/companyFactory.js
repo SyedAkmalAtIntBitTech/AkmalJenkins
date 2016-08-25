@@ -46,6 +46,14 @@ factoryApp.factory('companyFactory', function ($q, authenticatedServiceFactory, 
         });
         return deffered.promise;
     };
+        companyFactoryObject.allNonMindbodyBlocksForCompanyGet = function () {
+        var deffered = $q.defer();
+        var url = configurationService.allNonMindbodyBlocksForCompanyURL();
+        authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
     companyFactoryObject.saveGroupPost = function (companyDetails) {
         var deffered = $q.defer();
         var url = configurationService.saveGroupURL();

@@ -22,7 +22,16 @@ public class EmailBlockModelDetails  extends UserCompanyIds implements Serializa
     private String imageFileName;
     private String imageFileData;
     private String htmlData;
+    private boolean isRecurring;
 
+    public boolean getIsRecurring() {
+        return isRecurring;
+    }
+
+    public void setIsRecurring(boolean isRecurring) {
+        this.isRecurring = isRecurring;
+    }
+    
     public Integer getEmailBlockModelLookupId() {
         return emailBlockModelLookupId;
     }

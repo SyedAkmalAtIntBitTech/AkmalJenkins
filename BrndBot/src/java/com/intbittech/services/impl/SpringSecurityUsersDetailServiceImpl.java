@@ -60,7 +60,7 @@ public class SpringSecurityUsersDetailServiceImpl implements UserDetailsService 
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         try{
 
-            List<UsersRoleLookup> usersRoleLookUp = userRoleLookUpService.getAllUserRolesByUserId(user);
+            List<UsersRoleLookup> usersRoleLookUp = userRoleLookUpService.getAllUserRolesByUser(user);
 
             for (int i = 0; i< usersRoleLookUp.size(); i++){
                 UsersRoleLookup userRole = usersRoleLookUp.get(i);

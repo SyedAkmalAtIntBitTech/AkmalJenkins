@@ -132,4 +132,27 @@ public class EmailBlockModelLookupDaoImpl implements EmailBlockModelLookupDao {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public List<EmailBlockModelLookup> getAllRecuringEmailBlockModel(Integer emailBlockId) throws ProcessFailed {
+         try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(EmailBlockModelLookup.class)
+                    .setFetchMode("fkEmailBlockId", FetchMode.JOIN)
+                    .setFetchMode("fkEmailBlockModelId", FetchMode.JOIN)
+                    .createAlias("fkEmailBlockModelId", "ebmId")
+                    .add(Restrictions.eq("ebmId.isRecurring", true))
+                    .add(Restrictions.eq("fkEmailBlockId.emailBlockId", emailBlockId));
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_list_message",new String[]{}, Locale.US));
+        }
+    }
+
 }

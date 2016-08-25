@@ -192,6 +192,7 @@ public class CompanyServiceImpl implements CompanyService{
 
             usersRoleLookUp.setUserId(user);
             usersRoleLookUp.setRoleId(userRole);
+            usersRoleLookUp.setCompanyId(company);
             usersRoleLookUpDao.update(usersRoleLookUp);
             
             //Relate company and organization
@@ -228,7 +229,13 @@ public class CompanyServiceImpl implements CompanyService{
         }
     }
 
-    @Override
+    public void updateOrganizationCompanyLookUp(OrganizationCompanyLookup organizationCompanyLookup) throws ProcessFailed {
+        try {
+            organizationCompanyDao.update(organizationCompanyLookup);
+        } catch (Throwable throwable) {
+            throw new ProcessFailed(messageSource.getMessage("group_save_error", new String[]{}, Locale.US));
+        }    }
+    
     public Company getCompanyById(Integer companyId) throws ProcessFailed {
         Company company = companyDao.getCompanyById(companyId);
         if(company == null)
@@ -237,5 +244,4 @@ public class CompanyServiceImpl implements CompanyService{
         }
         return company;
     }
-   
 }
