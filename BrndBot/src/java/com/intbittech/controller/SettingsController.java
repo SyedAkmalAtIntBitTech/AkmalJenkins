@@ -11,12 +11,14 @@ import com.google.gson.Gson;
 import com.intbit.util.CustomStyles;
 import com.intbittech.AppConstants;
 import com.intbittech.externalcontent.ExternalContentProcessor;
+import com.intbittech.model.Address;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.EmailList;
 import com.intbittech.model.InvitedUsers;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
+import com.intbittech.modelmappers.AddressDetails;
 import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.modelmappers.FooterDetails;
 import com.intbittech.modelmappers.InviteDetails;
@@ -24,6 +26,7 @@ import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.schedulers.MindbodyEmailListProcessor;
+import com.intbittech.services.AddressService;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.EmailListService;
@@ -98,6 +101,10 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
     @Autowired
     CompanyService companyService;
+    
+    @Autowired
+    AddressService addressService;
+    
     @Autowired
     private MessageSource messageSource;
     
@@ -224,6 +231,20 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         try {
             Company company = companyService.getCompanyById(companyColorsDetails.getCompanyId());
             companyPreferencesService.setColors(companyColorsDetails, company);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyCategories_color_update", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "/saveAddress", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> setColors(@RequestBody AddressDetails addressDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            addressService.save(addressDetails);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyCategories_color_update", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);

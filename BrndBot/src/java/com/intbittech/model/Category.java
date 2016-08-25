@@ -36,6 +36,9 @@ public class Category implements Serializable {
     @JoinColumn(name = "fk_channel_id", referencedColumnName = "channel_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Channel fkChannelId;
+    @JoinColumn(name = "fk_address_id", referencedColumnName = "address_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Address fkAddressId;
 
     public Category() {
     }
@@ -66,5 +69,13 @@ public class Category implements Serializable {
 
     public void setFkChannelId(Channel fkChannelId) {
         this.fkChannelId = fkChannelId;
+    }
+
+    public Address getFkAddressId() {
+        return fkAddressId;
+    }
+
+    public void setFkAddressId(Address fkAddressId) {
+        this.fkAddressId = fkAddressId;
     }
 }
