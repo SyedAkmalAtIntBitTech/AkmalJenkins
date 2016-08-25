@@ -143,8 +143,12 @@ public class FranchiseController {
     public ResponseEntity<ContainerResponse> activateCompanyAsFranchise(@RequestParam("companyId") Integer companyId, @RequestParam("franchiseId") Integer franchiseId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            franchiseService.activateCompanyAsFranchise(companyId, franchiseId);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email block created successfully."));
+            boolean returnValue = franchiseService.activateCompanyAsFranchise(companyId, franchiseId);
+            if (returnValue){
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Company activated as headquarter."));
+            }else {
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Not able to create the company as headquerter."));
+            }
             
         } catch(Throwable throwable) {
             logger.error(throwable);

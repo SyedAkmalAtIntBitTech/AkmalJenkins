@@ -28,6 +28,25 @@ factoryApp.factory('franchiseFactory', function ($q, authenticatedServiceFactory
         });
         return deffered.promise;
     };
+    franchiseFactoryObject.getFranchiseHeadquarter = function (franchiseId) {
+        var deffered = $q.defer();
+        var url = configurationService.getFranchiseHeadquarterURL()+"?franchiseId="+franchiseId;
+        var data = '';
+        authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    franchiseFactoryObject.getAllNonSelectedCompanies = function (franchiseId) {
+        var deffered = $q.defer();
+        var url = configurationService.getAllNonSelectedCompaniesURL()+"?franchiseId="+franchiseId;
+        var data = '';
+        authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+
     /*
      * This is to activate a company as the head quarter.
      */
@@ -63,13 +82,6 @@ factoryApp.factory('franchiseFactory', function ($q, authenticatedServiceFactory
     };
     franchiseFactoryObject.saveFranchise = function (franchiseName) {
         var deffered = $q.defer();
-        //TODO Send Franchise Details
-//        var data = JSON.stringify({
-//                        franchiseDetails: {
-//                            franchiseName: franchiseName
-//                        }
-//                    });
-//                    data = JSON.stringify(data);
         var url = configurationService.saveFranchiseURL();
         authenticatedServiceFactory.makeCall("POST", url, franchiseName, "").then(function (data) {
             deffered.resolve(data);
@@ -79,9 +91,6 @@ factoryApp.factory('franchiseFactory', function ($q, authenticatedServiceFactory
     franchiseFactoryObject.updateFranchise = function (franchiseId,franchiseName) {
         var deffered = $q.defer();
         var url = configurationService.updateFranchiseURL()+"?franchiseId="+franchiseId;
-                //TODO Send Franchise Details
-//        var data = '{franchiseDetails: {franchiseName:' + franchiseName + '}}';
-//        data = JSON.stringify(data);
         authenticatedServiceFactory.makeCall("POST", url, franchiseName, "").then(function (data) {
             deffered.resolve(data);
         });
