@@ -583,7 +583,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                         $scope.ddSelectActionName.push(actionObject);
                     }
                 }
-                if (actionData == "") {
+                if (actionData === "") {
                     $scope.ddSelectActionName = [{text: "Custom Action", value: "0"}];
                 }
             });
@@ -596,7 +596,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
                 $scope.socialAction = $scope.defaultAction[0].id;
                 var actionData = eval(parseData);
-                if (actionData != '') {
+                if (actionData !== '') {
                     $scope.ddSelectActionName = [{text: "Custom Action", value: "0"}];
                     for (var i = 0; i < actionData.length; i++)
                     {
@@ -607,7 +607,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                         $scope.ddSelectActionName.push(actionObject);
                     }
                 }
-                if (actionData == '')
+                if (actionData === '')
                 {
                     $scope.ddSelectActionName = [{text: "Custom Action", value: "0"}];
                 }
@@ -963,7 +963,6 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 var myEpoch = Date.parse(dateAndTime);
 
                 console.log("Epoch: " + myEpoch);
-                
                 sendData = {
                         "schedule_time": myEpoch,
                         "schedule_title": schedule_title,
@@ -987,6 +986,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                             ManagedPage: '"' + $rootScope.CurrentFbPageName + '"',
                             title: '"' + linkTitle + '"'
                         }
+
                     };
             }
             return sendData;
