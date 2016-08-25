@@ -23,13 +23,13 @@ import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserProfile;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
-import com.intbittech.model.UsersRoleLookup;
+import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.modelmappers.InviteDetails;
 import com.intbittech.modelmappers.TaskDetails;
 import com.intbittech.modelmappers.UserDetails;
 import com.intbittech.services.UserCompanyLookupService;
 import com.intbittech.services.UsersInviteService;
-import com.intbittech.services.UserRoleLookUpService;
+import com.intbittech.services.UserRoleCompanyLookUpService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.StringUtility;
 import com.intbittech.utility.UserSessionUtil;
@@ -75,7 +75,7 @@ public class UsersServiceImpl implements UsersService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserRoleLookUpService usersRoleLookUpService;
+    private UserRoleCompanyLookUpService usersRoleLookUpService;
     
     @Autowired
     private UserCompanyLookupService userCompanyLookUpService;
@@ -128,7 +128,7 @@ public class UsersServiceImpl implements UsersService {
     public Integer save(UserDetails usersDetails) throws ProcessFailed {
         String returnMessage = "false";
         Integer returnUserId = 0;
-        Company company = null;Users user = null;UsersRoleLookup usersRoleLookUp = null;
+        Company company = null;Users user = null;UsersRoleCompanyLookup usersRoleLookUp = null;
         UserCompanyLookup userCompanyLookup = null;
         try {
             //Save temporary company
@@ -146,7 +146,7 @@ public class UsersServiceImpl implements UsersService {
             user.setSignupStatus(AppConstants.SignUpStatusIncomplete);
             Integer userId = usersDao.save(user);
 
-            usersRoleLookUp = new UsersRoleLookup();
+            usersRoleLookUp = new UsersRoleCompanyLookup();
 
             UserRole userRole = new UserRole();
             userRole.setUserRoleId(AppConstants.UserRoleAccountOwnerValue);
@@ -172,7 +172,7 @@ public class UsersServiceImpl implements UsersService {
     public Integer saveUser(UserDetails usersDetails) throws ProcessFailed {
         Integer returnMessage = 0;
         Invite companyInvite = null;TaskDetails taskdetails = null;
-        List roles = null;UsersRoleLookup usersRoleLookUp = null;
+        List roles = null;UsersRoleCompanyLookup usersRoleLookUp = null;
         UserCompanyLookup userCompanyLookup = null;Users existingUser = null;
         Integer userId =0;
         try {
@@ -205,7 +205,7 @@ public class UsersServiceImpl implements UsersService {
                 roles = taskdetails.getRoles();
                 for (int i = 0; i< roles.size(); i++){
 
-                    usersRoleLookUp = new UsersRoleLookup();
+                    usersRoleLookUp = new UsersRoleCompanyLookup();
 
                     UserRole userRole = new UserRole();
                     userRole.setUserRoleId((Integer)roles.get(i));
@@ -286,7 +286,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public void setRole(InviteDetails inviteDetails) throws ProcessFailed{
         TaskDetails taskdetails = null;
-        List<Integer> roles = null;UsersRoleLookup usersRoleLookUp = null;
+        List<Integer> roles = null;UsersRoleCompanyLookup usersRoleLookUp = null;
         Users user = null;
         try{
             
@@ -296,7 +296,7 @@ public class UsersServiceImpl implements UsersService {
                 roles = taskdetails.getRoles();
                 for (int i = 0; i< roles.size(); i++){
                     
-                    usersRoleLookUp = new UsersRoleLookup();
+                    usersRoleLookUp = new UsersRoleCompanyLookup();
                     Company company = companyDao.getCompanyById(inviteDetails.getCompanyId());
                     UserRole userRole = new UserRole();
                     userRole.setUserRoleId((Integer)roles.get(i));
@@ -322,7 +322,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public boolean updateRole(InviteDetails inviteDetails) throws ProcessFailed{
         TaskDetails taskDetails = null, taskDetailsToSave = null;
-        List<Integer> roles = null;UsersRoleLookup usersRoleLookUp = null;
+        List<Integer> roles = null;UsersRoleCompanyLookup usersRoleLookUp = null;
         boolean flag = false;Users user = null;
         try{
             
@@ -333,7 +333,7 @@ public class UsersServiceImpl implements UsersService {
                 String UserRoleLookUpIds[] = inviteDetails.getUserRoleLookUpId().split(",");
                 for (int i = 0; i< roles.size(); i++){
                     
-                    usersRoleLookUp = new UsersRoleLookup();
+                    usersRoleLookUp = new UsersRoleCompanyLookup();
 
                     UserRole userRole = new UserRole();
                     Company company = companyDao.getCompanyById(inviteDetails.getCompanyId());

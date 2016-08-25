@@ -10,7 +10,7 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
-import com.intbittech.model.UsersRoleLookup;
+import com.intbittech.model.UsersRoleCompanyLookup;
 import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -41,10 +41,10 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
      * {@inheritDoc}
      */
     @Override
-    public boolean isRoleExist(UsersRoleLookup userRoleLookup) {
+    public boolean isRoleExist(UsersRoleCompanyLookup userRoleLookup) {
         boolean isUserUnique = true;
         Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(UsersRoleLookup.class)
+                .createCriteria(UsersRoleCompanyLookup.class)
                 .add(Restrictions.eq("roleId", userRoleLookup.getRoleId()))
                 .add(Restrictions.eq("companyId", userRoleLookup.getCompanyId()))
                 .add(Restrictions.eq("userId", userRoleLookup.getUserId()));
@@ -59,7 +59,7 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
      * {@inheritDoc}
      */
     @Override
-    public Integer save(UsersRoleLookup userRoleLookup) throws ProcessFailed {
+    public Integer save(UsersRoleCompanyLookup userRoleLookup) throws ProcessFailed {
         try {
             return (Integer) sessionFactory.getCurrentSession().save(userRoleLookup);
         } catch (Throwable throwable) {
@@ -71,7 +71,7 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
     /**
      * {@inheritDoc}
      */
-    public void update(UsersRoleLookup userRoleLookup) {
+    public void update(UsersRoleCompanyLookup userRoleLookup) {
         try {
             sessionFactory.getCurrentSession().update(userRoleLookup);
         } catch (Throwable throwable) {
@@ -81,7 +81,7 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
     }
     
     @Override
-    public void delete(UsersRoleLookup userRoleLookup) throws ProcessFailed {
+    public void delete(UsersRoleCompanyLookup userRoleLookup) throws ProcessFailed {
         try {
             sessionFactory.getCurrentSession().delete(userRoleLookup);
         } catch (Throwable throwable) {
@@ -91,31 +91,31 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
     }
 
     @Override
-    public UsersRoleLookup getUsersRoleLookupByLookUpId(Integer Id) throws ProcessFailed {
+    public UsersRoleCompanyLookup getUsersRoleLookupByLookUpId(Integer Id) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(UsersRoleLookup.class)
+                .createCriteria(UsersRoleCompanyLookup.class)
                 .add(Restrictions.eq("id", Id));
         if (criteria.list().isEmpty()) {
             return null;
         }
-        return (UsersRoleLookup) criteria.list().get(0);
+        return (UsersRoleCompanyLookup) criteria.list().get(0);
     }
 
     @Override
-    public UsersRoleLookup getUsersRoleLookupByUser(Users user) throws ProcessFailed {
+    public UsersRoleCompanyLookup getUsersRoleLookupByUser(Users user) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(UsersRoleLookup.class)
+                .createCriteria(UsersRoleCompanyLookup.class)
                 .add(Restrictions.eq("userId", user));
         if (criteria.list().isEmpty()) {
             return null;
         }
-        return (UsersRoleLookup) criteria.list().get(0);
+        return (UsersRoleCompanyLookup) criteria.list().get(0);
     }
     
     @Override
     public UserRole getUsersRoleByUser(Users user) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(UsersRoleLookup.class)
+                .createCriteria(UsersRoleCompanyLookup.class)
                 .add(Restrictions.eq("userId", user));
         if (criteria.list().isEmpty()) {
             return null;
@@ -126,10 +126,10 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
     /**
      * {@inheritDoc}
      */
-    public List<UsersRoleLookup> getAllUserRolesByUser(Users user) throws ProcessFailed {
+    public List<UsersRoleCompanyLookup> getAllUserRolesByUser(Users user) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(UsersRoleLookup.class)
+                    .createCriteria(UsersRoleCompanyLookup.class)
                     .add(Restrictions.eq("userId", user));
             if (criteria.list().isEmpty()) {
                 return null;
@@ -143,26 +143,26 @@ public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
     }        
 
     @Override
-    public UsersRoleLookup getUsersRoleLookupByUserAndRole(Users user, UserRole role) throws ProcessFailed {
+    public UsersRoleCompanyLookup getUsersRoleLookupByUserAndRole(Users user, UserRole role) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(UsersRoleLookup.class)
+                .createCriteria(UsersRoleCompanyLookup.class)
                 .add(Restrictions.eq("userId", user))
                 .add(Restrictions.eq("roleId", role));
         if (criteria.list().isEmpty()) {
             return null;
         }
-        return (UsersRoleLookup) criteria.list().get(0);
+        return (UsersRoleCompanyLookup) criteria.list().get(0);
     }
 
     @Override
-    public UsersRoleLookup getUsersRoleLookupByUserAndCompany(Users user, Company company) throws ProcessFailed {
+    public UsersRoleCompanyLookup getUsersRoleLookupByUserAndCompany(Users user, Company company) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(UsersRoleLookup.class)
+                .createCriteria(UsersRoleCompanyLookup.class)
                 .add(Restrictions.eq("userId", user))
                 .add(Restrictions.eq("companyId", company));
         if (criteria.list().isEmpty()) {
             return null;
         }
-        return (UsersRoleLookup) criteria.list().get(0);
+        return (UsersRoleCompanyLookup) criteria.list().get(0);
     }
 }

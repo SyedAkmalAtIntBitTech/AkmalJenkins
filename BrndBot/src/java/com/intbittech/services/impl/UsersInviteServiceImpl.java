@@ -22,11 +22,11 @@ import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserProfile;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
-import com.intbittech.model.UsersRoleLookup;
+import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.modelmappers.InviteDetails;
 import com.intbittech.modelmappers.TaskDetails;
 import com.intbittech.services.UserCompanyLookupService;
-import com.intbittech.services.UserRoleLookUpService;
+import com.intbittech.services.UserRoleCompanyLookUpService;
 import com.intbittech.services.UserRoleService;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UsersService;
@@ -60,7 +60,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     @Autowired
     private UserRoleService userRoleService;
     @Autowired
-    private UserRoleLookUpService userRoleLookUpService;
+    private UserRoleCompanyLookUpService userRoleLookUpService;
     @Autowired
     private UserCompanyLookupService userCompanyLookupService;
     @Autowired
@@ -172,7 +172,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     @Override
     public List<InvitedUsers> getInvitedUsers(Users userFrom)throws ProcessFailed {
         String invitationStatus = null;InvitedUsers inviteduser = null;
-        UsersRoleLookup userRoleLookUp = null; String userName = "";       
+        UsersRoleCompanyLookup userRoleLookUp = null; String userName = "";       
         try{
         List<Invite> invites = getAllInvitedUsers(userFrom);
         

@@ -5,13 +5,17 @@
  */
 package com.intbittech.services.impl;
 
+import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.UserRoleLookUpDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
+import com.intbittech.model.UserCompanyDetails;
+import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserRole;
-import com.intbittech.model.UsersRoleLookup;
+import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.model.Users;
-import com.intbittech.services.UserRoleLookUpService;
+import com.intbittech.services.UserRoleCompanyLookUpService;
+import com.intbittech.services.UsersService;
 import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -26,9 +30,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional(rollbackFor = ProcessFailed.class)
-public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
+public class UserRoleCompanyLookUpServiceImpl implements UserRoleCompanyLookUpService{
 
-    private final static Logger logger = Logger.getLogger(UserRoleLookUpServiceImpl.class);
+    private final static Logger logger = Logger.getLogger(UserRoleCompanyLookUpServiceImpl.class);
 
     @Autowired
     private UserRoleLookUpDao usersRoleLookUpDao;
@@ -36,16 +40,22 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
     @Autowired
     private MessageSource messageSource;
     
+    @Autowired
+    private UsersService usersService;
+
+    @Autowired
+    private CompanyDao companyDao;
+    
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean isRoleExist(UsersRoleLookup usersRoleLookup) throws ProcessFailed {
+    public boolean isRoleExist(UsersRoleCompanyLookup usersRoleLookup) throws ProcessFailed {
         return usersRoleLookUpDao.isRoleExist(usersRoleLookup);
     }
     
     @Override
-    public String save(UsersRoleLookup usersRoleLookup) throws ProcessFailed {
+    public String save(UsersRoleCompanyLookup usersRoleLookup) throws ProcessFailed {
         String returnMessage = "false";
         try {
             usersRoleLookUpDao.save(usersRoleLookup);
@@ -60,7 +70,7 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
 
     @Override
     public void delete(Integer id) throws ProcessFailed {
-        UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByLookUpId(id);
+        UsersRoleCompanyLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByLookUpId(id);
         if(userRoleLookup == null){
             throw new ProcessFailed("No user role found with id " + id + ".");
         }
@@ -68,8 +78,8 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
     }
 
     @Override
-    public UsersRoleLookup getUsersRoleLookupByLookUpId(Integer id) throws ProcessFailed {
-        UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByLookUpId(id);
+    public UsersRoleCompanyLookup getUsersRoleLookupByLookUpId(Integer id) throws ProcessFailed {
+        UsersRoleCompanyLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByLookUpId(id);
         if(userRoleLookup == null)
         {
              throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
@@ -78,8 +88,8 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
     }
 
     @Override
-    public UsersRoleLookup getUsersRoleLookupByUser(Users user) throws ProcessFailed {
-        UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByUser(user);
+    public UsersRoleCompanyLookup getUsersRoleLookupByUser(Users user) throws ProcessFailed {
+        UsersRoleCompanyLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByUser(user);
         if(userRoleLookup == null)
         {
              throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
@@ -100,8 +110,8 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
    /**
      * {@inheritDoc}
      */
-    public List<UsersRoleLookup> getAllUserRolesByUser(Users user) throws ProcessFailed {
-        List<UsersRoleLookup> userRoleLookup = usersRoleLookUpDao.getAllUserRolesByUser(user);
+    public List<UsersRoleCompanyLookup> getAllUserRolesByUser(Users user) throws ProcessFailed {
+        List<UsersRoleCompanyLookup> userRoleLookup = usersRoleLookUpDao.getAllUserRolesByUser(user);
         if (userRoleLookup.isEmpty()) {
             throw new ProcessFailed("No Sub Categories found.");
         }
@@ -109,13 +119,13 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
     }    
 
     @Override
-    public void update(UsersRoleLookup usersRoleLookup) throws ProcessFailed {
+    public void update(UsersRoleCompanyLookup usersRoleLookup) throws ProcessFailed {
             usersRoleLookUpDao.update(usersRoleLookup);
     }
 
     @Override
-    public UsersRoleLookup getUsersRoleLookupByUserAndRole(Users user, UserRole role) throws ProcessFailed {
-        UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByUserAndRole(user, role);
+    public UsersRoleCompanyLookup getUsersRoleLookupByUserAndRole(Users user, UserRole role) throws ProcessFailed {
+        UsersRoleCompanyLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByUserAndRole(user, role);
         if(userRoleLookup == null)
         {
             return null;
@@ -126,14 +136,32 @@ public class UserRoleLookUpServiceImpl implements UserRoleLookUpService{
     }
 
     @Override
-    public UsersRoleLookup getUsersRoleLookupByUserAndCompany(Users user, Company company) throws ProcessFailed {
-        UsersRoleLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByUserAndCompany(user, company);
+    public UsersRoleCompanyLookup getUsersRoleLookupByUserAndCompany(Users user, Company company) throws ProcessFailed {
+        UsersRoleCompanyLookup userRoleLookup = usersRoleLookUpDao.getUsersRoleLookupByUserAndCompany(user, company);
         if(userRoleLookup == null)
         {
             return null;
 //             throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
         }
         return userRoleLookup;
+    }
+
+    @Override
+    public String getStatus(UserCompanyDetails userCompanyDetails) throws ProcessFailed {
+        String statusReturn = "";
+        try{
+            Users user = usersService.getUserByEmailId(userCompanyDetails.getUserEmailId());
+            Company company = companyDao.getCompanyById(userCompanyDetails.getCompanyId());
+
+            UsersRoleCompanyLookup userRoleCompanyLookup = getUsersRoleLookupByUserAndCompany(user,company);
+            
+            statusReturn = userRoleCompanyLookup.getAccountStatus();
+        }catch (Throwable throwable){
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("something_wrong",new String[]{}, Locale.US));
+        }
+        return statusReturn;
+
     }
     
 }

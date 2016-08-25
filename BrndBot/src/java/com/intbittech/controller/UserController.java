@@ -8,17 +8,15 @@ package com.intbittech.controller;
 import com.intbittech.enums.AdminStatus;
 import com.intbittech.model.Company;
 import com.intbittech.model.UserCompanyDetails;
-import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserProfile;
 import com.intbittech.model.Users;
-import com.intbittech.model.UsersRoleLookup;
+import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.ForgotPasswordService;
-import com.intbittech.services.UserCompanyLookupService;
-import com.intbittech.services.UserRoleLookUpService;
+import com.intbittech.services.UserRoleCompanyLookUpService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.UserSessionUtil;
@@ -52,9 +50,7 @@ public class UserController {
     @Autowired
     private MessageSource messageSource;
     @Autowired
-    private UserCompanyLookupService userCompanyLookupService;
-    @Autowired
-    private UserRoleLookUpService userRoleLookUpService;
+    private UserRoleCompanyLookUpService userRoleCompanyLookUpService;
     @Autowired
     private UsersService usersService;
     @Autowired
@@ -82,20 +78,19 @@ public class UserController {
             Users user = usersService.getUserById(userId);
             List<UserCompanyDetails> listUserCompanyDetails = new ArrayList<UserCompanyDetails>();
 
-            List<UserCompanyLookup> listCompanyLookup = userCompanyLookupService.getAllUserCompaniesByUser(user);
+            List<UsersRoleCompanyLookup> listUsersRoleCompanyLookup = userRoleCompanyLookUpService.getAllUserRolesByUser(user);
 
-            for (int i = 0; i< listCompanyLookup.size(); i++){
+            for (int i = 0; i< listUsersRoleCompanyLookup.size(); i++){
 
-                UserCompanyLookup userCompanyLookup = listCompanyLookup.get(i);
-                UsersRoleLookup userRoleLookUp = userRoleLookUpService.getUsersRoleLookupByUserAndCompany(user, userCompanyLookup.getCompanyid());
+                UsersRoleCompanyLookup usersRoleCompanyLookup = listUsersRoleCompanyLookup.get(i);
                 
                 UserCompanyDetails userCompanyDetails = new UserCompanyDetails();
 
-                userCompanyDetails.setCompanyId(userCompanyLookup.getCompanyid().getCompanyId());
-                userCompanyDetails.setCompanyName(userCompanyLookup.getCompanyid().getCompanyName());
-                userCompanyDetails.setRoleId(userRoleLookUp.getRoleId().getUserRoleId());
-                userCompanyDetails.setRoleName(AdminStatus.valueOf(userRoleLookUp.getRoleId().getRoleName()).getDisplayName());
-//                userCompanyDetails.setAccountStatus(userCompanyLookup.getAccountStatus());
+                userCompanyDetails.setCompanyId(usersRoleCompanyLookup.getCompanyId().getCompanyId());
+                userCompanyDetails.setCompanyName(usersRoleCompanyLookup.getCompanyId().getCompanyName());
+                userCompanyDetails.setRoleId(usersRoleCompanyLookup.getRoleId().getUserRoleId());
+                userCompanyDetails.setRoleName(AdminStatus.valueOf(usersRoleCompanyLookup.getRoleId().getRoleName()).getDisplayName());
+                userCompanyDetails.setAccountStatus(usersRoleCompanyLookup.getAccountStatus());
                 userCompanyDetails.setUserEmailId(user.getUserName());
                 userCompanyDetails.setUserFirstName(user.getFirstName());
                 userCompanyDetails.setUserLastName(user.getLastName());
@@ -121,17 +116,15 @@ public class UserController {
             Company company = companyService.getCompanyById(companyId);
             List<UserCompanyDetails> listUserCompanyDetails = new ArrayList<UserCompanyDetails>();
 
-                UserCompanyLookup userCompanyLookup = userCompanyLookupService.getUserCompanyLookupByUserAndCompany(user, company);
-
-                UsersRoleLookup userRoleLookUp = userRoleLookUpService.getUsersRoleLookupByUser(user);
+                UsersRoleCompanyLookup userRoleLookUp = userRoleCompanyLookUpService.getUsersRoleLookupByUserAndCompany(user, company);
                 
                 UserCompanyDetails userCompanyDetails = new UserCompanyDetails();
 
-                userCompanyDetails.setCompanyId(userCompanyLookup.getCompanyid().getCompanyId());
-                userCompanyDetails.setCompanyName(userCompanyLookup.getCompanyid().getCompanyName());
+                userCompanyDetails.setCompanyId(userRoleLookUp.getCompanyId().getCompanyId());
+                userCompanyDetails.setCompanyName(userRoleLookUp.getCompanyId().getCompanyName());
                 userCompanyDetails.setRoleId(userRoleLookUp.getRoleId().getUserRoleId());
                 userCompanyDetails.setRoleName(AdminStatus.valueOf(userRoleLookUp.getRoleId().getRoleName()).getDisplayName());
-//                userCompanyDetails.setAccountStatus(userCompanyLookup.getAccountStatus());
+                userCompanyDetails.setAccountStatus(userRoleLookUp.getAccountStatus());
                 userCompanyDetails.setUserEmailId(user.getUserName());
                 userCompanyDetails.setUserFirstName(user.getFirstName());
                 userCompanyDetails.setUserLastName(user.getLastName());
@@ -153,7 +146,7 @@ public class UserController {
     public ResponseEntity<ContainerResponse> checkUserCompanyActivation(@RequestBody UserCompanyDetails userCompanyDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try{
-            String accountStatus = userCompanyLookupService.getStatus(userCompanyDetails);
+            String accountStatus = userRoleCompanyLookUpService.getStatus(userCompanyDetails);
 
             transactionResponse.setMessage(accountStatus);
             

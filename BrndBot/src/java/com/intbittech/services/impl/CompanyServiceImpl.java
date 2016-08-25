@@ -17,7 +17,7 @@ import com.intbittech.model.OrganizationCompanyLookup;
 import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
-import com.intbittech.model.UsersRoleLookup;
+import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.UserCompanyLookupService;
@@ -157,7 +157,7 @@ public class CompanyServiceImpl implements CompanyService{
      */
     @Override
     public String saveCompany(CompanyDetails companyDetails) throws ProcessFailed {
-        String returnMessage = "false";UsersRoleLookup usersRoleLookUp = null;
+        String returnMessage = "false";UsersRoleCompanyLookup usersRoleLookUp = null;
         UserCompanyLookup userCompanyLookup = null;Company company = null,companyObject = null;
         Integer companyId = 0;
         try {
@@ -180,7 +180,7 @@ public class CompanyServiceImpl implements CompanyService{
                 usersRoleLookUp = usersRoleLookUpDao.getUsersRoleLookupByUser(user);
 
                 UserRole userRole = new UserRole();
-                userRole.setUserRoleId(AppConstants.UserRoleManagerValue);
+                userRole.setUserRoleId(AppConstants.UserRoleAccountOwnerValue);
 
                 usersRoleLookUp.setUserId(user);
                 usersRoleLookUp.setRoleId(userRole);

@@ -21,8 +21,8 @@ import javax.persistence.Table;
  * @author Syed Muzamil at IntBit Technologies.
  */
     @Entity
-@Table(name = "users_role_lookup")
-public class UsersRoleLookup implements Serializable {
+@Table(name = "users_role_company_lookup")
+public class UsersRoleCompanyLookup implements Serializable {
     @JoinColumn(name = "company_id", referencedColumnName = "company_id")
     @ManyToOne
     private Company companyId;
@@ -49,10 +49,10 @@ public class UsersRoleLookup implements Serializable {
         this.accountStatus = accountStatus;
     }
     
-    public UsersRoleLookup() {
+    public UsersRoleCompanyLookup() {
     }
 
-    public UsersRoleLookup(Integer id) {
+    public UsersRoleCompanyLookup(Integer id) {
         this.id = id;
     }
 

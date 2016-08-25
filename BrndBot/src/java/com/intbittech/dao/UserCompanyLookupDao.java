@@ -10,7 +10,7 @@ import com.intbittech.model.Company;
 import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
-import com.intbittech.model.UsersRoleLookup;
+import com.intbittech.model.UsersRoleCompanyLookup;
 import java.util.List;
 
 /**
@@ -36,14 +36,14 @@ public interface UserCompanyLookupDao {
     public Integer save(UserCompanyLookup userCompanyLookup) throws ProcessFailed;
     
     /**
-     * This method pass userCompanyLookup as input and updates the {@link UsersRoleLookup} from database
+     * This method pass userCompanyLookup as input and updates the {@link UsersRoleCompanyLookup} from database
      *
      * @param userCompanyLookup
      * @throws ProcessFailed the process failed
      */
     public void update(UserCompanyLookup userCompanyLookup) throws ProcessFailed;
     /**
-     * This method pass userCompanyLookup as input and updates the {@link UsersRoleLookup} from database
+     * This method pass userCompanyLookup as input and updates the {@link UsersRoleCompanyLookup} from database
      *
      * @param userCompanyLookup
      * @throws ProcessFailed the process failed
@@ -51,28 +51,28 @@ public interface UserCompanyLookupDao {
     public void delete(UserCompanyLookup userCompanyLookup) throws ProcessFailed;
     
     /**
-     * This method pass user as input and get the {@link UsersRoleLookup} from database
+     * This method pass user as input and get the {@link UsersRoleCompanyLookup} from database
      *
      * @param Id
-     * @return {@link UsersRoleLookup}
+     * @return {@link UsersRoleCompanyLookup}
      * @throws ProcessFailed the process failed
      */
     public UserCompanyLookup getUsersCompanyLookupById(Integer Id) throws ProcessFailed;
 
     /**
-     * This method pass user as input and get the {@link UsersRoleLookup} from database
+     * This method pass user as input and get the {@link UsersRoleCompanyLookup} from database
      *
      * @param userId
-     * @return {@link UsersRoleLookup}
+     * @return {@link UsersRoleCompanyLookup}
      * @throws ProcessFailed the process failed
      */
     public UserCompanyLookup getUsersCompanyLookupByUser(Users userId) throws ProcessFailed;
 
    /**
-     * This method pass user as input and get the {@link UsersRoleLookup} from database
+     * This method pass user as input and get the {@link UsersRoleCompanyLookup} from database
      *
      * @param userId
-     * @return {@link UsersRoleLookup}
+     * @return {@link UsersRoleCompanyLookup}
      * @throws ProcessFailed the process failed
      */
     public UserCompanyLookup getUsersCompanyLookupByUserAndCompany(Users user, Company role) throws ProcessFailed;
