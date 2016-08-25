@@ -30,18 +30,6 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             $scope.getFranchiseHeadquarter();
         };
 
-        $scope.franchise = function () {
-            $http({
-                method: 'GET',
-                url: getHost() + 'getAllFranchises'
-            }).success(function (data, status, headers, config) {
-                $scope.franchiseDetails = data.d.details;
-            }).error(function (data, status, headers, config) {
-                growl(eval(JSON.stringify(data.d.operationStatus.messages)));
-            });
-
-        };
-
         $scope.showEditFranchisePopup = function (franchiseId) {
             $scope.editFranchisePopup = true;
             $scope.editFranchisePopupDiv = true;
@@ -82,7 +70,7 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             if (r == true) {
 
                 franchiseFactory.activateCompanyAsFranchise(companyId, franchiseId).then(function (data) {
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                     window.open(getHost() + 'admin/franchiseCompanies?franchiseId=' + franchiseId + '&franchiseName=' + franchiseName, "_self");
                 });
             }
