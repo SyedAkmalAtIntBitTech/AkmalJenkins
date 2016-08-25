@@ -49,7 +49,7 @@ public interface CompanyImagesService {
 
     public String getPath(Integer companyId);
 
-    public String getLink(String fileName, Company company, String imageURL);
+    public String getLink(String fileName, Integer companyId, String imageURL);
     
     public CompanyImages getCompanyImagesByCompany(Company company);
 

@@ -79,10 +79,12 @@ public class ImagesController {
         TransactionResponse transactionResponse = new TransactionResponse();
 
         try {
-            Map<String, Object> requestBodyMap
-                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
- 
-            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);            
+//            Map<String, Object> requestBodyMap
+//                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+// 
+//            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);    
+            
+            Integer companyId = Integer.parseInt((String) request.getParameter("companyId"));
 
             String pathSuffix = "";
             String fileName = "";
@@ -102,9 +104,10 @@ public class ImagesController {
                 globalImagesService.save(globalImages);
             } else {
                 Company company = new Company();
-                pathSuffix = companyImagesService.getPath(userCompanyIds.getCompanyId());
+                company.setCompanyId(companyId);
+                pathSuffix = companyImagesService.getPath(companyId);
                 fileName = FileUploadUtil.uploadFile(pathSuffix, request);
-                link = companyImagesService.getLink(fileName, company, imageURL);
+                link = companyImagesService.getLink(fileName, companyId, imageURL);
                 CompanyImages companyImages = new CompanyImages();
                 companyImages.setImageName(fileName);
                 companyImages.setFkCompanyId(company);
