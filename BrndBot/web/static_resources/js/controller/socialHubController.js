@@ -1,7 +1,7 @@
 socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$location', 'settingsFactory', 'socialPostFactory', function ($scope, $rootScope, $location, settingsFactory, socialPostFactory) {
     
         $scope.getFacebookDetails = function () {
-            var fbdata = JSON.stringify({access_token_method: "getAccessToken"});
+            var fbdata = {access_token_method: "getAccessToken"};
             settingsFactory.facebookPost(fbdata).then(function (data) {
                 $scope.facebookDetailsTab = true;
                 $scope.twitterDetailsTab = false;
@@ -33,7 +33,7 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
         };
         
         $scope.clearFacebookDetails = function () {
-            var data = JSON.stringify({access_token_method: "clearFacebookDetails"});
+            var data = {access_token_method: "clearFacebookDetails"};
             settingsFactory.facebookPost(data).then(function (data) {
 //                growl(JSON.stringify(data));
                 $scope.getFacebookDetails();
@@ -42,7 +42,7 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
         
         
         $scope.getManagePage = function () {
-            var data = JSON.stringify({redirectUrl: "user/social"});
+            var data = {redirectUrl: "user/social"};
             settingsFactory.fbLoginPost(data).then(function (data) {
                 window.location = data.d.details[0];
             });
@@ -85,7 +85,7 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
 
 
         $scope.getTwitterDetails = function () {
-            var twitterdata = JSON.stringify({access_token_method: "getAccessToken"});
+            var twitterdata = {access_token_method: "getAccessToken"};
             settingsFactory.twitterPost(twitterdata).then(function (data) {
                 var twitterData = data.d.message.split(",");
                 var twitterprofileName = twitterData[2];
@@ -127,7 +127,7 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
  
  
         $scope.clearTwitterDetails = function () {
-            var data = JSON.stringify({access_token_method: "clearTwitterDetails"});
+            var data = {access_token_method: "clearTwitterDetails"};
             settingsFactory.twitterPost(data).then(function (data) {
                 $scope.getTwitterDetails();
             });
@@ -139,12 +139,12 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
 //            var data = JSON.stringify({access_token_method: "setAccessToken"});
             var data = "";
             if (addDafaultmanagePage) {
-                data = JSON.stringify({
+                data = {
                     access_token_method: "setAccessToken",
                     access_token: $rootScope.CurrentFbAccessToken,
                     default_page_name: $rootScope.CurrentFbPageName,
                     fb_user_profile_name: $rootScope.FbProfileName
-                });
+                };
                 $scope.facebook = false;
                 window.location = getHost() + "user/social";
             } else {

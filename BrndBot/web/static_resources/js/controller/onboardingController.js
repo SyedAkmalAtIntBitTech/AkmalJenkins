@@ -216,7 +216,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             {
                 var userIdvalue = localStorage.getItem("userId");
                 var companyDetails = {"userId":userIdvalue, "companyName": companyName, "organizationId": organizationId};
-                onboardingFactory.saveCompanyPost(JSON.stringify(companyDetails)).then(function (data) {
+                onboardingFactory.saveCompanyPost(companyDetails).then(function (data) {
                     var companyId = data.d.message;
                     localStorage.setItem("companyId",companyId);
                     //TODO Set the companyId in Auth factory file

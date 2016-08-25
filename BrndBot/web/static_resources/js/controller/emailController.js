@@ -1102,7 +1102,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.sendEmailOnClick = function (fromName, fromAddress, replyAddress, toAddress) {
             appSessionFactory.getAllEmail().then(function(sessionMap){
-            var sendEmailData = JSON.stringify({
+            var sendEmailData = {
                 from_name: fromName,
                 email_subject: sessionMap[getEmailSubject()],
                 email_preheader:sessionMap[getPreHeader()],
@@ -1111,7 +1111,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 reply_to_email_address: replyAddress,
                 email_list: $scope.emailList,
                 iframeName: $scope.randomIframeFilename.toString()
-            });
+            };
             emailFactory.sendEmail(sendEmailData).then(function (data) {
                 if (data.d.message === "true") {
                     emailDraftFactory.deleteEmailDraftPost(sessionMap[getDraftId()]).then(function () {
@@ -1357,7 +1357,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.getFacebookActions = function (selectedMarketingProgramId) {
-            var data = JSON.stringify({programid: selectedMarketingProgramId.toString(), type: getemail()});
+            var data = {programid: selectedMarketingProgramId.toString(), type: getemail()};
             scheduleActionsFactory.getActionsPost(data).then(function (data) {
                 var parseData = JSON.parse(data.d.details);
                 $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM EMAIL"}];
@@ -1636,7 +1636,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.postToSocialMedia = function (selectedSocialmedia, postData) {
             $scope.isMailSent = false;
             if (selectedSocialmedia === "email") {
-                var sendEmailData = JSON.stringify({
+                var sendEmailData = {
                     from_name: postData.fromName,
                     email_subject: postData.emailSubject,
                     email_addresses: postData.toAddress,
@@ -1644,7 +1644,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     reply_to_email_address: postData.replyAddress,
                     email_list: $scope.emailList,
                     iframeName: $scope.randomIframeFilename.toString()
-                });
+                };
                 emailFactory.sendEmail(sendEmailData).then(function (data) {
                     if (data.d.message === "true") {
                         appSessionFactory.getEmail(getDraftId()).then(function(sessionDraftId){
