@@ -157,7 +157,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
                 UserCompanyLookup company = userCompanyLookupService.getUserCompanyLookupByUser(fromUser);
                 
                 UserCompanyLookup userCompanyLookup =  userCompanyLookupService.getUserCompanyLookupByUserAndCompany(user, company.getCompanyid());
-                userCompanyLookup.setAccountStatus(AppConstants.Account_Deactivated);
+//                userCompanyLookup.setAccountStatus(AppConstants.Account_Deactivated);
                 userCompanyLookupService.update(userCompanyLookup);
             }else {
                 delete(inviteId);

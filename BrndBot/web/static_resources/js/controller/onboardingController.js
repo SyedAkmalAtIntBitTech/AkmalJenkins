@@ -218,9 +218,14 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 var companyDetails = {"userId":userIdvalue, "companyName": companyName, "organizationId": organizationId};
                 onboardingFactory.saveCompanyPost(JSON.stringify(companyDetails)).then(function (data) {
                     var companyId = data.d.message;
-                    localStorage.setItem("companyId",companyId);
-                    //TODO Set the companyId in Auth factory file
-                    $location.path("/signup/datasource");
+                    alert(companyId);
+                    if (parseInt(companyId) == 0){
+                        alert("company name already exist, please give some other company name");
+                    }else {
+                        localStorage.setItem("companyId",companyId);
+                        //TODO Set the companyId in Auth factory file
+                        $location.path("/signup/datasource");
+                    }
                 });
             }
         };

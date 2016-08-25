@@ -95,7 +95,7 @@ public class UserController {
                 userCompanyDetails.setCompanyName(userCompanyLookup.getCompanyid().getCompanyName());
                 userCompanyDetails.setRoleId(userRoleLookUp.getRoleId().getUserRoleId());
                 userCompanyDetails.setRoleName(AdminStatus.valueOf(userRoleLookUp.getRoleId().getRoleName()).getDisplayName());
-                userCompanyDetails.setAccountStatus(userCompanyLookup.getAccountStatus());
+//                userCompanyDetails.setAccountStatus(userCompanyLookup.getAccountStatus());
                 userCompanyDetails.setUserEmailId(user.getUserName());
                 userCompanyDetails.setUserFirstName(user.getFirstName());
                 userCompanyDetails.setUserLastName(user.getLastName());
@@ -131,7 +131,7 @@ public class UserController {
                 userCompanyDetails.setCompanyName(userCompanyLookup.getCompanyid().getCompanyName());
                 userCompanyDetails.setRoleId(userRoleLookUp.getRoleId().getUserRoleId());
                 userCompanyDetails.setRoleName(AdminStatus.valueOf(userRoleLookUp.getRoleId().getRoleName()).getDisplayName());
-                userCompanyDetails.setAccountStatus(userCompanyLookup.getAccountStatus());
+//                userCompanyDetails.setAccountStatus(userCompanyLookup.getAccountStatus());
                 userCompanyDetails.setUserEmailId(user.getUserName());
                 userCompanyDetails.setUserFirstName(user.getFirstName());
                 userCompanyDetails.setUserLastName(user.getLastName());

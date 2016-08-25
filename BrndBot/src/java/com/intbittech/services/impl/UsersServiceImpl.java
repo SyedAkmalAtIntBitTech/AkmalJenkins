@@ -143,12 +143,13 @@ public class UsersServiceImpl implements UsersService {
             user.setLastName(usersDetails.getLastName());
 
             user.setCreatedDate(new Date());
+            user.setSignupStatus(AppConstants.SignUpStatusIncomplete);
             Integer userId = usersDao.save(user);
 
             usersRoleLookUp = new UsersRoleLookup();
 
             UserRole userRole = new UserRole();
-            userRole.setUserRoleId(AppConstants.UserRoleTempManagerValue);
+            userRole.setUserRoleId(AppConstants.UserRoleAccountOwnerValue);
 
             usersRoleLookUp.setUserId(user);
             usersRoleLookUp.setRoleId(userRole);
@@ -186,23 +187,16 @@ public class UsersServiceImpl implements UsersService {
                 user.setFirstName(usersDetails.getFirstName());
                 user.setLastName(usersDetails.getLastName());
                 user.setCreatedDate(new Date());
+                user.setSignupStatus(AppConstants.SignUpStatuscomplete);
                 Users sentUser = companyInvite.getInviteSentBy();
                 if ((usersDao.checkUniqueUser(user))){
                     userId = usersDao.save(user);
                 }else {
                     user = usersDao.getUserByEmailId(usersDetails.getUserName());
                 }
-            userCompanyLookup = userCompanyLookUpService.getUserCompanyLookupByUser(sentUser);
-            Company company = userCompanyLookup.getCompanyid();
+                userCompanyLookup = userCompanyLookUpService.getUserCompanyLookupByUser(sentUser);
+                Company company = userCompanyLookup.getCompanyid();
 
-                userCompanyLookup = new UserCompanyLookup();
-
-                userCompanyLookup.setCompanyid(company);
-                userCompanyLookup.setUserid(user);
-                userCompanyLookup.setAccountStatus(AppConstants.Account_Activated);
-
-                userCompanyLookUpService.save(userCompanyLookup);
-                
                 companyInvite.setInviteSentTo(user);
                 companyInvite.setIsUsed(true);
                 usersInviteService.update(companyInvite);
@@ -219,6 +213,7 @@ public class UsersServiceImpl implements UsersService {
                     usersRoleLookUp.setUserId(user);
                     usersRoleLookUp.setRoleId(userRole);
                     usersRoleLookUp.setCompanyId(company);
+                    usersRoleLookUp.setAccountStatus(AppConstants.Account_Activated);
                     boolean isRole = usersRoleLookUpService.isRoleExist(usersRoleLookUp);
                     if (isRole){
                         usersRoleLookUpDao.save(usersRoleLookUp);
@@ -309,6 +304,7 @@ public class UsersServiceImpl implements UsersService {
                     usersRoleLookUp.setUserId(user);
                     usersRoleLookUp.setRoleId(userRole);
                     usersRoleLookUp.setCompanyId(company);
+                    usersRoleLookUp.setAccountStatus(AppConstants.Account_Activated);
                    usersRoleLookUpService.save(usersRoleLookUp);
                     
                 }
@@ -347,6 +343,7 @@ public class UsersServiceImpl implements UsersService {
                     usersRoleLookUp.setUserId(user);
                     usersRoleLookUp.setRoleId(userRole);
                     usersRoleLookUp.setCompanyId(company);
+                    usersRoleLookUp.setAccountStatus(AppConstants.Account_Activated);
                     usersRoleLookUpService.update(usersRoleLookUp);
                     
                 }

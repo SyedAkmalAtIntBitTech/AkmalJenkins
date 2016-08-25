@@ -136,7 +136,7 @@ public class UserCompanyLookupServiceImpl implements UserCompanyLookupService {
 
             UserCompanyLookup userCompanyLookup = getUserCompanyLookupByUserAndCompany(user,company);
             
-            statusReturn = userCompanyLookup.getAccountStatus();
+//            statusReturn = userCompanyLookup.getAccountStatus();
         }catch (Throwable throwable){
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("something_wrong",new String[]{}, Locale.US));

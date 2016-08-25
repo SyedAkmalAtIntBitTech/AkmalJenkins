@@ -20,7 +20,7 @@ import javax.persistence.Table;
  *
  * @author Syed Muzamil at IntBit Technologies.
  */
-@Entity
+    @Entity
 @Table(name = "users_role_lookup")
 public class UsersRoleLookup implements Serializable {
     @JoinColumn(name = "company_id", referencedColumnName = "company_id")
@@ -38,7 +38,17 @@ public class UsersRoleLookup implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @ManyToOne
     private Users userId;
+    @Column(name = "account_status")
+    private String accountStatus;
 
+    public String getAccountStatus() {
+        return accountStatus;
+    }
+
+    public void setAccountStatus(String accountStatus) {
+        this.accountStatus = accountStatus;
+    }
+    
     public UsersRoleLookup() {
     }
 
