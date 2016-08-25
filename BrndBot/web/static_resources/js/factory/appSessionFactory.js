@@ -20,7 +20,7 @@ factoryApp.factory('appSessionFactory', function ($q) {
     
     AppSessionFactoryObject.getEmail = function () {
         var deffered = $q.defer();
-        var requestedValue = email;
+        var requestedValue = kGlobalEmailObject;
         
             var emailLocalObject = JSON.parse(localStorage.getItem(emailObjectName));
             if(emailLocalObject){

@@ -170,92 +170,80 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
         $scope.redirect = function (redirect, categoryId, subCategoryId, mindbody, lookupId, mindbodyId, draftId, emailSubject, preHeader)
         {
-            if (lookupId)
-            {
-                appSessionFactory.getEmail().then(function(kGlobalEmailObject){
-                    kGlobalEmailObject.lookupId = lookupId;
-                    appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
-                    });
-                });
-//                $scope.lookupId = lookupId;
-            }
-            if (lookupId === 0)
-            {
-                $scope.lookupId = lookupId;
-            }
-            if (categoryId)
-            {
-                appSessionFactory.getEmail().then(function(kGlobalEmailObject){
-                    kGlobalEmailObject.categoryId = categoryId;
-                    appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
-                    });
-                });
-            }
-            if (subCategoryId)
-            {
-                appSessionFactory.getEmail().then(function(kGlobalEmailObject){
-                    kGlobalEmailObject.subCategoryId = subCategoryId;
-                    appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
-                    });
-                });
-            }
-            if (mindbody === 'Mindbody')
-            {
-                appSessionFactory.getEmail().then(function(kGlobalEmailObject){
-                    kGlobalEmailObject.mindbody = 'mindbody';
-                    appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
-                    });
-                });
-                redirect = $scope.forwardone;
-            }
-            if (mindbody !== 'Mindbody')
-            {
-                if (redirect === 'emailexternalsource')
+            appSessionFactory.getEmail().then(function(kGlobalEmailObject){
+                if (lookupId)
                 {
-                    redirect = $scope.forwardtwo;
+
+                        kGlobalEmailObject.lookupId = lookupId;
+                        appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
+                        });
+
+    //                $scope.lookupId = lookupId;
                 }
-            }
-            if (mindbodyId)
-            {
-                appSessionFactory.getEmail().then(function(kGlobalEmailObject){
-                    kGlobalEmailObject.mindbodyId = mindbodyId;
-                    appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
-                    });
-                });
-            }
-            if (draftId)
-            {
-                appSessionFactory.getEmail().then(function(kGlobalEmailObject){
-                    kGlobalEmailObject.draftId = draftId;
-                    appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
-                    });
-                });
-            }
-            if (emailSubject)
-            {
-                appSessionFactory.getEmail().then(function(kGlobalEmailObject){
-                    kGlobalEmailObject.emailSubject = emailSubject;
-                    appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
-                    });
-                });
-            }
-            if(preHeader)
-            {
-                appSessionFactory.getEmail().then(function(kGlobalEmailObject){
-                    kGlobalEmailObject.preheader = preHeader;
-                    appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
-                    });
-                });
-            }
-            if (redirect !== 'emaileditor') {
-                $location.path("/" + redirect);
-            }
-            if (redirect === 'emaileditor') {
-                if ($scope.emailFlowValidation(emailSubject,preHeader))
+                if (lookupId === 0)
                 {
+                    $scope.lookupId = lookupId;
+                }
+                if (categoryId)
+                {
+                        kGlobalEmailObject.categoryId = categoryId;
+                        appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
+                        });
+                }
+                if (subCategoryId)
+                {
+                        kGlobalEmailObject.subCategoryId = subCategoryId;
+                        appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
+                        });
+                }
+                if (mindbody === 'Mindbody')
+                {
+                        kGlobalEmailObject.mindbody = 'mindbody';
+                        appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
+                    });
+                    redirect = $scope.forwardone;
+                }
+                if (mindbody !== 'Mindbody')
+                {
+                    if (redirect === 'emailexternalsource')
+                    {
+                        redirect = $scope.forwardtwo;
+                    }
+                }
+                if (mindbodyId)
+                {
+                        kGlobalEmailObject.mindbodyId = mindbodyId;
+                        appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
+                        });
+                }
+                if (draftId)
+                {
+                        kGlobalEmailObject.draftId = draftId;
+                        appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
+                        });
+                }
+                if (emailSubject)
+                {
+                        kGlobalEmailObject.emailSubject = emailSubject;
+                        appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
+                        });
+                }
+                if(preHeader)
+                {
+                        kGlobalEmailObject.preheader = preHeader;
+                        appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
+                        });
+                }
+                if (redirect !== 'emaileditor') {
                     $location.path("/" + redirect);
                 }
-            }
+                if (redirect === 'emaileditor') {
+                    if ($scope.emailFlowValidation(emailSubject,preHeader))
+                    {
+                        $location.path("/" + redirect);
+                    }
+                }
+            });
         };
 
         $scope.getSubject_preHeader = function () {
@@ -722,14 +710,14 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         });
                     } else {
                         var draftData = {
-                            draftId: sessionMap[getDraftId()].toString(),
+                            draftId: kGlobalEmailObject.draftId.toString(),
                             bodyString: $('#tinymceEditorBody').html(),
-                            lookupId: sessionMap[getLookupId()].toString(),
-                            mindbodyData: sessionMap[getMindbodyId()].toString(),
-                            categoryId: sessionMap[getCategoryId()].toString(),
-                            subCategoryId: sessionMap[getSubCategoryId()].toString(),
-                            emailSubject: sessionMap[getEmailSubject()],
-                            emailPreHeader: sessionMap[getPreHeader()]
+                            lookupId: kGlobalEmailObject.lookupId.toString(),
+                            mindbodyData: kGlobalEmailObject.mindbodyId.toString(),
+                            categoryId: kGlobalEmailObject.categoryId.toString(),
+                            subCategoryId: kGlobalEmailObject.subCategoryId.toString(),
+                            emailSubject: kGlobalEmailObject.emailSubject,
+                            emailPreHeader: kGlobalEmailObject.preheader
                         };
 
                         emailDraftFactory.updateEmailDraftPost(draftData).then(function (responseText) {
@@ -1080,7 +1068,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             appSessionFactory.getEmail().then(function(kGlobalEmailObject){
                     $scope.emailSubject=kGlobalEmailObject.emailSubject;
                     $scope.fromName=kGlobalEmailObject.fromName;
-                if(sessionMap[getEntityScheduleId()]){
+                if(kGlobalEmailObject.entityScheduleId){
                     $scope.emaildetailscontbtn=false;
                     $scope.emailSaveActionbutton= true;
                 } else{
@@ -1244,7 +1232,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                                     from_name: $scope.postData.fromName,
                                     schedule_id: kGlobalEmailObject.entityScheduleId.toString(),
                                     email_subject: $scope.postData.emailSubject,
-                                    email_preheader:sessionMap[getPreHeader()],
+                                    email_preheader:kGlobalEmailObject.preheader,
                                     to_email_addresses: $scope.postData.toAddress,
                                     from_email_address: getDefaultEmailId(),
                                     reply_to_email_address: $scope.postData.replyAddress,
@@ -1252,7 +1240,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                                     email_body: $("#dynamictable").contents().find("html").html(),
                                     schedule_desc: ",,,",
                                     iframeName: $scope.randomIframeFilename.toString(),
-                                    html_body:sessionMap[getHtmlBody()]
+                                    html_body:kGlobalEmailObject.htmlBody
                                 };
 
                                 scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
@@ -1635,7 +1623,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.postToSocialMedia = function (selectedSocialmedia, postData) {
             $scope.isMailSent = false;
             if (selectedSocialmedia === "email") {
-                var sendEmailData = JSON.stringify({
+                var sendEmailData = {
                     from_name: postData.fromName,
                     email_subject: postData.emailSubject,
                     email_addresses: postData.toAddress,
@@ -1643,7 +1631,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     reply_to_email_address: postData.replyAddress,
                     email_list: $scope.emailList,
                     iframeName: $scope.randomIframeFilename.toString()
-                });
+                };
                 emailFactory.sendEmail(sendEmailData).then(function (data) {
                     if (data.d.message === "true") {
                         appSessionFactory.getEmail().then(function(kGlobalEmailObject){
