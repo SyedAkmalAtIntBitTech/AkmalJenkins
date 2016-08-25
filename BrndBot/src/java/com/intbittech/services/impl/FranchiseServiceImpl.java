@@ -39,19 +39,28 @@ public class FranchiseServiceImpl implements FranchiseService {
     private CompanyDao companyDao;
 
     @Override
-    public void activateCompanyAsFranchise(Integer companyId, Integer franchiseId) throws ProcessFailed {
-        FranchiseCompanyLookup franchiseCompanyLookup = franchiseCompanyLookupDao.getFranchiseLookup(companyId, franchiseId);
-        if(franchiseCompanyLookup != null) {
-            throw new ProcessFailed("This company already has a head quarter");
+    public boolean activateCompanyAsFranchise(Integer companyId, Integer franchiseId) throws ProcessFailed {
+        boolean returnValue = false;
+        try{
+            FranchiseCompanyLookup franchiseCompanyLookup = franchiseCompanyLookupDao.getFranchiseHeadquarter(franchiseId);
+
+            if (franchiseCompanyLookup != null){
+                franchiseCompanyLookup.setIsHeadQuarter(false);
+                franchiseCompanyLookupDao.update(franchiseCompanyLookup);
+
+                FranchiseCompanyLookup franchiseCompanyLookupToMakeHeadquarter = franchiseCompanyLookupDao.getFranchiseLookup(companyId, franchiseId);
+                franchiseCompanyLookupToMakeHeadquarter.setIsHeadQuarter(true);
+                franchiseCompanyLookupDao.update(franchiseCompanyLookupToMakeHeadquarter);
+            }else {
+                FranchiseCompanyLookup franchiseCompanyLookupToMakeHeadquarter = franchiseCompanyLookupDao.getFranchiseLookup(companyId, franchiseId);
+                franchiseCompanyLookupToMakeHeadquarter.setIsHeadQuarter(true);
+                franchiseCompanyLookupDao.update(franchiseCompanyLookupToMakeHeadquarter);
+            }
+            returnValue = true;
+        }catch (Throwable throwable){
+            throw new ProcessFailed("No headquarter found.");
         }
-       
-        franchiseCompanyLookup = new FranchiseCompanyLookup();
-        franchiseCompanyLookup.setCreatedAt(new Date());
-        franchiseCompanyLookup.setFkAddedByUserId(new Users(1));//Always gonna be admin
-        franchiseCompanyLookup.setFkCompanyId(new Company(companyId));
-        franchiseCompanyLookup.setFkFranchiseId(new Franchise(franchiseId));
-        franchiseCompanyLookup.setIsHeadQuarter(true);
-        franchiseCompanyLookupDao.save(franchiseCompanyLookup);    
+        return returnValue;
         //TODO - Muzamil - Send out an email to the user that he has been added as a Franchise.
     }
 
