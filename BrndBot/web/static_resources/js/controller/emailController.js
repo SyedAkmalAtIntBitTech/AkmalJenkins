@@ -1636,7 +1636,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.postToSocialMedia = function (selectedSocialmedia, postData) {
             $scope.isMailSent = false;
             if (selectedSocialmedia === "email") {
-                var sendEmailData = JSON.stringify({
+                var sendEmailData = {
                     from_name: postData.fromName,
                     email_subject: postData.emailSubject,
                     email_addresses: postData.toAddress,
@@ -1644,7 +1644,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     reply_to_email_address: postData.replyAddress,
                     email_list: $scope.emailList,
                     iframeName: $scope.randomIframeFilename.toString()
-                });
+                };
                 emailFactory.sendEmail(sendEmailData).then(function (data) {
                     if (data.d.message === "true") {
                         appSessionFactory.getEmail(getDraftId()).then(function(sessionDraftId){

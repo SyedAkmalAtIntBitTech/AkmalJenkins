@@ -55,7 +55,6 @@ public class ScheduleDAO {
             String emailListName,
             String fromName,
             String replytoEmailAddress,
-            String[] toAddress,
             String scheduledTitle,
             String scheduleDesc,
             Timestamp scheduledTime,
@@ -67,16 +66,14 @@ public class ScheduleDAO {
         int emailScheduleId = -1;
         int scheduleEntityId = -1;
         Map<String, Integer> returnMap = new HashMap<>();
-        PGobject pg_object = new PGobject();
-        JSONObject json_email_addresses = new JSONObject();
-        JSONArray json_array_email_address = new JSONArray();
+
 
         try (Connection connection = connectionManager.getConnection()) {
             connection.setAutoCommit(false);
             try {
                 String sql = "INSERT INTO scheduled_email_list "
-                        + " (fk_company_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address, preheader, html_body) VALUES "
-                        + " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
+                        + " (fk_company_id, subject, body, from_address, email_list_name, from_name,reply_to_email_address, preheader, html_body) VALUES "
+                        + " (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
                 try (PreparedStatement ps = connection.prepareStatement(sql)) {
                     ps.setInt(1, companyId);
                     ps.setString(2, subject);
@@ -85,16 +82,8 @@ public class ScheduleDAO {
                     ps.setString(5, emailListName);
                     ps.setString(6, fromName);
                     
-                    for (int i = 0; i < toAddress.length; i++) {
-                        json_array_email_address.add(toAddress[i].trim());
-                    }
-                    json_email_addresses.put(IConstants.kEmailAddressesKey, json_array_email_address);
-                    pg_object.setType("json");
-                    pg_object.setValue(json_email_addresses.toJSONString());
-                    ps.setObject(7, pg_object);
-                    ps.setString(8, replytoEmailAddress);
-                    ps.setString(9, preheader);
-                    ps.setString(10, html_body);
+                    ps.setString(8, preheader);
+                    ps.setString(9, html_body);
                     ps.execute();
                     try (ResultSet resultSet = ps.getResultSet()) {
 
@@ -142,7 +131,6 @@ public class ScheduleDAO {
             String emailListName,
             String fromName,
             String replytoEmailAddress,
-            String[] toAddress,
             String scheduleDesc,
             String templateStatus,
             String html_body
@@ -151,15 +139,13 @@ public class ScheduleDAO {
         int emailScheduleId = -1;
         int scheduleEntityId = -1;
         Map<String, Integer> returnMap = new HashMap<>();
-        PGobject pg_object = new PGobject();
-        JSONObject json_email_addresses = new JSONObject();
-        JSONArray json_array_email_address = new JSONArray();
+
 
         try (Connection connection = connectionManager.getConnection()) {
             connection.setAutoCommit(false);
             try {
                 String sql = "INSERT INTO scheduled_email_list "
-                        + " (fk_company_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address, preheader, html_body) VALUES "
+                        + " (fk_company_id, subject, body, from_address, email_list_name, from_name, reply_to_email_address, preheader, html_body) VALUES "
                         + " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
                 try (PreparedStatement ps = connection.prepareStatement(sql)) {
                     ps.setInt(1, companyId);
@@ -168,16 +154,9 @@ public class ScheduleDAO {
                     ps.setString(4, fromAddress);
                     ps.setString(5, emailListName);
                     ps.setString(6, fromName);
-                    for (int i = 0; i < toAddress.length; i++) {
-                        json_array_email_address.add(toAddress[i].trim());
-                    }
-                    json_email_addresses.put(IConstants.kEmailAddressesKey, json_array_email_address);
-                    pg_object.setType("json");
-                    pg_object.setValue(json_email_addresses.toJSONString());
-                    ps.setObject(7, pg_object);
-                    ps.setString(8, replytoEmailAddress);
-                    ps.setString(9, preheader);
-                    ps.setString(10, html_body);
+                    ps.setString(7, replytoEmailAddress);
+                    ps.setString(8, preheader);
+                    ps.setString(9, html_body);
                     ps.execute();
                     try (ResultSet resultSet = ps.getResultSet()) {
 
@@ -585,17 +564,7 @@ public class ScheduleDAO {
                 ps.setInt(2, scheduleId);
                 ps.setString(3, ScheduledEntityType.Email.toString());
                 try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
-                        scheduleEmailId = rs.getInt("scheduled_email_list_id");
-                        pgobject = (PGobject) rs.getObject("to_email_addresses");
-                        pgobject.setType("json");
-                        String obj = pgobject.getValue();
-                        emailJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
-                        emailids_json_array = (JSONArray) emailJSONObject.get(IConstants.kEmailAddressesKey);
 
-                        for (int i = 0; i < emailids_json_array.size(); i++) {
-                            email_ids = emailids_json_array.get(i) + "," + email_ids;
-                        }
 
                         scheduleEmailDetails.put("schedule_email_id", rs.getInt("scheduled_email_list_id"));
                         scheduleEmailDetails.put("user_id", rs.getInt("fk_company_id"));
@@ -606,10 +575,8 @@ public class ScheduleDAO {
                         scheduleEmailDetails.put("reply_to_email_address", rs.getString("reply_to_email_address"));
                         scheduleEmailDetails.put("email_list_name", rs.getString("email_list_name"));
                         scheduleEmailDetails.put("from_name", rs.getString("from_name"));
-                        scheduleEmailDetails.put("to_email_addresses", email_ids);
                         scheduleEmailDetails.put("html_body", rs.getString("html_body"));
 
-                    }
                 }
             }
         }
