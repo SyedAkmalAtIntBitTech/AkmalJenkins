@@ -1567,29 +1567,31 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         
         $scope.saveEmailByActionId = function(id){
 //            localStorage.setItem("email_Schedule_Id",id);
-            appSessionFactory.clearAllEmail().then(function(checkCleared){
-                appSessionFactory.setEmail(getEntityScheduleId(),id).then(function(data){
-                    if(data===true)
-                        window.open(getHost() + 'user/baseemaileditor#/emailcategory', "_self");
+            appSessionFactory.clearEmail().then(function(checkCleared){
+                appSessionFactory.getEmail().then(function(kGlobalEmailObject){
+                    kGlobalEmailObject.entityScheduleId = id;
+                    appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
+                        if(data===true)
+                            window.open(getHost() + 'user/baseemaileditor#/emailcategory', "_self");
+                    });
                 });
             });
         };
         
         $scope.editSavedEmail = function(scheduleId,entitiesdetails){
-            appSessionFactory.clearAllEmail().then(function(checkCleared){
-                var savedEmail = {};
-                savedEmail[getEntityScheduleId()] = scheduleId;
-                savedEmail[getEmailScheduleId()] = entitiesdetails.schedule_email_id;
-                savedEmail[getEmailSubject()] = entitiesdetails.subject;
-                savedEmail[getPreHeader()] = entitiesdetails.preheader;
-                savedEmail[getToEmailAddresses()] = entitiesdetails.to_email_addresses;
-                savedEmail[getEmailBody()] = entitiesdetails.body;
-                savedEmail[getEmailListName()] = entitiesdetails.email_list_name;
-                savedEmail[getFromName()] = entitiesdetails.from_name;
-                savedEmail[getFromAddress()] = getDefaultEmailId();
-                savedEmail[getReplyToEmailAddress()] = entitiesdetails.reply_to_email_address;
-                savedEmail[getHtmlBody()] = entitiesdetails.html_body;
-                appSessionFactory.setEmailWithObject(savedEmail).then(function(saved){
+            appSessionFactory.clearEmail().then(function(checkCleared){
+                kGlobalEmailObject.entityScheduleId = scheduleId;
+                kGlobalEmailObject.emailScheduleId = entitiesdetails.schedule_email_id;
+                kGlobalEmailObject.emailSubject = entitiesdetails.subject;
+                kGlobalEmailObject.preheader = entitiesdetails.preheader;
+                kGlobalEmailObject.toEmailAddresses = entitiesdetails.to_email_addresses;
+                kGlobalEmailObject.htmlBody = entitiesdetails.body;
+                kGlobalEmailObject.emailListName = entitiesdetails.email_list_name;
+                kGlobalEmailObject.fromName = entitiesdetails.from_name;
+                kGlobalEmailObject.fromAddress = getDefaultEmailId();
+                kGlobalEmailObject.replyToEmailAddress = entitiesdetails.reply_to_email_address;
+                kGlobalEmailObject.htmlBody = entitiesdetails.html_body;
+                appSessionFactory.setEmail(kGlobalEmailObject).then(function(saved){
                     if(saved===true)
                         window.open(getHost() + 'user/baseemaileditor#/emailsubjects', "_self");
                 });
