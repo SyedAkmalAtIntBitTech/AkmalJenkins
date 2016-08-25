@@ -146,7 +146,7 @@ public class ScheduleDAO {
             try {
                 String sql = "INSERT INTO scheduled_email_list "
                         + " (fk_company_id, subject, body, from_address, email_list_name, from_name, reply_to_email_address, preheader, html_body) VALUES "
-                        + " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
+                        + " (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
                 try (PreparedStatement ps = connection.prepareStatement(sql)) {
                     ps.setInt(1, companyId);
                     ps.setString(2, subject);
