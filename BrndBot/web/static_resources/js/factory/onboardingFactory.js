@@ -138,6 +138,14 @@ factoryApp.factory('onboardingFactory', function ($q,authenticatedServiceFactory
         });
         return deffered.promise;
     };
+    onboardingFactoryObject.saveCompanyAddress = function (companyAddressDetails) {
+        var deffered = $q.defer();
+        var url = configurationService.saveCompanyAddressURL();
+        authenticatedServiceFactory.makeCall("POST", url, companyAddressDetails, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
     onboardingFactoryObject.colorsForLogoGet = function () {
         var deffered = $q.defer();
         var url = configurationService.colorsForLogoURL();

@@ -196,7 +196,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             });
         };
 
-        $scope.validationcode = function (companyName, organizationId) {
+        $scope.validationcode = function (companyName,organizationId) {
             if (!companyName) {
                 $scope.companyName = "";
                 $("#companyName").focus();
@@ -209,18 +209,21 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             return true;
         };
 
-        $scope.saveCompany = function (companyName, organizationId) {
+        $scope.saveCompany = function (companyAddressDetails,companyName,organizationId) {
             $scope.companyName = companyName;
             $scope.organizationId = organizationId;
-            if ($scope.validationcode(companyName, organizationId))
-            {
+            if ($scope.validationcode(companyName,organizationId))
+            { 
                 var userIdvalue = localStorage.getItem("userId");
                 var companyDetails = {"userId":userIdvalue, "companyName": companyName, "organizationId": organizationId};
                 onboardingFactory.saveCompanyPost(JSON.stringify(companyDetails)).then(function (data) {
                     var companyId = data.d.message;
                     localStorage.setItem("companyId",companyId);
                     //TODO Set the companyId in Auth factory file
-                    $location.path("/signup/datasource");
+                    onboardingFactory.saveCompanyAddress(companyAddressDetails).then(function (data){
+                        alert(JSON.stringify(data));
+                        $location.path("/signup/datasource");
+                    });
                 });
             }
         };

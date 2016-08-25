@@ -592,6 +592,10 @@ factoryApp.service('configurationService', function () {
     this.saveCompanyURL = function () {
         return getHost() + "onboarding/saveCompany";
     };
+    
+    this.saveCompanyAddressURL = function () {
+        return getHost() + "/settings/saveAddress";
+    };
 
     this.colorsForLogoURL = function () {
         return getHost() + "onboarding/getColorsForLogo";
