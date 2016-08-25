@@ -77,13 +77,7 @@ public class ImagesController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResponseEntity<ContainerResponse> saveImage(HttpServletRequest request, HttpServletResponse response) {
         TransactionResponse transactionResponse = new TransactionResponse();
-
         try {
-//            Map<String, Object> requestBodyMap
-//                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-// 
-//            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);    
-            
             Integer companyId = Integer.parseInt((String) request.getParameter("companyId"));
 
             String pathSuffix = "";
