@@ -387,7 +387,7 @@ public class YourPlanController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
  
-            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+            
             
             String scheduleId = request.getParameter("schedule_id");
             if ( StringUtils.isEmpty(scheduleId)){
@@ -395,7 +395,7 @@ public class YourPlanController {
             }
             
             Map<String, Object> schedulePostDetails =
-                    ScheduleSocialPostDAO.getScheduleSocialPostDetails(userCompanyIds.getCompanyId(), Integer.parseInt(scheduleId));
+                    ScheduleSocialPostDAO.getScheduleSocialPostDetails(Integer.parseInt(request.getParameter("companyId")), Integer.parseInt(scheduleId));
             
             messageList.add(AppConstants.GSON.toJson(schedulePostDetails));
             genericResponse.setDetails(messageList);

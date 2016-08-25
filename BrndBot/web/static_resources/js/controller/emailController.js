@@ -1090,8 +1090,9 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 //        };
 
         $scope.sendEmailOnClick = function (fromName, fromAddress, replyAddress, toAddress) {
+            
             appSessionFactory.getEmail().then(function(kGlobalEmailObject){
-            var sendEmailData = JSON.stringify({
+            var sendEmailData = {
                 from_name: fromName,
                 email_subject: kGlobalEmailObject.emailSubject,
                 email_preheader: kGlobalEmailObject.preheader,
@@ -1100,7 +1101,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 reply_to_email_address: replyAddress,
                 email_list: $scope.emailList,
                 iframeName: $scope.randomIframeFilename.toString()
-            });
+            };
             emailFactory.sendEmail(sendEmailData).then(function (data) {
                 if (data.d.message === "true") {
                     emailDraftFactory.deleteEmailDraftPost(kGlobalEmailObject.draftId).then(function () {
@@ -1344,7 +1345,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.getFacebookActions = function (selectedMarketingProgramId) {
-            var data = JSON.stringify({programid: selectedMarketingProgramId.toString(), type: getemail()});
+            var data = {programid: selectedMarketingProgramId.toString(), type: getemail()};
             scheduleActionsFactory.getActionsPost(data).then(function (data) {
                 var parseData = JSON.parse(data.d.details);
                 $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM EMAIL"}];

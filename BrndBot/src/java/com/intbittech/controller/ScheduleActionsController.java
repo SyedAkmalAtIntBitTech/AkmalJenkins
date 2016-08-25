@@ -119,22 +119,21 @@ public class ScheduleActionsController {
     public ResponseEntity<ContainerResponse> scheduleSocialPostActions(HttpServletRequest request,
             HttpServletResponse response) {
         GenericResponse<String> transactionResponse = new GenericResponse();
-        UserCompanyIds userCompanyIds = new UserCompanyIds();
+        
         try {
-            List<Map<String, Object>> requestBodyList
-                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), List.class);
-            List<String> errors = validateRequestBodyList(requestBodyList);
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+            List<String> errors = validateRequestBodyList(requestBodyMap);
 
-            for (Map<String, Object> requestBodyMap : requestBodyList) {
-                userCompanyIds.setCompanyId((Integer.parseInt(requestBodyMap.get("companyId").toString())));
-                userCompanyIds.setUserId((Integer.parseInt(requestBodyMap.get("userId").toString())));
+            
+                userCompanyIds.setCompanyId((userCompanyIds.getCompanyId()));
+                userCompanyIds.setUserId(userCompanyIds.getUserId());
                 String type = requestBodyMap.get("type").toString();
                 String metadataString = requestBodyMap.get("metadata").toString();
-                errors.addAll(validateMetadata(metadataString, type));
-            }
 
             if (errors.isEmpty()) {
-                List<Map<String, Integer>> responseData = actionsService.scheduleSocialPostActions(requestBodyList, userCompanyIds.getCompanyId());
+                List<Map<String, Integer>> responseData = actionsService.scheduleSocialPostActions(requestBodyMap, userCompanyIds.getCompanyId());
                 transactionResponse.addDetail(AppConstants.GSON.toJson(responseData));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
             } else {
@@ -153,19 +152,18 @@ public class ScheduleActionsController {
         GenericResponse<String> transactionResponse = new GenericResponse();
         UserCompanyIds userCompanyIds = new UserCompanyIds();
         try {
-            List<Map<String, Object>> requestBodyList
-                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), List.class);
-            List<String> errors = validateRequestBodyList(requestBodyList);
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            List<String> errors = validateRequestBodyList(requestBodyMap);
 
-            for (Map<String, Object> requestBodyMap : requestBodyList) {
                 userCompanyIds.setCompanyId((Integer.parseInt(requestBodyMap.get("companyId").toString())));
                 userCompanyIds.setUserId((Integer.parseInt(requestBodyMap.get("userId").toString())));
                 String type = requestBodyMap.get("type").toString();
                 String metadataString = requestBodyMap.get("metadata").toString();
                 errors.addAll(validateMetadata(metadataString, type));
-            }
+                
             if (errors.isEmpty()) {
-                List<Map<String, Integer>> responseData = actionsService.scheduleSocialPost(requestBodyList, userCompanyIds.getCompanyId());
+                List<Map<String, Integer>> responseData = actionsService.scheduleSocialPost(requestBodyMap, userCompanyIds.getCompanyId());
                 transactionResponse.addDetail(AppConstants.GSON.toJson(responseData));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
             } else {
@@ -243,12 +241,10 @@ public class ScheduleActionsController {
         return errorMsgs;
     }
 
-    private List<String> validateRequestBodyList(List<Map<String, Object>> requestBodyList) {
+    private List<String> validateRequestBodyList(Map<String, Object> requestBodyMap) {
         List<String> errorMessages = new ArrayList<>();
 
-        for (Map<String, Object> requestBody : requestBodyList) {
-            errorMessages.addAll(validateScheduleSocialPostActionsRequestBody(requestBody));
-        }
+            errorMessages.addAll(validateScheduleSocialPostActionsRequestBody(requestBodyMap));
 
         return errorMessages;
     }

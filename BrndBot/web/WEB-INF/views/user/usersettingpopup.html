@@ -39,29 +39,20 @@
                     </div>
                     <div class="user-role-option-wrap">
                         <div class="user-role-check-box-wrap">
-                            <!--Need to add ng-click to hide and show active checkbox-->
-                            <div class="user-role-check-box" ng-show="'true'" ng-click=""></div>
-                            <input type="radio" ng-value="2" ng-model="settings.adminRadio" id="adminRadio">
-                            <!--<div class="user-role-check-box-active" ng-show="'false'" ng-click="">
-                                <div class="active-check"></div>-->
+                            <input type="radio" ng-value="2" ng-model="settings.adminRadio" id="managerRadio"/>
                         </div>
                         <div class="user-role-definition-wrap">
-                            <h3 class="user-role-title">Manager</h3>
+                            <label for="managerRadio"><h3 class="user-role-title cur">Manager</h3></label>
                             <p class="user-role-description">This role is able to approve actions to be posted or sent but not able to view company account settings.</p>
                         </div>
                     </div>
                     
                     <div class="user-role-option-wrap">
-                        <!--Need to add ng-click to hide and show active checkbox-->
                        <div class="user-role-check-box-wrap">
-                            <!--Need to add ng-click to hide and show active checkbox-->
-                            <!--<div class="user-role-check-box" ng-show="'true'" ng-click=""></div>>-->
-                            <div class="user-role-check-box-active" ng-show="'false'" ng-click="">
-                            <input type="radio" ng-value="4" ng-model="settings.adminRadio" id="adminRadio">
-                            <img class="active-check" src="/BrndBot/user/images/checkbox-check.svg"/></div>
+                            <input type="radio" ng-value="4" ng-model="settings.adminRadio" id="adminRadio"/>
                         </div>
                         <div class="user-role-definition-wrap">
-                            <h3 class="user-role-title">Creator</h3>
+                            <label for="adminRadio"><h3 class="user-role-title cur">Creator</h3></label>
                             <p class="user-role-description">This role is unable to approve items to be sent. They can only create actions and templates to be scheduled.</p>
                         </div>
                     </div>
