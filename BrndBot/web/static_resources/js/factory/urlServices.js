@@ -927,6 +927,14 @@ factoryApp.service('configurationService', function () {
     this.getCompaniesForFranchiseIdURL = function () {
         return getHost() + "getCompaniesForFranchiseId";
     };
+
+    this.getFranchiseHeadquarterURL = function () {
+        return getHost() + "getFranchiseHeadquarter";
+    };
+
+    this.getAllNonSelectedCompaniesURL = function () {
+        return getHost() + "getAllNonSelectedCompanies";
+    };
     
     this.activateCompanyAsFranchiseURL = function () {
         return getHost() + "activateCompanyAsFranchise";

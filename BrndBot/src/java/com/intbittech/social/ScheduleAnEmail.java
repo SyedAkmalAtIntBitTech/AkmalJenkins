@@ -59,10 +59,9 @@ public class ScheduleAnEmail implements Runnable {
                                 EmailListService emailListService = SpringContextBridge.services().getEmailListService();
                             
                         ScheduledEmailList sendAnEmail = getSendEmail(currentScheduledEmail);
-                        //To-do Ajit check this.. AR/Ilyas please review
-                            
-                            Integer companyId = currentScheduledEmail.getFkCompanyId().getCompanyId();
-                             String emailList =  emailListService.getEmailList("allEmailListNames", companyId, sendAnEmail.getEmailListName());
+                      
+                        Integer companyId = currentScheduledEmail.getFkCompanyId().getCompanyId();
+                        String emailList =  emailListService.getEmailList("emailsForEmailList", companyId, sendAnEmail.getEmailListName());
                         String html_text = sendAnEmail.getBody();
                         String email_subject = sendAnEmail.getSubject();
                         String jsonString = emailList;
