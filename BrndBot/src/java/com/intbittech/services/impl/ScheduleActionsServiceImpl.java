@@ -46,23 +46,28 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
 
         if (type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString())) {
             if ((program_id != null) && !(program_id.equals("undefined"))) {
-                json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(companyId, Integer.parseInt(program_id));
+              //  json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(companyId, Integer.parseInt(program_id));
+                json_array = ScheduleSocialPostDAO.getScheduledActionsfacebookWithDate(companyId, Integer.parseInt(program_id));    
             }
         } else if (type.equalsIgnoreCase(ScheduledEntityType.Twitter.toString())) {
             if ((program_id != null) && !(program_id.equals("undefined"))) {
-                json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(companyId, Integer.parseInt(program_id));
+//                json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(companyId, Integer.parseInt(program_id));
+                  json_array = ScheduleSocialPostDAO.getScheduledActionstwitterWithDate(companyId, Integer.parseInt(program_id));  
             }
         } else if (type.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
             if ((program_id != null) && !(program_id.equals("undefined"))) {
-                json_array = ScheduleDAO.getScheduledActions(companyId, Integer.parseInt(program_id));
+//                json_array = ScheduleDAO.getScheduledActions(companyId, Integer.parseInt(program_id));
+                  json_array = ScheduleDAO.getScheduledActionsEmailWithDate(companyId, Integer.parseInt(program_id));  
             }
         } else if (type.equalsIgnoreCase("social")) {
             JSONArray json_social = new JSONArray();
-            json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(companyId, Integer.parseInt(program_id));
+//            json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(companyId, Integer.parseInt(program_id));
+              json_array = ScheduleSocialPostDAO.getScheduledActionsfacebookWithDate(companyId, Integer.parseInt(program_id));  
             for (int i = 0; i < json_array.size(); i++) {
                 json_social.add(json_array.get(i));
             }
-            json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(companyId, Integer.parseInt(program_id));
+//            json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(companyId, Integer.parseInt(program_id));
+             json_array = ScheduleSocialPostDAO.getScheduledActionstwitterWithDate(companyId, Integer.parseInt(program_id));   
             for (int i = 0; i < json_array.size(); i++) {
                 json_social.add(json_array.get(i));
             }
