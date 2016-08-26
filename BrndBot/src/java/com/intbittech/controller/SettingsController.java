@@ -62,6 +62,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
@@ -302,7 +303,23 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         try {
             Company company = companyService.getCompanyById(companyId);
             CompanyPreferences companyPreferences = companyPreferencesService.getByCompany(company);
-            genericResponse.addDetail(companyPreferences.getCompanyPreferences());
+            JSONParser parser = new JSONParser();
+            JSONObject jSONObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
+            
+            if(companyPreferences.getFkAddressId()!=null)
+            {
+                JSONObject addressJSONObject = new JSONObject();
+                addressJSONObject.put("addressLine1", companyPreferences.getFkAddressId().getAddressLine1());
+                addressJSONObject.put("addressLine2", companyPreferences.getFkAddressId().getAddressLine2());
+                addressJSONObject.put("city", companyPreferences.getFkAddressId().getCity());
+                addressJSONObject.put("state", companyPreferences.getFkAddressId().getState());
+                addressJSONObject.put("zipCode", companyPreferences.getFkAddressId().getZipcode());
+                addressJSONObject.put("country", companyPreferences.getFkAddressId().getCountry());
+                JSONArray addressJSONArray = new JSONArray();
+                addressJSONArray.add(addressJSONObject);
+                jSONObject.put("companyAddress", addressJSONArray);
+            }
+            genericResponse.addDetail(new Gson().toJson(jSONObject));
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
         } catch (Throwable throwable) {
             logger.error(throwable);
