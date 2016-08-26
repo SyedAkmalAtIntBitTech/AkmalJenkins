@@ -67,4 +67,5 @@ public interface IConstants {
     // for external source 
     final static Integer EXTERNAL_SOURCE_NON_MINDBODY = 0;
     final static Integer EXTERNAL_SOURCE_MINDBODY = 1;
+    final static int HTTPSuccessCode = 205;
 }
