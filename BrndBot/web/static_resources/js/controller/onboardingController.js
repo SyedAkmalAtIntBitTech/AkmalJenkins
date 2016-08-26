@@ -8,6 +8,12 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.colorFrom = "custom";
         $scope.organizationValidation = false;
         $scope.companyValidation = companyValidation;
+        $scope.addressLine1Validation = addressLine1Validation;
+        $scope.addressLine2Validation = addressLine2Validation;
+        $scope.cityValidation = cityValidation;
+        $scope.stateValidation = stateValidation;
+        $scope.zipcodeValidation = zipcodeValidation;
+        $scope.countryValidation = countryValidation;
         $scope.dropdownValidation = dropdownValidation;
         $scope.colorValidation = colorValidation;
         $scope.studioIdValidation = studioIdValidation;
@@ -196,7 +202,8 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             });
         };
 
-        $scope.validationcode = function (companyName,organizationId) {
+        $scope.validationcode = function (companyName,organizationId,addressLine1,addressLine2,city,state,zipcode,country) {
+            
             if (!companyName) {
                 $scope.companyName = "";
                 $("#companyName").focus();
@@ -206,22 +213,52 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 $scope.organizationValidation = true;
                 return false;
             }
+            else if (!addressLine1) {
+                $scope.addressLine1 = "";
+                $("#addressLine1").focus();
+                return false;
+            }
+            else if (!addressLine2) {
+                $scope.addressLine2 = "";
+                $("#addressLine2").focus();
+                return false;
+            }
+            else if (!city) {
+                $scope.city = "";
+                $("#city").focus();
+                return false;
+            }
+            else if (!state) {
+                $scope.state = "";
+                $("#state").focus();
+                return false;
+            } 
+            else if (!zipcode) {
+                $scope.zipcode = "";
+                $("#zipcode").focus();
+                return false;
+            }
+            else if (!country) {
+                $scope.country = "";
+                $("#country").focus();
+                return false;
+            }
             return true;
         };
 
-        $scope.saveCompany = function (companyAddressDetails,companyName,organizationId) {
+        $scope.saveCompany = function (companyName,organizationId,addressLine1,addressLine2,city,state,zipcode,country) {
             $scope.companyName = companyName;
             $scope.organizationId = organizationId;
-            if ($scope.validationcode(companyName,organizationId))
+            if ($scope.validationcode(companyName,organizationId,addressLine1,addressLine2,city,state,zipcode,country))
             { 
                 var userIdvalue = localStorage.getItem("userId");
                 var companyDetails = {"userId":userIdvalue, "companyName": companyName, "organizationId": organizationId};
+                var companyAddress = {"addressLine1":addressLine1,"addressLine2":addressLine2,"city":city,"state":state,"zipcode":zipcode,"country":country};
                 onboardingFactory.saveCompanyPost(JSON.stringify(companyDetails)).then(function (data) {
                     var companyId = data.d.message;
                     localStorage.setItem("companyId",companyId);
                     //TODO Set the companyId in Auth factory file
-                    onboardingFactory.saveCompanyAddress(companyAddressDetails).then(function (data){
-                        alert(JSON.stringify(data));
+                    onboardingFactory.saveCompanyAddress(companyAddress).then(function (data){
                         $location.path("/signup/datasource");
                     });
                 });
