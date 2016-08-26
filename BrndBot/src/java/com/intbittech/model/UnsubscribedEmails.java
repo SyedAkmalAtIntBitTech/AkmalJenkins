@@ -13,25 +13,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Haider Khan @ Intbit
+ * @author ajit @ Intbit
  */
 @Entity
 @Table(name = "unsubscribed_emails")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "UnsubscribedEmails.findAll", query = "SELECT u FROM UnsubscribedEmails u"),
-    @NamedQuery(name = "UnsubscribedEmails.findByUnsubscribedEmailId", query = "SELECT u FROM UnsubscribedEmails u WHERE u.unsubscribedEmailId = :unsubscribedEmailId"),
-    @NamedQuery(name = "UnsubscribedEmails.findByEmailAddress", query = "SELECT u FROM UnsubscribedEmails u WHERE u.emailAddress = :emailAddress"),
-    @NamedQuery(name = "UnsubscribedEmails.findByCreatedDate", query = "SELECT u FROM UnsubscribedEmails u WHERE u.createdDate = :createdDate")})
 public class UnsubscribedEmails implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -76,30 +67,4 @@ public class UnsubscribedEmails implements Serializable {
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (unsubscribedEmailId != null ? unsubscribedEmailId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UnsubscribedEmails)) {
-            return false;
-        }
-        UnsubscribedEmails other = (UnsubscribedEmails) object;
-        if ((this.unsubscribedEmailId == null && other.unsubscribedEmailId != null) || (this.unsubscribedEmailId != null && !this.unsubscribedEmailId.equals(other.unsubscribedEmailId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.intbittech.model.UnsubscribedEmails[ unsubscribedEmailId=" + unsubscribedEmailId + " ]";
-    }
-    
 }

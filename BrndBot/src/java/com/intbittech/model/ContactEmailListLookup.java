@@ -24,16 +24,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Haider Khan @ Intbit
+ * @author ajit @ Intbit
  */
 @Entity
 @Table(name = "contact_email_list_lookup")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "ContactEmailListLookup.findAll", query = "SELECT c FROM ContactEmailListLookup c"),
-    @NamedQuery(name = "ContactEmailListLookup.findByContactLookupId", query = "SELECT c FROM ContactEmailListLookup c WHERE c.contactLookupId = :contactLookupId"),
-    @NamedQuery(name = "ContactEmailListLookup.findByAddedDate", query = "SELECT c FROM ContactEmailListLookup c WHERE c.addedDate = :addedDate"),
-    @NamedQuery(name = "ContactEmailListLookup.findByUnsubscribed", query = "SELECT c FROM ContactEmailListLookup c WHERE c.unsubscribed = :unsubscribed")})
 public class ContactEmailListLookup implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -101,29 +95,4 @@ public class ContactEmailListLookup implements Serializable {
         this.fkEmailListId = fkEmailListId;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (contactLookupId != null ? contactLookupId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ContactEmailListLookup)) {
-            return false;
-        }
-        ContactEmailListLookup other = (ContactEmailListLookup) object;
-        if ((this.contactLookupId == null && other.contactLookupId != null) || (this.contactLookupId != null && !this.contactLookupId.equals(other.contactLookupId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.intbittech.model.ContactEmailListLookup[ contactLookupId=" + contactLookupId + " ]";
-    }
-    
 }

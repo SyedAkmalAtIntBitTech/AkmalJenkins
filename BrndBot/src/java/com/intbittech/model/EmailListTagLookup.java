@@ -14,21 +14,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Haider Khan @ Intbit
+ * @author ajit @ Intbit
  */
 @Entity
 @Table(name = "email_list_tag_lookup")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "EmailListTagLookup.findAll", query = "SELECT e FROM EmailListTagLookup e"),
-    @NamedQuery(name = "EmailListTagLookup.findByEmailListTagId", query = "SELECT e FROM EmailListTagLookup e WHERE e.emailListTagId = :emailListTagId")})
 public class EmailListTagLookup implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -73,31 +66,6 @@ public class EmailListTagLookup implements Serializable {
 
     public void setFkEmailListTagId(EmailListTag fkEmailListTagId) {
         this.fkEmailListTagId = fkEmailListTagId;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (emailListTagId != null ? emailListTagId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EmailListTagLookup)) {
-            return false;
-        }
-        EmailListTagLookup other = (EmailListTagLookup) object;
-        if ((this.emailListTagId == null && other.emailListTagId != null) || (this.emailListTagId != null && !this.emailListTagId.equals(other.emailListTagId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.intbittech.model.EmailListTagLookup[ emailListTagId=" + emailListTagId + " ]";
     }
     
 }
