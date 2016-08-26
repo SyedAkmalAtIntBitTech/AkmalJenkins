@@ -1398,6 +1398,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
                         settingsFactory.getAllPreferencesGet().then(function (data) {
                             var footerData = JSON.parse(data.d.details);
+                            
+                        var companyAddress=footerData.companyAddress[0].addressLine1+"<br/>"+footerData.companyAddress[0].addressLine2+"<br/>"+
+                            footerData.companyAddress[0].city+", "+footerData.companyAddress[0].state+"\t\t"+
+                            footerData.companyAddress[0].zipCode+"<br/>"+footerData.companyAddress[0].country;
+                    
                             if (!footerData.userProfile) {
                                 $scope.editFooter();
                                 return false;
@@ -1410,7 +1415,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 } else {
                                     var footer = $scope.userFooter(footerData.userProfile.facebookUrl, footerData.userProfile.twitterUrl,
                                             footerData.userProfile.websiteUrl, footerData.userProfile.instagramUrl,
-                                            footerData.userProfile.address);
+                                            companyAddress);
 //                                var sendData = JSON.stringify({
 //                                    htmlString: $('#edit').froalaEditor('html.get') + footer,
 //                                    iframeName: $scope.randomIframeFilename.toString()
