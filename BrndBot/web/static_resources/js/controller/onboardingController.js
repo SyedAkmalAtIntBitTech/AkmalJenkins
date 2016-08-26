@@ -60,8 +60,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 return false;
             }
             return true;
-        }
-        ;
+        };
 
         $scope.signupValidation = function (userDetails) {
             if (!userDetails.userName) {
@@ -130,19 +129,33 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 
         $scope.getUserId = function (){
             $scope.userHashId = $location.search().userid;
-        };
+            localStorage.setItem("userHashId", $location.search().userid);
+         };
         $scope.getLoggedInUserId = function(){
             onboardingFactory.getLoggedInUserId().then(function (data){
                 localStorage.setItem("userId",data.d.details[0]);
-                $scope.getAllUserCompanies(data.d.details[0]); 
+                var userHashId = localStorage.getItem("userHashId");
+                if (userHashId !== 'undefined'){
+                    var userHashId = localStorage.getItem("userHashId");
+                    var user = {"invitationCode": userHashId}
+                    onboardingFactory.saveInvitedUserPost(user).then(function (data) {
+                        var message = data.d.message;
+                        var userId = data.d.id;
+                        localStorage.setItem("userId",userId);
+//                        growl(message);
+                        $scope.getAllUserCompanies(userId); 
+                    });
+                }else {
+                    $scope.getAllUserCompanies(data.d.details[0]); 
+                }
             });
         };
         
         $scope.saveInvitedUser = function (userDetails) {
             
-            var user = {"userName": userDetails.userName, "firstName": userDetails.firstName, 
-                        "lastName": userDetails.lastName, "userPassword": userDetails.userPassword,
-                        "invitationCode": $scope.userHashId}
+                var user = {"userName": userDetails.userName, "firstName": userDetails.firstName, 
+                            "lastName": userDetails.lastName, "userPassword": userDetails.userPassword,
+                            "invitationCode": $scope.userHashId}
             onboardingFactory.saveInvitedUserPost(user).then(function (data) {
                 var message = data.d.message;
                 var userId = data.d.id;

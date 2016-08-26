@@ -11,6 +11,23 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.userRoleLookUpId = "";
         $scope.inviteId = "";
         $scope.passwordText = "";
+        $scope.companyName = "";
+        $scope.userFirstName = "";
+        $scope.userLastName = "";
+        $scope.userRole = "";
+        $scope.logourl = "";
+
+        $scope.getUserDetails = function(){
+            var userId = localStorage.getItem("userId");
+            onboardingFactory.userCompanyDetailsGet(userId).then(function(data){
+               var companyDetails = data.d.details[0]; 
+                $scope.companyName = companyDetails.companyName;
+                $scope.userFirstName = companyDetails.userFirstName;
+                $scope.userLastName = companyDetails.userLastName;
+                $scope.userRole = companyDetails.roleName; 
+                $scope.logourl = companyDetails.logourl;
+            });
+        };
 
         // Hide & show password function
         $scope.hideShowPassword = function () {

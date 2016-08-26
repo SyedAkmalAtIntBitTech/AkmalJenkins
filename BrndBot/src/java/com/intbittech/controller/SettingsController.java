@@ -164,14 +164,20 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     }
 
     @RequestMapping(value = "/removeUser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> removeUser(@RequestParam("inviteId") Integer inviteId) {
+    public ResponseEntity<ContainerResponse> removeUser(@RequestParam("inviteId") Integer inviteId, @RequestBody UserCompanyIds userCompanyIds) {
         TransactionResponse transactionResponse = new TransactionResponse();
+        boolean flag = false;
         try {
 
-            boolean returnMessage = usersInviteService.removeUsersByInviteId(inviteId);
-            if (returnMessage){
+            Integer returnMessage = usersInviteService.removeUsersByInviteIdAndCompanyId(inviteId, userCompanyIds.getCompanyId());
+            if (returnMessage == 1){
+                flag = usersInviteService.deleteUserByUserId(userCompanyIds.getUserId());
+            }
+            if (returnMessage != 1){
                 transactionResponse.setMessage(messageSource.getMessage("user_removed", new String[]{}, Locale.US));
-            }else {
+            }else if (returnMessage == 1 && flag == true){
+                transactionResponse.setMessage(messageSource.getMessage("user_removed", new String[]{}, Locale.US));
+            }else if (returnMessage == 1 && flag == false){
                 transactionResponse.setMessage(messageSource.getMessage("user_remove_failure", new String[]{}, Locale.US));
             }
 

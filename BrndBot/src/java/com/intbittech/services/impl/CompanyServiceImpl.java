@@ -8,19 +8,17 @@ package com.intbittech.services.impl;
 import com.intbittech.AppConstants;
 import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.OrganizationCompanyDao;
-import com.intbittech.dao.UserRoleLookUpDao;
+import com.intbittech.dao.UserRoleCompanyLookUpDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCompanyLookup;
-import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
 import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.services.CompanyService;
-import com.intbittech.services.UserCompanyLookupService;
 import com.intbittech.services.UsersService;
 import java.util.Date;
 import java.util.List;
@@ -49,11 +47,8 @@ public class CompanyServiceImpl implements CompanyService{
     private MessageSource messageSource;
     
     @Autowired
-    private UserRoleLookUpDao usersRoleLookUpDao;    
+    private UserRoleCompanyLookUpDao usersRoleLookUpDao;    
 
-    @Autowired
-    private UserCompanyLookupService userCompanyLookUpService;
-    
     @Autowired
     private UsersService usersService;
     /**
@@ -158,7 +153,7 @@ public class CompanyServiceImpl implements CompanyService{
     @Override
     public String saveCompany(CompanyDetails companyDetails) throws ProcessFailed {
         String returnMessage = "false";UsersRoleCompanyLookup usersRoleLookUp = null;
-        UserCompanyLookup userCompanyLookup = null;Company company = null,companyObject = null;
+        Company company = null,companyObject = null;
         Integer companyId = 0;
         try {
             //update company

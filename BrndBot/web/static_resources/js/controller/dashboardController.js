@@ -20,6 +20,7 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
         
         $scope.getUserDetails = function(){
             var userId = localStorage.getItem("userId");
+            localStorage.setItem("userHashId",'undefined');
             onboardingFactory.userCompanyDetailsGet(userId).then(function(data){
                var companyDetails = data.d.details[0]; 
                 $scope.companyName = companyDetails.companyName;
@@ -28,7 +29,6 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
                 $scope.userRole = companyDetails.roleName; 
                 $scope.logourl = companyDetails.logourl;
             });
-            
         };
         
         $scope.showCompanyList = function(){

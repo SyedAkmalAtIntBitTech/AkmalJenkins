@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
+import com.intbittech.model.Invite;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.InviteDetails;
 import com.intbittech.modelmappers.UserDetails;
@@ -60,7 +61,14 @@ public interface UsersService {
      * @throws ProcessFailed the process failed
      */
     public Integer save(UserDetails usersDetails) throws ProcessFailed;
-    
+    /**
+     * This method pass inviteCode as input and get the {@link Invite} from DAO layer.
+     *
+     * @param inviteCode
+     * @return {@link Invite}
+     * @throws ProcessFailed the process failed
+     */
+    public Invite processCode(String inviteCode)throws ProcessFailed;
     /**
      * This method pass user as input and get the {@link Integer} from DAO layer.
      *

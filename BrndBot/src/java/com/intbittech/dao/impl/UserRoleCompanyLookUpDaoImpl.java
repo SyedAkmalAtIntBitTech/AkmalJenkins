@@ -5,7 +5,7 @@
  */
 package com.intbittech.dao.impl;
 
-import com.intbittech.dao.UserRoleLookUpDao;
+import com.intbittech.dao.UserRoleCompanyLookUpDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.UserRole;
@@ -26,7 +26,7 @@ import org.springframework.stereotype.Repository;
  * @author Syed Muzamil at IntBit Technologies.
  */
 @Repository
-public class UserRoleLookUpDaoImpl implements UserRoleLookUpDao{
+public class UserRoleCompanyLookUpDaoImpl implements UserRoleCompanyLookUpDao{
 
     private Logger logger = Logger.getLogger(UsersDaoImpl.class);
 

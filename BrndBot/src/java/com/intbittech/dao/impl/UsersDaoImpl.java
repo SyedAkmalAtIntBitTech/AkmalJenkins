@@ -143,4 +143,13 @@ public class UsersDaoImpl implements UsersDao {
         return (Users) criteria.list().get(0);
     }
 
+    @Override
+    public void delete(Users user) throws ProcessFailed {
+        try {
+            sessionFactory.getCurrentSession().delete(user);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_deleting_message", new String[]{}, Locale.US));
+        }    }
+
 }
