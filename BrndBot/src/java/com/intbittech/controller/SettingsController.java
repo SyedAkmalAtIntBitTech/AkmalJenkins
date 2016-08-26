@@ -244,7 +244,8 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     public ResponseEntity<ContainerResponse> setColors(@RequestBody AddressDetails addressDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            addressService.save(addressDetails);
+            Company company = companyService.getCompanyById(addressDetails.getCompanyId());
+            addressService.save(addressDetails, company);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyCategories_color_update", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);

@@ -6,8 +6,11 @@
 package com.intbittech.services.impl;
 
 import com.intbittech.dao.AddressDao;
+import com.intbittech.dao.CompanyPreferencesDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Address;
+import com.intbittech.model.Company;
+import com.intbittech.model.CompanyPreferences;
 import com.intbittech.modelmappers.AddressDetails;
 import com.intbittech.services.AddressService;
 import java.util.Locale;
@@ -29,6 +32,10 @@ public class AddressServiceImpl implements AddressService {
     
     @Autowired
     private AddressDao addressDao;
+    
+    @Autowired
+    private CompanyPreferencesDao companyPreferencesDao;
+    
     @Autowired
     private MessageSource messageSource;
     
@@ -46,7 +53,8 @@ public class AddressServiceImpl implements AddressService {
     /**
      * {@inheritDoc}
      */
-    public Integer save(AddressDetails addressDetails) throws ProcessFailed {
+    public Integer save(AddressDetails addressDetails, Company company) throws ProcessFailed {
+        //Save address
         Address address = new Address();
         address.setAddressLine1(addressDetails.getAddressLine1());
         address.setAddressLine2(addressDetails.getAddressLine2());
@@ -54,7 +62,19 @@ public class AddressServiceImpl implements AddressService {
         address.setState(addressDetails.getState());
         address.setZipcode(addressDetails.getZipcode());
         address.setCountry(addressDetails.getCountry());
-        return addressDao.save(address);
+        Integer savedAddressId =  addressDao.save(address);
+        
+        //Save addressId in companyPreferences  
+        CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
+        if (companyPreferences == null) {
+            companyPreferences = new CompanyPreferences();
+            companyPreferences.setFkCompanyId(company);
+        }
+        address = new Address();
+        address.setAddressId(savedAddressId);
+        companyPreferences.setFkAddressId(address);
+        companyPreferencesDao.saveOrUpdate(companyPreferences);
+        return savedAddressId;
     }
 
     /**

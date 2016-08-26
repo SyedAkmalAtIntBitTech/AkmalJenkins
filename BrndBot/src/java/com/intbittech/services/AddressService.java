@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Address;
+import com.intbittech.model.Company;
 import com.intbittech.modelmappers.AddressDetails;
 
 /**
@@ -33,7 +34,7 @@ public interface AddressService {
      * @return the Integer
      * @throws ProcessFailed the process failed
      */
-    public Integer save(AddressDetails addressDetails) throws ProcessFailed;
+    public Integer save(AddressDetails addressDetails, Company company) throws ProcessFailed;
 
     /**
      * This method update {@link Address} updates existing data from the
