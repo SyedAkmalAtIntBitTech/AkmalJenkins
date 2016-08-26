@@ -4,7 +4,7 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 
-socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location', '$window', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'companyMarketingProgramFactory', 'companyImagesFactory', 'companyFactory', 'imageFactory', 'socialPostFactory', 'scheduleActionsFactory', function ($scope, $rootScope, $location, $window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, companyMarketingProgramFactory, companyImagesFactory, companyFactory, imageFactory, socialPostFactory, scheduleActionsFactory) {
+socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location', '$window', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'companyMarketingProgramFactory', 'companyImagesFactory', 'companyFactory', 'imageFactory', 'socialPostFactory', 'scheduleActionsFactory', 'appSessionFactory', function ($scope, $rootScope, $location, $window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, companyMarketingProgramFactory, companyImagesFactory, companyFactory, imageFactory, socialPostFactory, scheduleActionsFactory, appSessionFactory) {
         $scope.getTwitterActionsData = "";
         $scope.marketingProgramsList = "";
         $scope.twitter_action = "";
@@ -52,25 +52,49 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.hideBaseSocialSequence = true;
         var schedule_desc = "";
         $rootScope.CurrentFbAccessToken = "";
+        $scope.linkpost = false;
 
 
         $scope.getManagePage = function (selectedSocialmedia, postData) {
-            var fbData = {access_token_method: "getAccessToken"};
-            settingsFactory.facebookPost(fbData).then(function (fbResponseData) {
-                var fbAccessToken = fbResponseData.d.message.split(",");
-                if (fbAccessToken[0] === 'null')
-                {
-                    var data = JSON.stringify({redirectUrl: "user/socialsequence%23/facebookpost"});
-                    settingsFactory.fbLoginPost(data).then(function (data) {
-                        $window.location = data.d.details[0];
-                    });
-                } else {
-                    $rootScope.CurrentFbAccessToken = fbAccessToken[0];
-//                    $location.path('/facebookpost');
-                   $scope.openPostOrShedulePopup(selectedSocialmedia, postData); 
+            appSessionFactory.getFbPostData().then(function (kGlobalFbPostDataObject) {
+                if (postData.shareText) {
+                    kGlobalFbPostDataObject.postText = postData.shareText;
                 }
-            });
+                if ($scope.linkpost) {
+                    if (postData.linkTitle) {
+                        kGlobalFbPostDataObject.title = postData.linkTitle;
+                    }
+                    if (postData.linkDescription) {
+                        kGlobalFbPostDataObject.url = postData.url;
+                    }
+                    if (postData.url) {
+                        kGlobalFbPostDataObject.description = postData.linkDescription;
+                    }
+                } else if (!$scope.linkpost) {
+                    kGlobalFbPostDataObject.title = "";
+                    kGlobalFbPostDataObject.url = "";
+                    kGlobalFbPostDataObject.description = "";
+                }
+                appSessionFactory.setFbPostData(kGlobalFbPostDataObject).then(function (data) {
+                    var fbData = {access_token_method: "getAccessToken"};
+                    settingsFactory.facebookPost(fbData).then(function (fbResponseData) {
+                        var fbAccessToken = fbResponseData.d.message.split(",");
+                        if (fbAccessToken[0] === 'null')
+                        {
+                            var data = JSON.stringify({redirectUrl: "user/socialsequence%23/facebookpost"});
+                            settingsFactory.fbLoginPost(data).then(function (data) {
+                                $window.location = data.d.details[0];
+                            });
+                        } else {
+                            $rootScope.CurrentFbAccessToken = fbAccessToken[0];
+                            $rootScope.FbProfileName = fbAccessToken[1];
+                            $rootScope.CurrentFbPageName = fbAccessToken[2];
 
+                            $scope.openPostOrShedulePopup(selectedSocialmedia, postData);
+                        }
+                    });
+                });
+            });
         };
 
         $scope.selectManagePage = function (id) {
@@ -114,6 +138,12 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             $scope.selectImageType = imageType;
             $scope.selectImageType.toLowerCase();
             $scope.selectCompanyId = companyId;
+            appSessionFactory.getFbPostData().then(function (kGlobalFbPostDataObject) {
+                kGlobalFbPostDataObject.imgNameToPost = imageName;
+                kGlobalFbPostDataObject.imageType = $scope.selectImageType;
+                appSessionFactory.setFbPostData(kGlobalFbPostDataObject).then(function (data) {
+                });
+            });
             $scope.addImage();
         };
 
@@ -157,7 +187,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 
             $scope.twitterActions = false;
             $scope.facebookActions = true;
-            var data ={
+            var data = {
                 imageToPost: $scope.selectImageName,
                 accessToken: $rootScope.CurrentFbAccessToken,
                 postText: fbPostData.shareText,
@@ -230,6 +260,10 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             $rootScope.CurrentFbAccessToken = accessToken;
             $rootScope.CurrentFbPageName = pageName;
             $rootScope.FbProfileName = profileName;
+            $scope.postData = {};
+            $scope.selectedSocialmedia = "facebook";
+            $scope.postTypeSelectionPopUp = true;
+            $scope.postTo = "Post to Facebook";
         };
         $scope.postToSelectedPage = function () {
             $scope.managepage = false;
@@ -457,23 +491,29 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             var data = "";
             var linktitle = "";
             if (selectedSocialmedia === "facebook") {
-                if (postData.linkTitle) {
-                    linktitle = postData.linkTitle;
-                }
-                data = {
-                    imageToPost: $scope.selectImageName,
-                    accessToken: $rootScope.CurrentFbAccessToken,
-                    postText: postData.shareText,
-                    title: linktitle,
-                    url: postData.url,
-                    description: postData.linkDescription,
-                    imageType: $scope.selectImageType
-                };
-                socialPostFactory.facebookPost(data).then(function (data) {
-                    if (data.d.message == 'success') {
-                        $scope.isPostSent = true;
+                appSessionFactory.getFbPostData().then(function (kGlobalFbPostDataObject) {
+                    if (kGlobalFbPostDataObject.title) {
+                        linktitle = kGlobalFbPostDataObject.title;
                     }
+                    data = {
+                        imageToPost: kGlobalFbPostDataObject.imgNameToPost,
+                        accessToken: $rootScope.CurrentFbAccessToken,
+                        postText: kGlobalFbPostDataObject.postText,
+                        title: linktitle,
+                        url: kGlobalFbPostDataObject.url,
+                        description: kGlobalFbPostDataObject.description,
+                        imageType: kGlobalFbPostDataObject.imageType
+                    };
+                    socialPostFactory.facebookPost(data).then(function (data) {
+                        if (data.d.message === 'success') {
+                            $scope.isPostSent = true;
+                        }
+                    });
+
                 });
+
+
+
             } else if (selectedSocialmedia === "twitter") {
                 if (!angular.isUndefined(postData.url)) {
                     var bitlyUrl = "";
@@ -486,7 +526,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                             shorturl: bitlyUrl
                         };
                         socialPostFactory.twitterPost(data).then(function (response) {
-                            if (response.d.message == 'success') {
+                            if (response.d.message === 'success') {
                                 $scope.isPostSent = true;
                             }
                         });
@@ -499,7 +539,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                         shorturl: bitlyUrl
                     };
                     socialPostFactory.twitterPost(data).then(function (response) {
-                        if (response.d.message == 'success') {
+                        if (response.d.message === 'success') {
                             $scope.isPostSent = true;
                         }
                     });
@@ -573,7 +613,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
                 $scope.socialAction = $scope.defaultAction[0].id;
                 var actionData = eval(parseData);
-                if (actionData != '') {
+                if (actionData !== '') {
                     $scope.ddSelectActionName = [{text: "Custom Action", value: "0"}];
                     for (var i = 0; i < actionData.length; i++)
                     {
@@ -756,24 +796,89 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 
         $scope.schedulePostToFacebook = function (postData) {
             $scope.postedTo = getfacebook();
-            var sendData = $scope.getScheduleData($scope.selectedMarketingProgram, postData, getfacebook());
-            if ($scope.selectedMarketingProgram !== 0 || $scope.socialAction !== 0) {
-                scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (data) {
-                    if (data.d.operationStatus.statusCode === "Success") {
-                        $scope.isPostSuccess = true;
-                        $scope.schedulePopup = false;
-//                        window.location = "dashboard";
+            var sendData = "";
+
+            appSessionFactory.getFbPostData().then(function (kGlobalFbPostDataObject) {
+                var shareText = kGlobalFbPostDataObject.postText;
+                var linkTitle = kGlobalFbPostDataObject.title;
+                var shareUrl = kGlobalFbPostDataObject.url;
+                var linkDescription = kGlobalFbPostDataObject.description;
+                //            if (selectedMarketingProgrmaId !== 0) {
+                if ($scope.existingActionPopup) {
+                    sendData = {
+                        type: getfacebook(),
+                        image_name: kGlobalFbPostDataObject.imgNameToPost,
+                        program_id: $scope.selectedMarketingProgram.toString(),
+                        schedule_id: $scope.socialAction.toString(),
+                        image_type: kGlobalFbPostDataObject.imageType,
+                        token_data: {
+                            access_token: $rootScope.CurrentFbAccessToken
+                        },
+                        metadata: {
+                            description: '"' + linkDescription + '"',
+                            post_text: '"' + shareText + '"',
+                            url: '"' + shareUrl + '"',
+                            ManagedPage: '"' + $rootScope.CurrentFbPageName + '"',
+                            title: '"' + linkTitle + '"'
+                        }
+                    };
+                } else {
+                    var schedule_title = $("#ActionName").val();
+                    var schedule_date = $("#actionDate").val();
+                    var schedule_time = $("#actionTime").val().replace(/ /g, '');
+                    var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
+                    var fromDate = new Date(dateAndTime);
+                    var todayDate = new Date();
+                    if (fromDate < todayDate) {
+                        $scope.dateLesser = true;
+                        return false;
                     }
-                });
-            } else {
-                scheduleActionsFactory.scheduleSocialPostPost(sendData).then(function (data) {
-                    if (data.d.operationStatus.statusCode === "Success") {
-                        $scope.isPostSuccess = true;
-                        $scope.schedulePopup = false;
-//                        window.location = "dashboard";
-                    }
-                });
-            }
+                    $scope.dateLesser = false;
+                    var myEpoch = Date.parse(dateAndTime);
+
+                    console.log("Epoch: " + myEpoch);
+                    sendData = {
+                        "schedule_time": myEpoch,
+                        "schedule_title": schedule_title,
+                        "program_id": $scope.selectedMarketingProgram.toString(),
+                        "schedule_desc": "",
+                        "type": getfacebook(),
+                        "image_name": kGlobalFbPostDataObject.imgNameToPost,
+                        "accessToken": $rootScope.CurrentFbAccessToken,
+                        "postText": shareText,
+                        "title": linkTitle,
+                        "url": shareUrl,
+                        "description": linkDescription,
+                        "image_type": kGlobalFbPostDataObject.imageType,
+                        token_data: {
+                            "access_token": $rootScope.CurrentFbAccessToken
+                        },
+                        metadata: {
+                            description: '"' + linkDescription + '"',
+                            post_text: '"' + shareText + '"',
+                            url: '"' + shareUrl + '"',
+                            ManagedPage: '"' + $rootScope.CurrentFbPageName + '"',
+                            title: '"' + linkTitle + '"'
+                        }
+
+                    };
+                }
+                if ($scope.selectedMarketingProgram !== 0 || $scope.socialAction !== 0) {
+                    scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (data) {
+                        if (data.d.operationStatus.statusCode === "Success") {
+                            $scope.isPostSuccess = true;
+                            $scope.schedulePopup = false;
+                        }
+                    });
+                } else {
+                    scheduleActionsFactory.scheduleSocialPostPost(sendData).then(function (data) {
+                        if (data.d.operationStatus.statusCode === "Success") {
+                            $scope.isPostSuccess = true;
+                            $scope.schedulePopup = false;
+                        }
+                    });
+                }
+            });
         };
         $scope.schedulePostToTwitter = function (postData) {
             $scope.postedTo = gettwitter();
@@ -789,20 +894,20 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                         bitlyUrl = response.data.url;
                         if ($scope.selectedMarketingProgram !== 0 || $scope.socialAction !== 0) {
                             sendData = {
-                                    type: gettwitter(),
-                                    image_name: $scope.selectImageName,
-                                    program_id: $scope.selectedMarketingProgram.toString(),
-                                    schedule_id: $scope.socialAction.toString(),
-                                    image_type: $scope.selectImageType,
-                                    token_data: {
-                                        "access_token": '"' + accessToken + '"',
-                                        "token_secret": '"' + tokenSecret + '"'
-                                    },
-                                    metadata: {
-                                        text: '"' + postData.text + '"',
-                                        shorturl: '"' + bitlyUrl + '"'
-                                    }
-                                };
+                                type: gettwitter(),
+                                image_name: $scope.selectImageName,
+                                program_id: $scope.selectedMarketingProgram.toString(),
+                                schedule_id: $scope.socialAction.toString(),
+                                image_type: $scope.selectImageType,
+                                token_data: {
+                                    "access_token": '"' + accessToken + '"',
+                                    "token_secret": '"' + tokenSecret + '"'
+                                },
+                                metadata: {
+                                    text: '"' + postData.text + '"',
+                                    shorturl: '"' + bitlyUrl + '"'
+                                }
+                            };
                             scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (response) {
                                 $scope.schedulePopup = false;
                                 $scope.isPostSuccess = true;
@@ -825,36 +930,12 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                             console.log("Epoch: " + myEpoch);
 
                             sendData = {
-                                    type: gettwitter(),
-                                    image_name: $scope.selectImageName,
-                                    schedule_time: myEpoch,
-                                    schedule_title: schedule_title,
-                                    program_id: $scope.selectedMarketingProgram.toString(),
-                                    schedule_desc: schedule_desc,
-                                    schedule_id: $scope.socialAction.toString(),
-                                    image_type: $scope.selectImageType,
-                                    token_data: {
-                                        "access_token": '"' + accessToken + '"',
-                                        "token_secret": '"' + tokenSecret + '"'
-                                    },
-                                    metadata: {
-                                        text: '"' + postData.text + '"',
-                                        shorturl: '"' + bitlyUrl + '"'
-                                    }
-                                };
-                            scheduleActionsFactory.scheduleSocialPostPost(sendData).then(function (response) {
-                                $scope.schedulePopup = false;
-                                $scope.isPostSuccess = true;
-//                                window.location = "dashboard";
-                            });
-                        }
-                    });
-                } else {
-                    if ($scope.selectedMarketingProgram !== 0 || $scope.socialAction !== 0) {
-                        sendData = {
                                 type: gettwitter(),
                                 image_name: $scope.selectImageName,
+                                schedule_time: myEpoch,
+                                schedule_title: schedule_title,
                                 program_id: $scope.selectedMarketingProgram.toString(),
+                                schedule_desc: schedule_desc,
                                 schedule_id: $scope.socialAction.toString(),
                                 image_type: $scope.selectImageType,
                                 token_data: {
@@ -866,6 +947,30 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                                     shorturl: '"' + bitlyUrl + '"'
                                 }
                             };
+                            scheduleActionsFactory.scheduleSocialPostPost(sendData).then(function (response) {
+                                $scope.schedulePopup = false;
+                                $scope.isPostSuccess = true;
+//                                window.location = "dashboard";
+                            });
+                        }
+                    });
+                } else {
+                    if ($scope.selectedMarketingProgram !== 0 || $scope.socialAction !== 0) {
+                        sendData = {
+                            type: gettwitter(),
+                            image_name: $scope.selectImageName,
+                            program_id: $scope.selectedMarketingProgram.toString(),
+                            schedule_id: $scope.socialAction.toString(),
+                            image_type: $scope.selectImageType,
+                            token_data: {
+                                "access_token": '"' + accessToken + '"',
+                                "token_secret": '"' + tokenSecret + '"'
+                            },
+                            metadata: {
+                                text: '"' + postData.text + '"',
+                                shorturl: '"' + bitlyUrl + '"'
+                            }
+                        };
                         scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (response) {
                             $scope.schedulePopup = false;
                             $scope.isPostSuccess = true;
@@ -886,23 +991,23 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 
                         var myEpoch = Date.parse(dateAndTime);
                         sendData = {
-                                type: gettwitter(),
-                                image_name: $scope.selectImageName,
-                                schedule_time: myEpoch,
-                                schedule_title: schedule_title,
-                                program_id: $scope.selectedMarketingProgram.toString(),
-                                schedule_desc: schedule_desc,
-                                schedule_id: $scope.socialAction.toString(),
-                                image_type: $scope.selectImageType,
-                                token_data: {
-                                    "access_token": '"' + accessToken + '"',
-                                    "token_secret": '"' + tokenSecret + '"'
-                                },
-                                metadata: {
-                                    text: '"' + postData.text + '"',
-                                    shorturl: '"' + bitlyUrl + '"'
-                                }
-                            };
+                            type: gettwitter(),
+                            image_name: $scope.selectImageName,
+                            schedule_time: myEpoch,
+                            schedule_title: schedule_title,
+                            program_id: $scope.selectedMarketingProgram.toString(),
+                            schedule_desc: schedule_desc,
+                            schedule_id: $scope.socialAction.toString(),
+                            image_type: $scope.selectImageType,
+                            token_data: {
+                                "access_token": '"' + accessToken + '"',
+                                "token_secret": '"' + tokenSecret + '"'
+                            },
+                            metadata: {
+                                text: '"' + postData.text + '"',
+                                shorturl: '"' + bitlyUrl + '"'
+                            }
+                        };
                         scheduleActionsFactory.scheduleSocialPostPost(sendData).then(function (response) {
                             $scope.schedulePopup = false;
                             $scope.isPostSuccess = true;
@@ -916,22 +1021,14 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.getScheduleData = function (selectedMarketingProgrmaId, postData, socialMediaType) {
             var sendData = "";
 
-            var linkTitle = "";
-            if (postData.linkTitle)
-                linkTitle = postData.linkTitle;
-            var shareText = "";
-            if (postData.shareText)
-                shareText = postData.shareText;
-            var shareUrl = "";
-            if (postData.url)
-                shareUrl = postData.url;
-            var linkDescription = "";
-            if (postData.linkDescription)
-                linkDescription = postData.linkDescription;
-
-//            if (selectedMarketingProgrmaId !== 0) {
-            if ($scope.existingActionPopup) {
-                sendData = {
+            appSessionFactory.getFbPostData().then(function (kGlobalFbPostDataObject) {
+                var shareText = kGlobalFbPostDataObject.postText;
+                var linkTitle = kGlobalFbPostDataObject.title;
+                var shareUrl = kGlobalFbPostDataObject.url;
+                var linkDescription = kGlobalFbPostDataObject.description;
+                //            if (selectedMarketingProgrmaId !== 0) {
+                if ($scope.existingActionPopup) {
+                    sendData = {
                         type: socialMediaType,
                         image_name: $scope.selectImageName,
                         program_id: $scope.selectedMarketingProgram.toString(),
@@ -948,22 +1045,22 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                             title: '"' + linkTitle + '"'
                         }
                     };
-            } else {
-                var schedule_title = $("#ActionName").val();
-                var schedule_date = $("#actionDate").val();
-                var schedule_time = $("#actionTime").val().replace(/ /g, '');
-                var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
-                var fromDate = new Date(dateAndTime);
-                var todayDate = new Date();
-                if (fromDate < todayDate) {
-                    $scope.dateLesser = true;
-                    return false;
-                }
-                $scope.dateLesser = false;
-                var myEpoch = Date.parse(dateAndTime);
+                } else {
+                    var schedule_title = $("#ActionName").val();
+                    var schedule_date = $("#actionDate").val();
+                    var schedule_time = $("#actionTime").val().replace(/ /g, '');
+                    var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
+                    var fromDate = new Date(dateAndTime);
+                    var todayDate = new Date();
+                    if (fromDate < todayDate) {
+                        $scope.dateLesser = true;
+                        return false;
+                    }
+                    $scope.dateLesser = false;
+                    var myEpoch = Date.parse(dateAndTime);
 
-                console.log("Epoch: " + myEpoch);
-                sendData = {
+                    console.log("Epoch: " + myEpoch);
+                    sendData = {
                         "schedule_time": myEpoch,
                         "schedule_title": schedule_title,
                         "program_id": $scope.selectedMarketingProgram.toString(),
@@ -988,8 +1085,10 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                         }
 
                     };
-            }
-            return sendData;
+                }
+                return sendData;
+            });
+
         };
 
         $scope.previousButton = function (popupName) {
@@ -1109,7 +1208,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 $location.path('/facebookpost');
 
             } else if (channel === 'twitter') {
-                 $location.path('/twitterpost');
+                $location.path('/twitterpost');
             }
 
         };
