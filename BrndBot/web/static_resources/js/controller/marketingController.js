@@ -1,4 +1,4 @@
-marketingFlowApp.controller("marketingController", ['$scope', '$location', '$filter', '$sce', 'marketingFactory', 'companyMarketingProgramFactory', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'marketingRecurringEmailFactory', 'emailFactory', 'emailListFactory', 'appSessionFactory',function ($scope, $location, $filter, $sce, marketingFactory, companyMarketingProgramFactory, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, marketingRecurringEmailFactory, emailFactory, emailListFactory, appSessionFactory) {
+marketingFlowApp.controller("marketingController", ['$scope', '$location', '$filter', '$sce', 'marketingFactory', 'companyMarketingProgramFactory', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'marketingRecurringEmailFactory', 'emailFactory', 'emailListFactory', 'appSessionFactory', 'externalContentFactory',function ($scope, $location, $filter, $sce, marketingFactory, companyMarketingProgramFactory, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, marketingRecurringEmailFactory, emailFactory, emailListFactory, appSessionFactory,externalContentFactory) {
         $scope.marketingCategoryId = "";
         $scope.marketingProgramId = "";
         $scope.past = "";
@@ -923,9 +923,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.showHTMLData = function (html_data, id) {
             var $iframe = $('.fr-iframe');
-            $("#tinymceEditorBody").empty().append(html_data);
-            $scope.templateId = id;
-            $scope.launchTinyMceEditor();
+            externalContentFactory.layoutEmailModelGet(id, false, 0, true).then(function (data) {
+                var emailData = JSON.parse(data.d.details);
+                $("#tinymceEditorBody").empty().append(emailData.htmldata);
+                $scope.templateId = id;
+                $scope.launchTinyMceEditor();
+            });
         };
         $scope.launchTinyMceEditor = function () {
             tinymce.EditorManager.editors = [];

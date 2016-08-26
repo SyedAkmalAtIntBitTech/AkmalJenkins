@@ -112,7 +112,7 @@ public class ExternalContentController {
     @RequestMapping(value = "/getLayoutEmailModelById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getLayoutEmailModelById(@RequestParam("emailModelId") Integer modelId,
             @RequestParam("isBlock") Boolean isBlock,@RequestParam("companyId") Integer companyId,
-            @RequestParam("externalDataId") Integer externalDataId,
+            @RequestParam("externalDataId") Integer externalDataId, @RequestParam("isRecurring") Boolean isRecurring,
             HttpServletRequest request, HttpServletResponse response) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
@@ -123,6 +123,7 @@ public class ExternalContentController {
             Integer externalKeywordId = null;
             Integer emailOrBlockModel = 0;
             Integer blockOrSubcategoryId = 0;
+            if(!isRecurring) {
             if (isBlock) {
                 EmailBlockModelLookup emailBlockModelLookup = emailBlockModelLookupService.getByEmailModelId(modelId);
                 emailOrBlockModel = emailBlockModelLookup.getFkEmailBlockModelId().getEmailBlockModelId();
@@ -159,7 +160,10 @@ public class ExternalContentController {
                 }
 
             }
-            String html = emailModelService.getLayoutEmail(isBlock,emailOrBlockModel, hostURL, companyId, externalSourceKeywordLookup, externalDataId, data);
+            } else {
+                emailOrBlockModel = modelId;
+            }
+            String html = emailModelService.getLayoutEmail(isBlock,emailOrBlockModel, hostURL, companyId, externalSourceKeywordLookup, externalDataId, data, isRecurring);
             genericResponse.addDetail(html);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template retrieved successfully."));
         } catch (Throwable throwable) {
