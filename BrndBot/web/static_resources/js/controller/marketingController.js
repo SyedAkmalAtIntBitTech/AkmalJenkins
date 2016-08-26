@@ -782,16 +782,21 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $(".emailAutomationFade").show();
                 $scope.emailPreviewPopup = true;
                 var footerData = JSON.parse(data.d.details);
-                if (!footerData.userProfile) {
+                if (footerData.userProfile) {
                     $("#emailFooterPopup").show();
                 } else {
-                    if (!footerData.userProfile.address) {
-                        $("#emailFooterPopup").show();
-                    } else {
-                        $("#email_previewdiv").show();
+//                    if (!footerData.userProfile.address) {
+//                        $("#emailFooterPopup").show();
+//                    } else {
+                        $("#email_previewdiv").show();                       
+
+                        var companyAddress=footerData.companyAddress[0].addressLine1+"<br/>"+footerData.companyAddress[0].addressLine2+"<br/>"+
+                            footerData.companyAddress[0].city+", "+footerData.companyAddress[0].state+"\t\t"+
+                            footerData.companyAddress[0].zipCode+"<br/>"+footerData.companyAddress[0].country;
+                    
                         var footer = $scope.userFooter(footerData.userProfile.facebookUrl, footerData.userProfile.twitterUrl,
                                 footerData.userProfile.websiteUrl, footerData.userProfile.instagramUrl,
-                                footerData.userProfile.address);
+                                companyAddress);
                         var sendData = {
                             htmlString: $('#tinymceEditorBody').html() + footer,
                             iframeName: rendomIframeFilename.toString()
@@ -804,7 +809,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                             $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
                             $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
                         });
-                    }
+//                    }
                     ;
                 }
                 ;
