@@ -449,9 +449,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
-
+            
+            Integer companyId = userCompanyIds.getCompanyId();
             String default_access_token = (String) requestBodyMap.get("access_token");
             String method_type = (String) requestBodyMap.get("access_token_method");
             String fb_user_profile_name = (String) requestBodyMap.get("fb_user_profile_name");
@@ -461,7 +461,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             CompanyPreferencesFacebook companyPreferencesFacebookService = new CompanyPreferencesFacebook();
 
             if (!StringUtility.isEmpty(method_type) && method_type.equals("getAccessToken")) {
-                JSONObject fb_details = companyPreferencesFacebookService.getCompanyPreferenceForAccessToken(userCompanyIds.getCompanyId());
+                JSONObject fb_details = companyPreferencesFacebookService.getCompanyPreferenceForAccessToken(companyId);
 
                 if (fb_details.size() != 0) {
 
@@ -482,9 +482,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
                 }
 
             } else if (!StringUtility.isEmpty(method_type) && method_type.equals("setAccessToken")) {
-                companyPreferencesFacebookService.updatePreference(userCompanyIds.getCompanyId(), default_access_token, fb_user_profile_name, default_page_name);
+                companyPreferencesFacebookService.updatePreference(companyId, default_access_token, fb_user_profile_name, default_page_name);
             } else if (!StringUtility.isEmpty(method_type) && method_type.equals("clearFacebookDetails")) {
-                companyPreferencesFacebookService.deletePreferences(userCompanyIds.getCompanyId());
+                companyPreferencesFacebookService.deletePreferences(companyId);
             }
             transactionResponse.setMessage(outputJson);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));

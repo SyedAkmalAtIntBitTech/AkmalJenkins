@@ -52,7 +52,6 @@ function franchiseController($scope, $http) {
 
         var franchiseName = $("#franchiseName").val();
         if (franchiseName === "") {
-
             growl(enterFranchiseName);
             $("#franchiseName").focus();
         } else {

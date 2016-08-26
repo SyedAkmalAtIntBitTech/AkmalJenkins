@@ -22,7 +22,7 @@ import java.util.List;
  */
 public interface FranchiseService {
 
-    public void activateCompanyAsFranchise(Integer companyId, Integer franchiseId) throws ProcessFailed;
+    public boolean activateCompanyAsFranchise(Integer companyId, Integer franchiseId) throws ProcessFailed;
 
     public void associateCompanyToFranchise(Integer companyId, Users user, Integer franchiseId) throws ProcessFailed;
 

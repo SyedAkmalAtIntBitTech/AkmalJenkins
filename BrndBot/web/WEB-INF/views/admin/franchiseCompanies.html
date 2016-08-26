@@ -16,6 +16,14 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../css/dropdown.css"/>
         <link rel="shortcut icon" href="../images/favicon.png"/> 
+       <script src="../js/utilities/jquerygrowl.js" type="text/javascript"></script>
+       <script src="../js/utilities/angularappconfiguration.js" type="text/javascript"></script>
+        <script src="../js/controller/franchiseController.js" type="text/javascript"></script>
+        <script src="../js/factory/franchiseFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/urlServices.js" type="text/javascript"></script>
+        <script src="../js/factory/authFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/appSessionFactory.js" type="text/javascript"></script>
+        <script src="../js/configurations.js"></script> 
         <script src="../js/admin/globalimage.js" type="text/javascript"></script>
         <script src="../js/configurations.js" type="text/javascript"></script>   
         <script src="../js/admin/basejs.js" type="text/javascript"></script>
@@ -25,22 +33,24 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <script src="../js/admin/assets.js" type="text/javascript"></script>
         <script src="../js/admin/recurringemail.js" type="text/javascript"></script>
         <script src="../js/admin/marketingprogramdetails.js" type="text/javascript"></script>
-        <script src="../js/admin/franchise.js" type="text/javascript"></script>
         <link href="../css/jquerygrowl.css" rel="stylesheet" type="text/css"/>
-        <script src="../js/utilities/jquerygrowl.js" type="text/javascript"></script>
        <title>All Franchise Companies</title>
     </head>
-    <body  class="body-normal" ng-app ng-controller="franchiseController" >
+    <body  class="body-normal" ng-app="franchiseHubApp" ng-controller="franchiseController" >
         <div ng-include src="'header.html'"></div>
         <div ng-include src="'addcompanytofranchise.html'"></div>
       <div class="content-area" ng-init="getFranchiseId()">
           <div class="content-area_header">
-            <div class="header_path fleft">All Companies / </div>
+            <div class="header_path fleft">Franchise / {{franchiseName}}</div>
             <div class="CTA_Button Button--Blue fright" id="addOrganization" ng-click="addCompanyPopup=true">Add Company</div>
           </div>
-          <div><br>
-              {{headquarterCompany}} company has been selected as a Headquarter.
+          <div ng-show="headquarterCompany!=null"><br>
+              <b>{{headquarterCompany}}</b> company has been selected as a Headquarter.
           </div>
+          <div ng-show="headquarterCompany==null"><br>
+              <b>No</b> company has been selected as a Headquarter.
+          </div>
+          
           <div class="slatSection" ng-init="getCompaniesForFranchiseId()">
             <div class="slatHeaders">
                 <div class="listHeaderCol col1of2 fleft">
@@ -56,7 +66,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                         <a href=""><div class="CTA_Button Button--Gray fright" ng-click="removeCompanyFromFranchise(company.companyId)">Remove Company</div></a>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href=""><div class="CTA_Button Button--Gray fright" ng-click="activateCompanyAsHeadquarter(company.companyId)">Head Quarter Company</div></a>
+                        <a href=""><div class="CTA_Button Button--Gray fright" ng-click="activateCompanyAsFranchise(company.companyId)">Head Quarter Company</div></a>
                     </div>
                 </li>
             </ul>

@@ -20,9 +20,9 @@ public interface ScheduleActionsService {
 
     public Map<String, Integer> scheduleEmailActions(Map<String, Object> requestBodyMap, Integer companyId);
 
-    public List<Map<String, Integer>> scheduleSocialPostActions(List<Map<String, Object>> requestBodyList, Integer companyId);
+    public List<Map<String, Integer>> scheduleSocialPostActions(Map<String, Object> requestBodyMap, Integer companyId);
 
-    public List<Map<String, Integer>> scheduleSocialPost(List<Map<String, Object>> requestBodyList, Integer companyId);
+    public List<Map<String, Integer>> scheduleSocialPost(Map<String, Object> requestBodyMap, Integer companyId);
     
    
 }
