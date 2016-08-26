@@ -853,8 +853,8 @@ public class ScheduleDAO {
                 + " as cal_rec_date from scheduled_entity_list as sel"
                 +"  INNER JOIN company_marketing_program as cmp on (cmp.company_marketing_program_id = sel.fk_company_marketing_program_id)"
                 + " where  sel.entity_id= ?"
-                + " and sel.status = ?"
                 + " and sel.entity_type = ? "
+                + " and sel.status = ?"
                 + " and sel.fk_company_marketing_program_id = ?"
                 + " and sel.fk_company_id = ?";
         
