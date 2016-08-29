@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,6 +51,9 @@ public class CompanyPreferences implements Serializable {
     @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
     @ManyToOne
     private Company fkCompanyId;
+    @JoinColumn(name = "fk_address_id", referencedColumnName = "address_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Address fkAddressId;
 
     public CompanyPreferences() {
     }
@@ -104,5 +108,13 @@ public class CompanyPreferences implements Serializable {
 
     public void setUnsubscribeEmails(String unsubscribeEmails) {
         this.unsubscribeEmails = unsubscribeEmails;
+    }
+    
+    public Address getFkAddressId() {
+        return fkAddressId;
+    }
+
+    public void setFkAddressId(Address fkAddressId) {
+        this.fkAddressId = fkAddressId;
     }
 }

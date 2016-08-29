@@ -22,5 +22,18 @@ var kGlobalEmailObject = { categoryId : "",
     preheader : "",
     htmlBody : ""
     };
+    
+var kGlobalCompanyObject = {
+  userId : "",
+  companyId : "",
+  companyName : "",
+  roleName : "",
+  roleId : "",
+  logourl : "",
+  accountStatus: "",
+  userEmailId: "",
+  userFirstName: "",
+  userLastName: ""
+}
 
 
