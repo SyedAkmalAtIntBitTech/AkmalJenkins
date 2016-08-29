@@ -54,7 +54,6 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $rootScope.CurrentFbAccessToken = "";
         $scope.linkpost = false;
 
-
         $scope.getManagePage = function (selectedSocialmedia, postData) {
             appSessionFactory.getFbPostData().then(function (kGlobalFbPostDataObject) {
                 if (postData.shareText) {
@@ -732,7 +731,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 
         $scope.schedulePostValidation = function () {
             if ($scope.createNewActionPopup) {
-                var schedule_title = $("#ActionName").val();
+                var schedule_title = $scope.actionName;;
                 var schedule_date = $("#actionDate").val();
                 var schedule_time = $("#actionTime").val().replace(/ /g, '');
                 var actionName = schedule_title;
@@ -823,7 +822,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                         }
                     };
                 } else {
-                    var schedule_title = $("#ActionName").val();
+                    var schedule_title = $scope.actionName;;
                     var schedule_date = $("#actionDate").val();
                     var schedule_time = $("#actionTime").val().replace(/ /g, '');
                     var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
@@ -914,7 +913,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 //                                window.location = "dashboard";
                             });
                         } else {
-                            var schedule_title = $("#ActionName").val();
+                            var schedule_title = $scope.actionName;
                             var schedule_date = $("#actionDate").val();
                             var schedule_time = $("#actionTime").val().replace(/ /g, '');
                             var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
@@ -977,7 +976,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 //                            window.location = "dashboard";
                         });
                     } else {
-                        var schedule_title = $("#ActionName").val();
+                        var schedule_title = $scope.actionName;;
                         var schedule_date = $("#actionDate").val();
                         var schedule_time = $("#actionTime").val().replace(/ /g, '');
                         var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
