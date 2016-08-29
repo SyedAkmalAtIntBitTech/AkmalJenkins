@@ -84,6 +84,7 @@ public class UserRoleCompanyLookUpDaoImpl implements UserRoleCompanyLookUpDao{
     public void delete(UsersRoleCompanyLookup userRoleLookup) throws ProcessFailed {
         try {
             sessionFactory.getCurrentSession().delete(userRoleLookup);
+            sessionFactory.getCurrentSession().flush();
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_deleting_message", new String[]{}, Locale.US));

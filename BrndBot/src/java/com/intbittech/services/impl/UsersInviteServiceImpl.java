@@ -107,7 +107,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
 
     @Override
     public List<Invite> getAllInvitedUsers(Users userFrom) throws ProcessFailed{
-        List<Invite> invites = usersInviteDao.getAllInvitedUsers(userFrom);
+        List<Invite> invites = usersInviteDao.getAllInvitedUsersByuserFrom(userFrom);
         if(invites == null)
         {
             throw new ProcessFailed(messageSource.getMessage("user_list_not_found",new String[]{}, Locale.US));
@@ -148,8 +148,8 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     }
     
     @Override
-    public Integer removeUsersByInviteIdAndCompanyId(Integer inviteId, Integer companyId)throws ProcessFailed{
-        Integer returnMessage = 0;
+    public boolean removeUsersByInviteIdAndCompanyId(Integer inviteId, Integer companyId)throws ProcessFailed{
+        boolean returnMessage = false;
         try{
             Invite companyInvite = usersInviteDao.getInvitedUserById(inviteId);
 
@@ -159,22 +159,21 @@ public class UsersInviteServiceImpl implements UsersInviteService{
 
                 Company company = companyDao.getCompanyById(companyId);
                 List<UsersRoleCompanyLookup> usersRoleCompanyLookupList = userRoleCompanyLookUpService.getAllUserRolesByUser(companyInvite.getInviteSentTo());
+                List<Invite> inviteList = usersInviteDao.getAllInvitedUsersByuserTo(companyInvite.getInviteSentTo());
+                if (usersRoleCompanyLookupList.size() == 1 && inviteList.size() == 1){
 
-                if (usersRoleCompanyLookupList.size() == 1){
-                    UsersRoleCompanyLookup usersRoleCompanyLookup = userRoleCompanyLookUpService.getUsersRoleLookupByUserAndCompany(companyInvite.getInviteSentTo(),company);
-
-                    userRoleCompanyLookUpService.delete(usersRoleCompanyLookup.getId());
-                    delete(inviteId);
-                    returnMessage = usersRoleCompanyLookupList.size();
+                    usersDao.delete(companyInvite.getInviteSentTo());
+                    returnMessage = true;
                 }else {
                     UsersRoleCompanyLookup usersRoleCompanyLookup = userRoleCompanyLookUpService.getUsersRoleLookupByUserAndCompany(companyInvite.getInviteSentTo(),company);
 
                     userRoleCompanyLookUpService.delete(usersRoleCompanyLookup.getId());
                     delete(inviteId);
-                    returnMessage = usersRoleCompanyLookupList.size();
+                    returnMessage = true;
                 }
             }else {
                 delete(inviteId);
+                returnMessage = true;
             }
         }catch (Throwable throwable){
             throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));

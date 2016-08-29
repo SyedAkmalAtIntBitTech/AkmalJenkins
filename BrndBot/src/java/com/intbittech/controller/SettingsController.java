@@ -169,15 +169,10 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         boolean flag = false;
         try {
 
-            Integer returnMessage = usersInviteService.removeUsersByInviteIdAndCompanyId(inviteId, userCompanyIds.getCompanyId());
-            if (returnMessage == 1){
-                flag = usersInviteService.deleteUserByUserId(userCompanyIds.getUserId());
-            }
-            if (returnMessage != 1){
+            boolean returnMessage = usersInviteService.removeUsersByInviteIdAndCompanyId(inviteId, userCompanyIds.getCompanyId());
+            if (returnMessage){
                 transactionResponse.setMessage(messageSource.getMessage("user_removed", new String[]{}, Locale.US));
-            }else if (returnMessage == 1 && flag == true){
-                transactionResponse.setMessage(messageSource.getMessage("user_removed", new String[]{}, Locale.US));
-            }else if (returnMessage == 1 && flag == false){
+            }else{
                 transactionResponse.setMessage(messageSource.getMessage("user_remove_failure", new String[]{}, Locale.US));
             }
 

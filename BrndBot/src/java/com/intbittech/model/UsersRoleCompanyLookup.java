@@ -7,6 +7,7 @@ package com.intbittech.model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ import javax.persistence.Table;
  *
  * @author Syed Muzamil at IntBit Technologies.
  */
-    @Entity
+@Entity
 @Table(name = "users_role_company_lookup")
 public class UsersRoleCompanyLookup implements Serializable {
     @JoinColumn(name = "company_id", referencedColumnName = "company_id")
