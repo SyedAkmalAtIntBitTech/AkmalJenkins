@@ -52,6 +52,6 @@ public interface AddressService {
      * @param address the address
      * @throws ProcessFailed the process failed
      */
-    public void delete(Address address) throws ProcessFailed;
+    public void delete(Integer addressId) throws ProcessFailed;
     
 }
