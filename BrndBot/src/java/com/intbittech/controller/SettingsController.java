@@ -242,12 +242,12 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     }
     
     @RequestMapping(value = "/saveAddress", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> setColors(@RequestBody AddressDetails addressDetails) {
+    public ResponseEntity<ContainerResponse> saveAddress(@RequestBody AddressDetails addressDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             Company company = companyService.getCompanyById(addressDetails.getCompanyId());
             addressService.save(addressDetails, company);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyCategories_color_update", new String[]{}, Locale.US)));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("saveAddress_success", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));

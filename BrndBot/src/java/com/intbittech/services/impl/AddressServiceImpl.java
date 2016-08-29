@@ -87,7 +87,10 @@ public class AddressServiceImpl implements AddressService {
     /**
      * {@inheritDoc}
      */
-    public void delete(Address address) throws ProcessFailed {
+    public void delete(Integer addressId) throws ProcessFailed {
+        Address address = addressDao.getByAddressId(addressId);
+        if(address == null)
+            throw new ProcessFailed(messageSource.getMessage("address_not_found",new String[]{}, Locale.US));
         addressDao.delete(address);
     }
     
