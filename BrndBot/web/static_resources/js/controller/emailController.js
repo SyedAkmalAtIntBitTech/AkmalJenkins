@@ -692,8 +692,11 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
                             emailDraftFactory.saveEmailDraftsPost(draftData).then(function (responseText) {
                                 if (responseText !== "0") {
-                                    growl("Draft saved successfully.");
-                                    document.location.href = "dashboard";
+                                    appSessionFactory.setDashboardMessage("Draft saved successfully.").then(function(sessionSaved){
+                                        if(sessionSaved)
+                                            document.location.href = "dashboard";
+                                    });
+                                    
                                 } else {
                                     growl("There was a problem while saving the draft! Please try again later.");
                                 }

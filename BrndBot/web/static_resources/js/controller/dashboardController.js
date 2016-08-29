@@ -27,6 +27,15 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
                 $scope.userLastName = companyDetails.userLastName;
                 $scope.userRole = companyDetails.roleName; 
                 $scope.logourl = companyDetails.logourl;
+                appSessionFactory.getDashboardMessage().then(function(message){
+                    if(message)
+                    {
+                        growl(message);
+                        appSessionFactory.clearDashboardMessage().then(function(message){
+                            
+                        });
+                    }
+                });
             });
             
         };
