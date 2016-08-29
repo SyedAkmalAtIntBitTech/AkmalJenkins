@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor = ProcessFailed.class)
 public class EmailListTypeServiceImpl implements  EmailListTypeService{
     
-      private static Logger logger = Logger.getLogger(ContactsServiceImpl.class);
+      private static Logger logger = Logger.getLogger(EmailListTypeServiceImpl.class);
     
     @Autowired
     private EmailListTypeDao emailListTypeDao;
