@@ -564,7 +564,7 @@ public class ScheduleDAO {
                 ps.setInt(2, scheduleId);
                 ps.setString(3, ScheduledEntityType.Email.toString());
                 try (ResultSet rs = ps.executeQuery()) {
-
+                    if (rs.next()) {
 
                         scheduleEmailDetails.put("schedule_email_id", rs.getInt("scheduled_email_list_id"));
                         scheduleEmailDetails.put("user_id", rs.getInt("fk_company_id"));
@@ -576,7 +576,7 @@ public class ScheduleDAO {
                         scheduleEmailDetails.put("email_list_name", rs.getString("email_list_name"));
                         scheduleEmailDetails.put("from_name", rs.getString("from_name"));
                         scheduleEmailDetails.put("html_body", rs.getString("html_body"));
-
+                    }
                 }
             }
         }
