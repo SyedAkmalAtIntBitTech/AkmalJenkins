@@ -11,12 +11,14 @@ import com.google.gson.Gson;
 import com.intbit.util.CustomStyles;
 import com.intbittech.AppConstants;
 import com.intbittech.externalcontent.ExternalContentProcessor;
+import com.intbittech.model.Address;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.EmailList;
 import com.intbittech.model.InvitedUsers;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
+import com.intbittech.modelmappers.AddressDetails;
 import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.modelmappers.FooterDetails;
 import com.intbittech.modelmappers.InviteDetails;
@@ -24,6 +26,7 @@ import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.schedulers.MindbodyEmailListProcessor;
+import com.intbittech.services.AddressService;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.EmailListService;
@@ -59,6 +62,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
@@ -98,6 +102,10 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
     @Autowired
     CompanyService companyService;
+    
+    @Autowired
+    AddressService addressService;
+    
     @Autowired
     private MessageSource messageSource;
     
@@ -232,6 +240,21 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
+    
+    @RequestMapping(value = "/saveAddress", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveAddress(@RequestBody AddressDetails addressDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            Company company = companyService.getCompanyById(addressDetails.getCompanyId());
+            addressService.save(addressDetails, company);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("saveAddress_success", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
 
     @RequestMapping(value = "/saveEmailSettings", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveEmailSettings(HttpServletRequest request,
@@ -280,7 +303,23 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         try {
             Company company = companyService.getCompanyById(companyId);
             CompanyPreferences companyPreferences = companyPreferencesService.getByCompany(company);
-            genericResponse.addDetail(companyPreferences.getCompanyPreferences());
+            JSONParser parser = new JSONParser();
+            JSONObject jSONObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
+            
+            if(companyPreferences.getFkAddressId()!=null)
+            {
+                JSONObject addressJSONObject = new JSONObject();
+                addressJSONObject.put("addressLine1", companyPreferences.getFkAddressId().getAddressLine1());
+                addressJSONObject.put("addressLine2", companyPreferences.getFkAddressId().getAddressLine2());
+                addressJSONObject.put("city", companyPreferences.getFkAddressId().getCity());
+                addressJSONObject.put("state", companyPreferences.getFkAddressId().getState());
+                addressJSONObject.put("zipCode", companyPreferences.getFkAddressId().getZipcode());
+                addressJSONObject.put("country", companyPreferences.getFkAddressId().getCountry());
+                JSONArray addressJSONArray = new JSONArray();
+                addressJSONArray.add(addressJSONObject);
+                jSONObject.put("companyAddress", addressJSONArray);
+            }
+            genericResponse.addDetail(new Gson().toJson(jSONObject));
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
         } catch (Throwable throwable) {
             logger.error(throwable);

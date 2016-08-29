@@ -573,9 +573,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.changeFooterDetails = function (company) {
-            var footerAddress = "";
-            if (company.address)
-                footerAddress = company.address;
             var footerWebsiteUrl = "";
             if (company.websiteUrl)
                 footerWebsiteUrl = company.websiteUrl;
@@ -588,7 +585,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             var footerInstagramUrl = "";
             if (company.instagramUrl)
                 footerInstagramUrl = company.instagramUrl;
-            var footerPopupDetails = {"facebookUrl": footerFacebookUrl, "twitterUrl": footerTwitterUrl, "instagramUrl": footerInstagramUrl, "websiteUrl": footerWebsiteUrl, "address": footerAddress};
+            var footerPopupDetails = {"facebookUrl": footerFacebookUrl, "twitterUrl": footerTwitterUrl, "instagramUrl": footerInstagramUrl, "websiteUrl": footerWebsiteUrl};
             $scope.emailFooterPopupDetails = false;
             settingsFactory.setFooterPost(footerPopupDetails).then(function (data) {
                 $scope.getFooterDetails();
@@ -596,7 +593,16 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
 
-        $scope.getUserFooter = function (fb, twitter, website, instagram, address) {
+        $scope.getUserFooter = function (footerData) {
+            
+            var companyAddress="";
+            if(footerData.companyAddress)
+            {
+                companyAddress=footerData.companyAddress[0].addressLine1+"<br/>"+footerData.companyAddress[0].addressLine2+"<br/>"+
+                        footerData.companyAddress[0].city+", "+footerData.companyAddress[0].state+"\t\t"+
+                        footerData.companyAddress[0].zipCode+"<br/>"+footerData.companyAddress[0].country;
+            }
+            
             var returnFooter = "";
             var footer = "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" height=\"100%\" width=\"100%\" bgcolor=\"#EEEEEE\" style=\"border-collapse:collapse;\"><tr><td valign=\"top\"> <center style=\"width: 100%;\"> <div style=\"max-width: 680px;\"> <!--[if (gte mso 9)|(IE)]> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"680\" align=\"center\"> <tr> <td> <![endif]--> <!-- Atom Body: BEGIN --> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" bgcolor=\"#EEEEEE\" width=\"100%\" style=\"max-width: 680px;\"> <tr> <td style=\"padding-top:15px;\" class=\"mobile-padding\"> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" width=\"100%\" style=\"max-width: 300px; background-color:#inherit\" class=\"mobile-padding\"> <tr>";
 
@@ -613,24 +619,23 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             var footerAddress = "<!--HEADER: BEGIN--> <tr> <td style=\"font-family: sans-serif; font-size: 12px; mso-height-rule: exactly; line-height: 120%; text-align:center; color: #555555; padding: 20px 55px 20px 55px;\" class=\"fluid mobile-padding\"> $$$footerAddress$$$ </td> </tr> <!--HEADER: END-->";
 
             var footerClose = "</table> <!--[if (gte mso 9)|(IE)]> </td> </tr> </table> <![endif]--> </div> </center> </td></tr></table>";
-
+            
 
             returnFooter = footer;
-            if (fb !== "")
-                returnFooter += footerFB.replace("$$$footerFB$$$", fb);
-            if (twitter !== "" && typeof twitter !== "undefined")
-                returnFooter += footerTwitter.replace("$$$footerTwitter$$$", twitter);
+            if (footerData.userProfile.facebookUrl !== "")
+                returnFooter += footerFB.replace("$$$footerFB$$$", footerData.userProfile.facebookUrl);
+            if (footerData.userProfile.twitterUrl !== "" && typeof footerData.userProfile.twitterUrl !== "undefined")
+                returnFooter += footerTwitter.replace("$$$footerTwitter$$$", footerData.userProfile.twitterUrl);
 
-            if (website !== "" && typeof website !== "undefined")
-                returnFooter += footerWebsite.replace("$$$footerWebsite$$$", website);
+            if (footerData.userProfile.websiteUrl !== "" && typeof footerData.userProfile.websiteUrl !== "undefined")
+                returnFooter += footerWebsite.replace("$$$footerWebsite$$$", footerData.userProfile.websiteUrl);
 
-            if (instagram !== "" && typeof instagram !== "undefined")
-                returnFooter += footerInstagram.replace("$$$footerInstagram$$$", instagram);
+            if (footerData.userProfile.instagramUrl !== "" && typeof footerData.userProfile.instagramUrl !== "undefined")
+                returnFooter += footerInstagram.replace("$$$footerInstagram$$$", footerData.userProfile.instagramUrl);
 
             returnFooter += footerMiddle;
 
-            if (address !== "" && typeof address !== "undefined")
-                returnFooter += footerAddress.replace("$$$footerAddress$$$", address);
+            returnFooter += footerAddress.replace("$$$footerAddress$$$", companyAddress);
 
             returnFooter += footerClose;
 
@@ -642,24 +647,10 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $("#tinymceEditorBody").find("p").removeAttr("style").css("margin", "0px");
             settingsFactory.getAllPreferencesGet().then(function (data) {
                 var footerData = JSON.parse(data.d.details);
-                if (!footerData.userProfile) {
-                    $scope.editFooter();
-                    return false;
-                }
-
-                if (!footerData.userProfile.address) {
-                    $scope.editFooter();
-                    return false;
-                }
-//                $("#fade").show();
                 $scope.fadeClass = 'fadeClass';
                 $scope.emailPreviewPopup = true;
-                var footerData = JSON.parse(data.d.details);
                 $scope.overlayFade = true;
-//                $("#fade").show();
-                var footer = $scope.getUserFooter(footerData.userProfile.facebookUrl, footerData.userProfile.twitterUrl,
-                        footerData.userProfile.websiteUrl, footerData.userProfile.instagramUrl,
-                        footerData.userProfile.address);
+                var footer = $scope.getUserFooter(footerData);
                 var sendData = {
                     htmlString: $('#tinymceEditorBody').html() + footer,
                     iframeName: $scope.randomIframeFilename.toString()
@@ -679,9 +670,9 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.saveToDraftOnClick = function () {
             settingsFactory.getAllPreferencesGet().then(function (data) {
                 var footerData = JSON.parse(data.d.details);
-                var footer = $scope.getUserFooter(footerData.userProfile.facebookUrl, footerData.userProfile.twitterUrl,
-                        footerData.userProfile.websiteUrl, footerData.userProfile.instagramUrl,
-                        footerData.userProfile.address);
+                
+                var footer = $scope.getUserFooter(footerData);
+                        
                 var sendData = {
                     htmlString: $('#tinymceEditorBody').html() + footer,
                     iframeName: $scope.randomIframeFilename.toString()
@@ -738,19 +729,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $("#tinymceEditorBody").find("p").removeAttr("style").css("margin", "0px");
             settingsFactory.getAllPreferencesGet().then(function (footerResponseData) {
                 var footerData = JSON.parse(footerResponseData.d.details);
-                if (!footerData.userProfile) {
-                    $scope.editFooter();
-                    return false;
-                }
-
-                if (!footerData.userProfile.address) {
-                    $scope.editFooter();
-                    return false;
-                }
-
-                var footer = $scope.getUserFooter(footerData.userProfile.facebookUrl, footerData.userProfile.twitterUrl,
-                        footerData.userProfile.websiteUrl, footerData.userProfile.instagramUrl,
-                        footerData.userProfile.address);
+                
+                var footer = $scope.getUserFooter(footerData);
                 var sendData = {
                     htmlString: $('#tinymceEditorBody').html() + footer,
                     iframeName: $scope.randomIframeFilename.toString()
@@ -1512,9 +1492,9 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $scope.fadeClass = 'unfadeClass';
         };
 
-        $scope.editFooter = function () {
-            $scope.emailFooterPopupDetails = true;
-        };
+//        $scope.editFooter = function () {
+//            $scope.emailFooterPopupDetails = true;
+//        };
 
         $scope.hideEmailFooterPopupDetails = function () {
             $scope.emailFooterPopupDetails = false;

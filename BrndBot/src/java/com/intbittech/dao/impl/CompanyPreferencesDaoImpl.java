@@ -86,6 +86,7 @@ public class CompanyPreferencesDaoImpl implements CompanyPreferencesDao {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(CompanyPreferences.class)
                     .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .setFetchMode("fkAddressId", FetchMode.JOIN)
                     .add(Restrictions.eq("fkCompanyId.companyId", company.getCompanyId()));
             List<CompanyPreferences> list = criteria.list();
             if (list.isEmpty()) {
