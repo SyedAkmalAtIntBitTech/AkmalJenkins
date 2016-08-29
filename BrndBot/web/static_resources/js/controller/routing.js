@@ -230,3 +230,32 @@ imagesFlowApp.config(function($routeProvider){
     .otherwise({redirectTo: '/baseimagegallery'});
     
 });
+
+franchiseHubApp.config(function($routeProvider){
+    $routeProvider 
+    .when('/managedaccountdash', { 
+                title: 'BrndBot - Account Manager Dashboard',
+                templateUrl: 'managedaccountdash.html'          
+    })
+     
+    .when('/managedaccounts', { 
+                title: 'BrndBot - Managed Accounts',
+                templateUrl: 'managedaccounts.html'          
+    })
+    .when('/pushedemailhistory', { 
+                title: 'BrndBot - Pushed Emails',
+                templateUrl: 'pushedemailhistory.html'          
+    })
+    .when('/pushedemaildetailbase', { 
+                title: 'BrndBot - Pushed Emails',
+                templateUrl: 'pushedemaildetailbase.html'          
+    })
+    
+  
+   
+    .otherwise({title: 'BrndBot - Account Manager Dashboard',redirectTo: '/managedaccountdash'});
+    }).run(function ($rootScope) {
+        $rootScope.$on("$routeChangeSuccess", function (event, currentRoute) {
+            document.title = currentRoute.title;
+        });
+});
