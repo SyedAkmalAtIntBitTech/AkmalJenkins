@@ -4,6 +4,24 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 
+var kGlobalEmailObject = {categoryId: "",
+    subCategoryId: "",
+    lookupId: "",
+    mindbody: "",
+    mindbodyId: "",
+    draftId: "",
+    emailSubject: "",
+    entityScheduleId: "",
+    emailScheduleId: "",
+    toEmailAddresses: "",
+    body: "",
+    emailListName: "",
+    fromName: "",
+    replyToEmailAddress: "",
+    fromAddress: "",
+    preheader: "",
+    htmlBody: ""
+};
 var kGlobalEmailObject = { categoryId : "",
     subCategoryId : "",
     lookupId : "",
@@ -34,6 +52,13 @@ var kGlobalCompanyObject = {
   userEmailId: "",
   userFirstName: "",
   userLastName: ""
-}
+};
 
-
+var kGlobalFbPostDataObject = {imgNameToPost: "",
+    accessToken: "",
+    postText: "",
+    title: "",
+    url: "",
+    description: "",
+    imageType: ""
+};
