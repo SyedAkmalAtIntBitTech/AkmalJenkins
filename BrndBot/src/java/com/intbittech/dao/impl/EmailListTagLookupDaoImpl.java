@@ -7,7 +7,6 @@ package com.intbittech.dao.impl;
 
 import com.intbittech.dao.EmailListTagLookupDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.ContactEmailListLookup;
 import com.intbittech.model.EmailListTagLookup;
 import java.util.List;
 import java.util.Locale;
