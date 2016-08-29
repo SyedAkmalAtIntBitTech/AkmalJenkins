@@ -22,6 +22,37 @@ var kGlobalEmailObject = {categoryId: "",
     preheader: "",
     htmlBody: ""
 };
+var kGlobalEmailObject = { categoryId : "",
+    subCategoryId : "",
+    lookupId : "",
+    mindbody : "",
+    mindbodyId : "",
+    draftId : "",
+    emailSubject : "",
+    entityScheduleId : "",
+    emailScheduleId : "",
+    toEmailAddresses : "",
+    body : "",
+    emailListName : "",
+    fromName : "",
+    replyToEmailAddress : "",
+    fromAddress : "",
+    preheader : "",
+    htmlBody : ""
+    };
+    
+var kGlobalCompanyObject = {
+  userId : "",
+  companyId : "",
+  companyName : "",
+  roleName : "",
+  roleId : "",
+  logourl : "",
+  accountStatus: "",
+  userEmailId: "",
+  userFirstName: "",
+  userLastName: ""
+};
 
 var kGlobalFbPostDataObject = {imgNameToPost: "",
     accessToken: "",

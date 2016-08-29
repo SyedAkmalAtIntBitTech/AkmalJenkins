@@ -2686,6 +2686,7 @@ p.modal-content-header{
 
 .slat-detail .slat-detail-button{
     margin-left: auto;
+    width: 120px;
 }
 
 .slat-detail h2{
@@ -4244,7 +4245,7 @@ img.exit-button {
 }
 .editor-block-slat{
     border: 1px solid #D2D3D5;
-    padding: 5px;
+    padding: 20px 20px;
     border-radius: 3px;
     margin-bottom: 10px;
     line-height: 55px;
@@ -4254,17 +4255,17 @@ img.exit-button {
 }
 
 .editor-block-slat:hover{
-    background-color: #f2f2f4;
+    background-color: #F6F6F8;
     cursor: pointer;
 }
 
 .editor-block-slat-selected{
-    padding: 0px 20px 60px 20px;
+    padding: 20px 20px 60px 20px;
     font-size: 16px;
-    color: #5C627A;
+    color: #444;
     font-weight: 600;
-    border: 2px solid #D2D3D5;
-    background-color: #f9f9f9;
+    border: 1px solid #D2D3D5;
+    background-color: #F6F6F8;
     margin-bottom: 10px;
 }
 .sequence-left-wrap{
@@ -4454,7 +4455,7 @@ textarea.task-textarea:focus{
 .gallery-image-wrap{
     display: flex;
     padding: 30px 30px 0px 30px;
-    flex-wrap: wrap;
+    flex-flow: wrap;
 }
 
 .gallery-pop-up-image-wrap{
@@ -4479,11 +4480,51 @@ textarea.task-textarea:focus{
 }
 
 .gallery-image{
-    width: 200px;
+    width: 187px;
     height: 150px;
 }
 
-
+.editor-add-block-button {
+     background-color: #1EADFC;
+    float: left;
+     color: #FFFFFF;
+     cursor: pointer;
+     border-radius: 3px;
+     padding: 9px 12px;
+     border-radius: 3px;
+     text-align: center;
+     font-size:14px;
+     font-weight: 500;
+     line-height: 14px;
+     margin-top: 10px;
+ }
+ .editor-add-block-button:hover {
+     background-color: #0299EC;
+ }
+ 
+ .block-name{
+     
+ }
+ 
+ .slat-options-dropdown{
+     position:absolute;
+     top:calc(100% + 10px);
+     border-radius: 3px;
+     border: 1px solid #D2D3D5;
+     width: 170px;
+ }
+ 
+ .tinyMCE-image-gallery-content-wrap{
+     height:500px;
+     padding: 0px;
+     overflow: hidden;     
+ }
+ 
+ .gallery-image-content-wrap{
+     overflow-y: scroll;
+     height: 445px;
+ }
+ 
 .imageGallery-container {
     box-sizing: border-box;
     padding-left: 15px;

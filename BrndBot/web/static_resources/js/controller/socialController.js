@@ -597,7 +597,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                     for (var i = 0; i < actionData.length; i++)
                     {
                         var actionObject = {};
-                        actionObject["text"] = actionData[i].schedule_title;
+                        actionObject["text"] = actionData[i].schedule_title+" - "+$filter('date')(new Date(actionData[i].action_date),'MMM-dd-yyyy');
                         actionObject["value"] = actionData[i].id;
                         $scope.ddSelectActionName.push(actionObject);
                     }
@@ -621,7 +621,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                     {
 //                        var actionDate=new Date(actionData[i].schedule_time);
                         var actionObject = {};
-                        actionObject["text"] = actionData[i].schedule_title;
+                        actionObject["text"] = actionData[i].schedule_title+" - "+$filter('date')(new Date(actionData[i].action_date),'MMM-dd-yyyy');
                         actionObject["value"] = actionData[i].id;
                         $scope.ddSelectActionName.push(actionObject);
                     }

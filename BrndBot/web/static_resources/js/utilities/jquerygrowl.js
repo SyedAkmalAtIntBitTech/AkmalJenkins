@@ -251,7 +251,7 @@ Copyright 2015 Kevin Sylvestre
       options = {};
     }
     settings = {
-      title: "Notice!",
+      title: "",
       style: "notice"
     };
     return $.growl($.extend(settings, options));
