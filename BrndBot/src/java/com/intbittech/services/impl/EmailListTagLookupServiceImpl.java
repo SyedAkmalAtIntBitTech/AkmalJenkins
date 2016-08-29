@@ -7,11 +7,8 @@ package com.intbittech.services.impl;
 
 import com.intbittech.dao.EmailListTagLookupDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.ContactEmailListLookup;
-import com.intbittech.model.EmailListTag;
 import com.intbittech.model.EmailListTagLookup;
 import com.intbittech.services.EmailListTagLookupService;
-import com.intbittech.services.EmailListTagService;
 import java.util.Locale;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
