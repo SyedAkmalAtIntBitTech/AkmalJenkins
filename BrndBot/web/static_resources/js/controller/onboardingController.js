@@ -232,7 +232,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 onboardingFactory.saveCompanyPost(JSON.stringify(companyDetails)).then(function (data) {
                     var companyId = data.d.message;
                     if (parseInt(companyId) == 0){
-                        alert("company name already exist, please give some other company name");
+                        growl("company name already exist, please give some other company name");
                     }else {
                         localStorage.setItem("companyId",companyId);
                         //TODO Set the companyId in Auth factory file
@@ -337,7 +337,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                         globalActivation = activation;
                         if (globalActivation === "false")
                         {
-//                            growl("Mindbody not activated, kindly activate mindbody");
+                            growl("Mindbody not activated, kindly activate mindbody");
                             $scope.mindbodyActive = true;
                             return false;
                         } else {

@@ -21,10 +21,10 @@
         <intercept-url pattern="/Access_Denied**" access="permitAll" />
         <intercept-url pattern="/admin**" access="hasRole('ADMIN')" />
         <intercept-url pattern="/user**" access="hasRole('MANAGER')" />
-        <intercept-url pattern="/externalContent/getActivationLink**" access="hasAnyRole('ROLE_ACCOUNT_OWNER','ROLE_MANAGER', 'ROLE_ADMIN', 'ROLE_TEMP_MANAGER', 'ROLE_CREATOR')" />
-        <intercept-url pattern="/settings/setColors**" access="hasAnyRole('ROLE_ACCOUNT_OWNER','ROLE_MANAGER', 'ROLE_ADMIN', 'ROLE_TEMP_MANAGER','ROLE_CREATOR')" />
-        <intercept-url pattern="*.do**" access="hasAnyRole('ROLE_ACCOUNT_OWNER','ROLE_MANAGER', 'ROLE_ADMIN', 'ROLE_TEMP_MANAGER','ROLE_CREATOR')" />
-        <intercept-url pattern="/**" access="hasAnyRole('ROLE_ACCOUNT_OWNER','ROLE_MANAGER', 'ROLE_ADMIN', 'ROLE_TEMP_MANAGER','ROLE_CREATOR')" />
+        <intercept-url pattern="/externalContent/getActivationLink**" access="hasAnyRole('ROLE_ACCOUNT_OWNER','ROLE_MANAGER', 'ROLE_ADMIN', 'ROLE_CREATOR')" />
+        <intercept-url pattern="/settings/setColors**" access="hasAnyRole('ROLE_ACCOUNT_OWNER','ROLE_MANAGER', 'ROLE_ADMIN', 'ROLE_CREATOR')" />
+        <intercept-url pattern="*.do**" access="hasAnyRole('ROLE_ACCOUNT_OWNER','ROLE_MANAGER', 'ROLE_ADMIN', 'ROLE_CREATOR')" />
+        <intercept-url pattern="/**" access="hasAnyRole('ROLE_ACCOUNT_OWNER','ROLE_MANAGER', 'ROLE_ADMIN', 'ROLE_CREATOR')" />
         <form-login login-page="/login" 
                     username-parameter="username"
                     password-parameter="password"
