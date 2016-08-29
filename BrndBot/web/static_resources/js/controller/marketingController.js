@@ -782,21 +782,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $(".emailAutomationFade").show();
                 $scope.emailPreviewPopup = true;
                 var footerData = JSON.parse(data.d.details);
-                if (footerData.userProfile) {
-                    $("#emailFooterPopup").show();
-                } else {
-//                    if (!footerData.userProfile.address) {
-//                        $("#emailFooterPopup").show();
-//                    } else {
-                        $("#email_previewdiv").show();                       
+                if (footerData) 
+                {
+                        $("#email_previewdiv").show();  
 
-                        var companyAddress=footerData.companyAddress[0].addressLine1+"<br/>"+footerData.companyAddress[0].addressLine2+"<br/>"+
-                            footerData.companyAddress[0].city+", "+footerData.companyAddress[0].state+"\t\t"+
-                            footerData.companyAddress[0].zipCode+"<br/>"+footerData.companyAddress[0].country;
-                    
-                        var footer = $scope.userFooter(footerData.userProfile.facebookUrl, footerData.userProfile.twitterUrl,
-                                footerData.userProfile.websiteUrl, footerData.userProfile.instagramUrl,
-                                companyAddress);
+                        var footer = $scope.userFooter(footerData);
                         var sendData = {
                             htmlString: $('#tinymceEditorBody').html() + footer,
                             iframeName: rendomIframeFilename.toString()
@@ -809,7 +799,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                             $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
                             $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
                         });
-//                    }
                     ;
                 }
                 ;
@@ -822,7 +811,16 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $(".emailAutomationFade").hide();
         };
 
-        $scope.userFooter = function (fb, twitter, website, instagram, address) {
+        $scope.userFooter = function (footerData) {
+            var companyAddress="";
+            
+            if(footerData.companyAddress)
+            {
+                companyAddress=footerData.companyAddress[0].addressLine1+"<br/>"+footerData.companyAddress[0].addressLine2+"<br/>"+
+                        footerData.companyAddress[0].city+", "+footerData.companyAddress[0].state+"\t\t"+
+                        footerData.companyAddress[0].zipCode+"<br/>"+footerData.companyAddress[0].country;
+            }
+            
             var returnFooter = "";
             var footer = "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\" bgcolor=\"#EEEEEE\" style=\"border-collapse:collapse;\"><tr><td valign=\"top\"> <center style=\"width: 100%;\"> <div style=\"max-width: 680px;\"> <!--[if (gte mso 9)|(IE)]> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"680\" align=\"center\"> <tr> <td> <![endif]--> <!-- Atom Body: BEGIN --> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" bgcolor=\"#EEEEEE\" width=\"100%\" style=\"max-width: 680px;\"> <tr> <td style=\"padding-top:15px;\" class=\"mobile-padding\"> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" width=\"100%\" style=\"max-width: 300px; background-color:#inherit\" class=\"mobile-padding\"> <tr>";
 
@@ -842,21 +840,20 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
 
             returnFooter = footer;
-            if (fb !== "")
-                returnFooter += footerFB.replace("$$$footerFB$$$", fb);
-            if (twitter !== "" && typeof twitter !== "undefined")
-                returnFooter += footerTwitter.replace("$$$footerTwitter$$$", twitter);
+            if (footerData.fb !== "")
+                returnFooter += footerFB.replace("$$$footerFB$$$", footerData.fb);
+            if (footerData.twitter !== "" && typeof footerData.twitter !== "undefined")
+                returnFooter += footerTwitter.replace("$$$footerTwitter$$$", footerData.twitter);
 
-            if (website !== "" && typeof website !== "undefined")
-                returnFooter += footerWebsite.replace("$$$footerWebsite$$$", website);
+            if (footerData.website !== "" && typeof footerData.website !== "undefined")
+                returnFooter += footerWebsite.replace("$$$footerWebsite$$$", footerData.website);
 
-            if (instagram !== "" && typeof instagram !== "undefined")
-                returnFooter += footerInstagram.replace("$$$footerInstagram$$$", instagram);
+            if (footerData.instagram !== "" && typeof footerData.instagram !== "undefined")
+                returnFooter += footerInstagram.replace("$$$footerInstagram$$$", footerData.instagram);
 
             returnFooter += footerMiddle;
 
-            if (address !== "" && typeof address !== "undefined")
-                returnFooter += footerAddress.replace("$$$footerAddress$$$", address);
+            returnFooter += footerAddress.replace("$$$footerAddress$$$", companyAddress);
 
             returnFooter += footerClose;
 
@@ -1402,28 +1399,13 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         settingsFactory.getAllPreferencesGet().then(function (data) {
                             var footerData = JSON.parse(data.d.details);
                             
-                        var companyAddress=footerData.companyAddress[0].addressLine1+"<br/>"+footerData.companyAddress[0].addressLine2+"<br/>"+
-                            footerData.companyAddress[0].city+", "+footerData.companyAddress[0].state+"\t\t"+
-                            footerData.companyAddress[0].zipCode+"<br/>"+footerData.companyAddress[0].country;
-                    
                             if (!footerData.userProfile) {
                                 $scope.editFooter();
                                 return false;
-//                        $("#emailFooterPopup").show();
-                            } else {
-                                if (!footerData.userProfile.address) {
-                                    $scope.editFooter();
-                                    return false;
-//                            $("#emailFooterPopup").show();
-                                } else {
-                                    var footer = $scope.userFooter(footerData.userProfile.facebookUrl, footerData.userProfile.twitterUrl,
-                                            footerData.userProfile.websiteUrl, footerData.userProfile.instagramUrl,
-                                            companyAddress);
-//                                var sendData = JSON.stringify({
-//                                    htmlString: $('#edit').froalaEditor('html.get') + footer,
-//                                    iframeName: $scope.randomIframeFilename.toString()
-//                                });
-
+                            } else
+                            {
+                                    var footer = $scope.userFooter(footerData);
+                                            
                                     var recurring_action = {
                                         "entity_id": $scope.entityId.toString(),
                                         "template_id": $scope.templateId, "html_data": $scope.froalaHtmlData + footer,
@@ -1448,7 +1430,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //                                            alert("Problem saving the record!","error");
                                         }
                                     });
-                                }
                             }
                         });
                     }

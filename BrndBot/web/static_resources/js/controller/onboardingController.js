@@ -32,6 +32,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.uniqueUser = false;
         $scope.userDetails = {};
         $scope.user = {};
+        $scope.companyData= {};
 
         function validateSignUp()
         {
@@ -172,7 +173,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             });
         };
 
-        $scope.ddSelectOrganization = {
+        $scope.companyData.ddSelectOrganization = {
             text: "Please select an organization"
         };
 
@@ -202,58 +203,58 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             });
         };
 
-        $scope.validationcode = function (companyName,organizationId,addressLine1,addressLine2,city,state,zipcode,country) {
+        $scope.validationCode = function (companyData) {
             
-            if (!companyName) {
-                $scope.companyName = "";
+            if (!companyData.companyName) {
+                $scope.companyData.companyName = "";
                 $("#companyName").focus();
                 return false;
             }
-            else if (!organizationId) {
+            else if (!companyData.ddSelectOrganization.value || companyData.ddSelectOrganization.value === "0") {
                 $scope.organizationValidation = true;
                 return false;
             }
-            else if (!addressLine1) {
-                $scope.addressLine1 = "";
+            else if (!companyData.addressLine1) {
+                $scope.companyData.addressLine1 = "";
                 $("#addressLine1").focus();
                 return false;
             }
-            else if (!addressLine2) {
-                $scope.addressLine2 = "";
+            else if (!companyData.addressLine2) {
+                $scope.companyData.addressLine2 = "";
                 $("#addressLine2").focus();
                 return false;
             }
-            else if (!city) {
-                $scope.city = "";
+            else if (!companyData.city) {
+                $scope.companyData.city = "";
                 $("#city").focus();
                 return false;
             }
-            else if (!state) {
-                $scope.state = "";
+            else if (!companyData.state) {
+                $scope.companyData.state = "";
                 $("#state").focus();
                 return false;
             } 
-            else if (!zipcode) {
-                $scope.zipcode = "";
+            else if (!companyData.zipcode) {
+                $scope.companyData.zipcode = "";
                 $("#zipcode").focus();
                 return false;
             }
-            else if (!country) {
-                $scope.country = "";
+            else if (!companyData.country) {
+                $scope.companyData.country = "";
                 $("#country").focus();
                 return false;
             }
             return true;
         };
 
-        $scope.saveCompany = function (companyName,organizationId,addressLine1,addressLine2,city,state,zipcode,country) {
-            $scope.companyName = companyName;
-            $scope.organizationId = organizationId;
-            if ($scope.validationcode(companyName,organizationId,addressLine1,addressLine2,city,state,zipcode,country))
+        $scope.saveCompany = function (companyData) {
+            $scope.companyName = companyData.companyName;
+            $scope.organizationId = companyData.ddSelectOrganization.value;
+            if ($scope.validationCode(companyData))
             { 
                 var userIdvalue = localStorage.getItem("userId");
-                var companyDetails = {"userId":userIdvalue, "companyName": companyName, "organizationId": organizationId};
-                var companyAddress = {"addressLine1":addressLine1,"addressLine2":addressLine2,"city":city,"state":state,"zipcode":zipcode,"country":country};
+                var companyDetails = {"userId":userIdvalue, "companyName": $scope.companyName, "organizationId": $scope.organizationId};
+                var companyAddress = {"addressLine1":companyData.addressLine1,"addressLine2":companyData.addressLine2,"city":companyData.city,"state":companyData.state,"zipcode":companyData.zipcode,"country":companyData.country};
                 onboardingFactory.saveCompanyPost(companyDetails).then(function (data) {
                     var companyId = data.d.message;
                     localStorage.setItem("companyId",companyId);
