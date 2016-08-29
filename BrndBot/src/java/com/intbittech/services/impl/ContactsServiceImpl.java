@@ -6,7 +6,6 @@
 package com.intbittech.services.impl;
 
 import com.intbittech.dao.ContactsDao;
-import com.intbittech.dao.GlobalFontsDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Contacts;
 import com.intbittech.services.ContactsService;

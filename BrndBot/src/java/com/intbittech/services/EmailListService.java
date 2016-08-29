@@ -5,10 +5,12 @@
  */
 package com.intbittech.services;
 
+import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.CompanyPreferences;
+import com.intbittech.model.EmailList;
 import java.util.Map;
 /**
- * <code>{@link CategoryService}</code> is service layer interface for
+ * <code>{@link EmailListService}</code> is service layer interface for
  * communicating between Controller and DAO classes
  *
  * @author Ajit
@@ -20,4 +22,41 @@ public interface EmailListService {
     public Boolean setEmailList(Map<String, Object> requestBodyMap, Integer companyId) throws Exception;
 
     public void updateUnsubscribedUserEmailLists(CompanyPreferences companyPreferences);
+    
+     /**
+     * This method pass id as input and get the {@link EmailList} from DAO
+     * layer.
+     *
+     * @param emailListId the emailListId
+     * @return {@link EmailList}
+     * @throws ProcessFailed the process failed
+     */
+    public EmailList getByEmailListId(Integer emailListId) throws ProcessFailed;
+    
+    /**
+     * This method save {@link EmailList} into the database.
+     *
+     * @param emailList the emailList
+     * @return the Integer
+     * @throws ProcessFailed the process failed
+     */
+    public Integer save(EmailList emailList) throws ProcessFailed;
+
+    /**
+     * This method update {@link EmailList} updates existing data from the
+     * database.
+     *
+     * @param emailList the emailList
+     * @throws ProcessFailed the process failed
+     */
+    public void update(EmailList emailList) throws ProcessFailed;
+
+    /**
+     * This method delete particular {@link EmailList} based on the
+     * contacts from the database.
+     *
+     * @param emailListId the emailListId
+     * @throws ProcessFailed the process failed
+     */
+    public void delete(Integer emailListId) throws ProcessFailed;
 }
