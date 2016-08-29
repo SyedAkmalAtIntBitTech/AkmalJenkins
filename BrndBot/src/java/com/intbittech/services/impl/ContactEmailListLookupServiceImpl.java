@@ -22,13 +22,13 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional(rollbackFor = ProcessFailed.class)
-public class ContactEmailListLookupServiceImpl implements ContactEmailListLookupService{
-    
+public class ContactEmailListLookupServiceImpl implements ContactEmailListLookupService {
+
     private static Logger logger = Logger.getLogger(ContactEmailListLookupServiceImpl.class);
-    
+
     @Autowired
     private ContactEmailListLookupDao contactEmailListLookupDao;
-    
+
     @Autowired
     private MessageSource messageSource;
 
@@ -37,8 +37,9 @@ public class ContactEmailListLookupServiceImpl implements ContactEmailListLookup
      */
     public ContactEmailListLookup getByContactEmailListLookupId(Integer contactEmailListLookupId) throws ProcessFailed {
         ContactEmailListLookup contactEmailListLookup = contactEmailListLookupDao.getByContactEmailListLookupId(contactEmailListLookupId);
-        if(contactEmailListLookup == null)
-            throw new ProcessFailed(messageSource.getMessage("contact_email_list_tag_not_found",new String[]{}, Locale.US));
+        if (contactEmailListLookup == null) {
+            throw new ProcessFailed(messageSource.getMessage("contact_email_list_tag_not_found", new String[]{}, Locale.US));
+        }
         return contactEmailListLookup;
     }
 
@@ -61,9 +62,10 @@ public class ContactEmailListLookupServiceImpl implements ContactEmailListLookup
      */
     public void delete(Integer contactEmailListLookupId) throws ProcessFailed {
         ContactEmailListLookup contactEmailListLookup = contactEmailListLookupDao.getByContactEmailListLookupId(contactEmailListLookupId);
-        if(contactEmailListLookup == null)
-            throw new ProcessFailed(messageSource.getMessage("contact_email_list_tag_not_found",new String[]{}, Locale.US));
+        if (contactEmailListLookup == null) {
+            throw new ProcessFailed(messageSource.getMessage("contact_email_list_tag_not_found", new String[]{}, Locale.US));
+        }
         contactEmailListLookupDao.delete(contactEmailListLookup);
     }
 
-  }
+}

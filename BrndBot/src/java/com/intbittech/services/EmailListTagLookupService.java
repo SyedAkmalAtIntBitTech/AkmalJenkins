@@ -48,10 +48,10 @@ public interface EmailListTagLookupService {
      * This method delete particular {@link EmailListTagLookup} based on the
      * EmailListTagLookup from the database.
      *
-     * @param emailListTagLookup the emailListTagLookup
+     * @param emailListTagLookupId the emailListTagLookupId
      * @throws ProcessFailed the process failed
      */
-    public void delete(EmailListTagLookup emailListTagLookup) throws ProcessFailed;
+    public void delete(Integer emailListTagLookupId) throws ProcessFailed;
     
     
     
