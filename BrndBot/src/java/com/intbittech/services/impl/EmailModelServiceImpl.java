@@ -10,6 +10,7 @@ import com.intbittech.AppConstants;
 import com.intbittech.controller.ModelController;
 import com.intbittech.dao.EmailBlockModelDao;
 import com.intbittech.dao.EmailModelDao;
+import com.intbittech.dao.RecurringEmailTemplateDao;
 import com.intbittech.dao.SubCategoryEmailModelDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.externalcontent.ExternalContentProcessor;
@@ -17,6 +18,7 @@ import com.intbittech.model.Company;
 import com.intbittech.model.EmailBlockModel;
 import com.intbittech.model.EmailModel;
 import com.intbittech.model.ExternalSourceKeywordLookup;
+import com.intbittech.model.RecurringEmailTemplate;
 import com.intbittech.model.SubCategoryEmailModel;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.EmailModelService;
@@ -53,6 +55,9 @@ public class EmailModelServiceImpl implements EmailModelService {
 
     @Autowired
     private EmailBlockModelDao emailBlockModelDao;
+    
+    @Autowired
+    private RecurringEmailTemplateDao recurringEmailTemplateDao;
 
     @Autowired
     private ExternalSourceKeywordLookupService externalSourceKeywordLookupService;
@@ -127,13 +132,18 @@ public class EmailModelServiceImpl implements EmailModelService {
     }
 
     @Override
-    public String getLayoutEmail(Boolean isBlock, Integer emailModelId, String hostURL, Integer companyId, ExternalSourceKeywordLookup externalSourceKeywordLookup, Integer externalDataId, Map<String, Object> data) throws ProcessFailed {
+    public String getLayoutEmail(Boolean isBlock, Integer emailModelId, String hostURL, Integer companyId, ExternalSourceKeywordLookup externalSourceKeywordLookup, Integer externalDataId, Map<String, Object> data, Boolean isRecurring) throws ProcessFailed {
         String responseHTML = "";
         try {
             String dataHTML = "";
             if (!isBlock) {
+                if(!isRecurring) {
                 EmailModel emailModel = getByEmailModelId(emailModelId);
                 dataHTML = emailModel.getHtmlData();
+                } else {
+                    RecurringEmailTemplate recurringEmailTemplate = recurringEmailTemplateDao.getRecurringEmailTemplateById(emailModelId);
+                    dataHTML = recurringEmailTemplate.getHtmlData();
+                }
             } else {
                 EmailBlockModel emailBlockModel = emailBlockModelDao.getByEmailBlockModelId(emailModelId);
                 dataHTML = emailBlockModel.getHtmlData();

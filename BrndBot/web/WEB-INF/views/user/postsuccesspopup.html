@@ -2,7 +2,8 @@
 <div class="background-pop-up">
     <div class="modal-pane modal-pane-width-reg">
         <div class="success-modal">
-            <img class="success-icon" type="image/svg+xml" src="/BrndBot/images/Valid-Check.svg"><img>
+            <img ng-show="postedTo == 'Twitter' || postedTo == 'Facebook'" class="success-icon"   src="/BrndBot/images/success-post-postsched.svg"/>
+            <img ng-show="postedTo == 'Email'" class="success-icon"   src="/BrndBot/images/success-post-emailsched.svg"/>
             <h2>{{postedTo}} Scheduled Successful</h2>
             <p>Your {{postedTo}} has been successfully scheduled to an action</p>
         </div>

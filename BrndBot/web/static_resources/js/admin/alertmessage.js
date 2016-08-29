@@ -195,6 +195,12 @@ var enterFranchiseName="Please enter Franchise Name!";
 //VALIDATION
 
 var companyValidation = "Please enter your Company name";
+var addressLine1Validation = "Please enter your Address Line 1";
+var addressLine2Validation = "Please enter your Address Line 2";
+var cityValidation = "Please enter your City";
+var stateValidation = "Please enter your State";
+var zipcodeValidation = "Please enter your zipcode";
+var countryValidation = "Please enter your Country";
 var dropdownValidation = "Please select your Organization";
 var colorValidation = "Please choose all four colors";
 var studioIdValidation = "No studio id entered, kindly enter the studio id";

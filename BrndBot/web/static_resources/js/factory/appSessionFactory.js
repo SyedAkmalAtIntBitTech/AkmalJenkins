@@ -1,155 +1,29 @@
 //************************ @author Syed Ilyas @ Intbit *************************
 
-var kSessionCategoryId = "categoryId";
-var kSessionSubCategoryId = "subCategoryId";
-var kSessionLookupId = "lookupId";
-var kSessionExternalSourceName = "mindbody";
-var kSessionMindbodyId = "mindbodyId";
-var kSessionDraftId = "draftId";
-var kSessionEmailSubject = "emailSubject";
-var kSessionEntityScheduleId = "entityScheduleId";
-var kSessionEmailScheduleId = "email_Schedule_Id";
-var kSessionToEmailAddresses = "to_email_addresses";
-var kSessionEmailBody = "body";
-var kSessionEmailListName = "email_list_name";
-var kSessionFromName = "from_name";
-var kSessionReplyToEmailAddress = "reply_to_email_address";
-var kSessionFromAddress = "from_address";
-var kSessionPreHeader = "preHeader";
-var kSessionEmailDraftData= "emailDraftData";
-var kSessionHtmlBody="htmlBody";
-
-function getHtmlBody(){
-    return kSessionHtmlBody;
-}
-
-function getCategoryId(){
-    return kSessionCategoryId;
-}
-
-function getSubCategoryId(){
-    return kSessionSubCategoryId;
-}
-
-function getLookupId(){
-    return kSessionLookupId;
-}
-
-function getExternalSourceName(){
-    return kSessionExternalSourceName;
-}
-
-function getMindbodyId(){
-    return kSessionMindbodyId;
-}
-
-function getDraftId(){
-    return kSessionDraftId;
-}
-
-function getEmailSubject(){
-    return kSessionEmailSubject;
-}
-
-function getEntityScheduleId() {
-    return kSessionEntityScheduleId;
-}
-
-function getEmailScheduleId(){
-    return kSessionEmailScheduleId;
-}
-function getPreHeader(){
-    return kSessionPreHeader;
-}
-function getDraftDetails(){
-    return kSessionEmailDraftData;
-}
-function getToEmailAddresses(){
-    return kSessionToEmailAddresses;
-}
-
-function getEmailBody() {
-    return kSessionEmailBody;
-}
-
-function getEmailListName() {
-    return kSessionEmailListName;
-}
-
-function getFromName() {
-    return kSessionFromName;
-}
-
-function getReplyToEmailAddress() {
-    return kSessionReplyToEmailAddress;
-}
-
-function getFromAddress() {
-    return kSessionFromAddress;
-}
-
-
 factoryApp.factory('appSessionFactory', function ($q) {
     var AppSessionFactoryObject = {};
     
     //namespace details
     var emailObjectName = "email";
-    var email = { };
-    AppSessionFactoryObject.setEmail = function (key, value) {
+    var companyObjectName = "companyDetails";
+    var dashboardMessageVarName = "dashboardMessage";
+    
+    
+    AppSessionFactoryObject.setEmail = function (emailObject) {
         var deffered = $q.defer();
         var data = false;
-        if(key && value)
+        if(emailObject)
         {
-//            var keyString = email+"."+key;
-            var emailLocalObject = JSON.parse(localStorage.getItem(emailObjectName));
-            if(emailLocalObject){
-                email = emailLocalObject;
-            }
-            email[key] = value
-            localStorage.setItem(emailObjectName,JSON.stringify(email));
+            localStorage.setItem(emailObjectName,JSON.stringify(emailObject));
             data = true;
         }
         deffered.resolve(data);
         return deffered.promise;
     };
     
-    AppSessionFactoryObject.setEmailWithObject = function (object) {
+    AppSessionFactoryObject.getEmail = function () {
         var deffered = $q.defer();
-        var data = false;
-        if(object)
-        {
-//            var keyString = email+"."+key;
-            var emailLocalObject = JSON.parse(localStorage.getItem(emailObjectName));
-            if(emailLocalObject){
-                email = emailLocalObject;
-            }
-            email = object;
-            localStorage.setItem(emailObjectName,JSON.stringify(email));
-            data = true;
-        }
-        deffered.resolve(data);
-        return deffered.promise;
-    };
-    
-    AppSessionFactoryObject.getEmail = function (key) {
-        var deffered = $q.defer();
-        var requestedValue = "";
-        if(key)
-        {
-            var emailLocalObject = JSON.parse(localStorage.getItem(emailObjectName));
-            if(emailLocalObject){
-                var value = emailLocalObject[key];
-                if(value)
-                    requestedValue = value;
-            }
-        }
-        deffered.resolve(requestedValue);
-        return deffered.promise;
-    };
-    
-    AppSessionFactoryObject.getAllEmail = function () {
-        var deffered = $q.defer();
-        var requestedValue;
+        var requestedValue = kGlobalEmailObject;
         
             var emailLocalObject = JSON.parse(localStorage.getItem(emailObjectName));
             if(emailLocalObject){
@@ -160,24 +34,81 @@ factoryApp.factory('appSessionFactory', function ($q) {
         return deffered.promise;
     };
     
-    AppSessionFactoryObject.clearAllEmail = function () {
+    AppSessionFactoryObject.clearEmail = function () {
         var deffered = $q.defer();
         var data = true;
         localStorage.removeItem(emailObjectName);
         deffered.resolve(data);
         return deffered.promise;
     };
-    AppSessionFactoryObject.clearKeyEmail = function (key) {
+    
+    
+    AppSessionFactoryObject.setCompany = function (companyObject) {
         var deffered = $q.defer();
-        var data = true;
-        var emailLocalObject = JSON.parse(localStorage.getItem(emailObjectName));
-        if(emailLocalObject){
-            if(emailLocalObject[key])
-                emailLocalObject[key] = "";
-            localStorage.setItem(emailObjectName,JSON.stringify(emailLocalObject));
+        var data = false;
+        if(companyObject)
+        {
+            localStorage.setItem(companyObjectName,JSON.stringify(companyObject));
+            data = true;
         }
         deffered.resolve(data);
         return deffered.promise;
     };
+    
+    AppSessionFactoryObject.getCompany = function () {
+        var deffered = $q.defer();
+        var requestedValue = kGlobalCompanyObject;
+        
+            var companyLocalObject = JSON.parse(localStorage.getItem(companyObjectName));
+            if(companyLocalObject){
+               requestedValue = companyLocalObject;
+            }
+        
+        deffered.resolve(requestedValue);
+        return deffered.promise;
+    };
+    
+    AppSessionFactoryObject.clearCompany = function () {
+        var deffered = $q.defer();
+        var data = true;
+        localStorage.removeItem(companyObjectName);
+        deffered.resolve(data);
+        return deffered.promise;
+    };
+    
+    AppSessionFactoryObject.setDashboardMessage = function (message) {
+        var deffered = $q.defer();
+        var data = false;
+        if(message)
+        {
+            localStorage.setItem(dashboardMessageVarName,message);
+            data = true;
+        }
+        deffered.resolve(data);
+        return deffered.promise;
+    };
+    
+    AppSessionFactoryObject.getDashboardMessage = function () {
+        var deffered = $q.defer();
+        var requestedValue = "";
+        
+            var sessionMessage = localStorage.getItem(dashboardMessageVarName);
+            if(sessionMessage){
+               requestedValue = sessionMessage;
+            }
+        
+        deffered.resolve(requestedValue);
+        return deffered.promise;
+    };
+    
+    AppSessionFactoryObject.clearDashboardMessage = function () {
+        var deffered = $q.defer();
+        var data = true;
+        localStorage.removeItem(dashboardMessageVarName);
+        deffered.resolve(data);
+        return deffered.promise;
+    };
+    
+    
     return AppSessionFactoryObject;
 });

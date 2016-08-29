@@ -28,6 +28,15 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
                 $scope.userLastName = companyDetails.userLastName;
                 $scope.userRole = companyDetails.roleName; 
                 $scope.logourl = companyDetails.logourl;
+                appSessionFactory.getDashboardMessage().then(function(message){
+                    if(message)
+                    {
+                        growl(message);
+                        appSessionFactory.clearDashboardMessage().then(function(message){
+                            
+                        });
+                    }
+                });
             });
         };
         
@@ -73,7 +82,7 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
         };
         $scope.redirectToEmailFlow = function(forwardone)
         {
-            appSessionFactory.clearAllEmail().then(function(checkCleared){
+            appSessionFactory.clearEmail().then(function(checkCleared){
             redirectFactory.redirectFlowTo(forwardone);
             $window.location = getHost()+"user/"+forwardone;
             var emailsubject=$scope.emailsubject;

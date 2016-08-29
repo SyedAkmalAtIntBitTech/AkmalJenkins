@@ -4,11 +4,11 @@
         height: 100px;
         margin: auto;
     }
-    input[type=file] {
+/*    input[type=file] {
         width: 500px;
         height: 100px;
         background: orange;
-    }
+    }*/
 </style>
 <div class="sequence-content-wrap">
     <div class="top-nav-wrap top-nav-wrap-sequence">
@@ -37,8 +37,8 @@
                     <span class="validationAlert" ng-if='myFile === "" || null'>{{logoValidation}}</span>
                     <div class="upload-icon-button-wrap">
                         <p>or</p>
-                        <a id="triggerFile" class="reg-button gray-button">Browse your files</a>
-                        <input type="file" fileread="uploadme.src" file-model="myFile" class="Add_Button Button--Gray logoUpload--button upload fileupld inputhide" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">
+                        <label for="logoUpload" id="triggerFile" class="reg-button gray-button">Browse your files</label>
+                        <input hidden="" id="logoUpload" type="file" fileread="uploadme.src" file-model="myFile" class="Add_Button Button--Gray logoUpload--button upload fileupld inputhide" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">
 
                     </div>
                 </div>

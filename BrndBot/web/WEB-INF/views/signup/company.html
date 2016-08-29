@@ -24,19 +24,61 @@
                 <div class="input-wrap onboarding">
                     <label> Company Name </label>
                     <div class="input">
-                        <input class="fluid" id="companyName" ng-model="companyName" placeholder="Company Name"></input>
+                        <input class="fluid" id="companyName" ng-model="companyData.companyName" placeholder="Company Name"></input>
                     </div>
-                    <span class="validationAlert" ng-if='companyName == "" || null' id="companyValidation">{{companyValidation}}</span>
+                    <span class="validationAlert" ng-if='companyData.companyName == "" || null' id="companyValidation">{{companyValidation}}</span>
                     
                     <p class="input-wrap-label"> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
-                </div>
+                </div>                
                <div class="input-wrap onboarding">
                     <label> Please select an Organization</label>
                     <div class="input">
-                           <div dropdown-select="ddSelectOrganizationOptions" dropdown-onchange="selectedOrganization(selected)" value="{{ddSelectOrganization}}" dropdown-model="ddSelectOrganization"></div>
+                           <div dropdown-select="ddSelectOrganizationOptions" dropdown-onchange="selectedOrganization(selected)" value="{{companyData.ddSelectOrganization}}" dropdown-model="companyData.ddSelectOrganization"></div>
                     </div>
                     <span class="validationAlert" ng-if="organizationValidation">{{dropdownValidation}}</span>
 
+                </div>
+                <div class="input-wrap onboarding">
+                    <label>Address Line-1</label>
+                    <div class="input">
+                        <input class="fluid" id="addressLine1" ng-model="companyData.addressLine1" placeholder="Address Line1"></input>
+                    </div>
+                    <span class="validationAlert" ng-if='companyData.addressLine1 == "" || null' id="addressLine1Validation">{{addressLine1Validation}}</span>
+                </div>
+                <div class="input-wrap onboarding">
+                    <label>Address Line-2</label>
+                    <div class="input">
+                        <input class="fluid" id="addressLine2" ng-model="companyData.addressLine2" placeholder="Address Line2"></input>
+                    </div>
+                    <span class="validationAlert" ng-if='companyData.addressLine2 == "" || null' id="addressLine2Validation">{{addressLine2Validation}}</span>
+                </div>
+                <div class="input-wrap onboarding">
+                    <label>City</label>
+                    <div class="input">
+                        <input class="fluid" id="city" ng-model="companyData.city" placeholder="city"></input>
+                    </div>
+                    <span class="validationAlert" ng-if='companyData.city == "" || null' id="cityValidation">{{cityValidation}}</span>
+                </div>
+                <div class="input-wrap onboarding">
+                    <label>State</label>
+                    <div class="input">
+                        <input class="fluid" id="state" ng-model="companyData.state" placeholder="state"></input>
+                    </div>
+                    <span class="validationAlert" ng-if='companyData.state == "" || null' id="stateValidation">{{stateValidation}}</span>
+                </div>
+                <div class="input-wrap onboarding">
+                    <label>Zipcode</label>
+                    <div class="input">
+                        <input class="fluid" id="zipcode" ng-model="companyData.zipcode" placeholder="zipcode"></input>
+                    </div>
+                    <span class="validationAlert" ng-if='companyData.zipcode == "" || null' id="zipcodeValidation">{{zipcodeValidation}}</span>
+                </div>
+                <div class="input-wrap onboarding">
+                    <label>Country</label>
+                    <div class="input">
+                        <input class="fluid" id="country" ng-model="companyData.country" placeholder="country"></input>
+                    </div>
+                    <span class="validationAlert" ng-if='companyData.country == "" || null' id="countryValidation">{{countryValidation}}</span>
                 </div>
             </div>
             
@@ -46,6 +88,6 @@
 
 </div>
 <div class="continue-bar sequence-continue-bar">
-    <a id="continue-bar-button" ng-click="saveCompany(companyName,ddSelectOrganization.value)" class="fright">CONTINUE</a>
+    <a id="continue-bar-button" ng-click="saveCompany(companyData)" class="fright">CONTINUE</a>
 </div>
 </body>

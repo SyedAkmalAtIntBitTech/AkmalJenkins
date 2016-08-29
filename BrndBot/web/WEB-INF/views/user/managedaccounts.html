@@ -26,9 +26,16 @@
                                 <p>Status</p>
                             </div>
                         </div>
-                        <div class="slat-detail-wrap">
-                            <div class="slat-detail">
-                              <a class="reg-button gray-button slat-detail-button" href="">View Account Details</a>
+                         <div class="slat-detail-wrap">
+                            <div class="slat-detail" style="position:relative">
+                              <a class="reg-button gray-button slat-detail-button" ng-click="managedAccountSlatOptions = true" >View Account Details</a>
+                              <!-- This will be a dropdown that pops up to show account details, yet to be styled.-->
+                              <div ng-show="managedAccountSlatOptions" class="slat-options-dropdown">
+                                  <!-- This will be a link to another page yet to be designed-->
+                                  <a>View Account Details</a>
+                                  
+                                  <a>Remove Account</a>
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -40,4 +47,3 @@
         
         
     </div>
-</div

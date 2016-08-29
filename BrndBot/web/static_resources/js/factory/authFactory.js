@@ -61,6 +61,12 @@ factoryApp.factory('authenticatedServiceFactory', function ($http, $q) {
                     deffered.resolve(putData.data);
                 }, function (error) {
                 });
+            } else if (methodType === "DELETE"){
+                data = dataWithUserAndCompanyId(data);
+                $http.delete(URL, data, config).then(function (putData) {
+                    deffered.resolve(putData.data);
+                }, function (error) {
+                });
             }
         }
 //        else if (methodType === "DELETE") {

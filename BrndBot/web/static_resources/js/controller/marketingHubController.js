@@ -220,9 +220,17 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             });
         };
         $scope.editDrafts = function (draft_id, category_id, email_subject, sub_category_id, mindbodyId, lookupId) {
-            var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id,
-                "sub_category_id": sub_category_id, "mindbodyId": mindbodyId, "lookupId": lookupId};
-                appSessionFactory.setEmail(getDraftDetails(),draftdetails).then(function(data){
+            kGlobalEmailObject.draftId = draft_id;
+            kGlobalEmailObject.categoryId = category_id;
+            kGlobalEmailObject.emailSubject = email_subject;
+            kGlobalEmailObject.subCategoryId = sub_category_id;
+            kGlobalEmailObject.mindbodyId = mindbodyId;
+            kGlobalEmailObject.lookupId = lookupId;
+//            var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id,
+//                "sub_category_id": sub_category_id, "mindbodyId": mindbodyId, "lookupId": lookupId};
+                appSessionFactory.clearEmail().then(function(data){
+                    appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
+                    });
                 });
 //            localStorage.setItem("emailDraftData", JSON.stringify(draftdetails));
             emailDraftFactory.getEmailDraftGet(draft_id).then(function (data) {
@@ -300,19 +308,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             });
         };
 
-        $scope.emailFooterValidation = function (company) {
-            if (!company.address) {
-                $scope.company = {address: ""};
-                $("#company_address").focus();
-                return false;
-            }
-            return true;
-        };
+        
 
-        $scope.changeFooterDetails = function (company) {
-            var footerAddress = "";
-            if (company.address)
-                footerAddress = company.address;
+        $scope.changeFooterDetails = function (company) {            
             var footerWebsiteUrl = "";
             if (company.websiteUrl)
                 footerWebsiteUrl = company.websiteUrl;
@@ -325,9 +323,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             var footerInstagramUrl = "";
             if (company.instagramUrl)
                 footerInstagramUrl = company.instagramUrl;
-            if ($scope.emailFooterValidation(company))
+            else
             {
-                var footerPopupDetails = {"facebookUrl": footerFacebookUrl, "twitterUrl": footerTwitterUrl, "instagramUrl": footerInstagramUrl, "websiteUrl": footerWebsiteUrl, "address": footerAddress};
+                var footerPopupDetails = {"facebookUrl": footerFacebookUrl, "twitterUrl": footerTwitterUrl, "instagramUrl": footerInstagramUrl, "websiteUrl": footerWebsiteUrl};
                 $scope.emailFooterPopupDetails = false;
                 $scope.getFooterDetails();
                 settingsFactory.setFooterPost(footerPopupDetails).then(function (data) {
