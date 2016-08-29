@@ -2,6 +2,8 @@
 
 factoryApp.factory('rulesEngineFactory', ['$q','appSessionFactory', function ($q, appSessionFactory) {
     var RulesEngineFactoryObject = {};
+    
+    //Roles Constants go here
     var creatorRoleConstant = "Creator";
     var managerRoleConstant = "Manager";
     
