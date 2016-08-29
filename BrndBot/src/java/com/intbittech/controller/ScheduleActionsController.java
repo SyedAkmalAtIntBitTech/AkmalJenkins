@@ -264,9 +264,9 @@ public class ScheduleActionsController {
             }
         }
 
-        if (!MapUtility.mapContainsKey(requestBody, "token_data")) {
-            errorMsgs.add("token_data JSON is missing");
-        }
+//        if (!MapUtility.mapContainsKey(requestBody, "token_data")) {
+//            errorMsgs.add("token_data JSON is missing");
+//        }
 
         if (!MapUtility.mapContainsKey(requestBody, "metadata")) {
             errorMsgs.add("metadata JSON is missing");

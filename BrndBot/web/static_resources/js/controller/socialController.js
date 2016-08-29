@@ -85,7 +85,6 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                                 $window.location = data.d.details[0];
                             });
                         } else {
-                            $rootScope.CurrentFbAccessToken = fbAccessToken[0];
                             $rootScope.FbProfileName = fbAccessToken[1];
                             $rootScope.CurrentFbPageName = fbAccessToken[2];
 
@@ -188,7 +187,6 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             $scope.facebookActions = true;
             var data = {
                 imageToPost: $scope.selectImageName,
-                accessToken: $rootScope.CurrentFbAccessToken,
                 postText: fbPostData.shareText,
                 title: fbPostData.linkTitle,
                 url: fbPostData.url,
@@ -496,7 +494,6 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                     }
                     data = {
                         imageToPost: kGlobalFbPostDataObject.imgNameToPost,
-                        accessToken: $rootScope.CurrentFbAccessToken,
                         postText: kGlobalFbPostDataObject.postText,
                         title: linktitle,
                         url: kGlobalFbPostDataObject.url,
@@ -545,23 +542,6 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 }
             }
         };
-        $scope.schedulePostToSocialMedia = function (selectedSocialmedia, postData) {
-            if (selectedSocialmedia === "facebook") {
-                var data = {
-                    imageToPost: $scope.selectImageName,
-                    accessToken: $rootScope.CurrentFbAccessToken,
-                    postText: postData.shareText,
-                    title: postData.linkTitle,
-                    url: postData.url,
-                    description: postData.linkDescription,
-                    imageType: $scope.selectImageType
-                };
-                //To Do facebook schedule post
-            } else if (selectedSocialmedia === "twitter") {
-                //To Do twitter schedule post
-            }
-        };
-
         $scope.hidePopup = function (popupName) {
             if (popupName === "sendOrSchedulePopup") {
                 $scope.postTypeSelectionPopUp = false;
@@ -731,7 +711,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 
         $scope.schedulePostValidation = function () {
             if ($scope.createNewActionPopup) {
-                var schedule_title = $scope.actionName;;
+                var schedule_title = $("#ActionName").val();
                 var schedule_date = $("#actionDate").val();
                 var schedule_time = $("#actionTime").val().replace(/ /g, '');
                 var actionName = schedule_title;
@@ -810,9 +790,6 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                         program_id: $scope.selectedMarketingProgram.toString(),
                         schedule_id: $scope.socialAction.toString(),
                         image_type: kGlobalFbPostDataObject.imageType,
-                        token_data: {
-                            access_token: $rootScope.CurrentFbAccessToken
-                        },
                         metadata: {
                             description: '"' + linkDescription + '"',
                             post_text: '"' + shareText + '"',
@@ -822,7 +799,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                         }
                     };
                 } else {
-                    var schedule_title = $scope.actionName;;
+                    var schedule_title = $("#ActionName").val();
                     var schedule_date = $("#actionDate").val();
                     var schedule_time = $("#actionTime").val().replace(/ /g, '');
                     var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
@@ -843,15 +820,11 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                         "schedule_desc": "",
                         "type": getfacebook(),
                         "image_name": kGlobalFbPostDataObject.imgNameToPost,
-                        "accessToken": $rootScope.CurrentFbAccessToken,
                         "postText": shareText,
                         "title": linkTitle,
                         "url": shareUrl,
                         "description": linkDescription,
                         "image_type": kGlobalFbPostDataObject.imageType,
-                        token_data: {
-                            "access_token": $rootScope.CurrentFbAccessToken
-                        },
                         metadata: {
                             description: '"' + linkDescription + '"',
                             post_text: '"' + shareText + '"',
@@ -913,7 +886,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 //                                window.location = "dashboard";
                             });
                         } else {
-                            var schedule_title = $scope.actionName;
+                            var schedule_title = $("#ActionName").val();
                             var schedule_date = $("#actionDate").val();
                             var schedule_time = $("#actionTime").val().replace(/ /g, '');
                             var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
@@ -976,7 +949,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 //                            window.location = "dashboard";
                         });
                     } else {
-                        var schedule_title = $scope.actionName;;
+                        var schedule_title = $("#ActionName").val();
                         var schedule_date = $("#actionDate").val();
                         var schedule_time = $("#actionTime").val().replace(/ /g, '');
                         var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
