@@ -5158,6 +5158,11 @@ textarea.task-textarea:focus{
      margin-right: 0px !important;
 }
 
+.sentEmailDetailsPopupClass{
+     display: block;
+     margin-right: 0px !important;
+}
+
 #email_previewdiv {
     position: fixed;
     margin-top: 5%;

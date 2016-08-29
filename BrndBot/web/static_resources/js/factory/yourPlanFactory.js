@@ -51,5 +51,13 @@ factoryApp.factory('yourPlanFactory', function ($q, authenticatedServiceFactory,
         });
         return deffered.promise;
     };   
+    yourPlanFactoryObject.getSentEmailDetails = function (scheduleId) {
+        var deffered = $q.defer();
+        var url = configurationService.getSentEmailDetailsURL()+"?schedule_id="+scheduleId;
+        authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    }; 
     return yourPlanFactoryObject;
 });

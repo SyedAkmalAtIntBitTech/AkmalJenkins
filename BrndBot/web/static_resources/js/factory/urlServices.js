@@ -774,6 +774,10 @@ factoryApp.service('configurationService', function () {
     this.postToSocialURL = function () {
         return getHost() + "PostToSocial";
     };
+    
+    this.getSentEmailDetailsURL = function () {
+        return getHost() + "getSentEmailDetails";
+    };
 
     //*****************loginFactory********************
 

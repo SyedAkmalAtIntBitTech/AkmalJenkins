@@ -325,6 +325,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.closePopup = function () {
+            $scope.sentEmailDetailsPopupClass = '';
             $scope.reminderSectionClass = '';
             $scope.emailsectionClass = '';
             $scope.fadeClass = '';
@@ -928,6 +929,16 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             
         };
         
+        $scope.getSentEmailDetails = function (scheduleId){
+            yourPlanFactory.getSentEmailDetails(scheduleId).then(function (sentEmailData){
+                $scope.sentEmailDetails = sentEmailData.d.details[0];
+                var iframe = document.getElementById('sentEmailIframe');
+                iframe.contentDocument.body.innerHTML = sentEmailData.d.details[0].htmlData;
+                $scope.fadeClass = 'fadeClass';
+                $scope.sentEmailDetailsPopupClass = 'sentEmailDetailsPopupClass';
+                $scope.savedReminderTab = true;
+            });
+        };
     }]);
 
        
