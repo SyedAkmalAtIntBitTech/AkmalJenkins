@@ -31,7 +31,7 @@ public class ContactsDaoImpl implements ContactsDao {
     private static Logger logger = Logger.getLogger(ContactsDaoImpl.class);
     @Autowired
     private SessionFactory sessionFactory;
-        @Autowired
+    @Autowired
     private MessageSource messageSource;
      /**
      * {@inheritDoc}
@@ -49,7 +49,7 @@ public class ContactsDaoImpl implements ContactsDao {
 
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
 
