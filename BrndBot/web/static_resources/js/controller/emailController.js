@@ -1,4 +1,4 @@
-emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'blockModelFactory', 'companyFactory', 'categoryFactory', 'emailDraftFactory', 'subCategoryFactory', 'externalContentFactory', 'redirectFactory', 'SharedService', 'settingsFactory', 'companyMarketingProgramFactory', 'emailFactory', 'modelFactory', 'emailListFactory', 'scheduleActionsFactory', 'appSessionFactory', 'yourPlanFactory', function ($scope, $window, $location, blockModelFactory, companyFactory, categoryFactory, emailDraftFactory, subCategoryFactory, externalContentFactory, redirectFactory, SharedService, settingsFactory, companyMarketingProgramFactory, emailFactory, modelFactory, emailListFactory, scheduleActionsFactory, appSessionFactory, yourPlanFactory) {
+emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$location', 'blockModelFactory', 'companyFactory', 'categoryFactory', 'emailDraftFactory', 'subCategoryFactory', 'externalContentFactory', 'redirectFactory', 'SharedService', 'settingsFactory', 'companyMarketingProgramFactory', 'emailFactory', 'modelFactory', 'emailListFactory', 'scheduleActionsFactory', 'appSessionFactory', 'yourPlanFactory', function ($scope, $filter, $window, $location, blockModelFactory, companyFactory, categoryFactory, emailDraftFactory, subCategoryFactory, externalContentFactory, redirectFactory, SharedService, settingsFactory, companyMarketingProgramFactory, emailFactory, modelFactory, emailListFactory, scheduleActionsFactory, appSessionFactory, yourPlanFactory) {
         $scope.footerEmailPopup = false;
         $scope.emailChannelId = 3;
         $scope.printChannelId = 2;
@@ -1357,7 +1357,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     for (var i = 0; i < actionData.length; i++)
                     {
                         var actionObject = {};
-                        actionObject["text"] = actionData[i].schedule_title;
+                        actionObject["text"] = actionData[i].schedule_title+" - "+$filter('date')(new Date(actionData[i].action_date),'MMM-dd-yyyy');
                         actionObject["value"] = actionData[i].id;
                         $scope.ddSelectActionName.push(actionObject);
                     }
@@ -1602,7 +1602,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 for (var i = 0; i < actionData.length; i++)
                 {
                     var actionObject = {};
-                    actionObject["text"] = actionData[i].schedule_title;
+                    actionObject["text"] = actionData[i].schedule_title+" - "+$filter('date')(new Date(actionData[i].action_date),'MMM-dd-yyyy');
                     actionObject["value"] = actionData[i].id;
                     $scope.ddSelectActionName.push(actionObject);
                 }
