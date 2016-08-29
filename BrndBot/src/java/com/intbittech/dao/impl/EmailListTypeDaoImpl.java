@@ -7,7 +7,6 @@ package com.intbittech.dao.impl;
 
 import com.intbittech.dao.EmailListTypeDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.Contacts;
 import com.intbittech.model.EmailListType;
 import java.util.List;
 import java.util.Locale;
