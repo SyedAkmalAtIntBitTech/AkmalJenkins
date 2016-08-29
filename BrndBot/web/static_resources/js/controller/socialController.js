@@ -4,7 +4,7 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 
-socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location', '$window', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'companyMarketingProgramFactory', 'companyImagesFactory', 'companyFactory', 'imageFactory', 'socialPostFactory', 'scheduleActionsFactory', function ($scope, $rootScope, $location, $window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, companyMarketingProgramFactory, companyImagesFactory, companyFactory, imageFactory, socialPostFactory, scheduleActionsFactory) {
+socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope', '$location', '$window', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'companyMarketingProgramFactory', 'companyImagesFactory', 'companyFactory', 'imageFactory', 'socialPostFactory', 'scheduleActionsFactory', function ($scope, $filter, $rootScope, $location, $window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, companyMarketingProgramFactory, companyImagesFactory, companyFactory, imageFactory, socialPostFactory, scheduleActionsFactory) {
         $scope.getTwitterActionsData = "";
         $scope.marketingProgramsList = "";
         $scope.twitter_action = "";
@@ -578,7 +578,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                     for (var i = 0; i < actionData.length; i++)
                     {
                         var actionObject = {};
-                        actionObject["text"] = actionData[i].schedule_title;
+                        actionObject["text"] = actionData[i].schedule_title+" - "+$filter('date')(new Date(actionData[i].action_date),'MMM-dd-yyyy');
                         actionObject["value"] = actionData[i].id;
                         $scope.ddSelectActionName.push(actionObject);
                     }
@@ -602,7 +602,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                     {
 //                        var actionDate=new Date(actionData[i].schedule_time);
                         var actionObject = {};
-                        actionObject["text"] = actionData[i].schedule_title;
+                        actionObject["text"] = actionData[i].schedule_title+" - "+$filter('date')(new Date(actionData[i].action_date),'MMM-dd-yyyy');
                         actionObject["value"] = actionData[i].id;
                         $scope.ddSelectActionName.push(actionObject);
                     }
