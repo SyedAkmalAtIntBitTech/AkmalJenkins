@@ -6,7 +6,6 @@
 package com.intbittech.dao.impl;
 
 import com.intbittech.dao.ContactsDao;
-import com.intbittech.email.mandrill.Message;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Contacts;
 import java.util.List;
