@@ -136,36 +136,51 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 });
             }
         };
-
         $scope.getUserId = function (){
             $scope.userHashId = $location.search().userid;
             kGlobalCompanyObject.userHashId = $location.search().userid;
+                var queryString = (function(a) {
+                    if (a == "") return {};
+                    var b = {};
+                    for (var i = 0; i < a.length; ++i)
+                    {
+                        var p=a[i].split('=', 2);
+                        if (p.length == 1)
+                            b[p[0]] = "";
+                        else
+                            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+                    }
+                    return b;
+                })(window.location.search.substr(1).split('&'));
+            
+            if (queryString["accessdenied"] !== undefined){
+                growl("user does not exist, please check the user name and password");
+            }
             appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
          };
 
         $scope.getLoggedInUserId = function(){
             onboardingFactory.getLoggedInUserId().then(function (data){
-
                 appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
                     kGlobalCompanyObject.userId = data.d.details[0];
 
-                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){
-                        if (data){
+                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data1){
+                        if (data1){
                             appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
                                 var userHashId = kGlobalCompanyObject.userHashId;
-                                if (userHashId !== 'undefined'){
+                                if (userHashId !== undefined){
                                     var user = {"invitationCode": userHashId}
-                                    onboardingFactory.saveInvitedUserPost(user).then(function (data) {
-                                        var message = data.d.message;
-                                        var userId = data.d.id;
+                                    onboardingFactory.saveInvitedUserPost(user).then(function (data2) {
+                                        var message = data2.d.message;
+                                        var userId = data2.d.id;
                                         appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
-                                            kGlobalCompanyObject.userId = data.d.id;
-                                            appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){
-                                                $scope.getAllUserCompanies(userId); 
+                                            kGlobalCompanyObject.userId = data2.d.id;
+                                            appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data3){
+                                                $scope.getAllUserCompanies(userId);
                                             });
                                         });
                                     });
-                                }else {
+                                }else if (userHashId === undefined){
                                     $scope.getAllUserCompanies(data.d.details[0]); 
                                 }
                             });
@@ -287,23 +302,23 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $scope.organizationId = companyData.ddSelectOrganization.value;
             if ($scope.validationCode(companyData))
             { 
-                var userIdvalue = localStorage.getItem("userId");
                 appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
-                    userIdvalue = kGlobalCompanyObject.userId;
-                });
-                var companyDetails = {"userId":userIdvalue, "companyName": $scope.companyName, "organizationId": $scope.organizationId};
-                var companyAddress = {"addressLine1":companyData.addressLine1,"addressLine2":companyData.addressLine2,"city":companyData.city,"state":companyData.state,"zipcode":companyData.zipcode,"country":companyData.country};
-                onboardingFactory.saveCompanyPost(companyDetails).then(function (data) {
-                    var companyId = data.d.message;
-                    if (parseInt(companyId) == 0){
-                        growl("company name already exist, please give some other company name");
-                    }else {
-                        localStorage.setItem("companyId",companyId);
-                        //TODO Set the companyId in Auth factory file
-                        onboardingFactory.saveCompanyAddress(companyAddress).then(function (data){
-                            $location.path("/signup/datasource");
-                        });
-                    }
+                    var userIdvalue = kGlobalCompanyObject.userId;
+                    var companyDetails = {"userId":userIdvalue, "companyName": $scope.companyName, "organizationId": $scope.organizationId};
+                    var companyAddress = {"addressLine1":companyData.addressLine1,"addressLine2":companyData.addressLine2,"city":companyData.city,"state":companyData.state,"zipcode":companyData.zipcode,"country":companyData.country};
+                    onboardingFactory.saveCompanyPost(companyDetails).then(function (data) {
+                        var companyId = data.d.message;
+                        if (parseInt(companyId) == 0){
+                            growl("company name already exist, please give some other company name");
+                        }else {
+                            kGlobalCompanyObject.companyId = companyId;
+                            appSessionFactory.setCompany(kGlobalCompanyObject).then(function(){data});
+                            //TODO Set the companyId in Auth factory file
+                            onboardingFactory.saveCompanyAddress(companyAddress).then(function (data){
+                                $location.path("/signup/datasource");
+                            });
+                        }
+                    });
                 });
             }
         };
@@ -348,7 +363,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.getAllUserCompanies = function (userId){
             onboardingFactory.getAllUserCompanies(userId).then(function(data){
                var detail = data.d.details;
-               if (detail.length === 1){
+                if (detail.length === 1){
                    var companyDetails = detail[0];
                    $scope.getAccountStatus(companyDetails);
                 }else{
@@ -359,18 +374,36 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         };
 
         $scope.getAccountStatus = function(companyDetails){
-            localStorage.setItem("companyDetails",JSON.stringify(companyDetails));
-            localStorage.setItem("companyId", companyDetails.companyId);
-            onboardingFactory.getAccountStatus(companyDetails).then(function(data){
-               $scope.message = data.d.message; 
-               if (data.d.message == 'Activated'){
-                   window.location = getHost() + "user/dashboard";
-               }else if (data.d.message == 'Deactivated'){
-                   growl("your account has been deactivated, please contact system admin");
-                   window.location = getHost() + "login";
-               }
-               $scope.hideDataOverlay = false;
+            
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                kGlobalCompanyObject.userId = companyDetails.userId;
+                kGlobalCompanyObject.companyId = companyDetails.companyId;
+                kGlobalCompanyObject.companyName = companyDetails.companyName;
+                kGlobalCompanyObject.roleName = companyDetails.roleName;
+                kGlobalCompanyObject.roleId= companyDetails.roleId;
+                kGlobalCompanyObject.accountStatus = companyDetails.accountStatus;
+                kGlobalCompanyObject.userEmailId = companyDetails.userEmailId;
+                kGlobalCompanyObject.userFirstName= companyDetails.userFirstName;
+                kGlobalCompanyObject.userLastName= companyDetails.userLastName;
+
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){
+                    if (data){
+                        onboardingFactory.getAccountStatus(companyDetails).then(function(data){
+                           $scope.message = data.d.message; 
+                           if (data.d.message == 'Activated'){
+                               window.location = getHost() + "user/dashboard";
+                           }else if (data.d.message == 'Deactivated'){
+                               growl("your account has been deactivated, please contact system admin");
+                               window.location = getHost() + "login";
+                           }
+                           $scope.hideDataOverlay = false;
+                        });
+                    }
+                    
+                });
+                
             });
+
         };
         
         $scope.getActivationLink = function (studioId) {

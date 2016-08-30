@@ -1,4 +1,4 @@
-settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$location', 'signupFactory', 'settingsFactory', 'assetsFactory', 'onboardingFactory', function ($scope, $window, $location, signupFactory, settingsFactory, assetsFactory, onboardingFactory) {
+settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$location', 'signupFactory', 'settingsFactory', 'assetsFactory', 'onboardingFactory', 'appSessionFactory', function ($scope, $window, $location, signupFactory, settingsFactory, assetsFactory, onboardingFactory, appSessionFactory) {
 
         $scope.inputType = 'password';
         $scope.colorFrom = "custom";
@@ -18,14 +18,13 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.logourl = "";
 
         $scope.getUserDetails = function(){
-            var userId = localStorage.getItem("userId");
-            onboardingFactory.userCompanyDetailsGet(userId).then(function(data){
-               var companyDetails = data.d.details[0]; 
-                $scope.companyName = companyDetails.companyName;
-                $scope.userFirstName = companyDetails.userFirstName;
-                $scope.userLastName = companyDetails.userLastName;
-                $scope.userRole = companyDetails.roleName; 
-                $scope.logourl = companyDetails.logourl;
+            
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                $scope.companyName = kGlobalCompanyObject.companyName;
+                $scope.userFirstName = kGlobalCompanyObject.userFirstName;
+                $scope.userLastName = kGlobalCompanyObject.userLastName;
+                $scope.userRole = kGlobalCompanyObject.roleName; 
+                $scope.logourl = kGlobalCompanyObject.logourl;
             });
         };
 

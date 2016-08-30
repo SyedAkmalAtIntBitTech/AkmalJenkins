@@ -85,7 +85,8 @@ public class UserController {
                 UsersRoleCompanyLookup usersRoleCompanyLookup = listUsersRoleCompanyLookup.get(i);
                 
                 UserCompanyDetails userCompanyDetails = new UserCompanyDetails();
-
+                
+                userCompanyDetails.setUserId(userId);
                 userCompanyDetails.setCompanyId(usersRoleCompanyLookup.getCompanyId().getCompanyId());
                 userCompanyDetails.setCompanyName(usersRoleCompanyLookup.getCompanyId().getCompanyName());
                 userCompanyDetails.setRoleId(usersRoleCompanyLookup.getRoleId().getUserRoleId());
