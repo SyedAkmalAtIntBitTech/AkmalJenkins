@@ -8,9 +8,11 @@ package com.intbittech.controller;
 import com.intbittech.model.EmailListType;
 import com.intbittech.modelmappers.EmailListTypeDetails;
 import com.intbittech.responsemappers.ContainerResponse;
+import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.EmailListTypeService;
 import com.intbittech.utility.ErrorHandlingUtil;
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -63,6 +65,22 @@ public class EmailListTypeController {
         }
 
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+     @RequestMapping(value = "getAllEmailListType", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllEmailListType() {
+         GenericResponse<EmailListType> genericResponse = new GenericResponse();
+        try {
+            List<EmailListType> emailListTypeList = emailListTypeService.getAllEmailListType();
+            genericResponse.setDetails(emailListTypeList);
+            
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email list type retrieved successfully"));
+        } catch (Throwable ex) {
+            logger.error(ex);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
 }

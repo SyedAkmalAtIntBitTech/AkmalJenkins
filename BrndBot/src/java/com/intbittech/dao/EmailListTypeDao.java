@@ -7,6 +7,7 @@ package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailListType;
+import java.util.List;
 
 /**
  *
@@ -50,5 +51,14 @@ public interface EmailListTypeDao {
      * @throws ProcessFailed the process failed
      */
     public void delete(EmailListType emailListType) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailListType} from DAO
+     * layer.
+     *
+     * @return {@link EmailListType}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailListType> getAllEmailListType() throws ProcessFailed;
     
 }

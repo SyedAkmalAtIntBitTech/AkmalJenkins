@@ -9,6 +9,7 @@ import com.intbittech.dao.EmailListTypeDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailListType;
 import com.intbittech.services.EmailListTypeService;
+import java.util.List;
 import java.util.Locale;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +67,17 @@ public class EmailListTypeServiceImpl implements  EmailListTypeService{
             throw new ProcessFailed(messageSource.getMessage("email_list_type_not_found",new String[]{}, Locale.US));
         }
             emailListTypeDao.delete(emailListType);
+    }
+
+   
+   /**
+     * {@inheritDoc}
+     */
+    public List<EmailListType> getAllEmailListType() throws ProcessFailed {
+        List <EmailListType> emailListTypeList = emailListTypeDao.getAllEmailListType();
+        if(emailListTypeList == null){
+            throw new ProcessFailed(messageSource.getMessage("email_list_type_not_found",new String[]{}, Locale.US));
+        }
+            return emailListTypeList;
     }
 }

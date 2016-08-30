@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailListType;
+import java.util.List;
 
 /**
  * <code>{@link EmailListTypeService}</code> is service layer interface for
@@ -53,4 +54,12 @@ public interface EmailListTypeService {
      */
     public void delete(Integer emailListTypeId) throws ProcessFailed;
     
+    /**
+     * This method pass id as input and get the {@link EmailListType} from DAO
+     * layer.
+     *
+     * @return {@link EmailListType}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailListType> getAllEmailListType() throws ProcessFailed;
 }

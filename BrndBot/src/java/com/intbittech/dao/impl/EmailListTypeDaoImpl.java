@@ -90,4 +90,23 @@ public class EmailListTypeDaoImpl implements EmailListTypeDao {
         }
     }
 
+   /**
+     * {@inheritDoc}
+     */
+    public List<EmailListType> getAllEmailListType() throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(EmailListType.class);
+            List<EmailListType> emailListType = criteria.list();
+            if (emailListType.isEmpty()) {
+                return null;
+            }
+            return  criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message", new String[]{}, Locale.US));
+        }
+    }
+
 }
