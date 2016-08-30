@@ -110,6 +110,27 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
 //});
 
+
+        $scope.getUserDetails = function(){
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                $scope.companyName = kGlobalCompanyObject.companyName;
+                $scope.userFirstName = kGlobalCompanyObject.userFirstName;
+                $scope.userLastName = kGlobalCompanyObject.userLastName;
+
+                kGlobalCompanyObject.userHashId = 'undefined';
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
+                appSessionFactory.getDashboardMessage().then(function(message){
+                    if(message)
+                    {
+                        growl(message);
+                        appSessionFactory.clearDashboardMessage().then(function(message){
+                        });
+                    }
+                });
+            });
+        };
+        
+        
         $scope.getCampaigns = function () {
             var curr_date = '';
             var tomorrowDate = '';
