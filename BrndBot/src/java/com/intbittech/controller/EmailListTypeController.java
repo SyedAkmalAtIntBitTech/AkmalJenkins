@@ -49,6 +49,20 @@ public class EmailListTypeController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
-   
+    @RequestMapping(value = "updateEmailListType", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> updateEmailListType(@RequestBody EmailListTypeDetails emailListTypeDetails,@RequestParam("emailListTypeId") Integer emailListTypeId) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            EmailListType emailListType = new EmailListType();
+            emailListType.setTypeName(emailListTypeDetails.getEmailListTypeName());
+            emailListTypeService.save(emailListType);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email list type updated successfully"));
+        } catch (Throwable ex) {
+            logger.error(ex);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
 
 }
