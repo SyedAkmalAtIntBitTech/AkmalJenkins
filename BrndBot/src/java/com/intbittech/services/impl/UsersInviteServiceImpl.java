@@ -8,6 +8,8 @@ package com.intbittech.services.impl;
 import com.controller.ApplicationContextListener;
 import com.controller.GenerateHashPassword;
 import com.intbittech.AppConstants;
+import com.intbittech.dao.CompanyDao;
+import com.intbittech.dao.UsersDao;
 import com.intbittech.dao.UsersInviteDao;
 import com.intbittech.email.mandrill.Message;
 import com.intbittech.email.mandrill.Recipient;
@@ -16,17 +18,16 @@ import com.intbittech.email.mandrill.SendMail;
 import static com.intbittech.email.mandrill.SendMail.MANDRILL_KEY;
 import com.intbittech.enums.AdminStatus;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.Company;
 import com.intbittech.model.Invite;
 import com.intbittech.model.InvitedUsers;
-import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserProfile;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
-import com.intbittech.model.UsersRoleLookup;
+import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.modelmappers.InviteDetails;
 import com.intbittech.modelmappers.TaskDetails;
-import com.intbittech.services.UserCompanyLookupService;
-import com.intbittech.services.UserRoleLookUpService;
+import com.intbittech.services.UserRoleCompanyLookUpService;
 import com.intbittech.services.UserRoleService;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UsersService;
@@ -60,9 +61,11 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     @Autowired
     private UserRoleService userRoleService;
     @Autowired
-    private UserRoleLookUpService userRoleLookUpService;
+    private CompanyDao companyDao;
     @Autowired
-    private UserCompanyLookupService userCompanyLookupService;
+    private UsersDao usersDao;
+    @Autowired
+    private UserRoleCompanyLookUpService userRoleCompanyLookUpService;
     @Autowired
     private MessageSource messageSource;
     
@@ -104,7 +107,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
 
     @Override
     public List<Invite> getAllInvitedUsers(Users userFrom) throws ProcessFailed{
-        List<Invite> invites = usersInviteDao.getAllInvitedUsers(userFrom);
+        List<Invite> invites = usersInviteDao.getAllInvitedUsersByuserFrom(userFrom);
         if(invites == null)
         {
             throw new ProcessFailed(messageSource.getMessage("user_list_not_found",new String[]{}, Locale.US));
@@ -145,23 +148,45 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     }
     
     @Override
-    public boolean removeUsersByInviteId(Integer inviteId)throws ProcessFailed{
+    public boolean removeUsersByInviteIdAndCompanyId(Integer inviteId, Integer companyId)throws ProcessFailed{
         boolean returnMessage = false;
         try{
             Invite companyInvite = usersInviteDao.getInvitedUserById(inviteId);
+
             boolean isUsed = companyInvite.getIsUsed();
 
             if (isUsed){
-                Users user = companyInvite.getInviteSentTo();
-                Users fromUser = companyInvite.getInviteSentBy();
-                UserCompanyLookup company = userCompanyLookupService.getUserCompanyLookupByUser(fromUser);
-                
-                UserCompanyLookup userCompanyLookup =  userCompanyLookupService.getUserCompanyLookupByUserAndCompany(user, company.getCompanyid());
-                userCompanyLookup.setAccountStatus(AppConstants.Account_Deactivated);
-                userCompanyLookupService.update(userCompanyLookup);
+
+                Company company = companyDao.getCompanyById(companyId);
+                List<UsersRoleCompanyLookup> usersRoleCompanyLookupList = userRoleCompanyLookUpService.getAllUserRolesByUser(companyInvite.getInviteSentTo());
+                List<Invite> inviteList = usersInviteDao.getAllInvitedUsersByuserTo(companyInvite.getInviteSentTo());
+                if (usersRoleCompanyLookupList.size() == 1 && inviteList.size() == 1){
+
+                    usersDao.delete(companyInvite.getInviteSentTo());
+                    returnMessage = true;
+                }else {
+                    UsersRoleCompanyLookup usersRoleCompanyLookup = userRoleCompanyLookUpService.getUsersRoleLookupByUserAndCompany(companyInvite.getInviteSentTo(),company);
+
+                    userRoleCompanyLookUpService.delete(usersRoleCompanyLookup.getId());
+                    delete(inviteId);
+                    returnMessage = true;
+                }
             }else {
                 delete(inviteId);
+                returnMessage = true;
             }
+        }catch (Throwable throwable){
+            throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
+        }
+        return returnMessage;
+    }
+
+    @Override
+    public boolean deleteUserByUserId(Integer userId)throws ProcessFailed{
+        boolean returnMessage = false;
+        try{
+            Users user = usersDao.getUserById(userId);
+            usersDao.delete(user);
             returnMessage = true;
         }catch (Throwable throwable){
             throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
@@ -172,7 +197,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     @Override
     public List<InvitedUsers> getInvitedUsers(Users userFrom)throws ProcessFailed {
         String invitationStatus = null;InvitedUsers inviteduser = null;
-        UsersRoleLookup userRoleLookUp = null; String userName = "";       
+        UsersRoleCompanyLookup userRoleLookUp = null; String userName = "";       
         try{
         List<Invite> invites = getAllInvitedUsers(userFrom);
         
@@ -195,7 +220,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
                 for (int j = 0; j< roles.size(); j++){
                     Double role_id = (Double)roles.get(j);
                     UserRole userRole = userRoleService.getUserRoleById(role_id.intValue());
-                    userRoleLookUp = userRoleLookUpService.getUsersRoleLookupByUserAndRole(user, userRole);
+                    userRoleLookUp = userRoleCompanyLookUpService.getUsersRoleLookupByUserAndRole(user, userRole);
                     if (userRoleLookUp != null){
                         if (userRoleLookUpIds == ""){
                             userRoleLookUpIds = userRoleLookUp.getId().toString();
@@ -210,7 +235,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
                     }
                     boolean isUsed = invite.getIsUsed();
                     if (isUsed){
-                        invitationStatus = AppConstants.Invite_Success;
+                        invitationStatus = AppConstants.Invite_Accepted;
                     }else {
                         invitationStatus = AppConstants.Invite_Sent;
                     }
@@ -243,7 +268,15 @@ public class UsersInviteServiceImpl implements UsersInviteService{
 
             String contextPath = Utility.getServerName(contextRealPath);
 
-            reSendMail(fromEmailId, contextPath, inviteId);
+            Invite companyInvite = getInvitedUserById(inviteId);
+            Users userTo = usersService.isUserExist(companyInvite.getInviteSentToEmailId());
+
+            if (userTo != null){
+                reSendMail(fromEmailId, contextPath, inviteId, AppConstants.User_Status_Existing);
+            }else {
+                reSendMail(fromEmailId, contextPath, inviteId, AppConstants.User_Status_New);
+            }
+
             returnMessage = true;
         }catch (Throwable throwable){
             logger.error(throwable);
@@ -253,13 +286,12 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     }
     
     @Override
-    public void reSendMail(String fromEmailId, String imageContextPath, Integer inviteId)throws ProcessFailed {
+    public void reSendMail(String fromEmailId, String imageContextPath, Integer inviteId, String userStatus)throws ProcessFailed {
         try{
             
-        Users user = usersService.getUserByEmailId(fromEmailId);
+        Users userFrom = usersService.getUserByEmailId(fromEmailId);
         Invite companyInvite = getInvitedUserById(inviteId);
-
-        String randomVal = companyInvite.getInviteSentToEmailId() + String.valueOf(user.getUserId()) + new Date().getTime();
+        String randomVal = companyInvite.getInviteSentToEmailId() + String.valueOf(userFrom.getUserId()) + new Date().getTime();
         GenerateHashPassword generate_hash_password = new GenerateHashPassword();
 
         String hashURL = generate_hash_password.hashURL(randomVal);
@@ -273,9 +305,14 @@ public class UsersInviteServiceImpl implements UsersInviteService{
 
         message.setKey(MANDRILL_KEY);
 //        TODO code to be modified
-         message.setHtml("<html><body><p><h2>User Invitation:</h2></p><p>You have been invited to join your company in BrndBot.</p>To create a user, click on the link below (or copy and paste the URL into your browser):<br />" + imageContextPath + "#/signup/userregistration?userid=" + hashURL + "</body></html>");
 //        message.setText("text");
-        /** need to change the above link and below message**/
+/**     need to change the above link and below message     **/
+        if (userStatus.equals(AppConstants.User_Status_New)){
+             message.setHtml("<html><body><p><h2>User Invitation:</h2></p><p>You have been invited to join your company in BrndBot.</p>To create a user, click on the link below (or copy and paste the URL into your browser):<br />" + imageContextPath + "#/signup/userregistration?userid=" + hashURL + "</body></html>");
+        }else if (userStatus.equals(AppConstants.User_Status_Existing)) {
+             message.setHtml("<html><body><p><h2>User Invitation:</h2></p><p>You have been invited to join your company in BrndBot.</p>To create a user, click on the link below (or copy and paste the URL into your browser):<br />" + imageContextPath + "#/signup/signin?userid=" + hashURL + "</body></html>");
+        }
+        
         message.setSubject("User Invitation");
         message.setFrom_email("mail@brndbot.com");
         message.setFrom_name("BrndBot");
@@ -308,7 +345,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     }
     
     @Override
-    public void sendMail(String fromEmailId, String imageContextPath, InviteDetails inviteDetails)throws ProcessFailed {
+    public void sendMail(String fromEmailId, String imageContextPath, InviteDetails inviteDetails, String userStatus)throws ProcessFailed {
         try{
             
         Users user = usersService.getUserByEmailId(fromEmailId);
@@ -334,7 +371,11 @@ public class UsersInviteServiceImpl implements UsersInviteService{
 
         message.setKey(MANDRILL_KEY);
 //        TODO code to be modified
-         message.setHtml("<html><body><p><h2>User Invitation:</h2></p><p>You have been invited to join your company in BrndBot.</p>To create a user, click on the link below (or copy and paste the URL into your browser):<br />" + imageContextPath + "#/signup/userregistration?userid=" + hashURL + "</body></html>");
+        if (userStatus.equals(AppConstants.User_Status_New)){
+             message.setHtml("<html><body><p><h2>User Invitation:</h2></p><p>You have been invited to join your company in BrndBot.</p>To create a user, click on the link below (or copy and paste the URL into your browser):<br />" + imageContextPath + "#/signup/userregistration?userid=" + hashURL + "</body></html>");
+        }else if (userStatus.equals(AppConstants.User_Status_Existing)) {
+             message.setHtml("<html><body><p><h2>User Invitation:</h2></p><p>You have been invited to join your company in BrndBot.</p>To create a user, click on the link below (or copy and paste the URL into your browser):<br />" + imageContextPath + "#/signup/signin?userid=" + hashURL + "</body></html>");
+        }
 //        message.setText("text");
         /** need to change the above link and below message**/
         message.setSubject("User Invitation");

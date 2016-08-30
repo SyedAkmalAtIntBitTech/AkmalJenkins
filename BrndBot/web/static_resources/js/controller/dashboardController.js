@@ -19,25 +19,24 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
         $scope.companyList = false;        
         
         $scope.getUserDetails = function(){
-            var userId = localStorage.getItem("userId");
-            onboardingFactory.userCompanyDetailsGet(userId).then(function(data){
-               var companyDetails = data.d.details[0]; 
-                $scope.companyName = companyDetails.companyName;
-                $scope.userFirstName = companyDetails.userFirstName;
-                $scope.userLastName = companyDetails.userLastName;
-                $scope.userRole = companyDetails.roleName; 
-                $scope.logourl = companyDetails.logourl;
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                $scope.companyName = kGlobalCompanyObject.companyName;
+                $scope.userFirstName = kGlobalCompanyObject.userFirstName;
+                $scope.userLastName = kGlobalCompanyObject.userLastName;
+                $scope.userRole = kGlobalCompanyObject.roleName; 
+                $scope.logourl = kGlobalCompanyObject.logourl;
+
+                kGlobalCompanyObject.userHashId = 'undefined';
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
                 appSessionFactory.getDashboardMessage().then(function(message){
                     if(message)
                     {
                         growl(message);
                         appSessionFactory.clearDashboardMessage().then(function(message){
-                            
                         });
                     }
                 });
             });
-            
         };
         
         $scope.showCompanyList = function(){

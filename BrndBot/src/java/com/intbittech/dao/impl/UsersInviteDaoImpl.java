@@ -65,6 +65,7 @@ public class UsersInviteDaoImpl implements UsersInviteDao{
     public void delete(Invite companyInvite) throws ProcessFailed {
         try {
             sessionFactory.getCurrentSession().delete(companyInvite);
+            sessionFactory.getCurrentSession().flush();
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_deleting_message", new String[]{}, Locale.US));
@@ -72,11 +73,28 @@ public class UsersInviteDaoImpl implements UsersInviteDao{
     }
 
     @Override
-    public List<Invite> getAllInvitedUsers(Users userFrom) throws ProcessFailed{
+    public List<Invite> getAllInvitedUsersByuserFrom(Users userFrom) throws ProcessFailed{
     try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(Invite.class)
                     .add(Restrictions.eq("inviteSentBy", userFrom));
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_list_message",new String[]{}, Locale.US));
+        }        
+    }
+
+    @Override
+    public List<Invite> getAllInvitedUsersByuserTo(Users userTo) throws ProcessFailed{
+    try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(Invite.class)
+                    .add(Restrictions.eq("inviteSentTo", userTo));
             if (criteria.list().isEmpty()) {
                 return null;
             }

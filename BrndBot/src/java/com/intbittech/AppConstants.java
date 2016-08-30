@@ -32,10 +32,15 @@ public class AppConstants {
     public static final Integer Datedifference = 172800000;
     public static final Integer UserRoleManagerValue = 2;
     public static final Integer UserRoleTempManagerValue = 3;
+    public static final Integer UserRoleAccountOwnerValue = 5;
+    public static final String SignUpStatusIncomplete = "Incomplete";
+    public static final String SignUpStatuscomplete = "complete";
     public static final String Invite_Sent = "Invite Sent";
-    public static final String Invite_Success = "Invite Success";
+    public static final String Invite_Accepted = "Invite Accepted";
     public static final String Account_Activated = "Activated";
     public static final String Account_Deactivated = "Deactivated";
+    public static final String User_Status_New = "New User";
+    public static final String User_Status_Existing = "Existing User";
     
     public static final String BASE_IMAGE_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "images";
     public static final String BASE_IMAGE_COMPANY = BASE_IMAGE_UPLOAD_PATH + File.separator + "companies";

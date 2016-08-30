@@ -1,4 +1,4 @@
-settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$location', 'signupFactory', 'settingsFactory', 'assetsFactory', 'onboardingFactory', function ($scope, $window, $location, signupFactory, settingsFactory, assetsFactory, onboardingFactory) {
+settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$location', 'signupFactory', 'settingsFactory', 'assetsFactory', 'onboardingFactory', 'appSessionFactory', function ($scope, $window, $location, signupFactory, settingsFactory, assetsFactory, onboardingFactory, appSessionFactory) {
 
         $scope.inputType = 'password';
         $scope.colorFrom = "custom";
@@ -11,6 +11,22 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.userRoleLookUpId = "";
         $scope.inviteId = "";
         $scope.passwordText = "";
+        $scope.companyName = "";
+        $scope.userFirstName = "";
+        $scope.userLastName = "";
+        $scope.userRole = "";
+        $scope.logourl = "";
+
+        $scope.getUserDetails = function(){
+            
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                $scope.companyName = kGlobalCompanyObject.companyName;
+                $scope.userFirstName = kGlobalCompanyObject.userFirstName;
+                $scope.userLastName = kGlobalCompanyObject.userLastName;
+                $scope.userRole = kGlobalCompanyObject.roleName; 
+                $scope.logourl = kGlobalCompanyObject.logourl;
+            });
+        };
 
         // Hide & show password function
         $scope.hideShowPassword = function () {
