@@ -7,7 +7,6 @@ package com.intbittech.dao.impl;
 
 import com.intbittech.dao.UnsubscribedEmailsDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.Contacts;
 import com.intbittech.model.UnsubscribedEmails;
 import java.util.List;
 import java.util.Locale;
@@ -20,9 +19,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
 /**
- * <code> {@link ContactsDaoImpl} </code> is implementation of
- * {@link ContactsDao} and perform the database related operation for managing
- * {@link Contacts}
+ * <code> {@link UnsubscribedEmailsDaoImpl} </code> is implementation of
+ * {@link UnsubscribedEmailsDao} and perform the database related operation for managing
+ * {@link UnsubscribedEmails}
  *
  * @author Ajit
  */
@@ -41,7 +40,7 @@ public class UnsubscribedEmailsDaoImpl implements UnsubscribedEmailsDao{
     public UnsubscribedEmails getByUnsubscribedEmailsId(Integer unsubscribedEmailsId) throws ProcessFailed {
           try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(Contacts.class)
+                    .createCriteria(UnsubscribedEmails.class)
                     .add(Restrictions.eq("unsubscribedEmailId", unsubscribedEmailsId));
             List<UnsubscribedEmails> contacts = criteria.list();
             if (contacts.isEmpty()) {
