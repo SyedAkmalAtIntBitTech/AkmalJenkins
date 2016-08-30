@@ -67,7 +67,7 @@ public class EmailListTypeController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
-     @RequestMapping(value = "getAllEmailListType", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "getAllEmailListType", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllEmailListType() {
          GenericResponse<EmailListType> genericResponse = new GenericResponse();
         try {
@@ -82,5 +82,19 @@ public class EmailListTypeController {
 
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
+    
+    @RequestMapping(value = "deleteEmailListType", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteEmailListType(@RequestParam("emailListTypeId") Integer emailListTypeId) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+              emailListTypeService.delete(emailListTypeId);
+            
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Activity deleted successfully"));
+        } catch (Throwable ex) {
+            logger.error(ex);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+        }
 
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
 }
