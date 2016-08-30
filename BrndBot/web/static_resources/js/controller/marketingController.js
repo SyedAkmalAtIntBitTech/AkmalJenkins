@@ -35,6 +35,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.dateValidation = false;
         $scope.validateLinkName = false;
         $scope.validateLinkUrl = false;
+        $scope.addBlockCount = 0;
 
         $scope.ddSelectAction = {
             text: "Select"
@@ -913,6 +914,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
 
         $scope.getEmailTemplates = function () {
+            $scope.blockdivheader = false;
+            $scope.styledivheader = false;
+            $scope.recurringDivheader = true;
+            $scope.styletab = "emailSideBar-tab";
+            $scope.blocktab = "emailSideBar-tab";
+            $scope.recurringtab = "emailSideBar-tab-active";
             $("#emailautomationcontent").hide();
             $("#emlautomeditorcontainer").show();
             marketingRecurringEmailFactory.allRecurringEmailTemplatesGet().then(function (data) {
@@ -1601,16 +1608,29 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             });
         };
         $scope.showBlocks = function () {
-            $scope.blockdivheader = true;
             $scope.styledivheader = false;
+            $scope.recurringDivheader = false;
+            $scope.blockdivheader = true;
             $scope.styletab = "emailSideBar-tab";
+            $scope.recurringtab = "emailSideBar-tab";
             $scope.blocktab = "emailSideBar-tab-active";
             companyFactory.allNonMindbodyBlocksForCompanyGet().then(function (data) {
-                alert(JSON.stringify(data));
                 $scope.blockLists = data.d.details;
             });
         };
         $scope.blockOnClick = function (id) {
+            $scope.id = id;
+            $scope.id = 'editor-block-slat';
+            $scope.setBlockActive = 'editor-block-slat-selected';
+            $scope.activeBlock = id;
+            $("#stylelist").css("display", "none");
+            $("#blklist").css("display", "block");
+            $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
+            $(":button").removeAttr("disabled");
+            $("#styletab").css("background-color", "transparent").css("color", "#19587c");
+        };
+        $scope.recurringTemplateOnClick = function (id) {
+            alert(id);
             $scope.id = id;
             $scope.id = 'editor-block-slat';
             $scope.setBlockActive = 'editor-block-slat-selected';
@@ -1707,8 +1727,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             if (isClick === "true")
             {
                 $scope.blockdivheader = false;
+                $scope.recurringDivheader = false;
                 $scope.styledivheader = true;
                 $scope.blocktab = "emailSideBar-tab";
+                $scope.recurringtab = "emailSideBar-tab";
                 $scope.styletab = "emailSideBar-tab-active";
             }
             if ($scope.isBlockClicked === "true" || $scope.htmlBlockId !== "defaultblock1")
