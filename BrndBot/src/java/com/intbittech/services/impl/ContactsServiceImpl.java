@@ -36,9 +36,10 @@ public class ContactsServiceImpl implements ContactsService{
      */
     public Contacts getByContactsId(Integer contactsId) throws ProcessFailed {
         Contacts contacts = contactsDao.getByContactsId(contactsId);
-        if(contacts == null)
-            throw new ProcessFailed(messageSource.getMessage("contacts_not_found",new String[]{}, Locale.US));
-        return contacts;
+        if(contacts == null){
+           throw new ProcessFailed(messageSource.getMessage("contacts_not_found",new String[]{}, Locale.US));
+        }
+           return contacts;
     }
 
     /**
@@ -60,9 +61,10 @@ public class ContactsServiceImpl implements ContactsService{
      */
     public void delete(Integer contactsId) throws ProcessFailed {
        Contacts contacts = contactsDao.getByContactsId(contactsId);
-        if(contacts == null)
+        if(contacts == null){
             throw new ProcessFailed(messageSource.getMessage("contacts_not_found",new String[]{}, Locale.US));
-        contactsDao.delete(contacts);
+        }
+            contactsDao.delete(contacts);
     }
     
 }

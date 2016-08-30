@@ -38,7 +38,7 @@ public class EmailListTagLookupServiceImpl implements EmailListTagLookupService{
     public EmailListTagLookup getByEmailListTagLookupId(Integer emailListTagLookupId) throws ProcessFailed {
          EmailListTagLookup emailListTagLookup = emailListTagLookupDao.getByEmailListTagLookupId(emailListTagLookupId);
         if(emailListTagLookup == null){
-            throw new ProcessFailed(messageSource.getMessage("contact_email_list_tag_not_found",new String[]{}, Locale.US)); 
+            throw new ProcessFailed(messageSource.getMessage("email_list_tag_not_found",new String[]{}, Locale.US)); 
         }
            
         return emailListTagLookup;
@@ -64,7 +64,7 @@ public class EmailListTagLookupServiceImpl implements EmailListTagLookupService{
     public void delete(Integer emailListTagLookupId) throws ProcessFailed {
        EmailListTagLookup emailListTagLookup = emailListTagLookupDao.getByEmailListTagLookupId(emailListTagLookupId);
         if(emailListTagLookup == null){
-            throw new ProcessFailed(messageSource.getMessage("contact_email_list_tag_not_found",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("email_list_tag_not_found",new String[]{}, Locale.US));
         }
         emailListTagLookupDao.delete(emailListTagLookup);
 

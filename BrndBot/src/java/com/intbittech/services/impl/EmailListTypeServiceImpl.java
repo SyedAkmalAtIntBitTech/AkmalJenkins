@@ -24,8 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor = ProcessFailed.class)
 public class EmailListTypeServiceImpl implements  EmailListTypeService{
     
-      private static Logger logger = Logger.getLogger(EmailListTypeServiceImpl.class);
-    
+    private static Logger logger = Logger.getLogger(EmailListTypeServiceImpl.class);
+   
     @Autowired
     private EmailListTypeDao emailListTypeDao;
     
@@ -37,9 +37,10 @@ public class EmailListTypeServiceImpl implements  EmailListTypeService{
      */
     public EmailListType getByEmailListTypeId(Integer emailListTypeId) throws ProcessFailed {
         EmailListType emailListType = emailListTypeDao.getByEmailListTypeId(emailListTypeId);
-        if(emailListType == null)
+        if(emailListType == null){
             throw new ProcessFailed(messageSource.getMessage("email_list_type_not_found",new String[]{}, Locale.US));
-        return emailListType;
+        }
+            return emailListType;
     }
 
    /**
@@ -61,8 +62,9 @@ public class EmailListTypeServiceImpl implements  EmailListTypeService{
      */
     public void delete(Integer emailListTypeId) throws ProcessFailed {
        EmailListType emailListType = emailListTypeDao.getByEmailListTypeId(emailListTypeId);
-        if(emailListType == null)
+        if(emailListType == null){
             throw new ProcessFailed(messageSource.getMessage("email_list_type_not_found",new String[]{}, Locale.US));
-       emailListTypeDao.delete(emailListType);
+        }
+            emailListTypeDao.delete(emailListType);
     }
 }

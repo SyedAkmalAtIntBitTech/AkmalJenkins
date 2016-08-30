@@ -37,9 +37,10 @@ public class EmailListTagServiceImpl implements EmailListTagService{
      */
     public EmailListTag getByEmailListTagId(Integer emailListTagId) throws ProcessFailed {
         EmailListTag emailListTag = emailListTagDao.getByEmailListTagId(emailListTagId);
-        if(emailListTag == null)
+        if(emailListTag == null){
             throw new ProcessFailed(messageSource.getMessage("email_list_tag_not_found",new String[]{}, Locale.US));
-        return emailListTag;
+        }
+            return emailListTag;
     }
 
     /**
@@ -61,9 +62,10 @@ public class EmailListTagServiceImpl implements EmailListTagService{
      */
     public void delete(Integer emailListTagId) throws ProcessFailed {
           EmailListTag emailListTag = emailListTagDao.getByEmailListTagId(emailListTagId);
-        if(emailListTag == null)
-            throw new ProcessFailed(messageSource.getMessage("email_list_tag_not_found",new String[]{}, Locale.US));
-       emailListTagDao.delete(emailListTag);
+        if(emailListTag == null){
+           throw new ProcessFailed(messageSource.getMessage("email_list_tag_not_found",new String[]{}, Locale.US));
+        }
+           emailListTagDao.delete(emailListTag);
     }
     
 }

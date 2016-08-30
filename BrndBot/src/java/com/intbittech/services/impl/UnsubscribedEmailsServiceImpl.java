@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor = ProcessFailed.class)
 public class UnsubscribedEmailsServiceImpl implements UnsubscribedEmailsService{
     
-      private static Logger logger = Logger.getLogger(UnsubscribedEmailsServiceImpl.class);
+    private static Logger logger = Logger.getLogger(UnsubscribedEmailsServiceImpl.class);
     
     @Autowired
     private UnsubscribedEmailsDao unsubscribedEmailsDao;
