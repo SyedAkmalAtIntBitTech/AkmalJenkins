@@ -93,10 +93,10 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
     @Autowired
     ForgotPasswordService forgotPasswordService;
-    
+
     @Autowired
     UsersInviteService usersInviteService;
-    
+
     @Autowired
     UsersService usersService;
 
@@ -108,7 +108,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     
     @Autowired
     private MessageSource messageSource;
-    
+
     private Twitter twitter;
     private RequestToken requestToken;
     private Facebook facebook;
@@ -123,9 +123,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             boolean returnMessage = usersService.saveNonExistingUser(inviteDetails);
-            if (returnMessage){
+            if (returnMessage) {
                 transactionResponse.setMessage(messageSource.getMessage("invitation_check_mail", new String[]{}, Locale.US));
-            }else {
+            } else {
                 transactionResponse.setMessage(messageSource.getMessage("invitation_failure", new String[]{}, Locale.US));
             }
 
@@ -135,14 +135,15 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
+
     @RequestMapping(value = "/resendInvitation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> resendInvitation(@RequestParam("inviteId") Integer inviteId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             boolean returnMessage = usersInviteService.reSendInvitation(inviteId);
-            if (returnMessage){
+            if (returnMessage) {
                 transactionResponse.setMessage(messageSource.getMessage("invitation_check_mail", new String[]{}, Locale.US));
-            }else {
+            } else {
                 transactionResponse.setMessage(messageSource.getMessage("invitation_failure", new String[]{}, Locale.US));
             }
 
@@ -152,15 +153,16 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
+
     @RequestMapping(value = "/editUserRole", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> editUserRole(@RequestBody InviteDetails inviteDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
 
             boolean returnMessage = usersService.updateRole(inviteDetails);
-            if (returnMessage){
+            if (returnMessage) {
                 transactionResponse.setMessage(messageSource.getMessage("details_updated", new String[]{}, Locale.US));
-            }else {
+            } else {
                 transactionResponse.setMessage(messageSource.getMessage("update_failure", new String[]{}, Locale.US));
             }
 
@@ -181,6 +183,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             if (returnMessage){
                 transactionResponse.setMessage(messageSource.getMessage("user_removed", new String[]{}, Locale.US));
             }else{
+
                 transactionResponse.setMessage(messageSource.getMessage("user_remove_failure", new String[]{}, Locale.US));
             }
 
@@ -190,10 +193,10 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/getInvitedUsers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getInvitedUsers(HttpServletRequest request,
-            HttpServletResponse response,@RequestParam("userId") Integer userId) {
+            HttpServletResponse response, @RequestParam("userId") Integer userId) {
         GenericResponse<InvitedUsers> genericResponse = new GenericResponse<>();
 
         try {
@@ -208,7 +211,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/getColors", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getColors(HttpServletRequest request,
             HttpServletResponse response, @RequestParam("companyId") Integer companyId) {
@@ -331,7 +334,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
     @RequestMapping(value = "/getGlobalAndUserColors", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getGlobalAndUserColors(HttpServletRequest request,
-            HttpServletResponse response,@RequestParam("companyId") Integer companyId) {
+            HttpServletResponse response, @RequestParam("companyId") Integer companyId) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
             Company company = companyService.getCompanyById(companyId);
@@ -364,7 +367,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             Company company = companyService.getCompanyById(userCompanyIds.getCompanyId());
-            
+
             String filePath = null;
             String fileName = null, fieldName = null, uploadType = null;
 
@@ -427,7 +430,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
                         filePath = uploadPath + File.separator + fileName;
                         File storeFile = new File(filePath);
-                        if(storeFile.exists()){
+                        if (storeFile.exists()) {
                             storeFile.delete();
                         }
                         fi.write(storeFile);
@@ -446,12 +449,11 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     public ResponseEntity<ContainerResponse> facebookDetails(HttpServletRequest request,
             HttpServletResponse response) {
 
-        
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
-            
+
             Integer companyId = userCompanyIds.getCompanyId();
             String default_access_token = (String) requestBodyMap.get("access_token");
             String method_type = (String) requestBodyMap.get("access_token_method");
@@ -469,6 +471,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
                     default_access_token = (String) fb_details.get("fb_default_page_access_token");
                     fb_user_profile_name = (String) fb_details.get("user_profile_page");
                     default_page_name = (String) fb_details.get("fb_default_page_name");
+                    if (default_access_token != "") {
+                        default_access_token = "true";
+                    }
                 }
 
                 if (!StringUtility.isEmpty(settings)) {
@@ -562,12 +567,12 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         String hostURL = ServletUtil.getServerName(request.getServletContext());
         try {
-             Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-             String redirectUrl = requestBodyMap.get("redirectUrl");
-             facebook = new FacebookFactory().getInstance();
+            Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            String redirectUrl = requestBodyMap.get("redirectUrl");
+            facebook = new FacebookFactory().getInstance();
             facebook.setOAuthAppId(AppConstants.facebookString1, AppConstants.facebookString2);
             facebook.setOAuthPermissions(AppConstants.facebookPermissions);
-            genericResponse.addDetail(facebook.getOAuthAuthorizationURL(hostURL+""+redirectUrl));
+            genericResponse.addDetail(facebook.getOAuthAuthorizationURL(hostURL + "" + redirectUrl));
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("Success", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -578,7 +583,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     }
 
     @RequestMapping(value = "/fbGetToken/{code}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> fbGetToken(@PathVariable(value = "code") String code,HttpServletRequest request) {
+    public ResponseEntity<ContainerResponse> fbGetToken(@PathVariable(value = "code") String code, HttpServletRequest request) {
         GenericResponse<JSONObject> genericResponse = new GenericResponse<>();
         try {
             facebook.getOAuthAccessToken(code);
@@ -652,9 +657,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             String user_name = user.getName();
             String access_token = accessToken.getToken();
             String access_token_secret = accessToken.getTokenSecret();
-             companyPreferencesTwitterService.updatePreference(companyId, access_token, access_token_secret, user_name);
+            companyPreferencesTwitterService.updatePreference(companyId, access_token, access_token_secret, user_name);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("Success", new String[]{}, Locale.US)));
-        } catch (TwitterException | IllegalStateException | NoSuchMessageException throwable ) {
+        } catch (TwitterException | IllegalStateException | NoSuchMessageException throwable) {
             logger.error(throwable);
             logger.debug("Unable to get twitter token.");
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -662,6 +667,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
+
     @RequestMapping(value = "/setFooter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> setFooter(@RequestBody FooterDetails footerDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
@@ -676,9 +682,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/unsubscribeEmails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> unsubscribeEmails(HttpServletRequest request,@RequestBody EmailList emailList) {
+    public ResponseEntity<ContainerResponse> unsubscribeEmails(HttpServletRequest request, @RequestBody EmailList emailList) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
 
@@ -723,7 +729,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     }
 
     @RequestMapping(value = "/saveUnsubscribeEmails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> saveUnsubscribeEmails(HttpServletRequest request,@RequestBody EmailList emailList) {
+    public ResponseEntity<ContainerResponse> saveUnsubscribeEmails(HttpServletRequest request, @RequestBody EmailList emailList) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
@@ -751,5 +757,5 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
-    }    
+    }
 }

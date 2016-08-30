@@ -37,4 +37,11 @@ var kGlobalCompanyObject = {
   userHashId:""
 };
 
-
+var kGlobalFbPostDataObject = {imgNameToPost: "",
+    accessToken: "",
+    postText: "",
+    title: "",
+    url: "",
+    description: "",
+    imageType: ""
+};
