@@ -20,6 +20,7 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
         
         $scope.getUserDetails = function(){
             appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                alert(JSON.stringify(kGlobalCompanyObject));
                 $scope.companyName = kGlobalCompanyObject.companyName;
                 $scope.userFirstName = kGlobalCompanyObject.userFirstName;
                 $scope.userLastName = kGlobalCompanyObject.userLastName;
