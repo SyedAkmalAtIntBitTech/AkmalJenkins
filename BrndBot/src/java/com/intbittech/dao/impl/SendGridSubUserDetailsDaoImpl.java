@@ -27,7 +27,7 @@ import org.springframework.stereotype.Repository;
  * @author Ajit
  */
 @Repository
-public class SendGridSubUserDetailsDaoImpl implements SendGridSubUserDetailsDao {
+    public class SendGridSubUserDetailsDaoImpl implements SendGridSubUserDetailsDao {
 
     private static Logger logger = Logger.getLogger(SendGridSubUserDetailsDaoImpl.class);
     @Autowired

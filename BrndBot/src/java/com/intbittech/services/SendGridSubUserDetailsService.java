@@ -3,18 +3,18 @@
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
-package com.intbittech.dao;
+package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.SendGridSubUserDetails;
 
 /**
- * <code> {@link SendGridSubUserDetailsDao} </code> Interface to get SendGridSubUserDetails details from
- * SendGridSubUserDetailsDao table
+ * <code>{@link SendGridSubUserDetailsService}</code> is service layer interface for
+ * communicating between Controller and DAO classes
  *
  * @author Ajit
  */
-public interface SendGridSubUserDetailsDao {
+public interface SendGridSubUserDetailsService {
     
     /**
      * This method pass id as input and get the {@link SendGridSubUserDetails} from DAO
@@ -48,21 +48,10 @@ public interface SendGridSubUserDetailsDao {
      * This method delete particular {@link SendGridSubUserDetails} based on the
      * sendGridSubUserDetails from the database.
      *
-     * @param sendGridSubUserDetails the sendGridSubUserDetails
+     * @param sendGridSubUserDetailsId the sendGridSubUserDetailsId
      * @throws ProcessFailed the process failed
      */
-    public void delete(SendGridSubUserDetails sendGridSubUserDetails) throws ProcessFailed;
-    
-     /**
-     * This method pass id as input and get the {@link SendGridSubUserDetails} from DAO
-     * layer.
-     *
-     * @param sendGridSubUserId the sendGridSubUserId
-     * @param companyId the companyId
-     * @return {@link SendGridSubUserDetails}
-     * @throws ProcessFailed the process failed
-     */
-    public SendGridSubUserDetails getSendGridSubUserDetailsBySendGridSubUserIdAndCompanyId(String sendGridSubUserId,Integer companyId) throws ProcessFailed;
+    public void delete(Integer sendGridSubUserDetailsId) throws ProcessFailed;
     
     /**
      * This method pass id as input and get the {@link SendGridSubUserDetails} from DAO
@@ -77,10 +66,10 @@ public interface SendGridSubUserDetailsDao {
     /**
      * This method pass id as input and get the {@link SendGridSubUserDetails} from DAO
      * layer.
-     *
      * @param sendGridSubUserId the sendGridSubUserId
      * @return {@link SendGridSubUserDetails}
      * @throws ProcessFailed the process failed
      */
     public SendGridSubUserDetails getSendGridSubUserDetailsBySendGridSubUserId(String sendGridSubUserId) throws ProcessFailed;
+    
 }
