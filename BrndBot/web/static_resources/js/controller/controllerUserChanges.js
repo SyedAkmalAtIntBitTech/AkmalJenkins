@@ -102,7 +102,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
         $scope.editUser = function (userDetails) {
             var roles = [];
-            roles.push(userDetails.adminRadio);
+            roles.push(userDetails.editAdminRadio);
             //TODO change with the latest after merge Muzamil
             var invitation = {"inviteId":$scope.inviteId, "userRoleLookUpId":$scope.userRoleLookUpId.toString(), "emailaddress": $scope.userEmailId, "roles": roles, "task": 'invitation'};
             
