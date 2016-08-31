@@ -6,6 +6,7 @@
 package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.Company;
 import com.intbittech.model.Invite;
 import com.intbittech.model.InvitedUsers;
 import com.intbittech.model.Users;
@@ -58,7 +59,7 @@ public interface UsersInviteService {
      * @return {@link InvitedUsers}
      * @throws ProcessFailed the process failed
      */
-    public List<InvitedUsers> getInvitedUsers(Users userFrom)throws ProcessFailed;
+    public List<InvitedUsers> getInvitedUsers(Users userFrom, Company company)throws ProcessFailed;
     /**
      * This method pass userTo as input and returns the {@link Invite} from DAO layer.
      *

@@ -152,12 +152,19 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             if (queryString["accessdenied"] !== undefined){
                 growl("user does not exist, please check the user name and password");
             }
-            if($location.search().userid)
+            if($location.search().userid){
                 appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
                     kGlobalCompanyObject.userHashId = $location.search().userid;
                     appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){
+                    });
                 });
-            });
+            }else {
+                appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                    kGlobalCompanyObject.userHashId = undefined;
+                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){
+                    });
+                });
+            }
          };
 
         $scope.getLoggedInUserId = function(){

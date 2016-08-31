@@ -743,7 +743,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();
             var schedule_time = Date.parse(l);
             var myEpoch = schedule_time;
-            var description = "";
+            var description = scheduleUpdatedData.schedule_desc;
 //        if (!validateemailaction()) {
             var action = {
                 "schedule_id": schedule_id.toString(), "type": "update",
