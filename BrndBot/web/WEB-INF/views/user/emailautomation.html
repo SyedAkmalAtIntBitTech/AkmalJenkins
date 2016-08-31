@@ -148,7 +148,7 @@
 
         <!--Email Preview-->
         <div id="fade" class="black_overlay emailAutomationFade" ></div>
-        <div id="email_previewdiv">
+        <div id="email_previewdiv" class="hide">
             <div class="pop-up-background">
                 <div class="pop-up-container-emailPreview" ng-show="emailPreviewPopup"> 
                     <div class="modal-pane-header-wrap"> 
@@ -221,22 +221,66 @@
 
             <div class="email-editor-right-col">
 
-                <div class="r-col-editor-wrap">
-                    <div class="r-col-editor-header-wrap">Select a template to start with:</div>
-                    <div class="r-col-block-wrap">
-                        <div class="editor-block-slat" id="blockdivheader" ng-show="blockdivheader" ng-repeat="email_template in recuring_email_templates" ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
+                <div class="email-editor-tab-wrap">
+                    <div class="editor-col-tab">
+                        <div class="{{recurringtab}}" id="recurringtab"  ng-click="getEmailTemplates()">
+                            Automation 
+                        </div>
                     </div>
+                    <div class="editor-col-tab">
+                        <div class="{{blocktab}}" id="blocktab"  ng-click="showBlocks()">
+                            Add Block
+                        </div>
+                    </div>
+                    <div class="editor-col-tab">
+                        <div class="{{styletab}}" id="styletab" ng-init="showStyles('false')" ng-click="showStyles('true')">
+                            Change Style
+                        </div>
+                    </div> 
                 </div>
-                <div class="r-col-editor-wrap" id="textdivheader" ng-show="textdivheader">
-                    <div class="textstyle">To add client name please use these options</div>
-                    <div class="textstyle">Ex: Hi &LT;clientFirstName&GT; </div>
-                    <div class="textstyle">Hi &LT;clientLastName&GT; </div>
-                    <div class="textstyle">Hi &LT;clientFullName&GT; </div>
+                <div class="r-col-editor-wrap">
+                    <div class="r-col-editor-header-wrap" id="blockdivheader" ng-show="blockdivheader">Select a block to add:</div>
+                    <div class="r-col-editor-header-wrap" id="styledivheader" ng-show="styledivheader">Select a style for this block:</div>
+                    <div class="r-col-editor-header-wrap" id="recurringDivheader" ng-show="recurringDivheader">Select a Recurring template:</div>
+                    <div class="block-selection-divider"></div>
+                    <ul class="r-col-block-wrap" id="blockdiv" ng-show="blockdivheader">
+                        <li class="editor-block-slat" ng-class="{'editor-block-slat-selected': activeBlock === blocks.emailBlockId}" ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="blockOnClick(blocks.emailBlockId)">
+                            <div id="blklist----{{blocks.emailBlockId}}" class="blockName">{{blocks.emailBlockName}}</div>                            
+                            <div class="addBlock-button reg-button slat-detail-button hideBlockButton" ng-class="{'hideBlockButton': activeBlock !== blocks.emailBlockId}" ng-click="didChooseBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)" >Add Block</div>
+                        </li>
+                    </ul>
+
+                    <ul class="r-col-block-wrap"  ng-show="styledivheader">
+                        <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.modelId}}" ng-click="addActive('stylelistid' + styles.modelId)">
+                            <div class="block-name">
+                                <img id="{{styles.modelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" ng-click="addHTMLInEmailEditor(styles.modelId)" width="100%" />
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="r-col-block-wrap" ng-show="recurringDivheader">
+                        <li class="editor-block-slat" ng-class="{'editor-block-slat-selected': activeBlock === email_template.template_id}" ng-repeat="email_template in recuring_email_templates" ng-click="recurringTemplateOnClick(email_template.template_id)">
+                            <div id="recurringlist----{{email_template.template_id}}" class="blockName">{{email_template.template_name}}</div>
+                            <div class="addBlock-button reg-button slat-detail-button hideBlockButton" ng-class="{'hideBlockButton': activeBlock !== email_template.template_id}" ng-click="showHTMLData(email_template.html_data, email_template.template_id)" >Add Block</div>
+                        </li>
+                    </ul>
                 </div>
+
+
+                <!--                <div class="r-col-editor-header-wrap">Select a template to start with:</div>
+                                <div class="r-col-block-wrap">
+                                    <div class="editor-block-slat" id="blockdivheader" ng-show="blockdivheader" ng-repeat="email_template in recuring_email_templates" ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
+                                </div>-->
             </div>
-            <div class="continue-bar-offset"></div>
+            <div class="r-col-editor-wrap" id="textdivheader" ng-show="textdivheader">
+                <div class="textstyle">To add client name please use these options</div>
+                <div class="textstyle">Ex: Hi &LT;clientFirstName&GT; </div>
+                <div class="textstyle">Hi &LT;clientLastName&GT; </div>
+                <div class="textstyle">Hi &LT;clientFullName&GT; </div>
+            </div>
         </div>
+        <div class="continue-bar-offset"></div>
     </div>
+</div>
 </div>  
 
 <!--Continue Bar-->
