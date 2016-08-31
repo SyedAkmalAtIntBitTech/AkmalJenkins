@@ -20,15 +20,12 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
         
         $scope.getUserDetails = function(){
             appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
-                alert(JSON.stringify(kGlobalCompanyObject));
                 $scope.companyName = kGlobalCompanyObject.companyName;
                 $scope.userFirstName = kGlobalCompanyObject.userFirstName;
                 $scope.userLastName = kGlobalCompanyObject.userLastName;
                 $scope.userRole = kGlobalCompanyObject.roleName; 
                 $scope.logourl = kGlobalCompanyObject.logourl;
 
-                kGlobalCompanyObject.userHashId = 'undefined';
-                appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
                 appSessionFactory.getDashboardMessage().then(function(message){
                     if(message)
                     {

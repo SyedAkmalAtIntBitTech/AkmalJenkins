@@ -174,11 +174,14 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                         if (data1){
                             appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
                                 var userHashId = kGlobalCompanyObject.userHashId;
-                                if (userHashId !== 'undefined'){
+                                if (userHashId !== undefined){
+
                                     var user = {"invitationCode": userHashId}
                                     onboardingFactory.saveInvitedUserPost(user).then(function (data2) {
                                         var message = data2.d.message;
                                         var userId = data2.d.id;
+                                        kGlobalCompanyObject.userHashId = undefined;
+                                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
                                         appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
                                             kGlobalCompanyObject.userId = data2.d.id;
                                             appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data3){
@@ -186,7 +189,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                                             });
                                         });
                                     });
-                                }else if (userHashId === 'undefined'){
+                                }else if (userHashId === undefined){
                                     $scope.getAllUserCompanies(data.d.details[0]); 
                                 }
                             });
