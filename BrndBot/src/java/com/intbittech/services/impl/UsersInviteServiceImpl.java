@@ -195,7 +195,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
     }
 
     @Override
-    public List<InvitedUsers> getInvitedUsers(Users userFrom)throws ProcessFailed {
+    public List<InvitedUsers> getInvitedUsers(Users userFrom, Company company)throws ProcessFailed {
         String invitationStatus = null;InvitedUsers inviteduser = null;
         UsersRoleCompanyLookup userRoleLookUp = null; String userName = "";       
         try{
@@ -220,7 +220,7 @@ public class UsersInviteServiceImpl implements UsersInviteService{
                 for (int j = 0; j< roles.size(); j++){
                     Double role_id = (Double)roles.get(j);
                     UserRole userRole = userRoleService.getUserRoleById(role_id.intValue());
-                    userRoleLookUp = userRoleCompanyLookUpService.getUsersRoleLookupByUserAndRole(user, userRole);
+                    userRoleLookUp = userRoleCompanyLookUpService.getUsersRoleLookupByUserAndCompany(user, company);
                     if (userRoleLookUp != null){
                         if (userRoleLookUpIds == ""){
                             userRoleLookUpIds = userRoleLookUp.getId().toString();
