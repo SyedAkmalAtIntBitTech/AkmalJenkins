@@ -936,10 +936,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 var editorHtml = $('#tinymceEditorBody').html();
                 if (editorHtml.contains('id="defaultblock1"'))
                 {
-                    $("#recurringDefaultTemplate").empty().append(emailData.htmldata);
+                    $("#recurringDefaultTemplate").empty().append("<div class=view>" + emailData.htmldata + "</div>");
                    
                 } else {
-                     $("#tinymceEditorBody").append("<div id=defaultblock1>" + emailData.htmldata + "</div");
+                     $("#tinymceEditorBody").append("<div id=defaultblock1><div class=view>" + emailData.htmldata + "</div></div");
                 }
                 $scope.templateId = id;
                 $scope.launchTinyMceEditor();           
