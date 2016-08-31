@@ -130,7 +130,7 @@ public class ScheduleDAO {
             String fromAddress,
             String emailListName,
             String fromName,
-            String replytoEmailAddress,
+            String replyToEmailAddress,
             String scheduleDesc,
             String templateStatus,
             String html_body
@@ -154,7 +154,7 @@ public class ScheduleDAO {
                     ps.setString(4, fromAddress);
                     ps.setString(5, emailListName);
                     ps.setString(6, fromName);
-                    ps.setString(7, replytoEmailAddress);
+                    ps.setString(7, replyToEmailAddress);
                     ps.setString(8, preheader);
                     ps.setString(9, html_body);
                     ps.execute();
