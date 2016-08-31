@@ -1,4 +1,4 @@
-emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$location', 'blockModelFactory', 'companyFactory', 'categoryFactory', 'emailDraftFactory', 'subCategoryFactory', 'externalContentFactory', 'redirectFactory', 'SharedService', 'settingsFactory', 'companyMarketingProgramFactory', 'emailFactory', 'modelFactory', 'emailListFactory', 'scheduleActionsFactory', 'appSessionFactory', 'yourPlanFactory', 'rulesEngineFactory', function ($scope, $filter, $window, $location, blockModelFactory, companyFactory, categoryFactory, emailDraftFactory, subCategoryFactory, externalContentFactory, redirectFactory, SharedService, settingsFactory, companyMarketingProgramFactory, emailFactory, modelFactory, emailListFactory, scheduleActionsFactory, appSessionFactory, yourPlanFactory, rulesEngineFactory) {
+emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$location', 'blockModelFactory', 'companyFactory', 'categoryFactory', 'emailDraftFactory', 'subCategoryFactory', 'externalContentFactory', 'redirectFactory', 'SharedService', 'settingsFactory', 'companyMarketingProgramFactory', 'emailFactory', 'modelFactory', 'emailListFactory', 'scheduleActionsFactory', 'appSessionFactory', 'yourPlanFactory', 'rulesEngineFactory', 'onboardingFactory', function ($scope, $filter, $window, $location, blockModelFactory, companyFactory, categoryFactory, emailDraftFactory, subCategoryFactory, externalContentFactory, redirectFactory, SharedService, settingsFactory, companyMarketingProgramFactory, emailFactory, modelFactory, emailListFactory, scheduleActionsFactory, appSessionFactory, yourPlanFactory, rulesEngineFactory, onboardingFactory) {
 
         $scope.footerEmailPopup = false;
         $scope.emailChannelId = 3;
@@ -42,6 +42,12 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.actionNameListValidation = actionNameListValidation;
         $scope.listValidation = listValidation;
         $scope.emailValidation = emailValidation;
+        $scope.addressLine1Validation = addressLine1Validation;
+        $scope.addressLine2Validation = addressLine2Validation;
+        $scope.cityValidation = cityValidation;
+        $scope.stateValidation = stateValidation;
+        $scope.zipcodeValidation = zipcodeValidation;
+        $scope.countryValidation = countryValidation;
         $scope.isEmailSubEmpty = false;
         $scope.ispreHeaderEmpty = false;
         $scope.actionTimeVal = false;
@@ -51,6 +57,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.validateEmailAddress = false;
         $scope.isEmailSaveAction = false;
         var sliderDialog = "#emaileditorexternalpopup";
+        $scope.companyAddressDetails = {};
 
         //OnPageLoad
         $scope.emailEditorInit = function () {
@@ -567,12 +574,49 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
         $scope.getFooterDetails = function () {
             settingsFactory.getAllPreferencesGet().then(function (data) {
+                $scope.companyAddressDetails=JSON.parse(data.d.details).companyAddress[0];
                 $scope.footerDetails = JSON.parse(data.d.details).userProfile;
                 $scope.company = $scope.footerDetails;
             });
         };
 
+        $scope.validateCompanyAddress = function (companyData) {
+            if (!companyData.addressLine1) {
+                $scope.companyAddressDetails.addressLine1 = "";
+                $("#addressLine1").focus();
+                return false;
+            }
+            else if (!companyData.addressLine2) {
+                $scope.companyAddressDetails.addressLine2 = "";
+                $("#addressLine2").focus();
+                return false;
+            }
+            else if (!companyData.city) {
+                $scope.companyAddressDetails.city = "";
+                $("#city").focus();
+                return false;
+            }
+            else if (!companyData.state) {
+                $scope.companyAddressDetails.state = "";
+                $("#state").focus();
+                return false;
+            } 
+            else if (!companyData.zipCode) {
+                $scope.companyAddressDetails.zipCode = "";
+                $("#zipcode").focus();
+                return false;
+            }
+            else if (!companyData.country) {
+                $scope.companyAddressDetails.country = "";
+                $("#country").focus();
+                return false;
+            }
+            return true;
+        };
+        
         $scope.changeFooterDetails = function (company) {
+            if($scope.validateCompanyAddress(company)){
+                
             var footerWebsiteUrl = "";
             if (company.websiteUrl)
                 footerWebsiteUrl = company.websiteUrl;
@@ -590,6 +634,12 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             settingsFactory.setFooterPost(footerPopupDetails).then(function (data) {
                 $scope.getFooterDetails();
             });
+            
+            var companyAddress = {"addressLine1":company.addressLine1,"addressLine2":company.addressLine2,"city":company.city,"state":company.state,"zipcode":company.zipCode,"country":company.country};
+            onboardingFactory.saveCompanyAddress(companyAddress).then(function (data){
+                growl("company Saved.");
+            });    
+            }
         };
 
 
@@ -647,6 +697,10 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             $("#tinymceEditorBody").find("p").removeAttr("style").css("margin", "0px");
             settingsFactory.getAllPreferencesGet().then(function (data) {
                 var footerData = JSON.parse(data.d.details);
+                
+                if(!footerData.companyAddress){
+                    $scope.emailFooterPopupDetails=true;
+                }else{
                 $scope.fadeClass = 'fadeClass';
                 $scope.emailPreviewPopup = true;
                 $scope.overlayFade = true;
@@ -663,6 +717,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     document.getElementById('dynamictable5').contentDocument.location.reload(true);
                     document.getElementById('dynamictable6').contentDocument.location.reload(true);
                 });
+                }
             });
         };
 
@@ -732,7 +787,10 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             $("#tinymceEditorBody").find("p").removeAttr("style").css("margin", "0px");
             settingsFactory.getAllPreferencesGet().then(function (footerResponseData) {
                 var footerData = JSON.parse(footerResponseData.d.details);
-                
+                if(!footerData.companyAddress){
+                    $scope.emailFooterPopupDetails=true;
+                }
+                else{
                 var footer = $scope.getUserFooter(footerData);
                 var sendData = {
                     htmlString: $('#tinymceEditorBody').html() + footer,
@@ -790,6 +848,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         }
                     });
                 });
+            }
             });
         };
 
@@ -1049,6 +1108,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.isEmailActionSave = function () {
 //            $scope.redirectBaseURL();
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
+                alert(JSON.stringify(kGlobalEmailObject));
                 $scope.emailSubject = kGlobalEmailObject.emailSubject;
                 $scope.fromName = kGlobalEmailObject.fromName;
                 if (kGlobalEmailObject.entityScheduleId) {

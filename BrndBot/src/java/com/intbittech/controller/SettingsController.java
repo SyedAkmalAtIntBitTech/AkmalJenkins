@@ -174,32 +174,35 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     }
 
     @RequestMapping(value = "/removeUser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> removeUser(@RequestParam("inviteId") Integer inviteId) {
+    public ResponseEntity<ContainerResponse> removeUser(@RequestParam("inviteId") Integer inviteId, @RequestBody UserCompanyIds userCompanyIds) {
         TransactionResponse transactionResponse = new TransactionResponse();
+        boolean flag = false;
         try {
 
-            boolean returnMessage = usersInviteService.removeUsersByInviteId(inviteId);
-            if (returnMessage) {
+            boolean returnMessage = usersInviteService.removeUsersByInviteIdAndCompanyId(inviteId, userCompanyIds.getCompanyId());
+            if (returnMessage){
                 transactionResponse.setMessage(messageSource.getMessage("user_removed", new String[]{}, Locale.US));
-            } else {
+            }else{
+
                 transactionResponse.setMessage(messageSource.getMessage("user_remove_failure", new String[]{}, Locale.US));
             }
 
         } catch (Throwable throwable) {
             logger.error(throwable);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(messageSource.getMessage("user_remove_failure", new String[]{}, Locale.US)));
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "/getInvitedUsers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getInvitedUsers(HttpServletRequest request,
-            HttpServletResponse response, @RequestParam("userId") Integer userId) {
+            HttpServletResponse response, @RequestParam("userId") Integer userId, @RequestParam("companyId") Integer companyId) {
         GenericResponse<InvitedUsers> genericResponse = new GenericResponse<>();
 
         try {
             Users user = usersService.getUserById(userId);
-            List<InvitedUsers> invitedUsers = usersInviteService.getInvitedUsers(user);
+            Company company = companyService.getCompanyById(companyId);
+            List<InvitedUsers> invitedUsers = usersInviteService.getInvitedUsers(user, company);
             genericResponse.setDetails(invitedUsers);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
         } catch (Throwable throwable) {

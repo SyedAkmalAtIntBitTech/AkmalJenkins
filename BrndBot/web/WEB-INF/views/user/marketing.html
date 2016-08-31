@@ -1,19 +1,41 @@
 
 <div ng-include src="'addaction.html'"></div>
-<div class="main-content-wrap">
+<div class="main-content-wrap" >
     <div class="top-nav-wrap">
         <div class="header">
             <h2 class="">Your Plan</h2>
             <div class="top-nav-cta-container">
-               
+
+                <div class="yourplan-user-dropdown" ng-init="getUserDetails()" ng-click="userSettings=true">
+                        <span class="hub-dropdown-text" >{{userFirstName}} {{userLastName}}</span>
+                        <img type="image/svg+xml" src="/BrndBot/images/dropdown.svg" class="hub-dropdown-icon" style="cursor:pointer;"></img>
+                        
+                        <div class="dropdown-yourplan-user-settings" ng-show="userSettings">
+                                <a class="hub-dropdown-section" href="settings" id="socialhubli">
+                                    <div class=" dropdown-label-active">Settings</div>
+                                </a>
+                                <a class="hub-dropdown-section" href="loading" id="socialhubli">
+                                    <div class=" dropdown-label-active">Change Company</div>
+                                </a>
+                                <a class="hub-dropdown-section" href="#/marketing" id="socialhubli">
+                                    <div class=" dropdown-label-active">Upgrade Account</div>
+                                </a>
+                                <a class="hub-dropdown-section" href="/BrndBot/logout" id="emailhubli">
+                                    <div class=" dropdown-label">Log Out</div>
+                                </a>                     
+                        </div>
+                </div>
+                            
+
             </div>
+                    
         </div>
-    <div class="top-sub-nav">
-         <a href="javascript:void(0)" class="reg-button green-button" style="margin:0px 30px;" id="liPriority" ng-click="ShowAddAction()">Add Action</a>
+    <div class="top-sub-nav" ng-click="userSettings=false">
         <div class="" ng-click="setCurrentDateActions()">
             <div class="your-plan-cal-dropdown" for="jumptodatepicker" > 
-                <label for="jumptodatepicker"><i style="cursor: pointer;"></i></label>
-                <label class="datepickerClass your-plan-cal-dropdown-label dateSelection subnav-date-dropdown-text " for="jumptodatepicker" >Jump to Date</label>
+                <a href="javascript:void(0)" class="reg-button blue-button margin-around" id="liPriority" ng-click="ShowAddAction()">Add Action</a>
+                <!--<label for="jumptodatepicker"><i style="cursor: pointer;"></i></label>-->
+                <label class="reg-button slat-detail-button margin-around" for="jumptodatepicker" >JUMP TO DATE</label>
                 <input type="text"  name="datepicker" id="jumptodatepicker" readonly class="hideinput"/>
             </div>
 
@@ -40,7 +62,7 @@
     <div class="top-nav-bar-offset"></div>
     <div class="top-subnav-bar-offset"></div>
 
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-init="getCampaigns()">
+    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-init="getCampaigns()" ng-click="userSettings=false">
         <div class="your-plan-wrap" ng-repeat="entity in entitySet">
             <div class="your-plan-pane" >
                 <div class="action-list-pane-header">

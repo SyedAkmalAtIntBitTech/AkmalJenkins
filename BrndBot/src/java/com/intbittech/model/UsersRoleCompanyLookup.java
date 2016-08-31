@@ -7,6 +7,7 @@ package com.intbittech.model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,8 +22,8 @@ import javax.persistence.Table;
  * @author Syed Muzamil at IntBit Technologies.
  */
 @Entity
-@Table(name = "users_role_lookup")
-public class UsersRoleLookup implements Serializable {
+@Table(name = "users_role_company_lookup")
+public class UsersRoleCompanyLookup implements Serializable {
     @JoinColumn(name = "company_id", referencedColumnName = "company_id")
     @ManyToOne
     private Company companyId;
@@ -38,11 +39,21 @@ public class UsersRoleLookup implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @ManyToOne
     private Users userId;
+    @Column(name = "account_status")
+    private String accountStatus;
 
-    public UsersRoleLookup() {
+    public String getAccountStatus() {
+        return accountStatus;
     }
 
-    public UsersRoleLookup(Integer id) {
+    public void setAccountStatus(String accountStatus) {
+        this.accountStatus = accountStatus;
+    }
+    
+    public UsersRoleCompanyLookup() {
+    }
+
+    public UsersRoleCompanyLookup(Integer id) {
         this.id = id;
     }
 

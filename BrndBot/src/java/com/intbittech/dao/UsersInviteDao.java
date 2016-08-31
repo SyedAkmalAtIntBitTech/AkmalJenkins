@@ -48,7 +48,16 @@ public interface UsersInviteDao {
      * @return {@link Invite}
      * @throws ProcessFailed the process failed
      */
-    public List<Invite> getAllInvitedUsers(Users userFrom) throws ProcessFailed;
+    public List<Invite> getAllInvitedUsersByuserFrom(Users userFrom) throws ProcessFailed;
+
+    /**
+     * This method pass id as input and get the {@link Invite} from database
+     *
+     * @param Id
+     * @return {@link Invite}
+     * @throws ProcessFailed the process failed
+     */
+    public List<Invite> getAllInvitedUsersByuserTo(Users userTo) throws ProcessFailed;
     
     /**
      * This method pass id as input and get the {@link Invite} from database

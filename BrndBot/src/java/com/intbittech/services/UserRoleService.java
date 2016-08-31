@@ -7,7 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.UserRole;
-import com.intbittech.model.UsersRoleLookup;
+import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.model.Users;
 
 /**
@@ -33,7 +33,7 @@ public interface UserRoleService {
     public String save(UserRole userRole) throws ProcessFailed;
     
     /**
-     * This method pass id as input and deletes the {@link UsersRoleLookup} from DAO layer.
+     * This method pass id as input and deletes the {@link UsersRoleCompanyLookup} from DAO layer.
      *
      * @param id
      * @throws ProcessFailed the process failed
@@ -41,10 +41,10 @@ public interface UserRoleService {
     public void delete(Integer id) throws ProcessFailed;
     
     /**
-     * This method pass id as input and get the {@link UsersRoleLookup} from DAO layer
+     * This method pass id as input and get the {@link UsersRoleCompanyLookup} from DAO layer
      *
      * @param Id
-     * @return {@link UsersRoleLookup}
+     * @return {@link UsersRoleCompanyLookup}
      * @throws ProcessFailed the process failed
      */
     public UserRole getUserRoleById(Integer Id) throws ProcessFailed;

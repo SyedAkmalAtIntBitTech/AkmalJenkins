@@ -7,8 +7,8 @@ package com.intbittech.services.impl;
 
 import com.intbittech.model.UserProfile;
 import com.intbittech.model.Users;
-import com.intbittech.model.UsersRoleLookup;
-import com.intbittech.services.UserRoleLookUpService;
+import com.intbittech.model.UsersRoleCompanyLookup;
+import com.intbittech.services.UserRoleCompanyLookUpService;
 import com.intbittech.services.UsersService;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class SpringSecurityUsersDetailServiceImpl implements UserDetailsService 
     private UsersService usersService;
 
     @Autowired
-    private UserRoleLookUpService userRoleLookUpService;
+    private UserRoleCompanyLookUpService userRoleLookUpService;
     
     /**
      *
@@ -60,10 +60,10 @@ public class SpringSecurityUsersDetailServiceImpl implements UserDetailsService 
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         try{
 
-            List<UsersRoleLookup> usersRoleLookUp = userRoleLookUpService.getAllUserRolesByUser(user);
+            List<UsersRoleCompanyLookup> usersRoleLookUp = userRoleLookUpService.getAllUserRolesByUser(user);
 
             for (int i = 0; i< usersRoleLookUp.size(); i++){
-                UsersRoleLookup userRole = usersRoleLookUp.get(i);
+                UsersRoleCompanyLookup userRole = usersRoleLookUp.get(i);
                 authorities.add(new SimpleGrantedAuthority(userRole.getRoleId().getRoleName()));
             }
             return authorities;

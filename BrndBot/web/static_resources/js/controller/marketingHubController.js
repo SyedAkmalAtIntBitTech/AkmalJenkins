@@ -257,6 +257,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             settingsFactory.getEmailSettingsGet().then(function (data) {
                 $scope.emailSettingsDetails = true;
                 $scope.email_settings = JSON.parse(data.d.details);
+                if ($scope.email_settings == null){
+                    $scope.email_settings = {};
+                    $scope.email_settings.from_address = 'mail@brndbot.com';
+                }
             });
         };
 

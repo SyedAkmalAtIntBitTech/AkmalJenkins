@@ -662,6 +662,18 @@ li.main-nav:last-child{
     padding: 0px 30px
 }
 
+.yourplan-user-dropdown{
+    background-color: transparent;
+    height: 100%;
+    display: inline-flex;
+    margin-right: 1px;
+    align-items: center;
+    padding: 15px 0px 10px 0px;
+    overflow: visible;
+    min-width: 70px;
+    width: 100%;
+}
+
 .hub-dropdown-icon{
     width: 20px;
     height: 20px;
@@ -701,6 +713,22 @@ li.main-nav:last-child{
     width:220px;
 }
 
+.dropdown-yourplan-user-settings{
+    margin-top: 215px;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    padding: 0 ;
+    vertical-align: middle;
+    border-radius: 3px;
+    min-width: 50px;
+    min-height: 32px;
+    background-color: #fff;
+    border: 1px solid #c9c9c9;
+    font-size: 14px;
+    user-select:none;
+    width:220px;
+}
 .hub-dropdown i:before{
     background-image: url(/BrndBot/images/dropdown.svg)
 }
@@ -5166,7 +5194,7 @@ textarea.task-textarea:focus{
 
 .emailSideBar-tab {
     text-align: center;
-    height: 40px;
+    height: 39px;
     border-bottom: 0px #0F76A6 solid;
     padding-top: 10px;
     box-sizing: border-box;
@@ -5268,4 +5296,7 @@ img#prevfbimg {
 }
 .magginLeftAuto{
    margin-left: auto;
+}
+.margin-around{
+    margin: 3px 5px 3px 25px;
 }

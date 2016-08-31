@@ -4,29 +4,21 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 
-factoryApp.factory('authenticatedServiceFactory', function ($http, $q) {
+factoryApp.factory('authenticatedServiceFactory', function ($http, $q, appSessionFactory) {
     var service = {};
-    function dataWithUserAndCompanyId(data){
-//todo replace when merge complete muzamil                
-        var userId = localStorage.getItem("userId");
-        var companyId = localStorage.getItem("companyId");
-        if (!data){
-            data = {};}
-        data["userId"] = parseInt(userId);
-        data["companyId"] = parseInt(companyId);
-        return data;
-    }
+
     service.makeCall = function (methodType, URL, data, authType) {
         var deffered = $q.defer();
         var config = "";
         config = {headers: {'Content-type': 'application/json'}};
 
-
         if (authType === "UPLOADIMAGE")
         {
             if (methodType === "POST") {
-                var userId = localStorage.getItem("userId");
-                var companyId = localStorage.getItem("companyId");
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                var userId = kGlobalCompanyObject.userId;
+                var companyId = kGlobalCompanyObject.companyId;
+
                 if (URL.indexOf("?") > 0){
                     URL = URL + "&userId="+ userId + "&companyId=" + companyId;
                 }else {
@@ -39,12 +31,15 @@ factoryApp.factory('authenticatedServiceFactory', function ($http, $q) {
                     deffered.resolve(putData.data);
                 }, function (error) {
                 });
-            }
+
+            });
+        }
         } else {
             if (methodType === "GET") {
-//todo replace when merge complete muzamil                
-                var userId = localStorage.getItem("userId");
-                var companyId = localStorage.getItem("companyId");
+//todo replace when merge complete muzamil      
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                var userId = kGlobalCompanyObject.userId;
+                var companyId = kGlobalCompanyObject.companyId;
                 if (URL.indexOf("?") > 0){
                     URL = URL + "&userId="+ userId + "&companyId=" + companyId;
                 }else {
@@ -55,17 +50,33 @@ factoryApp.factory('authenticatedServiceFactory', function ($http, $q) {
                 }, function (error) {
 
                 });
+            });
             } else if (methodType === "POST") {
-                data = dataWithUserAndCompanyId(data);
-                $http.post(URL, data, config).then(function (putData) {
-                    deffered.resolve(putData.data);
-                }, function (error) {
+                appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                    var userId = kGlobalCompanyObject.userId;
+                    var companyId = kGlobalCompanyObject.companyId;
+                    if (!data){
+                        data = {};}
+                    data["userId"] = parseInt(userId);
+                    data["companyId"] = parseInt(companyId);
+                    $http.post(URL, data, config).then(function (putData) {
+                        deffered.resolve(putData.data);
+                    }, function (error) {
+                    });
                 });
             } else if (methodType === "DELETE"){
                 data = dataWithUserAndCompanyId(data);
-                $http.delete(URL, data, config).then(function (putData) {
-                    deffered.resolve(putData.data);
-                }, function (error) {
+                appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                    var userId = kGlobalCompanyObject.userId;
+                    var companyId = kGlobalCompanyObject.companyId;
+                    if (!data){
+                        data = {};}
+                    data["userId"] = parseInt(userId);
+                    data["companyId"] = parseInt(companyId);
+                    $http.delete(URL, data, config).then(function (putData) {
+                        deffered.resolve(putData.data);
+                    }, function (error) {
+                    });
                 });
             }
         }
