@@ -8,7 +8,7 @@
     <div class="top-nav-bar-offset"></div>
 
     <div class="content-wrap content-wrap-padding content-wrap-with-continue-bar content-wrap-flex" >
-        <div class="modal-pane modal-pane-full-width color-div">
+        <div class="modal-pane modal-pane-full-width">
             <div class="modal-pane-header-wrap">
                 <h2 class="">Upload your logo</h2>
             </div>
@@ -28,16 +28,21 @@
                         <span class="validationAlert" ng-if="colorsAlert">{{colorValidation}}</span>
                     </div>
 
-                    <div class="CTA_Button Button--Gray clear-colors" ng-click="clearColorPalette()">Clear Colors</div>
+                    <div class="CTA_Button Button--Gray clear-colors cur" ng-click="clearColorPalette()">Clear Colors</div>
                 </div>
                 <div class="color-palette-col">
                     <div class="color-selection-menu">
-                        <div class="color-selection-option" ng-class="activeColorTheme"  id="themeColors" ng-click="getAllThemes()">Color Themes</div>
-                        <div class="color-selection-option" ng-class="activeColorPicker"  id="customColors" ng-click="getColorFromPicker()">Color Picker</div>
-                        <div class="color-selection-option" ng-class="activeColorLogo"  id="logoColorsDiv" ng-click="getColorsFromLogo()">Logo Colors</div>
+                        <div class="color-selection-option cur" ng-class="activeColorTheme"  id="themeColors" ng-click="getAllThemes()">Color Themes</div>
+                        <div class="color-selection-option cur" ng-class="activeColorPicker"  id="customColors" ng-click="getColorFromPicker()">Color Picker</div>
+                        <div class="color-selection-option cur" ng-class="activeColorLogo"  id="logoColorsDiv" ng-click="getColorsFromLogo()">Logo Colors</div>
                     </div> 
                     <div class="color-selection-tool-wrap">
-                        <div ng-show="colorFrom == 'custom'"  class="color-picker-space" id="picker"></div>
+                        <div ng-show="colorFrom == 'custom'"  class="color-picker-space" id="">
+                            <input type="text" name="togglePaletteOnly" id="togglePaletteOnly" style="display:none !important; visibility: hidden">
+                            <script>
+                                
+                            </script>
+                        </div>
                         <div ng-if="colorFrom == 'theme'" id="themeColorsDiv1" class="palette-theme-global">
                             <div ng-repeat="color in themeColors" class="palette-wrap-globalColors">
                                 <div id="{{color.globalColorsId}}" class="palette-global clear">
@@ -45,7 +50,7 @@
                                     <div class="palette-colorswab-global fleft" style="background-color:{{color.color2}};" ng-click="getColorID(color.color2)"></div>
                                     <div class="palette-colorswab-global fleft" style="background-color:{{color.color3}};" ng-click="getColorID(color.color3)"></div>
                                     <div class="palette-colorswab-global fleft" style="background-color:{{color.color4}};" ng-click="getColorID(color.color4)"></div>
-                                    <div class="font--lightGray pointer" style="margin-top: 7px;height: 22px;"
+                                    <div class="palette-colorswab-global fleft cur" style="margin-top:10px;border:none;"
                                          ng-click="selectTheme(color.color1, color.color2, color.color3, color.color4)">{{color.colorName}}</div>
                                 </div>
                             </div>
