@@ -1869,7 +1869,7 @@ li.sub-nav-tab.active a{
     padding: 20px 30px 20px 30px;  
     box-sizing: border-box;
     max-height: 430px;
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 .modal-pane-content-social-sequence{
