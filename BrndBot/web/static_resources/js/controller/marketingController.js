@@ -926,15 +926,24 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.recuring_email_templates = JSON.parse(JSON.stringify(data));
                 $scope.showHTMLData($scope.recuring_email_templates[0].html_data, $scope.recuring_email_templates[0].template_id);
             });
+            $scope.recurringTemplateOnClick(0);
         };
 
         $scope.showHTMLData = function (html_data, id) {
             var $iframe = $('.fr-iframe');
             externalContentFactory.layoutEmailModelGet(id, false, 0, true).then(function (data) {
                 var emailData = JSON.parse(data.d.details);
-                $("#tinymceEditorBody").empty().append(emailData.htmldata);
+                var editorHtml = $('#tinymceEditorBody').html();
+                if (editorHtml.contains('id="defaultblock1"'))
+                {
+                    $("#recurringDefaultTemplate").empty().append(emailData.htmldata);
+                   
+                } else {
+                     $("#tinymceEditorBody").append("<div id=defaultblock1>" + emailData.htmldata + "</div");
+                }
                 $scope.templateId = id;
-                $scope.launchTinyMceEditor();
+                $scope.launchTinyMceEditor();           
+                $scope.recurringTemplateOnClick(0);
             });
         };
         $scope.launchTinyMceEditor = function () {
@@ -1123,57 +1132,48 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.error = 0;
 
             if (!data.recurring_email_title) {
-//                alert("Enter the title.");
                 $("#recuring_email_title").focus();
                 $scope.error++;
             }
             if (!data.recurring_email_description) {
-//                alert("Enter the description.");
                 $("#recuring_description").focus();
                 $scope.error++;
             }
             if (data.recurring_email_days === "0" || data.recurring_email_days === null || typeof data.recurring_email_days === 'undefined') {
                 if (error === 0) {
-//                    alert("Please select the day.");
                 }
                 $("#days").focus();
                 $scope.error++;
             }
             if (!data.recurring_email_time) {
-//                alert("Select the time.");
                 $("#timepicker1").focus();
                 $scope.error++;
             }
             if (!data.recurring_email_till_date) {
-//                alert("Till date not selected! Please select the date.");
                 $("#datepicker").focus();
                 $scope.error++;
             }
 
             if (data.recurring_email_email_list_name === "0" || data.recurring_email_email_list_name === null || typeof data.recurring_email_email_list_name === 'undefined') {
                 if (error === 0) {
-//                    alert("Please select the email list.");
                 }
                 $("#emaillist").focus();
                 $scope.error++;
             }
             if (data.recurring_email_subject === "" || data.recurring_email_subject === null || typeof data.recurring_email_subject === "undefined") {
                 if (error === 0) {
-//                    alert("Enter the subject.");
                 }
                 $("#subject").focus();
                 $scope.error++;
             }
             if (data.recurring_email_from_name === "" || data.recurring_email_from_name === null || typeof data.recurring_email_from_name === "undefined") {
                 if (error === 0) {
-//                    alert("Enter the from name.");
                 }
                 $("#from_name").focus();
                 $scope.error++;
             }
             if (data.recurring_email_reply_to_email_address === "" || data.recurring_email_reply_to_email_address === null || typeof data.recurring_email_reply_to_email_address === "undefined") {
                 if (error === 0) {
-//                    alert("Please Enter Valid reply-to-address.");
                 }
                 $("#reply_to_address").focus();
                 $scope.error++;
@@ -1617,6 +1617,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             companyFactory.allNonMindbodyBlocksForCompanyGet().then(function (data) {
                 $scope.blockLists = data.d.details;
             });
+            $scope.recurringTemplateOnClick(0);
         };
         $scope.blockOnClick = function (id) {
             $scope.id = id;
@@ -1630,7 +1631,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $("#styletab").css("background-color", "transparent").css("color", "#19587c");
         };
         $scope.recurringTemplateOnClick = function (id) {
-            alert(id);
             $scope.id = id;
             $scope.id = 'editor-block-slat';
             $scope.setBlockActive = 'editor-block-slat-selected';
@@ -1715,13 +1715,16 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                             $scope.launchTinyMceEditor();
                         } else
                         {
-                            BlockHtml = '<div id=' + $scope.htmlTagId + '  class=module onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ',' + mindbodyId + ')>' + emailData.htmldata + '</div>';
+                           var BlockHtml = '<div id=' + $scope.htmlTagId + '  class=module onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ',' + mindbodyId + ')>' + emailData.htmldata + '</div>';
                             $("#tinymceEditorBody").append(BlockHtml);
                             $scope.launchTinyMceEditor();
                         }
                     }
                 });
             });
+        };
+        $scope.blockIdOnSelected = function (selectedBlock, blockId, mindbodyId) {
+            $scope.htmlTagId =  selectedBlock.id;
         };
         $scope.showStyles = function (isClick) {
             if (isClick === "true")
@@ -1738,13 +1741,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 blockModelFactory.allEmailBlockModelGet($scope.selectedBlockId).then(function (data) {
                     $scope.datalistsstyles = data.d.details;
                 });
-            } else
-            {
-                appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
-                    modelFactory.EmailModelsIdGet(kGlobalEmailObject.subCategoryId).then(function (data) {
-                        $scope.datalistsstyles = data.d.details;
-                    });
-                });
             }
+            $scope.recurringTemplateOnClick(0);
         };
+
     }]);

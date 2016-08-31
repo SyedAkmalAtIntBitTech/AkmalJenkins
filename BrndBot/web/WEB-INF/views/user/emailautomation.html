@@ -259,8 +259,8 @@
                     </ul>
                     <ul class="r-col-block-wrap" ng-show="recurringDivheader">
                         <li class="editor-block-slat" ng-class="{'editor-block-slat-selected': activeBlock === email_template.template_id}" ng-repeat="email_template in recuring_email_templates" ng-click="recurringTemplateOnClick(email_template.template_id)">
-                            <div id="blklist----{{email_template.template_id}}" class="blockName">{{email_template.template_name}}</div>
-                            <div class="addBlock-button reg-button slat-detail-button hideBlockButton" ng-class="{'hideBlockButton': activeBlock !== email_template.template_id}" ng-click="didChooseBlock()" >Add Block</div>
+                            <div id="recurringlist----{{email_template.template_id}}" class="blockName">{{email_template.template_name}}</div>
+                            <div class="addBlock-button reg-button slat-detail-button hideBlockButton" ng-class="{'hideBlockButton': activeBlock !== email_template.template_id}" ng-click="showHTMLData(email_template.html_data, email_template.template_id)" >Add Block</div>
                         </li>
                     </ul>
                 </div>
