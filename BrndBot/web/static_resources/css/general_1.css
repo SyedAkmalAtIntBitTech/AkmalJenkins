@@ -13,8 +13,9 @@ body{
     font-family: "proxima nova";
     box-sizing: border-box;
     margin: 0px;
+    font-weight: 500 !important;
 }
-
+*{font-weight: 500 !important;}
 .login-page{
     background-color: #FFFFFF;
 }
@@ -5053,9 +5054,9 @@ textarea.task-textarea:focus{
 }
 
 
-.bb-panel-full-width:first-of-type{
+/*.bb-panel-full-width:first-of-type{
     margin-top: 0px;
-}
+}*/
 
 
 
@@ -5705,7 +5706,7 @@ color: #5A6069 ;
 
 //popup.css and style_detail_overlay_6.css starts ///
 .body-normal {
-    background-color: #ECF0F2;
+    background-color: #ECF0F2 !important;
     box-sizing: border-box;
     color: #3E4551;
 }

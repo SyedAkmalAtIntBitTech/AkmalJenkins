@@ -56,7 +56,26 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 value: 'Email'
             }
         ];
+        
+        $scope.getUserDetails = function(){
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                $scope.companyName = kGlobalCompanyObject.companyName;
+                $scope.userFirstName = kGlobalCompanyObject.userFirstName;
+                $scope.userLastName = kGlobalCompanyObject.userLastName;
 
+                kGlobalCompanyObject.userHashId = 'undefined';
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
+                appSessionFactory.getDashboardMessage().then(function(message){
+                    if(message)
+                    {
+                        growl(message);
+                        appSessionFactory.clearDashboardMessage().then(function(message){
+                        });
+                    }
+                });
+            });
+        };
+        
         $scope.displayCampaignDetails = function () {
             $scope.campaignDetailsClass = 'activeCampaign';
             $scope.campaignActionsClass = '';

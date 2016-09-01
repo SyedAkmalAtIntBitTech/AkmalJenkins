@@ -44,6 +44,26 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.replyEmailValidation = false;
         $scope.replyToAddress = false;
 
+
+        $scope.getUserDetails = function(){
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                $scope.companyName = kGlobalCompanyObject.companyName;
+                $scope.userFirstName = kGlobalCompanyObject.userFirstName;
+                $scope.userLastName = kGlobalCompanyObject.userLastName;
+
+                kGlobalCompanyObject.userHashId = 'undefined';
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
+                appSessionFactory.getDashboardMessage().then(function(message){
+                    if(message)
+                    {
+                        growl(message);
+                        appSessionFactory.clearDashboardMessage().then(function(message){
+                        });
+                    }
+                });
+            });
+        };
+        
         $scope.displayAllEmailDrafts = function () {
             $scope.activeEmailDrafts = 'activeTab';
             $scope.activeEmailHistory = '';

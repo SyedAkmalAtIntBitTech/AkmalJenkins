@@ -698,9 +698,9 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             settingsFactory.getAllPreferencesGet().then(function (data) {
                 var footerData = JSON.parse(data.d.details);
                 
-                if(!footerData.companyAddress){
-                    $scope.emailFooterPopupDetails=true;
-                }else{
+//                if(!footerData.companyAddress){
+//                    $scope.emailFooterPopupDetails=true;
+//                }else{
                 $scope.fadeClass = 'fadeClass';
                 $scope.emailPreviewPopup = true;
                 $scope.overlayFade = true;
@@ -709,7 +709,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     htmlString: $('#tinymceEditorBody').html() + footer,
                     iframeName: $scope.randomIframeFilename.toString()
                 };
-
+                
                 emailFactory.previewServletPost(sendData).then(function () {
                     $scope.overlayFade = true;
                     $scope.iframePath = getHost() + "download/HTML?fileName=" + $scope.randomIframeFilename + ".html";
@@ -717,7 +717,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     document.getElementById('dynamictable5').contentDocument.location.reload(true);
                     document.getElementById('dynamictable6').contentDocument.location.reload(true);
                 });
-                }
+//                }
             });
         };
 
@@ -736,6 +736,9 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 emailFactory.previewServletPost(sendData).then(function () {
                     appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                         if (!kGlobalEmailObject.draftId) {
+                            if(!kGlobalEmailObject.lookupId){
+                                kGlobalEmailObject.lookupId = 0;
+                            }
                             var draftData = {
                                 bodyString: $('#tinymceEditorBody').html(),
                                 lookupId: kGlobalEmailObject.lookupId.toString(),

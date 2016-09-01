@@ -63,7 +63,7 @@
             <div class="bb-bottom-cta-continue-button-text">Continue</div>
             <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
         </a>
-         <a ng-show="emaildetailscontbtn==true"  class="bb-bottom-cta-continue-button" id="emaildetailscontbtn" ng-click="continueEmailDetailsOnClick({'emailSubject':emailSubject,'fromName':fromName,'fromAddress':fromAddress,'toAddress':toAddress,'replyAddress':replyAddress})" >
+         <a ng-show="emaildetailscontbtn==true" ng-class="{'bb-valid': emailSubject.length>0 && fromName.length>0 && replyAddress.length>0}" class="bb-bottom-cta-continue-button" id="emaildetailscontbtn" ng-click="continueEmailDetailsOnClick({'emailSubject':emailSubject,'fromName':fromName,'fromAddress':fromAddress,'toAddress':toAddress,'replyAddress':replyAddress})" >
             <div class="bb-bottom-cta-continue-button-text">Continue</div>
             <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
         </a>
