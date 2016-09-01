@@ -163,7 +163,7 @@ public class FranchiseController {
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             franchiseService.associateCompanyToFranchise(companyId, userProfile.getUser(), franchiseId);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email block created successfully."));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Company associated to franchise."));
             
         } catch(Throwable throwable) {
             logger.error(throwable);
@@ -177,7 +177,7 @@ public class FranchiseController {
                 TransactionResponse transactionResponse = new TransactionResponse();
         try {
             franchiseService.removeCompanyFromFranchise(companyId, franchiseId);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email block created successfully."));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Company removed from franchise."));
             
         } catch(Throwable throwable) {
             logger.error(throwable);

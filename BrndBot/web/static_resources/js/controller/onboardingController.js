@@ -133,7 +133,36 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 });
             }
         };
+
+        function checkBrowser() { 
+           if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1 ) 
+           {
+               alert("This application supports only Chrome and Safari browsers");
+           }
+           else if(navigator.userAgent.indexOf("Chrome") != -1 )
+           {
+               return 'Chrome';
+           }
+           else if(navigator.userAgent.indexOf("Safari") != -1)
+           {
+               return 'Safari';
+           }
+           else if(navigator.userAgent.indexOf("Firefox") != -1 ) 
+           {
+               alert("This application supports only Chrome and Safari browsers");
+           }
+           else if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) //IF IE > 10
+           {
+               alert("This application supports only Chrome and Safari browsers");
+           }  
+           else 
+           {
+               alert("This application supports only Chrome and Safari browsers");
+           }
+        }
+
         $scope.getUserId = function (){
+            checkBrowser();
             $scope.userHashId = $location.search().userid;
                 var queryString = (function(a) {
                     if (a == "") return {};
