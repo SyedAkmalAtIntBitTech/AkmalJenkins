@@ -363,7 +363,7 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 
 /* Replacer (the little preview div that shows up instead of the <input>) */
 .sp-replacer {
-    margin:0;
+    margin:40px;
     overflow:hidden;
     cursor:pointer;
     padding: 4px;
@@ -504,4 +504,53 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
     background-repeat:no-repeat;
     background-position: center;
     background-image: url(data:image/gif;base64,R0lGODlhFAAUAPcAAAAAAJmZmZ2dnZ6enqKioqOjo6SkpKWlpaampqenp6ioqKmpqaqqqqurq/Hx8fLy8vT09PX19ff39/j4+Pn5+fr6+vv7+wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAP8ALAAAAAAUABQAAAihAP9FoPCvoMGDBy08+EdhQAIJCCMybCDAAYUEARBAlFiQQoMABQhKUJBxY0SPICEYHBnggEmDKAuoPMjS5cGYMxHW3IiT478JJA8M/CjTZ0GgLRekNGpwAsYABHIypcAgQMsITDtWJYBR6NSqMico9cqR6tKfY7GeBCuVwlipDNmefAtTrkSzB1RaIAoXodsABiZAEFB06gIBWC1mLVgBa0AAOw==);
+}
+
+
+
+/* the outermost div */
+.color-select-container{
+	
+}
+
+/* the div containing an optgroup */
+.color-select-container .color-select-optgroup{
+	display: block;
+}
+
+/* div representing an option. the background-color of this is set via javascript */
+.color-select-container .color-select-option{
+	height: 20px;
+	width: 20px;
+	margin: 4px;
+	float: left;
+	border-radius: 3px;
+}
+
+
+.color-select-container .color-select-option:hover{
+        cursor:pointer;
+	height: 24px;
+	width: 24px;
+	margin: 2px;
+}
+
+/* div representing currently selected options */
+.color-select-container .color-select-option-selected, .color-select-container .color-select-option-selected:hover{
+	border: 1px solid black;
+	height: 24px;
+	width: 24px;
+	margin: 2px;
+	
+	-webkit-box-shadow: inset 0px 0px 0px 1px rgba(255,255,255,1);
+	-moz-box-shadow: inset 0px 0px 0px 1px rgba(255,255,255,1);
+	box-shadow: inset 0px 0px 0px 1px rgba(255,255,255,1);
+}
+
+
+/* clearfix */
+.color-select-option:first-child{
+	content: " ";
+	display: block;
+	clear: left;
 }
