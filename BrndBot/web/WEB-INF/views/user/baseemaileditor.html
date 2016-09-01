@@ -78,8 +78,13 @@
     <input type="hidden" id='userid' value="{{companyId}}"/>
     <input type="hidden" id='draftid' value="0"/>
     <input type="hidden" value="{{emailsubject}}" id="emailSubjectTag" />
-    <div ng-include src="'postsuccesspopup.html'"></div>
-    <div ng-view></div>  
+   
+    <div class="bb-app-frame">
+         <div ng-include src="'postsuccesspopup.html'"></div>
+      <div class="bb-main-app-wrap" >
+        <div ng-view class="bb-main-container-wrap"></div> 
+      </div>
+    </div>
     <!--Main Content Wrap-->    
 </body>
 </html>

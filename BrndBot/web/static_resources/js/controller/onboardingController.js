@@ -559,7 +559,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 //        });
 
         $scope.stepsModel = [];
-        $scope.stepsModel.push("/BrndBot/images/upload-icon.svg");
+        $scope.stepsModel.push("");
 
         $scope.imageUpload = function (element) {
             var reader = new FileReader();

@@ -1,25 +1,36 @@
-<div ng-include src="'navbar.html'"></div>           
-<div class="main-content-wrap"  ng-init="marketingProgramDetails()">
-    <input type="hidden" value="<%=marketing_category_id%>" id="marketing_category_id"/>
+  <style>
+    .bb-sidenavbar{
+        display: none;
+    } 
+    
+</style>
+
+ <input type="hidden" value="<%=marketing_category_id%>" id="marketing_category_id"/>
     <input type="hidden" value="{{marketingProgramId}}" ng-model="marketingProgramId" />
-    <div class="top-nav-wrap">
-        <div class="header">
-            <a class="back-button"  href="createmarketingprogram#/marketingprogram"></a>
-            <h2 class="ng-binding">Create a Marketing Campaign</h2>
-
-        </div>
+<div class="bb-top-nav" ng-init="marketingProgramDetails()">
+    <div class="bb-bar-left-wrap bb-one-third-flex-col">
+        <a href="createmarketingprogram#/marketingprogram" class="bb-back-button"></a>
+        <h3 class="bb-top-nav-title">Create a Marketing Campaign</h3>
     </div>
+    <div class="bb-bar-center-wrap bb-one-third-flex-col">
+      
+        <div class="bb-step completed">Select Category</div>
+                    <div class="bb-step completed">Select Template</div>
+                    <div class="bb-step current">Campaign Details</div>
+    </div>
+    <div class="bb-bar-right-wrap bb-one-third-flex-col">
+        <div class="bb-help-icon">help icon</div>
+    </div>
+</div>
 
-    <div class="top-nav-bar-offset"></div>
+<div class="bb-main-content-wrap bb-main-content-wrap-padding"> 
+    <div class="bb-panel-styling bb-panel-full-width">
 
-    <div class="content-wrap content-wrap-padding content-wrap-with-continue-bar">
-        <div class="modal-pane modal-pane-width-full">
-
-            <div class="modal-pane-header-wrap">
+            <div class="bb-panel-header">
                 <h2>Marketing Program Details</h2>
             </div>
 
-            <div class="sequence-pane-content-wrap">
+            <div class="bb-panel-content-wrap">
                 <div class="hub-section sequence-page">
                     <div class="section-header">
                         <h3>General Campaign Settings</h3>
@@ -28,17 +39,19 @@
                     <div class="input-wrap">
                         <label> Campaign Name </label>
                         <div class="input ">
-                            <input class="fluid" id="campaignname" type="text" ng-model="programName" ng-change="programUrlName=programName" >
+                            <input class="fluid" id="campaignname" type="text" ng-model="programName" ng-change="programUrlName=programName +' Link'" ng-class="{'invalid-input' : programName === '' || null}">
                         </div>
-                        <span class="validationAlert" ng-if='programName === "" || null'>{{campaignNameValidation}}</span>
-
+                        <span class="validationAlert" ng-if='programName === "" || null'>Please enter a name for this campaign</span>
                         <p> This is for internal use only</p>
                     </div>
                     <div class="input-wrap ">
                         <label>{{htmlData}}</label>
-                        <div class="input">
-                            <input class="fluid" type="text" ng-model="programDateTime" name="programdatetime" id="programdatetime" value="" readonly="">
-                            <span class="validationAlert" ng-if='programDateTime === "" || null'>{{campaignDateValidation}}</span>
+                        <a class="clickable-input fluid">
+                            <div class="date-time-select-icon">
+                                <object type="image/svg+xml" data="/BrndBot/images/calendar-gray.svg" style="cursor:pointer;"> </object>
+                            </div>
+                            <input class="time-date-select fluid" type="text" ng-model="programDateTime" name="programdatetime" id="programdatetime" value="" readonly="" ng-class="{'invalid-input' : programDateTime === '' || null}">
+                            
 
                             <script>
                                         var picker = new Pikaday(
@@ -53,8 +66,11 @@
 
                                                 });
                             </script>
-                        </div>
+                            <span class="validationAlert" ng-if='programDateTime === "" || null'>Please choose a date for this campaign</span>
+                        </a>
+                        
                     </div>
+                    
                 </div>
                 <div class="hub-section">
                     <div class="section-header">
@@ -78,10 +94,13 @@
                 </div>
             </div> 
         </div>
-        <div class="continue-bar-offset"></div>
-    </div>
-    <div class="continue-bar" ng-click="saveMarketingProgram(programName,programUrl,programUrlName,programDateTime)">
-        <a id="saveMarketingProgram" class="fright">CONTINUE</a>
-    </div>
 </div>
+
+<div class="bb-bottom-cta-bar">
+    <a class="bb-bottom-cta-continue-button" ng-class="{'bb-valid': programDateTime.length>0 && programName.length>0}" ng-click="saveMarketingProgram(programName,programUrl,programUrlName,programDateTime)" >
+        <div class="bb-bottom-cta-continue-button-text">Continue</div>
+        <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
+    </a>
+</div>
+
   
