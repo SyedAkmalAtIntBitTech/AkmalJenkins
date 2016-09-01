@@ -17,6 +17,7 @@ brndBotSignupApp.config(function ($routeProvider) {
                 templateUrl: 'signup/company.html'
             })
             .when('/signup/userregistration', {
+                title: 'BrndBot - User Signup',
                 templateUrl: 'signup/userregistration.html'
             })            
             .when('/signup/datasource', {
