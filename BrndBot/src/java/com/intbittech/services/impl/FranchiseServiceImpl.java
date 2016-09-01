@@ -90,7 +90,7 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
     
       @Override
-    public List<Company> getCompaniesForFranchises(Integer franchiseId ) throws ProcessFailed {
+    public List<Company> getCompaniesForFranchises(Integer franchiseId) throws ProcessFailed {
         List<Company> companies = franchiseCompanyLookupDao.getCompanyForFranchiseId(new Franchise(franchiseId));
         if (companies == null) {
             throw new ProcessFailed("No Companies with franchise id" + companies + ".");
@@ -99,7 +99,7 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
 
     @Override
-    public List<Franchise> getFranchisesForCompanyId(Integer companyId ) throws ProcessFailed {
+    public List<Franchise> getFranchisesForCompanyId(Integer companyId) throws ProcessFailed {
         List<Franchise> franchises = franchiseCompanyLookupDao.getFranchiseForCompanyId(new Company(companyId));
         if (franchises == null) {
             throw new ProcessFailed("No Franchises with company id" + companyId + ".");
@@ -108,7 +108,7 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
 
     @Override
-    public List<Franchise> getAllFranchises( ) throws ProcessFailed {
+    public List<Franchise> getAllFranchises() throws ProcessFailed {
         List<Franchise> franchises = franchiseDao.getAllFranchise();
         if (franchises == null) {
             throw new ProcessFailed("No Franchises Present");
@@ -126,22 +126,34 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
 
     @Override
-    public void updateFranchise(FranchiseDetails franchiseDetails, Integer franchiseId ) throws ProcessFailed {
+    public boolean updateFranchise(FranchiseDetails franchiseDetails, Integer franchiseId ) throws ProcessFailed {
         Franchise franchise = franchiseDao.getByFranchiseId(franchiseId);
         if (franchise == null) {
             throw new ProcessFailed("No Franchise with id" + franchiseId + ".");
         }
-        franchise.setFranchiseName(franchiseDetails.getFranchiseName());
-        franchiseDao.update(franchise);
+        boolean franchiseExist = isFranchiseExist(franchiseDetails.getFranchiseName());
+        if (franchiseExist){
+            return false;
+        }else {
+            franchise.setFranchiseName(franchiseDetails.getFranchiseName());
+            franchiseDao.update(franchise);
+            return true;
+        }
     }
 
     @Override
-    public void saveFranchise(FranchiseDetails franchiseDetails ) throws ProcessFailed {
+    public boolean saveFranchise(FranchiseDetails franchiseDetails ) throws ProcessFailed {
         Franchise franchiseDeserialized = FranchiseDetails.deserialize(franchiseDetails);
         if(franchiseDeserialized.getCreatedAt() == null) {
             franchiseDeserialized.setCreatedAt(new Date());
         }
-        franchiseDao.save(franchiseDeserialized);
+        boolean franchiseExist = isFranchiseExist(franchiseDeserialized.getFranchiseName());
+        if (franchiseExist){
+            return false;
+        }else {
+            franchiseDao.save(franchiseDeserialized);
+            return true;
+        }
     }
 
     @Override
@@ -163,6 +175,17 @@ public class FranchiseServiceImpl implements FranchiseService {
             return company.getCompanyName();
         }else {
             return null;
+        }
+    }
+
+    @Override
+    public boolean isFranchiseExist(String FranchiseName) throws ProcessFailed {
+        Franchise franchise = franchiseDao.getByFranchiseName(FranchiseName);
+
+        if (franchise != null){
+            return true;
+        }else {
+            return false;
         }
     }
 }

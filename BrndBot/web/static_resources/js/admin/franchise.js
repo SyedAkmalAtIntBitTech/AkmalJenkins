@@ -30,6 +30,17 @@ function franchiseController($scope, $http) {
     $scope.getFranchiseHeadquarter();
   };
 
+    $scope.closeOverlay = function(){
+        $scope.addFranchisePopup=false;
+        $scope.addFranchisePopupDiv=false;
+    };
+    
+    $scope.openOverlay = function(){
+        alert("test");
+        $scope.addFranchisePopup=true;
+        $scope.addFranchisePopupDiv=true;
+    };
+
     $scope.franchise = function () {
 
         $http({

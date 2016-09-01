@@ -21,8 +21,9 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <script src="../js/controller/franchiseController.js" type="text/javascript"></script>
         <script src="../js/factory/franchiseFactory.js" type="text/javascript"></script>
         <script src="../js/factory/urlServices.js" type="text/javascript"></script>
-        <script src="../js/factory/authFactory.js" type="text/javascript"></script>
         <script src="../js/factory/appSessionFactory.js" type="text/javascript"></script>
+        <script src="../js/utilities/models.js" type="text/javascript"></script>
+        <script src="../js/factory/authFactory.js" type="text/javascript"></script>
         <script src="../js/configurations.js"></script> 
         <script src="../js/controller/routing.js" type="text/javascript"></script>
         <script src="../js/admin/globalimage.js" type="text/javascript"></script>
@@ -63,7 +64,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <div class="content-area" >
         <div class="content-area_header">
             <div class="header_path fleft"> All Franchise </div>
-            <div class="CTA_Button Button--Blue fright" id="addFranchise" ng-click="addFranchisePopup=true">Add Franchise</div>
+            <div class="CTA_Button Button--Blue fright" id="addFranchise" ng-click="openAddFranchisePopup()">Add Franchise</div>
         </div>
         <div class="slatSection" ng-init="getAllFranchises()">
             <div class="slatHeaders">

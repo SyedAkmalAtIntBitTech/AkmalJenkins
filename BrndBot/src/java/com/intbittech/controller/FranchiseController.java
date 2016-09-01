@@ -191,8 +191,12 @@ public class FranchiseController {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             FranchiseDetails franchiseDetails = new FranchiseDetails(franchiseName);
-            franchiseService.saveFranchise(franchiseDetails);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Franchise created successfully"));
+            boolean returnFlag = franchiseService.saveFranchise(franchiseDetails);
+            if (returnFlag){
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Franchise created successfully"));
+            }else{
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Franchise already exist"));
+            }
         } catch (Throwable ex) {
             logger.error(ex);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
@@ -207,8 +211,12 @@ public class FranchiseController {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             FranchiseDetails franchiseDetails = new FranchiseDetails(franchiseName);
-            franchiseService.updateFranchise(franchiseDetails, franchiseId);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Franchise updated successfully"));
+            boolean returnFlag = franchiseService.updateFranchise(franchiseDetails, franchiseId);
+            if (returnFlag){
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Franchise updated successfully"));
+            }else {
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Franchise already exist"));
+            }
 
         } catch (Throwable ex) {
             logger.error(ex);
