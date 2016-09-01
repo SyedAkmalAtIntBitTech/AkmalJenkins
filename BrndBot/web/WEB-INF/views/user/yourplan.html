@@ -44,12 +44,16 @@
     </head>    
 
     <body ng-app="yourPlanFlowApp" class="body-normal" ng-controller="yourPlanController" id="yourPlanController">
-        <script type="text/ng-template"></script>    
-        <div ng-include src="'navbar.html'"></div>        
-        <div ng-include src="'genericpopup.html'"></div>
-        <div ng-include src="'yourplanreminderpopup.html'"></div>
-        <div ng-view></div>  
-        <!--Main Content Wrap-->    
+        <div class="bb-app-frame">
+            <div class="bb-main-app-wrap" >
+            <script type="text/ng-template"></script>    
+                <div ng-include src="'navbar.html'"></div>        
+                <div ng-include src="'genericpopup.html'"></div>
+                <div ng-include src="'yourplanreminderpopup.html'"></div>
+                <div class="bb-main-container-wrap" ng-view>
+                    
+                </div>   
+            </div>
+        </div>
     </body>
-
 </html>

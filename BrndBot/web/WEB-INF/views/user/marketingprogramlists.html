@@ -1,85 +1,79 @@
-<div ng-include src="'navbar.html'"></div> 
-<div class="main-content-wrap">
-    
-    <div class="top-nav-wrap">
-        <div class="header">
-            <h2>Marketing Campaigns </h2>
-        </div>
+     <div class="bb-top-nav" ng-init="getUserDetails()">
+         <div class="bb-bar-left-wrap bb-one-third-flex-col">
+             <h3 class="bb-top-nav-title">Marketing Campaigns</h3>
+         </div>
+         <div class="bb-bar-right-wrap bb-one-third-flex-col">
+             <div class="bb-help-icon">help icon</div>
+             <div class="bb-user-profile-dropdown-wrap" ng-init="getUserDetails()" ng-click="userSettings=true">
+                 <div class="bb-user-profile-user-name">{{userFirstName}} {{userLastName}}</div>
+                 <img type="image/svg+xml" src="/BrndBot/images/dropdown.svg" class="hub-dropdown-icon" style="cursor:pointer;"/>
+             </div>
+             <div ng-include src="'usersettingsDropDown.html'" class="bb-user-settings-dropdown-target"></div>
+         </div>
+     </div>
+    <div class="bb-top-sub-nav">
+        <div class="bb-top-sub-nav-tab"  ng-click="showCurrentPrograms()" ng-class="currentCampaignClass" id="curmarprog">Current Campaigns</div>
+        <div class="bb-top-sub-nav-tab " ng-click="getUserMarketingProgramsClosed('marketingprogramactions');showPastPrograms()" ng-class="archivedCampaignClass">Archived Campaigns</div>
    
-        <div class="top-sub-nav">
+        <!--<div class="top-sub-nav">
             <ul class="sub-nav-tab-wrap sub-nav-tab-wrap-hub">
                 <li class="sub-nav-tab" id="curmarprogli" ng-click="showCurrentPrograms()"> <a ng-class="currentCampaignClass" id="curmarprog">Current Campaigns</a></li>
                 <li class="sub-nav-tab" id="pstmarprogli" ng-click="getUserMarketingProgramsClosed('marketingprogramactions');showPastPrograms()"><a ng-class="archivedCampaignClass" >Archived Campaigns</a></li>
 
             </ul>
-        </div>
+        </div>-->
     </div>
-    <div class="top-nav-bar-offset"></div>
-    <div class="top-subnav-bar-offset"></div>
+  
 
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" id="currprogs" ng-show="currProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
-        <div class="hub-pane">
-            <div class="hub-pane-header-wrap">
+    <div class="bb-main-content-wrap bb-main-content-wrap-padding" id="currprogs" ng-show="currProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
+        <div class="bb-panel-full-width bb-panel-styling">
+            <div class="bb-panel-header">
                 <h2 class="">Current Marketing Campaigns</h2>
-                <a id="crtmarkprog" ng-click="rediectToCreateCampaign('createmarketingprogram')" class="long-button green-button">Create a Campaign</a>
+                <a id="crtmarkprog" ng-click="rediectToCreateCampaign('createmarketingprogram')" ng-hide="currentPrograms == ''" class="bb-button bb-primary-action-button ">Create a Campaign</a>
             </div>
-            <div class="hub-pane-content-wrap">
-                <div class="hub-slat-list-wrap" ng-show="currentPrograms == ''">
-                    <div class="slat" >
-                        <div class="slat-name-wrap">
-                            <h2>No Campaigns</h2>
-                        </div>
-                        <div class="slat-detail-wrap">
-                            <div class="slat-detail slat-detail-button ">
-                            </div>
-                        </div>
-                    </div>
+            <!--Empty State-->
+                <div class="bb-panel-empty-state-wrap" ng-show="currentPrograms == ''">
+                    <h2 class="bb-empty-state-text">You have no campaigns going on right now.</h2>
+                    <a id="crtmarkprog" ng-click="rediectToCreateCampaign('createmarketingprogram')" class="bb-button bb-primary-action-button">Create a Campaign</a>
                 </div>
-               
-                <div class="hub-slat-list-wrap" id="currprogs" ng-show="currProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
-                    <div class="slat" ng-repeat="program in currentPrograms | orderBy:'start_date':true">
+            <!--Content Present-->
+            
+                <div class="bb-slat-list-wrap" id="currprogs" ng-hide="currentPrograms == ''" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
+                    <div class="bb-slat" ng-repeat="program in currentPrograms | orderBy:'start_date':true" ng-click="redirectToActions(forward, program.id, past = 0, program.end_date)">
                         <div class="slat-name-wrap">
                             <h2>{{program.program_name}}</h2>
                             <p>Added on {{program.start_date| date: 'MMM dd yyyy'}}</p>
                         </div>
-                        <div class="slat-detail-wrap">
+                        <!--<div class="slat-detail-wrap">
                             <div class="slat-detail slat-detail-button ">
-                                <a class="reg-button slat-detail-button" ng-click="redirectToActions(forward, program.id, past = 0, program.end_date)">View Campaign</a>
+                                <a class="reg-button slat-detail-button" >View Campaign</a>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
-            </div>
+            
         </div>
     </div>
     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-show="pastProgramsDiv"  >
-        <div class="hub-pane" >
-            <div class="hub-pane-header-wrap">
+        <div class="bb-panel-full-width bb-panel-styling" >
+            <div class="bb-panel-header">
                 <h2 class="">Archived Marketing Campaigns</h2>
             </div>
-            <div class="hub-pane-content-wrap">
-                <div class="hub-slat-list-wrap"  ng-show="pastPrograms == ''">
-                    <div class="slat" >
-                        <div class="slat-name-wrap">
+            
+                <div class="bb-slat-list-wrap"  ng-show="pastPrograms == ''">
+                    <div class="bb-panel-empty-state-wrap" >
+                        <div class="bb-empty-state-text">
                             <h2>No Campaigns</h2>
                         </div>
-                        <div class="slat-detail-wrap">
-                            <div class="slat-detail slat-detail-button ">
-                            </div>
-                        </div>
+                    
                     </div>
-                </div>
-                <div class="hub-slat-list-wrap" id="currprogs" ng-show="pastProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
-                    <div class="slat" ng-repeat="program in pastPrograms  | orderBy:'start_date':true">
+                    </div>
+                <div class="bb-slat-list-wrap" id="currprogs" ng-show="pastProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
+                    <div class="bb-slat" ng-repeat="program in pastPrograms  | orderBy:'start_date':true" ng-click="redirectToActions(forward, program.id, past = 0, program.end_date);
+                                        disableArchive();">
                         <div class="slat-name-wrap">
                             <h2>{{program.program_name}}</h2>
                             <p>Added on {{program.start_date| date: 'MMM dd yyyy'}}</p>
-                        </div>
-                        <div class="slat-detail-wrap">
-                            <div class="slat-detail slat-detail-button ">
-                                <a class="reg-button slat-detail-button" ng-click="redirectToActions(forward, program.id, past = 0, program.end_date);
-                                        disableArchive();">View Campaign</a>
-                            </div>
                         </div>
                     </div>
                 </div>

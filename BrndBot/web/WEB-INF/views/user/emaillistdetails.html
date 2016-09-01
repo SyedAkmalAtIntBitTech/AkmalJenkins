@@ -12,56 +12,44 @@
     <input type="hidden" id="get_type" value="{{type}}"/>   
     
     <!--Top Nav-->
-    
-    <div class="top-nav-wrap">
-        <div class="header">
-            <a class="back-button" href="basemarketinghub#/emaillist" ></a>
-            <h2>{{emailListName}}</h2>
-            <div class="top-nav-cta-container">
-                <a id="unselect" href="" class="gray-button reg-button pushright fleft" ng-show="deSelectCheckboxButton">
-                    <div class=" md-button" ng-click="deSelectCheckbox()"> Unselect Contacts</div>    
-                </a>
-                <a href="" id="delcontact" class="delete-button reg-button fleft" ng-show="selectCheckboxButton">
-                    <div class=" md-button" ng-click="deleteSelected()"> Delete Contact</div>    
-                </a>
-                <a href="javascript:void(0)" class="fleft">
-                     <div id="addcontact" class="add-button reg-button" ng-click="addContactDetails('add','','','','')"> Add Contact</div>    
-                </a>
-            </div>
-        </div>
-        <div class="top-sub-nav">
-            <ul class="sub-nav-tab-wrap with-back-button">
-                <li class="sub-nav-tab " id="emailListli" ng-click="showUpdateList()">
-                     <a id="emailLists" ng-class="activeEmailListContacts">Email List Contacts</a>
-                </li>
-                <li class="sub-nav-tab" id="importListli" ng-click="showAddContacts()">
-                    <a id="importList" ng-class="activeImportContacts">Import Contacts</a>
-                </li>
-
-            </ul>
-        </div>
+    <div class="bb-top-nav">
+    <div class="bb-bar-left-wrap bb-one-third-flex-col">
+        <a href="basemarketinghub#/emaillist" class="bb-back-button"></a>
+        <h3 class="bb-top-nav-title">{{emailListName}}</h3>
     </div>
-    
-    <div class="top-nav-bar-offset"></div>
-    <div class="top-subnav-bar-offset"></div>
-    
+   
+    <div class="bb-bar-right-wrap bb-one-third-flex-col">
+        <a id="unselect" href="" class="gray-button reg-button pushright fleft" ng-show="deSelectCheckboxButton">
+            <div class=" md-button" ng-click="deSelectCheckbox()"> Unselect Contacts</div>    
+        </a>
+        <a href="" id="delcontact" class="delete-button reg-button fleft" ng-show="selectCheckboxButton">
+            <div class=" md-button" ng-click="deleteSelected()"> Delete Contact</div>    
+        </a>
+        
+    </div>
+</div>
+
+        <div class="bb-top-sub-nav bb-top-sub-nav-backbutton-offset">
+           <div class="bb-top-sub-nav-tab"  id="emailListli" ng-click="showUpdateList()"><a  ng-class="activeEmailDrafts">Email List Contacts</a></div>
+           <div class="bb-top-sub-nav-tab"  id="importListli" ng-click="showAddContacts()"><a id="importList" ng-class="activeImportContacts">Add Contacts</a></div>
+        </div>
     <!--Main Content--> 
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-show="showEmailListContacts">
-    <div class="hub-pane" ng-init="updateList()">
-            <div class="hub-pane-header-wrap">
+    <div class="bb-main-content-wrap bb-main-content-wrap-padding" ng-show="showEmailListContacts">
+    <div class="bb-panel-full-width bb-panel-styling" ng-init="updateList()">
+            <div class="bb-panel-header">
                 <h2 class="">Email List Contacts</h2>
                 <input type="text" placeholder="Search" ng-model="userSearch">
             </div>
-            <div class="hub-pane-content-wrap">
+            <div class="bb-panel-full-width bb-panel-styling-content-wrap">
                 
                 <!--Empty List-->
                 <div class="hub-empty-wrap" ng-show="email.emailAddress == '' && type == 'user'">No Contacts in List</div>
                 
                
-                <div class="hub-slat-list-wrap" >
+                <div class="bb-slat-list-wrap" >
                     
                       <!--User Created List-->
-                    <div class="slat" ng-repeat="email in user_emailAddresses | filter:userSearch">
+                    <div class="bb-slat" ng-repeat="email in user_emailAddresses | filter:userSearch">
                         <div class="selection-container col-5p fleft"> 
                             <div class="selection-icon" id="{{email.id}}" ng-click="selectedEmailListCheckbox(email.id)">
                                 <input type="checkbox" id="emailid{{email.emailAddress}}" value="{{email.emailAddress}}" name="emaillistname" hidden></input>
@@ -114,12 +102,15 @@
         </div>
     
     <!-- Import Contacts-->   
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" id="tab4" class="hide">
-            <div class="hub-pane">
-            <div class="hub-pane-header-wrap">
+    <div class="bb-panel-full-width bb-panel-styling-content-wrap" id="tab4" class="hide">
+            <div class="bb-panel-full-width bb-panel-styling">
+            <div class="bb-panel-header">
                 <h2 class="">Import Email Addresses into {{emailListName}}</h2>
             </div>
-            <div class="hub-pane-content-wrap" >
+            <div class="bb-panel-full-width bb-panel-styling-content-wrap" >
+                <a href="javascript:void(0)" class="fleft">
+                    <div id="bb-button" class="add-button reg-button" ng-click="addContactDetails('add','','','','')"> Add Contact</div>    
+               </a>
                 <div id="emailsubjectdiv">
            
 
