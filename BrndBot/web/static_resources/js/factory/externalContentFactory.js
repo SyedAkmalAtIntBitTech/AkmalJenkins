@@ -28,9 +28,11 @@ factoryApp.factory('externalContentFactory', function ($q, authenticatedServiceF
         });
         return deffered.promise;
     };
-    externalContentFactoryObject.layoutEmailModelGet = function (emailModelId,isBlock,externalDataId) {
+    externalContentFactoryObject.layoutEmailModelGet = function (emailModelId,isBlock,externalDataId,isRecurring) {
         var deffered = $q.defer();
-        var url = configurationService.layoutEmailModelURL()+"?emailModelId="+ emailModelId+"&isBlock="+isBlock+"&externalDataId="+externalDataId;
+        if(!isRecurring)
+            isRecurring = false;
+        var url = configurationService.layoutEmailModelURL()+"?emailModelId="+ emailModelId+"&isBlock="+isBlock+"&externalDataId="+externalDataId+"&isRecurring="+isRecurring;
         authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });

@@ -257,6 +257,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             settingsFactory.getEmailSettingsGet().then(function (data) {
                 $scope.emailSettingsDetails = true;
                 $scope.email_settings = JSON.parse(data.d.details);
+                if ($scope.email_settings == null){
+                    $scope.email_settings = {};
+                    $scope.email_settings.from_address = 'mail@brndbot.com';
+                }
             });
         };
 
@@ -308,19 +312,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             });
         };
 
-        $scope.emailFooterValidation = function (company) {
-            if (!company.address) {
-                $scope.company = {address: ""};
-                $("#company_address").focus();
-                return false;
-            }
-            return true;
-        };
+        
 
-        $scope.changeFooterDetails = function (company) {
-            var footerAddress = "";
-            if (company.address)
-                footerAddress = company.address;
+        $scope.changeFooterDetails = function (company) {            
             var footerWebsiteUrl = "";
             if (company.websiteUrl)
                 footerWebsiteUrl = company.websiteUrl;
@@ -333,9 +327,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             var footerInstagramUrl = "";
             if (company.instagramUrl)
                 footerInstagramUrl = company.instagramUrl;
-            if ($scope.emailFooterValidation(company))
+            else
             {
-                var footerPopupDetails = {"facebookUrl": footerFacebookUrl, "twitterUrl": footerTwitterUrl, "instagramUrl": footerInstagramUrl, "websiteUrl": footerWebsiteUrl, "address": footerAddress};
+                var footerPopupDetails = {"facebookUrl": footerFacebookUrl, "twitterUrl": footerTwitterUrl, "instagramUrl": footerInstagramUrl, "websiteUrl": footerWebsiteUrl};
                 $scope.emailFooterPopupDetails = false;
                 $scope.getFooterDetails();
                 settingsFactory.setFooterPost(footerPopupDetails).then(function (data) {

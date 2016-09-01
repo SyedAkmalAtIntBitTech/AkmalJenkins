@@ -20,8 +20,8 @@
                      </div>
                     <div class="input-wrap">
                         <label> Default From Email Address </label>
-                        <div class="input" ng-init="email_settings.from_address='mail@brndbot.com'">
-                            <input id="from_address" class="fluid" type="text" readonly ng-model="email_settings.from_address"   name="from_address"  placeholder="Enter default email address"/>
+                        <div class="input">
+                            <input id="from_address" class="fluid" type="text" readonly ng-model="email_settings.from_address" name="from_address"  placeholder="Enter default email address"/>
                         </div>
                         <p class="input-wrap-label"> Make this something that your clients will recognize</p>
                     </div>
@@ -51,7 +51,7 @@
                         <h3>Email Footer Settings</h3>
                         <p >This footer will be added to the bottom all emails being sent out. If you do not  </p>
                      </div>
-                    <div class="input-wrap">
+<!--                    <div class="input-wrap">
                         <label>Company Address</label>
                         <div class="input">
                             <input id="company_address" class="fluid"  type="text" name="from_address" ng-model="company.address" placeholder="Enter company address" />
@@ -59,7 +59,7 @@
                         </div>
                         <span class="validationAlert" ng-if='company.address === "" || null'>{{companyAddressValidation}}</span>
 
-                    </div>
+                    </div>-->
                     <div class="input-wrap">
                         <label> Website URL </label>
                         <div class="input">

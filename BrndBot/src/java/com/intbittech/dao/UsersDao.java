@@ -61,6 +61,14 @@ public interface UsersDao {
      * @throws ProcessFailed the process failed
      */
     public void update(Users user) throws ProcessFailed;
+
+    /**
+     * This method pass user as input and updates the {@link Users} from database
+     *
+     * @param user
+     * @throws ProcessFailed the process failed
+     */
+    public void delete(Users user) throws ProcessFailed;
     
     /**
      * This method pass user as input and get the {@link Users} from database

@@ -1,6 +1,7 @@
 
 franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$location', 'franchiseFactory', function ($scope, $window, $location, franchiseFactory) {
-
+       
+        $scope.tab = 1;
         $scope.addFranchisePopup = false;
         $scope.addFranchisePopupDiv = false;
         $scope.editFranchisePopup = false;
@@ -139,14 +140,24 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             });
         };
 
-
+  //Setting tabs in baseaccountmanagerhub
         $scope.isActive = function (viewLocation) {
             return viewLocation === $location.path();
         };
-
-        $scope.viewPushedEmailDetails = function ()
+        
+        //Viewing details from Pushed Email History
+        $scope.viewPushedEmailDetailBase = function ()
         {
             $scope.showPushedEmailDetails = true;
-            $location.path("/pushedemaildetails");
+            $scope.showPushedEmailAccountDetails = false;
+            $location.path("/pushedemaildetailbase");
+        };
+         //Setting tabs in pushedemailbase
+        $scope.setTab = function(newTab){
+              $scope.tab = newTab;
+        };
+        
+        $scope.isSet = function(tabNum){
+             return $scope.tab === tabNum;
         };
     }]);

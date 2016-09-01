@@ -81,7 +81,7 @@ public class ScheduleDAO {
                     ps.setString(4, fromAddress);
                     ps.setString(5, emailListName);
                     ps.setString(6, fromName);
-                    
+                    ps.setString(7, replytoEmailAddress);
                     ps.setString(8, preheader);
                     ps.setString(9, html_body);
                     ps.execute();
@@ -130,7 +130,7 @@ public class ScheduleDAO {
             String fromAddress,
             String emailListName,
             String fromName,
-            String replytoEmailAddress,
+            String replyToEmailAddress,
             String scheduleDesc,
             String templateStatus,
             String html_body
@@ -154,7 +154,7 @@ public class ScheduleDAO {
                     ps.setString(4, fromAddress);
                     ps.setString(5, emailListName);
                     ps.setString(6, fromName);
-                    ps.setString(7, replytoEmailAddress);
+                    ps.setString(7, replyToEmailAddress);
                     ps.setString(8, preheader);
                     ps.setString(9, html_body);
                     ps.execute();
@@ -284,17 +284,18 @@ public class ScheduleDAO {
             int days,
             Connection connection) throws SQLException {
         String query_string = "Update scheduled_entity_list"
-                + " SET schedule_title = ?, schedule_time = ?,"
+                + " SET schedule_title = ?, schedule_desc = ?, schedule_time = ?,"
                 + " entity_type = ?, days= ?"
                 + " Where scheduled_entity_list_id = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query_string)) {
 
             ps.setString(1, scheduleTitle);
-            ps.setTimestamp(2, scheduleTime);
-            ps.setString(3, entityType);
-            ps.setInt(4, days);
-            ps.setInt(5, scheduleId);
+            ps.setString(2, scheduleDesc);
+            ps.setTimestamp(3, scheduleTime);
+            ps.setString(4, entityType);
+            ps.setInt(5, days);
+            ps.setInt(6, scheduleId);
             ps.execute();
 
         } catch (Exception e) {
@@ -564,7 +565,7 @@ public class ScheduleDAO {
                 ps.setInt(2, scheduleId);
                 ps.setString(3, ScheduledEntityType.Email.toString());
                 try (ResultSet rs = ps.executeQuery()) {
-
+                    if (rs.next()) {
 
                         scheduleEmailDetails.put("schedule_email_id", rs.getInt("scheduled_email_list_id"));
                         scheduleEmailDetails.put("user_id", rs.getInt("fk_company_id"));
@@ -576,7 +577,7 @@ public class ScheduleDAO {
                         scheduleEmailDetails.put("email_list_name", rs.getString("email_list_name"));
                         scheduleEmailDetails.put("from_name", rs.getString("from_name"));
                         scheduleEmailDetails.put("html_body", rs.getString("html_body"));
-
+                    }
                 }
             }
         }

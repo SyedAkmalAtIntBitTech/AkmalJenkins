@@ -9,6 +9,7 @@ import com.intbittech.AppConstants;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.social.CompanyPreferencesFacebook;
 import com.intbittech.utility.ErrorHandlingUtil;
 import java.io.BufferedReader;
 import java.io.File;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.intbittech.social.PostToFacebook;
 import com.intbittech.social.PostToTwitter;
 import com.intbittech.utility.Utility;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -48,10 +50,17 @@ public class SocialPostController {
         try {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
- 
+
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
 
-            String accessToken = (String) requestBodyMap.get("accessToken");
+//          String accessToken = (String) requestBodyMap.get("accessToken");
+//          get access token from BackEnd
+            String accessToken = "";
+            CompanyPreferencesFacebook companyPreferencesFacebookService = new CompanyPreferencesFacebook();
+            JSONObject fb_details = companyPreferencesFacebookService.getCompanyPreferenceForAccessToken(userCompanyIds.getCompanyId());
+            if (fb_details.size() != 0) {
+                accessToken = (String) fb_details.get("fb_default_page_access_token");
+            }
             String title = (String) requestBodyMap.get("title");
             String file_image_path = (String) requestBodyMap.get("file_image_path");
             String posttext = (String) requestBodyMap.get("postText");
@@ -62,7 +71,7 @@ public class SocialPostController {
             String imageType = (String) requestBodyMap.get("imageType");
             String htmlString = (String) requestBodyMap.get("htmlString");
             String fileImagePath = getImageTypePrefix(imageType, userCompanyIds.getCompanyId(), getImageFile);
-            String status = PostToFacebook.postStatus(title, fileImagePath, posttext, imagePostURL, getImageFile, url, description, imageType, userCompanyIds.getCompanyId(), htmlString,accessToken);
+            String status = PostToFacebook.postStatus(title, fileImagePath, posttext, imagePostURL, getImageFile, url, description, imageType, userCompanyIds.getCompanyId(), htmlString, accessToken);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(status));
             transactionResponse.setMessage(status);
         } catch (Throwable throwable) {
@@ -89,7 +98,7 @@ public class SocialPostController {
             String htmlString = (String) requestBodyMap.get("htmlString");
             String imageType = (String) requestBodyMap.get("imageType");
             String getImageFile = getImageTypePrefix(imageType, userCompanyIds.getCompanyId(), fileImagePath);
-            
+
             String status = PostToTwitter.postStatus(imageType, text, shortURL, fileImagePath, userCompanyIds.getCompanyId(), htmlString, getImageFile);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(status));
             transactionResponse.setMessage(status);
@@ -105,7 +114,7 @@ public class SocialPostController {
         if (imageType.equals("layout")) {
             file_image_path = com.intbittech.utility.AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
         } else if (imageType.equalsIgnoreCase("gallery")) {
-            file_image_path = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator+ AppConstants.GALLERY_FOLDERNAME +File.separator+ getImageFile;
+            file_image_path = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + AppConstants.GALLERY_FOLDERNAME + File.separator + getImageFile;
         } else if (imageType.equals("url")) {
             file_image_path = getImageFile;
         }

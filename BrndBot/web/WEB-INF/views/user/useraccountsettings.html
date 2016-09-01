@@ -34,8 +34,9 @@
                  
             </div>
         </div>
-
-        <div class="hub-pane" id="accountsettingdiv" ng-init="setTab('account')">
+    <div ng-init="getUserDetails()">
+       
+        <div class="hub-pane" id="accountsettingdiv" ng-init="setTab('account')" ng-show="userRole=='Owner'">
             <div class="hub-pane-header-wrap">
                 <h2 class="">Company Settings</h2>
                 
@@ -51,8 +52,8 @@
                         <div class="user-role">{{users.userRole}}</div>
                         <div class="user-status">{{users.inviteStatus}}</div>
                         <div class="user-slat-cta-wrap">
-                             <div class="user-slat-button resend-user-email" ng-click="resendUserInvite(users.inviteId)">Resend User Email</div>
-                             <div class="user-slat-button edit-user-permissions" ng-click="showEditUser(users.inviteId,users.userRoleLookUp,users.emailID)">Edit User Permissions</div>
+                             <div class="user-slat-button resend-user-email" ng-hide="users.inviteStatus=='Invite Accepted'" ng-click="resendUserInvite(users.inviteId)">Resend User Email</div>
+                             <div class="user-slat-button edit-user-permissions" ng-hide="users.inviteStatus=='Invite Sent'" ng-click="showEditUser(users.inviteId,users.userRoleLookUp,users.emailID)">Edit User Permissions</div>
                              <div class=" user-slat-button remove-user-button" ng-click="removeUser(users.inviteId)">Remove User</div>
                         </div>
                     </div>
@@ -63,3 +64,5 @@
                  
             </div>
         </div>
+    
+    </div>

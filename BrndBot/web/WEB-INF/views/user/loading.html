@@ -11,7 +11,9 @@
         <script src="../js/utilities/colpick.js" type="text/javascript"></script>
         <link href="../css/colpick.css" rel="stylesheet" type="text/css"/>
         <link rel="shortcut icon" href="images/favicon.png"/> 
-        <script src="js/controller/routing.js" type="text/javascript"></script>
+        <script src="../js/controller/routing.js" type="text/javascript"></script>
+        <script src="../js/factory/appSessionFactory.js" type="text/javascript"></script>
+        <script src="../js/utilities/models.js" type="text/javascript"></script>
         <script src="../js/controller/onboardingController.js" type="text/javascript"></script>
         <script src="../js/factory/subCategoryFactory.js" type="text/javascript"></script>
         <script src="../js/factory/settingsFactory.js" type="text/javascript"></script>
@@ -35,15 +37,15 @@
                 <div class="content-wrap content-wrap-flex">
                     <div class="modal-pane modal-pane-width-full">
                         <div class="modal-pane-header-wrap">
-                            <h2>Select the company</h2>
                         </div>
                         <div class="modal-pane-content-wrap sequence-page">
                             <div ng-if="hideDataOverlay">
-                            <div class="external-data-loading-wrap">
-                                <div class="external-data-loading-block">
+                            <div class="external-data-loading-wrap external-data-loading-block">
+<!--                                <div class="external-data-loading-block">
                                     <div class="loader"></div>
                                     <div class="loader-description">Loading your content</div>
-                                </div>
+                                </div>-->
+                                <img src="../images/YogaLoadingGif.gif"/>
                             </div>
                             </div>
                             <a ng-repeat="companyDetail in companies" ng-click="getAccountStatus(companyDetail)" class="slat external-data">

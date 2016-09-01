@@ -24,16 +24,16 @@
                 <div class="input-wrap onboarding">
                     <label> Company Name </label>
                     <div class="input">
-                        <input class="fluid" id="companyName" ng-model="companyName" placeholder="Company Name"></input>
+                        <input class="fluid" id="companyName" ng-model="companyData.companyName" placeholder="Company Name"></input>
                     </div>
-                    <span class="validationAlert" ng-if='companyName == "" || null' id="companyValidation">{{companyValidation}}</span>
+                    <span class="validationAlert" ng-if='companyData.companyName == "" || null' id="companyValidation">{{companyValidation}}</span>
                     
                     <p class="input-wrap-label"> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
-                </div>
+                </div>                
                <div class="input-wrap onboarding">
                     <label> Please select an Organization</label>
                     <div class="input">
-                           <div dropdown-select="ddSelectOrganizationOptions" dropdown-onchange="selectedOrganization(selected)" value="{{ddSelectOrganization}}" dropdown-model="ddSelectOrganization"></div>
+                           <div dropdown-select="ddSelectOrganizationOptions" dropdown-onchange="selectedOrganization(selected)" value="{{companyData.ddSelectOrganization}}" dropdown-model="companyData.ddSelectOrganization"></div>
                     </div>
                     <span class="validationAlert" ng-if="organizationValidation">{{dropdownValidation}}</span>
 
@@ -46,6 +46,6 @@
 
 </div>
 <div class="continue-bar sequence-continue-bar">
-    <a id="continue-bar-button" ng-click="saveCompany(companyName,ddSelectOrganization.value)" class="fright">CONTINUE</a>
+    <a id="continue-bar-button" ng-click="saveCompany(companyData)" class="fright">CONTINUE</a>
 </div>
 </body>
