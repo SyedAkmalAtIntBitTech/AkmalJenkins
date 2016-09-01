@@ -178,6 +178,8 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.closeOverlay = function(){
             $scope.browserCompatibilityPopup = false;
             $scope.browserCompatibilityPopupDiv = false;
+            $scope.loginForm = true;
+
         };
         $scope.getUserId = function () {
             checkBrowser();
