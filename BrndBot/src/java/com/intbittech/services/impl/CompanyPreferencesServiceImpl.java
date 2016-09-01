@@ -166,10 +166,15 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             }
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = new JSONObject();
+            JSONObject footerDetailsObject = new JSONObject();
             if (!StringUtility.isEmpty(companyPreferences.getCompanyPreferences())) {
                 jsonObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
             }
-            jsonObject.put(IConstants.kFooters, footerDetails);
+            footerDetailsObject.put(IConstants.kFooterDetailsFacebookUrl, footerDetails.getFacebookUrl());
+            footerDetailsObject.put(IConstants.kFooterDetailsTwitterUrl, footerDetails.getTwitterUrl());
+            footerDetailsObject.put(IConstants.kFooterDetailsInstagramUrl, footerDetails.getInstagramUrl());
+            footerDetailsObject.put(IConstants.kFooterDetailsWebsiteUrl, footerDetails.getWebsiteUrl());
+            jsonObject.put(IConstants.kFooters, footerDetailsObject);
             String colorJsonString = AppConstants.GSON.toJson(jsonObject);
             companyPreferences.setCompanyPreferences(colorJsonString);
             updatePreferences(companyPreferences);

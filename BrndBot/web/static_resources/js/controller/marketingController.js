@@ -1,4 +1,4 @@
-marketingFlowApp.controller("marketingController", ['$scope', '$location', '$filter', '$sce', 'marketingFactory', 'companyMarketingProgramFactory', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'marketingRecurringEmailFactory', 'emailFactory', 'emailListFactory', 'appSessionFactory', 'externalContentFactory', 'blockModelFactory', function ($scope, $location, $filter, $sce, marketingFactory, companyMarketingProgramFactory, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, marketingRecurringEmailFactory, emailFactory, emailListFactory, appSessionFactory, externalContentFactory, blockModelFactory) {
+marketingFlowApp.controller("marketingController", ['$scope', '$location', '$filter', '$sce', 'marketingFactory', 'companyMarketingProgramFactory', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'marketingRecurringEmailFactory', 'emailFactory', 'emailListFactory', 'appSessionFactory', 'externalContentFactory', 'blockModelFactory', 'onboardingFactory', function ($scope, $location, $filter, $sce, marketingFactory, companyMarketingProgramFactory, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, marketingRecurringEmailFactory, emailFactory, emailListFactory, appSessionFactory, externalContentFactory, blockModelFactory,onboardingFactory) {
         $scope.marketingCategoryId = "";
         $scope.marketingProgramId = "";
         $scope.past = "";
@@ -36,6 +36,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.validateLinkName = false;
         $scope.validateLinkUrl = false;
         $scope.addBlockCount = 0;
+        $scope.companyAddressDetails = {};
 
         $scope.ddSelectAction = {
             text: "Select"
@@ -763,16 +764,59 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //        };
 
         $scope.changeFooterDetails = function (company) {
-            var footerAddress = company.address;
-            var footerWebsiteUrl = company.websiteUrl;
-            var footerFacebookUrl = company.facebookUrl;
-            var footerTwitterUrl = company.twitterUrl;
-            var footerInstagramUrl = company.instagramUrl;
-            var footerPopupDeatils = '{"footerFacebookUrl":"' + footerFacebookUrl + '","footerTwitterUrl":"' + footerTwitterUrl + '","footerInstagramUrl":"' + footerInstagramUrl + '","footerWebsiteUrl":"' + footerWebsiteUrl + '","footerAddress":"' + footerAddress + '"}';
-            $scope.emailFooterPopupDetails = false;
-            $scope.getFooterDetails();
-            settingsFactory.setFooterPost(footerDetails).then(function (data) {
-            });
+            if ($scope.validateCompanyAddress(company)) {
+
+                var footerWebsiteUrl = "";
+                if (company.websiteUrl)
+                    footerWebsiteUrl = company.websiteUrl;
+                var footerFacebookUrl = "";
+                if (company.facebookUrl)
+                    footerFacebookUrl = company.facebookUrl;
+                var footerTwitterUrl = "";
+                if (company.twitterUrl)
+                    footerTwitterUrl = company.twitterUrl;
+                var footerInstagramUrl = "";
+                if (company.instagramUrl)
+                    footerInstagramUrl = company.instagramUrl;
+                var footerPopupDetails = {"facebookUrl": footerFacebookUrl, "twitterUrl": footerTwitterUrl, "instagramUrl": footerInstagramUrl, "websiteUrl": footerWebsiteUrl};
+                $scope.emailFooterPopupDetails = false;
+                settingsFactory.setFooterPost(footerPopupDetails).then(function (data) {
+                    $scope.getFooterDetails();
+                });
+
+                var companyAddress = {"addressLine1": company.addressLine1, "addressLine2": company.addressLine2, "city": company.city, "state": company.state, "zipcode": company.zipCode, "country": company.country};
+                onboardingFactory.saveCompanyAddress(companyAddress).then(function (data) {
+                    growl("company Saved.");
+                });
+            }
+        };
+        $scope.validateCompanyAddress = function (companyData) {
+            if (!companyData.addressLine1) {
+                $scope.companyAddressDetails.addressLine1 = "";
+                $("#addressLine1").focus();
+                return false;
+            } else if (!companyData.addressLine2) {
+                $scope.companyAddressDetails.addressLine2 = "";
+                $("#addressLine2").focus();
+                return false;
+            } else if (!companyData.city) {
+                $scope.companyAddressDetails.city = "";
+                $("#city").focus();
+                return false;
+            } else if (!companyData.state) {
+                $scope.companyAddressDetails.state = "";
+                $("#state").focus();
+                return false;
+            } else if (!companyData.zipCode) {
+                $scope.companyAddressDetails.zipCode = "";
+                $("#zipcode").focus();
+                return false;
+            } else if (!companyData.country) {
+                $scope.companyAddressDetails.country = "";
+                $("#country").focus();
+                return false;
+            }
+            return true;
         };
 
         $scope.emailPreviewOnClick = function () {
@@ -783,23 +827,23 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $(".emailAutomationFade").show();
                 $scope.emailPreviewPopup = true;
                 var footerData = JSON.parse(data.d.details);
-                if (footerData) 
+                if (footerData)
                 {
-                        $("#email_previewdiv").show();  
+                    $("#email_previewdiv").show();
 
-                        var footer = $scope.userFooter(footerData);
-                        var sendData = {
-                            htmlString: $('#tinymceEditorBody').html() + footer,
-                            iframeName: rendomIframeFilename.toString()
-                        };
-                        emailFactory.previewServletPost(sendData).then(function () {
-                            $scope.overlayFade = true;
-                            $("#dynamictable5").empty();
-                            $("#dynamictable6").empty();
-                            var iframePath = getHost() + "download/HTML?fileName=" + rendomIframeFilename + ".html";
-                            $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
-                            $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
-                        });
+                    var footer = $scope.userFooter(footerData);
+                    var sendData = {
+                        htmlString: $('#tinymceEditorBody').html() + footer,
+                        iframeName: rendomIframeFilename.toString()
+                    };
+                    emailFactory.previewServletPost(sendData).then(function () {
+                        $scope.overlayFade = true;
+                        $("#dynamictable5").empty();
+                        $("#dynamictable6").empty();
+                        var iframePath = getHost() + "download/HTML?fileName=" + rendomIframeFilename + ".html";
+                        $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
+                        $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
+                    });
                     ;
                 }
                 ;
@@ -813,15 +857,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         $scope.userFooter = function (footerData) {
-            var companyAddress="";
-            
-            if(footerData.companyAddress)
+            var companyAddress = "";
+            if (footerData.companyAddress)
             {
-                companyAddress=footerData.companyAddress[0].addressLine1+"<br/>"+footerData.companyAddress[0].addressLine2+"<br/>"+
-                        footerData.companyAddress[0].city+", "+footerData.companyAddress[0].state+"\t\t"+
-                        footerData.companyAddress[0].zipCode+"<br/>"+footerData.companyAddress[0].country;
+                companyAddress = footerData.companyAddress[0].addressLine1 + "<br/>" + footerData.companyAddress[0].addressLine2 + "<br/>" +
+                        footerData.companyAddress[0].city + ", " + footerData.companyAddress[0].state + "\t\t" +
+                        footerData.companyAddress[0].zipCode + "<br/>" + footerData.companyAddress[0].country;
             }
-            
+
             var returnFooter = "";
             var footer = "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\" bgcolor=\"#EEEEEE\" style=\"border-collapse:collapse;\"><tr><td valign=\"top\"> <center style=\"width: 100%;\"> <div style=\"max-width: 680px;\"> <!--[if (gte mso 9)|(IE)]> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"680\" align=\"center\"> <tr> <td> <![endif]--> <!-- Atom Body: BEGIN --> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" bgcolor=\"#EEEEEE\" width=\"100%\" style=\"max-width: 680px;\"> <tr> <td style=\"padding-top:15px;\" class=\"mobile-padding\"> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" width=\"100%\" style=\"max-width: 300px; background-color:#inherit\" class=\"mobile-padding\"> <tr>";
 
@@ -841,15 +884,15 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
 
             returnFooter = footer;
-            if (footerData.fb !== "")
+            if (footerData.userProfile.facebookUrl)
                 returnFooter += footerFB.replace("$$$footerFB$$$", footerData.fb);
-            if (footerData.twitter !== "" && typeof footerData.twitter !== "undefined")
+            if (footerData.userProfile.twitterUrl)
                 returnFooter += footerTwitter.replace("$$$footerTwitter$$$", footerData.twitter);
 
-            if (footerData.website !== "" && typeof footerData.website !== "undefined")
+            if (footerData.userProfile.websiteUrl)
                 returnFooter += footerWebsite.replace("$$$footerWebsite$$$", footerData.website);
 
-            if (footerData.instagram !== "" && typeof footerData.instagram !== "undefined")
+            if (footerData.userProfile.instagramUrl)
                 returnFooter += footerInstagram.replace("$$$footerInstagram$$$", footerData.instagram);
 
             returnFooter += footerMiddle;
@@ -938,13 +981,13 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 var editorHtml = $('#tinymceEditorBody').html();
                 if (editorHtml.contains('id="defaultblock1"'))
                 {
-                    $("#recurringDefaultTemplate").empty().append("<div class=view>" + emailData.htmldata + "</div>");
-                   
+                    $("#defaultblock1").empty().append("<div class=view>" + emailData.htmldata + "</div>");
+
                 } else {
-                     $("#tinymceEditorBody").append("<div id=defaultblock1><div class=view>" + emailData.htmldata + "</div></div");
+                    $("#tinymceEditorBody").append("<div id=defaultblock1><div class=view>" + emailData.htmldata + "</div></div");
                 }
                 $scope.templateId = id;
-                $scope.launchTinyMceEditor();           
+                $scope.launchTinyMceEditor();
                 $scope.recurringTemplateOnClick(0);
             });
         };
@@ -1405,38 +1448,38 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
                         settingsFactory.getAllPreferencesGet().then(function (data) {
                             var footerData = JSON.parse(data.d.details);
-                            
+
                             if (!footerData.userProfile) {
                                 $scope.editFooter();
                                 return false;
                             } else
                             {
-                                    var footer = $scope.userFooter(footerData);
-                                            
-                                    var recurring_action = {
-                                        "entity_id": $scope.entityId.toString(),
-                                        "template_id": $scope.templateId, "html_data": $scope.froalaHtmlData + footer,
-                                        "days": days.toString(), "emaillist": emaillist,
-                                        "to_email_addresses": to_email_addresses,
-                                        "subject": subject, "from_name": from_name,
-                                        "reply_to_address": reply_to_address,
-                                        "recurring_email_title": recurring_email_title,
-                                        "recurring_email_description": recurring_email_description,
-                                        "till_date_epoch": till_date_epoch,
-                                        "schedule_time_epoch": schedule_time,
-                                        "program_id": $scope.programId.toString()
-                                    };
+                                var footer = $scope.userFooter(footerData);
 
-                                    marketingRecurringEmailFactory.updateRecurringActionPost(recurring_action).then(function (data) {
-                                        if ((data === true)) {
+                                var recurring_action = {
+                                    "entity_id": $scope.entityId.toString(),
+                                    "template_id": $scope.templateId, "html_data": $scope.froalaHtmlData + footer,
+                                    "days": days.toString(), "emaillist": emaillist,
+                                    "to_email_addresses": to_email_addresses,
+                                    "subject": subject, "from_name": from_name,
+                                    "reply_to_address": reply_to_address,
+                                    "recurring_email_title": recurring_email_title,
+                                    "recurring_email_description": recurring_email_description,
+                                    "till_date_epoch": till_date_epoch,
+                                    "schedule_time_epoch": schedule_time,
+                                    "program_id": $scope.programId.toString()
+                                };
+
+                                marketingRecurringEmailFactory.updateRecurringActionPost(recurring_action).then(function (data) {
+                                    if ((data === true)) {
 //                                            alert("Details saved succesfully.");
-                                            $location.path("/marketingprogramactions");
-                                            $scope.getProgramActions('emailautomation');
+                                        $location.path("/marketingprogramactions");
+                                        $scope.getProgramActions('emailautomation');
 //                                        window.open(getHost() + 'user/marketingprogramactions?program_id=' + program_id + '&past=0&program_date=' + program_end_date, "_self");
-                                        } else {
+                                    } else {
 //                                            alert("Problem saving the record!","error");
-                                        }
-                                    });
+                                    }
+                                });
                             }
                         });
                     }
@@ -1706,7 +1749,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                             $scope.launchTinyMceEditor();
                         } else
                         {
-                           var BlockHtml = '<div id=' + $scope.htmlTagId + '  class=module onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ',' + mindbodyId + ')>' + emailData.htmldata + '</div>';
+                            var BlockHtml = '<div id=' + $scope.htmlTagId + '  class=module onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ',' + mindbodyId + ')>' + emailData.htmldata + '</div>';
                             $("#tinymceEditorBody").append(BlockHtml);
                             $scope.launchTinyMceEditor();
                         }
@@ -1715,7 +1758,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             });
         };
         $scope.blockIdOnSelected = function (selectedBlock, blockId, mindbodyId) {
-            $scope.htmlTagId =  selectedBlock.id;
+            $scope.htmlTagId = selectedBlock.id;
         };
         $scope.showStyles = function (isClick) {
             if (isClick === "true")
