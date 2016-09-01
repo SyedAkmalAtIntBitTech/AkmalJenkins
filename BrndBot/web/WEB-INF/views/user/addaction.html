@@ -14,13 +14,13 @@
                         <input type="text" name="addactiontitle" id="addactiontitle" ng-class="{'invalid-input': addTitle === '' || null}" ng-model="addTitle" placeholder="Enter Title" class="fluid" />
                         <input type="hidden" id="marketing_program" value="0" name="marketing_program_type"/>
                     </a>
-                    <span class="validationAlert" ng-if='addTitle === "" || null'>Oops! Enter an Action Name</span>
+                    <span class="validationAlert" ng-if='addTitle === "" || null'>{{actionNameValidation}}</span>
                 </div>
                 <!--NH add ng-class invalid-input on this dropdown-->
                 <div class="input-wrap">
                     <label>Action Type</label>
                     <div dropdown-select="ddSelectActionOptions" dropdown-model="ddSelectAction" dropdown-onchange="chooseActionTypeOnChange(selected)" ng-class="{'invalid-input': actionTypeValidation == false}"></div>
-                    <span class="validationAlert" ng-if="actionTypeValidation">Please Select an Action Type</span>
+                    <span class="validationAlert" ng-if="actionTypeValidation">{{actionDropdownValidation}}</span>
                 </div>
 
                 <div class="input-wrap-row">
@@ -43,7 +43,7 @@
                                         });
                             </script>
                         </a>
-                        <span class="validationAlert" ng-if='datePicker === "" || null'>Please Select a Date</span>
+                        <span class="validationAlert" ng-if='datePicker === "" || null'>{{actionDateValidation}}</span>
                                                 
                     </div>
                     <div class="input-wrap half">
@@ -66,8 +66,8 @@
                                 });
                             </script>
                         </a>
-                        <span class="validationAlert" ng-if="timePickerVal">Please Select a Time</span>
-                        <span class="validationAlert" ng-if="dateLesser">That date is in the past.</span>
+                        <span class="validationAlert" ng-if="timePickerVal">{{actionTimeValidation}}</span>
+                        <span class="validationAlert" ng-if="dateLesser">{{lesserDateValidation}}</span>
                     </div>
                 </div>
                  

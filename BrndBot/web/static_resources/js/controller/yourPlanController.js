@@ -20,6 +20,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.actionNameValidation = actionNameValidation;
         $scope.actionDropdownValidation = actionDropdownValidation;
         $scope.actionDateValidation = actionDateValidation;
+        $scope.actionTimeValidation = actionTimeValidation;
         $scope.lesserDateValidation = lesserDateValidation;
         $scope.calculatedProgramDate = "";
         $scope.actionTypeValidation = false;
