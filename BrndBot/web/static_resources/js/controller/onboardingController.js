@@ -516,17 +516,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                                         ["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
                                     ]
                                 });
-                                
-//            $('#picker').colpick({
-//                flat: true,
-//                layout: 'hex',
-//                onSubmit: function (hsb, hex, rgb, el) {
-//                    //for haking hex value growl(hex);
-//                    $('.palette-colorswab-selected').css("background-color", "#" + hex);
-//                    $('.palette-colorswab-selected').val("#" + hex);
-//
-//                }
-//            });
         };
         $scope.getColorID = function (color) {
             $('.palette-colorswab-selected').css("background-color", color);

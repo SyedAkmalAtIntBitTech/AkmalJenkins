@@ -38,10 +38,44 @@
                     </div> 
                     <div class="color-selection-tool-wrap">
                         <div ng-show="colorFrom == 'custom'"  class="color-picker-space" id="">
-                            <input type="text" name="togglePaletteOnly" id="togglePaletteOnly" style="display:none !important; visibility: hidden">
-                            <script>
-                                
+                            <select id="color-select">
+                                <optgroup>
+                                        <option value="#C0392B"></option>
+                                        <option value="#2ECC71"></option>
+                                        <option value="#3498DB"></option>
+                                        <option value="#D35401"></option>
+                                        <option value="#16A025"> </option>
+                                        <option value="#977B35"></option>
+                                </optgroup>
+                                <optgroup>
+                                        <option value="#D35400"></option>
+                                        <option value="#16A085"></option>
+                                        <option value="#977BD5"></option>
+                                        <option value="#A35400"></option>
+                                        <option value="#13A085"></option>
+                                        <option value="#277BD5"></option>
+                                </optgroup>
+                                <optgroup>
+                                        <option value="#34495E"></option>
+                                        <option value="#D870A9"></option>
+                                        <option value="#8BC163"></option>
+                                        <option value="#34488E"></option>
+                                        <option value="#2870A9"></option>
+                                        <option value="#8B5163"></option>
+                                </optgroup>
+                                <optgroup>
+                                        <option value="#3449AA"></option>
+                                        <option value="#D870AA"></option>
+                                        <option value="#8BC1AA"></option>
+                                        <option value="#A449AA"></option>
+                                        <option value="#A870AA"></option>
+                                        <option value="#ABC1AA"></option>
+                                </optgroup>
+                            </select>
+                            <script language="javascript" type="text/javascript">
+                                    $('#color-select').colorSelect();
                             </script>
+                            <input type="text" name="togglePaletteOnly" id="togglePaletteOnly" style="display:none !important; visibility: hidden">
                         </div>
                         <div ng-if="colorFrom == 'theme'" id="themeColorsDiv1" class="palette-theme-global">
                             <div ng-repeat="color in themeColors" class="palette-wrap-globalColors">
