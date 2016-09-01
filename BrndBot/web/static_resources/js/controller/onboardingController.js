@@ -440,7 +440,11 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 if (studioIdSaved === "true") {
                     externalContentFactory.activationLinkGet().then(function (data) {                       
                         $scope.activationLink = data.d.details[0];
-                        growl("Mindbody activated successfully");
+                        if ($scope.activationLink){
+                            growl("Mindbody activated successfully.");
+                        }else {
+                            growl("Mindbody not activated.");
+                        }
                     });
                 }
             });
