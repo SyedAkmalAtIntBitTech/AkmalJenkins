@@ -1,27 +1,18 @@
-/**
+/*
  * Copyright 2015 Intbit Technologies. This software and documentation contains
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
-package com.intbittech.services;
+package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.EmailList;
-import java.util.Map;
+
 /**
- * <code>{@link EmailListService}</code> is service layer interface for
- * communicating between Controller and DAO classes
  *
- * @author Ajit
+ * @author ajit @ Intbit
  */
-public interface EmailListService {
-
-    public String getEmailList(String queryParameter, Integer companyId, String emailListName) throws Exception;
-
-    public Boolean setEmailList(Map<String, Object> requestBodyMap, Integer companyId) throws Exception;
-
-    public void updateUnsubscribedUserEmailLists(CompanyPreferences companyPreferences);
+public interface EmailListDao {
     
      /**
      * This method pass id as input and get the {@link EmailList} from DAO
@@ -55,8 +46,9 @@ public interface EmailListService {
      * This method delete particular {@link EmailList} based on the
      * contacts from the database.
      *
-     * @param emailListId the emailListId
+     * @param emailList the emailList
      * @throws ProcessFailed the process failed
      */
-    public void delete(Integer emailListId) throws ProcessFailed;
+    public void delete(EmailList emailList) throws ProcessFailed;
+    
 }

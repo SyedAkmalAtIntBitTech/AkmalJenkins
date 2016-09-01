@@ -14,7 +14,7 @@ import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.model.Address;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
-import com.intbittech.model.EmailList;
+import com.intbittech.modelmappers.EmailListDetails;
 import com.intbittech.model.InvitedUsers;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
@@ -685,7 +685,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     }
 
     @RequestMapping(value = "/unsubscribeEmails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> unsubscribeEmails(HttpServletRequest request, @RequestBody EmailList emailList) {
+    public ResponseEntity<ContainerResponse> unsubscribeEmails(HttpServletRequest request,@RequestBody EmailListDetails emailList) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
 
@@ -730,7 +730,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     }
 
     @RequestMapping(value = "/saveUnsubscribeEmails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> saveUnsubscribeEmails(HttpServletRequest request, @RequestBody EmailList emailList) {
+    public ResponseEntity<ContainerResponse> saveUnsubscribeEmails(HttpServletRequest request,@RequestBody EmailListDetails emailList) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
