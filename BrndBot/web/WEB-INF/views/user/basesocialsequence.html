@@ -1,33 +1,37 @@
-<div class="main-content-wrap">
-<!--    <div ng-include="'facebookmanagepages.html'"></div>-->
-<!--    <div ng-include="'twitterpopupsocialhub.html'"></div>-->
-    <div class="top-nav-wrap">
-        <div class="header">
-            <a class="back-button" href="dashboard"></a>
-            <h2 class="">Create a Social Post</h2>
-        </div>
+
+
+<div class="bb-top-nav">
+    <div class="bb-bar-left-wrap bb-one-third-flex-col">
+        <a href="dashboard" class="bb-back-button"></a>
+        <h3 class="bb-top-nav-title">Create a Social Post</h3>
     </div>
-    <div class="top-nav-bar-offset"></div>
-    <div class="content-wrap content-wrap-flex" ng-if="hideBaseSocialSequence"> 
-         <div class="modal-pane modal-pane-width-reg">
-            <div class="modal-pane-header-wrap">
-                <h2>Select a Social Channel</h2>
-            </div>
-            <div class="modal-pane-content-wrap">
-                <div class="cat-list">
-                    <div class="cat-slat" ng-click="setChannel('facebook')">
-                        <img  src="../images/F_icon.svg" class="social-channel-icon" style="cursor:pointer;" alt=""/>
-                        <div class="cat-slat-title" >Facebook</div>
-                    </div>  
-                    <div class="cat-slat" ng-click="setChannel('twitter')">
-                        <img  src="../images/Twitter_icon.svg" class="social-channel-icon" style="cursor:pointer;" alt=""/>
-                        <div class="cat-slat-title">Twitter</div>
-                    </div> 
-                </div>
-            </div>
-        </div>
+    <div class="bb-bar-center-wrap bb-one-third-flex-col">
+      
+    </div>
+    <div class="bb-bar-right-wrap bb-one-third-flex-col">
+        <div class="bb-help-icon">help icon</div>
     </div>
 </div>
+  <div class="bb-main-content-wrap  bb-center-content" ng-if="hideBaseSocialSequence"> 
+         <div class="bb-panel-styling bb-panel-default">
+            <div class="bb-panel-header">
+                <h2>Select a Social Channel</h2>
+            </div>
+           
+                <div class="bb-panel-content-wrap-clickable-slats">
+                    <div class="bb-clickable-slat" ng-click="setChannel('facebook')">
+                        <img  src="../images/F_icon.svg" class="social-channel-icon" style="cursor:pointer;" alt=""/>
+                        <h3 class="" >Facebook</h3>
+                    </div>  
+                    <div class="bb-clickable-slat" ng-click="setChannel('twitter')">
+                        <img  src="../images/Twitter_icon.svg" class="social-channel-icon" style="cursor:pointer;" alt=""/>
+                        <h3 class="">Twitter</h3>
+                    </div> 
+                </div>
+        
+        </div>
+    </div>
+
 
 
 

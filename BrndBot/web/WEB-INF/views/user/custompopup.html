@@ -97,16 +97,15 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
             }
         </style>
     </head>
-    <body ng-app="imgPopup" class="center-pop-ups" ng-controller="imgPopupController">
+    <body ng-app="imgPopup" ng-controller="imgPopupController">
         <input type="hidden" id="imageDiv">
 
-        <div  class="center-pop-ups " id="fade" ng-class="fadeClass">
-
-            <div class="center-pop-ups" style="">
-                <div class="tinyMCE-image-gallery-content-wrap">
-                    <div ng-init="getAllCompanyImages()">
-                        <div class="modal-pane-header-wrap">
-                            <div class="upload-photo-button reg-button gray-button" ng-click="showImageUploadPopup()">Upload an Image</div>
+       
+           
+                <div class="bb-email-image-pop-up" ng-init="getAllCompanyImages()">
+                   
+                        <div class="bb-email-image-pop-up-header">
+                            <a class="bb-button bb-default-action-button" ng-click="showImageUploadPopup()">Upload an Image</a>
                         </div>
                         <div class="pop-up-inner-gallery" ng-show="chooseImage">
                             <div class="imageGallery-inner-popup" style="display: none !important;">
@@ -116,17 +115,17 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                                     </div>
                                 </div>                     
                             </div>
-                            <div class="gallery-image-content-wrap" ng-show="showUserImages" >
-                                <div class="gallery-image-wrap {{images.companyImagesId}}">
-                                    <div class="gallery-image-card" ng-repeat="images in datalists"  ng-click="selectImageToPost(images.imageName, 'gallery', companyId,images.companyImagesId)">
-                                        <img ng-class="{'imageBorder': setImageBorder === images.companyImagesId}"  class="gallery-image" id="{{images.companyImagesId}}"  src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}" alt="{{images.imageName}}"/>
+                            <div class="bb-panel-content-wrap gallery-image-content-wrap" ng-show="showUserImages" >
+                                <div class="bb-email-gallery-image-wrap {{images.companyImagesId}}">
+                                    <div class="bb-email-gallery-image-card" ng-repeat="images in datalists"  ng-click="selectImageToPost(images.imageName, 'gallery', companyId,images.companyImagesId)">
+                                        <div  class="bb-gallery-image" id="{{images.companyImagesId}}"  style="background-image: url('/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}'); background-position:50% 50%; background-repeat:no-repeat; background-size: contain;"/></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                   
                 </div>
-            </div>
-        </div>
+           
+       
     </body>
 </html>
