@@ -22,7 +22,7 @@
              <div class="input-wrap">
                 <label> Enter a Subject Line </label>
                 <div class="input ">
-                    <input id="emailSub" ng-model="$parent.emailsubject" type="text" value="{{emailsubject}}"  spellcheck="true" placeholder="Enter Subject of email" name="emailsubject"  class="fluid"/>
+                    <input id="emailSub" ng-model="$parent.emailsubject" type="text" value="{{emailsubject}}" ng-class="{'invalid-input': emailsubject === '' || null}" spellcheck="true" placeholder="Enter Subject of email" name="emailsubject"  class="fluid"/>
                 </div>
                 <span class="validationAlert" ng-show="isEmailSubEmpty">{{subjectValidation}}</span>
 
@@ -30,7 +30,7 @@
              <div class="input-wrap">
                 <label> Enter Preheader Text</label>
                 <div class="input ">
-                    <input id="preHeader" ng-model="$parent.preheader" type="text" value="{{preheader}}"  spellcheck="true" placeholder="Enter Preheader Text of email" name="preheader"  class="fluid"/>
+                    <input id="preHeader" ng-model="$parent.preheader" type="text" value="{{preheader}}" ng-class="{'invalid-input': preheader === '' || null}"   spellcheck="true" placeholder="Enter Preheader Text of email" name="preheader"  class="fluid"/>
                 </div>
                 <span class="validationAlert" ng-show="ispreHeaderEmpty">{{preHeaderValidation}}</span>
             </div>

@@ -16,7 +16,7 @@
                 <div class="input-wrap">
                     <label> What would you like to share? </label>
                     <div class="input ">
-                        <textarea class="fluid facebook-post-textarea" placeholder="Type post here" id="shareText" ng-model="fbPostData.shareText"></textarea>
+                        <textarea class="fluid facebook-post-textarea" placeholder="Type post here" id="shareText" ng-model="fbPostData.shareText" ng-class="{'invalid-input': fbPostData.shareText === '' || null}"></textarea>
                     </div>
                     <span class="validationAlert" ng-if='fbPostData.shareText === "" || null'>{{facebookPostValidation}}</span>
 
@@ -26,7 +26,7 @@
                     <div class="input-wrap">
                         <label> Link Title </label>
                         <div class="input ">
-                            <input placeholder="Type post here" id="linkTitle" ng-model="fbPostData.linkTitle" class="fluid"></input>
+                            <input placeholder="Type post here" id="linkTitle" ng-model="fbPostData.linkTitle" class="fluid" ng-class="{'invalid-input': fbPostData.linkTitle === '' || null}"></input>
                         </div>
                         <span class="validationAlert" ng-if='fbPostData.linkTitle === "" || null'>{{facebookLinkValidation}}</span>
 
@@ -34,7 +34,7 @@
                     <div class="input-wrap">
                         <label> Enter a Link Description </label>
                         <div class="input ">
-                            <textarea placeholder="Type post here" id="linkDescription" ng-model="fbPostData.linkDescription" type="text" class="fluid"></textarea>
+                            <textarea placeholder="Type post here" id="linkDescription" ng-model="fbPostData.linkDescription" type="text" class="fluid"  ng-class="{'invalid-input': fbPostData.linkDescription === '' || null}"></textarea>
                         </div>
                         <span class="validationAlert" ng-if='fbPostData.linkDescription === "" || null'>{{facebookDescriptionValidation}}</span>
 
@@ -42,7 +42,7 @@
                     <div class="input-wrap">
                         <label>Choose a Link</label>
                         <div class="input " id='urlDropDownSpan' ng-init="getUrls()">
-                            <div dropdown-select="ddSelectlinkUrlsOptions" dropdown-model="ddSelectlinkUrls" dropdown-onchange="getSelectedUrl(selected)"></div>
+                            <div dropdown-select="ddSelectlinkUrlsOptions" dropdown-model="ddSelectlinkUrls" dropdown-onchange="getSelectedUrl(selected)"  ng-class="{'invalid-input': ddSelectlinkUrls === '' || null}"></div>
                             <p class="input-label">If you have a custom link write it below</p>
                         </div>
 
@@ -50,7 +50,7 @@
                     <div class="input-wrap">
                         <label>Write a Custom Link</label>
                         <div class="input ">
-                            <input id="facebooklink" class="fluid" placeholder="http://www.brndbot.com" ng-model="fbPostData.url"></input>
+                            <input id="facebooklink" class="fluid" placeholder="http://www.brndbot.com" ng-model="fbPostData.url" ng-class="{'invalid-input': fbPostData.url === '' || null}"></input>
                         </div>
                         <span class="validationAlert" ng-if='fbPostData.url === "" || null'>{{customLinkValidation}}</span>
 

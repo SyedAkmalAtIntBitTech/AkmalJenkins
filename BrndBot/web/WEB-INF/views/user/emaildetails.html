@@ -33,13 +33,13 @@
                  <div class="input-wrap">
                     <label> Enter a Subject Line </label>
                     <div class="input ">
-                        <input id="subject" ng-model="emailSubject" class="fluid" value="{{emailSubject}}" type="text"></input>
+                        <input id="subject" ng-model="emailSubject" ng-class="{'invalid-input': emailSubject === '' || null}" class="fluid" value="{{emailSubject}}" type="text"></input>
                     </div>
                 </div>
                <div class="input-wrap">
                     <label> Enter a From Name </label>
                     <div class="input ">
-                        <input id="name" class="fluid" placeholder="Enter From Name" type="text" ng-model="fromName"></input>
+                        <input id="name" class="fluid" placeholder="Enter From Name" ng-class="{'invalid-input': fromName === '' || null}" type="text" ng-model="fromName"></input>
                     </div>
                     <span class="validationAlert" ng-if='fromName === "" || null'>{{fromNameValidation}}</span>
 
@@ -47,7 +47,7 @@
                 <div class="input-wrap">
                     <label> Enter a Reply to Address </label>
                     <div class="input ">
-                        <input id="email" class="fluid" placeholder="Enter Reply To Email Address" type="text" ng-model="replyAddress"></input>
+                        <input id="email" class="fluid" placeholder="Enter Reply To Email Address" type="text" ng-model="replyAddress" ng-class="{'invalid-input': replyAddress === '' || null}"></input>
                         <input id="toaddress1" class="input-field-textfield input-placeholder" ng-model="toAddress" value="{{email_settings.email_addresses}}" placeholder="Enter To Email Address" type="hidden"></input>
                     </div>
                     <span class="validationAlert" ng-if='replyAddress === "" || null'>{{replyToValidation}}</span>
