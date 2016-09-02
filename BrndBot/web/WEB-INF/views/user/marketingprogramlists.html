@@ -11,7 +11,7 @@
              <div ng-include src="'usersettingsDropDown.html'" class="bb-user-settings-dropdown-target"></div>
          </div>
      </div>
-    <div class="bb-top-sub-nav">
+    <div class="bb-top-sub-nav"  ng-click="userSettings=false">
         <div class="bb-top-sub-nav-tab"  ng-click="showCurrentPrograms()" ng-class="currentCampaignClass" id="curmarprog">Current Campaigns</div>
         <div class="bb-top-sub-nav-tab " ng-click="getUserMarketingProgramsClosed('marketingprogramactions');showPastPrograms()" ng-class="archivedCampaignClass">Archived Campaigns</div>
    
@@ -25,7 +25,7 @@
     </div>
   
 
-    <div class="bb-main-content-wrap bb-main-content-wrap-padding" id="currprogs" ng-show="currProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
+    <div class="bb-main-content-wrap bb-main-content-wrap-padding" id="currprogs" ng-show="currProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')"  ng-click="userSettings=false">
         <div class="bb-panel-full-width bb-panel-styling">
             <div class="bb-panel-header">
                 <h2 class="">Current Marketing Campaigns</h2>
@@ -54,7 +54,7 @@
             
         </div>
     </div>
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-show="pastProgramsDiv"  >
+    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-show="pastProgramsDiv"   ng-click="userSettings=false">
         <div class="bb-panel-full-width bb-panel-styling" >
             <div class="bb-panel-header">
                 <h2 class="">Archived Marketing Campaigns</h2>

@@ -49,6 +49,14 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
         $scope.ddSelectAction = {text: "Select"};
 
+        $scope.showCompanyList = function(){
+            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                kGlobalCompanyObject.userHashId = "";
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                });
+            });
+            window.location = getHost() + "user/loading";
+        };
         // use scope.onPikadaySelect for older scope syntax
         $scope.onPikadaySelect = function onPikadaySelect(pikaday) {
             growl(pikaday.toString());

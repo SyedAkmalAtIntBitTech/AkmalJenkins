@@ -223,12 +223,23 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
         $scope.getProgramActions = function (forward)
         {
+            $scope.isOneTimeActionsEmpty=false;
+            $scope.isEmailAutomationActionsEmpty=false;
             if ($scope.programId === '') {
                 $location.path("/" + "marketingprogramlists");
             } else {
                 companyMarketingProgramFactory.alluserMarketingProgramGet($scope.programId).then(function (data) {
                     $scope.displayCampaignActions();
                     $scope.programs = data;
+                    var emailAutomationActions=data.emailautomation;
+                    var oneTimeActions=data.programactions;
+                    if(oneTimeActions.length == 0){
+                        $scope.isOneTimeActionsEmpty=true;
+                    }
+                    if(emailAutomationActions.length == 0){
+                        $scope.isEmailAutomationActionsEmpty=true;
+                    }
+                
                     console.log(JSON.stringify(data));
                     var dateEpoch = data.programdetails.dateOfEvent;
                     $scope.programDate = moment(dateEpoch).format('YYYY-MM-DD');

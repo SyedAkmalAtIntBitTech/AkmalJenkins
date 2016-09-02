@@ -5480,6 +5480,12 @@ textarea.task-textarea:focus{
     border-color: #F85A5A !important;
 }
 
+.invalid-input div{
+    border-color: #F85A5A !important;
+}
+
+
+
 .input input:focus{
     border-color:  #1EADFC;
 }

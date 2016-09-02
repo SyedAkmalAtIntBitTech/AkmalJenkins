@@ -816,7 +816,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                 kGlobalEmailObject.htmlBody = $('#tinymceEditorBody').html();
                                 appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {});
                                 emailDraftFactory.saveEmailDraftsPost(draftData).then(function (responseText) {
-                                    if (responseText !== "0") {
+                                    if (responseText != "0") {
                                         $scope.redirect('emaillistselection', '', '', '', '', '', responseText, '', '');
                                         //                                document.location.href = "emaillistselection?draftid=" + responseText + "&subject=" + sessionMap["emailSubject"] + "&iframeName=" + $scope.randomIframeFilename + "&categoryId=" + categoryId + "&subCategoryId=" + subCategoryId + "&emailSubject=" + email_subject + "&mindbodyId=" + mindbodydata + "&LookupId=" + LookupId;
                                     } else {

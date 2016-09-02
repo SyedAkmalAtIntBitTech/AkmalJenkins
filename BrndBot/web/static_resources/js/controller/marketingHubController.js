@@ -1,6 +1,7 @@
 marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location', 'settingsFactory', 'emailListFactory', 'emailDraftFactory', 'emailFactory', 'appSessionFactory', function ($scope, $location, settingsFactory, emailListFactory, emailDraftFactory, emailFactory, appSessionFactory) {
 
 //$scope.emailhubHeader = true;
+        $scope.userSettings =false;
         $scope.addEmailListButton = true;
         $scope.saveEmailSettingsButton = false;
         $scope.deletDraftsButton = false;
@@ -43,7 +44,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.deafultFromName = "";
         $scope.replyEmailValidation = false;
         $scope.replyToAddress = false;
-
+        
+        $scope.showHideUserSettings = function (flag){
+            $scope.userSettings=flag;
+        };
 
         $scope.getUserDetails = function(){
             appSessionFactory.getCompany().then(function(kGlobalCompanyObject){

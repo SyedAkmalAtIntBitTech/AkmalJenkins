@@ -19,7 +19,7 @@
                 <!--NH add ng-class invalid-input on this dropdown-->
                 <div class="input-wrap">
                     <label>Action Type</label>
-                    <div dropdown-select="ddSelectActionOptions" dropdown-model="ddSelectAction" dropdown-onchange="chooseActionTypeOnChange(selected)" ng-class="{'invalid-input': actionTypeValidation == false}"></div>
+                    <div dropdown-select="ddSelectActionOptions" dropdown-model="ddSelectAction" dropdown-onchange="chooseActionTypeOnChange(selected)" ng-class="{'invalid-input': true}"></div>
                     <span class="validationAlert" ng-if="actionTypeValidation">{{actionDropdownValidation}}</span>
                 </div>
 
