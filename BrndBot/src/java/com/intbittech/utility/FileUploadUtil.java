@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -132,18 +133,18 @@ public class FileUploadUtil {
         return fileName;
     }
 
-    public static String uploadImageFromUrl(String FolderLocation, String folderName, HttpServletRequest request) {
+    public static String uploadImageFromUrl(String FolderLocation, String folderName, Map<String, Object> requestBodyMap) {
         String imageName = null;
         BufferedImage image = null;
         try {
-            URL url = new URL(request.getParameter("imageUrl"));
+            URL url = new URL(requestBodyMap.get("imageUrl").toString());
             // read the url
             image = ImageIO.read(url);
             File file = new File(FolderLocation + File.separator + folderName);
             if (!file.exists()) {
                 file.mkdirs();
             }
-            imageName = FilenameUtils.getName(request.getParameter("imageUrl"));
+            imageName = FilenameUtils.getName(requestBodyMap.get("imageUrl").toString());
             logger.info(imageName);
             String filePath = FolderLocation + File.separator + folderName + File.separator+ imageName;
             File storeFile = new File(filePath);

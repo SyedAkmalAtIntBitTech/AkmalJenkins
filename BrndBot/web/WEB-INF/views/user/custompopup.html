@@ -36,12 +36,13 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                 $scope.imageUnSelect = 'gallery-item-wrap-selected';
                 var imageurl = "";
                 var deffered = $q.defer();
+                var companyId = JSON.parse(localStorage.getItem("companyDetails")).companyId;
                 $scope.getAllCompanyImages = function () {
                     $scope.fadeClass = 'fadeClass';
                     $scope.showUploadImage = false;
                     $scope.showUserImages = true;
                     $scope.chooseImage = true;
-                    $http.get(getHost() + "companyImages/get", "", "").then(function (getData) {
+                    $http.get(getHost() + "companyImages/get?companyId="+companyId, "", "").then(function (getData) {
                         $scope.datalists = getData.data.d.details;
                         $scope.companyId = getData.data.d.details[0].fkCompanyId.companyId;
                         deffered.resolve(getData.data);
@@ -69,7 +70,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                     var deffered = $q.defer();
                     var fd = new FormData();
                     fd.append('file', event.target.files[0]);
-                    $http.post(getHost() + "images/save", fd, {
+                    $http.post(getHost() + "images/save?companyId="+companyId, fd, {
                         transformRequest: angular.identity,
                         headers: {'Content-Type': undefined}
                     }).then(function (putData) {

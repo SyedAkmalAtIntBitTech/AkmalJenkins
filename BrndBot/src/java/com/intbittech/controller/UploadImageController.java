@@ -98,11 +98,11 @@ public class UploadImageController extends BrndBotBaseHttpServlet {
             String pathSuffix = "";
             String fileName = "";
             String link = "";
-            String folderName = request.getParameter("folderName");
+            String folderName = requestBodyMap.get("folderName").toString();
             String imageURL = ServletUtil.getServerName(request.getServletContext());
             if (companyId != null) {
                 pathSuffix = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + AppConstants.GALLERY_FOLDERNAME;
-                fileName = FileUploadUtil.uploadImageFromUrl(pathSuffix,folderName, request);
+                fileName = FileUploadUtil.uploadImageFromUrl(pathSuffix,folderName, requestBodyMap);
                 link = "" + imageURL + "downloadImage?imageType=DYNAMIC&companyId=" + companyId + "&imageName="+folderName+"/" +fileName;
             }
             JSONObject json = new JSONObject();

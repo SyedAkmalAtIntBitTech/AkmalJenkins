@@ -672,15 +672,15 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             
 
             returnFooter = footer;
-            if (footerData.userProfile.facebookUrl !== "")
-                returnFooter += footerFB.replace("$$$footerFB$$$", footerData.userProfile.facebookUrl);
-            if (footerData.userProfile.twitterUrl !== "" && typeof footerData.userProfile.twitterUrl !== "undefined")
-                returnFooter += footerTwitter.replace("$$$footerTwitter$$$", footerData.userProfile.twitterUrl);
+            if (footerData.userProfile.facebookUrl)
+                returnFooter += footerFB.replace("$$$footerFB$$$", footerData.fb);
+            if (footerData.userProfile.twitterUrl)
+                returnFooter += footerTwitter.replace("$$$footerTwitter$$$", footerData.twitter);
 
-            if (footerData.userProfile.websiteUrl !== "" && typeof footerData.userProfile.websiteUrl !== "undefined")
-                returnFooter += footerWebsite.replace("$$$footerWebsite$$$", footerData.userProfile.websiteUrl);
+            if (footerData.userProfile.websiteUrl)
+                returnFooter += footerWebsite.replace("$$$footerWebsite$$$", footerData.website);
 
-            if (footerData.userProfile.instagramUrl !== "" && typeof footerData.userProfile.instagramUrl !== "undefined")
+            if (footerData.userProfile.instagramUrl)
                 returnFooter += footerInstagram.replace("$$$footerInstagram$$$", footerData.userProfile.instagramUrl);
 
             returnFooter += footerMiddle;
