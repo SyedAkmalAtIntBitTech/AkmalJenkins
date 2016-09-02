@@ -586,11 +586,11 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 $("#addressLine1").focus();
                 return false;
             }
-            else if (!companyData.addressLine2) {
-                $scope.companyAddressDetails.addressLine2 = "";
-                $("#addressLine2").focus();
-                return false;
-            }
+//            else if (!companyData.addressLine2) {
+//                $scope.companyAddressDetails.addressLine2 = "";
+//                $("#addressLine2").focus();
+//                return false;
+//            }
             else if (!companyData.city) {
                 $scope.companyAddressDetails.city = "";
                 $("#city").focus();
@@ -637,7 +637,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             
             var companyAddress = {"addressLine1":company.addressLine1,"addressLine2":company.addressLine2,"city":company.city,"state":company.state,"zipcode":company.zipCode,"country":company.country};
             onboardingFactory.saveCompanyAddress(companyAddress).then(function (data){
-                growl("company Saved.");
+                growl(companyAddressSaved);
             });    
             }
         };

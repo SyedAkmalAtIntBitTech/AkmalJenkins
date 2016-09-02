@@ -6,6 +6,12 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.confirmPasswordValidation = confirmPasswordValidation;
         $scope.confirmPasswordMissmatch = confirmPasswordMissmatch;
         $scope.logoValidation = logoValidation;
+        $scope.addressLine1Validation = addressLine1Validation;
+        $scope.addressLine2Validation = addressLine2Validation;
+        $scope.cityValidation = cityValidation;
+        $scope.stateValidation = stateValidation;
+        $scope.zipcodeValidation = zipcodeValidation;
+        $scope.countryValidation = countryValidation;
         $scope.showPaletteChangePopUp="";
         $scope.addUserSettings = false;                   
         $scope.userRoleLookUpId = "";
@@ -16,6 +22,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.userLastName = "";
         $scope.userRole = "";
         $scope.logourl = "";
+        $scope.companyAddressDetails = {};
 
         $scope.getUserDetails = function(){
             
@@ -27,7 +34,42 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $scope.logourl = kGlobalCompanyObject.logourl;
             });
         };
-
+        
+        $scope.validateCompanyAddress = function (companyAddressData) {
+            if (!companyAddressData.addressLine1) {
+                $scope.companyAddressDetails.addressLine1 = "";
+                $("#addressLine1").focus();
+                return false;
+            }
+            else if (!companyAddressData.city) {
+                $scope.companyAddressDetails.city = "";
+                $("#city").focus();
+                return false;
+            }
+            else if (!companyAddressData.state) {
+                $scope.companyAddressDetails.state = "";
+                $("#state").focus();
+                return false;
+            } 
+            else if (!companyAddressData.zipCode) {
+                $scope.companyAddressDetails.zipCode = "";
+                $("#zipcode").focus();
+                return false;
+            }
+            else if (!companyAddressData.country) {
+                $scope.companyAddressDetails.country = "";
+                $("#country").focus();
+                return false;
+            }
+            return true;
+        };
+        
+        $scope.updateCompanyAddress = function (companyAddressData){
+            if($scope.validateCompanyAddress(companyAddressData)){
+                alert(JSON.stringify(companyAddressData));
+            }
+        };
+        
         // Hide & show password function
         $scope.hideShowPassword = function () {
             if ($scope.inputType == 'password')

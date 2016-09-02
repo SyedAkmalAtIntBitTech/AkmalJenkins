@@ -27,8 +27,60 @@
                         <span class="validationAlert" ng-if='isConfirmPasswordSamePassword'>{{confirmPasswordMissmatch}}</span>
 
                     </div>
-                     <div class="update-container">
+                    
+                    <div class="update-container">
                         <a class="long-button gray-button" ng-click="changePassword(password,confirmPassword)">Change Password</a>
+                    </div>
+                    </div>
+                    <div class="hub-section">
+                     <div class="section-header">
+                         <h3>Update your company Address</h3>
+                        <!--<p>These are the default email settings, they can be overridden when you send out an email.</p>-->
+                     </div>
+                    <div class="input-wrap">
+                    <label>Company Address Line 1</label>
+                    <div class="input">
+                        <input id="addressLine1" ng-model="companyAddressDetails.addressLine1" placeholder="Address Line 1"/>
+                    </div>
+                    <span class="validationAlert" ng-if='companyAddressDetails.addressLine1 == "" || null' >{{addressLine1Validation}}</span>
+                    </div>
+                    <div class="input-wrap">
+                        <label>Company Address Line 2</label>
+                        <div class="input">
+                            <input id="addressLine2" ng-model="companyAddressDetails.addressLine2"  placeholder="Address Line 2"/>
+                        </div>
+                        <!--<span class="validationAlert" ng-if='companyAddressDetails.addressLine2 == "" || null'  >{{addressLine2Validation}}</span>-->
+                    </div>
+                    <div class="input-wrap">
+                        <label>City</label>
+                        <div class="input">
+                            <input id="city" ng-model="companyAddressDetails.city"  placeholder="Country"/>
+                        </div>
+                        <span class="validationAlert" ng-if='companyAddressDetails.city == "" || null' >{{cityValidation}}</span>
+                    </div>
+                    <div class="input-wrap">
+                        <label>State</label>
+                        <div class="input">
+                            <input id="state" ng-model="companyAddressDetails.state"  placeholder="State"/>
+                        </div>
+                        <span class="validationAlert" ng-if='companyAddressDetails.state == "" || null' >{{stateValidation}}</span>
+                    </div>
+                    <div class="input-wrap">
+                        <label>Zip code</label>
+                        <div class="input">
+                            <input id="zipcode" ng-model="companyAddressDetails.zipCode"  placeholder="Zip code"/>
+                        </div>
+                        <span class="validationAlert" ng-if='companyAddressDetails.zipCode == "" || null' >{{zipcodeValidation}}</span>
+                    </div>
+                    <div class="input-wrap">
+                        <label>Country</label>
+                        <div class="input">
+                            <input id="country" ng-model="companyAddressDetails.country"  placeholder="Country"/>
+                        </div>
+                        <span class="validationAlert" ng-if='companyAddressDetails.country == "" || null' >{{countryValidation}}</span>
+                    </div>
+                    <div class="update-container">
+                        <a class="long-button gray-button" ng-click="updateCompanyAddress(companyAddressDetails)">Update Company Address</a>
                     </div>
                 </div>
                  

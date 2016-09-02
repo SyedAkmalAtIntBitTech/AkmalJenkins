@@ -244,3 +244,4 @@ var confirmPasswordMissmatch = "Sorry, Confirm password didn't matched with Pass
 var importContactValidation = "No Contacts to import!, Please Enter atleast One Contact.";
 var linkNameValidation = "Link name not entered! Please entered the link name.";
 var linkUrlValidation = "Link url not entered Or Not Valid! Please Enter the Valid link url.";
+var companyAddressSaved = "Company Address saved.";
