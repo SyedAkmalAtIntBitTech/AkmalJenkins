@@ -1111,7 +1111,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.isEmailActionSave = function () {
 //            $scope.redirectBaseURL();
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
-                alert(JSON.stringify(kGlobalEmailObject));
                 $scope.emailSubject = kGlobalEmailObject.emailSubject;
                 $scope.fromName = kGlobalEmailObject.fromName;
                 if (kGlobalEmailObject.entityScheduleId) {
