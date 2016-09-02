@@ -11,6 +11,7 @@ import com.intbittech.model.ContactEmailListLookup;
 import com.intbittech.model.Contacts;
 import com.intbittech.model.EmailList;
 import com.intbittech.modelmappers.ContactDetails;
+import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.ContactsService;
 import java.util.Date;
 import java.util.Locale;
@@ -37,7 +38,7 @@ public class ContactsServiceImpl implements ContactsService{
     private MessageSource messageSource;
     
     @Autowired
-    private ContactEmailListLookupServiceImpl contactEmailListLookupServiceImpl;
+    private ContactEmailListLookupService contactEmailListLookupService;
      /**
      * {@inheritDoc}
      */
@@ -80,7 +81,7 @@ public class ContactsServiceImpl implements ContactsService{
         contactEmailListLookup.setUnsubscribed(Boolean.FALSE);
         contactEmailListLookup.setAddedDate(new Date());
         
-        contactEmailListLookupServiceImpl.save(contactEmailListLookup);
+        contactEmailListLookupService.save(contactEmailListLookup);
             
         return 0;
     }
