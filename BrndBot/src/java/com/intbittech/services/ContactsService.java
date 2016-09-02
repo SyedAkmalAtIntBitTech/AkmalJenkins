@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Contacts;
+import com.intbittech.modelmappers.ContactDetails;
 
 /**
  * <code>{@link ContactsService}</code> is service layer interface for
@@ -25,6 +26,16 @@ public interface ContactsService {
      * @throws ProcessFailed the process failed
      */
     public Contacts getByContactsId(Integer contactsId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link Contacts} from DAO
+     * layer.
+     *
+     * @param emailAddress the emailAddress
+     * @return {@link Contacts}
+     * @throws ProcessFailed the process failed
+     */
+    public Contacts getContactByEmailAddress(String emailAddress) throws ProcessFailed;
     
     /**
      * This method save {@link Contacts} into the database.
@@ -52,5 +63,14 @@ public interface ContactsService {
      * @throws ProcessFailed the process failed
      */
     public void delete(Integer contactsId) throws ProcessFailed;
+    
+    /**
+     * This method save {@link Contacts} into the database.
+     *
+     * @param contactDetails the contactDetails
+     * @return the Integer
+     * @throws ProcessFailed the process failed
+     */
+    public Integer addContact(ContactDetails contactDetails);
     
 }

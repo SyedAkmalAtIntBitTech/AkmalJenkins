@@ -9,6 +9,7 @@ import com.intbittech.dao.EmailListTagLookupDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailListTagLookup;
 import com.intbittech.services.EmailListTagLookupService;
+import java.util.List;
 import java.util.Locale;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,18 @@ public class EmailListTagLookupServiceImpl implements EmailListTagLookupService{
         }
            
         return emailListTagLookup;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<EmailListTagLookup> getByEmailListTagLookupByEmailListId(Integer emailListId) throws ProcessFailed {
+        List<EmailListTagLookup> emailListTagLookupList = emailListTagLookupDao.getByEmailListTagLookupByEmailListId(emailListId);
+//        if(emailListTagLookupList == null){
+//            throw new ProcessFailed(messageSource.getMessage("email_list_tag_not_found",new String[]{}, Locale.US)); 
+//        }
+           
+        return emailListTagLookupList;
     }
 
    /**

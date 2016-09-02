@@ -7,8 +7,12 @@ package com.intbittech.services.impl;
 
 import com.intbittech.dao.ContactsDao;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.ContactEmailListLookup;
 import com.intbittech.model.Contacts;
+import com.intbittech.model.EmailList;
+import com.intbittech.modelmappers.ContactDetails;
 import com.intbittech.services.ContactsService;
+import java.util.Date;
 import java.util.Locale;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +35,9 @@ public class ContactsServiceImpl implements ContactsService{
     
     @Autowired
     private MessageSource messageSource;
+    
+    @Autowired
+    private ContactEmailListLookupServiceImpl contactEmailListLookupServiceImpl;
      /**
      * {@inheritDoc}
      */
@@ -40,6 +47,42 @@ public class ContactsServiceImpl implements ContactsService{
            throw new ProcessFailed(messageSource.getMessage("contacts_not_found",new String[]{}, Locale.US));
         }
            return contacts;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public Contacts getContactByEmailAddress(String emailAddress) throws ProcessFailed {
+        Contacts contacts = contactsDao.getContactByEmailAddress(emailAddress);
+        return contacts;
+    }
+    
+    public Integer addContact(ContactDetails contactDetails) {
+        Contacts contacts = new Contacts();
+        contacts = getContactByEmailAddress(contactDetails.getEmailAddress());
+        Integer contactId = 0;
+        if(contacts == null) {
+            contacts.setEmailAddress(contactDetails.getEmailAddress());
+            contacts.setFirstName(contactDetails.getfName());
+            contacts.setLastName(contactDetails.getlName());
+            contacts.setCreatedDate(new Date());
+            contactId = save(contacts);
+        } else {
+            contactId = contacts.getContactId();
+        }
+        contacts = new Contacts();
+        contacts.setContactId(contactId);
+        ContactEmailListLookup contactEmailListLookup = new ContactEmailListLookup();
+        contactEmailListLookup.setFkContactId(contacts);
+        EmailList emailList = new EmailList();
+        emailList.setEmailListId(contactDetails.getEmailListId());
+        contactEmailListLookup.setFkEmailListId(emailList);
+        contactEmailListLookup.setUnsubscribed(Boolean.FALSE);
+        contactEmailListLookup.setAddedDate(new Date());
+        
+        contactEmailListLookupServiceImpl.save(contactEmailListLookup);
+            
+        return 0;
     }
 
     /**

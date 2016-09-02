@@ -52,6 +52,26 @@ public class ContactsDaoImpl implements ContactsDao {
             throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public Contacts getContactByEmailAddress(String emailAddress) throws ProcessFailed {
+         try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(Contacts.class)
+                    .add(Restrictions.eq("emailAddress", emailAddress));
+            List<Contacts> contacts = criteria.list();
+            if (contacts.isEmpty()) {
+                return null;
+            }
+            return (Contacts) criteria.list().get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+        }
+    }
 
      /**
      * {@inheritDoc}

@@ -25,6 +25,15 @@ public interface ContactsDao {
     public Contacts getByContactsId(Integer contactsId) throws ProcessFailed;
     
     /**
+     * This method pass id as input and get the {@link Contacts} from Database
+     *
+     * @param emailAddress the emailAddress
+     * @return {@link Contacts}
+     * @throws ProcessFailed the process failed
+     */
+    public Contacts getContactByEmailAddress(String emailAddress) throws ProcessFailed;
+    
+    /**
      * This method save {@link Contacts} into the database.
      *
      * @param contacts the contacts

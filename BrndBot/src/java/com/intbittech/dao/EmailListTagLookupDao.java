@@ -7,6 +7,7 @@ package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailListTagLookup;
+import java.util.List;
 
 /**
  *
@@ -22,6 +23,16 @@ public interface EmailListTagLookupDao {
      * @throws ProcessFailed the process failed
      */
     public EmailListTagLookup getByEmailListTagLookupId(Integer emailListTagLookupId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailListTagLookup} from DAO
+     * layer.
+     *
+     * @param emailListId the emailListId
+     * @return {@link EmailListTagLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailListTagLookup> getByEmailListTagLookupByEmailListId(Integer emailListId) throws ProcessFailed;
     
     /**
      * This method save {@link EmailListTagLookup} into the database.

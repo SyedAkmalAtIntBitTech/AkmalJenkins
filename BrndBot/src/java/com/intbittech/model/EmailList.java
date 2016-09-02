@@ -45,7 +45,9 @@ public class EmailList implements Serializable {
     @JoinColumn(name = "fk_type_id", referencedColumnName = "type_id")
     @ManyToOne
     private EmailListType fkTypeId;
-    
+    @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
+    @ManyToOne
+    private Company fkCompanyId;
     
 
     public EmailList() {
@@ -102,5 +104,12 @@ public class EmailList implements Serializable {
     public void setFkTypeId(EmailListType fkTypeId) {
         this.fkTypeId = fkTypeId;
     }
-    
+
+    public Company getFkCompanyId() {
+        return fkCompanyId;
+    }
+
+    public void setFkCompanyId(Company fkCompanyId) {
+        this.fkCompanyId = fkCompanyId;
+    }
 }

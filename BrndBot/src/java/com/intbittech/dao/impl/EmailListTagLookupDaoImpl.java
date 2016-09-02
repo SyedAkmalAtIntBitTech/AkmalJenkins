@@ -57,6 +57,28 @@ public class EmailListTagLookupDaoImpl implements EmailListTagLookupDao{
             throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<EmailListTagLookup> getByEmailListTagLookupByEmailListId(Integer emailListId) throws ProcessFailed {
+       try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(EmailListTagLookup.class)
+                    .setFetchMode("fkEmailListId", FetchMode.JOIN)
+                    .setFetchMode("fkEmailListTagId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkEmailListId.emailListId", emailListId));
+            List<EmailListTagLookup> contactEmailListLookup = criteria.list();
+            if (contactEmailListLookup.isEmpty()) {
+                return null;
+            }
+            return contactEmailListLookup;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+        }
+    }
 
      /**
      * {@inheritDoc}
