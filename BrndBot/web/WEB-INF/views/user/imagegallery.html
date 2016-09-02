@@ -18,15 +18,15 @@
             <h2 class="">Your Images</h2>
                 <a id="liPriority" href="" class=" bb-button bb-default-action-button" ng-click="showImageUploadPopup()"> Upload an Image</a>
         </div>
-        <div class="gallery-image-wrap">
-            <div class="gallery-image-card" ng-repeat="images in (filteredItems = (datalists| orderBy: 'createdDate':true))" ng-mouseover="hoverInGalleryImage()" ng-mouseleave="hoverOutGalleryImage()">
+        <div class="bb-gallery-image-wrap bb-panel-content-wrap">
+            <div class="bb-gallery-image-card" ng-repeat="images in (filteredItems = (datalists| orderBy: 'createdDate':true))" ng-mouseover="hoverInGalleryImage()" ng-mouseleave="hoverOutGalleryImage()">
 
-                    <img  class="gallery-image" style="backround-image:src('/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}})"/>
-
-                <div ng-show="hoverEditGalleryImage" class="gallery-image-options"> 
+                    
+                    <div  class="bb-gallery-image" id="{{images.companyImagesId}}"  style="background-image: url('/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}'); background-position:50% 50%; background-repeat:no-repeat; background-size: contain;"/></div>
+                <div ng-show="hoverEditGalleryImage" class="bb-gallery-image-options"> 
 
                         <img type="image/svg+xml" id="delete" src="/BrndBot/images/overlay-trash-icon.svg" class="gallery-image-options-trash-icon" ng-click="deleteImage(images.companyImagesId)"/>
-
+                        
                 </div>
             </div>
         </div>
