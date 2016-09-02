@@ -23,6 +23,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.userRole = "";
         $scope.logourl = "";
         $scope.companyAddressDetails = {};
+        $scope.userDetails = {};
 
         $scope.getUserDetails = function(){
             
@@ -32,6 +33,8 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $scope.userLastName = kGlobalCompanyObject.userLastName;
                 $scope.userRole = kGlobalCompanyObject.roleName; 
                 $scope.logourl = kGlobalCompanyObject.logourl;
+                $scope.userDetails.userFirstName=$scope.userFirstName;
+                $scope.userDetails.userLastName=$scope.userLastName;                
             });
         };
         
@@ -64,6 +67,13 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             return true;
         };
         
+        $scope.getCompanyAddress = function (){
+            settingsFactory.getAllPreferencesGet().then(function (data) {
+                $scope.companyAddressDetails=JSON.parse(data.d.details).companyAddress[0];
+            });            
+        };
+        
+        
         $scope.updateCompanyAddress = function (company){
             if($scope.validateCompanyAddress(company)){
             var companyAddress = {"addressLine1":company.addressLine1,"addressLine2":company.addressLine2,"city":company.city,"state":company.state,"zipcode":company.zipCode,"country":company.country};
@@ -83,12 +93,12 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
         $scope.accountSettingsValidation = function (password, confirmPassword) {
             if (!password) {
-                $scope.password = "";
+                $scope.userDetails.password = "";
                 $("#newpassword").focus();
                 return false;
             }
             if (!confirmPassword) {
-                $scope.confirmPassword = "";
+                $scope.userDetails.confirmPassword = "";
                 $("#confirmpassword").focus();
                 return false;
             }
@@ -113,10 +123,10 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             }
         };
         
-        $scope.changePassword = function (password, confirmPassword) {
-            if ($scope.accountSettingsValidation(password, confirmPassword))
+        $scope.changePassword = function (userDetails) {
+            if ($scope.accountSettingsValidation(userDetails.password, userDetails.confirmPassword))
             {
-                var password_object = {"password": password, "confirmpassword": confirmPassword, "type": "update"};
+                var password_object = {"password": userDetails.password, "confirmpassword": userDetails.confirmPassword, "type": "update"};
                 signupFactory.resetPasswordPost(password_object).then(function (data) {
                     growl("Password changed successfully");
                     $scope.status = data;
