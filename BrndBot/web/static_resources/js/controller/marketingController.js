@@ -795,11 +795,13 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.companyAddressDetails.addressLine1 = "";
                 $("#addressLine1").focus();
                 return false;
-            } else if (!companyData.addressLine2) {
-                $scope.companyAddressDetails.addressLine2 = "";
-                $("#addressLine2").focus();
-                return false;
-            } else if (!companyData.city) {
+            } 
+//            else if (!companyData.addressLine2) {
+//                $scope.companyAddressDetails.addressLine2 = "";
+//                $("#addressLine2").focus();
+//                return false;
+//            }
+            else if (!companyData.city) {
                 $scope.companyAddressDetails.city = "";
                 $("#city").focus();
                 return false;

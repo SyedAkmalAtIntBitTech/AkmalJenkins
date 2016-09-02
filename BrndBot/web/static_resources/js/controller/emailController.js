@@ -586,11 +586,11 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 $("#addressLine1").focus();
                 return false;
             }
-            else if (!companyData.addressLine2) {
-                $scope.companyAddressDetails.addressLine2 = "";
-                $("#addressLine2").focus();
-                return false;
-            }
+//            else if (!companyData.addressLine2) {
+//                $scope.companyAddressDetails.addressLine2 = "";
+//                $("#addressLine2").focus();
+//                return false;
+//            }
             else if (!companyData.city) {
                 $scope.companyAddressDetails.city = "";
                 $("#city").focus();
