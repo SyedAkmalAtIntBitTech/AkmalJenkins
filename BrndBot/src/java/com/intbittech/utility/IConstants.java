@@ -63,7 +63,11 @@ public interface IConstants {
     final static String kTwitterURLKey = "shorturl";
     final static String kFooters = "userProfile";
     final static String kUnsubscribeEmails = "unsubscribeEMails";
-    
+    final static String kFooterDetailsFacebookUrl = "facebookUrl";
+    final static String kFooterDetailsTwitterUrl = "twitterUrl";
+    final static String kFooterDetailsWebsiteUrl = "websiteUrl";
+    final static String kFooterDetailsInstagramUrl = "instagramUrl";
+      
     // for external source 
     final static Integer EXTERNAL_SOURCE_NON_MINDBODY = 0;
     final static Integer EXTERNAL_SOURCE_MINDBODY = 1;

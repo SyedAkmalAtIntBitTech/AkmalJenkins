@@ -73,9 +73,13 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             });            
         };
         
-        $scope.updateCompanyAddress = function (companyAddressData){
-            if($scope.validateCompanyAddress(companyAddressData)){
-                alert(JSON.stringify(companyAddressData));
+        
+        $scope.updateCompanyAddress = function (company){
+            if($scope.validateCompanyAddress(company)){
+            var companyAddress = {"addressLine1":company.addressLine1,"addressLine2":company.addressLine2,"city":company.city,"state":company.state,"zipcode":company.zipCode,"country":company.country};
+            onboardingFactory.saveCompanyAddress(companyAddress).then(function (data){
+                growl(companyAddressSaved);
+            });  
             }
         };
         

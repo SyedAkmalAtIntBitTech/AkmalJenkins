@@ -54,26 +54,34 @@ public class AddressServiceImpl implements AddressService {
      * {@inheritDoc}
      */
     public Integer save(AddressDetails addressDetails, Company company) throws ProcessFailed {
-        //Save address
+        CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
         Address address = new Address();
+        Integer savedAddressId = 0;
+        if(companyPreferences.getFkAddressId() != null) {
+            savedAddressId = companyPreferences.getFkAddressId().getAddressId();
+            address = addressDao.getByAddressId(savedAddressId);
+        }
         address.setAddressLine1(addressDetails.getAddressLine1());
         address.setAddressLine2(addressDetails.getAddressLine2());
         address.setCity(addressDetails.getCity());
         address.setState(addressDetails.getState());
         address.setZipcode(addressDetails.getZipcode());
         address.setCountry(addressDetails.getCountry());
-        Integer savedAddressId =  addressDao.save(address);
-        
-        //Save addressId in companyPreferences  
-        CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
-        if (companyPreferences == null) {
-            companyPreferences = new CompanyPreferences();
-            companyPreferences.setFkCompanyId(company);
+        if (companyPreferences.getFkAddressId() == null) {
+        //Save address
+            savedAddressId =  addressDao.save(address);
+            //Save addressId in companyPreferences  
+            address = new Address();
+            address.setAddressId(savedAddressId);
+            companyPreferences.setFkAddressId(address);
+            companyPreferencesDao.saveOrUpdate(companyPreferences);
         }
-        address = new Address();
-        address.setAddressId(savedAddressId);
-        companyPreferences.setFkAddressId(address);
-        companyPreferencesDao.saveOrUpdate(companyPreferences);
+        else {
+        //Update address
+            addressDao.update(address);
+            
+        }
+        
         return savedAddressId;
     }
 
