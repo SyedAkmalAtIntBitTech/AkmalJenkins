@@ -172,7 +172,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 $scope.browserCompatibilityPopup = true;
                 $scope.browserCompatibilityPopupDiv = true;
                 $scope.loginForm = false;
-//                alert("This application supports only Chrome and Safari browsers");
             }
         };
         $scope.closeOverlay = function(){
