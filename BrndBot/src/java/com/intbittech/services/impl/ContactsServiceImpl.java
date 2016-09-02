@@ -64,8 +64,8 @@ public class ContactsServiceImpl implements ContactsService{
         Integer contactId = 0;
         if(contacts == null) {
             contacts.setEmailAddress(contactDetails.getEmailAddress());
-            contacts.setFirstName(contactDetails.getfName());
-            contacts.setLastName(contactDetails.getlName());
+            contacts.setFirstName(contactDetails.getFirstName());
+            contacts.setLastName(contactDetails.getLastName());
             contacts.setCreatedDate(new Date());
             contactId = save(contacts);
         } else {

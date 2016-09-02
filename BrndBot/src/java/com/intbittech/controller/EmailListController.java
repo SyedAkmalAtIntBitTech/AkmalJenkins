@@ -179,6 +179,24 @@ public class EmailListController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
+    @RequestMapping(value = "/addContactList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> addContactList(@RequestBody ContactDetails contactDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            String emailAddressesSplit[] = contactDetails.getEmailAddress().split(",");
+            for(int i=0;i<emailAddressesSplit.length;i++)
+            {
+                contactDetails.setEmailAddress(emailAddressesSplit[i]);
+                contactsService.addContact(contactDetails);
+            }
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("contact_save", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
     //IDS need to contactEmailListLookupId and not contactId
     @RequestMapping(value = "/deleteContact", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteContact(@RequestBody DeleteIdsDetails deleteIdsDetails) {
@@ -202,8 +220,8 @@ public class EmailListController {
             Contacts contacts = new Contacts();
             contacts = contactsService.getByContactsId(contactDetails.getContactId());
             contacts.setEmailAddress(contactDetails.getEmailAddress());
-            contacts.setFirstName(contactDetails.getfName());
-            contacts.setLastName(contactDetails.getlName());
+            contacts.setFirstName(contactDetails.getFirstName());
+            contacts.setLastName(contactDetails.getLastName());
             contactsService.update(contacts);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("contact_edit", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
