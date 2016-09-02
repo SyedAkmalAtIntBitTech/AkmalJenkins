@@ -19,7 +19,7 @@ public class AppConstants {
     public static final String COMPANY_LOGO_FILENAME = "companylogo.png";
     public static final String GALLERY_FOLDERNAME = "gallery";
     public static final String LOGO_FOLDERNAME = "logo";
-    public static final String BASE_UPLOAD_PATH = "/home/tomcat/BrndBot";
+    public static final String BASE_UPLOAD_PATH = "/Users/andrewswansburg/Documents/brndbot";
     public static final String BASE_ADMIN_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "admin";
     public static final String BASE_USERS_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "users";
     public static final String BASE_USERS_IMAGE_UPLOAD_PATH = BASE_USERS_UPLOAD_PATH + File.separator + "images";

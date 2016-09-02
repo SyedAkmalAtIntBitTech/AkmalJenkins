@@ -1,18 +1,22 @@
-<div class="main-content-wrap" ng-init="fbTwitterinit()">
-   
-    <div class="top-nav-wrap" ng-init="checkForCode()">
-        <div class="header">
-            <a class="back-button" href="socialsequence#/socialsequence"></a>
-            <h2 class="">Create a Facebook Post</h2>
-        </div>
+   <div class="bb-top-nav" ng-init="checkForCode()" ng-init="fbTwitterinit()">
+    <div class="bb-bar-left-wrap bb-one-third-flex-col">
+        <a href="socialsequence#/socialsequence" class="bb-back-button"></a>
+        <h3 class="bb-top-nav-title">Create a Facebook Post</h3>
     </div>
-    <div class="top-nav-bar-offset"></div>
-    <div class="content-wrap content-wrap-padding content-wrap-with-continue-bar">
-        <div class="modal-pane modal-pane-social-sequence">
-            <div class="modal-pane-header-wrap">
+    <div class="bb-bar-center-wrap bb-one-third-flex-col">
+      
+    </div>
+    <div class="bb-bar-right-wrap bb-one-third-flex-col">
+        <div class="bb-help-icon">help icon</div>
+    </div>
+</div>
+   
+    <div class="bb-main-content-wrap bb-main-content-wrap-padding">
+        <div class="bb-panel-styling bb-panel-default bb-center-horiz-panel">
+            <div class="bb-panel-header">
                 <h2>Facebook Post</h2>
             </div>
-            <div class="modal-pane-content-social-sequence">
+            <div class="bb-panel-content-wrap">
                 <div class="input-wrap">
                     <label> What would you like to share? </label>
                     <div class="input ">
@@ -80,12 +84,14 @@
 
         </div>
     </div>
-        <div class="continue-bar-offset"></div>
-</div>
-<div class="continue-bar">
-    <!--<a id="continue-bar-button" class="fright" ng-click="openPostOrShedulePopup('facebook', fbPostData)">CONTINUE</a>-->
-     <a id="continue-bar-button" class="fright" ng-click="getManagePage('facebook', fbPostData)">CONTINUE</a>
-</div>
+      
+<div class="bb-bottom-cta-bar">
+        <a class="bb-bottom-cta-continue-button"  ng-class="{'valid' : fbPostData.shareText.length > 0}" ng-click="getManagePage('facebook', fbPostData)" >
+            <div class="bb-bottom-cta-continue-button-text">Continue</div>
+            <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
+        </a>
+    </div>
+
  <div ng-include="'facebookmanagepages.html'"></div>
 <div ng-include src="'schedulepopup.html'"></div>
 <div ng-include src="'sendorschedulepopup.html'"></div>
