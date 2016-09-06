@@ -7,14 +7,12 @@ package com.intbittech.controller;
 
 import com.intbittech.model.Company;
 import com.intbittech.model.SendGridSubUserDetails;
-import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.SendGridSubUserDetailsRequest;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.SendGridSubUserDetailsService;
 import com.intbittech.utility.ErrorHandlingUtil;
-import com.intbittech.utility.Utility;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -51,6 +49,29 @@ public class SendGridSubUserDetailsController {
             sendGridSubUserDetails.setFkCompanyId(company);
             sendGridSubUserDetailsService.save(sendGridSubUserDetails);
           transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Send grid sub userDetails created successfully"));
+        } catch (Throwable ex) {
+            logger.error(ex);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "updateSendGridSubUserDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> updateSendGridSubUserDetails(@RequestBody SendGridSubUserDetailsRequest sendGridSubUserDetailsRequest,@RequestParam("sendGridSubUserDetailsId")Integer sendGridSubUserDetailsId) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            SendGridSubUserDetails sendGridSubUserDetails = sendGridSubUserDetailsService.getBySendGridSubUserDetailsId(sendGridSubUserDetailsId);
+            sendGridSubUserDetails.setIps(sendGridSubUserDetailsRequest.getIps());
+            sendGridSubUserDetails.setSendGridUserId(sendGridSubUserDetailsRequest.getSendGridUserId());
+            Users users = new Users();
+            users.setUserId(sendGridSubUserDetailsRequest.getUserId());
+            sendGridSubUserDetails.setFkUserId(users);
+            Company company = new Company();
+            company.setCompanyId(sendGridSubUserDetailsRequest.getCompanyId());
+            sendGridSubUserDetails.setFkCompanyId(company);
+            sendGridSubUserDetailsService.save(sendGridSubUserDetails);
+          transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Send grid sub userDetails updated successfully"));
         } catch (Throwable ex) {
             logger.error(ex);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
