@@ -7,6 +7,7 @@ package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailList;
+import java.util.List;
 
 /**
  *
@@ -23,6 +24,26 @@ public interface EmailListDao {
      * @throws ProcessFailed the process failed
      */
     public EmailList getByEmailListId(Integer emailListId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailList} from DAO
+     * layer.
+     *
+     * @param companyId the companyId
+     * @return {@link EmailList}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailList> getEmailListByCompanyId(Integer companyId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailList} from DAO
+     * layer.
+     *
+     * @param companyId the companyId
+     * @return {@link EmailList}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailList> getEmailListByCompanyIdAndType(Integer companyId, Integer typeId) throws ProcessFailed;
     
     /**
      * This method save {@link EmailList} into the database.

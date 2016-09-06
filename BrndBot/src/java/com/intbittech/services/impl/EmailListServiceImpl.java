@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -683,5 +684,27 @@ public class EmailListServiceImpl implements EmailListService {
             throw new ProcessFailed(messageSource.getMessage("email_list_not_found", new String[]{}, Locale.US));
         }
         emailListDao.delete(emailList);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<EmailList> getEmailListByCompanyId(Integer companyId) throws ProcessFailed {
+        List<EmailList> emailLists = emailListDao.getEmailListByCompanyId(companyId);
+        if (emailLists == null) {
+            throw new ProcessFailed(messageSource.getMessage("email_lists_not_found", new String[]{}, Locale.US));
+        }
+        return emailLists;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<EmailList> getEmailListByCompanyIdAndType(Integer companyId, Integer typeId) throws ProcessFailed {
+        List<EmailList> emailLists = emailListDao.getEmailListByCompanyIdAndType(companyId, typeId);
+        if (emailLists == null) {
+            throw new ProcessFailed(messageSource.getMessage("email_lists_not_found", new String[]{}, Locale.US));
+        }
+        return emailLists;
     }
 }

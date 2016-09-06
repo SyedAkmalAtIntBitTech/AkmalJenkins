@@ -20,6 +20,7 @@ public class AddEmailListDetails  extends UserCompanyIds implements Serializable
     private String defaultFromAddress;
     private String emailListType;
     private List<String> emailListTags;
+    private Integer numberOfContacts;
 
     public Integer getEmailListId() {
         return emailListId;
@@ -67,5 +68,13 @@ public class AddEmailListDetails  extends UserCompanyIds implements Serializable
 
     public void setEmailListTags(List<String> emailListTags) {
         this.emailListTags = emailListTags;
+    }
+
+    public Integer getNumberOfContacts() {
+        return numberOfContacts;
+    }
+
+    public void setNumberOfContacts(Integer numberOfContacts) {
+        this.numberOfContacts = numberOfContacts;
     }
 }

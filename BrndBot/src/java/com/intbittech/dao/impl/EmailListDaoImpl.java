@@ -42,13 +42,59 @@ public class EmailListDaoImpl implements EmailListDao {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(EmailList.class)
-                     .setFetchMode("fkTypeId", FetchMode.JOIN)
+                    .setFetchMode("fkTypeId", FetchMode.JOIN)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
                     .add(Restrictions.eq("emailListId", emailListId));
             List<EmailList> emailList = criteria.list();
             if (emailList.isEmpty()) {
                 return null;
             }
             return (EmailList) criteria.list().get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<EmailList> getEmailListByCompanyId(Integer companyId) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(EmailList.class)
+                    .setFetchMode("fkTypeId", FetchMode.JOIN)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkCompanyId.companyId", companyId));
+            List<EmailList> emailLists = criteria.list();
+            if (emailLists.isEmpty()) {
+                return null;
+            }
+            return emailLists;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<EmailList> getEmailListByCompanyIdAndType(Integer companyId, Integer typeId) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(EmailList.class)
+                    .setFetchMode("fkTypeId", FetchMode.JOIN)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkCompanyId.companyId", companyId))
+                    .add(Restrictions.eq("fkTypeId.fkTypeId", typeId));
+            List<EmailList> emailLists = criteria.list();
+            if (emailLists.isEmpty()) {
+                return null;
+            }
+            return emailLists;
 
         } catch (Throwable throwable) {
             logger.error(throwable);

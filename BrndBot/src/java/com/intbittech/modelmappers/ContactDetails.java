@@ -18,6 +18,7 @@ public class ContactDetails extends UserCompanyIds implements Serializable{
     private String lastName;
     private Integer emailListId;
     private Integer contactId;
+    private Integer contactEmailListLookupId;
 
     public String getEmailAddress() {
         return emailAddress;
@@ -57,5 +58,13 @@ public class ContactDetails extends UserCompanyIds implements Serializable{
 
     public void setContactId(Integer contactId) {
         this.contactId = contactId;
+    }
+
+    public Integer getContactEmailListLookupId() {
+        return contactEmailListLookupId;
+    }
+
+    public void setContactEmailListLookupId(Integer contactEmailListLookupId) {
+        this.contactEmailListLookupId = contactEmailListLookupId;
     }
 }

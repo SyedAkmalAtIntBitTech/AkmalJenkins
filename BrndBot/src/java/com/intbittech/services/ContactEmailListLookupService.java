@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ContactEmailListLookup;
+import java.util.List;
 
 /**
  * <code>{@link ContactEmailListLookupService}</code> is service layer interface for communicating
@@ -25,6 +26,16 @@ public interface ContactEmailListLookupService {
      * @throws ProcessFailed the process failed
      */
     public ContactEmailListLookup getByContactEmailListLookupId(Integer contactEmailListLookupId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link ContactEmailListLookup} from DAO
+     * layer.
+     *
+     * @param emailListId the emailListId
+     * @return {@link ContactEmailListLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public List<ContactEmailListLookup> getContactsByEmailListId(Integer emailListId) throws ProcessFailed;
     
     /**
      * This method save {@link ContactEmailListLookup} into the database.

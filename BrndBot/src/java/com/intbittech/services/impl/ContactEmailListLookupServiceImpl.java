@@ -9,6 +9,7 @@ import com.intbittech.dao.ContactEmailListLookupDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ContactEmailListLookup;
 import com.intbittech.services.ContactEmailListLookupService;
+import java.util.List;
 import java.util.Locale;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,17 @@ public class ContactEmailListLookupServiceImpl implements ContactEmailListLookup
             throw new ProcessFailed(messageSource.getMessage("contact_email_list_tag_not_found", new String[]{}, Locale.US));
         }
         return contactEmailListLookup;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<ContactEmailListLookup> getContactsByEmailListId(Integer emailListId) throws ProcessFailed {
+        List<ContactEmailListLookup> contactsList = contactEmailListLookupDao.getContactsByEmailListId(emailListId);
+        if(contactsList == null) {
+            throw new ProcessFailed(messageSource.getMessage("contacts_not_found", new String[]{}, Locale.US));
+        }
+        return contactsList;
     }
 
     /**

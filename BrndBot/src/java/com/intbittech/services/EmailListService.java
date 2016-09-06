@@ -8,6 +8,7 @@ package com.intbittech.services;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.EmailList;
+import java.util.List;
 import java.util.Map;
 /**
  * <code>{@link EmailListService}</code> is service layer interface for
@@ -32,6 +33,26 @@ public interface EmailListService {
      * @throws ProcessFailed the process failed
      */
     public EmailList getByEmailListId(Integer emailListId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailList} from DAO
+     * layer.
+     *
+     * @param companyId the companyId
+     * @return {@link EmailList}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailList> getEmailListByCompanyId(Integer companyId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailList} from DAO
+     * layer.
+     *
+     * @param companyId the companyId
+     * @return {@link EmailList}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailList> getEmailListByCompanyIdAndType(Integer companyId, Integer typeId) throws ProcessFailed;
     
     /**
      * This method save {@link EmailList} into the database.
