@@ -8,6 +8,7 @@ package com.intbittech.controller;
 import com.intbittech.AppConstants;
 import com.intbittech.enums.EmailListTagConstants;
 import com.intbittech.enums.EmailListTypeConstants;
+import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.ContactEmailListLookup;
 import com.intbittech.model.Contacts;
@@ -26,6 +27,7 @@ import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.ContactsService;
 import com.intbittech.services.EmailListService;
 import com.intbittech.services.EmailListTagLookupService;
+import com.intbittech.utility.EmailValidator;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
@@ -171,6 +173,10 @@ public class EmailListController {
     public ResponseEntity<ContainerResponse> addContact(@RequestBody ContactDetails contactDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
+            EmailValidator emailValidator = new EmailValidator();
+            if(!emailValidator.validate(contactDetails.getEmailAddress()))
+                throw new ProcessFailed(messageSource.getMessage("contact_not_valid",new String[]{}, Locale.US));
+        
             contactsService.addContact(contactDetails);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("contact_save", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
@@ -187,8 +193,11 @@ public class EmailListController {
             String emailAddressesSplit[] = contactDetails.getEmailAddress().split(",");
             for(int i=0;i<emailAddressesSplit.length;i++)
             {
-                contactDetails.setEmailAddress(emailAddressesSplit[i]);
-                contactsService.addContact(contactDetails);
+                EmailValidator emailValidator = new EmailValidator();
+                if(emailValidator.validate(emailAddressesSplit[i])) {
+                    contactDetails.setEmailAddress(emailAddressesSplit[i]);
+                    contactsService.addContact(contactDetails);
+                }
             }
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("contact_save", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
@@ -218,6 +227,9 @@ public class EmailListController {
     public ResponseEntity<ContainerResponse> editContact(@RequestBody ContactDetails contactDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
+            EmailValidator emailValidator = new EmailValidator();
+            if(!emailValidator.validate(contactDetails.getEmailAddress()))
+                throw new ProcessFailed(messageSource.getMessage("contact_not_valid",new String[]{}, Locale.US));
             Contacts contacts = new Contacts();
             contacts = contactsService.getByContactsId(contactDetails.getContactId());
             contacts.setEmailAddress(contactDetails.getEmailAddress());

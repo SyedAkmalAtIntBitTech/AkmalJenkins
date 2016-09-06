@@ -13,6 +13,7 @@ import com.intbittech.model.EmailList;
 import com.intbittech.modelmappers.ContactDetails;
 import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.ContactsService;
+import com.intbittech.utility.EmailValidator;
 import java.util.Date;
 import java.util.Locale;
 import org.jboss.logging.Logger;
