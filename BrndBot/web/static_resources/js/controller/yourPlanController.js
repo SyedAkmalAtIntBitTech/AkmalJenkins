@@ -266,6 +266,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.ddSelectAction = actionValue;
             if (actionValue.value) {
                 $scope.actionTypeValidation = false;
+                $(".invalidDropdown").css('border-color','#c9c9c9');
             }
         };
 
@@ -306,6 +307,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             }
             if (actionType.text === "Select") {
                 $scope.actionTypeValidation = true;
+                $(".invalidDropdown").css('border-color','#F85A5A');
                 return false;
             }
             if (!datePicker) {

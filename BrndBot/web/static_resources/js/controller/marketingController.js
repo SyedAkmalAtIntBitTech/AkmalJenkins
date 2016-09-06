@@ -307,6 +307,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
             if (actionType.text === "Select") {
                 $scope.actionTypeValidation = true;
+                $(".invalidDropdown").css('border-color','#F85A5A');
                 return false;
             }
             if (!datePicker) {
@@ -326,6 +327,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.ddSelectAction = actionValue;
             if (actionValue.value) {
                 $scope.actionTypeValidation = false;
+                $(".invalidDropdown").css('border-color','#c9c9c9');
             }
         };
 
@@ -929,16 +931,18 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
 
             returnFooter = footer;
-            if (footerData.userProfile.facebookUrl)
-                returnFooter += footerFB.replace("$$$footerFB$$$", footerData.fb);
-            if (footerData.userProfile.twitterUrl)
-                returnFooter += footerTwitter.replace("$$$footerTwitter$$$", footerData.twitter);
+            if (footerData.userProfile) {
+                if (footerData.userProfile.facebookUrl)
+                    returnFooter += footerFB.replace("$$$footerFB$$$", footerData.userProfile.facebookUrl);
+                if (footerData.userProfile.twitterUrl)
+                    returnFooter += footerTwitter.replace("$$$footerTwitter$$$", footerData.userProfile.twitterUrl);
 
-            if (footerData.userProfile.websiteUrl)
-                returnFooter += footerWebsite.replace("$$$footerWebsite$$$", footerData.website);
+                if (footerData.userProfile.websiteUrl)
+                    returnFooter += footerWebsite.replace("$$$footerWebsite$$$", footerData.userProfile.websiteUrl);
 
-            if (footerData.userProfile.instagramUrl)
-                returnFooter += footerInstagram.replace("$$$footerInstagram$$$", footerData.instagram);
+                if (footerData.userProfile.instagramUrl)
+                    returnFooter += footerInstagram.replace("$$$footerInstagram$$$", footerData.userProfile.instagramUrl);
+            }
 
             returnFooter += footerMiddle;
 
@@ -1494,7 +1498,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         settingsFactory.getAllPreferencesGet().then(function (data) {
                             var footerData = JSON.parse(data.d.details);
 
-                            if (!footerData.userProfile) {
+                            if (!footerData.companyAddress) {
                                 $scope.editFooter();
                                 return false;
                             } else

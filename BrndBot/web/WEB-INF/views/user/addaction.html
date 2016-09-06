@@ -16,10 +16,9 @@
                     </a>
                     <span class="validationAlert" ng-if='addTitle === "" || null'>{{actionNameValidation}}</span>
                 </div>
-                <!--NH add ng-class invalid-input on this dropdown-->
                 <div class="input-wrap">
                     <label>Action Type</label>
-                    <div dropdown-select="ddSelectActionOptions" dropdown-model="ddSelectAction" dropdown-onchange="chooseActionTypeOnChange(selected)" ng-class="{'invalid-input': true}"></div>
+                    <div class="invalidDropdown" dropdown-select="ddSelectActionOptions" dropdown-model="ddSelectAction" dropdown-onchange="chooseActionTypeOnChange(selected)"></div>
                     <span class="validationAlert" ng-if="actionTypeValidation">{{actionDropdownValidation}}</span>
                 </div>
 

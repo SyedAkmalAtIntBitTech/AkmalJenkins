@@ -430,6 +430,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.activeEmailHistory = '';
             $scope.activeEmailSettings = '';
             $scope.activeEmailDrafts = '';
+            $scope.hideGifImage=true;
 
             $scope.emaildropdown = false;
             $scope.addEmailListButton = true;
@@ -440,6 +441,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.deletDraftsButton = false;
             $scope.emallistdetails = true;
             emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
+                $scope.hideGifImage=false;
                 var parseData = JSON.parse(data.d.details);
                 $scope.emailLists = parseData.allEmailListWithNoOfContacts.user;
                 $scope.emailListsMindbody = parseData.allEmailListWithNoOfContacts.mindbody;
