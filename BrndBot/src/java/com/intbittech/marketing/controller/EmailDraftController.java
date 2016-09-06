@@ -65,7 +65,7 @@ public class EmailDraftController {
             Integer subCategoryId = Integer.parseInt((String) requestBodyMap.get("subCategoryId"));
             String lookupIdStr=(String)requestBodyMap.get("lookupId");
             Integer lookupId=0;
-            if((!lookupIdStr.equals("null")) || (!lookupIdStr.equals("")))
+            if((!lookupIdStr.equals("null")) && (!lookupIdStr.equals("")))
             {
                 lookupId = Integer.parseInt(lookupIdStr);
             }    
