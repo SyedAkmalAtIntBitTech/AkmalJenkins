@@ -322,9 +322,14 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             }
             return true;
         };
+        var getEpochMillis = function(dateStr) {
+          var r = /^\s*(\d{4})-(\d\d)-(\d\d)\s+(\d\d):(\d\d):(\d\d)\s+UTC\s*$/
+            , m = (""+dateStr).match(r);
+          return (m) ? Date.UTC(m[1], m[2]-1, m[3], m[4], m[5], m[6]) : undefined;
+        };
 
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
-        {
+        {   
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
             {
                 $scope.timePickerVal = false;
@@ -341,13 +346,21 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.dateLesser = false;
                 var actiondate = datePicker;
                 var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
-                var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();
-                var myDate = new Date(l);
+                var timeValues = [];
+                timeValues = actionDateTime.split(":"); 
+                var hours = timeValues[0];
+                var mins = timeValues[1];
+                var delimiter = timeValues[2];
+                
+                if (delimiter == "PM"){
+                    hours = parseInt(hours) + 12;
+                }
+                var newtime = hours + ":" + mins + ":" + "00";
+
+                var epoch_time = getEpochMillis(actiondate + " "+ newtime +" "+ 'UTC'); 
                 var days = 0;
-                var schedule_time = Date.parse(l);
-                var myEpoch = schedule_time;
                 var action = {"title": addTitle, "actiontype": actionType.value, "type": "save",
-                    "description": "", "marketingType": 0, "action_date": myEpoch, "days": days};
+                    "description": "", "marketingType": 0, "action_date": epoch_time, "days": days};
                 yourPlanFactory.addActionPost(action).then(function (data) {
                     growl("Action Saved");
                     $scope.getCampaigns();

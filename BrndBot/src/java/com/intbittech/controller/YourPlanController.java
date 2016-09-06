@@ -322,7 +322,7 @@ public class YourPlanController {
 //                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, "Log while updating the Actions");
             }
 
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
         }

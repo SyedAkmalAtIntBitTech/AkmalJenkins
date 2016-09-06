@@ -331,6 +331,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
         };
 
+        var getEpochMillis = function(dateStr) {
+          var r = /^\s*(\d{4})-(\d\d)-(\d\d)\s+(\d\d):(\d\d):(\d\d)\s+UTC\s*$/
+            , m = (""+dateStr).match(r);
+          return (m) ? Date.UTC(m[1], m[2]-1, m[3], m[4], m[5], m[6]) : undefined;
+        };
+
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
         {
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
@@ -357,16 +363,23 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 var days = start.diff(end1, "days");
                 var actiond = "1970/01/01";
                 var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
-                var l = actiond.toLocaleString() + " " + actionDateTime.toLocaleString();
-                var myDate = new Date(l); // Your timezone!        
-                var schedule_time = Date.parse(l);
-                console.log("Epoch: " + schedule_time);
-                var myEpoch = schedule_time;
-                console.log("New Epoch: " + myEpoch);
+                
+                var timeValues = [];
+                timeValues = actionDateTime.split(":"); 
+                var hours = timeValues[0];
+                var mins = timeValues[1];
+                var delimiter = timeValues[2];
+                
+                if (delimiter == "PM"){
+                    hours = parseInt(hours) + 12;
+                }
+                var newtime = hours + ":" + mins + ":" + "00";
 
+                var epoch_time = getEpochMillis(actiondate + " "+ newtime +" "+ 'UTC'); 
+                
                 var action = {"title": addTitle, "actiontype": actionType.value,
                     "type": "save", "description": "", "marketingType": $scope.programId,
-                    "action_date": myEpoch, "days": days};
+                    "action_date": epoch_time, "days": days};
                 companyMarketingProgramFactory.addActionPost(action).then(function (data) {
                     $scope.closeOverlay();
                     $scope.getProgramActions('emailautomation');
