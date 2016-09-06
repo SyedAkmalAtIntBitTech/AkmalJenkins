@@ -151,10 +151,19 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.changeUserName = function (userDetails){
             if($scope.userAccountSettingsValidation(userDetails.userFirstName, userDetails.userLastName))
             {   
-//                onboardingFactory.saveUserPost(userDetails).then(function (data) { 
-//                    alert(JSON.stringify(data));
-//                    
-//                });
+                var userName = {"firstName":userDetails.userFirstName,"lastName":userDetails.userLastName};
+                signupFactory.updateUser(userName).then(function (data) { 
+                    appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                    kGlobalCompanyObject.firstName = userDetails.userFirstName;
+                    kGlobalCompanyObject.lastName = userDetails.userLastName;                    
+                    
+                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function(){                        
+                    });
+                    });
+                  growl(eval(JSON.stringify(data.d.operationStatus.messages)));
+                  $scope.getUserDetails();
+                    
+                });
             }
         };
 
