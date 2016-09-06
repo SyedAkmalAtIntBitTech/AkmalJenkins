@@ -106,6 +106,20 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             return true;
         };
         
+        $scope.userAccountSettingsValidation = function (fname, lname) {
+            if (!fname) {
+                $scope.userDetails.userFirstName = "";
+                $("#firstName").focus();
+                return false;
+            }
+            if (!lname) {
+                $scope.userDetails.userLastName = "";
+                $("#lastName").focus();
+                return false;
+            }
+            return true;
+        };
+        
         $scope.setPassword = function (password){
             $scope.passwordText = password;
         };
@@ -131,6 +145,16 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                     growl("Password changed successfully");
                     $scope.status = data;
                 });
+            }
+        };
+        
+        $scope.changeUserName = function (userDetails){
+            if($scope.userAccountSettingsValidation(userDetails.userFirstName, userDetails.userLastName))
+            {   
+//                onboardingFactory.saveUserPost(userDetails).then(function (data) { 
+//                    alert(JSON.stringify(data));
+//                    
+//                });
             }
         };
 

@@ -49,7 +49,18 @@
                 <h2 class="">MINDBODY Index Connected Lists</h2>
             </div>
             <div class="bb-panel-content" ng-init="emailListGet()">
-                <div class="hub-empty-wrap"  ng-if="emailListsMindbody.length === 0">There are no MINDBODY Index Lists</div>
+                <div  class="bb-panel-empty-state-wrap" ng-if="hideGifImage">
+                    <div class="external-data-loading-wrap" >
+                    <div class="external-data-loading-block">
+                        <div class="loader"></div>
+                        <div class="loader-description">Loading your content</div>
+                    </div>
+                </div>
+                </div>
+                <div class="bb-panel-empty-state-wrap"   ng-if="emailListsMindbody.length <= 0 || emailListsMindbody.length == undefined ">
+                    <h2 class="bb-panel-empty-state-text">There are no MINDBODY Index Lists.</h2>  
+                
+                </div>
                 <div class="bb-slat-list-wrap" ng-show="emailListsMindbody.length > 0" ng-repeat="email in emailListsMindbody">
                     <div class="bb-slat" ng-click="viewEmailListDetails(email.emailListName, 'user')">
                         <!--<div class="slat-icon-wrap"></div>-->

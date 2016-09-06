@@ -27,10 +27,8 @@
              <div class="bb-panel-full-width bb-panel-styling">
                 <div class="bb-panel-header">
                     <h2 class="">Recurring Automated Emails</h2>
-                    <!--NH Hide this button if there are no automated emails in this campaign-->
                     <a ng-hide="isProgramArchived || isEmailAutomationActionsEmpty" id="addrecemail" ng-click="redirectToEmailAutomation(forward,'add','', '0')" class="bb-button bb-default-action-button">Add an Automated Email</a>
                 </div>
-                 <!--NH Make the below div show if there are no recurring emails in this campaign-->
             <div class="bb-panel-empty-state-wrap" ng-show="isEmailAutomationActionsEmpty">
                 <h2 class="bb-empty-state-text">You have no automated emails in this campaign.</h2>
                 <a ng-hide="isProgramArchived" id="addrecemail" ng-click="redirectToEmailAutomation(forward,'add','', '0')" class="bb-button bb-primary-action-button">Add an Automated Email</a>
@@ -80,10 +78,8 @@
         <div class="bb-panel-full-width bb-panel-styling">
             <div class="bb-panel-header" >
                 <h2 class="">One Time Actions </h2>
-                <!--NH Hide this button if there are no one time actions in this campaign-->
                 <a ng-hide="isProgramArchived || isOneTimeActionsEmpty" id="onetimeactbtn" class="bb-button bb-default-action-button" ng-click="ShowAddAction()">Add a One Time Action</a>
             </div>
-            <!--NH Make the below div show if there are no one time actions in this campaign-->
             <div class="bb-panel-empty-state-wrap" ng-show="isOneTimeActionsEmpty">
                 <h2 class="bb-empty-state-text">You have no one time actions in this campaign.</h2>
                 <a ng-hide="isProgramArchived" id="onetimeactbtn" class="bb-button bb-primary-action-button" ng-click="ShowAddAction()" >Add a One Time Action</a>
