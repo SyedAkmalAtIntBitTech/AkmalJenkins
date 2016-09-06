@@ -79,4 +79,19 @@ public class SendGridSubUserDetailsController {
 
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
+    
+    @RequestMapping(value = "deleteSendGridSubUserDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteSendGridSubUserDetails(@RequestParam("sendGridSubUserDetailsId")Integer sendGridSubUserDetailsId) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            
+            sendGridSubUserDetailsService.delete(sendGridSubUserDetailsId);
+          transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Send grid sub userDetails deleted successfully"));
+        } catch (Throwable ex) {
+            logger.error(ex);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
 }
