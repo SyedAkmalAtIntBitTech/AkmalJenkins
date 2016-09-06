@@ -10,9 +10,12 @@ import com.intbittech.model.SendGridSubUserDetails;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.SendGridSubUserDetailsRequest;
 import com.intbittech.responsemappers.ContainerResponse;
+import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.SendGridSubUserDetailsService;
 import com.intbittech.utility.ErrorHandlingUtil;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,10 +33,11 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class SendGridSubUserDetailsController {
-    
+
     private final static Logger logger = Logger.getLogger(SendGridSubUserDetailsController.class);
-   @Autowired
-   private SendGridSubUserDetailsService sendGridSubUserDetailsService;
+    @Autowired
+    private SendGridSubUserDetailsService sendGridSubUserDetailsService;
+
     @RequestMapping(value = "saveSendGridSubUserDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveSendGridSubUserDetails(@RequestBody SendGridSubUserDetailsRequest sendGridSubUserDetailsRequest) {
         TransactionResponse transactionResponse = new TransactionResponse();
@@ -48,7 +52,7 @@ public class SendGridSubUserDetailsController {
             company.setCompanyId(sendGridSubUserDetailsRequest.getCompanyId());
             sendGridSubUserDetails.setFkCompanyId(company);
             sendGridSubUserDetailsService.save(sendGridSubUserDetails);
-          transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Send grid sub userDetails created successfully"));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Send grid sub userDetails created successfully"));
         } catch (Throwable ex) {
             logger.error(ex);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
@@ -56,9 +60,9 @@ public class SendGridSubUserDetailsController {
 
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "updateSendGridSubUserDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> updateSendGridSubUserDetails(@RequestBody SendGridSubUserDetailsRequest sendGridSubUserDetailsRequest,@RequestParam("sendGridSubUserDetailsId")Integer sendGridSubUserDetailsId) {
+    public ResponseEntity<ContainerResponse> updateSendGridSubUserDetails(@RequestBody SendGridSubUserDetailsRequest sendGridSubUserDetailsRequest, @RequestParam("sendGridSubUserDetailsId") Integer sendGridSubUserDetailsId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             SendGridSubUserDetails sendGridSubUserDetails = sendGridSubUserDetailsService.getBySendGridSubUserDetailsId(sendGridSubUserDetailsId);
@@ -71,7 +75,7 @@ public class SendGridSubUserDetailsController {
             company.setCompanyId(sendGridSubUserDetailsRequest.getCompanyId());
             sendGridSubUserDetails.setFkCompanyId(company);
             sendGridSubUserDetailsService.save(sendGridSubUserDetails);
-          transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Send grid sub userDetails updated successfully"));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Send grid sub userDetails updated successfully"));
         } catch (Throwable ex) {
             logger.error(ex);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
@@ -79,19 +83,37 @@ public class SendGridSubUserDetailsController {
 
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
-    @RequestMapping(value = "deleteSendGridSubUserDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> deleteSendGridSubUserDetails(@RequestParam("sendGridSubUserDetailsId")Integer sendGridSubUserDetailsId) {
+
+    @RequestMapping(value = "deleteSendGridSubUserDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteSendGridSubUserDetails(@RequestParam("sendGridSubUserDetailsId") Integer sendGridSubUserDetailsId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            
+
             sendGridSubUserDetailsService.delete(sendGridSubUserDetailsId);
-          transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Send grid sub userDetails deleted successfully"));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Send grid sub userDetails deleted successfully"));
         } catch (Throwable ex) {
             logger.error(ex);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
         }
 
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "getSendGridSubUserDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getSendGridSubUserDetails(@RequestParam("sendGridSubUserDetailsId") Integer sendGridSubUserDetailsId) {
+        GenericResponse<SendGridSubUserDetails> genericResponse = new GenericResponse<>();
+        try {
+
+            SendGridSubUserDetails sendGridSubUserDetails = sendGridSubUserDetailsService.getBySendGridSubUserDetailsId(sendGridSubUserDetailsId);
+            List<SendGridSubUserDetails> gridSubUserDetailsList = new ArrayList<SendGridSubUserDetails>();
+            gridSubUserDetailsList.add(sendGridSubUserDetails);
+            genericResponse.setDetails(gridSubUserDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Send grid sub userDetails retrieved successfully"));
+        } catch (Throwable ex) {
+            logger.error(ex);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 }
