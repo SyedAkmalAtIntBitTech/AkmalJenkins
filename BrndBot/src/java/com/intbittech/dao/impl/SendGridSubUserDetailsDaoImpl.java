@@ -27,7 +27,7 @@ import org.springframework.stereotype.Repository;
  * @author Ajit
  */
 @Repository
-    public class SendGridSubUserDetailsDaoImpl implements SendGridSubUserDetailsDao {
+public class SendGridSubUserDetailsDaoImpl implements SendGridSubUserDetailsDao {
 
     private static Logger logger = Logger.getLogger(SendGridSubUserDetailsDaoImpl.class);
     @Autowired
@@ -64,6 +64,9 @@ import org.springframework.stereotype.Repository;
         try {
             return ((Integer) sessionFactory.getCurrentSession().save(sendGridSubUserDetails));
         } catch (Throwable throwable) {
+            if (throwable instanceof org.hibernate.exception.ConstraintViolationException){
+                throw new ProcessFailed(messageSource.getMessage("send_grid_sub_user_details_already_exists", null, Locale.US));
+            }
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_saving_message", null, Locale.US));
         }

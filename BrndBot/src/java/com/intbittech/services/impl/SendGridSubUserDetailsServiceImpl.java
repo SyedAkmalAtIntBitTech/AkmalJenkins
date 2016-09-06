@@ -6,8 +6,12 @@
 package com.intbittech.services.impl;
 
 import com.intbittech.dao.SendGridSubUserDetailsDao;
+import com.intbittech.dao.UserRoleCompanyLookUpDao;
+import com.intbittech.enums.AdminStatus;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.SendGridSubUserDetails;
+import com.intbittech.model.UsersRoleCompanyLookup;
+import com.intbittech.modelmappers.UserDetails;
 import com.intbittech.services.SendGridSubUserDetailsService;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -28,6 +32,8 @@ public class SendGridSubUserDetailsServiceImpl implements SendGridSubUserDetails
     @Autowired
     private SendGridSubUserDetailsDao gridSubUserDetailsDao;
     @Autowired
+    private UserRoleCompanyLookUpDao roleCompanyLookUpDao;
+    @Autowired
     private MessageSource messageSource;
 
     /**
@@ -36,7 +42,7 @@ public class SendGridSubUserDetailsServiceImpl implements SendGridSubUserDetails
     public SendGridSubUserDetails getBySendGridSubUserDetailsId(Integer sendGridSubUserDetailsId) throws ProcessFailed {
         SendGridSubUserDetails sendGridSubUserDetails = gridSubUserDetailsDao.getBySendGridSubUserDetailsId(sendGridSubUserDetailsId);
         if (sendGridSubUserDetails == null) {
-            throw new ProcessFailed(messageSource.getMessage("globalColors_list_not_found", new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("send_grid_sub_user_details", new String[]{}, Locale.US));
         }
         return sendGridSubUserDetails;
     }
@@ -45,10 +51,6 @@ public class SendGridSubUserDetailsServiceImpl implements SendGridSubUserDetails
      * {@inheritDoc}
      */
     public Integer save(SendGridSubUserDetails sendGridSubUserDetails) throws ProcessFailed {
-        SendGridSubUserDetails sendGridSubUserDetailsObject = gridSubUserDetailsDao.getSendGridSubUserDetailsBySendGridSubUserIdAndCompanyId(sendGridSubUserDetails.getSendGridUserId(), sendGridSubUserDetails.getFkCompanyId().getCompanyId());
-        if (sendGridSubUserDetailsObject != null) {
-            throw new ProcessFailed(messageSource.getMessage("globalColors_list_not_found", new String[]{}, Locale.US));
-        }
         return gridSubUserDetailsDao.save(sendGridSubUserDetails);
 
     }
@@ -66,7 +68,7 @@ public class SendGridSubUserDetailsServiceImpl implements SendGridSubUserDetails
     public void delete(Integer sendGridSubUserDetailsId) throws ProcessFailed {
         SendGridSubUserDetails sendGridSubUserDetails = gridSubUserDetailsDao.getBySendGridSubUserDetailsId(sendGridSubUserDetailsId);
         if (sendGridSubUserDetails == null) {
-            throw new ProcessFailed(messageSource.getMessage("globalColors_list_not_found", new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("send_grid_sub_user_details", new String[]{}, Locale.US));
         }
         gridSubUserDetailsDao.delete(sendGridSubUserDetails);
     }
@@ -78,7 +80,7 @@ public class SendGridSubUserDetailsServiceImpl implements SendGridSubUserDetails
 
         SendGridSubUserDetails sendGridSubUserDetails = gridSubUserDetailsDao.getSendGridSubUserDetailsByCompanyId(companyId);
         if (sendGridSubUserDetails == null) {
-            throw new ProcessFailed(messageSource.getMessage("globalColors_list_not_found", new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("send_grid_sub_user_details", new String[]{}, Locale.US));
         }
         return sendGridSubUserDetails;
 
@@ -88,10 +90,27 @@ public class SendGridSubUserDetailsServiceImpl implements SendGridSubUserDetails
      * {@inheritDoc}
      */
     public SendGridSubUserDetails getSendGridSubUserDetailsBySendGridSubUserId(String sendGridSubUserId) throws ProcessFailed {
-         SendGridSubUserDetails sendGridSubUserDetails = gridSubUserDetailsDao.getSendGridSubUserDetailsBySendGridSubUserId(sendGridSubUserId);
+        SendGridSubUserDetails sendGridSubUserDetails = gridSubUserDetailsDao.getSendGridSubUserDetailsBySendGridSubUserId(sendGridSubUserId);
         if (sendGridSubUserDetails == null) {
-            throw new ProcessFailed(messageSource.getMessage("globalColors_list_not_found", new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("send_grid_sub_user_details", new String[]{}, Locale.US));
         }
-         return sendGridSubUserDetails;
+        return sendGridSubUserDetails;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public UserDetails getUserDetailsOfAccountOwnerByCompanyId(Integer companyId) throws ProcessFailed {
+
+        UsersRoleCompanyLookup roleCompanyLookup = roleCompanyLookUpDao.getUsersRoleCompanyLookupByUserRoleIdAndCompanyId(AdminStatus.ROLE_ACCOUNT_OWNER.toString(), companyId);
+        if (roleCompanyLookup == null) {
+            throw new ProcessFailed(messageSource.getMessage("send_grid_sub_user_details", new String[]{}, Locale.US));
+        }
+        UserDetails userDetails = new UserDetails();
+        userDetails.setUserId(roleCompanyLookup.getUserId().getUserId());
+        userDetails.setFirstName(roleCompanyLookup.getUserId().getFirstName());
+        userDetails.setLastName(roleCompanyLookup.getUserId().getLastName());
+        userDetails.setUserName(roleCompanyLookup.getUserId().getUserName());
+        return userDetails;
     }
 }

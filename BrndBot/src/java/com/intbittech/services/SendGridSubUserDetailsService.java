@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.SendGridSubUserDetails;
+import com.intbittech.modelmappers.UserDetails;
 
 /**
  * <code>{@link SendGridSubUserDetailsService}</code> is service layer interface for
@@ -71,5 +72,14 @@ public interface SendGridSubUserDetailsService {
      * @throws ProcessFailed the process failed
      */
     public SendGridSubUserDetails getSendGridSubUserDetailsBySendGridSubUserId(String sendGridSubUserId) throws ProcessFailed;
+   
+    /**
+     * This method pass id as input and get the {@link SendGridSubUserDetails} from DAO
+     * layer.
+     * @param companyId the companyId
+     * @return {@link SendGridSubUserDetails}
+     * @throws ProcessFailed the process failed
+     */
+    public UserDetails getUserDetailsOfAccountOwnerByCompanyId(Integer companyId) throws ProcessFailed;
     
 }

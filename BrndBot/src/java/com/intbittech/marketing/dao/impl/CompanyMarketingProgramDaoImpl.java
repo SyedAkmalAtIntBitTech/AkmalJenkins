@@ -18,12 +18,13 @@ import org.springframework.stereotype.Repository;
 import com.intbittech.marketing.dao.CompanyMarketingProgramDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.CompanyMarketingProgram;
+import java.util.Locale;
 
 /**
  *
  * @author- @jit
  */
-@Repository
+    @Repository
 public class CompanyMarketingProgramDaoImpl implements CompanyMarketingProgramDao {
 
     private static final Logger logger = Logger.getLogger(CompanyMarketingProgramDaoImpl.class.getName());
@@ -98,7 +99,10 @@ public class CompanyMarketingProgramDaoImpl implements CompanyMarketingProgramDa
     public Integer save(CompanyMarketingProgram companyMarketingProgram) throws ProcessFailed {
         try {
             return ((Integer) sessionFactory.getCurrentSession().save(companyMarketingProgram));
-        } catch (ProcessFailed throwable) {
+        } catch (Throwable throwable) {
+              if (throwable instanceof org.hibernate.exception.ConstraintViolationException){
+                throw new ProcessFailed("Company marketing program already exits");
+            }
             logger.log(Level.SEVERE, null, throwable);
             throw new ProcessFailed("Database error while saving record.");
         }
