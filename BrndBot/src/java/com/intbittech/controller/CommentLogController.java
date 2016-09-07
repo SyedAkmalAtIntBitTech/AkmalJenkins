@@ -74,8 +74,8 @@ public class CommentLogController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "getAllActivityLogByScheduledEntityListId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getAllActivityLogByScheduledEntityListId(@RequestParam("scheduledEntityListId")Integer scheduledEntityListId ) {
+    @RequestMapping(value = "getAllCommentLogByScheduledEntityListId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllCommentLogByScheduledEntityListId(@RequestParam("scheduledEntityListId")Integer scheduledEntityListId ) {
          GenericResponse<CommentLogResponse> genericResponse = new GenericResponse();
         try {
                 List<CommentLogResponse> commentLogResponseList = commentLogService.getAllCommentLogByScheduledEntityListId(scheduledEntityListId);

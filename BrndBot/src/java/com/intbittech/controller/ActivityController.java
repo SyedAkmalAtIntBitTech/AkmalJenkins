@@ -56,7 +56,7 @@ public class ActivityController {
     public ResponseEntity<ContainerResponse> updateActivity(@RequestBody ActivityDetails activityDetails, @RequestParam("activityId") Integer activityId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            Activity activity = activityService.getActivityByactivityId(activityId);
+            Activity activity = activityService.getActivityByActivityId(activityId);
             activity.setActivityName(activityDetails.getActvityName());
             activityService.update(activity);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Activity updated successfully"));
