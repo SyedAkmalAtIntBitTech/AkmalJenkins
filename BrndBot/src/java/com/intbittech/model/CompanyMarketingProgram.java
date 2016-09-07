@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
 /**
  *
  * @author ajit
@@ -26,6 +27,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "company_marketing_program")
 public class CompanyMarketingProgram implements Serializable {
+
+   
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -134,5 +137,6 @@ public class CompanyMarketingProgram implements Serializable {
     public void setFkCompanyId(Company fkCompanyId) {
         this.fkCompanyId = fkCompanyId;
     }
+
 
 }
