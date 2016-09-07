@@ -43,6 +43,25 @@ public interface EmailListDao {
      * @return {@link EmailList}
      * @throws ProcessFailed the process failed
      */
+    public Boolean checkUniqueness(Integer companyId, String emailListName) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailList} from Database
+     *
+     * @param companyId the companyId
+     * @return {@link EmailList}
+     * @throws ProcessFailed the process failed
+     */
+    public EmailList getEmailListByCompanyIdAndEmailListName(Integer companyId, String emailListName) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailList} from DAO
+     * layer.
+     *
+     * @param companyId the companyId
+     * @return {@link EmailList}
+     * @throws ProcessFailed the process failed
+     */
     public List<EmailList> getEmailListByCompanyIdAndType(Integer companyId, Integer typeId) throws ProcessFailed;
     
     /**

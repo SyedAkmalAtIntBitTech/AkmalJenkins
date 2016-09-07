@@ -53,7 +53,7 @@ public class EmailListDaoImpl implements EmailListDao {
 
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
     
@@ -82,6 +82,54 @@ public class EmailListDaoImpl implements EmailListDao {
     /**
      * {@inheritDoc}
      */
+    public Boolean checkUniqueness(Integer companyId, String emailListName) throws ProcessFailed {
+        try {
+            Boolean isUnique = false;
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(EmailList.class)
+                    .setFetchMode("fkTypeId", FetchMode.JOIN)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkCompanyId.companyId", companyId))
+                    .add(Restrictions.eq("emailListName", emailListName));
+            List<EmailList> emailLists = criteria.list();
+            if (emailLists.isEmpty()) {
+                isUnique = true;
+            }
+            return isUnique;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public EmailList getEmailListByCompanyIdAndEmailListName(Integer companyId, String emailListName) throws ProcessFailed {
+        try {
+            Boolean isUnique = false;
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(EmailList.class)
+                    .setFetchMode("fkTypeId", FetchMode.JOIN)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkCompanyId.companyId", companyId))
+                    .add(Restrictions.eq("emailListName", emailListName));
+            List<EmailList> emailLists = criteria.list();
+            if (emailLists.isEmpty()) {
+                return null;
+            }
+            return (EmailList) criteria.list().get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
     public List<EmailList> getEmailListByCompanyIdAndType(Integer companyId, Integer typeId) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
@@ -98,7 +146,7 @@ public class EmailListDaoImpl implements EmailListDao {
 
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
 

@@ -59,6 +59,9 @@ public class ContactsServiceImpl implements ContactsService{
         return contacts;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     public Integer addContact(ContactDetails contactDetails) {
         Contacts contacts = new Contacts();
         contacts = getContactByEmailAddress(contactDetails.getEmailAddress());
@@ -79,6 +82,7 @@ public class ContactsServiceImpl implements ContactsService{
         EmailList emailList = new EmailList();
         emailList.setEmailListId(contactDetails.getEmailListId());
         contactEmailListLookup.setFkEmailListId(emailList);
+        //TODO check if contact unsubscribed first base on that sent below value
         contactEmailListLookup.setUnsubscribed(Boolean.FALSE);
         contactEmailListLookup.setAddedDate(new Date());
         

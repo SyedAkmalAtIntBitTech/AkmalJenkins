@@ -8,12 +8,19 @@ package com.intbittech.services.impl;
 import com.google.gson.Gson;
 import com.intbittech.dao.EmailListDao;
 import com.intbittech.divtohtml.StringUtil;
+import com.intbittech.enums.EmailListTagConstants;
+import com.intbittech.enums.EmailListTypeConstants;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.EmailInfo;
 import com.intbittech.model.EmailList;
+import com.intbittech.model.EmailListTag;
+import com.intbittech.model.EmailListTagLookup;
+import com.intbittech.modelmappers.AddEmailListDetails;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.EmailListService;
+import com.intbittech.services.EmailListTagLookupService;
 import com.intbittech.utility.IConstants;
 import com.intbittech.utility.StringUtility;
 import com.intbittech.utility.Utility;
@@ -63,6 +70,9 @@ public class EmailListServiceImpl implements EmailListService {
     
     @Autowired
     private EmailListDao emailListDao;
+    
+    @Autowired
+    EmailListTagLookupService emailListTagLookupService;
     
     @Override
     public String getEmailList(String queryParameter, Integer companyId, String emailListName) throws Exception {
@@ -660,12 +670,51 @@ public class EmailListServiceImpl implements EmailListService {
         }
         return emailList;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public Boolean checkUniqueness(Integer companyId, String emailListName) throws ProcessFailed {
+        return emailListDao.checkUniqueness(companyId, emailListName);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public EmailList getEmailListByCompanyIdAndEmailListName(Integer companyId, String emailListName) throws ProcessFailed {
+        EmailList emailList = emailListDao.getEmailListByCompanyIdAndEmailListName(companyId, emailListName);
+        return emailList;
+    }
 
     /**
      * {@inheritDoc}
      */
-    public Integer save(EmailList emailList) throws ProcessFailed {
-        return emailListDao.save(emailList);
+    public Integer save(AddEmailListDetails addEmailListDetails) throws ProcessFailed {
+        EmailList emailList = new EmailList();
+        emailList.setCreatedDate(new Date());
+        emailList.setEmailListName(addEmailListDetails.getEmailListName());
+        emailList.setDescription(addEmailListDetails.getEmailListDescription());
+        emailList.setDefaultFromAddress(addEmailListDetails.getDefaultFromAddress());
+
+        com.intbittech.model.EmailListType emailListType = new com.intbittech.model.EmailListType();
+        emailListType.setTypeId(EmailListTypeConstants.valueOf(addEmailListDetails.getEmailListType()).getEmailListType());
+        emailList.setFkTypeId(emailListType);
+
+        Company company = new Company();
+        company.setCompanyId(addEmailListDetails.getCompanyId());
+        emailList.setFkCompanyId(company);
+        Integer emailListId = emailListDao.save(emailList);
+        emailList = getByEmailListId(emailListId);
+        if(addEmailListDetails.getEmailListTags().size()>0) {
+            for(String tag : addEmailListDetails.getEmailListTags()) {
+                EmailListTagLookup emailListTagLookup = new EmailListTagLookup();
+                emailListTagLookup.setFkEmailListId(emailList);
+                EmailListTag emailListTag = new EmailListTag();
+                emailListTag.setTagId(EmailListTagConstants.valueOf(tag).getEmailListTag());
+                emailListTagLookupService.save(emailListTagLookup);
+            }
+        }
+        return emailListId;
     }
 
     /**

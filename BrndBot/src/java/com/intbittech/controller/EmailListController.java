@@ -121,31 +121,10 @@ public class EmailListController {
     public ResponseEntity<ContainerResponse> createEmailList(@RequestBody AddEmailListDetails addEmailListDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            EmailList emailList = new EmailList();
-            emailList.setCreatedDate(new Date());
-            emailList.setEmailListName(addEmailListDetails.getEmailListName());
-            emailList.setDescription(addEmailListDetails.getEmailListDescription());
-            emailList.setDefaultFromAddress(addEmailListDetails.getDefaultFromAddress());
+            if(!emailListService.checkUniqueness(addEmailListDetails.getCompanyId(), addEmailListDetails.getEmailListName()))
+                throw new ProcessFailed(messageSource.getMessage("email_list_not_unique", new String[]{}, Locale.US));
             
-            EmailListType emailListType = new EmailListType();
-            emailListType.setTypeId(EmailListTypeConstants.valueOf(addEmailListDetails.getEmailListType()).getEmailListType());
-            emailList.setFkTypeId(emailListType);
-            
-            Company company = new Company();
-            company.setCompanyId(addEmailListDetails.getCompanyId());
-            emailList.setFkCompanyId(company);
-            
-            Integer emailListId = emailListService.save(emailList);
-            
-            emailList = emailListService.getByEmailListId(emailListId);
-            
-            for(String tag : addEmailListDetails.getEmailListTags()) {
-                EmailListTagLookup emailListTagLookup = new EmailListTagLookup();
-                emailListTagLookup.setFkEmailListId(emailList);
-                EmailListTag emailListTag = new EmailListTag();
-                emailListTag.setTagId(EmailListTagConstants.valueOf(tag).getEmailListTag());
-                emailListTagLookupService.save(emailListTagLookup);
-            }
+            Integer emailListId = emailListService.save(addEmailListDetails);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("email_list_save", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
