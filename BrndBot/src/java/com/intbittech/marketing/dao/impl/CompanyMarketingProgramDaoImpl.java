@@ -24,7 +24,7 @@ import java.util.Locale;
  *
  * @author- @jit
  */
-    @Repository
+@Repository
 public class CompanyMarketingProgramDaoImpl implements CompanyMarketingProgramDao {
 
     private static final Logger logger = Logger.getLogger(CompanyMarketingProgramDaoImpl.class.getName());
@@ -100,7 +100,7 @@ public class CompanyMarketingProgramDaoImpl implements CompanyMarketingProgramDa
         try {
             return ((Integer) sessionFactory.getCurrentSession().save(companyMarketingProgram));
         } catch (Throwable throwable) {
-              if (throwable instanceof org.hibernate.exception.ConstraintViolationException){
+            if (throwable instanceof org.hibernate.exception.ConstraintViolationException) {
                 throw new ProcessFailed("Company marketing program already exits");
             }
             logger.log(Level.SEVERE, null, throwable);
