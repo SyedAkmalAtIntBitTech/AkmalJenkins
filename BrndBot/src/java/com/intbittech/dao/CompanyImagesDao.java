@@ -5,6 +5,7 @@
  */
 package com.intbittech.dao;
 
+import com.intbittech.model.Company;
 import com.intbittech.model.CompanyImages;
 import java.util.List;
 
@@ -24,5 +25,5 @@ public interface CompanyImagesDao {
 
     public CompanyImages getById(Integer companyImagesId);
     
-    
+    public CompanyImages getCompanyImagesByCompany(Company company);
 }

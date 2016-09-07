@@ -8,11 +8,15 @@ package com.intbittech.controller;
 import com.controller.BrndBotBaseHttpServlet;
 import com.controller.SqlMethods;
 import com.intbittech.AppConstants;
+import com.intbittech.model.UserCompanyIds;
+import com.intbittech.model.UserProfile;
 import com.intbittech.utility.FileUploadUtil;
 import com.intbittech.utility.ServletUtil;
-import com.intbittech.model.UserProfile;
 import com.intbittech.utility.UserSessionUtil;
+import com.intbittech.utility.Utility;
+import java.io.BufferedReader;
 import java.io.File;
+import java.util.Map;
 import java.util.logging.Level;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,18 +58,52 @@ public class UploadImageController extends BrndBotBaseHttpServlet {
     @RequestMapping(value = "/UploadByUser", method = RequestMethod.POST)
     public void UploadImageByUser(HttpServletRequest request, HttpServletResponse response) {
         try {
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+ 
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+
             String pathSuffix = "";
             String fileName = "";
             String link = "";
             String imageURL = ServletUtil.getServerName(request.getServletContext());
-            if (companyId != null) {
+            if (userCompanyIds.getCompanyId() != null) {
                SqlMethods sql_methods = new SqlMethods();
-                pathSuffix = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + AppConstants.GALLERY_FOLDERNAME;
+                pathSuffix = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + userCompanyIds.getCompanyId() + File.separator + AppConstants.GALLERY_FOLDERNAME;
                 fileName = FileUploadUtil.uploadFile(pathSuffix, request);
-                sql_methods.AddImages(companyId, imageURL);
-                link = "" + imageURL + "downloadImage?imageType=GALLERY&companyId=" + companyId + "&imageName=" + fileName;
+                sql_methods.AddImages(userCompanyIds.getCompanyId(), imageURL);
+                link = "" + imageURL + "downloadImage?imageType=GALLERY&companyId=" + userCompanyIds.getCompanyId() + "&imageName=" + fileName;
+            }
+            JSONObject json = new JSONObject();
+            json.put("link", link);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            logger.info(json.toString());
+            response.getWriter().write(json.toString());
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(ex, "Exception while updating org name:", getSqlMethodsInstance().error));
+        }
+    }
+
+    @RequestMapping(value = "/DownloadImageFromUrl", method = RequestMethod.POST)
+    public void DownloadImageFromUrl(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+ 
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+
+            Integer companyId = userCompanyIds.getCompanyId();
+            String pathSuffix = "";
+            String fileName = "";
+            String link = "";
+            String folderName = requestBodyMap.get("folderName").toString();
+            String imageURL = ServletUtil.getServerName(request.getServletContext());
+            if (companyId != null) {
+                pathSuffix = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + AppConstants.GALLERY_FOLDERNAME;
+                fileName = FileUploadUtil.uploadImageFromUrl(pathSuffix,folderName, requestBodyMap);
+                link = "" + imageURL + "downloadImage?imageType=DYNAMIC&companyId=" + companyId + "&imageName="+folderName+"/" +fileName;
             }
             JSONObject json = new JSONObject();
             json.put("link", link);

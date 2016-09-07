@@ -5,6 +5,7 @@
  */
 package com.intbittech.modelmappers;
 
+import com.intbittech.model.UserCompanyIds;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,14 +13,41 @@ import java.util.Date;
  *
  * @author ilyas
  */
-public class UserDetails  implements Serializable {
+public class UserDetails   extends UserCompanyIds implements Serializable {
     
     private Integer userId;
     private String userName;
     private String userPassword;
     private Date createdDate;
     private Integer companyId;
+    private String firstName;
+    private String lastName;
+    private String invitationCode;
 
+    public String getInvitationCode() {
+        return invitationCode;
+    }
+
+    public void setInvitationCode(String invitationCode) {
+        this.invitationCode = invitationCode;
+    }
+    
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    
     public Integer getUserId() {
         return userId;
     }

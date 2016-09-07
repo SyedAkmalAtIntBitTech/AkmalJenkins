@@ -35,7 +35,8 @@ public class ContentController {
     private MessageSource messageSource;
 
     @RequestMapping(value = "/generic", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getLayoutEmailModelById(@RequestParam("emailModelId") Integer emailModelId,
+    public ResponseEntity<ContainerResponse> getLayoutEmailModelById(@RequestParam("companyId") Integer companyId,
+            @RequestParam("emailModelId") Integer emailModelId,
             HttpServletRequest request, HttpServletResponse response) {
         //TODO - Ilyas this is copy of the Generic Announcement Servlet. 
         //I did some of it but kinda confused with the category and sub cat. Please look into this.

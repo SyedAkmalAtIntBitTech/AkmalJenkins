@@ -81,4 +81,16 @@ public class EmailBlockModelLookupServiceImpl implements EmailBlockModelLookupSe
         return emailBlockModelLookup;
     }
 
+   /**
+     * {@inheritDoc}
+     */
+    public List<EmailBlockModelLookup> getAllRecuringEmailBlockModel(Integer emailBlockId) throws ProcessFailed {
+          List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupDao.getAllRecuringEmailBlockModel(emailBlockId);
+        if (emailBlockModelLookupList == null) {
+            throw new ProcessFailed(messageSource.getMessage("emailBlockModel_not_found", new String[]{}, Locale.US));
+        }
+        return emailBlockModelLookupList;
+
+    }
+
 }

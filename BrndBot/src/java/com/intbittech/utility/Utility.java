@@ -15,6 +15,7 @@ import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import com.intbittech.model.EmailInfo;
+import com.intbittech.model.UserCompanyIds;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -127,6 +128,18 @@ public class Utility {
             return true;
         }
         return false;
+    }
+
+    public static UserCompanyIds getUserCompanyIdsFromRequestBodyMap(Map<String, ?> requestBodyMap) {
+        UserCompanyIds userCompanyIds = new UserCompanyIds();
+        
+        if (requestBodyMap != null){
+            Double companyId = Double.parseDouble(requestBodyMap.get("companyId").toString());
+            Double userId = Double.parseDouble(requestBodyMap.get("userId").toString());
+            userCompanyIds.setCompanyId((companyId.intValue()));
+            userCompanyIds.setUserId((userId.intValue()));
+        }
+        return userCompanyIds;
     }
     
 }

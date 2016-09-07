@@ -5,6 +5,10 @@
  */
 package com.intbittech.component;
 
+import com.intbittech.AppConstants;
+import com.intbittech.model.UserProfile;
+import com.intbittech.model.Users;
+import com.intbittech.utility.UserSessionUtil;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,32 +49,47 @@ public class BrndbotUserLoginSuccessHandler extends SimpleUrlAuthenticationSucce
      * @return 
      */
     protected String determineTargetUrl(Authentication authentication) {
-        String url = "";
+        String url = "", status = ""; 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         List<String> roles = new ArrayList<String>();
         for (GrantedAuthority authority : authorities) {
             roles.add(authority.getAuthority());
         }
-        if (isAdmin(roles)) {
-            url = "/admin/organization";
-        } else if (isUser(roles)) {
-            url = "/user/dashboard";
-        } else if (isTempUser(roles)) {
-            url = "/#/signup/company";
-        } else {
-            url = "/login?accessdenied=true";
-        }
- 
+        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+        Users user = userProfile.getUser();
+        status = user.getSignupStatus();
+            
+       if (isAdmin(roles)) {
+           url = "/admin/organization";
+       } else if ((isAccountOwner(roles) && status.equalsIgnoreCase(AppConstants.SignUpStatuscomplete))) {
+           url = "/user/loading";
+       } else if ((isAccountOwner(roles) && status.equalsIgnoreCase(AppConstants.SignUpStatusIncomplete))) {
+           url = "/#/signup/company";
+       } else if (isCreator(roles)) {
+           url = "/user/loading";
+       } else if (isManager(roles)) {
+           url = "/user/loading";
+       } else {
+           url = "/login?accessdenied=true";
+       }
+       
         return url;
     }
  
-    private boolean isUser(List<String> roles) {
-        if (roles.contains("ROLE_USER")) {
+    private boolean isManager(List<String> roles) {
+        if (roles.contains("ROLE_MANAGER")) {
             return true;
         }
         return false;
     }
- 
+
+    private boolean isAccountOwner(List<String> roles) {
+        if (roles.contains("ROLE_ACCOUNT_OWNER")) {
+            return true;
+        }
+        return false;
+    }
+    
     private boolean isAdmin(List<String> roles) {
         if (roles.contains("ROLE_ADMIN")) {
             return true;
@@ -78,8 +97,15 @@ public class BrndbotUserLoginSuccessHandler extends SimpleUrlAuthenticationSucce
         return false;
     }
     
-    private boolean isTempUser(List<String> roles) {
-        if (roles.contains("ROLE_TEMP_USER")) {
+    private boolean isTempManager(List<String> roles) {
+        if (roles.contains("ROLE_TEMP_MANAGER")) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isCreator(List<String> roles) {
+        if (roles.contains("ROLE_CREATOR")) {
             return true;
         }
         return false;

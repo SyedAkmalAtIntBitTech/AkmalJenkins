@@ -6,51 +6,56 @@
     <!--SideNav-->
     <!--Main Content Wrap-->
     
-   <body>
-<div class="sequence-content-wrap" ng-init="getOrganizations()">
-    <div class="top-nav-wrap top-nav-wrap-sequence">
-        <div class="header">
-            <h2>Create a Profile</h2>
+<body>
+    <div class="bb-app-frame">
+        <div class="bb-main-app-wrap"  ng-init="getOrganizations()">
+            <div class="bb-main-container-wrap">
+               <div class="bb-top-nav">
+                    <div class="bb-bar-left-wrap bb-one-third-flex-col">
+                        <h3 class="bb-top-nav-title">Create a Profile</h3>
+                    </div>
+                    <div class="bb-bar-center-wrap bb-one-third-flex-col">
+                          
+                            <div class="bb-step current">Company Details</div>
+                            <div class="bb-step upcoming">Integrations</div>
+                            <div class="bb-step upcoming">Company Brand</div>
+                    </div>
+                    <div class="bb-bar-right-wrap bb-one-third-flex-col">
+                        <div class="bb-help-icon">help icon</div>
+                    </div>
+                </div>
+                <div class="bb-main-content-wrap bb-main-content-wrap-padding bb-center-content">
+                    <div class="modal-pane modal-pane-width-reg">
+                        <div class="modal-pane-header-wrap">
+                            <h2 class="">Welcome to BrndBot!</h2>
+                        </div>
+                        <div class="modal-pane-content-wrap">
+                            <div class="input-wrap onboarding">
+                                <label> Company Name </label>
+                                <div class="input">
+                                    <input class="fluid" id="companyName" ng-model="companyData.companyName" placeholder="Company Name" ng-class="{'invalid-input': companyData.companyName === '' || null}"></input>
+                                </div>
+                                <span class="validationAlert" ng-if='companyData.companyName == "" || null' id="companyValidation">{{companyValidation}}</span>
+                            </div>                
+                           <div class="input-wrap onboarding">
+                                <label> Please select an Organization</label>
+                                <div class="input">
+                                       <div dropdown-select="ddSelectOrganizationOptions" dropdown-onchange="selectedOrganization(selected)" value="{{companyData.ddSelectOrganization}}" dropdown-model="companyData.ddSelectOrganization" ng-class="{'invalid-input': organizationValidation }"></div>
+                                </div>
+                                <span class="validationAlert" ng-if="organizationValidation">{{dropdownValidation}}</span>
+
+                            </div>
+                        </div>
+
+                    </div>
+                 </div>
+                <div class="bb-bottom-cta-bar">
+                    <a class="bb-bottom-cta-continue-button" ng-class="{'bb-valid' : companyData.companyName.length > 0 && companyData.ddSelectOrganization.value == '0'}" ng-click="saveCompany(companyData)">
+                        <div class="bb-bottom-cta-continue-button-text">Continue</div>
+                        <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="top-nav-bar-offset"></div>
-
-    <div class="content-wrap content-wrap-padding content-wrap-with-continue-bar content-wrap-flex">
-        <div class="modal-pane modal-pane-width-reg">
-            <div class="modal-pane-header-wrap">
-                <h2 class="">Welcome to BrndBot!</h2>
-            </div>
-            <div class="modal-pane-content-wrap">
-                <div class="input-wrap onboarding">
-                    <label> Company Name </label>
-                    <div class="input">
-                        <input class="fluid" id="companyName" ng-model="companyName" placeholder="Company Name"></input>
-                    </div>
-                    <span class="validationAlert" ng-if='companyName == "" || null' id="companyValidation">{{companyValidation}}</span>
-                    
-                    <p class="input-wrap-label"> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
-                </div>
-<!--                    <div class="inputSection col-6of10 ">
-                        <div class="input_Label">Please select an industry</div>
-                        <select ng-model="organizationId" id="industryDropDown"  class="input_Field select_Field" ng-options="organization.organizationId as organization.organizationName for organization in organizations">
-                        </select>
-                    </div>-->
-               <div class="input-wrap onboarding">
-                    <label> Please select an Organization</label>
-                    <div class="input">
-                           <div dropdown-select="ddSelectOrganizationOptions" dropdown-onchange="selectedOrganization(selected)" value="{{ddSelectOrganization}}" dropdown-model="ddSelectOrganization"></div>
-                    </div>
-                    <span class="validationAlert" ng-if="organizationValidation">{{dropdownValidation}}</span>
-
-                </div>
-            </div>
-            
-        </div>
-        <div class="continue-bar-offset"></div>
-    </div>
-
-</div>
-<div class="continue-bar sequence-continue-bar">
-    <a id="continue-bar-button" ng-click="saveCompany(companyName,ddSelectOrganization.value)" class="fright">CONTINUE</a>
-</div>
 </body>

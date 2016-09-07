@@ -7,7 +7,9 @@ package com.intbittech.dao.impl;
 
 import com.intbittech.dao.UsersDao;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.Company;
 import com.intbittech.model.Users;
+import com.intbittech.modelmappers.InviteDetails;
 import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -57,6 +59,7 @@ public class UsersDaoImpl implements UsersDao {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Users getUserById(Integer userId) {
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(Users.class)
@@ -70,6 +73,7 @@ public class UsersDaoImpl implements UsersDao {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Boolean checkUniqueUser(Users user) {
         Boolean isUserUnique = true;
         Criteria criteria = sessionFactory.getCurrentSession()
@@ -86,6 +90,25 @@ public class UsersDaoImpl implements UsersDao {
     /**
      * {@inheritDoc}
      */
+    @Override
+    public Boolean isUserExistInCompany(InviteDetails inviteDetails, Company company) {
+        Boolean isUserUnique = true;
+        Criteria criteria = sessionFactory.getCurrentSession()
+                .createCriteria(Users.class)
+                .add(Restrictions.eq("userName", inviteDetails.getEmailaddress()))
+                .add(Restrictions.eq("fkCompanyId", company.getCompanyId()));
+        if (criteria.list().isEmpty()) {
+            isUserUnique = true;
+        } else {
+            isUserUnique = false;
+        }
+        return isUserUnique;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Integer save(Users user) {
         try {
             return (Integer) sessionFactory.getCurrentSession().save(user);
@@ -99,6 +122,7 @@ public class UsersDaoImpl implements UsersDao {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void update(Users user) {
         try {
             sessionFactory.getCurrentSession().update(user);
@@ -118,5 +142,14 @@ public class UsersDaoImpl implements UsersDao {
         }
         return (Users) criteria.list().get(0);
     }
+
+    @Override
+    public void delete(Users user) throws ProcessFailed {
+        try {
+            sessionFactory.getCurrentSession().delete(user);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_deleting_message", new String[]{}, Locale.US));
+        }    }
 
 }

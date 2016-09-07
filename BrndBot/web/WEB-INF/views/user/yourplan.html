@@ -2,24 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>BrndBot - YourPlan</title>
-        <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
+        <script src="../js/utilities/jquery-1.11.3.min.js" type="text/javascript"></script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-animate.min.js"></script>
-        <link rel="stylesheet" href="css/pikaday.css"/>
-        <link rel="stylesheet" href="css/datepickerpikaday.css"/>  
-        <script src="js/moment.js" type="text/javascript"></script>
-        <script src="js/pikaday.js"></script>
-        <script src="js/pikaday_angular.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/pikaday.css" />
-        <link rel="stylesheet" type="text/css" href="css/datepickerpikaday.css"/>
-        <link rel="stylesheet" type="text/css" href="css/timepicki.css" />     
-        <link rel="stylesheet" type="text/css" href="css/popup.css"/>
-        <script src="js/alertmessage.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="../css/pikaday.css"/>
+        <script src="../js/utilities/moment.js" type="text/javascript"></script>
+        <script src="../js/utilities/pikaday.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/pikaday.css" />
+        <link rel="stylesheet" type="text/css" href="../css/timepicki.css" />  
+        <script src="../js/utilities/alertmessageuser.js" type="text/javascript"></script>
         <script src="../js/configurations.js"></script> 
-        <script src="../js/angularappconfiguration.js"></script>   
-        <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
-        <script src="js/colpick.js" type="text/javascript"></script>
+        <script src="../js/utilities/angularappconfiguration.js"></script>  
         <link rel="shortcut icon" href="../images/favicon.png"/> 
         <script src="../js/factory/categoryFactory.js" type="text/javascript"></script>
         <script src="../js/factory/subCategoryFactory.js" type="text/javascript"></script>
@@ -34,26 +28,32 @@
         <script src="../js/factory/companyFactory.js" type="text/javascript"></script>
         <script src="../js/factory/settingsFactory.js" type="text/javascript"></script>
         <script src="../js/factory/companyMarketingFactory.js" type="text/javascript"></script>
-        <script src="js/controller/marketingController.js" type="text/javascript"></script>
-        <script src="js/controller/routing.js" type="text/javascript"></script>
-        <script src="js/controller/yourPlanController.js" type="text/javascript"></script>
-        <script src="js/timepicki.js" type="text/javascript"></script>
-        <link href="css/general_1.css" rel="stylesheet" type="text/css"/>
-        <script src="../js/angulardropdown.js" type="text/javascript"></script>
+        <script src="../js/factory/appSessionFactory.js" type="text/javascript"></script>
+        <script src="../js/controller/marketingController.js" type="text/javascript"></script>
+        <script src="../js/controller/routing.js" type="text/javascript"></script>
+        <script src="../js/controller/yourPlanController.js" type="text/javascript"></script>
+        <script src="../js/utilities/timepicki.js" type="text/javascript"></script> 
+        <link href="../css/general_1.css" rel="stylesheet" type="text/css"/>  
+        <script src="../js/utilities/angulardropdown.js" type="text/javascript"></script>
         <link href="../css/jquerygrowl.css" rel="stylesheet" type="text/css"/>
-        <script src="../js/jquerygrowl.js" type="text/javascript"></script>
+        <script src="../js/utilities/jquerygrowl.js" type="text/javascript"></script>
+        <script src="../js/utilities/models.js" type="text/javascript"></script>
         <style>
             #pastprogs,#delmarkprog{display: none;}
         </style>   
     </head>    
 
     <body ng-app="yourPlanFlowApp" class="body-normal" ng-controller="yourPlanController" id="yourPlanController">
-        <script type="text/ng-template"></script>    
-        <div ng-include src="'navbar.html'"></div>        
-        <div ng-include src="'genericpopup.html'"></div>
-        <div ng-include src="'yourplanreminderpopup.html'"></div>
-        <div ng-view></div>  
-        <!--Main Content Wrap-->    
+        <div class="bb-app-frame">
+            <div class="bb-main-app-wrap" >
+            <script type="text/ng-template"></script>    
+                <div ng-include src="'navbar.html'"></div>        
+                <div ng-include src="'genericpopup.html'"></div>
+                <div ng-include src="'yourplanreminderpopup.html'"></div>
+                <div class="bb-main-container-wrap" ng-view>
+                    
+                </div>   
+            </div>
+        </div>
     </body>
-
 </html>

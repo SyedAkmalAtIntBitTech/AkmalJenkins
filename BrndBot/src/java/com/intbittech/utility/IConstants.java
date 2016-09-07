@@ -40,6 +40,7 @@ public interface IConstants {
     final static String kEmailSettings = "emailSettings";
     final static String kEmailFromAddress = "from_address";
     final static String kEmailReplyAddress = "reply_email_address";
+    final static String kFromName = "from_name";
     final static String kMarketingActionsKey = "actions";
     final static String kColors = "colors";
     final static String kMarketingProgramTemplateTillDate = "tillDate";
@@ -62,4 +63,12 @@ public interface IConstants {
     final static String kTwitterURLKey = "shorturl";
     final static String kFooters = "userProfile";
     final static String kUnsubscribeEmails = "unsubscribeEMails";
+    final static String kFooterDetailsFacebookUrl = "facebookUrl";
+    final static String kFooterDetailsTwitterUrl = "twitterUrl";
+    final static String kFooterDetailsWebsiteUrl = "websiteUrl";
+    final static String kFooterDetailsInstagramUrl = "instagramUrl";
+      
+    // for external source 
+    final static Integer EXTERNAL_SOURCE_NON_MINDBODY = 0;
+    final static Integer EXTERNAL_SOURCE_MINDBODY = 1;
 }

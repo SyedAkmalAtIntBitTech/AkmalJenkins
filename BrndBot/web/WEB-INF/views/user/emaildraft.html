@@ -1,32 +1,20 @@
-<div class="main-content-wrap">
 <div ng-include src="'marketinghubnavigation.html'"></div>
-    <div class="top-nav-bar-offset"></div>
-    <div class="top-subnav-bar-offset"></div>
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-hide="emailDraftDetails">
-    <div class="hub-pane" ng-show="emaildraftnumber === '0'">
-        <div class="hub-pane-header-wrap">
-            <h2 class="">Your Email Drafts</h2>
-        </div>
-        <div class="hub-pane-content-wrap">
-            <div class="hub-empty-wrap">
-                <div class="slat" ><div class="selection-container ">{{emaildraftsstatus}}</div></div>                    
-            </div>
-        </div>
-    </div>
-    </div>
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" id="emaildraftsdiv" ng-show="emailDraftDetails">
-        <div class="hub-pane" ng-init="displayAllEmailDrafts()">
-            <div class="hub-pane-header-wrap">
+
+    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" id="emaildraftsdiv" >
+        <div class="bb-panel-full-width bb-panel-styling" ng-init="displayAllEmailDrafts()">
+            <div class="bb-panel-header">
                 <h2 class="">Your Email Drafts</h2>
             </div>
-            <div class="hub-pane-content-wrap">
-                <div class="hub-empty-wrap" ng-show="emaildraftnumber === '0'"><div class="slat" ><div class="selection-container col-5p" id="deleteids"> {{emaildraftsstatus}}</div></div></div>
-                <!--<div class="hub-slat-list-wrap" ng-repeat="drafts in emaildrafts" ng-show="emaildrafts.length > 0">-->
+             <div class="bb-panel-empty-state-wrap"  ng-show="emaildraftnumber === '0'" ng-hide="emailDraftDetails">
+                <h2 class="bb-panel-empty-state-text">You have no email drafts.</h2>  
+            </div>
+            <div class="bb-panel-full-width bb-panel-styling-content-wrap" ng-show="emailDraftDetails">
+                <!--<div class="hub-empty-wrap" ng-show="emaildraftnumber === '0'"><div class="slat" ><div class="selection-container col-5p" id="deleteids"> {{emaildraftsstatus}}</div></div></div>-->
                     <div class="slat" id="li{{drafts.id}}" ng-repeat="drafts in emaildrafts | filter:userSearch">
                         <div class="selection-container col-5p" id="deleteids"> 
-                            <div class="selection-icon" id="{{drafts.id}}" ng-click="emailDraftCheckbox(drafts.id)">
+                            <!--<div class="selection-icon" id="{{drafts.id}}" ng-click="emailDraftCheckbox(drafts.id)">
                                 <input type="checkbox" id="{{drafts.id}}" value="{{drafts.id}}" name="draftname" style="display:none;"></input>
-                            </div>
+                            </div>-->
                         </div>
                         
                         <div class="slat-name-wrap">
@@ -35,12 +23,10 @@
                         </div>
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">
-                                 <!--                                        <a class="small-button slat-button detail-button-font" ng-click="editDrafts(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</a>-->
                                 <a class="reg-button gray-button slat-detail-button" ng-click="showDraftPopup(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.editdate, drafts.subcategoryid, drafts.mindbodyid, drafts.lookupid)">Manage Draft</a>
                             </div>
                         </div>
                     </div>
-                <!--</div>-->
             </div>
         </div>
     </div>

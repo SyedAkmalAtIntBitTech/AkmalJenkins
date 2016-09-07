@@ -13,8 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,7 +25,6 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "users")
 public class Users implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,13 +38,22 @@ public class Users implements Serializable {
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
-    @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
-    @ManyToOne
-    private Company fkCompanyId;
-    @JoinColumn(name = "fk_user_role_id", referencedColumnName = "user_role_id")
-    @ManyToOne(optional = false)
-    private UserRole fkUserRoleId;
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "last_name")
+    private String lastName;
+    @Column(name = "signup_status")
+    private String signupStatus;
 
+    public String getSignupStatus() {
+        return signupStatus;
+    }
+
+    public void setSignupStatus(String signupStatus) {
+        this.signupStatus = signupStatus;
+    }
+
+    
     public Users() {
     }
 
@@ -87,21 +93,19 @@ public class Users implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public Company getFkCompanyId() {
-        return fkCompanyId;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFkCompanyId(Company fkCompanyId) {
-        this.fkCompanyId = fkCompanyId;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public UserRole getFkUserRoleId() {
-        return fkUserRoleId;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setFkUserRoleId(UserRole fkUserRoleId) {
-        this.fkUserRoleId = fkUserRoleId;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
-
-    
 }

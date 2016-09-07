@@ -1,0 +1,20 @@
+<div> 
+<div class="main-content-wrap">
+    <div class="top-nav-wrap"> 
+        <div class="header">
+            <a class="back-button" href="baseaccountmanagerhub#/pushedemailhistory" ></a>
+            <h2>*Dynamic Name Goes Here*</h2>
+        </div>
+        <div class="top-sub-nav">
+            <ul class="sub-nav-tab-wrap no-back-button">
+                <li class="sub-nav-tab"  ng-class="{ active: isSet(1) }"><a href ng-click="setTab(1)">Pushed Email Details</a></li>
+                <li class="sub-nav-tab" ng-class="{ active: isSet(2) }"><a href ng-click="setTab(2)">Pushed Email Account View</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="top-nav-bar-offset"></div>
+    <div class="top-subnav-bar-offset"></div>
+    <div ng-include="'pushedemaildetail.html'"></div>
+    <div ng-include="'pushedemailaccountdetails.html'"></div>
+</div>
+ </div>

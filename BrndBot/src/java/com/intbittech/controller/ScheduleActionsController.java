@@ -7,13 +7,13 @@ package com.intbittech.controller;
 
 import com.intbittech.AppConstants;
 import com.intbittech.enums.ScheduledEntityType;
-import com.intbittech.model.UserProfile;
+import com.intbittech.model.UserCompanyIds;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.services.ScheduleActionsService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.MapUtility;
-import com.intbittech.utility.UserSessionUtil;
+import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -56,11 +56,10 @@ public class ScheduleActionsController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            String data = actionsService.getActions(requestBodyMap, companyId);
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+            String data = actionsService.getActions(requestBodyMap, userCompanyIds.getCompanyId());
             transactionResponse.addDetail(AppConstants.GSON.toJson(data));
-                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
 
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -76,11 +75,10 @@ public class ScheduleActionsController {
         try {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             List<String> errors = validateScheduleEmailRequestBody(requestBodyMap);
             if (errors.isEmpty()) {
-                UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-                Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-                Map<String, Integer> data = actionsService.scheduleEmail(requestBodyMap, companyId);
+                Map<String, Integer> data = actionsService.scheduleEmail(requestBodyMap, userCompanyIds.getCompanyId());
                 transactionResponse.addDetail(AppConstants.GSON.toJson(data));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
             } else {
@@ -100,11 +98,11 @@ public class ScheduleActionsController {
         try {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+
             List<String> errors = validateScheduleEmailActionsRequestBody(requestBodyMap);
             if (errors.isEmpty()) {
-                UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-                Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-                Map<String, Integer> data = actionsService.scheduleEmailActions(requestBodyMap, companyId);
+                Map<String, Integer> data = actionsService.scheduleEmailActions(requestBodyMap, userCompanyIds.getCompanyId());
                 transactionResponse.addDetail(AppConstants.GSON.toJson(data));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
             } else {
@@ -121,21 +119,20 @@ public class ScheduleActionsController {
     public ResponseEntity<ContainerResponse> scheduleSocialPostActions(HttpServletRequest request,
             HttpServletResponse response) {
         GenericResponse<String> transactionResponse = new GenericResponse();
-        try {
-            List<Map<String, Object>> requestBodyList
-                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), List.class);
-            List<String> errors = validateRequestBodyList(requestBodyList);
 
-            for (Map<String, Object> requestBodyMap : requestBodyList) {
-                String type = requestBodyMap.get("type").toString();
-                String metadataString = requestBodyMap.get("metadata").toString();
-                errors.addAll(validateMetadata(metadataString, type));
-            }
+        try {
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+            List<String> errors = validateRequestBodyList(requestBodyMap);
+
+            userCompanyIds.setCompanyId((userCompanyIds.getCompanyId()));
+            userCompanyIds.setUserId(userCompanyIds.getUserId());
+            String type = requestBodyMap.get("type").toString();
+            String metadataString = requestBodyMap.get("metadata").toString();
 
             if (errors.isEmpty()) {
-                UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-                Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-                List<Map<String, Integer>> responseData = actionsService.scheduleSocialPostActions(requestBodyList, companyId);
+                List<Map<String, Integer>> responseData = actionsService.scheduleSocialPostActions(requestBodyMap, userCompanyIds.getCompanyId());
                 transactionResponse.addDetail(AppConstants.GSON.toJson(responseData));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
             } else {
@@ -147,25 +144,25 @@ public class ScheduleActionsController {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/scheduleSocialPost", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> scheduleSocialPost(HttpServletRequest request,
             HttpServletResponse response) {
         GenericResponse<String> transactionResponse = new GenericResponse();
+        UserCompanyIds userCompanyIds = new UserCompanyIds();
         try {
-            List<Map<String, Object>> requestBodyList
-                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), List.class);
-            List<String> errors = validateRequestBodyList(requestBodyList);
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            List<String> errors = validateRequestBodyList(requestBodyMap);
+            UserCompanyIds userCompany = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+            userCompanyIds.setCompanyId(userCompany.getCompanyId());
+            userCompanyIds.setUserId(userCompany.getUserId());
+            String type = requestBodyMap.get("type").toString();
+            String metadataString = requestBodyMap.get("metadata").toString();
+            errors.addAll(validateMetadata(metadataString, type));
 
-            for (Map<String, Object> requestBodyMap : requestBodyList) {
-                String type = requestBodyMap.get("type").toString();
-                String metadataString = requestBodyMap.get("metadata").toString();
-                errors.addAll(validateMetadata(metadataString, type));
-            }
             if (errors.isEmpty()) {
-                UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-                Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-                List<Map<String, Integer>> responseData = actionsService.scheduleSocialPost(requestBodyList, companyId);
+                List<Map<String, Integer>> responseData = actionsService.scheduleSocialPost(requestBodyMap, userCompanyIds.getCompanyId());
                 transactionResponse.addDetail(AppConstants.GSON.toJson(responseData));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
             } else {
@@ -243,12 +240,10 @@ public class ScheduleActionsController {
         return errorMsgs;
     }
 
-    private List<String> validateRequestBodyList(List<Map<String, Object>> requestBodyList) {
+    private List<String> validateRequestBodyList(Map<String, Object> requestBodyMap) {
         List<String> errorMessages = new ArrayList<>();
 
-        for (Map<String, Object> requestBody : requestBodyList) {
-            errorMessages.addAll(validateScheduleSocialPostActionsRequestBody(requestBody));
-        }
+        errorMessages.addAll(validateScheduleSocialPostActionsRequestBody(requestBodyMap));
 
         return errorMessages;
     }
@@ -269,9 +264,9 @@ public class ScheduleActionsController {
             }
         }
 
-        if (!MapUtility.mapContainsKey(requestBody, "token_data")) {
-            errorMsgs.add("token_data JSON is missing");
-        }
+//        if (!MapUtility.mapContainsKey(requestBody, "token_data")) {
+//            errorMsgs.add("token_data JSON is missing");
+//        }
 
         if (!MapUtility.mapContainsKey(requestBody, "metadata")) {
             errorMsgs.add("metadata JSON is missing");

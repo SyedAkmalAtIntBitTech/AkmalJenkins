@@ -5,6 +5,7 @@
  */
 package com.intbittech.modelmappers;
 
+import com.intbittech.model.UserCompanyIds;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,7 +13,7 @@ import java.util.Date;
  *
  * @author Haider Khan @ Intbit
  */
-public class GlobalImageDetails implements Serializable{
+public class GlobalImageDetails  extends UserCompanyIds implements Serializable{
     
     private Integer globalImageId;
     private String imageName;

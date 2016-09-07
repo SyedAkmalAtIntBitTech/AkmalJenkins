@@ -28,7 +28,14 @@ public interface CompanyService {
      * @throws ProcessFailed the process failed
      */
     public List<Company> getAllCompanies() throws ProcessFailed;
-    
+   /**
+     * This method retrieves a company out of {@link Company} from database.
+     *
+     * @param companyId
+     * @return {@link Company}
+     * @throws ProcessFailed the process failed
+     */
+    public Company getCompanyById(Integer companyId) throws ProcessFailed;    
     /**
      * This method retrieves the list of {@link OrganizationCompanyLookup} from DAO layer.
      *
@@ -45,7 +52,7 @@ public interface CompanyService {
      * @throws ProcessFailed the process failed
      */
     public OrganizationCompanyLookup getOrganizationCompanyById(Integer companyId) throws ProcessFailed;
-    
+       
     /**
      * This method retrieves the {@link OrganizationCompanyLookup} from DAO layer.
      *
@@ -72,6 +79,15 @@ public interface CompanyService {
      * @throws ProcessFailed the process failed
      */
     public Integer save(OrganizationCompanyLookup organizationCompanyLookup) throws ProcessFailed;
+
+    /**
+     * This method updates the {@link OrganizationCompanyLookup} from DAO layer.
+     *
+     * @param organizationCompanyLookup
+     * @return {@link organizationCompanyLookupId}
+     * @throws ProcessFailed the process failed
+     */
+    public void updateOrganizationCompanyLookUp(OrganizationCompanyLookup organizationCompanyLookup) throws ProcessFailed;
     
     /**
      * This method retrieves the {@link OrganizationCompanyLookup} from DAO layer.
@@ -96,7 +112,7 @@ public interface CompanyService {
      * @param companyDetails
      * @throws ProcessFailed the process failed
      */
-    public String updateCompany(CompanyDetails companyDetails) throws ProcessFailed;
+    public String saveCompany(CompanyDetails companyDetails) throws ProcessFailed;
     
     /**
      * This method saves {@link CompanyPreferences} to DAO layer.
