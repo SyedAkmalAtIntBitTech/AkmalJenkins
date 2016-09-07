@@ -16,23 +16,26 @@
         height: 100%;
     }
 </style>
-<div class="content-main" >
-    <div ng-include src="'navbar.html'"></div> 
+
     <div ng-include src="'sendorschedulepopup.html'"></div> 
     <div ng-include src="'schedulepopup.html'"></div> 
-    <!--Top Nav-->   
-   <div class="main-content-wrap">
-    <div class="top-nav-wrap">
-        <div class="header">
-            <a class="back-button" ng-show="emailListBackButton" id="backemaillist" href="baseemaileditor#/emaileditor" ></a>
-            <a class="back-button" ng-show="emailDetailsBackButton" href="" ng-click="backToEmailList()" id="backemaildetails"></a>
-            <h2 class="">Create an Email</h2>
+    <div class="bb-top-nav" >
+        <div class="bb-bar-left-wrap bb-one-third-flex-col">
+           <a class="bb-back-button" ng-show="emailListBackButton" id="backemaillist" href="baseemaileditor#/emaileditor" ></a>
+                <a class="bb-back-button" ng-show="emailDetailsBackButton" href="" ng-click="backToEmailList()" id="backemaildetails"></a>
+            <h3 class="bb-top-nav-title">Email Editor</h3>
+        </div>
+        <div class="bb-bar-center-wrap bb-one-third-flex-col">
+            <h3 class="">Email Details</h3>
+            <h3 class="">Design</h3>
+            <h3 class="">Send To</h3>
+            <h3 class="">Final Details</h3>
+        </div>
+        <div class="bb-bar-right-wrap bb-one-third-flex-col">
+            <div class="bb-help-icon">help icon</div>
         </div>
     </div>
-    <div class="top-nav-bar-offset"></div>
-    <div class="content-wrap content-wrap-flex content-wrap-with-continue-bar" id="emaillistselid" ng-init="showEmailList()">
-        
-        <!--Email list selection-->
+    <div class="bb-main-content-wrap bb-main-content-wrap-padding bb-center-content" id="emaillistselid" ng-init="showEmailList()">
         <div class="modal-pane modal-pane-width-reg" ng-show="emailListDiv==true">
             <div class="modal-pane-header-wrap">
                 <h2 class="fleft">Select a Send To List</h2>
@@ -41,7 +44,7 @@
                  <div class="input-wrap">
                     <label> Choose from your email lists </label>
                     <div class="input">
-                        <div dropdown-select="ddSelectEmailListOptions" dropdown-model="ddSelectEmailList" dropdown-onchange="chooseEmailListOnChange(selected)"></div>
+                        <div dropdown-select="ddSelectEmailListOptions" dropdown-model="ddSelectEmailList"  dropdown-onchange="chooseEmailListOnChange(selected)"></div>
                         <span class="validationAlert" ng-if="listSelectionValidation">{{listValidation}}</span>
 
                     </div>
@@ -63,9 +66,9 @@
                 <!--</div>-->
         </div>
     </div>
-
-    <div class="continue-bar">
-        <a id="emailIdContinueButton" ng-show="emailContinueButton" ng-click="continueEmailListOnClick(emailAddresses)" class="fright">CONTINUE</a>
+    <div class="bb-bottom-cta-bar">
+        <a class="bb-bottom-cta-continue-button" ng-class="{'bb-valid': emailContinueButton}" ng-click="continueEmailListOnClick(emailAddresses)" >
+            <div class="bb-bottom-cta-continue-button-text">Continue</div>
+            <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
+        </a>
     </div>
-</div>
-</div>

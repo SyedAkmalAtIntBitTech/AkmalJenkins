@@ -574,10 +574,14 @@ factoryApp.service('configurationService', function () {
         return getHost() + "onboarding/isUserUnique";
     };
 
+    this.updateUserURL = function () {
+        return getHost() + "signup/updateUser";
+    };
+    
     this.saveUserURL = function () {
         return getHost() + "onboarding/saveUser";
     };
-
+    
     this.saveInvitedUserURL = function () {
         return getHost() + "onboarding/saveInvitedUser";
     };
@@ -780,7 +784,7 @@ factoryApp.service('configurationService', function () {
     this.signinURL = function () {
         return getHost() + "/login";
     };
-
+    
     this.resetLoginPasswordURL = function () {
         return getHost() + "resetpassword";
     };
