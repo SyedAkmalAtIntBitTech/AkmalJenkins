@@ -27,16 +27,27 @@ factoryApp.factory('yourPlanFactory', function ($q, authenticatedServiceFactory,
         });
         return deffered.promise;
     };
-//
-//    yourPlanFactoryObject.allUsersInCompanyGet = function () {
-//        var deffered = $q.defer();
-//        var url = configurationService.allUsersInCompanyURL();
-//        authenticatedServiceFactory.makeCall("POST", url, "","").then(function (data) {
-//            deffered.resolve(data);
-//        });
-//        return deffered.promise;
-//    };
-//    
+
+    yourPlanFactoryObject.allUsersInCompanyGet = function () {
+        var deffered = $q.defer();
+        var url = configurationService.allUsersInCompanyURL();
+        authenticatedServiceFactory.makeCall("POST", url, "","").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    
+
+    yourPlanFactoryObject.noOfUsersInCompanyGet = function () {
+        var deffered = $q.defer();
+        var url = configurationService.noOfUsersInCompanyURL();
+        authenticatedServiceFactory.makeCall("POST", url, "","").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    
+
     yourPlanFactoryObject.scheduledEmailGet = function (schedule_id) {
         var deffered = $q.defer();
         var url = configurationService.scheduledEmailURL()+"?schedule_id="+schedule_id;

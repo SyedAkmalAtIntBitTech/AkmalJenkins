@@ -766,7 +766,13 @@ factoryApp.service('configurationService', function () {
     this.addActionURL = function () {
         return getHost() + "AddAction";
     };
-
+    this.allUsersInCompanyURL = function(){
+        return getHost() + "getAllUser";
+    };
+    
+    this.noOfUsersInCompanyURL = function(){
+        return getHost() + "getNumberOfUsersInCompany";
+    };
     this.scheduledEmailURL = function () {
         return getHost() + "GetScheduledEmailDetail";
     };

@@ -27,7 +27,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.dateLesser = false;
         $scope.timePickerVal = false;
         $scope.clickedRemoveAction = false;
-
+        $scope.moreThanOneUser = false;
         $scope.ddSelectActionOptions = [
             {
                 text: 'Select',
@@ -331,6 +331,12 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.getAllUsersInCompany = function(){
             yourPlanFactory.allUsersInCompanyGet().then(function (data) {
                 $scope.allUsers = data.d.details;
+            });
+            yourPlanFactory.noOfUsersInCompanyGet().then(function (data) {
+                var noOfUsersInCompany = data.d.details;
+                if (parseInt(noOfUsersInCompany) > 1){
+                    $scope.moreThanOneUser = true;
+                }
             });
         };
         
