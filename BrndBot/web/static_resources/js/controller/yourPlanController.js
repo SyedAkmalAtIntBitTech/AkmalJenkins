@@ -1,5 +1,5 @@
 
-yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'appSessionFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, appSessionFactory) {
+yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'appSessionFactory', 'onboardingFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, appSessionFactory, onboardingFactory) {
 
 //$scope.iframeLoad = function (){
 //    growl($('iframe').contents().find('body').height());
@@ -283,16 +283,32 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.showInviteUsersPopup = function(){
-            $scope.fadeClasses = true;
+            $scope.fadeClasses = 'fadeClasses';
             $scope.addUserSettings = true;
         };
+
+        $scope.closeInviteUsersPopup = function(){
+            $scope.addUserSettings = false;
+            $scope.fadeClasses = '';
+        };
+        
         $scope.closeOverlay = function ()
         {
-            $scope.addUserSettings = false;
             $scope.fadeClass = '';
-            $scope.fadeClasses = '';
             $scope.addAction = false;
             $scope.chooseActionTypeOnChange({"text":"Select","value":"0"});
+        };
+
+        $scope.inviteUser = function (userDetails) {
+            var roles = [];
+            roles.push(userDetails.adminRadio);
+            var invitation = {"userRoleLookUpId":"", "emailaddress": userDetails.email, "roles": roles, "task": 'invitation'};
+           
+            onboardingFactory.inviteUserPost(invitation).then(function (data) {
+                growl(data.d.message);
+                $scope.closeInviteUsersPopup();
+//                $location.path("/settings/useraccountsettings");
+            });
         };
 
         $scope.formatDate = function (programDate) {
@@ -337,12 +353,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.getAllUsersInCompany = function(){
-//            yourPlanFactory.allUsersInCompanyGet().then(function (data) {
-//                $scope.allUsers = data.d.details;
-//            });
+            yourPlanFactory.allUsersInCompanyGet().then(function (data) {
+                $scope.allUsers = data.d.details;
+            });
             yourPlanFactory.noOfUsersInCompanyGet().then(function (data) {
                 var noOfUsersInCompany = data.d.details;
-                alert(noOfUsersInCompany);
                 if (parseInt(noOfUsersInCompany) > 1){
                     $scope.moreThanOneUser = true;
                 }

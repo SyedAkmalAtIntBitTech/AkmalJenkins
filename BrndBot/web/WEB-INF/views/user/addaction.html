@@ -22,6 +22,7 @@
                     <span class="validationAlert" ng-if="actionTypeValidation">{{actionDropdownValidation}}</span>
                 </div>
                 <div>
+                    <h1>Assigned To:</h1>
                     <select id="assignTo" ng-show="moreThanOneUser">
                         <option value="no assignee" selected>no assignee</option>
                         <option ng-repeat="users in allUsers" value="{{users.userId}}">{{users.userName}}</option>

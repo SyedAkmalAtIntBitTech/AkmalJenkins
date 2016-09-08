@@ -28,6 +28,7 @@ import com.intbittech.modelmappers.OrganizationDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.responsemappers.UsersDetailsResponse;
 import com.intbittech.services.ChannelService;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.EmailBlockExternalSourceService;
@@ -440,7 +441,31 @@ public class CompanyController {
             
             noOfUsersInCompany.add(UsersRoleCompanyLookupList.size());
             genericResponse.setDetails(noOfUsersInCompany);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("no_user_company_get_all", new String[]{}, Locale.US)));
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("number_of_user_company_get_all", new String[]{}, Locale.US)));
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "getAllUsersOfCompany",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllUsersOfCompany(@RequestParam("companyId") Integer companyId) {
+        GenericResponse<UsersDetailsResponse> genericResponse = new GenericResponse<UsersDetailsResponse>();
+        try {
+             List<UsersDetailsResponse> usersDetailsResponseList = new ArrayList<>();
+            List<UsersRoleCompanyLookup> UsersRoleCompanyLookupList = userRoleCompanyLookUpService.getAllUsersRoleCompanyLookupByCompanyId(companyId);
+            for (UsersRoleCompanyLookup usersRoleCompanyLookup : UsersRoleCompanyLookupList) {
+                UsersDetailsResponse  usersDetailsResponse = new UsersDetailsResponse();
+                usersDetailsResponse.setUserId(usersRoleCompanyLookup.getUserId().getUserId());
+                usersDetailsResponse.setFirstName(usersRoleCompanyLookup.getUserId().getFirstName());
+                usersDetailsResponse.setLastName(usersRoleCompanyLookup.getUserId().getLastName());
+                usersDetailsResponse.setUserName(usersRoleCompanyLookup.getUserId().getUserName());
+                usersDetailsResponseList.add(usersDetailsResponse);
+            }
+            genericResponse.setDetails(usersDetailsResponseList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("user_company_get_all", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {
             logger.error(throwable);
