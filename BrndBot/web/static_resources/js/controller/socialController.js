@@ -4,7 +4,7 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 
-socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location', '$window', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'companyMarketingProgramFactory', 'companyImagesFactory', 'companyFactory', 'imageFactory', 'socialPostFactory', 'scheduleActionsFactory', 'appSessionFactory', function ($scope, $rootScope, $location, $window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, companyMarketingProgramFactory, companyImagesFactory, companyFactory, imageFactory, socialPostFactory, scheduleActionsFactory, appSessionFactory) {
+socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope', '$location', '$window', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'companyMarketingProgramFactory', 'companyImagesFactory', 'companyFactory', 'imageFactory', 'socialPostFactory', 'scheduleActionsFactory', 'appSessionFactory', function ($scope, $filter, $rootScope, $location, $window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, companyMarketingProgramFactory, companyImagesFactory, companyFactory, imageFactory, socialPostFactory, scheduleActionsFactory, appSessionFactory) {
         $scope.getTwitterActionsData = "";
         $scope.marketingProgramsList = "";
         $scope.twitter_action = "";
@@ -597,7 +597,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                     for (var i = 0; i < actionData.length; i++)
                     {
                         var actionObject = {};
-                        actionObject["text"] = actionData[i].schedule_title+" - "+$filter('date')(new Date(actionData[i].action_date),'MMM-dd-yyyy');
+                        actionObject["text"] = actionData[i].schedule_title + " - " + $filter('date')(new Date(actionData[i].action_date), 'MMM-dd-yyyy');
                         actionObject["value"] = actionData[i].id;
                         $scope.ddSelectActionName.push(actionObject);
                     }
@@ -621,7 +621,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                     {
 //                        var actionDate=new Date(actionData[i].schedule_time);
                         var actionObject = {};
-                        actionObject["text"] = actionData[i].schedule_title+" - "+$filter('date')(new Date(actionData[i].action_date),'MMM-dd-yyyy');
+                        actionObject["text"] = actionData[i].schedule_title + " - " + $filter('date')(new Date(actionData[i].action_date), 'MMM-dd-yyyy');
                         actionObject["value"] = actionData[i].id;
                         $scope.ddSelectActionName.push(actionObject);
                     }
@@ -1064,22 +1064,24 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             tools: 'all',
             appendTo: '',
             onSave: function (imageID, newURL) {
-                var img = document.getElementById(imageID);
-                $.ajax({
-                    url: getHost() + 'DownloadImageFromUrl',
-                    method: 'POST',
-                    async: false,
-                    data: {
-                        folderName: "aviary",
-                        imageUrl: newURL
-                    },
-                    success: function (responseText) {
-                        img.src = responseText.link;
-                        featherEditor.close();
-                    }
+                appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                    var img = document.getElementById(imageID);
+                    $.ajax({
+                        url: getHost() + 'DownloadImageFromUrl',
+                        method: 'POST',
+                        async: false,
+                        data: JSON.stringify({
+                            folderName: "aviary",
+                            imageUrl: newURL,
+                            companyId: kGlobalCompanyObject.companyId,
+                            userId: kGlobalCompanyObject.userId
+                        }),
+                        success: function (responseText) {
+                            img.src = responseText.link;
+                            featherEditor.close();
+                        }
+                    });
                 });
-
-
             },
             onError: function (errorObj) {
                 alert(errorObj.message);

@@ -1,18 +1,15 @@
-<div class="main-content-wrap">
+
 <div ng-include src="'marketinghubnavigation.html'"></div>
 <div ng-show="overlayFade" id="fade" class="black_overlay"></div>
 <div ng-include="'emailfooterpopup.html'"></div>
 <div ng-include src="'unsubscribeemailspopup.html'"></div>
 
-<div class="top-nav-bar-offset"></div>
-    <div class="top-subnav-bar-offset"></div>
-
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-init="getEmailSettings()">
-        <div class="hub-pane">
-            <div class="hub-pane-header-wrap">
+    <div class="bb-main-content-wrap bb-main-content-wrap-padding" ng-init="getEmailSettings()">
+        <div class="bb-panel-full-width bb-panel-styling">
+            <div class="bb-panel-header">
                 <h2 class="">Email Settings</h2>                
             </div>
-            <div class="hub-pane-content-wrap">
+            <div class="bb-panel-content-wrap">
                 <div class="hub-section">
                      <div class="section-header">
                          <h3>General Email Settings</h3>
@@ -20,8 +17,8 @@
                      </div>
                     <div class="input-wrap">
                         <label> Default From Email Address </label>
-                        <div class="input" ng-init="email_settings.from_address='mail@brndbot.com'">
-                            <input id="from_address" class="fluid" type="text" readonly ng-model="email_settings.from_address"   name="from_address"  placeholder="Enter default email address"/>
+                        <div class="input">
+                            <input id="from_address" class="fluid" type="text" readonly ng-model="email_settings.from_address" name="from_address"  placeholder="Enter default email address"/>
                         </div>
                         <p class="input-wrap-label"> Make this something that your clients will recognize</p>
                     </div>

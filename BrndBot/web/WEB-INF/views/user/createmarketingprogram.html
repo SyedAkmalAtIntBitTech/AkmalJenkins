@@ -35,6 +35,7 @@
         <script src="../js/factory/companyMarketingFactory.js" type="text/javascript"></script>
         <script src="../js/factory/externalContentFactory.js" type="text/javascript"></script>
         <script src="../js/factory/marketingRecurringEmailController.js" type="text/javascript"></script>
+        <script src="../js/factory/onboardingFactory.js" type="text/javascript"></script>
         <script src="../js/factory/appSessionFactory.js" type="text/javascript"></script>
         <script src="../js/controller/marketingController.js" type="text/javascript"></script> 
         <script src="../js/controller/routing.js" type="text/javascript"></script>
@@ -47,6 +48,7 @@
         <link href="../css/jquerygrowl.css" rel="stylesheet" type="text/css"/>
         <script src="../js/utilities/jquerygrowl.js" type="text/javascript"></script>
         <script src="../js/utilities/models.js" type="text/javascript"></script>
+        <script src="../js/factory/blockModelFactory.js" type="text/javascript"></script>
          <style>
         #pastprogs,#delmarkprog{display: none;}
     </style>
@@ -97,13 +99,16 @@
             <script src="../js/tinymce.min.js" type="text/javascript"></script>
 </head>    
 
-    <body ng-app="marketingFlowApp" class="body-normal" ng-controller="marketingController" id="marketingController">
-   <script type="text/ng-template"></script> 
-    <input type="hidden" ng-model="marketingCategoryId" value="{{marketingCategoryId}}"/>
-    <div ng-include src="'genericpopup.html'"></div>
-    <div ng-include src="'navbar.html'"></div> 
-    <div ng-view></div>  
-    <!--Main Content Wrap-->    
+<body ng-app="marketingFlowApp" class="body-normal" ng-controller="marketingController" id="marketingController">
+    <script type="text/ng-template"></script> 
+    <div class="bb-app-frame">
+      <div class="bb-main-app-wrap" >
+          <input type="hidden" ng-model="marketingCategoryId" value="{{marketingCategoryId}}"/>
+          <div ng-include src="'genericpopup.html'"></div>
+          <div ng-include src="'navbar.html'"></div> 
+          <div ng-view class="bb-main-container-wrap"></div>  
+      </div>
+    </div>
 </body>
     
 

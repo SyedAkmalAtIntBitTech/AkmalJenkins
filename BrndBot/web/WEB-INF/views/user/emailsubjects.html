@@ -1,39 +1,45 @@
-    <div ng-include src="'navbar.html'"></div> 
-
-<div class="main-content-wrap" ng-init="getSubject_preHeader()">
-    <div class="top-nav-wrap">
-        <div class="header">
-            <a ng-hide="isEmailSaveAction" href="baseemaileditor#/emailsubcategory" class="back-button"></a>
-            <h2 class="">Create an Email</h2>
-        </div>
-    </div> 
-    <div class="top-nav-bar-offset" ></div>
-    <div class="content-wrap content-wrap-flex content-wrap-with-continue-bar">
-        <div class="modal-pane modal-pane-width-reg">
-            <div class="modal-pane-header-wrap">
-                <h2>Email Details</h2>
-            </div>
-            <div class="modal-pane-content-wrap">
-                 <div class="input-wrap">
-                    <label> Enter a Subject Line </label>
-                    <div class="input ">
-                        <input id="emailSub" ng-model="$parent.emailsubject" type="text" value="{{emailsubject}}"  spellcheck="true" placeholder="Enter Subject of email" name="emailsubject"  class="fluid"/>
-                    </div>
-                    <span class="validationAlert" ng-show="isEmailSubEmpty">{{subjectValidation}}</span>
-
-                </div>
-                 <div class="input-wrap">
-                    <label> Enter Preheader Text</label>
-                    <div class="input ">
-                        <input id="preHeader" ng-model="$parent.preheader" type="text" value="{{preheader}}"  spellcheck="true" placeholder="Enter Preheader Text of email" name="preheader"  class="fluid"/>
-                    </div>
-                    <span class="validationAlert" ng-show="ispreHeaderEmpty">{{preHeaderValidation}}</span>
-
-                </div>
-            </div>
-        </div>
+<div class="bb-top-nav" ng-init="getSubject_preHeader()">
+    <div class="bb-bar-left-wrap bb-one-third-flex-col">
+        <a ng-hide="isEmailSaveAction" href="baseemaileditor#/emailsubcategory" class="bb-back-button"></a>
+        <h3 class="bb-top-nav-title">Email Editor</h3>
     </div>
-    <div class="continue-bar">
-        <a ng-click="redirect('emaileditor','','','','','','',emailsubject,preheader)" id="continue-bar-button" class="fright">CONTINUE</a>
+    <div class="bb-bar-center-wrap bb-one-third-flex-col">
+        <div class="bb-step current">Email Details</div>
+        <div class="bb-step upcoming">Design</div>
+        <div class="bb-step upcoming">Send To</div>
+        <div class="bb-step upcoming">Final Details</div>
     </div>
+    <div class="bb-bar-right-wrap bb-one-third-flex-col">
+        <div class="bb-help-icon">help icon</div>
+    </div>
+</div>
+<div class="bb-main-content-wrap bb-main-content-wrap-padding bb-center-content">
+    <div class="modal-pane modal-pane-width-reg">
+        <div class="modal-pane-header-wrap">
+            <h2>Email Details</h2>
+        </div>
+        <div class="modal-pane-content-wrap">
+             <div class="input-wrap">
+                <label> Enter a Subject Line </label>
+                <div class="input ">
+                    <input id="emailSub" ng-model="$parent.emailsubject" type="text" value="{{emailsubject}}" ng-class="{'invalid-input': emailsubject === '' || null}" spellcheck="true" placeholder="Enter Subject of email" name="emailsubject"  class="fluid"/>
+                </div>
+                <span class="validationAlert" ng-show="isEmailSubEmpty">{{subjectValidation}}</span>
+
+            </div>
+             <div class="input-wrap">
+                <label> Enter Preheader Text</label>
+                <div class="input ">
+                    <input id="preHeader" ng-model="$parent.preheader" type="text" value="{{preheader}}" ng-class="{'invalid-input': preheader === '' || null}"   spellcheck="true" placeholder="Enter Preheader Text of email" name="preheader"  class="fluid"/>
+                </div>
+                <span class="validationAlert" ng-show="ispreHeaderEmpty">{{preHeaderValidation}}</span>
+            </div>
+        </div>
+    </div>    
+</div>
+<div class="bb-bottom-cta-bar">
+    <a class="bb-bottom-cta-continue-button bb-ease-all" ng-class="{'bb-valid': $parent.preheader.length>0 && $parent.emailsubject.length>0}" ng-click="redirect('emaileditor','','','','','','',emailsubject,preheader)" >
+        <div class="bb-bottom-cta-continue-button-text">Continue</div>
+        <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
+    </a>
 </div>

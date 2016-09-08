@@ -26,8 +26,6 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
                 $scope.userRole = kGlobalCompanyObject.roleName; 
                 $scope.logourl = kGlobalCompanyObject.logourl;
 
-                kGlobalCompanyObject.userHashId = 'undefined';
-                appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
                 appSessionFactory.getDashboardMessage().then(function(message){
                     if(message)
                     {

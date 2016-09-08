@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
 /**
  *
  * @author Haider Khan @ Intbit
@@ -108,6 +109,4 @@ public class Users implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-
 }

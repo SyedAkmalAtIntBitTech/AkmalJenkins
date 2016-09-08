@@ -14,34 +14,27 @@
 }
 </style>
 <div ng-include src="'emailpreview.html'"></div>
-    <!--Main Content GENERIC--> 
- <div ng-include src="'emaileditormindbodypopup.html'"></div>     
-<div class="main-content-wrap no-side-nav" ng-init="emailEditorInit()">
-   
-    <div class="top-nav-wrap full">
-        <div class="sequence-page-header">
-            <div class="sequence-left-wrap" ng-init="redirectBaseURL()">
-                
-                <a class="sequence-page-back-button" href="baseemaileditor#/emailsubjects"></a>
-                <h2 class="sequence-page-title"> Create an Email</h2>
-            </div>
-            <div class="sequence-step-wrap">
-                <ul>
-                    <a class="sequence-step">Subject</a>
-                    <a class="sequence-step active">Design</a>
-                    <a class="sequence-step ">Send To</a>
-                    <a class="sequence-step">Final Details</a>
-                </ul>
-            </div>
-            <div class="sequence-page-header-cta-wrap">
-                <!--<a>Exit</a>-->
-                <div ng-hide="isEmailSaveAction" class="email-editor-save-exit-button" id="saveToDraft" ng-click="saveToDraftOnClick()"  >Save as Draft and Exit</div> 
-            </div>
-        </div>
+ <div ng-include src="'emaileditormindbodypopup.html'"></div>   
+ 
+ <div class="bb-top-nav" ng-init="emailEditorInit()">
+    <div class="bb-bar-left-wrap bb-one-third-flex-col" ng-init="redirectBaseURL()">
+        <a href="baseemaileditor#/emailsubjects" class="bb-back-button"></a>
+        <h3 class="bb-top-nav-title">Email Editor</h3>
     </div>
-    <div class="top-s-nav-bar-offset"></div>   
-   <div class="content-wrap content-wrap-sequence-page-editor" >
-        <!--...................tinyMce test code...............-->
+    <div class="bb-bar-center-wrap bb-one-third-flex-col">
+        <div class="bb-step completed">Email Details</div>
+        <div class="bb-step current">Design</div>
+        <div class="bb-step upcoming">Send To</div>
+        <div class="bb-step upcoming">Final Details</div>
+    </div>
+    <div class="bb-bar-right-wrap bb-one-third-flex-col">
+        <div class="bb-help-icon">help icon</div>
+        <div ng-hide="isEmailSaveAction" class="email-editor-save-exit-button" id="saveToDraft" ng-click="saveToDraftOnClick()"  >Save as Draft and Exit</div> 
+    </div>
+</div>
+
+   <div class="bb-email-editor-wrap" >
+      
          <div  class="email-editor-wrap">
                 <div class="email-editor-top-buttons-wrap">
                     <a class="reg-button slat-detail-button" id="emailpreview" ng-click="emailPreviewOnClick()">Preview Email</a>
@@ -82,12 +75,12 @@
                     </div>
                 </div> 
             </div>
-            <div class="r-col-editor-wrap">
+          
                 <div class="r-col-editor-header-wrap" id="blockdivheader" ng-show="blockdivheader">Select a block to add:</div>
                 <div class="r-col-editor-header-wrap" id="styledivheader" ng-show="styledivheader">Select a style for this block:</div>
                 <div class="block-selection-divider"></div>
                 <ul class="r-col-block-wrap" id="blockdiv" ng-show="blockdivheader">
-                    <li class="editor-block-slat" ng-class="{'editor-block-slat-selected': activeBlock === blocks.emailBlockId}" ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="blockOnClick(blocks.emailBlockId)">
+                    <li class="bb-clickable-slat" ng-class="{'editor-block-slat-selected': activeBlock === blocks.emailBlockId}" ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="blockOnClick(blocks.emailBlockId)">
                         <div id="blklist----{{blocks.emailBlockId}}" class="block-name">{{blocks.emailBlockName}}</div>                            
                         <div class="editor-add-block-button hideBlockButton" ng-class="{'hideBlockButton': activeBlock !== blocks.emailBlockId}" ng-click="didChooseBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)" >Add Block</div>
                     </li>
@@ -100,20 +93,20 @@
                         </div>
                     </li>
                 </ul>
-            </div>
+         
         </div>
     </div>
     <span ng-init="getFooterDetails()">
         <div ng-include src="'emailfooterpopup.html'"></div> 
     </span>
 </div>  
-<div class="bottom-cta-bar" id="bottomdiv">
-    <div class="bottom-cta-button-container-lg">
-        <a href="">
-            <div class="bottom-continue-button button-text-1" id="saveButton" ng-click="saveButtonOnClick()">Continue</div>
-        </a>
-    </div>
+<div class="bb-bottom-cta-bar">
+    <a class="bb-bottom-cta-continue-button" ng-click="saveButtonOnClick()" >
+        <div class="bb-bottom-cta-continue-button-text">Continue</div>
+        <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
+    </a>
 </div>
+
 <div id="light" class="white_content closepopup">
     <a href = "javascript:void(0)" style="text-decoration:none;">
         <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">

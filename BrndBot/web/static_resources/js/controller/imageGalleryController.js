@@ -4,10 +4,29 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 
-imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http', '$location', 'imageFactory', 'companyImagesFactory', 'companyFactory', function ($scope, $window, $http, $location, imageFactory, companyImagesFactory, companyFactory) {
+imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http', '$location', 'imageFactory', 'companyImagesFactory', 'companyFactory', 'appSessionFactory', function ($scope, $window, $http, $location, imageFactory, companyImagesFactory, companyFactory, appSessionFactory) {
 
         $scope.logoValidation = logoValidation;
+        
+        $scope.getUserDetails = function(){
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                $scope.companyName = kGlobalCompanyObject.companyName;
+                $scope.userFirstName = kGlobalCompanyObject.userFirstName;
+                $scope.userLastName = kGlobalCompanyObject.userLastName;
 
+                kGlobalCompanyObject.userHashId = 'undefined';
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
+                appSessionFactory.getDashboardMessage().then(function(message){
+                    if(message)
+                    {
+                        growl(message);
+                        appSessionFactory.clearDashboardMessage().then(function(message){
+                        });
+                    }
+                });
+            });
+        };
+        
         //This was added by Andy for Gallery hover options
         $scope.hoverEditGalleryImage = false;
         $scope.hoverInGalleryImage = function () {

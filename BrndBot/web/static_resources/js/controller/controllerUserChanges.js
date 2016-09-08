@@ -6,6 +6,12 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.confirmPasswordValidation = confirmPasswordValidation;
         $scope.confirmPasswordMissmatch = confirmPasswordMissmatch;
         $scope.logoValidation = logoValidation;
+        $scope.addressLine1Validation = addressLine1Validation;
+        $scope.addressLine2Validation = addressLine2Validation;
+        $scope.cityValidation = cityValidation;
+        $scope.stateValidation = stateValidation;
+        $scope.zipcodeValidation = zipcodeValidation;
+        $scope.countryValidation = countryValidation;
         $scope.showPaletteChangePopUp="";
         $scope.addUserSettings = false;                   
         $scope.userRoleLookUpId = "";
@@ -16,6 +22,8 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.userLastName = "";
         $scope.userRole = "";
         $scope.logourl = "";
+        $scope.companyAddressDetails = {};
+        $scope.userDetails = {};
 
         $scope.getUserDetails = function(){
             
@@ -25,9 +33,56 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $scope.userLastName = kGlobalCompanyObject.userLastName;
                 $scope.userRole = kGlobalCompanyObject.roleName; 
                 $scope.logourl = kGlobalCompanyObject.logourl;
+                $scope.userDetails.userFirstName=$scope.userFirstName;
+                $scope.userDetails.userLastName=$scope.userLastName;                
             });
         };
-
+        
+        $scope.validateCompanyAddress = function (companyAddressData) {
+            if (!companyAddressData.addressLine1) {
+                $scope.companyAddressDetails.addressLine1 = "";
+                $("#addressLine1").focus();
+                return false;
+            }
+            else if (!companyAddressData.city) {
+                $scope.companyAddressDetails.city = "";
+                $("#city").focus();
+                return false;
+            }
+            else if (!companyAddressData.state) {
+                $scope.companyAddressDetails.state = "";
+                $("#state").focus();
+                return false;
+            } 
+            else if (!companyAddressData.zipCode) {
+                $scope.companyAddressDetails.zipCode = "";
+                $("#zipcode").focus();
+                return false;
+            }
+            else if (!companyAddressData.country) {
+                $scope.companyAddressDetails.country = "";
+                $("#country").focus();
+                return false;
+            }
+            return true;
+        };
+        
+        $scope.getCompanyAddress = function (){
+            settingsFactory.getAllPreferencesGet().then(function (data) {
+                $scope.companyAddressDetails=JSON.parse(data.d.details).companyAddress[0];
+            });            
+        };
+        
+        
+        $scope.updateCompanyAddress = function (company){
+            if($scope.validateCompanyAddress(company)){
+            var companyAddress = {"addressLine1":company.addressLine1,"addressLine2":company.addressLine2,"city":company.city,"state":company.state,"zipcode":company.zipCode,"country":company.country};
+            onboardingFactory.saveCompanyAddress(companyAddress).then(function (data){
+                growl(companyAddressSaved);
+            });  
+            }
+        };
+        
         // Hide & show password function
         $scope.hideShowPassword = function () {
             if ($scope.inputType == 'password')
@@ -38,16 +93,30 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
         $scope.accountSettingsValidation = function (password, confirmPassword) {
             if (!password) {
-                $scope.password = "";
+                $scope.userDetails.password = "";
                 $("#newpassword").focus();
                 return false;
             }
             if (!confirmPassword) {
-                $scope.confirmPassword = "";
+                $scope.userDetails.confirmPassword = "";
                 $("#confirmpassword").focus();
                 return false;
             }
             if($scope.isConfirmPasswordSame(confirmPassword))
+            return true;
+        };
+        
+        $scope.userAccountSettingsValidation = function (fname, lname) {
+            if (!fname) {
+                $scope.userDetails.userFirstName = "";
+                $("#firstName").focus();
+                return false;
+            }
+            if (!lname) {
+                $scope.userDetails.userLastName = "";
+                $("#lastName").focus();
+                return false;
+            }
             return true;
         };
         
@@ -68,13 +137,39 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             }
         };
         
-        $scope.changePassword = function (password, confirmPassword) {
-            if ($scope.accountSettingsValidation(password, confirmPassword))
+        $scope.changePassword = function (userDetails) {
+            if ($scope.accountSettingsValidation(userDetails.password, userDetails.confirmPassword))
             {
-                var password_object = {"password": password, "confirmpassword": confirmPassword, "type": "update"};
+                var password_object = {"password": userDetails.password, "confirmpassword": userDetails.confirmPassword, "type": "update"};
                 signupFactory.resetPasswordPost(password_object).then(function (data) {
                     growl("Password changed successfully");
                     $scope.status = data;
+                });
+            }
+        };
+        
+        $scope.changeUserName = function (userDetails){
+            if($scope.userAccountSettingsValidation(userDetails.userFirstName, userDetails.userLastName))
+            {   
+                var userName = {"firstName":userDetails.userFirstName,"lastName":userDetails.userLastName};
+                signupFactory.updateUser(userName).then(function (data) { 
+                    appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                    kGlobalCompanyObject.userFirstName = userDetails.userFirstName;
+                    kGlobalCompanyObject.userLastName = userDetails.userLastName;                   
+                    
+                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function(){
+                        appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                            $scope.companyName = kGlobalCompanyObject.companyName;
+                            $scope.userFirstName = kGlobalCompanyObject.userFirstName;
+                            $scope.userLastName = kGlobalCompanyObject.userLastName;
+                            $scope.userRole = kGlobalCompanyObject.roleName; 
+                            $scope.logourl = kGlobalCompanyObject.logourl;
+                            $scope.userDetails.userFirstName=$scope.userFirstName;
+                            $scope.userDetails.userLastName=$scope.userLastName;    
+                        });
+                    });
+                    });
+                  growl(eval(JSON.stringify(data.d.operationStatus.messages)));  
                 });
             }
         };
@@ -102,7 +197,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
         $scope.editUser = function (userDetails) {
             var roles = [];
-            roles.push(userDetails.adminRadio);
+            roles.push(userDetails.editAdminRadio);
             //TODO change with the latest after merge Muzamil
             var invitation = {"inviteId":$scope.inviteId, "userRoleLookUpId":$scope.userRoleLookUpId.toString(), "emailaddress": $scope.userEmailId, "roles": roles, "task": 'invitation'};
             

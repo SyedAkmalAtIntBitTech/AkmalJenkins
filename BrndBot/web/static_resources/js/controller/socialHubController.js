@@ -1,4 +1,4 @@
-socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$location', 'settingsFactory', 'socialPostFactory', function ($scope, $rootScope, $location, settingsFactory, socialPostFactory) {
+socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$location', 'settingsFactory', 'socialPostFactory', 'appSessionFactory', function ($scope, $rootScope, $location, settingsFactory, socialPostFactory, appSessionFactory) {
     
         $scope.getFacebookDetails = function () {
             var fbdata = {access_token_method: "getAccessToken"};
@@ -21,6 +21,26 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
                 }
             });
         };
+        
+        $scope.getUserDetails = function(){
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                $scope.companyName = kGlobalCompanyObject.companyName;
+                $scope.userFirstName = kGlobalCompanyObject.userFirstName;
+                $scope.userLastName = kGlobalCompanyObject.userLastName;
+
+                kGlobalCompanyObject.userHashId = 'undefined';
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
+                appSessionFactory.getDashboardMessage().then(function(message){
+                    if(message)
+                    {
+                        growl(message);
+                        appSessionFactory.clearDashboardMessage().then(function(message){
+                        });
+                    }
+                });
+            });
+        };
+        
         $scope.showDropDown = function ()
         {
 //                $("#emaildropdown").css("display","block");

@@ -53,14 +53,15 @@
     </style>       
 </head>
     <body ng-app="socialFlowApp" class="body-normal" ng-controller="socialController"> 
-        <div ng-include src="'twitterpopupsocialhub.html'"></div>
         <script type="text/ng-template"></script>
-        <div ng-include src="'navbar.html'"></div> 
+    <div class="bb-app-frame">
+      <div class="bb-main-app-wrap" >
+        <div ng-include src="'twitterpopupsocialhub.html'"></div>
         <div ng-include src="'imagegallerypopup.html'"></div>
         <div ng-include src="'postsuccesspopup.html'"></div>
-        <div><div ng-view></div></div>        
-    
-    <!--Main Content Wrap-->    
+        <div ng-view class="bb-main-container-wrap"></div> 
+      </div>
+    </div>
     
 </body>
 </html>        

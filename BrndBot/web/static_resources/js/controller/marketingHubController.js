@@ -1,6 +1,7 @@
 marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location', 'settingsFactory', 'emailListFactory', 'emailDraftFactory', 'emailFactory', 'appSessionFactory', function ($scope, $location, settingsFactory, emailListFactory, emailDraftFactory, emailFactory, appSessionFactory) {
 
 //$scope.emailhubHeader = true;
+        $scope.userSettings =false;
         $scope.addEmailListButton = true;
         $scope.saveEmailSettingsButton = false;
         $scope.deletDraftsButton = false;
@@ -43,7 +44,30 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.deafultFromName = "";
         $scope.replyEmailValidation = false;
         $scope.replyToAddress = false;
+        
+        $scope.showHideUserSettings = function (flag){
+            $scope.userSettings=flag;
+        };
 
+        $scope.getUserDetails = function(){
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                $scope.companyName = kGlobalCompanyObject.companyName;
+                $scope.userFirstName = kGlobalCompanyObject.userFirstName;
+                $scope.userLastName = kGlobalCompanyObject.userLastName;
+
+                kGlobalCompanyObject.userHashId = 'undefined';
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
+                appSessionFactory.getDashboardMessage().then(function(message){
+                    if(message)
+                    {
+                        growl(message);
+                        appSessionFactory.clearDashboardMessage().then(function(message){
+                        });
+                    }
+                });
+            });
+        };
+        
         $scope.displayAllEmailDrafts = function () {
             $scope.activeEmailDrafts = 'activeTab';
             $scope.activeEmailHistory = '';
@@ -257,6 +281,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             settingsFactory.getEmailSettingsGet().then(function (data) {
                 $scope.emailSettingsDetails = true;
                 $scope.email_settings = JSON.parse(data.d.details);
+                if ($scope.email_settings == null){
+                    $scope.email_settings = {};
+                    $scope.email_settings.from_address = 'mail@brndbot.com';
+                }
             });
         };
 
@@ -402,6 +430,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.activeEmailHistory = '';
             $scope.activeEmailSettings = '';
             $scope.activeEmailDrafts = '';
+            $scope.hideGifImage=true;
 
             $scope.emaildropdown = false;
             $scope.addEmailListButton = true;
@@ -412,6 +441,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.deletDraftsButton = false;
             $scope.emallistdetails = true;
             emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
+                $scope.hideGifImage=false;
                 var parseData = JSON.parse(data.d.details);
                 $scope.emailLists = parseData.allEmailListWithNoOfContacts.user;
                 $scope.emailListsMindbody = parseData.allEmailListWithNoOfContacts.mindbody;

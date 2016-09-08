@@ -36,16 +36,16 @@
             <div class="input-wrap">
                 <label>Action Name</label>
                 <div class="input">
-                    <input  size="100" class="fluid" ng-model="actionName" id="ActionName" placeholder="Action Name" />
+                    <input  size="100" class="fluid" ng-model="actionName" id="ActionName" ng-class="{'invalid-input': actionName === '' || null}" placeholder="Action Name" />
                 </div>
-                <span class="validationAlert" ng-if='actionName === "" || null'>{{actionNameValidation}}</span>
+                <span class="validationAlert" ng-if='actionName === "" || null' >{{actionNameValidation}}</span>
 
             </div>
             <div class="date-time-input-wrap">
                 <div class="input-wrap">
                     <label>Action Date</label>
                     <a class="input ">
-                        <input class="fluid" type="text" name="datepicker" ng-model="actionDateVal" id="actionDate" readonly  placeholder="Enter Action Date" />
+                        <input class="fluid" type="text" name="datepicker" ng-model="actionDateVal" id="actionDate" ng-class="{'invalid-input': actionDateVal === '' || null}" readonly  placeholder="Enter Action Date" />
                         <script>
                             var picker = new Pikaday(
                                     {
@@ -63,7 +63,7 @@
                 <div class="input-wrap">
                     <label>Action Time</label>
                     <a class="input">
-                        <input  class="fluid" id="actionTime" type="text" ng-model="actionTimeVal" name="actionTime"  size="10"  placeholder="Enter Action Time"  /> 
+                        <input  class="fluid" id="actionTime" type="text" ng-model="actionTimeVal" name="actionTime" ng-class="{'invalid-input': actionTimeVal === '' || null}" size="10"  placeholder="Enter Action Time"  /> 
                         <script src="../js/utilities/timepicki.js" type="text/javascript"></script>
                         <script>
                         $('#actionTime').timepicki({
