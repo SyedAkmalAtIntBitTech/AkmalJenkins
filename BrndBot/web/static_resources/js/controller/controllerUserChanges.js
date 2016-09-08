@@ -154,15 +154,22 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 var userName = {"firstName":userDetails.userFirstName,"lastName":userDetails.userLastName};
                 signupFactory.updateUser(userName).then(function (data) { 
                     appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
-                    kGlobalCompanyObject.firstName = userDetails.userFirstName;
-                    kGlobalCompanyObject.lastName = userDetails.userLastName;                    
+                    kGlobalCompanyObject.userFirstName = userDetails.userFirstName;
+                    kGlobalCompanyObject.userLastName = userDetails.userLastName;                   
                     
-                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function(){                        
+                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function(){
+                        appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                            $scope.companyName = kGlobalCompanyObject.companyName;
+                            $scope.userFirstName = kGlobalCompanyObject.userFirstName;
+                            $scope.userLastName = kGlobalCompanyObject.userLastName;
+                            $scope.userRole = kGlobalCompanyObject.roleName; 
+                            $scope.logourl = kGlobalCompanyObject.logourl;
+                            $scope.userDetails.userFirstName=$scope.userFirstName;
+                            $scope.userDetails.userLastName=$scope.userLastName;    
+                        });
                     });
                     });
-                  growl(eval(JSON.stringify(data.d.operationStatus.messages)));
-                  $scope.getUserDetails();
-                    
+                  growl(eval(JSON.stringify(data.d.operationStatus.messages)));  
                 });
             }
         };
