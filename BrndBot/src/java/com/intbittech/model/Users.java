@@ -25,6 +25,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "users")
 public class Users implements Serializable {
+
+ 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -108,4 +110,5 @@ public class Users implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
 }
