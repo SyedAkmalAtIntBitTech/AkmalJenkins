@@ -6,6 +6,7 @@
 package com.intbittech.dao.impl;
 
 import com.intbittech.dao.ContactEmailListLookupDao;
+import com.intbittech.enums.EmailListTypeConstants;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ContactEmailListLookup;
 import java.util.List;
@@ -78,13 +79,61 @@ public class ContactEmailListLookupDaoImpl implements ContactEmailListLookupDao{
             throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<ContactEmailListLookup> getGeneralContactsByCompanyId(Integer companyId) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(ContactEmailListLookup.class)
+                    .setFetchMode("fkContactId", FetchMode.JOIN)
+                    .setFetchMode("fkEmailListId", FetchMode.JOIN)
+                    .createAlias("fkEmailListId.fkCompanyId", "company")
+                    .createAlias("fkEmailListId.fkTypeId", "type")
+                    .add(Restrictions.eq("company.companyId", companyId))
+                    .add(Restrictions.eq("type.typeId", EmailListTypeConstants.General.getEmailListType()));
+            List<ContactEmailListLookup> contactEmailListLookup = criteria.list();
+            if (contactEmailListLookup.isEmpty()) {
+                return null;
+            }
+            return contactEmailListLookup;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public ContactEmailListLookup getByEmailListIdAndContactId(Integer emailListId, Integer contactId) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(ContactEmailListLookup.class)
+                    .setFetchMode("fkContactId", FetchMode.JOIN)
+                    .setFetchMode("fkEmailListId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkEmailListId.emailListId", emailListId))
+                    .add(Restrictions.eq("fkContactId.contactId", contactId));
+            List<ContactEmailListLookup> contactEmailListLookup = criteria.list();
+            if (contactEmailListLookup.isEmpty()) {
+                return null;
+            }
+            return (ContactEmailListLookup) criteria.list().get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+        }
+    }
 
      /**
      * {@inheritDoc}
      */
-    public Integer save(ContactEmailListLookup contactEmailListLookup) throws ProcessFailed {
+    public void saveOrUpdate(ContactEmailListLookup contactEmailListLookup) throws ProcessFailed {
          try {
-            return ((Integer) sessionFactory.getCurrentSession().save(contactEmailListLookup));
+            sessionFactory.getCurrentSession().saveOrUpdate(contactEmailListLookup);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));

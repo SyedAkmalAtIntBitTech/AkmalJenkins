@@ -29,6 +29,7 @@ import com.intbittech.schedulers.MindbodyEmailListProcessor;
 import com.intbittech.services.AddressService;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
+import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.EmailListService;
 import com.intbittech.services.ForgotPasswordService;
 import com.intbittech.services.UnsubscribedEmailsService;
@@ -109,6 +110,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     
     @Autowired
     UnsubscribedEmailsService unsubscribedEmailsService;
+    
+    @Autowired
+    ContactEmailListLookupService contactEmailListLookupService;
     
     @Autowired
     private MessageSource messageSource;
@@ -750,7 +754,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
                         Integer studioId = Integer.parseInt(companyPreferences.getCompanyLocation());
                         MindbodyEmailListProcessor mindbodyEmailListProcessor = new MindbodyEmailListProcessor();
                         mindbodyEmailListProcessor.processEachRow(userCompanyIds.getCompanyId(), studioId);
-                        emailListService.updateUnsubscribedUserEmailLists(companyPreferences);
+//                        emailListService.updateUnsubscribedUserEmailLists(companyPreferences);
+                        contactEmailListLookupService.updateUnsubscribedUserEmailLists(userCompanyIds.getCompanyId());
+                            
                     } catch (Throwable throwable) {
 
                     }
