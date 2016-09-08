@@ -280,9 +280,10 @@ public class EmailListController {
                 AddEmailListDetails addEmailListDetails = new AddEmailListDetails();
                 addEmailListDetails.setEmailListName(emailList.getEmailListName());
                 addEmailListDetails.setEmailListType(emailList.getFkTypeId().getTypeName());
-                
+                addEmailListDetails.setEmailListId(emailList.getEmailListId());
+                addEmailListDetails.setCreatedDate(emailList.getCreatedDate());
                 //Send back tags
-                List<EmailListTagLookup> emailListTagLookups = emailListTagLookupService.getByEmailListTagLookupByEmailListId(companyId);
+                List<EmailListTagLookup> emailListTagLookups = emailListTagLookupService.getByEmailListTagLookupByEmailListId(emailList.getEmailListId());
                 if(emailListTagLookups!=null)
                 {
                     List<String> emailListTags = new ArrayList<>();

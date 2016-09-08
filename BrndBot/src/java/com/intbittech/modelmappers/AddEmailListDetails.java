@@ -7,6 +7,7 @@ package com.intbittech.modelmappers;
 
 import com.intbittech.model.UserCompanyIds;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +22,7 @@ public class AddEmailListDetails  extends UserCompanyIds implements Serializable
     private String emailListType;
     private List<String> emailListTags;
     private Integer numberOfContacts;
+    private Date createdDate;
 
     public Integer getEmailListId() {
         return emailListId;
@@ -77,4 +79,13 @@ public class AddEmailListDetails  extends UserCompanyIds implements Serializable
     public void setNumberOfContacts(Integer numberOfContacts) {
         this.numberOfContacts = numberOfContacts;
     }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+    
 }

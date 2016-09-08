@@ -49,9 +49,6 @@ public class ContactEmailListLookupServiceImpl implements ContactEmailListLookup
      */
     public List<ContactEmailListLookup> getContactsByEmailListId(Integer emailListId) throws ProcessFailed {
         List<ContactEmailListLookup> contactsList = contactEmailListLookupDao.getContactsByEmailListId(emailListId);
-        if(contactsList == null) {
-            throw new ProcessFailed(messageSource.getMessage("contacts_not_found", new String[]{}, Locale.US));
-        }
         return contactsList;
     }
 

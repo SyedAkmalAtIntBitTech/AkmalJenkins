@@ -17,11 +17,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author ilyas
  */
+@Repository
 public class UnsubscribedEmailCompanyDaoImpl implements UnsubscribedEmailCompanyDao{
     
     private static Logger logger = Logger.getLogger(EmailBlockDaoImpl.class);

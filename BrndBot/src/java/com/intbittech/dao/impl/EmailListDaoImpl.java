@@ -137,7 +137,7 @@ public class EmailListDaoImpl implements EmailListDao {
                     .setFetchMode("fkTypeId", FetchMode.JOIN)
                     .setFetchMode("fkCompanyId", FetchMode.JOIN)
                     .add(Restrictions.eq("fkCompanyId.companyId", companyId))
-                    .add(Restrictions.eq("fkTypeId.fkTypeId", typeId));
+                    .add(Restrictions.eq("fkTypeId.typeId", typeId));
             List<EmailList> emailLists = criteria.list();
             if (emailLists.isEmpty()) {
                 return null;
