@@ -34,13 +34,33 @@ public interface ContactEmailListLookupDao {
     public List<ContactEmailListLookup> getContactsByEmailListId(Integer emailListId) throws ProcessFailed;
     
     /**
+     * This method pass id as input and get the {@link ContactEmailListLookup} from Database
+     *
+     * @param companyId the companyId
+     * @return {@link ContactEmailListLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public List<ContactEmailListLookup> getGeneralContactsByCompanyId(Integer companyId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link ContactEmailListLookup} from DAO
+     * layer.
+     *
+     * @param emailListId the emailListId
+     * @param contactId the contactId
+     * @return {@link ContactEmailListLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public ContactEmailListLookup getByEmailListIdAndContactId(Integer emailListId, Integer contactId) throws ProcessFailed;
+    
+    /**
      * This method save {@link ContactEmailListLookup} into the database.
      *
      * @param contactEmailListLookup the contactEmailListLookup
      * @return the Integer
      * @throws ProcessFailed the process failed
      */
-    public Integer save(ContactEmailListLookup contactEmailListLookup) throws ProcessFailed;
+    public void saveOrUpdate(ContactEmailListLookup contactEmailListLookup) throws ProcessFailed;
 
     /**
      * This method update {@link ContactEmailListLookup} updates existing data from the

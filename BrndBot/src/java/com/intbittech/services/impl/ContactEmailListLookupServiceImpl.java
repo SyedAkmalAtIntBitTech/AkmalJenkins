@@ -8,7 +8,9 @@ package com.intbittech.services.impl;
 import com.intbittech.dao.ContactEmailListLookupDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ContactEmailListLookup;
+import com.intbittech.model.UnsubscribedEmails;
 import com.intbittech.services.ContactEmailListLookupService;
+import com.intbittech.services.UnsubscribedEmailsService;
 import java.util.List;
 import java.util.Locale;
 import org.jboss.logging.Logger;
@@ -29,6 +31,9 @@ public class ContactEmailListLookupServiceImpl implements ContactEmailListLookup
 
     @Autowired
     private ContactEmailListLookupDao contactEmailListLookupDao;
+    
+    @Autowired
+    private UnsubscribedEmailsService unsubscribedEmailsService;
 
     @Autowired
     private MessageSource messageSource;
@@ -51,12 +56,37 @@ public class ContactEmailListLookupServiceImpl implements ContactEmailListLookup
         List<ContactEmailListLookup> contactsList = contactEmailListLookupDao.getContactsByEmailListId(emailListId);
         return contactsList;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public ContactEmailListLookup getByEmailListIdAndContactId(Integer emailListId, Integer contactId) throws ProcessFailed {
+        ContactEmailListLookup contacts = contactEmailListLookupDao.getByEmailListIdAndContactId(emailListId, contactId);
+        return contacts;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public void updateUnsubscribedUserEmailLists(Integer companyId) throws ProcessFailed {
+        List<ContactEmailListLookup> contactsList = contactEmailListLookupDao.getGeneralContactsByCompanyId(companyId);
+        for(ContactEmailListLookup contact:contactsList) {
+            UnsubscribedEmails unsubscribedEmails = unsubscribedEmailsService.getByUnsubscribedEmailsAddress(contact.getFkContactId().getEmailAddress());
+            if(unsubscribedEmails != null) {
+                ContactEmailListLookup contactEmailListLookup = getByContactEmailListLookupId(contact.getContactLookupId());
+                contactEmailListLookup.setUnsubscribed(Boolean.TRUE);
+                update(contactEmailListLookup);
+            }
+            
+        }
+        
+    }
 
     /**
      * {@inheritDoc}
      */
-    public Integer save(ContactEmailListLookup contactEmailListLookup) throws ProcessFailed {
-        return contactEmailListLookupDao.save(contactEmailListLookup);
+    public void saveOrUpdate(ContactEmailListLookup contactEmailListLookup) throws ProcessFailed {
+        contactEmailListLookupDao.saveOrUpdate(contactEmailListLookup);
     }
 
     /**

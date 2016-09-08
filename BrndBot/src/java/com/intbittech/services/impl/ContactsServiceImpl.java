@@ -10,11 +10,14 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ContactEmailListLookup;
 import com.intbittech.model.Contacts;
 import com.intbittech.model.EmailList;
+import com.intbittech.model.UnsubscribedEmails;
 import com.intbittech.modelmappers.ContactDetails;
 import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.ContactsService;
+import com.intbittech.services.UnsubscribedEmailsService;
 import com.intbittech.utility.EmailValidator;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +39,14 @@ public class ContactsServiceImpl implements ContactsService{
     private ContactsDao contactsDao;
     
     @Autowired
-    private MessageSource messageSource;
+    private UnsubscribedEmailsService unsubscribedEmailsService;
     
     @Autowired
     private ContactEmailListLookupService contactEmailListLookupService;
+    
+    @Autowired
+    private MessageSource messageSource;
+    
      /**
      * {@inheritDoc}
      */
@@ -77,18 +84,27 @@ public class ContactsServiceImpl implements ContactsService{
         }
         contacts = new Contacts();
         contacts.setContactId(contactId);
-        ContactEmailListLookup contactEmailListLookup = new ContactEmailListLookup();
-        contactEmailListLookup.setFkContactId(contacts);
-        EmailList emailList = new EmailList();
-        emailList.setEmailListId(contactDetails.getEmailListId());
-        contactEmailListLookup.setFkEmailListId(emailList);
-        //TODO check if contact unsubscribed first base on that sent below value
-        contactEmailListLookup.setUnsubscribed(Boolean.FALSE);
+        //TODO ilyas Save or update
+        ContactEmailListLookup contactEmailListLookup = contactEmailListLookupService.getByEmailListIdAndContactId(contactDetails.getEmailListId(), contactId);
+        if(contactEmailListLookup == null){
+            contactEmailListLookup = new ContactEmailListLookup();
+            contactEmailListLookup.setFkContactId(contacts);
+            EmailList emailList = new EmailList();
+            emailList.setEmailListId(contactDetails.getEmailListId());
+            contactEmailListLookup.setFkEmailListId(emailList);
+        }
+        //checks if contact is unsubscribed, base on that sets below value
+        Boolean isUnsubscribed = Boolean.FALSE;
+        UnsubscribedEmails unsubscribedEmails = unsubscribedEmailsService.getByUnsubscribedEmailsAddress(contactDetails.getEmailAddress());
+        if(unsubscribedEmails != null) {
+            isUnsubscribed = Boolean.TRUE;
+        }
+        contactEmailListLookup.setUnsubscribed(isUnsubscribed);
         contactEmailListLookup.setAddedDate(new Date());
         
-        contactEmailListLookupService.save(contactEmailListLookup);
+        contactEmailListLookupService.saveOrUpdate(contactEmailListLookup);
             
-        return 0;
+        return contactId;
     }
 
     /**
