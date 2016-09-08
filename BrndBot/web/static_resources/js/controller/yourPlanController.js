@@ -8,6 +8,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
         $scope.emailsectionClass = '';
         $scope.fadeClass = '';
+        $scope.fadeClasses = '';
         $scope.entities_selected_time = "";
         $scope.masterActionType = "";
         $scope.master_facebook = getfacebook();
@@ -27,6 +28,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.dateLesser = false;
         $scope.timePickerVal = false;
         $scope.clickedRemoveAction = false;
+        $scope.addUserSettings = false;
         $scope.moreThanOneUser = false;
         $scope.ddSelectActionOptions = [
             {
@@ -280,9 +282,15 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.addAction = true;
         };
 
+        $scope.showInviteUsersPopup = function(){
+            $scope.fadeClasses = true;
+            $scope.addUserSettings = true;
+        };
         $scope.closeOverlay = function ()
         {
+            $scope.addUserSettings = false;
             $scope.fadeClass = '';
+            $scope.fadeClasses = '';
             $scope.addAction = false;
             $scope.chooseActionTypeOnChange({"text":"Select","value":"0"});
         };
@@ -329,11 +337,12 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.getAllUsersInCompany = function(){
-            yourPlanFactory.allUsersInCompanyGet().then(function (data) {
-                $scope.allUsers = data.d.details;
-            });
+//            yourPlanFactory.allUsersInCompanyGet().then(function (data) {
+//                $scope.allUsers = data.d.details;
+//            });
             yourPlanFactory.noOfUsersInCompanyGet().then(function (data) {
                 var noOfUsersInCompany = data.d.details;
+                alert(noOfUsersInCompany);
                 if (parseInt(noOfUsersInCompany) > 1){
                     $scope.moreThanOneUser = true;
                 }

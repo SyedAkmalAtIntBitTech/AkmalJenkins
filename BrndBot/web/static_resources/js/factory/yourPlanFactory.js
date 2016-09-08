@@ -31,7 +31,7 @@ factoryApp.factory('yourPlanFactory', function ($q, authenticatedServiceFactory,
     yourPlanFactoryObject.allUsersInCompanyGet = function () {
         var deffered = $q.defer();
         var url = configurationService.allUsersInCompanyURL();
-        authenticatedServiceFactory.makeCall("POST", url, "","").then(function (data) {
+        authenticatedServiceFactory.makeCall("GET", url, "","").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
@@ -41,7 +41,7 @@ factoryApp.factory('yourPlanFactory', function ($q, authenticatedServiceFactory,
     yourPlanFactoryObject.noOfUsersInCompanyGet = function () {
         var deffered = $q.defer();
         var url = configurationService.noOfUsersInCompanyURL();
-        authenticatedServiceFactory.makeCall("POST", url, "","").then(function (data) {
+        authenticatedServiceFactory.makeCall("GET", url, "","").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

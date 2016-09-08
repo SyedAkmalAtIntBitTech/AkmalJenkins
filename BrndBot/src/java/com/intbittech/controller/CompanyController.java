@@ -16,6 +16,7 @@ import com.intbittech.model.OrganizationEmailBlockLookup;
 import com.intbittech.model.OrganizationMarketingCategoryLookup;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.UserProfile;
+import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.modelmappers.CategoryDetails;
 import com.intbittech.modelmappers.ChannelDetails;
 import com.intbittech.modelmappers.CompanyAllDetails;
@@ -34,6 +35,7 @@ import com.intbittech.services.EmailBlockModelLookupService;
 import com.intbittech.services.EmailBlockService;
 import com.intbittech.services.MarketingCategoryService;
 import com.intbittech.services.OrganizationCategoryLookupService;
+import com.intbittech.services.UserRoleCompanyLookUpService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.IConstants;
 import com.intbittech.utility.UserSessionUtil;
@@ -83,6 +85,8 @@ public class CompanyController {
 
     @Autowired
     private MessageSource messageSource;
+    @Autowired
+    private UserRoleCompanyLookUpService userRoleCompanyLookUpService;
     
     @RequestMapping(value = "getCurrentCompany",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getCurrentCompany(@RequestParam("companyId") Integer companyId) {
@@ -427,4 +431,22 @@ public class CompanyController {
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
+    @RequestMapping(value = "getNumberOfUsersInCompany",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getNumberOfUsersInCompany(@RequestParam("companyId") Integer companyId) {
+        GenericResponse<Integer> genericResponse = new GenericResponse<Integer>();
+        try {
+            List<Integer> noOfUsersInCompany = new ArrayList<>();
+            List<UsersRoleCompanyLookup> UsersRoleCompanyLookupList = userRoleCompanyLookUpService.getAllUsersRoleCompanyLookupByCompanyId(companyId);
+            
+            noOfUsersInCompany.add(UsersRoleCompanyLookupList.size());
+            genericResponse.setDetails(noOfUsersInCompany);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("no_user_company_get_all", new String[]{}, Locale.US)));
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+
 }
