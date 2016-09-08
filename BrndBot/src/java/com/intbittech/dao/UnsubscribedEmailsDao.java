@@ -15,14 +15,22 @@ import com.intbittech.model.UnsubscribedEmails;
 public interface UnsubscribedEmailsDao {
     
     /**
-     * This method pass id as input and get the {@link UnsubscribedEmails} from DAO
-     * layer.
+     * This method pass id as input and get the {@link UnsubscribedEmails} from Database.
      *
      * @param unsubscribedEmailsId the unsubscribedEmailsId
      * @return {@link UnsubscribedEmails}
      * @throws ProcessFailed the process failed
      */
     public UnsubscribedEmails getByUnsubscribedEmailsId(Integer unsubscribedEmailsId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link UnsubscribedEmails} from Database.
+     *
+     * @param emailAddress the emailAddress
+     * @return {@link UnsubscribedEmails}
+     * @throws ProcessFailed the process failed
+     */
+    public UnsubscribedEmails getByUnsubscribedEmailsAddress(String emailAddress) throws ProcessFailed;
     
     /**
      * This method save {@link UnsubscribedEmails} into the database.

@@ -31,6 +31,7 @@ import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.EmailListService;
 import com.intbittech.services.ForgotPasswordService;
+import com.intbittech.services.UnsubscribedEmailsService;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UsersService;
 import com.intbittech.social.CompanyPreferencesFacebook;
@@ -105,6 +106,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     
     @Autowired
     AddressService addressService;
+    
+    @Autowired
+    UnsubscribedEmailsService unsubscribedEmailsService;
     
     @Autowired
     private MessageSource messageSource;
@@ -736,10 +740,12 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
-            companyPreferencesService.saveUnsubscribeEmails(userCompanyIds.getCompanyId(), emailList.getEmailList());
+//            companyPreferencesService.saveUnsubscribeEmails(userCompanyIds.getCompanyId(), emailList.getEmailList());
+            unsubscribedEmailsService.save(userCompanyIds.getCompanyId(), emailList.getEmailList());
             Runnable myRunnable = new Runnable() {
                 public void run() {
                     try {
+                        //Todo ilyas refactor this
                         CompanyPreferences companyPreferences = companyPreferencesService.getByCompanyId(userCompanyIds.getCompanyId());
                         Integer studioId = Integer.parseInt(companyPreferences.getCompanyLocation());
                         MindbodyEmailListProcessor mindbodyEmailListProcessor = new MindbodyEmailListProcessor();

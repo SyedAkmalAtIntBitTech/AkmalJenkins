@@ -53,6 +53,26 @@ public class UnsubscribedEmailsDaoImpl implements UnsubscribedEmailsDao{
             throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public UnsubscribedEmails getByUnsubscribedEmailsAddress(String emailAddress) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(UnsubscribedEmails.class)
+                    .add(Restrictions.eq("emailAddress", emailAddress));
+            List<UnsubscribedEmails> contacts = criteria.list();
+            if (contacts.isEmpty()) {
+                return null;
+            }
+            return (UnsubscribedEmails) criteria.list().get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+        }
+    }
 
     /**
      * {@inheritDoc}
