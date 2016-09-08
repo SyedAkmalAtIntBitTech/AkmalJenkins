@@ -328,10 +328,17 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
           return (m) ? Date.UTC(m[1], m[2]-1, m[3], m[4], m[5], m[6]) : undefined;
         };
 
+        $scope.getAllUsersInCompany = function(){
+            yourPlanFactory.allUsersInCompanyGet().then(function (data) {
+                $scope.allUsers = data.d.details;
+            });
+        };
+        
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
         {   
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
             {
+                var userAssignToId = $("#assignTo option:selected").val();
                 $scope.timePickerVal = false;
                 var actionTime1=$("#timepicker1").val().replace(/ /g,'');
                 var actionDateTime1=datePicker.toLocaleString() +" "+actionTime1.toLocaleString();
@@ -360,7 +367,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 var epoch_time = getEpochMillis(actiondate + " "+ newtime +" "+ 'UTC'); 
                 var days = 0;
                 var action = {"title": addTitle, "actiontype": actionType.value, "type": "save",
-                    "description": "", "marketingType": 0, "action_date": epoch_time, "days": days};
+                    "description": "", "marketingType": 0, "action_date": epoch_time, "days": days, "userAssignToId":userAssignToId};
                 yourPlanFactory.addActionPost(action).then(function (data) {
                     growl("Action Saved");
                     $scope.getCampaigns();
