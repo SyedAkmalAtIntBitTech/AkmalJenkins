@@ -28,8 +28,6 @@ import javax.persistence.TemporalType;
 @Table(name = "company_marketing_program")
 public class CompanyMarketingProgram implements Serializable {
 
-   
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -137,6 +135,4 @@ public class CompanyMarketingProgram implements Serializable {
     public void setFkCompanyId(Company fkCompanyId) {
         this.fkCompanyId = fkCompanyId;
     }
-
-
 }
