@@ -101,7 +101,7 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
             return ((Integer) sessionFactory.getCurrentSession().save(scheduledEntityList));
         } catch (Throwable throwable) {
             if (throwable instanceof org.hibernate.exception.ConstraintViolationException) {
-                throw new ProcessFailed("Scheduled entity list already exits");
+                throw new ProcessFailed("The entered action name already exists for the chosen date. Please enter a different name.");
             }
             logger.log(Level.SEVERE, null, throwable);
             throw new ProcessFailed("Database error while saving record.");

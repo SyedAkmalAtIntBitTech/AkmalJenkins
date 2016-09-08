@@ -101,7 +101,7 @@ public class CompanyMarketingProgramDaoImpl implements CompanyMarketingProgramDa
             return ((Integer) sessionFactory.getCurrentSession().save(companyMarketingProgram));
         } catch (Throwable throwable) {
             if (throwable instanceof org.hibernate.exception.ConstraintViolationException) {
-                throw new ProcessFailed("Company marketing program already exits");
+                throw new ProcessFailed("The entered marketing program name already exists for the chosen date. Please enter a different name.");
             }
             logger.log(Level.SEVERE, null, throwable);
             throw new ProcessFailed("Database error while saving record.");
