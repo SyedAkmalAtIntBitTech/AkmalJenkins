@@ -59,7 +59,9 @@ public class ScheduleDAO {
             String scheduleDesc,
             Timestamp scheduledTime,
             String templateStatus,
-            String html_body
+            String html_body,
+            Integer createdBy,
+            Integer assignedTo
             
     ) throws SQLException {
 
@@ -102,7 +104,9 @@ public class ScheduleDAO {
                         ScheduledEntityType.Email.toString(),
                         "0",
                         templateStatus,
-                        companyId, 
+                        companyId,
+                         createdBy,
+                         assignedTo,
                         connection);
 
                 connection.commit();
@@ -216,13 +220,16 @@ public class ScheduleDAO {
             String days,
             String status,
             int companyId,
+            Integer createdBy,
+            Integer assignedTo,
+            
             Connection connection) throws SQLException {
-        String sql = "INSERT INTO scheduled_entity_list"
-                + " (entity_id, schedule_title,schedule_time,entity_type,"
-                + "status,fk_company_id, schedule_desc,is_recurring,"
-                + "fk_company_marketing_program_id,days,till_date,fk_recurring_email_id"
-                + ") VALUES"
-                + " (?,?,?,?,?,?,?,?,?,?,?,?) RETURNING scheduled_entity_list_id";
+            String sql = "INSERT INTO scheduled_entity_list"
+                    + " (entity_id, schedule_title,schedule_time,entity_type,"
+                    + "status,fk_company_id, schedule_desc,is_recurring,"
+                    + "fk_company_marketing_program_id,days,till_date,fk_recurring_email_id,created_by,assigned_to,created_at,updated_at"
+                    + ") VALUES"
+                    + " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP) RETURNING scheduled_entity_list_id";
 
         int scheduleId = -1;
                
@@ -243,6 +250,8 @@ public class ScheduleDAO {
             ps.setInt(10, Integer.parseInt(days));
             ps.setTimestamp(11, null);
             ps.setNull(12, java.sql.Types.INTEGER);
+            ps.setInt(13,createdBy );
+            ps.setInt(14,assignedTo );
 
             ps.execute();
             try (ResultSet rs = ps.getResultSet()) {

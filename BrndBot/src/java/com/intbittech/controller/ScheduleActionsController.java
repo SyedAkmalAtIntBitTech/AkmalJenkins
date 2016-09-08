@@ -78,7 +78,7 @@ public class ScheduleActionsController {
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             List<String> errors = validateScheduleEmailRequestBody(requestBodyMap);
             if (errors.isEmpty()) {
-                Map<String, Integer> data = actionsService.scheduleEmail(requestBodyMap, userCompanyIds.getCompanyId());
+                Map<String, Integer> data = actionsService.scheduleEmail(requestBodyMap, userCompanyIds.getCompanyId(),userCompanyIds.getUserId());
                 transactionResponse.addDetail(AppConstants.GSON.toJson(data));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
             } else {
@@ -162,7 +162,7 @@ public class ScheduleActionsController {
             errors.addAll(validateMetadata(metadataString, type));
 
             if (errors.isEmpty()) {
-                List<Map<String, Integer>> responseData = actionsService.scheduleSocialPost(requestBodyMap, userCompanyIds.getCompanyId());
+                List<Map<String, Integer>> responseData = actionsService.scheduleSocialPost(requestBodyMap, userCompanyIds.getCompanyId(),userCompanyIds.getUserId());
                 transactionResponse.addDetail(AppConstants.GSON.toJson(responseData));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
             } else {
