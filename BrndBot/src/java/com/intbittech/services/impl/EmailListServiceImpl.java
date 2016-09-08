@@ -711,6 +711,7 @@ public class EmailListServiceImpl implements EmailListService {
                 emailListTagLookup.setFkEmailListId(emailList);
                 EmailListTag emailListTag = new EmailListTag();
                 emailListTag.setTagId(EmailListTagConstants.valueOf(tag).getEmailListTag());
+                emailListTagLookup.setFkEmailListTagId(emailListTag);
                 emailListTagLookupService.save(emailListTagLookup);
             }
         }

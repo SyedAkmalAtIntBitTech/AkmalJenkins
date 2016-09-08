@@ -43,6 +43,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.deafultFromName = "";
         $scope.replyEmailValidation = false;
         $scope.replyToAddress = false;
+        var generalEmailList = "General";
 
         $scope.displayAllEmailDrafts = function () {
             $scope.activeEmailDrafts = 'activeTab';
@@ -415,11 +416,23 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.saveEmailSettingsButton = false;
             $scope.deletDraftsButton = false;
             $scope.emallistdetails = true;
-            emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
+            appSessionFactory.getCompany().then(function (companyObject){
+                
+            emailListFactory.getAllEmailListWithNoOfContactsForUser(companyObject.companyId).then(function (data) {
+                $scope.emailLists = data.d.details;
+            });
+            
+            emailListFactory.getAllEmailListWithNoOfContactsForMindBody(companyObject.companyId).then(function (data) {
                 var parseData = JSON.parse(data.d.details);
-                $scope.emailLists = parseData.allEmailListWithNoOfContacts.user;
                 $scope.emailListsMindbody = parseData.allEmailListWithNoOfContacts.mindbody;
             });
+            
+            });
+//            emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
+//                var parseData = JSON.parse(data.d.details);
+//                $scope.emailLists = parseData.allEmailListWithNoOfContacts.user;
+//                $scope.emailListsMindbody = parseData.allEmailListWithNoOfContacts.mindbody;
+//            });
         };
 
         $scope.emailValidation = function (email) {
@@ -456,21 +469,22 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             return true;
         };
 
-        $scope.createEmailList = function (email)
+        $scope.createEmailNewList = function (email)
         {
             if ($scope.emailValidation(email))
             {
                 if ($scope.emailAdressValidation(email))
                 {
-                    var emailListDetails = {"emailListName": email.listName, "defaultFromName": email.deafultFromName, "listDescription": email.listDescription, "update": "addEmailList"};
-                    emailListFactory.emailListSavePost(emailListDetails).then(function (data) {
-                        growl("Email list created successfully");
-                        $scope.createEmailListPopup = false;
-                        $("#fade").hide();
-                        $scope.emailListGet();
-                        $scope.showDeleteEmailList = false;
-                        $("#deleteEmailList").show();
-                    });
+                    var emailListDetails = {"emailListName": email.listName, "emailListDescription": email.listDescription, "defaultFromAddress": email.deafultFromName, "emailListType":generalEmailList, "emailListTags":['General']};
+                    
+                        emailListFactory.createEmailList(emailListDetails).then(function (data){
+                            growl("Email list created successfully");
+                            $scope.createEmailListPopup = false;
+                            $("#fade").hide();
+                            $scope.emailListGet();
+                            $scope.showDeleteEmailList = false;
+                            $("#deleteEmailList").show();
+                        });
                 }
             }
         };
@@ -602,50 +616,52 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 var email_address = $("#emailId").val();
                 var firstName = email.firstName;
                 var lastName = email.lastName;
+                var emailListId = $scope.emailListId;
                 var type = $scope.type;
                 if ($scope.validateEmailListPopup(email)) {
                     var emaildetails;
                     if (type === "add") {
-                        emaildetails = {"update": "checkAvailability", "emailListName": email_list_name,
-                            "emailAddress": email_address, "emailFirstName": firstName,
-                            "emailLastName": lastName};
-                        emailListFactory.emailListSavePost(emaildetails).then(function (data) {
-                            $("#addContactButton").unbind('click');
-                            var parseData = JSON.stringify(data.d.operationStatus.messages);
-                            if (parseData === '["Email list saved successfully."]') {
-                                emaildetails = {"update": "addEmailID", "emailListName": email_list_name,
-                                    "emailAddress": email_address, "emailFirstName": firstName,
-                                    "emailLastName": lastName};
-                                emailListFactory.emailListSavePost(emaildetails).then(function (data) {
-                                    growl(datasaved);
-                                    $scope.updateList();
-                                    $scope.overlayFade = false;
-                                    $scope.showAddContactPopup = false;
-                                    $("#addContactButton").unbind('click');
-                                });
-                            } else if (parseData === '["Email list could not be saved, please try again in sometime."]') {
-                                growl(emailexist, "error");
-                                $scope.updateList();
-                                $scope.overlayFade = false;
-                                $scope.showAddContactPopup = false;
-                                $("#addContactButton").unbind('click');
-                            }
+                        emaildetails = {"emailAddress":email_address,"emailListId" :emailListId, "emailListName": email_list_name,
+                                        "firstName": firstName,"lastName": lastName};
+                        emailListFactory.addEmailListContact(emaildetails).then(function (data){
+                            alert(JSON.stringify(data));
                         });
-                    } else if (type === "update") {
-                        var id = $scope.uuid;
-                        emaildetails = {"update": "updateEmailID", "emailUID": id, "emailListName": email_list_name,
-                            "emailAddress": email_address, "emailFirstName": firstName,
-                            "emailLastName": lastName};
-                        emailListFactory.emailListSavePost(emaildetails).then(function (data) {
-                            growl(datasaved);
-                            $scope.updateList();
-                            $scope.showAddContactPopup = false;
-                            $scope.overlayFade = false;
-                        });
+//                        emailListFactory.emailListSavePost(emaildetails).then(function (data) {
+//                            $("#addContactButton").unbind('click');
+//                            var parseData = JSON.stringify(data.d.operationStatus.messages);
+//                            if (parseData === '["Email list saved successfully."]') {
+//                                emaildetails = {"update": "addEmailID", "emailListName": email_list_name,
+//                                    "emailAddress": email_address, "emailFirstName": firstName,
+//                                    "emailLastName": lastName};
+//                                emailListFactory.emailListSavePost(emaildetails).then(function (data) {
+//                                    growl(datasaved);
+//                                    $scope.updateList();
+//                                    $scope.overlayFade = false;
+//                                    $scope.showAddContactPopup = false;
+//                                    $("#addContactButton").unbind('click');
+//                                });
+//                            } else if (parseData === '["Email list could not be saved, please try again in sometime."]') {
+//                                growl(emailexist, "error");
+//                                $scope.updateList();
+//                                $scope.overlayFade = false;
+//                                $scope.showAddContactPopup = false;
+//                                $("#addContactButton").unbind('click');
+//                            }
+//                        });
+//                    } else if (type === "update") {
+//                        var id = $scope.uuid;
+//                        emaildetails = {"update": "updateEmailID", "emailUID": id, "emailListName": email_list_name,
+//                            "emailAddress": email_address, "emailFirstName": firstName,
+//                            "emailLastName": lastName};
+//                        emailListFactory.emailListSavePost(emaildetails).then(function (data) {
+//                            growl(datasaved);
+//                            $scope.updateList();
+//                            $scope.showAddContactPopup = false;
+//                            $scope.overlayFade = false;
+//                        });
                     }
-                    ;
+                    
                 }
-                ;
             }
         };
 
@@ -912,10 +928,11 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.activeEmailListContacts = ''
             $scope.activeImportContacts = 'activeTab';
         };
-        $scope.viewEmailListDetails = function (listName, type)
+        $scope.viewEmailListDetails = function (email, type)
         {
             $scope.overlayFade = false;
-            $scope.emailListName = listName;
+            $scope.emailListName = email.emailListName;
+            $scope.emailListId = email.emailListId;
             $scope.type = type;
             $scope.showEmailListDetails = true;
             $scope.emallistdetails = false;
