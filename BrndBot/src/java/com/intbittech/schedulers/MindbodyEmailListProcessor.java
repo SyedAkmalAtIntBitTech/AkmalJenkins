@@ -76,7 +76,7 @@ public class MindbodyEmailListProcessor implements Runnable {
         for (CompanyPreferences companyPreferences : companyPreferencesList) {
             if (!StringUtil.isEmpty(companyPreferences.getCompanyLocation())) {
                 Integer value = Integer.parseInt(companyPreferences.getCompanyLocation());
-                processEachRow(companyPreferences.getFkCompanyId().getCompanyId(), value);
+                processEachRowNew(companyPreferences.getFkCompanyId().getCompanyId(), value);
             }
         }        
         

@@ -719,7 +719,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
                         SqlMethods sqlMethods = new SqlMethods();
                         Integer studioId = sqlMethods.getStudioID(userCompanyIds.getCompanyId());
                         MindbodyEmailListProcessor mindbodyEmailListProcessor = new MindbodyEmailListProcessor();
-                        mindbodyEmailListProcessor.processEachRow(userCompanyIds.getCompanyId(), studioId);
+                        mindbodyEmailListProcessor.processEachRowNew(userCompanyIds.getCompanyId(), studioId);
                     } catch (Throwable throwable) {
                         logger.error(throwable);
 //                        transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -753,7 +753,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
                         CompanyPreferences companyPreferences = companyPreferencesService.getByCompanyId(userCompanyIds.getCompanyId());
                         Integer studioId = Integer.parseInt(companyPreferences.getCompanyLocation());
                         MindbodyEmailListProcessor mindbodyEmailListProcessor = new MindbodyEmailListProcessor();
-                        mindbodyEmailListProcessor.processEachRow(userCompanyIds.getCompanyId(), studioId);
+                        mindbodyEmailListProcessor.processEachRowNew(userCompanyIds.getCompanyId(), studioId);
 //                        emailListService.updateUnsubscribedUserEmailLists(companyPreferences);
                         contactEmailListLookupService.updateUnsubscribedUserEmailLists(userCompanyIds.getCompanyId());
                             
