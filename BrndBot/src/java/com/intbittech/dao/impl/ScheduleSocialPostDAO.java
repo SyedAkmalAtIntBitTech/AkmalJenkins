@@ -47,6 +47,8 @@ public class ScheduleSocialPostDAO {
             Timestamp scheduleTime,
             String templateStatus,
             String imageType,
+            Integer createdBy,
+            Integer assignedTo,
             Connection conn) throws SQLException {
             String sql = "INSERT INTO scheduled_socialpost_list "
                 + " (fk_company_id, image_name, meta_data, type, image_type) VALUES"
@@ -84,6 +86,8 @@ public class ScheduleSocialPostDAO {
                     "0",
                     templateStatus,
                     companyId,
+                     createdBy,
+                     assignedTo,
                     conn);
             methodResponse.put("schedule_entity_id", scheduleId);
         } catch (SQLException ex) {
