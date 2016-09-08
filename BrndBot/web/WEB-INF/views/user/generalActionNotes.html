@@ -8,12 +8,18 @@
 
                     <div class="detail-section half">
                         <label class="detail-section-label">Action Assignment</label>
-                        <a class="overlay-detail-input  ease-all">
+                        <a class="overlay-detail-input  ease-all"  ng-click = "changeUsers=true">
                             <div class="user-badge" style="height:30px; width:30px; line-height: 30px; text-align: center; margin-right: 15px; border-radius: 30px; background-color:lightblue; font-size: 14px; font-weight: bold; color: white;">AS</div>
                             <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">{{assignedTo}}</span>
                         </a>
                     </div>
-
+                    <div ng-show="changeUsers">
+                        <a id="addactionClose" ng-click = "changeUsers=false" class="modal-pane-header-exit"></a>
+                        <select id="assignTo">
+                            <option ng-repeat="users in allUsers" value="{{users.userId}}">{{users.userName}}</option>
+                        </select><br><br>
+                        <input type="button" id="changeUser" value="change user" ng-click="changeAssignedTo(schedule_id)"/>
+                    </div>
     <!--
     <div id="facebooknotesection1" ng-show='generalNotes'>
     <div class="below-nav-container-saved-post-detail">
@@ -84,6 +90,6 @@
         <br>
     </div>
     <div class="action-comment-input-wrap" style="position: absolute; bottom:0px; width:100%; padding: 15px 60px; background-color:white; ">
-        <div class="input"> <input size="40" class="fluid"></div>
+        <div class="input"> <input size="40" class="fluid" placeholder="comment here"><input type="button" value="comment"/></div>
     </div>
 </div>

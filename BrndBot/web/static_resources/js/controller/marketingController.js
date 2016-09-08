@@ -64,7 +64,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.userFirstName = kGlobalCompanyObject.userFirstName;
                 $scope.userLastName = kGlobalCompanyObject.userLastName;
 
-                kGlobalCompanyObject.userHashId = 'undefined';
+                kGlobalCompanyObject.userHashId = '';
                 appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
                 appSessionFactory.getDashboardMessage().then(function(message){
                     if(message)
@@ -134,6 +134,18 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.entityId = zero;
             $scope.closePopup();
             $location.path("/" + pageName);
+        };
+
+        $scope.getAllUsersInCompany = function(){
+            yourPlanFactory.allUsersInCompanyGet().then(function (data) {
+                $scope.allUsers = data.d.details;
+            });
+            yourPlanFactory.noOfUsersInCompanyGet().then(function (data) {
+                var noOfUsersInCompany = data.d.details;
+                if (parseInt(noOfUsersInCompany) > 1){
+                    $scope.moreThanOneUser = true;
+                }
+            });
         };
 
         $scope.getAllMarketingPrograms = function (forward) {
@@ -341,6 +353,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         {
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
             {
+                var userAssignToId = $("#assignTo option:selected").val();
                 $scope.timePickerVal = false;
                 var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
                 var actionDateTime1 = datePicker.toLocaleString() + " " + actionTime1.toLocaleString();
@@ -379,7 +392,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 
                 var action = {"title": addTitle, "actiontype": actionType.value,
                     "type": "save", "description": "", "marketingType": $scope.programId,
-                    "action_date": epoch_time, "days": days};
+                    "action_date": epoch_time, "days": days, "userAssignToId":userAssignToId};
                 companyMarketingProgramFactory.addActionPost(action).then(function (data) {
                     $scope.closeOverlay();
                     $scope.getProgramActions('emailautomation');

@@ -36,7 +36,14 @@ factoryApp.factory('yourPlanFactory', function ($q, authenticatedServiceFactory,
         });
         return deffered.promise;
     };
-    
+    yourPlanFactoryObject.changeAssigedToPOST = function (assignedToDetails) {
+        var deffered = $q.defer();
+        var url = configurationService.changeAssigedToURL();
+        authenticatedServiceFactory.makeCall("POST", url,assignedToDetails,"").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
 
     yourPlanFactoryObject.noOfUsersInCompanyGet = function () {
         var deffered = $q.defer();

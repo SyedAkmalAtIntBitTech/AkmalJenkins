@@ -128,7 +128,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.userFirstName = kGlobalCompanyObject.userFirstName;
                 $scope.userLastName = kGlobalCompanyObject.userLastName;
 
-                kGlobalCompanyObject.userHashId = 'undefined';
+                kGlobalCompanyObject.userHashId = '';
                 appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
                 appSessionFactory.getDashboardMessage().then(function(message){
                     if(message)
@@ -300,17 +300,35 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.inviteUser = function (userDetails) {
-            var roles = [];
-            roles.push(userDetails.adminRadio);
-            var invitation = {"userRoleLookUpId":"", "emailaddress": userDetails.email, "roles": roles, "task": 'invitation'};
-           
-            onboardingFactory.inviteUserPost(invitation).then(function (data) {
-                growl(data.d.message);
-                $scope.closeInviteUsersPopup();
-//                $location.path("/settings/useraccountsettings");
-            });
-        };
+            if (!userDetails){
+                growl(noEmailAndRole);
+            }else if (!userDetails.email) {
+                growl(noEmail);
+            }else if (!userDetails.adminRadio){
+                growl(noRole);
+            }else {
+                var roles = [];
+                roles.push(userDetails.adminRadio);
+                var invitation = {"userRoleLookUpId":"", "emailaddress": userDetails.email, "roles": roles, "task": 'invitation'};
 
+                onboardingFactory.inviteUserPost(invitation).then(function (data) {
+                    growl(data.d.message);
+                    $scope.closeInviteUsersPopup();
+    //                $location.path("/settings/useraccountsettings");
+                });
+            }
+        };
+        
+        $scope.changeAssignedTo = function(scheduleId){
+            var userAssignToId = $("#assignTo option:selected").val();
+            
+            var assignToDetails = {"scheduleId":scheduleId, "userAssignTo": userAssignToId};
+            yourPlanFactory.changeAssigedToPOST(assignToDetails).then(function (data) {
+                
+            });
+
+        };
+        
         $scope.formatDate = function (programDate) {
             var dateArray = programDate.split('-');
             var month = dateArray[1];

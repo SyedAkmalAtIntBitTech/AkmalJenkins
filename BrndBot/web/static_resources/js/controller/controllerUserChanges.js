@@ -168,15 +168,23 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         };
 
         $scope.inviteUser = function (userDetails) {
-            var roles = [];
-            roles.push(userDetails.adminRadio);
-            var invitation = {"userRoleLookUpId":"", "emailaddress": userDetails.email, "roles": roles, "task": 'invitation'};
-           
-            onboardingFactory.inviteUserPost(invitation).then(function (data) {
-                growl(data.d.message);
-                $scope.closeOverlay();
-                $location.path("/settings/useraccountsettings");
-            });
+            if (!userDetails){
+                growl(noEmailAndRole);
+            }else if (!userDetails.email) {
+                growl(noEmail);
+            }else if (!userDetails.adminRadio){
+                growl(noRole);
+            }else {
+                var roles = [];
+                roles.push(userDetails.adminRadio);
+                var invitation = {"userRoleLookUpId":"", "emailaddress": userDetails.email, "roles": roles, "task": 'invitation'};
+
+                onboardingFactory.inviteUserPost(invitation).then(function (data) {
+                    growl(data.d.message);
+                    $scope.closeInviteUsersPopup();
+    //                $location.path("/settings/useraccountsettings");
+                });
+            }
         };
 
         $scope.resendUserInvite = function (inviteId) {
