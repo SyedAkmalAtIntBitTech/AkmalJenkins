@@ -43,14 +43,14 @@ public class UnsubscribedEmailCompanyDaoImpl implements UnsubscribedEmailCompany
     }
 
     @Override
-    public Boolean isEmailUnsubscribed(Integer companyId, String emailAddress) throws ProcessFailed {
+    public Boolean isEmailUnsubscribed(Integer companyId, Integer emailAddressId) throws ProcessFailed {
         try {
             Boolean isUnsubscribed = true;
             Criteria criteria = sessionFactory.getCurrentSession().createCriteria(UnsubscribedCompanyLookup.class)
                     .setFetchMode("fkCompanyId", FetchMode.JOIN)
                     .setFetchMode("fkUnsubscribedEmailId", FetchMode.JOIN)
                     .add(Restrictions.eq("fkCompanyId.companyId", companyId))
-                    .add(Restrictions.eq("fkUnsubscribedEmailId.emailAddress",emailAddress));
+                    .add(Restrictions.eq("fkUnsubscribedEmailId.unsubscribedEmailId",emailAddressId));
             List<UnsubscribedCompanyLookup> unsubscribedCompanyLookup = criteria.list();
             if(unsubscribedCompanyLookup.isEmpty())
                 isUnsubscribed = false;

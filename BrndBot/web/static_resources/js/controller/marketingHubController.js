@@ -744,7 +744,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-            for (var i = 0; i < emailListData.length; i++) {
+            for (var i = 0; i < emailListData.length-1; i++) {
                 var emailID = emailListData[i];
                 if (regex.test(emailID)) {
                     emailLists.push(emailID);
@@ -758,8 +758,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 //                growl("Some of the email addresses are invalid in the csv file and they have been excluded.");
                 $scope.csvInvalidValidation = true;
             }
-
-            settingsFactory.unSubscribeEmails(emailLists).then(function (data) {
+            var unsubscribeData = { "emailList" : emailLists };
+            settingsFactory.unSubscribeEmails(unsubscribeData).then(function (data) {
                 growl(data.d.operationStatus.messages[0]);
                 $scope.hideUnsubscribeEmailsPopup();
             });

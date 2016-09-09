@@ -83,7 +83,7 @@ public class UnsubscribedEmailsServiceImpl implements UnsubscribedEmailsService 
                 unsubscribedEmailId = unsubscribedEmails.getUnsubscribedEmailId();
             }
             
-            if(!unsubscribedEmailCompanyDao.isEmailUnsubscribed(companyId, emailAddress)) {
+            if(!unsubscribedEmailCompanyDao.isEmailUnsubscribed(companyId, unsubscribedEmailId)) {
                 UnsubscribedCompanyLookup unsubscribedCompanyLookup = new UnsubscribedCompanyLookup();
                 unsubscribedEmails = new UnsubscribedEmails();
                 unsubscribedEmails.setUnsubscribedEmailId(unsubscribedEmailId);

@@ -31,6 +31,6 @@ public interface UnsubscribedEmailCompanyDao {
      * @return Boolean
      * @throws ProcessFailed the process failed
      */
-    public Boolean isEmailUnsubscribed(Integer companyId, String emailAddress) throws ProcessFailed;
+    public Boolean isEmailUnsubscribed(Integer companyId, Integer emailAddressId) throws ProcessFailed;
     
 }
