@@ -332,20 +332,20 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
         $scope.addActionComment = function (scheduleId, comment) {
             var commentDetails = {"scheduleId": scheduleId, "comment": comment};
-            yourPlanFactory.addCommentPost(commentDetails).then(function (data) {
-
+            yourPlanFactory.addActionCommentPOST(commentDetails).then(function (data) {
+                getActionComments(scheduleId);
             });
         };
 
         $scope.getActionComments = function (scheduleId) {
-            yourPlanFactory.commentsGet(scheduleId).then(function (data) {
+            yourPlanFactory.actionCommentsGet(scheduleId).then(function (data) {
                 $scope.comments = data.d.details;
             });
         };
 
-        $scope.removeActionComment = function (commentId){
-            yourPlanFactory.removeComment(commentId).then(function(data){
-
+        $scope.removeActionComment = function (scheduleId,commentId){
+            yourPlanFactory.removeActionComments(commentId).then(function(data){
+                getActionComments(scheduleId);
             });
         };
         
