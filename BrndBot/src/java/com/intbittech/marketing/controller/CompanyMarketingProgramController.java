@@ -218,6 +218,9 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("description", scheduledEntityListObject.getScheduleDesc());
                 jSONObject.put("postDateStatus", postDateStatus);
                 jSONObject.put("status", TemplateStatus.valueOf(scheduledEntityListObject.getStatus()).getDisplayName());
+                jSONObject.put("assignedToId", scheduledEntityListObject.getAssignedTo().getUserId());
+                jSONObject.put("assignedFirstName", scheduledEntityListObject.getAssignedTo().getFirstName());
+                jSONObject.put("assignedLastName", scheduledEntityListObject.getAssignedTo().getLastName());
                 scheduledEmailJsonArray.put(jSONObject);
             }
             List<ScheduledEntityList> scheduledEmailListForRecurring = scheduledEntityListService.getScheduledEntityListIdForEmailType(userProgram_id, Boolean.FALSE);
