@@ -5,15 +5,17 @@
  */
 package com.intbittech.modelmappers;
 
+import com.intbittech.model.UserCompanyIds;
+
 /**
  *
  * @author ajit @ Intbit
  */
-public class CommentLogDetails {
+public class CommentLogDetails extends UserCompanyIds{
     
     private Integer commentLogId;
     private String comment;
-    private Integer scheduledEntityListId;
+    private Integer scheduleId;
 
     public Integer getCommentLogId() {
         return commentLogId;
@@ -31,13 +33,15 @@ public class CommentLogDetails {
         this.comment = comment;
     }
 
-    public Integer getScheduledEntityListId() {
-        return scheduledEntityListId;
+    public Integer getScheduleId() {
+        return scheduleId;
     }
 
-    public void setScheduledEntityListId(Integer scheduledEntityListId) {
-        this.scheduledEntityListId = scheduledEntityListId;
+    public void setScheduleId(Integer scheduleId) {
+        this.scheduleId = scheduleId;
     }
+
+   
     
     
     
