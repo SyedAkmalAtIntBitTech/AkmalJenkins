@@ -31,7 +31,7 @@ public class ContactEmailListLookupServiceImpl implements ContactEmailListLookup
 
     @Autowired
     private ContactEmailListLookupDao contactEmailListLookupDao;
-    
+
     @Autowired
     private UnsubscribedEmailsService unsubscribedEmailsService;
 
@@ -48,7 +48,7 @@ public class ContactEmailListLookupServiceImpl implements ContactEmailListLookup
         }
         return contactEmailListLookup;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -56,7 +56,7 @@ public class ContactEmailListLookupServiceImpl implements ContactEmailListLookup
         List<ContactEmailListLookup> contactsList = contactEmailListLookupDao.getContactsByEmailListId(emailListId);
         return contactsList;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -64,22 +64,24 @@ public class ContactEmailListLookupServiceImpl implements ContactEmailListLookup
         ContactEmailListLookup contacts = contactEmailListLookupDao.getByEmailListIdAndContactId(emailListId, contactId);
         return contacts;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void updateUnsubscribedUserEmailLists(Integer companyId) throws ProcessFailed {
         List<ContactEmailListLookup> contactsList = contactEmailListLookupDao.getGeneralContactsByCompanyId(companyId);
-        for(ContactEmailListLookup contact:contactsList) {
-            UnsubscribedEmails unsubscribedEmails = unsubscribedEmailsService.getByUnsubscribedEmailsAddress(contact.getFkContactId().getEmailAddress());
-            if(unsubscribedEmails != null) {
-                ContactEmailListLookup contactEmailListLookup = getByContactEmailListLookupId(contact.getContactLookupId());
-                contactEmailListLookup.setUnsubscribed(Boolean.TRUE);
-                update(contactEmailListLookup);
+        if (contactsList != null) {
+            for (ContactEmailListLookup contact : contactsList) {
+                UnsubscribedEmails unsubscribedEmails = unsubscribedEmailsService.getByUnsubscribedEmailsAddress(contact.getFkContactId().getEmailAddress());
+                if (unsubscribedEmails != null) {
+                    ContactEmailListLookup contactEmailListLookup = getByContactEmailListLookupId(contact.getContactLookupId());
+                    contactEmailListLookup.setUnsubscribed(Boolean.TRUE);
+                    update(contactEmailListLookup);
+                }
+
             }
-            
         }
-        
+
     }
 
     /**
