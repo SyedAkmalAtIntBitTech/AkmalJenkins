@@ -21,6 +21,7 @@ public class ContactDetails extends UserCompanyIds implements Serializable{
     private Integer contactId;
     private Integer contactEmailListLookupId;
     private Date addedDate;
+    private Boolean isUnsubscribed;
 
     public String getEmailAddress() {
         return emailAddress;
@@ -76,6 +77,14 @@ public class ContactDetails extends UserCompanyIds implements Serializable{
 
     public void setAddedDate(Date addedDate) {
         this.addedDate = addedDate;
+    }
+
+    public Boolean getIsUnsubscribed() {
+        return isUnsubscribed;
+    }
+
+    public void setIsUnsubscribed(Boolean isUnsubscribed) {
+        this.isUnsubscribed = isUnsubscribed;
     }
     
 }
