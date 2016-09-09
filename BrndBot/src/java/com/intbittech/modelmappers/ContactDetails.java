@@ -7,6 +7,7 @@ package com.intbittech.modelmappers;
 
 import com.intbittech.model.UserCompanyIds;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -19,6 +20,7 @@ public class ContactDetails extends UserCompanyIds implements Serializable{
     private Integer emailListId;
     private Integer contactId;
     private Integer contactEmailListLookupId;
+    private Date addedDate;
 
     public String getEmailAddress() {
         return emailAddress;
@@ -67,4 +69,13 @@ public class ContactDetails extends UserCompanyIds implements Serializable{
     public void setContactEmailListLookupId(Integer contactEmailListLookupId) {
         this.contactEmailListLookupId = contactEmailListLookupId;
     }
+
+    public Date getAddedDate() {
+        return addedDate;
+    }
+
+    public void setAddedDate(Date addedDate) {
+        this.addedDate = addedDate;
+    }
+    
 }

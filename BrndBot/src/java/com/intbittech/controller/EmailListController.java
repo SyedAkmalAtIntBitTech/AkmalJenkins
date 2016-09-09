@@ -237,7 +237,8 @@ public class EmailListController {
                     contactDetails.setFirstName(contact.getFkContactId().getFirstName());
                     contactDetails.setLastName(contact.getFkContactId().getLastName());
                     contactDetails.setContactEmailListLookupId(contact.getContactLookupId());
-                    contactsList.add(contact);
+                    contactDetails.setAddedDate(contact.getAddedDate());
+                    contactDetailsList.add(contactDetails);
                 }
             }
             genericResponse.setDetails(contactDetailsList);

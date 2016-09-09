@@ -40,6 +40,25 @@ factoryApp.factory('emailListFactory', function ($q, authenticatedServiceFactory
         });
         return deffered.promise;
     };
+    
+    emailListFactoryObject.getContactsOfEmailList = function (data) {
+        var deffered = $q.defer();
+        var url = configurationService.getContactsOfEmailListURL()+"?emailListId="+data;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    
+    emailListFactoryObject.editContact = function (data) {
+        var deffered = $q.defer();
+        var url = configurationService.editContactURL();
+        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    
 //    emailListFactoryObject.emailListSavePost = function (emailListObject) {
 //       var deffered = $q.defer();
 //       var url = configurationService.emailListURL()+"?emailListName="+emailListName+"&update="+requestMap;

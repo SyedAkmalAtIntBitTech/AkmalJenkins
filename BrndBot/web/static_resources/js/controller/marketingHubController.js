@@ -541,40 +541,51 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             var type = $("#get_type").val();
             $("#tab4").hide();
             $("#email_list_name").val(list_name);
-            emailListFactory.emailListGet($scope.emailListName, "emailsForEmailList").then(function (data) {
-                var parseData = JSON.parse(data.d.details);
-                $(".page-background").css("overflow", "scroll");
-                $(".page-background").css("background-color", "#EFF2F6");
-                $scope.user_emailAddresses = parseData.user_emailAddresses;
-                $scope.mindbody_emailAddresses = parseData.mindbody_emailAddresses;
+            
+            emailListFactory.getContactsOfEmailList($scope.emailListId).then(function (data){
+                var parseData = data.d.details; 
+                $scope.user_emailAddresses = parseData;
+//              $scope.mindbody_emailAddresses = parseData.mindbody_emailAddresses;
                 $scope.selected_email_listname = list_name;
                 $scope.type = type;
-                if (type === 'user') {
-                    $("#tab1").hide();
-                    $("#tab2").hide();
-                    $("#tab3").show();
-                    $("#addcontacts").show();
-                    $("#deleteSelected").show();
-                    $("#selectAll").show();
-                    for (var i = 0; i <= data.user_emailAddresses.length; i++) {
-                        var emailadd = data.user_emailAddresses[i];
-                        if (emailadd.emailAddress === "") {
-                            $("#NoContacts").css("display", "block");
-                            setTimeout(function ()
-                            {
-                                $('input[type="checkbox"]').css("display", "none");
-                            }, 100);
-                        }
-                    }
-                } else if (type === 'mindbody') {
-                    $("#addcontact").hide();
-                    $("#email1").hide();
-                    setTimeout(function ()
-                    {
-                        $('input[type="checkbox"]').css("display", "none");
-                    }, 100);
-                }
             });
+            
+            
+//            emailListFactory.emailListGet($scope.emailListName, "emailsForEmailList").then(function (data) {
+////                alert(JSON.stringify(data));
+//                var parseData = JSON.parse(data.d.details);
+//                $(".page-background").css("overflow", "scroll");
+//                $(".page-background").css("background-color", "#EFF2F6");
+////                $scope.user_emailAddresses = parseData.user_emailAddresses;
+////                $scope.mindbody_emailAddresses = parseData.mindbody_emailAddresses;
+//                $scope.selected_email_listname = list_name;
+//                $scope.type = type;
+//                if (type === 'user') {
+//                    $("#tab1").hide();
+//                    $("#tab2").hide();
+//                    $("#tab3").show();
+//                    $("#addcontacts").show();
+//                    $("#deleteSelected").show();
+//                    $("#selectAll").show();
+//                    for (var i = 0; i <= data.user_emailAddresses.length; i++) {
+//                        var emailadd = data.user_emailAddresses[i];
+//                        if (emailadd.emailAddress === "") {
+//                            $("#NoContacts").css("display", "block");
+//                            setTimeout(function ()
+//                            {
+//                                $('input[type="checkbox"]').css("display", "none");
+//                            }, 100);
+//                        }
+//                    }
+//                } else if (type === 'mindbody') {
+//                    $("#addcontact").hide();
+//                    $("#email1").hide();
+//                    setTimeout(function ()
+//                    {
+//                        $('input[type="checkbox"]').css("display", "none");
+//                    }, 100);
+//                }
+//            });
         };
 
 //        $scope.contactValidation = function (email) {
@@ -617,6 +628,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 var firstName = email.firstName;
                 var lastName = email.lastName;
                 var emailListId = $scope.emailListId;
+                var contactId = $scope.contactId;
                 var type = $scope.type;
                 if ($scope.validateEmailListPopup(email)) {
                     var emaildetails;
@@ -652,17 +664,16 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 //                                $("#addContactButton").unbind('click');
 //                            }
 //                        });
-//                    } else if (type === "update") {
-//                        var id = $scope.uuid;
-//                        emaildetails = {"update": "updateEmailID", "emailUID": id, "emailListName": email_list_name,
-//                            "emailAddress": email_address, "emailFirstName": firstName,
-//                            "emailLastName": lastName};
-//                        emailListFactory.emailListSavePost(emaildetails).then(function (data) {
-//                            growl(datasaved);
-//                            $scope.updateList();
-//                            $scope.showAddContactPopup = false;
-//                            $scope.overlayFade = false;
-//                        });
+                    } else if (type === "update") {
+                        emaildetails = {"emailListId": $scope.emailListId,"emailAddress": email_address,
+                                        "firstName": firstName,"lastName": lastName,"contactId":contactId};
+                        emailListFactory.editContact(emaildetails).then(function (data) {
+//                            alert(JSON.stringify(data));
+                            growl(datasaved);
+                            $scope.updateList();
+                            $scope.showAddContactPopup = false;
+                            $scope.overlayFade = false;
+                        });
                     }
                     
                 }
@@ -878,7 +889,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.emaildropdown = true;
         };
 
-        $scope.addContactDetails = function (type, email, id, fname, lname)
+        $scope.addContactDetails = function (type, email, id, fname, lname, addedDate)
         {
             $("fade").show();
             $scope.overlayFade = true;
@@ -889,7 +900,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             };
             $("#fade").hide();
             $scope.showAddContactPopup = true;
-            $scope.uuid = id;
+            $scope.contactId = id;
             if (type === "update")
             {
                 $scope.emailId = email;
@@ -912,6 +923,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $scope.lastName = "";
             }
             $scope.type = type;
+            $scope.addedDate = addedDate;
         };
         $scope.showAddContacts = function () {
             count = 0;

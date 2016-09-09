@@ -512,6 +512,14 @@ factoryApp.service('configurationService', function () {
         return getHost() + "emaillist/addContact";
     };
     
+    this.getContactsOfEmailListURL = function () {
+        return getHost() + "emaillist/getContactsOfEmailList";
+    };
+    
+    this.editContactURL = function () {
+        return getHost() + "emaillist/editContact";
+    };
+    
     this.emailListGetWithNoOfContactsForUserURL = function () {
         return getHost() + "emaillist/getAllEmailListWithNoOfContactsForUser";
     };
