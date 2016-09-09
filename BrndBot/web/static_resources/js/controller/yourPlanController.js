@@ -506,7 +506,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.showUpdateBtn = true;
         };
         $scope.globalScheduleData = {};
-        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, assignedTo, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
+        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, assignedFirstName, assignedLastName, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
         {
             $scope.dateLesser = false;
 //        $scope.entities_selected_time =schedule_time;
@@ -515,10 +515,12 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.entities_selected_time = $filter('date')(schedule_time, "MMM dd yyyy");
             $scope.savedEmail = false;
             $scope.schedule_id = schedule_id;
+            $scope.assignedFirstName = assignedFirstName;
+            $scope.assignedLastName = assignedLastName;
+            $scope.assignedToInitialChars = assignedFirstName.charAt(0) + assignedLastName.charAt(0);
             $scope.generalSavedDetails = true;
             $scope.generalNotes = false;
             $scope.generalActions = false;
-            $scope.assignedTo = assignedTo;
             $scope.emailsectionClass = 'emailsectionClass';
             $scope.fadeClass = 'fadeClass';
             $scope.action_template_status = template_status;

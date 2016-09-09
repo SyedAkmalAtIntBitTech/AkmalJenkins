@@ -977,7 +977,7 @@ public class ScheduleDAO {
                     scheduleDetailJSONObject.put("entity_type", rs.getString("entity_type"));
                     scheduleDetailJSONObject.put("status", rs.getString("status"));
                     scheduleDetailJSONObject.put("user_id", rs.getInt("fk_company_id"));
-                    scheduleDetailJSONObject.put("assignedToId", rs.getInt("fk_company_id"));
+                    scheduleDetailJSONObject.put("assignedToId", rs.getInt("user_id"));
                     scheduleDetailJSONObject.put("assignedFirstName", rs.getString("first_name"));
                     scheduleDetailJSONObject.put("assignedLastName", rs.getString("last_name"));
                     scheduleDetailJSONObject.put("template_status",
