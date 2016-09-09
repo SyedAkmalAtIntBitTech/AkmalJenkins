@@ -520,6 +520,10 @@ factoryApp.service('configurationService', function () {
         return getHost() + "emaillist/editContact";
     };
     
+    this.deleteEmailListURL = function () {
+        return getHost() + "emaillist/deleteEmailList";
+    };
+    
     this.emailListGetWithNoOfContactsForUserURL = function () {
         return getHost() + "emaillist/getAllEmailListWithNoOfContactsForUser";
     };

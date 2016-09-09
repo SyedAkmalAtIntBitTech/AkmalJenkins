@@ -59,6 +59,14 @@ factoryApp.factory('emailListFactory', function ($q, authenticatedServiceFactory
         return deffered.promise;
     };
     
+    emailListFactoryObject.deleteEmailList = function (data) {
+        var deffered = $q.defer();
+        var url = configurationService.deleteEmailListURL();
+        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
 //    emailListFactoryObject.emailListSavePost = function (emailListObject) {
 //       var deffered = $q.defer();
 //       var url = configurationService.emailListURL()+"?emailListName="+emailListName+"&update="+requestMap;
