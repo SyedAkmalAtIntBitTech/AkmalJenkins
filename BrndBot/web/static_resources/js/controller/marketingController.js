@@ -36,6 +36,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.validateLinkName = false;
         $scope.validateLinkUrl = false;
         $scope.addBlockCount = 0;
+        $scope.changeUsers=false;
         $scope.companyAddressDetails = {};
 
         $scope.ddSelectAction = {
@@ -348,7 +349,22 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             , m = (""+dateStr).match(r);
           return (m) ? Date.UTC(m[1], m[2]-1, m[3], m[4], m[5], m[6]) : undefined;
         };
+        $scope.changeAssignedTo = function (scheduleId) {
+            var userAssignToId = $("#assignTo option:selected").val();
 
+            var assignToDetails = {"scheduleId": scheduleId, "userAssignToId": userAssignToId};
+            yourPlanFactory.changeAssigedToPOST(assignToDetails).then(function (data) {
+//                $scope.closeChangeAssignedToPopup(); 
+                $scope.changeUsers=false;
+//                $scope.closePopup();$scope.promptHideShow(false);$scope.clickedDeleteAction = false;
+            });
+
+        };
+
+        $scope.closeChangeAssignedToPopup = function(){
+            $scope.changeUsers=false;
+        };
+        
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
         {
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
@@ -601,7 +617,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //            }
 //        });
 //    };
-        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, assignedFirstName, assignedLastName, schedule_title, schedule_desc, schedule_time, action_status, days, marketingName)
+        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, assignedFirstName, assignedLastName, action_status, days, marketingName)
         {
             $scope.isRecurring = false;
             $scope.savedEmail = false;
@@ -609,7 +625,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.generalSavedDetails = true;
             $scope.generalNotes = false;
             $scope.generalActions = false;
-            $scope.schedule_id = schedule_id;
             $scope.assignedFirstName = assignedFirstName;
             $scope.assignedLastName = assignedLastName;
             $scope.assignedToInitialChars = assignedFirstName.charAt(0) + assignedLastName.charAt(0);

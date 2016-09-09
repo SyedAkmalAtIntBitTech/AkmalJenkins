@@ -255,6 +255,9 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("postDate", cal.getTimeInMillis());
                 jSONObject.put("postTime", scheduledEntityListObject.getScheduleTime().getTime());
                 jSONObject.put("actionType", scheduledEntityListObject.getEntityType());
+                jSONObject.put("assignedToId", scheduledEntityListObject.getAssignedTo().getUserId());
+                jSONObject.put("assignedFirstName", scheduledEntityListObject.getAssignedTo().getFirstName());
+                jSONObject.put("assignedLastName", scheduledEntityListObject.getAssignedTo().getLastName());
                 scheduledEmailAndSocailPostJsonForRecurringArray.put(jSONObject);
                 System.out.println(scheduledEmailAndSocailPostJsonForRecurringArray);
 
@@ -289,6 +292,9 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("postDate", cal.getTimeInMillis());
                 jSONObject.put("postTime", scheduledSocialpostListObject.getScheduleTime().getTime());
                 jSONObject.put("actionType", scheduledSocialpostListObject.getEntityType());
+                jSONObject.put("assignedToId", scheduledSocialpostListObject.getAssignedTo().getUserId());
+                jSONObject.put("assignedFirstName", scheduledSocialpostListObject.getAssignedTo().getFirstName());
+                jSONObject.put("assignedLastName", scheduledSocialpostListObject.getAssignedTo().getLastName());
                 scheduledEmailAndSocailPostJsonForRecurringArray.put(jSONObject);
 
             }
