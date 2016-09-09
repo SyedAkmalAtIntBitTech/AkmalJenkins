@@ -621,10 +621,14 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 if ($scope.validateEmailListPopup(email)) {
                     var emaildetails;
                     if (type === "add") {
-                        emaildetails = {"emailAddress":email_address,"emailListId" :emailListId, "emailListName": email_list_name,
-                                        "firstName": firstName,"lastName": lastName};
+                        emaildetails = {"emailAddress":email_address, "firstName": firstName, "lastName": lastName, "emailListId" :emailListId};
                         emailListFactory.addEmailListContact(emaildetails).then(function (data){
-                            alert(JSON.stringify(data));
+                            $("#addContactButton").unbind('click');
+                            growl(datasaved);
+                            $scope.updateList();
+                            $scope.overlayFade = false;
+                            $scope.showAddContactPopup = false;
+                            $("#addContactButton").unbind('click');
                         });
 //                        emailListFactory.emailListSavePost(emaildetails).then(function (data) {
 //                            $("#addContactButton").unbind('click');
