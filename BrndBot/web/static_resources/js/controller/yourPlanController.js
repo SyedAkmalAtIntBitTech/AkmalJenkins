@@ -165,6 +165,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
                 $scope.tomorrow_date = moment($scope.addDays(new Date(), 1)).format('YYYY-MM-DD');
                 $scope.entitySet = parseJSON.entitydata;
+                alert($scope.entitySet);
                 $scope.nodata = parseJSON.noactionsmessage;
 
             });
