@@ -705,7 +705,7 @@ public class EmailListServiceImpl implements EmailListService {
         emailList.setFkCompanyId(company);
         Integer emailListId = emailListDao.save(emailList);
         emailList = getByEmailListId(emailListId);
-        if(addEmailListDetails.getEmailListTags().size()>0) {
+        if(addEmailListDetails.getEmailListTags()!=null) {
             for(String tag : addEmailListDetails.getEmailListTags()) {
                 EmailListTagLookup emailListTagLookup = new EmailListTagLookup();
                 emailListTagLookup.setFkEmailListId(emailList);

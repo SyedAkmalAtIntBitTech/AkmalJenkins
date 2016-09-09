@@ -70,10 +70,10 @@ public class ContactsServiceImpl implements ContactsService{
      * {@inheritDoc}
      */
     public Integer addContact(ContactDetails contactDetails) {
-        Contacts contacts = new Contacts();
-        contacts = getContactByEmailAddress(contactDetails.getEmailAddress());
+        Contacts contacts = getContactByEmailAddress(contactDetails.getEmailAddress());
         Integer contactId = 0;
         if(contacts == null) {
+            contacts = new Contacts();
             contacts.setEmailAddress(contactDetails.getEmailAddress());
             contacts.setFirstName(contactDetails.getFirstName());
             contacts.setLastName(contactDetails.getLastName());
