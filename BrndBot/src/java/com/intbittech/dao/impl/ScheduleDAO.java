@@ -903,7 +903,172 @@ public class ScheduleDAO {
             }
         }
         return json_array_email;
-    }
+    }   
+    
+    public static JSONObject getScheduledEntitiesWithUser(Integer companyId,
+            LocalDate fromDate, LocalDate toDate) throws SQLException {
 
+        Map<String, JSONArray> result = new LinkedHashMap<>();
+
+        String sql =  "SELECT DISTINCT ON (scheduled_entity_list_id) slist.*, "
+                + "concat(date(programtable.date_event) - slist.days, ' ', slist.schedule_time::time WITH TIME ZONE) "
+                + "as cal_schedule_time, concat(date(programtable.date_event), ' ', slist.schedule_time::time WITH TIME ZONE)"
+                + " as cal_schedule_time_recurring, date(schedule_time) schedule_date ,suser.first_name,suser.last_name,suser.user_id "
+                + "FROM scheduled_entity_list slist,  company_marketing_program programtable,"
+                + " users as suser WHERE programtable.status = 'Open' AND slist.fk_company_id = ?  "
+                + "AND ((date(schedule_time) <= ?  AND date(schedule_time) >= ?) "
+                + "OR ((slist.is_recurring = 'false' AND date(programtable.date_event) - slist.days<= ?  "
+                + "AND date(programtable.date_event) - slist.days >= ?)  )) "
+                + "AND slist.fk_company_marketing_program_id = programtable.company_marketing_program_id AND slist.assigned_to = suser.user_id"
+                + " ORDER BY slist.scheduled_entity_list_id, schedule_time" ;
+        try (Connection connection = connectionManager.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, companyId);
+            ps.setDate(2, Date.valueOf(toDate));
+            ps.setDate(3, Date.valueOf(fromDate));
+            ps.setDate(4, Date.valueOf(toDate));
+            ps.setDate(5, Date.valueOf(fromDate));
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Timestamp scheduleTimestamp = rs.getTimestamp("schedule_time");
+                    long scheduleTime = scheduleTimestamp.getTime();
+                    JSONObject scheduleDetailJSONObject = new JSONObject();
+                    long scheduleDate;
+                    if (rs.getInt("fk_company_marketing_program_id") == 0) {
+                        scheduleDate = rs.getTimestamp("schedule_time").getTime();
+                    } else {
+                        Timestamp scheduleTimestamp1 = rs.getTimestamp("cal_schedule_time");
+                        if (rs.getBoolean("is_recurring")) {
+                            
+                            scheduleDate = rs.getTimestamp("cal_schedule_time_recurring").getTime();
+                        } else {
+                            scheduleDate = scheduleTimestamp1.getTime();
+                        }
+                    }
+                    scheduleDetailJSONObject.put("days", rs.getInt("days"));
+                    scheduleDetailJSONObject.put("schedule_id", rs.getInt("scheduled_entity_list_id"));
+                    scheduleDetailJSONObject.put("entity_id", rs.getInt("entity_id"));
+                    int marketingId = rs.getInt("fk_company_marketing_program_id");
+                    String marketingName = getMarketingProgramName(marketingId, connection);
+                    scheduleDetailJSONObject.put("marketingName", marketingName);
+                    scheduleDetailJSONObject.put("user_marketing_program_id", rs.getInt("fk_company_marketing_program_id"));
+                    scheduleDetailJSONObject.put("schedule_title", rs.getString("schedule_title"));
+                    scheduleDetailJSONObject.put("schedule_description", rs.getString("schedule_desc"));
+                    if (rs.getInt("fk_company_marketing_program_id") == 0) {
+                        scheduleDetailJSONObject.put("schedule_time", scheduleTime);
+                        if (DateTimeUtil.dateEqualsCurrentDate(new Date(scheduleTime))) {
+                            scheduleDetailJSONObject.put("is_today_active", "true");
+                        } else {
+                            scheduleDetailJSONObject.put("is_today_active", "false");
+                        }
+                    } else {
+                        long scheduleTime1;
+                        if (rs.getBoolean("is_recurring")) {
+                           scheduleTime1 = rs.getTimestamp("schedule_time").getTime();
+                        } else {
+                            scheduleTime1 = rs.getTimestamp("schedule_time").getTime();
+                        }
+                        scheduleDetailJSONObject.put("schedule_time", scheduleTime1);
+                        scheduleDetailJSONObject.put("is_today_active", "true");
+
+                    }
+                    scheduleDetailJSONObject.put("is_recurring", rs.getBoolean("is_recurring"));
+                    scheduleDetailJSONObject.put("entity_type", rs.getString("entity_type"));
+                    scheduleDetailJSONObject.put("status", rs.getString("status"));
+                    scheduleDetailJSONObject.put("user_id", rs.getInt("fk_company_id"));
+                    scheduleDetailJSONObject.put("assignedToId", rs.getInt("fk_company_id"));
+                    scheduleDetailJSONObject.put("assignedFirstName", rs.getString("first_name"));
+                    scheduleDetailJSONObject.put("assignedLastName", rs.getString("last_name"));
+                    scheduleDetailJSONObject.put("template_status",
+                            TemplateStatus.valueOf(rs.getString("status")).getDisplayName());
+
+                    if (!result.containsKey(String.valueOf(scheduleDate))) {
+                        result.put(String.valueOf(scheduleDate), new JSONArray());
+                    }
+
+                    result.get(String.valueOf(scheduleDate)).add(scheduleDetailJSONObject);
+                }
+                logger.log(Level.INFO, "In com.intbit.dao.ScheduleDAO.getScheduledEntities");
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e,
+                        "Exception while getting the schedule:", null), e);
+            }
+        }
+        Set<String> dateSet = result.keySet();
+        JSONArray entityDataArray = new JSONArray();
+        logger.log(Level.INFO, "dateSet" + dateSet.toString());
+        try {
+            Instant instant = fromDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+            java.util.Date from_date = (java.util.Date) Date.from(instant);
+            Instant instant1 = toDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+            java.util.Date to_date = (java.util.Date) Date.from(instant1);
+
+            LocalDate start = from_date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate end = to_date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            for (LocalDate date = start; date.isBefore(end); date = date.plusDays(1)) {
+                instant = date.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+                java.util.Date date_new = (java.util.Date) Date.from(instant);
+                String date_epoch = String.valueOf(date_new.getTime());
+                if (!dateSet.contains(date_epoch)) {
+                    result.put(date_epoch, new JSONArray());
+                }
+                logger.log(Level.INFO, date.toString());
+            }
+
+            Map<String, JSONObject> sortedMap = new TreeMap(result);
+            dateSet = sortedMap.keySet();
+
+            HashMap entityObject = null;
+            Iterator<String> iterator = dateSet.iterator();
+            while (iterator.hasNext()) {
+                entityObject = new HashMap();
+                String dateString = iterator.next();
+                String parsedDateString = new Date(Long.parseLong(dateString)).toString();
+                boolean foundObjectInArray = false;
+                for (Object entityDataArrayObject : entityDataArray) {
+                    HashMap entityDataArrayJSONObject = (HashMap) entityDataArrayObject;
+                    String dateInEntityDateJSONObject = (String) entityDataArrayJSONObject.get("date");
+                    if (!StringUtil.isEmpty(dateInEntityDateJSONObject) && dateInEntityDateJSONObject.equals(parsedDateString)) {
+                        foundObjectInArray = true;
+                        break;
+                    }
+                }
+                if (!foundObjectInArray) {
+                    entityObject.put("date", parsedDateString);
+                    JSONArray jsonArrayDateJSONEntities = new JSONArray();
+                    Iterator resultIterator = result.entrySet().iterator();
+                    Integer i = 0;
+                    while (resultIterator.hasNext()) {
+                        Map.Entry pair = (Map.Entry) resultIterator.next();
+                        JSONArray jsonArray = (JSONArray) pair.getValue();
+                        String jsonParsedString = new Date(Long.parseLong(pair.getKey().toString())).toString();
+                        if (jsonParsedString.equals(parsedDateString)) {
+                            if (jsonArray.size() > 0) {
+                                for (i = 0; i<jsonArray.size(); i++){
+                                    jsonArrayDateJSONEntities.add(jsonArray.get(i));
+                                }
+                                resultIterator.remove();                            
+                            }
+                        }
+
+                    }
+                    entityObject.put("dataArray", jsonArrayDateJSONEntities);
+                    entityDataArray.add(entityObject);
+                }
+
+            }
+
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e,
+                    "Exception while reading the dates :", null), e);
+        }
+        JSONObject json_data = new JSONObject();
+        json_data.put("noactionsmessage", "No Actions scheduled for this day");
+        json_data.put("entitydata", entityDataArray);
+        return json_data;
+
+    }
 
 }

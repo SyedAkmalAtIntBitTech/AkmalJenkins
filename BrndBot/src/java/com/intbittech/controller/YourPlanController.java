@@ -95,7 +95,8 @@ public class YourPlanController {
             toDate = LocalDate.parse(request.getParameter("to"));
             Integer companyId= Integer.parseInt(request.getParameter("companyId"));
             JSONObject scheduledEntities = 
-                     ScheduleDAO.getScheduledEntities(companyId, fromDate, toDate);
+                     //ScheduleDAO.getScheduledEntities(companyId, fromDate, toDate);
+                     ScheduleDAO.getScheduledEntitiesWithUser(companyId, fromDate, toDate);
             messageList.add(AppConstants.GSON.toJson(scheduledEntities));
             genericResponse.setDetails(messageList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success",new String[]{}, Locale.US)));
