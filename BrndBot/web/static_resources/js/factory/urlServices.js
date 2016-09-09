@@ -786,7 +786,7 @@ factoryApp.service('configurationService', function () {
     };
     
     this.changeAssignedToURL= function(){
-//        return getHost() + "getNumberOfUsersInCompany";
+        return getHost() + "actions/updateActionAssignedTo";
     };
 
     this.scheduledEmailURL = function () {

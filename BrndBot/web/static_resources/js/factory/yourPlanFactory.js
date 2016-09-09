@@ -38,7 +38,7 @@ factoryApp.factory('yourPlanFactory', function ($q, authenticatedServiceFactory,
     };
     yourPlanFactoryObject.changeAssigedToPOST = function (assignedToDetails) {
         var deffered = $q.defer();
-        var url = configurationService.changeAssigedToURL();
+        var url = configurationService.changeAssignedToURL();
         authenticatedServiceFactory.makeCall("POST", url, assignedToDetails, "").then(function (data) {
             deffered.resolve(data);
         });
