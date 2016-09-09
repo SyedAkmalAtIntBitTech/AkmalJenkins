@@ -763,6 +763,17 @@ factoryApp.service('configurationService', function () {
         return getHost() + "ChangeSchedule";
     };
 
+    this.addCommentURL = function(){
+        return getHost() + "";
+    };
+
+    this.getCommentsURL = function(){
+        return getHost() + "";
+    };
+
+    this.removeCommentURL = function(){
+        return getHost() + "";
+    };
     this.addActionURL = function () {
         return getHost() + "AddAction";
     };
