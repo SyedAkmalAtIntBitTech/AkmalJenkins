@@ -1,6 +1,8 @@
 marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location', 'settingsFactory', 'emailListFactory', 'emailDraftFactory', 'emailFactory', 'appSessionFactory', function ($scope, $location, settingsFactory, emailListFactory, emailDraftFactory, emailFactory, appSessionFactory) {
 
 //$scope.emailhubHeader = true;
+        var count = 0;
+        var selectedemailids = "";
         $scope.addEmailListButton = true;
         $scope.saveEmailSettingsButton = false;
         $scope.deletDraftsButton = false;
@@ -96,13 +98,11 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             }
         };
         $scope.selectedEmailCheckbox = function (emailListID) {
-            var count = 0;
-            var selectedemailids = "";
             var content = '<input type="checkbox" name="deleteid" value="' + emailListID + '" hidden="" id="deleteid"' + emailListID + '" checked>';
             var content1 = '<input type="checkbox" name="deleteid" value="' + emailListID + '" hidden="" id="deleteid"' + emailListID + '">';
             var htm = $("#" + emailListID).html();
             if (htm.contains('class="check-icon"')) {
-                count -= 1;
+                count -=  1;
                 $("#" + emailListID).html(content1);
                 selectedemailids = selectedemailids.replace(emailListID + ",", "");
             } else {
@@ -117,7 +117,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $scope.showDeleteEmailList = true;
                 $("#removeselactions").show();
             }
-            if (count === -1)
+            if (count < 1)
             {
                 $scope.showDeleteEmailList = false;
                 $("#removeselactions").hide();
@@ -423,8 +423,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             });
             
             emailListFactory.getAllEmailListWithNoOfContactsForMindBody(companyObject.companyId).then(function (data) {
-                var parseData = JSON.parse(data.d.details);
-                $scope.emailListsMindbody = parseData.allEmailListWithNoOfContacts.mindbody;
+//                alert(JSON.stringify(data));
+                $scope.emailListsMindbody = data.d.details;
             });
             
             });
@@ -491,26 +491,19 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 
         $scope.deleteEmailList = function ()
         {
-            if (confirm("Are you sure, You want to Delete Email List?")) {
-                var noofemaillist = "";
+                var noofemaillist;
                 var selected_email_lists = "";
                 $("input[type=checkbox]:checked").each(function () {
                     selected_email_lists += $(this).val() + ",";
                     noofemaillist = selected_email_lists.split(',');
                 });
-                if (noofemaillist.length > 2) {
-                    var EmailLists = {"update": "deleteAllEmailLists", "emailListName": selected_email_lists};
-                } else {
-                    var EmailLists = {"update": "deleteEmailLists", "emailListName": selected_email_lists};
-                }
-                emailListFactory.emailListSavePost(EmailLists).then(function (data) {
-                    if (data.d.operationStatus.statusCode === "Success") {
-                        $scope.showDeleteEmailList = false;
-                        growl("Data deleted successfully");
-                        $scope.emailListGet();
-                    }
+                noofemaillist.pop();
+                var emailLists = { "ids" : noofemaillist };
+                emailListFactory.deleteEmailList(emailLists).then(function (data){
+                    $scope.showDeleteEmailList = false;
+                    growl("Email list deleted successfully");
+                    $scope.emailListGet();
                 });
-            }
         };
 
         $scope.showUpdateList = function ()
@@ -529,6 +522,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
 
         $scope.updateList = function () {
+            $scope.mindbody_emailAddresses = '';
+            $scope.user_emailAddresses = '';
+            $scope.hideGifImage=true;
+            $scope.noContacts=false;
             $scope.activeEmailListContacts = 'activeTab';
             $scope.activeImportContacts = '';
             $scope.showEmailListContacts = true;
@@ -538,16 +535,25 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $("#emailList").addClass("h3-active-subnav");
             $(".page-background").css("background-color", "#fff");
             var list_name = $scope.emailListName;
-            var type = $("#get_type").val();
             $("#tab4").hide();
             $("#email_list_name").val(list_name);
             
             emailListFactory.getContactsOfEmailList($scope.emailListId).then(function (data){
-                var parseData = data.d.details; 
-                $scope.user_emailAddresses = parseData;
-//              $scope.mindbody_emailAddresses = parseData.mindbody_emailAddresses;
+                var parseData = data.d.details;
+                if(parseData == ''){
+                    $scope.noContacts=true;
+                }
                 $scope.selected_email_listname = list_name;
-                $scope.type = type;
+                if($scope.type == 'user'){
+                    $scope.user_emailAddresses = parseData;
+                    $scope.mindbody_emailAddresses = '';
+                    $scope.hideGifImage=false;
+                }
+                else{
+                    $scope.user_emailAddresses = '';
+                    $scope.mindbody_emailAddresses = parseData;
+                    $scope.hideGifImage=false;
+                }
             });
             
             
@@ -954,6 +960,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.emallistdetails = false;
             $("#delcontact").hide();
             $location.path("/emaillistdetails");
+            $scope.showUpdateList();
         };
 
         $scope.deleteSelected = function () {

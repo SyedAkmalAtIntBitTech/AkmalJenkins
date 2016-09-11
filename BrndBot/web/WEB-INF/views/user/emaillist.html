@@ -52,23 +52,23 @@
                 <h2 class="">MINDBODY Index Connected Lists</h2>
             </div>
             <div class="hub-pane-content-wrap" ng-init="emailListGet()">
-                <div class="hub-empty-wrap"  ng-if="emailListsMindbody.length === 0">There are no MINDBODY Index Lists</div>
+                <div class="hub-empty-wrap"  ng-if="emailListsMindbody==''">There are no MINDBODY Index Lists</div>
                 <div class="hub-slat-list-wrap" ng-show="emailListsMindbody.length > 0" ng-repeat="email in emailListsMindbody">
                     <div class="slat">
                         <div class="slat-icon-wrap"></div>
                         <div class="slat-name-wrap">
                             <h2>{{email.emailListName}}</h2>
-                            <p>Created on {{email.emailListAddedDate| date: 'MM-dd-yyyy'}}</p>
+                            <p>Created on {{email.createdDate| date: 'MM-dd-yyyy'}}</p>
                         </div>
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">
-                                <h2>{{email.noofcontants}}</h2>
+                                <h2>{{email.numberOfContacts}}</h2>
                                 <p>Number of Contacts</p>
                             </div>
                         </div>
                         <div class="slat-detail-wrap">
                             <div class="slat-detail slat-detail-button ">
-                                    <a class="reg-button slat-detail-button" ng-click="viewEmailListDetails(email.emailListName, 'user')">Manage Email List</a>
+                                    <a class="reg-button slat-detail-button" ng-click="viewEmailListDetails(email, 'mindbody')">Manage Email List</a>
                             </div>
                         </div>
                     </div>
