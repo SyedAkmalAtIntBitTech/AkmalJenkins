@@ -6,6 +6,7 @@
 package com.intbittech.component;
 
 import com.intbittech.services.CompanyPreferencesService;
+import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.ContactsService;
 import com.intbittech.services.EmailListService;
 
@@ -17,4 +18,5 @@ public interface SpringContextBridgedServices {
     CompanyPreferencesService getCompanyPreferencesService();
     EmailListService getEmailListService();
     ContactsService getContactsService();
+    ContactEmailListLookupService getContactEmailListLookupService();
 }

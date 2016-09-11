@@ -52,6 +52,17 @@ public interface ContactEmailListLookupService {
      * This method pass id as input and get the {@link ContactEmailListLookup} from DAO
      * layer.
      *
+     * @param emailListName the emailListName
+     * @param contactId the contactId
+     * @return string of emailadresses
+     * @throws ProcessFailed the process failed
+     */
+    public String getContactsByEmailListNameAndCompanyId(String emailListName,Integer companyId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link ContactEmailListLookup} from DAO
+     * layer.
+     *
      * @param companyId the companyId
      * @throws ProcessFailed the process failed
      */

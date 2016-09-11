@@ -8,9 +8,12 @@ package com.intbittech.services.impl;
 import com.intbittech.dao.ContactEmailListLookupDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ContactEmailListLookup;
+import com.intbittech.model.EmailList;
 import com.intbittech.model.UnsubscribedEmails;
 import com.intbittech.services.ContactEmailListLookupService;
+import com.intbittech.services.EmailListService;
 import com.intbittech.services.UnsubscribedEmailsService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import org.jboss.logging.Logger;
@@ -18,7 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.apache.commons.lang3.StringUtils;
+        
 /**
  *
  * @author ajit
@@ -34,6 +38,9 @@ public class ContactEmailListLookupServiceImpl implements ContactEmailListLookup
 
     @Autowired
     private UnsubscribedEmailsService unsubscribedEmailsService;
+    
+    @Autowired
+    private EmailListService emailListService;
 
     @Autowired
     private MessageSource messageSource;
@@ -55,6 +62,28 @@ public class ContactEmailListLookupServiceImpl implements ContactEmailListLookup
     public List<ContactEmailListLookup> getContactsByEmailListId(Integer emailListId) throws ProcessFailed {
         List<ContactEmailListLookup> contactsList = contactEmailListLookupDao.getContactsByEmailListId(emailListId);
         return contactsList;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public String getContactsByEmailListNameAndCompanyId(String emailListName,Integer companyId) throws ProcessFailed {
+        String contactsForEmailList = "";
+        EmailList emailList = emailListService.getEmailListByCompanyIdAndEmailListName(companyId, emailListName);
+        List<ContactEmailListLookup> contactsList = new ArrayList<>();
+        if(emailList != null) {
+            contactsList = getContactsByEmailListId(emailList.getEmailListId());
+            for(int i = 0; i<contactsList.size();i++) {
+                if(contactsList.get(i).getUnsubscribed()) {
+                    contactsList.remove(i);
+                }
+            }
+        }
+        if(contactsList != null) {
+            contactsForEmailList = StringUtils.join(contactsList, ',');
+        }
+            
+        return contactsForEmailList;
     }
 
     /**

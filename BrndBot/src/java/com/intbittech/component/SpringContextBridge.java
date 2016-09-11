@@ -6,6 +6,7 @@
 package com.intbittech.component;
 
 import com.intbittech.services.CompanyPreferencesService;
+import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.ContactsService;
 import com.intbittech.services.EmailListService;
 import org.springframework.beans.BeansException;
@@ -30,6 +31,8 @@ public class SpringContextBridge
     private EmailListService emailListService;
     @Autowired
     private ContactsService contactsService;
+    @Autowired
+    private ContactEmailListLookupService contactEmailListLookupService;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) 
@@ -63,4 +66,10 @@ public class SpringContextBridge
     public ContactsService getContactsService() {
         return contactsService;
     }
+    
+    @Override
+    public ContactEmailListLookupService getContactEmailListLookupService() {
+        return contactEmailListLookupService;
+    }
+    
 }
