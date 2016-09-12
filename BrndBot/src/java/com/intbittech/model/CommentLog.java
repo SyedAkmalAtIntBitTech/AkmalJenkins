@@ -41,7 +41,7 @@ public class CommentLog implements Serializable {
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
-    @JoinColumn(name = "fk_Scheduled Entity _id", referencedColumnName = "scheduled_entity_list_id")
+    @JoinColumn(name = "fk_scheduled_entity_id", referencedColumnName = "scheduled_entity_list_id")
     @ManyToOne(optional = false)
     private ScheduledEntityList fkScheduledEntityid;
     @JoinColumn(name = "commented_by", referencedColumnName = "user_id")
