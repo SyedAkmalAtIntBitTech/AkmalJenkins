@@ -47,7 +47,7 @@ factoryApp.factory('yourPlanFactory', function ($q, authenticatedServiceFactory,
 
     yourPlanFactoryObject.addActionCommentPOST = function (commentDetails) {
         var deffered = $q.defer();
-        var url = configurationService.addCommentURL();
+        var url = configurationService.addActionCommentURL();
         authenticatedServiceFactory.makeCall("POST", url, commentDetails, "").then(function (data) {
             deffered.resolve(data);
         });
@@ -56,7 +56,7 @@ factoryApp.factory('yourPlanFactory', function ($q, authenticatedServiceFactory,
     
     yourPlanFactoryObject.actionCommentsGet = function (scheduleId) {
         var deffered = $q.defer();
-        var url = configurationService.getCommentsURL() + "?scheduleId=" + scheduleId;
+        var url = configurationService.getActionCommentsURL() + "?scheduleId=" + scheduleId;
         authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
@@ -65,7 +65,7 @@ factoryApp.factory('yourPlanFactory', function ($q, authenticatedServiceFactory,
 
     yourPlanFactoryObject.removeActionComments = function(commentId){
         var deffered = $q.defer();
-        var url = configurationService.removeCommentURL()+ "?commentId=" + commentId;
+        var url = configurationService.removeActionCommentURL()+ "?commentId=" + commentId;
         authenticatedServiceFactory.makeCall("DELETE", url, "", "").then(function (data){
             deffered.resolve(data);
         });

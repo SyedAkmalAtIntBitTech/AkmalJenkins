@@ -763,16 +763,16 @@ factoryApp.service('configurationService', function () {
         return getHost() + "ChangeSchedule";
     };
 
-    this.addCommentURL = function(){
-        return getHost() + "";
+    this.addActionCommentURL = function(){
+        return getHost() + "comment/saveActionComment";
     };
 
-    this.getCommentsURL = function(){
-        return getHost() + "";
+    this.getActionCommentsURL = function(){
+        return getHost() + "comment/getAllCommentByActionId";
     };
 
-    this.removeCommentURL = function(){
-        return getHost() + "";
+    this.removeActionCommentURL = function(){
+        return getHost() + "comment/deleteCommentLog";
     };
     this.addActionURL = function () {
         return getHost() + "AddAction";

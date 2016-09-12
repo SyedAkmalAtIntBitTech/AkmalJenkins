@@ -40,7 +40,7 @@ public class CommentLogController {
     @Autowired
     private CommentLogService commentLogService;
     
-      @RequestMapping(value = "saveActionComment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+      @RequestMapping(value = "/saveActionComment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveActionComment(@RequestBody CommentLogDetails commentLogDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
