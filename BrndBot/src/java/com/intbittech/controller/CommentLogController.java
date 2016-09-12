@@ -77,10 +77,11 @@ public class CommentLogController {
     }
     
     @RequestMapping(value = "/getAllCommentByActionId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getAllCommentLogByActionId(@RequestParam("scheduleId")Integer scheduleId ) {
+    public ResponseEntity<ContainerResponse> getAllCommentLogByActionId(@RequestParam("scheduleId")Integer scheduleId,@RequestParam("userId")Integer userId ) {
          GenericResponse<CommentLogResponse> genericResponse = new GenericResponse();
+         
         try {
-                List<CommentLogResponse> commentLogResponseList = commentLogService.getAllCommentLogByScheduledEntityListId(scheduleId);
+                List<CommentLogResponse> commentLogResponseList = commentLogService.getAllCommentLogByScheduledEntityListId(scheduleId,userId);
             genericResponse.setDetails(commentLogResponseList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Activity retrieved successfully"));
         } catch (Throwable ex) {

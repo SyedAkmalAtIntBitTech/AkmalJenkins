@@ -14,9 +14,12 @@ import java.util.Date;
 public class CommentLogResponse {
 
     private String commentName;
-    private String commentByName;
-    private Date createdAt;
+    private String commentByFirstName;
+    private String commentByLastName;
+    private String commentByEmailId;
+    private Date   createdAt;
     private Integer scheduledEntityListId;
+    private Boolean isLoginUser;
 
     public String getCommentName() {
         return commentName;
@@ -26,14 +29,21 @@ public class CommentLogResponse {
         this.commentName = commentName;
     }
 
-    public String getCommentByName() {
-        return commentByName;
+    public String getCommentByFirstName() {
+        return commentByFirstName;
     }
 
-    public void setCommentByName(String commentByName) {
-        this.commentByName = commentByName;
+    public void setCommentByFirstName(String commentByFirstName) {
+        this.commentByFirstName = commentByFirstName;
     }
 
+    public String getCommentByLastName() {
+        return commentByLastName;
+    }
+
+    public void setCommentByLastName(String commentByLastName) {
+        this.commentByLastName = commentByLastName;
+    }
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -50,4 +60,21 @@ public class CommentLogResponse {
         this.scheduledEntityListId = scheduledEntityListId;
     }
 
+    public Boolean getIsLoginUser() {
+        return isLoginUser;
+    }
+
+    public void setIsLoginUser(Boolean isLoginUser) {
+        this.isLoginUser = isLoginUser;
+    }
+
+    public String getCommentByEmailId() {
+        return commentByEmailId;
+    }
+
+    public void setCommentByEmailId(String commentByEmailId) {
+        this.commentByEmailId = commentByEmailId;
+    }
+    
+    
 }
