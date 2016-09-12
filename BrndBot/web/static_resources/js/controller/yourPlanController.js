@@ -332,7 +332,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
         $scope.addActionComment = function (scheduleId, comment) {
             var commentDetails = {"scheduleId": scheduleId, "comment": comment};
-            alert(JSON.stringify(commentDetails));
             yourPlanFactory.addActionCommentPOST(commentDetails).then(function (data) {
                 getActionComments(scheduleId);
             });
@@ -781,6 +780,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     });
                 });
             }
+            $scope.getActionComments(schedule_id);
 //            growl($scope.isRecurring);
         };
 
