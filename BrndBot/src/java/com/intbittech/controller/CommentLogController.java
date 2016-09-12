@@ -61,7 +61,7 @@ public class CommentLogController {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
 }
-     @RequestMapping(value = "getAllCommentLog", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+     @RequestMapping(value = "/getAllCommentLog", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllCommentLog() {
          GenericResponse<CommentLogResponse> genericResponse = new GenericResponse();
         try {
@@ -76,7 +76,7 @@ public class CommentLogController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "getAllCommentByActionId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/getAllCommentByActionId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllCommentLogByActionId(@RequestParam("scheduleId")Integer scheduleId ) {
          GenericResponse<CommentLogResponse> genericResponse = new GenericResponse();
         try {
@@ -90,8 +90,10 @@ public class CommentLogController {
 
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
+
      @RequestMapping(value = "deleteActionComment", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteActionComment(@RequestParam("commentId") Integer commentId) {
+
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
               commentLogService.delete(commentId);

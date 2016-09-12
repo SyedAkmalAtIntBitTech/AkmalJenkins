@@ -57,6 +57,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.validateEmailAddress = false;
         $scope.isEmailSaveAction = false;
         var sliderDialog = "#emaileditorexternalpopup";
+        $scope.moreThanOneUser = false;
         $scope.companyAddressDetails = {};
 
         //OnPageLoad
@@ -1462,6 +1463,17 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 }
             }
         };
+        $scope.getAllUsersInCompany = function () {
+            yourPlanFactory.allUsersInCompanyGet().then(function (data) {
+                $scope.allUsers = data.d.details;
+            });
+            yourPlanFactory.noOfUsersInCompanyGet().then(function (data) {
+                var noOfUsersInCompany = data.d.details;
+                if (parseInt(noOfUsersInCompany) > 1) {
+                    $scope.moreThanOneUser = true;
+                }
+            });
+        };
 
         $scope.schedulePostToEmail = function (postData) {
             $scope.postedTo = getemail();
@@ -1504,6 +1516,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
                 });
             } else {
+                
+                var userAssignToId = $("#assignTo option:selected").val();
                 var schedule_title = $("#ActionName").val();
                 var schedule_date = $("#actionDate").val();
                 var schedule_time = $("#actionTime").val().replace(/ /g, '');
@@ -1534,7 +1548,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         "email_body": $("#dynamictable").contents().find("html").html(),
                         "schedule_desc": ",,,",
                         "iframeName": $scope.randomIframeFilename.toString(),
-                        "html_body": kGlobalEmailObject.htmlBody
+                        "html_body": kGlobalEmailObject.htmlBody,
+                        "userAssignedTo":userAssignToId
                     };
                     scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
                         if (data.d.operationStatus.statusCode === "Success") {
