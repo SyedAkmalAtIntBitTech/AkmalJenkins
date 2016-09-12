@@ -38,10 +38,11 @@ public interface CommentLogService {
      /**
      * This method retrieves the list of {@link CommentLog} from DAO layer.
      * @param scheduledEntityListId the scheduledEntityListId
+     * @param userId the userId
      * @return {@link CommentLog}
      * @throws ProcessFailed the process failed
      */
-    public List<CommentLogResponse> getAllCommentLogByScheduledEntityListId(Integer scheduledEntityListId ) throws ProcessFailed;
+    public List<CommentLogResponse> getAllCommentLogByScheduledEntityListId(Integer scheduledEntityListId ,Integer userId) throws ProcessFailed;
     
     /**
      * This method retrieves the list of {@link CommentLog} from DAO layer.

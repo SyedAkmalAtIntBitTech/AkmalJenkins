@@ -77,10 +77,11 @@ public class CommentLogController {
     }
     
     @RequestMapping(value = "/getAllCommentByActionId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getAllCommentLogByActionId(@RequestParam("scheduleId")Integer scheduleId ) {
+    public ResponseEntity<ContainerResponse> getAllCommentLogByActionId(@RequestParam("scheduleId")Integer scheduleId,@RequestParam("userId")Integer userId ) {
          GenericResponse<CommentLogResponse> genericResponse = new GenericResponse();
+         
         try {
-                List<CommentLogResponse> commentLogResponseList = commentLogService.getAllCommentLogByScheduledEntityListId(scheduleId);
+                List<CommentLogResponse> commentLogResponseList = commentLogService.getAllCommentLogByScheduledEntityListId(scheduleId,userId);
             genericResponse.setDetails(commentLogResponseList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Activity retrieved successfully"));
         } catch (Throwable ex) {
@@ -90,11 +91,13 @@ public class CommentLogController {
 
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-     @RequestMapping(value = "/deleteCommentLog", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> deleteCommentLog(@RequestParam("commentLogId") Integer commentLogId) {
+
+     @RequestMapping(value = "deleteActionComment", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteActionComment(@RequestParam("commentId") Integer commentId) {
+
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-              commentLogService.delete(commentLogId);
+              commentLogService.delete(commentId);
             
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Comment deleted successfully"));
         } catch (Throwable ex) {
