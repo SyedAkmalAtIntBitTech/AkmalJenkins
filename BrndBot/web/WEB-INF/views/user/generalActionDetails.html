@@ -33,7 +33,7 @@
                                 <div class="overlay-detail-status">{{action_template_status}}</div>
                             </div>
                         </div>
-                        <div class="detail-section half">
+                        <div class="detail-section half" ng-hide="scheduleData.marketing_program_name === 'General'">
                             <label class="detail-section-label">Assigned Marketing Campaign</label>
                             <p class="overlay-detail-item">{{scheduleData.marketing_program_name}} </p>
                         </div>

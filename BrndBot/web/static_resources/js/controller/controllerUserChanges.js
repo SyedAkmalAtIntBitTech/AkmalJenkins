@@ -22,6 +22,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.userLastName = "";
         $scope.userRole = "";
         $scope.logourl = "";
+        $scope.showCustomColorPicker = false;
         $scope.companyAddressDetails = {};
         $scope.userDetails = {};
 
@@ -306,6 +307,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             $scope.activeColorPicker = '';
             $scope.activeColorLogo = '';
             $scope.colorFrom = "theme";
+           
             assetsFactory.allColorThemesGet().then(function (data) {
                 $scope.curPage = 0;
                 $scope.pageSize = 10;

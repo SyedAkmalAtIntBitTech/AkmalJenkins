@@ -11,12 +11,13 @@
            <a class="bb-back-button" ng-show="emailDetailsBackButton" href="" ng-click="backToEmailList()" id="backemaildetails" ></a>
            
             <h3 class="bb-top-nav-title">Email Editor</h3>
+            <div ng-hide="isEmailSaveAction" class="email-editor-save-exit-button" id="saveToDraft" ng-click="saveToDraftOnClick()"  >Save as Draft and Exit</div> 
         </div>
         <div class="bb-bar-center-wrap bb-one-third-flex-col">
-            <h3 class="">Email Details</h3>
-            <h3 class="">Design</h3>
-            <h3 class="">Send To</h3>
-            <h3 class="">Final Details</h3>
+               <div class="bb-step completed">Email Details</div>
+        <div class="bb-step completed">Design</div>
+        <div class="bb-step completed">Send To</div>
+        <div class="bb-step current">Final Details</div>
         </div>
         <div class="bb-bar-right-wrap bb-one-third-flex-col">
             <div class="bb-help-icon">help icon</div>
@@ -59,8 +60,8 @@
         </div>
 
     <div class="bb-bottom-cta-bar">
-        <a ng-show="emailSaveActionbutton==true"  class="bb-bottom-cta-continue-button" id="emaildetailscontbtn" ng-click="saveEmailActionByScheduleId({'emailSubject':emailSubject,'fromName':fromName,'fromAddress':fromAddress,'toAddress':toAddress,'replyAddress':replyAddress})" >
-            <div class="bb-bottom-cta-continue-button-text">Continue</div>
+        <a ng-show="emailSaveActionbutton==true"  class="bb-bottom-cta-continue-button-saved-action" id="emaildetailscontbtn" ng-click="saveEmailActionByScheduleId({'emailSubject':emailSubject,'fromName':fromName,'fromAddress':fromAddress,'toAddress':toAddress,'replyAddress':replyAddress})" >
+            <div class="bb-bottom-cta-continue-button-text">Save back to Action</div>
             <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
         </a>
          <a ng-show="emaildetailscontbtn==true" ng-class="{'bb-valid': emailSubject.length>0 && fromName.length>0 && replyAddress.length>0}" class="bb-bottom-cta-continue-button" id="emaildetailscontbtn" ng-click="continueEmailDetailsOnClick({'emailSubject':emailSubject,'fromName':fromName,'fromAddress':fromAddress,'toAddress':toAddress,'replyAddress':replyAddress})" >
