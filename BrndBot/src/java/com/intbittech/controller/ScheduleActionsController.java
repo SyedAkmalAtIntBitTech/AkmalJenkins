@@ -329,6 +329,7 @@ public class ScheduleActionsController {
             scheduledEntityList.setAssignedTo(users);
             scheduledEntityList.setUpdatedAt(new Date());
             scheduledEntityListService.update(scheduledEntityList);
+            transactionResponse.setMessage(scheduledEntityList.getAssignedTo().getFirstName()+ scheduledEntityList.getAssignedTo().getLastName());
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Action updated successfully"));
         } catch (Throwable ex) {
             logger.error(ex);
