@@ -86,7 +86,8 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
             String scheduleDesc = requestBodyMap.containsKey("schedule_desc")
                     ? String.valueOf(requestBodyMap.get("schedule_desc")) : null;
             String marketing_program_id = (String) requestBodyMap.get("program_id");
-             Double TempUserAssignToId = new Double(requestBodyMap.get("userAssignToId").toString().trim());
+            
+             Double TempUserAssignToId = new Double(requestBodyMap.get("userAssignedTo").toString().trim());
              Integer userAssignToId = TempUserAssignToId.intValue();
 
             //Added by Syed Ilyas 27 Nov 2015 - email body from iframe
