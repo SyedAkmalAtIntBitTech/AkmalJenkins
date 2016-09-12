@@ -53,7 +53,6 @@ public class CommentLogController {
             userObject.setUserId(commentLogDetails.getUserId());
             commentLog.setCommentedBy(userObject);
             commentLog.setComment(commentLogDetails.getComment());
-            commentLog.setCreatedAt(new Date());
             commentLogService.save(commentLog);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Action comment created successfully"));
         } catch (Throwable ex) {
