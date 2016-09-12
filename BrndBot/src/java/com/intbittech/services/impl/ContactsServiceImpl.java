@@ -77,7 +77,10 @@ public class ContactsServiceImpl implements ContactsService{
             contacts.setEmailAddress(contactDetails.getEmailAddress());
             contacts.setFirstName(contactDetails.getFirstName());
             contacts.setLastName(contactDetails.getLastName());
-            contacts.setCreatedDate(new Date());
+            if(contactDetails.getAddedDate() == null)
+                contacts.setCreatedDate(new Date());
+            else
+                contacts.setCreatedDate(contactDetails.getAddedDate());
             contactId = save(contacts);
         } else {
             contactId = contacts.getContactId();

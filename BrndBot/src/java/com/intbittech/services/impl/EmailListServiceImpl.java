@@ -691,7 +691,10 @@ public class EmailListServiceImpl implements EmailListService {
      */
     public Integer save(AddEmailListDetails addEmailListDetails) throws ProcessFailed {
         EmailList emailList = new EmailList();
-        emailList.setCreatedDate(new Date());
+        if(addEmailListDetails.getCreatedDate() == null)
+            emailList.setCreatedDate(new Date());
+        else
+            emailList.setCreatedDate(addEmailListDetails.getCreatedDate());
         emailList.setEmailListName(addEmailListDetails.getEmailListName());
         emailList.setDescription(addEmailListDetails.getEmailListDescription());
         emailList.setDefaultFromAddress(addEmailListDetails.getDefaultFromAddress());

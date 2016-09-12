@@ -9,6 +9,7 @@ import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.ContactsService;
 import com.intbittech.services.EmailListService;
+import com.intbittech.services.UnsubscribedEmailsService;
 
 /**
  * This interface represents a list of Spring Beans (services) which need to be referenced from a non Spring class.
@@ -19,4 +20,5 @@ public interface SpringContextBridgedServices {
     EmailListService getEmailListService();
     ContactsService getContactsService();
     ContactEmailListLookupService getContactEmailListLookupService();
+    UnsubscribedEmailsService getUnsubscribedEmailsService();
 }

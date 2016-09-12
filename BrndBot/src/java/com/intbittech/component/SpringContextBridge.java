@@ -9,6 +9,7 @@ import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.ContactsService;
 import com.intbittech.services.EmailListService;
+import com.intbittech.services.UnsubscribedEmailsService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -33,6 +34,8 @@ public class SpringContextBridge
     private ContactsService contactsService;
     @Autowired
     private ContactEmailListLookupService contactEmailListLookupService;
+    @Autowired
+    private UnsubscribedEmailsService unsubscribedEmailsService;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) 
@@ -70,6 +73,11 @@ public class SpringContextBridge
     @Override
     public ContactEmailListLookupService getContactEmailListLookupService() {
         return contactEmailListLookupService;
+    }
+    
+    @Override
+    public UnsubscribedEmailsService getUnsubscribedEmailsService() {
+        return unsubscribedEmailsService;
     }
     
 }
