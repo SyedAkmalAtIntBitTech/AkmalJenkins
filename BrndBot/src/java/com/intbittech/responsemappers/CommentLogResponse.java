@@ -21,6 +21,7 @@ public class CommentLogResponse {
     private Integer scheduledEntityListId;
     private Boolean isLoginUser;
     private String initials;
+    private Integer commentId;
     
     public String getCommentName() {
         return commentName;
@@ -83,6 +84,14 @@ public class CommentLogResponse {
 
     public void setCommentByEmailId(String commentByEmailId) {
         this.commentByEmailId = commentByEmailId;
+    }
+
+    public Integer getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
     }
     
     

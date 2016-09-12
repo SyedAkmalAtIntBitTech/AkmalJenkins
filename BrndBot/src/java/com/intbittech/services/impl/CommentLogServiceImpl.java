@@ -96,6 +96,7 @@ public class CommentLogServiceImpl implements CommentLogService{
             commentLogResponse.setCommentByLastName(activityLog.getCommentedBy().getLastName());
             commentLogResponse.setScheduledEntityListId(activityLog.getFkScheduledEntityid().getScheduledEntityListId());
             commentLogResponse.setCreatedAt(activityLog.getCreatedAt());
+            commentLogResponse.setCommentId(activityLog.getCommentLogId());
             if(activityLog.getCommentedBy().getUserId() == userId){
                 commentLogResponse.setIsLoginUser(true);
            }
