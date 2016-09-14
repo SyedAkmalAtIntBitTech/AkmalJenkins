@@ -1,4 +1,3 @@
-<div ng-include src="'unsubscribeEmailPopup.html'"></div>  
 <div class="bb-top-nav" ng-init="getSubject_preHeader()">
     <div class="bb-bar-left-wrap bb-one-third-flex-col">
         <a ng-hide="isEmailSaveAction" href="baseemaileditor#/emailsubcategory" class="bb-back-button"></a>
@@ -40,8 +39,7 @@
     </div>    
 </div>
 <div class="bb-bottom-cta-bar">
-    <a class="bb-bottom-cta-continue-button bb-ease-all" ng-class="{'bb-valid': $parent.preheader.length>0 && $parent.emailsubject.length>0}" ng-click="checkForUnsubscribeEmail()" >
-    <!--<a class="bb-bottom-cta-continue-button bb-ease-all" ng-class="{'bb-valid': $parent.preheader.length>0 && $parent.emailsubject.length>0}" ng-click="redirect('emaileditor','','','','','','',emailsubject,preheader)" >-->
+    <a class="bb-bottom-cta-continue-button bb-ease-all" ng-class="{'bb-valid': $parent.preheader.length>0 && $parent.emailsubject.length>0}" ng-click="redirect('emaileditor','','','','','','',emailsubject,preheader)" >
         <div class="bb-bottom-cta-continue-button-text">Continue</div>
         <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
     </a>

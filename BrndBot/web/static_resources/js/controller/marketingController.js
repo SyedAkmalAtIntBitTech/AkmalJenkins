@@ -73,6 +73,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         appSessionFactory.clearDashboardMessage().then(function(message){
                         });
                     }
+                appSessionFactory.getUser().then(function(kGlobalCompanyObject){
+                        $scope.hasMultipleCompany = kGlobalCompanyObject.hasMultipleCompany;
+                    });
                 });
             });
         };

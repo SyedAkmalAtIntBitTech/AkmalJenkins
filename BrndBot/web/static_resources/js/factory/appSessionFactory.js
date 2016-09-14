@@ -8,6 +8,7 @@ factoryApp.factory('appSessionFactory', function ($q) {
     var fbPostObjectName = "fbPostData";
     var companyObjectName = "companyDetails";
     var dashboardMessageVarName = "dashboardMessage";
+    var userObjectName ="user";
 
     AppSessionFactoryObject.setEmail = function (emailObject) {
         var deffered = $q.defer();
@@ -127,6 +128,29 @@ factoryApp.factory('appSessionFactory', function ($q) {
         var data = true;
         localStorage.removeItem(dashboardMessageVarName);
         deffered.resolve(data);
+        return deffered.promise;
+    };
+    AppSessionFactoryObject.setUser = function (userObject) {
+        var deffered = $q.defer();
+        var data = false;
+        if (userObject)
+        {
+            localStorage.setItem(userObjectName, JSON.stringify(userObject));
+            data = true;
+        }
+        deffered.resolve(data);
+        return deffered.promise;
+    };
+    AppSessionFactoryObject.getUser = function () {
+        var deffered = $q.defer();
+        var requestedValue = kGlobalUserObject;
+
+        var userLocalObject = JSON.parse(localStorage.getItem(userObjectName));
+        if (userLocalObject) {
+            requestedValue = userLocalObject;
+        }
+
+        deffered.resolve(requestedValue);
         return deffered.promise;
     };
 

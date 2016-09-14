@@ -56,7 +56,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.validateEmailAddress = false;
         $scope.validateEmailAddress = false;
         $scope.isEmailSaveAction = false;
-        $scope.neverShowUnsubscribeEmailpopup = true;
         var sliderDialog = "#emaileditorexternalpopup";
         $scope.companyAddressDetails = {};
 
@@ -1684,26 +1683,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         });
                     }
                 });
-            }
-        };
-        $scope.checkForUnsubscribeEmail = function () {
-            $scope.neverShowUnsubscribeEmailpopup = false;
-            // to do call backend to check for flag
-            if ($scope.neverShowUnsubscribeEmailpopup) {
-
-            } else {
-
-            }
-
-        };
-        $scope.setUnsubscribrFlage = function (isChecked, redirectTopageName, emailsubject, preheader) {
-            if (isChecked) {
-                //To do call backend to set flage 
-                $scope.neverShowUnsubscribeEmailpopup = true;
-                $scope.redirect(redirectTopageName, '', '', '', '', '', '', emailsubject, preheader);
-            } else {
-                $scope.neverShowUnsubscribeEmailpopup = true;
-                $scope.redirect(redirectTopageName, '', '', '', '', '', '', emailsubject, preheader);
             }
         };
     }]);

@@ -64,6 +64,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                         appSessionFactory.clearDashboardMessage().then(function(message){
                         });
                     }
+                appSessionFactory.getUser().then(function(kGlobalCompanyObject){
+                        $scope.hasMultipleCompany = kGlobalCompanyObject.hasMultipleCompany;
+                    });
                 });
             });
         };

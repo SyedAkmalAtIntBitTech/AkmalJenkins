@@ -135,6 +135,9 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                         appSessionFactory.clearDashboardMessage().then(function(message){
                         });
                     }
+                appSessionFactory.getUser().then(function(kGlobalCompanyObject){
+                        $scope.hasMultipleCompany = kGlobalCompanyObject.hasMultipleCompany;
+                    });
                 });
             });
         };

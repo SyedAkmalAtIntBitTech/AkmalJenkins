@@ -23,6 +23,9 @@ imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http'
                         appSessionFactory.clearDashboardMessage().then(function(message){
                         });
                     }
+                appSessionFactory.getUser().then(function(kGlobalCompanyObject){
+                        $scope.hasMultipleCompany = kGlobalCompanyObject.hasMultipleCompany;
+                    });
                 });
             });
         };
