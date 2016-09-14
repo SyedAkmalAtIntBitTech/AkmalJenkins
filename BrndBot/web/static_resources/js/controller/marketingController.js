@@ -356,7 +356,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             yourPlanFactory.changeAssigedToPOST(assignToDetails).then(function (data) {
                 var userName = data.d.message
                 var user = [];
-                user = userName.split(" ");
+//                user = userName.split(" ");
+                user = getNames(userName);
                 $scope.assignedFirstName = user[0];
                 $scope.assignedLastName = user[1];
                 $scope.assignedToInitialChars = data.d.id;
@@ -624,7 +625,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //            }
 //        });
 //    };
-        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, assignedFirstName, assignedLastName, action_status, days, marketingName)
+        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, assignedFirstName, assignedLastName,assignedToInitialChars, action_status, days, marketingName)
         {
             $scope.isRecurring = false;
             $scope.savedEmail = false;
@@ -634,7 +635,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.generalActions = false;
             $scope.assignedFirstName = assignedFirstName;
             $scope.assignedLastName = assignedLastName;
-            $scope.assignedToInitialChars = assignedFirstName.charAt(0) + assignedLastName.charAt(0);
+            $scope.assignedToInitialChars = assignedToInitialChars;
             $scope.emailsectionClass = 'emailsectionClass';
             $scope.fadeClass = 'fadeClass';
             $scope.action_template_status = template_status;
