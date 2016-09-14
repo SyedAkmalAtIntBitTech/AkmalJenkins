@@ -7,9 +7,7 @@ package com.intbittech.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,11 +15,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,10 +27,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "scheduled_entity_list")
 public class ScheduledEntityList implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkScheduledEntityid")
-    private Set<CommentLog> commentLogSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkScheduledEntityid")
-    private Set<ActivityLog> activityLogSet;
+
+
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -71,6 +65,18 @@ public class ScheduledEntityList implements Serializable {
     @JoinColumn(name = "fk_recurring_email_id", referencedColumnName = "recurring_email_template_id")
     @ManyToOne
     private RecurringEmailTemplate fkRecurringEmailId;
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+    @Column(name = "updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
+    @JoinColumn(name = "assigned_to", referencedColumnName = "user_id")
+    @ManyToOne
+    private Users assignedTo;
+    @JoinColumn(name = "created_by", referencedColumnName = "user_id")
+    @ManyToOne
+    private Users createdBy;
 
     public ScheduledEntityList() {
     }
@@ -183,5 +189,36 @@ public class ScheduledEntityList implements Serializable {
         this.fkRecurringEmailId = fkRecurringEmailId;
     }
 
-   
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Users getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(Users assignedTo) {
+        this.assignedTo = assignedTo;
+    }
+
+    public Users getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Users createdBy) {
+        this.createdBy = createdBy;
+    }
+
 }

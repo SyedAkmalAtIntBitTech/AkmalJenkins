@@ -79,6 +79,5 @@ public class MarketingProgram implements Serializable {
         this.fkMarketingCategoryId = fkMarketingCategoryId;
     }
 
-  
 
 }
