@@ -72,7 +72,7 @@ public class FranchiseServiceImpl implements FranchiseService {
         }
         franchiseCompanyLookup = new FranchiseCompanyLookup();
         franchiseCompanyLookup.setCreatedAt(new Date());
-        franchiseCompanyLookup.setFkAddedByUserId(user);
+        franchiseCompanyLookup.setFkAddedBy(user);
         franchiseCompanyLookup.setFkCompanyId(new Company(companyId));
         franchiseCompanyLookup.setFkFranchiseId(new Franchise(franchiseId));
         franchiseCompanyLookup.setIsHeadQuarter(false);

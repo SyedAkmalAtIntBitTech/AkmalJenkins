@@ -23,10 +23,12 @@ public interface EmailDraftService {
    
    /**
 	 * This method retrieves all {@link EmailDraft}
+         * @param companyId  the companyId
+         * @param isPushed the isPushed
 	 * @return {@link MarketingProgram}
 	 * @throws java.lang.Throwable 
     */
-   public List<EmailDraft> getAllEmailDrafts(Integer companyId) throws Throwable;
+   public List<EmailDraft> getAllEmailDrafts(Integer companyId,Boolean isPushed) throws Throwable;
    
    /**
 	 * This method save {@link EmailDraft} by passing EmailDraft

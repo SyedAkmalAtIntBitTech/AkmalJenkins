@@ -161,8 +161,8 @@ public class EmailDraftController {
         JSONObject json_object_email_draft = new JSONObject();
         try {
 
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            List<EmailDraft> emaildraftlist = emaildraftservice.getAllEmailDrafts(companyId);
+            List<EmailDraft> emaildraftlist = emaildraftservice.getAllEmailDrafts(companyId,true);
+
 
             JSONArray json_array_email_draft = new JSONArray();
             
