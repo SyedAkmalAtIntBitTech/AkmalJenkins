@@ -221,7 +221,7 @@ public class ScheduleActionsController {
             if (!MapUtility.mapContainsKey(requestBodyMap, "to_email_addresses")) {
                 errorMsgs.add("To email address is missing");
             }
-            if (!MapUtility.mapContainsKey(requestBodyMap, "email_body")) {
+            if (!MapUtility.mapContainsKey(requestBodyMap, "html_body")) {
                 errorMsgs.add("Email body is missing");
             }
             if (!MapUtility.mapContainsKey(requestBodyMap, "email_list")) {
