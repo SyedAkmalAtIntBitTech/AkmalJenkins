@@ -17,10 +17,8 @@ import com.intbittech.model.MarketingProgram;
 import com.intbittech.model.RecurringEmailTemplate;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
-import com.intbittech.model.UserProfile;
 import com.intbittech.services.MarketingActionService;
 import com.intbittech.services.RecurringEmailTemplateService;
-import com.intbittech.utility.UserSessionUtil;
 import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -221,6 +219,7 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("assignedToId", scheduledEntityListObject.getAssignedTo().getUserId());
                 jSONObject.put("assignedFirstName", scheduledEntityListObject.getAssignedTo().getFirstName());
                 jSONObject.put("assignedLastName", scheduledEntityListObject.getAssignedTo().getLastName());
+                jSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduledEntityListObject.getAssignedTo().getFirstName(), scheduledEntityListObject.getAssignedTo().getLastName()));
                 scheduledEmailJsonArray.put(jSONObject);
             }
             List<ScheduledEntityList> scheduledEmailListForRecurring = scheduledEntityListService.getScheduledEntityListIdForEmailType(userProgram_id, Boolean.FALSE);
@@ -258,6 +257,7 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("assignedToId", scheduledEntityListObject.getAssignedTo().getUserId());
                 jSONObject.put("assignedFirstName", scheduledEntityListObject.getAssignedTo().getFirstName());
                 jSONObject.put("assignedLastName", scheduledEntityListObject.getAssignedTo().getLastName());
+                jSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduledEntityListObject.getAssignedTo().getFirstName(), scheduledEntityListObject.getAssignedTo().getLastName()));
                 scheduledEmailAndSocailPostJsonForRecurringArray.put(jSONObject);
                 System.out.println(scheduledEmailAndSocailPostJsonForRecurringArray);
 
@@ -295,6 +295,9 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("assignedToId", scheduledSocialpostListObject.getAssignedTo().getUserId());
                 jSONObject.put("assignedFirstName", scheduledSocialpostListObject.getAssignedTo().getFirstName());
                 jSONObject.put("assignedLastName", scheduledSocialpostListObject.getAssignedTo().getLastName());
+               jSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduledSocialpostListObject.getAssignedTo().getFirstName(), scheduledSocialpostListObject.getAssignedTo().getLastName()));
+
+
                 scheduledEmailAndSocailPostJsonForRecurringArray.put(jSONObject);
 
             }
