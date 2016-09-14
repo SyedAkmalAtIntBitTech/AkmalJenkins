@@ -26,9 +26,6 @@ import javax.persistence.Table;
 @Table(name = "user_role")
 public class UserRole implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkUserRoleId")
-    private Set<Users> usersSet;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
