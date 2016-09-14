@@ -893,19 +893,21 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     emailObject["value"] = emailMindBodyData[i].emailListName;
                     $scope.ddSelectEmailListOptions.push(emailObject);
                 }
-
+                
+                
+                appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
+                    if (kGlobalEmailObject.emailListName) {
+                        var emailObject = {"text": kGlobalEmailObject.emailListName, "value": kGlobalEmailObject.emailListName};
+                        $scope.ddSelectEmailList.text = kGlobalEmailObject.emailListName;
+                        $scope.chooseEmailListOnChange(emailObject);
+                    }
+                });
+//                $scope.emailList = "1";
+                $scope.getEmailSettings();
             });
 
 
-            appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
-                if (kGlobalEmailObject.emailListName) {
-                    var emailObject = {"text": kGlobalEmailObject.emailListName, "value": emailList};
-                    $scope.ddSelectEmailList.text = emailList;
-                    $scope.chooseEmailListOnChange(emailObject);
-                }
-            });
-            $scope.emailList = "1";
-            $scope.getEmailSettings();
+            
         };
 
 //        $scope.showEmailList = function () {
@@ -1112,7 +1114,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 //            $scope.redirectBaseURL();
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                 $scope.emailSubject = kGlobalEmailObject.emailSubject;
-                $scope.fromName = kGlobalEmailObject.fromName;
+                if(kGlobalEmailObject.fromName)
+                    $scope.fromName = kGlobalEmailObject.fromName;
                 if (kGlobalEmailObject.entityScheduleId) {
                     $scope.emaildetailscontbtn = false;
                     $scope.emailSaveActionbutton = true;
@@ -1246,7 +1249,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                     from_email_address: getDefaultEmailId(),
                                     reply_to_email_address: $scope.postData.replyAddress,
                                     email_list: $scope.emailList,
-                                    email_body: $("#dynamictable").contents().find("html").html(),
+                                    email_body: "",
                                     schedule_desc: ",,,",
                                     iframeName: $scope.randomIframeFilename.toString(),
                                     html_body: kGlobalEmailObject.htmlBody
