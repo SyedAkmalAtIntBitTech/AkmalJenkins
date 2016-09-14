@@ -784,6 +784,12 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
             $scope.showTwitterPopup = false;
         };
 
+        var getEpochMillis = function (dateStr) {
+            var r = /^\s*(\d{4})-(\d\d)-(\d\d)\s+(\d\d):(\d\d):(\d\d)\s+UTC\s*$/
+                    , m = ("" + dateStr).match(r);
+            return (m) ? Date.UTC(m[1], m[2] - 1, m[3], m[4], m[5], m[6]) : undefined;
+        };
+
         $scope.schedulePostToFacebook = function (postData) {
             $scope.postedTo = getfacebook();
             var sendData = "";
@@ -823,11 +829,25 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                         return false;
                     }
                     $scope.dateLesser = false;
-                    var myEpoch = Date.parse(dateAndTime);
+                    
+                    var timeValues = [];
+                    timeValues = schedule_time.split(":");
+                    var hours = timeValues[0];
+                    var mins = timeValues[1];
+                    var delimiter = timeValues[2];
 
-                    console.log("Epoch: " + myEpoch);
+                    if (delimiter == "PM") {
+                        hours = parseInt(hours) + 12;
+                    }
+                    var newtime = hours + ":" + mins + ":" + "00";
+                    var currDate = moment(schedule_date).format('YYYY-MM-DD');
+
+                    var epoch_time = getEpochMillis(currDate + " " + newtime + " " + 'UTC');
+                    
+//                    var myEpoch = Date.parse(dateAndTime);
+
                     sendData = {
-                        "schedule_time": myEpoch,
+                        "schedule_time": epoch_time,
                         "schedule_title": schedule_title,
                         "program_id": $scope.selectedMarketingProgram.toString(),
                         "schedule_desc": "",
@@ -913,13 +933,27 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                             }
                             $scope.dateLesser = false;
 
-                            var myEpoch = Date.parse(dateAndTime);
-                            console.log("Epoch: " + myEpoch);
+                            var timeValues = [];
+                            timeValues = schedule_time.split(":");
+                            var hours = timeValues[0];
+                            var mins = timeValues[1];
+                            var delimiter = timeValues[2];
+
+                            if (delimiter == "PM") {
+                                hours = parseInt(hours) + 12;
+                            }
+                            var newtime = hours + ":" + mins + ":" + "00";
+                            var currDate = moment(schedule_date).format('YYYY-MM-DD');
+
+                            var epoch_time = getEpochMillis(currDate + " " + newtime + " " + 'UTC');
+
+//                            var myEpoch = Date.parse(dateAndTime);
+//                            console.log("Epoch: " + myEpoch);
 
                             sendData = {
                                 type: gettwitter(),
                                 image_name: $scope.selectImageName,
-                                schedule_time: myEpoch,
+                                schedule_time: epoch_time,
                                 schedule_title: schedule_title,
                                 program_id: $scope.selectedMarketingProgram.toString(),
                                 schedule_desc: schedule_desc,
@@ -978,12 +1012,26 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                             return false;
                         }
                         $scope.dateLesser = false;
+                        var timeValues = [];
+                        timeValues = schedule_time.split(":");
+                        var hours = timeValues[0];
+                        var mins = timeValues[1];
+                        var delimiter = timeValues[2];
 
-                        var myEpoch = Date.parse(dateAndTime);
+                        if (delimiter == "PM") {
+                            hours = parseInt(hours) + 12;
+                        }
+                        var newtime = hours + ":" + mins + ":" + "00";
+
+                        var currDate = moment(schedule_date).format('YYYY-MM-DD');
+
+                        var epoch_time = getEpochMillis(currDate + " " + newtime + " " + 'UTC');
+
+//                        var myEpoch = Date.parse(dateAndTime);
                         sendData = {
                             type: gettwitter(),
                             image_name: $scope.selectImageName,
-                            schedule_time: myEpoch,
+                            schedule_time: epoch_time,
                             schedule_title: schedule_title,
                             program_id: $scope.selectedMarketingProgram.toString(),
                             schedule_desc: schedule_desc,

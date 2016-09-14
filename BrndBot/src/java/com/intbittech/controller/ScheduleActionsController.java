@@ -16,6 +16,7 @@ import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.ScheduleActionsService;
+import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.MapUtility;
 import com.intbittech.utility.Utility;
@@ -56,6 +57,8 @@ public class ScheduleActionsController {
     private MessageSource messageSource;
     @Autowired
     private ScheduledEntityListService scheduledEntityListService;
+    @Autowired
+    private UsersService usersService;
 
     @RequestMapping(value = "/getActions", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getActions(HttpServletRequest request,
@@ -324,11 +327,14 @@ public class ScheduleActionsController {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
            ScheduledEntityList scheduledEntityList = scheduledEntityListService.getById(updateActionDetails.getScheduleId());
-            Users users = new Users();
+            Users users = usersService.getUserById(updateActionDetails.getUserAssignToId());
             users.setUserId(updateActionDetails.getUserAssignToId());
             scheduledEntityList.setAssignedTo(users);
             scheduledEntityList.setUpdatedAt(new Date());
             scheduledEntityListService.update(scheduledEntityList);
+            transactionResponse.setMessage(scheduledEntityList.getAssignedTo().getFirstName()+ " " + scheduledEntityList.getAssignedTo().getLastName());
+            transactionResponse.setId(String.valueOf(scheduledEntityList.getAssignedTo().getFirstName().charAt(0)) + String.valueOf(scheduledEntityList.getAssignedTo().getLastName().charAt(0)));
+            
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Action updated successfully"));
         } catch (Throwable ex) {
             logger.error(ex);

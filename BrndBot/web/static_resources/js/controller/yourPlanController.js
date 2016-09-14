@@ -325,7 +325,12 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
             var assignToDetails = {"scheduleId": scheduleId, "userAssignToId": userAssignToId};
             yourPlanFactory.changeAssigedToPOST(assignToDetails).then(function (data) {
-
+                var userName = data.d.message
+                var user = [];
+                user = userName.split(" ");
+                $scope.assignedFirstName = user[0];
+                $scope.assignedLastName = user[1];
+                $scope.assignedToInitialChars = data.d.id;
             });
 
         };

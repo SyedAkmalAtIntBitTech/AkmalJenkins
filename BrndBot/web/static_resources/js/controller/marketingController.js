@@ -354,6 +354,13 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
             var assignToDetails = {"scheduleId": scheduleId, "userAssignToId": userAssignToId};
             yourPlanFactory.changeAssigedToPOST(assignToDetails).then(function (data) {
+                var userName = data.d.message
+                var user = [];
+                user = userName.split(" ");
+                $scope.assignedFirstName = user[0];
+                $scope.assignedLastName = user[1];
+                $scope.assignedToInitialChars = data.d.id;
+
 //                $scope.closeChangeAssignedToPopup(); 
                 $scope.changeUsers=false;
 //                $scope.closePopup();$scope.promptHideShow(false);$scope.clickedDeleteAction = false;
