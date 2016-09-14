@@ -9,7 +9,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.actionDropdownValidation = actionDropdownValidation;
         $scope.actionDateValidation = actionDateValidation;
         $scope.lesserDateValidation = lesserDateValidation;
-//        $scope.greaterDateValidation = greaterDateValidation;
+//      $scope.greaterDateValidation = greaterDateValidation;
         $scope.campaignNameValidation = campaignNameValidation;
         $scope.campaignDateValidation = campaignDateValidation;
         $scope.descriptionValidation = descriptionValidation;
@@ -188,8 +188,20 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     "marketing_program_id": $scope.marketingProgramId.toString()
                 };
                 companyMarketingProgramFactory.setMarketingProgramPost(data).then(function (data) {
-                    $scope.redirectToActions("marketingprogramactions", data, 0, "");
-                    growl("Campaign created successfully");
+                   
+                    var responseData = data.operationStatus;
+                     var dataId = data.id;
+                    if(responseData.statusCode == "DataError"){
+                        
+                      growl(responseData.messages[0]);
+                    }
+                    else if(responseData.statusCode == "Success"){
+                                             
+                    $scope.redirectToActions("marketingprogramactions", dataId, 0, "");
+                    growl(responseData.messages[0]);
+                    }
+
+                   
                 });
             }
         };

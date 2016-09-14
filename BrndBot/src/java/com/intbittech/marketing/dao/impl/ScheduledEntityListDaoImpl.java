@@ -67,7 +67,7 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(ScheduledEntityList.class)
-                     .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
                     .setFetchMode("fkCompanyMarketingProgramId", FetchMode.JOIN)
                     .setFetchMode("fkRecurringEmailId", FetchMode.JOIN)
                     .add(Restrictions.eq("fkCompanyMarketingProgramId.companyMarketingProgramId", program_id));
@@ -99,7 +99,10 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
     public Integer save(ScheduledEntityList scheduledEntityList) throws ProcessFailed {
         try {
             return ((Integer) sessionFactory.getCurrentSession().save(scheduledEntityList));
-        } catch (ProcessFailed throwable) {
+        } catch (Throwable throwable) {
+            if (throwable instanceof org.hibernate.exception.ConstraintViolationException) {
+                throw new ProcessFailed("The entered action name already exists for the chosen date. Please enter a different name.");
+            }
             logger.log(Level.SEVERE, null, throwable);
             throw new ProcessFailed("Database error while saving record.");
         }
@@ -112,6 +115,7 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
         try {
             sessionFactory.getCurrentSession().update(scheduledEntityList);
         } catch (ProcessFailed throwable) {
+
             logger.log(Level.SEVERE, null, throwable);
             throw new ProcessFailed("Database error while updating record.");
         }
@@ -137,7 +141,7 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(ScheduledEntityList.class)
-                     .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
                     .setFetchMode("fkCompanyMarketingProgramId", FetchMode.JOIN)
                     .setFetchMode("fkRecurringEmailId", FetchMode.JOIN)
                     .add(Restrictions.eq("fkCompanyMarketingProgramId.companyMarketingProgramId", companyMarketingProgramId));
@@ -148,7 +152,6 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
         }
     }
 
-   
     @Override
     public String getLatestApprovedPost(String status, String entityType, String programStatus) throws ProcessFailed {
 
@@ -198,7 +201,7 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(ScheduledEntityList.class)
-                       .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
                     .setFetchMode("fkCompanyMarketingProgramId", FetchMode.JOIN)
                     .setFetchMode("fkRecurringEmailId", FetchMode.JOIN)
                     .add(Restrictions.eq("entityId", entityId));
@@ -214,7 +217,7 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(ScheduledEntityList.class)
-                       .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
                     .setFetchMode("fkCompanyMarketingProgramId", FetchMode.JOIN)
                     .setFetchMode("fkRecurringEmailId", FetchMode.JOIN)
                     .add(Restrictions.eq("fkCompanyMarketingProgramId.companyMarketingProgramId", companyMarketingProgramId))
@@ -232,7 +235,7 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(ScheduledEntityList.class)
-                             .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
                     .setFetchMode("fkCompanyMarketingProgramId", FetchMode.JOIN)
                     .setFetchMode("fkRecurringEmailId", FetchMode.JOIN)
                     .add(Restrictions.eq("fkCompanyMarketingProgramId.companyMarketingProgramId", companyMarketingProgramId));

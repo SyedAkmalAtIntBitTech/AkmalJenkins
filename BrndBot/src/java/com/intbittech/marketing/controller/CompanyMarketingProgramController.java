@@ -18,8 +18,10 @@ import com.intbittech.model.RecurringEmailTemplate;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.UserProfile;
+import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.MarketingActionService;
 import com.intbittech.services.RecurringEmailTemplateService;
+import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.UserSessionUtil;
 import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
@@ -33,6 +35,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
+import org.hibernate.Transaction;
 import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -61,10 +64,11 @@ public class CompanyMarketingProgramController {
     @Autowired
     private RecurringEmailTemplateService recurringEmailTemplateService;
 
-    @RequestMapping(value = "/setMarketingProgram", method = RequestMethod.POST)
+  @RequestMapping(value = "/setMarketingProgram", method = RequestMethod.POST)
     public @ResponseBody
-    String setUserMarketingProgram(HttpServletRequest request,
+    TransactionResponse setUserMarketingProgram(HttpServletRequest request,
             HttpServletResponse response) throws IOException, Throwable {
+        TransactionResponse transactionResponse = new TransactionResponse();
         try {
             SimpleDateFormat formatter = null;
             Date tillDate = null;
@@ -118,7 +122,7 @@ public class CompanyMarketingProgramController {
 
                     ScheduledEntityList scheduledEntityList = new ScheduledEntityList();
                     scheduledEntityList.setEntityType(jsonObject.get("type").toString());
-                    scheduledEntityList.setIsRecurring(Boolean.parseBoolean(jsonObject.get("is_recurring").toString()));
+                    scheduledEntityList.setIsRecurring(Boolean.parseBoolean(jsonObject.get("is_recuring").toString()));
                     scheduledEntityList.setScheduleDesc(jsonObject.get("description").toString());
                     scheduledEntityList.setEntityId(0);
                     scheduledEntityList.setScheduleTime(time);
@@ -133,11 +137,18 @@ public class CompanyMarketingProgramController {
                     scheduledEntityListService.save(scheduledEntityList);
                 }
             }
-            return link;
+        transactionResponse.setId(link);    
+        transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Company marketing program created successfully"));
+        
+
         } catch (Exception ex) {
+      transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
             logger.error(ex);
         }
-        return "false";
+        //return "false";
+        //transactionResponse.setId("false");    
+        //transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Company marketing program created successfully"));
+    return transactionResponse;
     }
 
     @RequestMapping(value = "/listAllMarketingProgram", method = RequestMethod.GET)

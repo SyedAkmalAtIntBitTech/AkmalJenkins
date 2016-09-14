@@ -71,4 +71,9 @@ public interface IConstants {
     // for external source 
     final static Integer EXTERNAL_SOURCE_NON_MINDBODY = 0;
     final static Integer EXTERNAL_SOURCE_MINDBODY = 1;
+    
+    // for marketing program 
+    final static String MARKETING_PROGRAM_CATEGORY = "MP";
+    final static String MARKETING_PROGRAM__ACTION_CATEGORY = "MPA";
+    final static String MARKETING_PROGRAM__RECURING_ACTION_CATEGORY = "MPRA";
 }

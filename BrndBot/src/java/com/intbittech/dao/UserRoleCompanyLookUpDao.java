@@ -102,5 +102,16 @@ public interface UserRoleCompanyLookUpDao {
      * @return {@link SubCategory}
      * @throws ProcessFailed the process failed
      */
-    public List<UsersRoleCompanyLookup> getAllUserRolesByUser(Users user) throws ProcessFailed;    
+    
+   public List<UsersRoleCompanyLookup> getAllUserRolesByUser(Users user) throws ProcessFailed;    
+   
+   /**
+     * This method pass user as input and get the {@link UsersRoleCompanyLookup} from database
+     *
+     * @param userRoleName the userRoleName
+     * @param companyId the companyId
+     * @return {@link UsersRoleCompanyLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public UsersRoleCompanyLookup getUsersRoleCompanyLookupByUserRoleIdAndCompanyId(String userRoleName, Integer companyId) throws ProcessFailed;
 }
