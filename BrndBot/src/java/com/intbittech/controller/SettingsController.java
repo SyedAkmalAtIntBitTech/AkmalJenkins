@@ -22,6 +22,7 @@ import com.intbittech.modelmappers.AddressDetails;
 import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.modelmappers.FooterDetails;
 import com.intbittech.modelmappers.InviteDetails;
+import com.intbittech.modelmappers.UserProfileColorDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
@@ -102,10 +103,10 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
     @Autowired
     CompanyService companyService;
-    
+
     @Autowired
     AddressService addressService;
-    
+
     @Autowired
     private MessageSource messageSource;
 
@@ -180,9 +181,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         try {
 
             boolean returnMessage = usersInviteService.removeUsersByInviteIdAndCompanyId(inviteId, userCompanyIds.getCompanyId());
-            if (returnMessage){
+            if (returnMessage) {
                 transactionResponse.setMessage(messageSource.getMessage("user_removed", new String[]{}, Locale.US));
-            }else{
+            } else {
 
                 transactionResponse.setMessage(messageSource.getMessage("user_remove_failure", new String[]{}, Locale.US));
             }
@@ -245,7 +246,40 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
+    @RequestMapping(value = "/setUserProfileColor", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> setUserProfileColor(@RequestBody UserProfileColorDetails userProfileColorDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            Company company = companyService.getCompanyById(userProfileColorDetails.getCompanyId());
+            companyPreferencesService.setUserProfileColor(userProfileColorDetails, company);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyCategories_color_update", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "/getUserProfileColor", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getUserProfileColor(HttpServletRequest request,
+            HttpServletResponse response, @RequestParam("companyId") Integer companyId) {
+        GenericResponse<String> genericResponse = new GenericResponse<>();
+
+        try {
+            Company company = companyService.getCompanyById(companyId);
+            String colorArray = companyPreferencesService.getUserProfileColor(company);
+            genericResponse.addDetail(colorArray);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+
     @RequestMapping(value = "/saveAddress", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveAddress(@RequestBody AddressDetails addressDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
@@ -310,9 +344,8 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             CompanyPreferences companyPreferences = companyPreferencesService.getByCompany(company);
             JSONParser parser = new JSONParser();
             JSONObject jSONObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
-            
-            if(companyPreferences.getFkAddressId()!=null)
-            {
+
+            if (companyPreferences.getFkAddressId() != null) {
                 JSONObject addressJSONObject = new JSONObject();
                 addressJSONObject.put("addressLine1", companyPreferences.getFkAddressId().getAddressLine1());
                 addressJSONObject.put("addressLine2", companyPreferences.getFkAddressId().getAddressLine2());
