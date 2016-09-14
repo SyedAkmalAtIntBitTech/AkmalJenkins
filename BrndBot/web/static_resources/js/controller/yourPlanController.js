@@ -325,7 +325,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
             var assignToDetails = {"scheduleId": scheduleId, "userAssignToId": userAssignToId};
             yourPlanFactory.changeAssigedToPOST(assignToDetails).then(function (data) {
-
+                var name = data.d.message
+                alert(name);
             });
 
         };
