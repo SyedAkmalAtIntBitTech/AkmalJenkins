@@ -225,24 +225,11 @@ public class EmailListController {
     
     @RequestMapping(value = "getContactsOfEmailList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getContactsOfEmailList(@RequestParam Integer emailListId) {
-        GenericResponse<ContactDetails> genericResponse = new GenericResponse<ContactDetails>();
+        GenericResponse<ContactEmailListLookup> genericResponse = new GenericResponse<ContactEmailListLookup>();
         try {
             List<ContactDetails> contactDetailsList = new ArrayList<>();
             List<ContactEmailListLookup> contactsList = contactEmailListLookupService.getContactsByEmailListId(emailListId);
-            if(contactsList !=null) {
-                for(ContactEmailListLookup contact:contactsList) {
-                    ContactDetails contactDetails = new ContactDetails();
-                    contactDetails.setContactId(contact.getFkContactId().getContactId());
-                    contactDetails.setEmailAddress(contact.getFkContactId().getEmailAddress());
-                    contactDetails.setFirstName(contact.getFkContactId().getFirstName());
-                    contactDetails.setLastName(contact.getFkContactId().getLastName());
-                    contactDetails.setContactEmailListLookupId(contact.getContactLookupId());
-                    contactDetails.setIsUnsubscribed(contact.getUnsubscribed());
-                    contactDetails.setAddedDate(contact.getAddedDate());
-                    contactDetailsList.add(contactDetails);
-                }
-            }
-            genericResponse.setDetails(contactDetailsList);
+            genericResponse.setDetails(contactsList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("contacts_get_all", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {
