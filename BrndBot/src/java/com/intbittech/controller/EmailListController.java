@@ -227,7 +227,6 @@ public class EmailListController {
     public ResponseEntity<ContainerResponse> getContactsOfEmailList(@RequestParam Integer emailListId) {
         GenericResponse<ContactEmailListLookup> genericResponse = new GenericResponse<ContactEmailListLookup>();
         try {
-            List<ContactDetails> contactDetailsList = new ArrayList<>();
             List<ContactEmailListLookup> contactsList = contactEmailListLookupService.getContactsByEmailListId(emailListId);
             genericResponse.setDetails(contactsList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("contacts_get_all", new String[]{}, Locale.US)));
