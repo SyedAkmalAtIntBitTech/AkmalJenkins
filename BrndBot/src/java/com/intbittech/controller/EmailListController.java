@@ -6,16 +6,12 @@
 package com.intbittech.controller;
 
 import com.intbittech.AppConstants;
-import com.intbittech.enums.EmailListTagConstants;
 import com.intbittech.enums.EmailListTypeConstants;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.Company;
 import com.intbittech.model.ContactEmailListLookup;
 import com.intbittech.model.Contacts;
 import com.intbittech.model.EmailList;
-import com.intbittech.model.EmailListTag;
 import com.intbittech.model.EmailListTagLookup;
-import com.intbittech.model.EmailListType;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.modelmappers.AddEmailListDetails;
 import com.intbittech.modelmappers.ContactDetails;
@@ -32,7 +28,6 @@ import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -57,73 +52,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping(value = "/emaillist")
 public class EmailListController {
-    
+
     private final Logger logger = Logger.getLogger(EmailListController.class);
-    
+
     @Autowired
     EmailListService emailListService;
-    
+
     @Autowired
     EmailListTagLookupService emailListTagLookupService;
-    
+
     @Autowired
     ContactEmailListLookupService contactEmailListLookupService;
-    
+
     @Autowired
     ContactsService contactsService;
-    
+
     @Autowired
     private MessageSource messageSource;
-    
-    @RequestMapping(value = "/get", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getEmailList(@RequestParam("emailListName") String emailListName, HttpServletRequest request,
-            HttpServletResponse response,@RequestParam("companyId") Integer companyId) {
-        GenericResponse<String> transactionResponse = new GenericResponse();
-        
-        try {
-            String queryParameter = (String) request.getParameter("update");
-            String data = emailListService.getEmailList(queryParameter, companyId, emailListName);
-            transactionResponse.addDetail(data);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("list_success", new String[]{}, Locale.US)));
-            
-        } catch (Throwable throwable) {
-            logger.error(throwable);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
-        }
-        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
-    }
-    
-    @RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> setEmailList(HttpServletRequest request,
-            HttpServletResponse response) {
-        TransactionResponse transactionResponse = new TransactionResponse();
-        try {
-            Map<String, Object> requestBodyMap
-                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
 
-            Boolean result = emailListService.setEmailList(requestBodyMap, userCompanyIds.getCompanyId());
-            if (result) {
-                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("save_success", new String[]{}, Locale.US)));
-            } else {
-                logger.debug("Unable to save email list");
-                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(messageSource.getMessage("save_fail", new String[]{}, Locale.US)));
-            }
-            
-        } catch (Throwable throwable) {
-            logger.error(throwable);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
-        }
-        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
-    }
-    
     @RequestMapping(value = "/createEmailList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> createEmailList(@RequestBody AddEmailListDetails addEmailListDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            if(!emailListService.checkUniqueness(addEmailListDetails.getCompanyId(), addEmailListDetails.getEmailListName()))
+            if (!emailListService.checkUniqueness(addEmailListDetails.getCompanyId(), addEmailListDetails.getEmailListName())) {
                 throw new ProcessFailed(messageSource.getMessage("email_list_not_unique", new String[]{}, Locale.US));
-            
+            }
+
             Integer emailListId = emailListService.save(addEmailListDetails);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("email_list_save", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
@@ -132,12 +86,12 @@ public class EmailListController {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/deleteEmailList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteEmailList(@RequestBody DeleteIdsDetails deleteIdsDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            for(Integer emailListId : deleteIdsDetails.getIds()) {
+            for (Integer emailListId : deleteIdsDetails.getIds()) {
                 emailListService.delete(emailListId);
             }
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("email_list_delete", new String[]{}, Locale.US)));
@@ -147,15 +101,17 @@ public class EmailListController {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
+
     //TODO validate email
     @RequestMapping(value = "/addContact", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> addContact(@RequestBody ContactDetails contactDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             EmailValidator emailValidator = new EmailValidator();
-            if(!emailValidator.validate(contactDetails.getEmailAddress()))
-                throw new ProcessFailed(messageSource.getMessage("contact_not_valid",new String[]{}, Locale.US));
-        
+            if (!emailValidator.validate(contactDetails.getEmailAddress())) {
+                throw new ProcessFailed(messageSource.getMessage("contact_not_valid", new String[]{}, Locale.US));
+            }
+
             contactsService.addContact(contactDetails);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("contact_save", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
@@ -164,16 +120,16 @@ public class EmailListController {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
+
     //TODO validate emails
     @RequestMapping(value = "/addContactList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> addContactList(@RequestBody ContactDetails contactDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             String emailAddressesSplit[] = contactDetails.getEmailAddress().split(",");
-            for(int i=0;i<emailAddressesSplit.length;i++)
-            {
+            for (int i = 0; i < emailAddressesSplit.length; i++) {
                 EmailValidator emailValidator = new EmailValidator();
-                if(emailValidator.validate(emailAddressesSplit[i])) {
+                if (emailValidator.validate(emailAddressesSplit[i])) {
                     contactDetails.setEmailAddress(emailAddressesSplit[i]);
                     contactsService.addContact(contactDetails);
                 }
@@ -185,13 +141,13 @@ public class EmailListController {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
     //IDS need to contactEmailListLookupId and not contactId
     @RequestMapping(value = "/deleteContactList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteContactList(@RequestBody DeleteIdsDetails deleteIdsDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            for(Integer contactId : deleteIdsDetails.getIds()) {
+            for (Integer contactId : deleteIdsDetails.getIds()) {
                 contactEmailListLookupService.delete(contactId);
             }
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("contact_delete", new String[]{}, Locale.US)));
@@ -201,14 +157,16 @@ public class EmailListController {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
+
     //TODO validate email
     @RequestMapping(value = "/editContact", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> editContact(@RequestBody ContactDetails contactDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             EmailValidator emailValidator = new EmailValidator();
-            if(!emailValidator.validate(contactDetails.getEmailAddress()))
-                throw new ProcessFailed(messageSource.getMessage("contact_not_valid",new String[]{}, Locale.US));
+            if (!emailValidator.validate(contactDetails.getEmailAddress())) {
+                throw new ProcessFailed(messageSource.getMessage("contact_not_valid", new String[]{}, Locale.US));
+            }
             Contacts contacts = new Contacts();
             contacts = contactsService.getByContactsId(contactDetails.getContactId());
             contacts.setEmailAddress(contactDetails.getEmailAddress());
@@ -222,7 +180,7 @@ public class EmailListController {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "getContactsOfEmailList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getContactsOfEmailList(@RequestParam Integer emailListId) {
         GenericResponse<ContactEmailListLookup> genericResponse = new GenericResponse<ContactEmailListLookup>();
@@ -237,14 +195,14 @@ public class EmailListController {
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "getAllEmailListNames", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllEmailListNames(@RequestParam Integer companyId) {
         GenericResponse<AddEmailListDetails> genericResponse = new GenericResponse<AddEmailListDetails>();
         try {
             List<AddEmailListDetails> allEmailListNames = new ArrayList<>();
             List<EmailList> emailLists = emailListService.getEmailListByCompanyId(companyId);
-            for(EmailList emailList : emailLists) {
+            for (EmailList emailList : emailLists) {
                 AddEmailListDetails addEmailListDetails = new AddEmailListDetails();
                 addEmailListDetails.setEmailListName(emailList.getEmailListName());
                 allEmailListNames.add(addEmailListDetails);
@@ -257,14 +215,14 @@ public class EmailListController {
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "getAllEmailListWithNoOfContactsForUser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllEmailListWithNoOfContacts(@RequestParam Integer companyId) {
         GenericResponse<AddEmailListDetails> genericResponse = new GenericResponse<AddEmailListDetails>();
         try {
             List<AddEmailListDetails> allEmailListNames = new ArrayList<>();
-            List<EmailList> emailLists = emailListService.getEmailListByCompanyIdAndType(companyId,EmailListTypeConstants.General.getEmailListType());
-            for(EmailList emailList : emailLists) {
+            List<EmailList> emailLists = emailListService.getEmailListByCompanyIdAndType(companyId, EmailListTypeConstants.General.getEmailListType());
+            for (EmailList emailList : emailLists) {
                 AddEmailListDetails addEmailListDetails = new AddEmailListDetails();
                 addEmailListDetails.setEmailListName(emailList.getEmailListName());
                 addEmailListDetails.setEmailListType(emailList.getFkTypeId().getTypeName());
@@ -272,19 +230,20 @@ public class EmailListController {
                 addEmailListDetails.setCreatedDate(emailList.getCreatedDate());
                 //Send back tags
                 List<EmailListTagLookup> emailListTagLookups = emailListTagLookupService.getByEmailListTagLookupByEmailListId(emailList.getEmailListId());
-                if(emailListTagLookups!=null)
-                {
+                if (emailListTagLookups != null) {
                     List<String> emailListTags = new ArrayList<>();
-                    for(EmailListTagLookup emailListTagLookup:emailListTagLookups) {
+                    for (EmailListTagLookup emailListTagLookup : emailListTagLookups) {
                         emailListTags.add(emailListTagLookup.getFkEmailListTagId().getTagName());
                     }
-                    if(emailListTags.size()>0)
+                    if (emailListTags.size() > 0) {
                         addEmailListDetails.setEmailListTags(emailListTags);
+                    }
                 }
                 List<ContactEmailListLookup> contactsList = contactEmailListLookupService.getContactsByEmailListId(emailList.getEmailListId());
                 Integer numberOfContacts = 0;
-                if(contactsList != null)
+                if (contactsList != null) {
                     numberOfContacts = contactsList.size();
+                }
                 addEmailListDetails.setNumberOfContacts(numberOfContacts);
                 allEmailListNames.add(addEmailListDetails);
             }
@@ -296,36 +255,37 @@ public class EmailListController {
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "getAllEmailListWithNoOfContactsForMindBody", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllEmailListWithNoOfContactsForMindBody(@RequestParam Integer companyId) {
         GenericResponse<AddEmailListDetails> genericResponse = new GenericResponse<AddEmailListDetails>();
         try {
             List<AddEmailListDetails> allEmailListNames = new ArrayList<>();
-            List<EmailList> emailLists = emailListService.getEmailListByCompanyIdAndType(companyId,EmailListTypeConstants.Mindbody.getEmailListType());
-            for(EmailList emailList : emailLists) {
+            List<EmailList> emailLists = emailListService.getEmailListByCompanyIdAndType(companyId, EmailListTypeConstants.Mindbody.getEmailListType());
+            for (EmailList emailList : emailLists) {
                 AddEmailListDetails addEmailListDetails = new AddEmailListDetails();
                 addEmailListDetails.setEmailListName(emailList.getEmailListName());
                 addEmailListDetails.setEmailListType(emailList.getFkTypeId().getTypeName());
                 addEmailListDetails.setEmailListId(emailList.getEmailListId());
                 addEmailListDetails.setCreatedDate(emailList.getCreatedDate());
-                
+
                 //Send back tags
                 List<EmailListTagLookup> emailListTagLookups = emailListTagLookupService.getByEmailListTagLookupByEmailListId(companyId);
-                if(emailListTagLookups!=null)
-                {
+                if (emailListTagLookups != null) {
                     List<String> emailListTags = new ArrayList<>();
-                    for(EmailListTagLookup emailListTagLookup:emailListTagLookups) {
+                    for (EmailListTagLookup emailListTagLookup : emailListTagLookups) {
                         emailListTags.add(emailListTagLookup.getFkEmailListTagId().getTagName());
                     }
-                    if(emailListTags.size()>0)
+                    if (emailListTags.size() > 0) {
                         addEmailListDetails.setEmailListTags(emailListTags);
+                    }
                 }
-                
+
                 List<ContactEmailListLookup> contactsList = contactEmailListLookupService.getContactsByEmailListId(emailList.getEmailListId());
                 Integer numberOfContacts = 0;
-                if(contactsList != null)
+                if (contactsList != null) {
                     numberOfContacts = contactsList.size();
+                }
                 addEmailListDetails.setNumberOfContacts(numberOfContacts);
                 allEmailListNames.add(addEmailListDetails);
             }

@@ -19,13 +19,7 @@ import java.util.Map;
  */
 public interface EmailListService {
 
-    public String getEmailList(String queryParameter, Integer companyId, String emailListName) throws Exception;
-
-    public Boolean setEmailList(Map<String, Object> requestBodyMap, Integer companyId) throws Exception;
-
-    public void updateUnsubscribedUserEmailLists(CompanyPreferences companyPreferences);
-    
-     /**
+    /**
      * This method pass id as input and get the {@link EmailList} from DAO
      * layer.
      *

@@ -154,7 +154,7 @@ public class OnboardingController {
                         SqlMethods sqlMethods = new SqlMethods();
                         Integer studioId = sqlMethods.getStudioID(companyId);
                         MindbodyEmailListProcessor mindbodyEmailListProcessor = new MindbodyEmailListProcessor();
-                        mindbodyEmailListProcessor.processEachRowNew(companyId, studioId);
+                        mindbodyEmailListProcessor.processEachRow(companyId, studioId);
                     } catch (Throwable throwable) {
                         logger.error(throwable);
                         transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
