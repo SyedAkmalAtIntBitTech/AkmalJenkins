@@ -2,23 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
         <title>BrndBot - Marketing Programs lists</title>
-        <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
-<!--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-animate.min.js"></script>
-        <link rel="stylesheet" href="css/pikaday.css"/>
-        <link rel="stylesheet" href="css/datepickerpikaday.css"/>  
-        <script src="js/moment.js" type="text/javascript"></script>
-        <script src="js/pikaday.js"></script>
-        <script src="js/timepicki.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="../css/pikaday.css"/>
+        <script src="../js/utilities/moment.js" type="text/javascript"></script>
+        <script src="../js/utilities/pikaday.js"></script>
+        <script src="../js/utilities/timepicki.js" type="text/javascript"></script>
         <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/timepicki.css">
-        <script src="js/alertmessage.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="../css/timepicki.css">
+        <script src="../js/utilities/alertmessageuser.js" type="text/javascript"></script>
         <script src="../js/configurations.js"></script> 
-        <script src="../js/angularappconfiguration.js"></script> 
-        <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
+        <script src="../js/utilities/angularappconfiguration.js"></script> 
+        <link href="../css/colpick.css" rel="stylesheet" type="text/css"/>
         <link rel="shortcut icon" href="../images/favicon.png"/> 
         <script src="../js/factory/categoryFactory.js" type="text/javascript"></script>
         <script src="../js/factory/subCategoryFactory.js" type="text/javascript"></script>
@@ -35,38 +33,22 @@
         <script src="../js/factory/settingsFactory.js" type="text/javascript"></script>
         <script src="../js/factory/emailFactory.js" type="text/javascript"></script>
         <script src="../js/factory/companyMarketingFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/externalContentFactory.js" type="text/javascript"></script>
         <script src="../js/factory/marketingRecurringEmailController.js" type="text/javascript"></script>
-        <script src="js/controller/marketingController.js" type="text/javascript"></script> 
-        <script src="js/controller/routing.js" type="text/javascript"></script>
+        <script src="../js/factory/onboardingFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/appSessionFactory.js" type="text/javascript"></script>
+        <script src="../js/controller/marketingController.js" type="text/javascript"></script> 
+        <script src="../js/controller/routing.js" type="text/javascript"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css"> 
-        <link rel="stylesheet" href="css/plugins/image_manager.css">
-        <script type="text/javascript" src="js/plugins/align.min.js"></script>
-        <script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
-        <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
-        <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
-        <script type="text/javascript" src="js/plugins/image.min.js"></script>
-        <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
-        <script type="text/javascript" src="js/plugins/file.min.js"></script>
-        <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
-        <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
-        <script type="text/javascript" src="js/plugins/url.min.js"></script>
-        <script type="text/javascript" src="js/plugins/entities.min.js"></script>
-        <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
-        <script type="text/javascript" src="js/plugins/save.min.js"></script>
-        <script type="text/javascript" src="js/plugins/quote.min.js"></script>
-        <script type="text/javascript" src="js/plugins/link.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/general_1.css">     
-        <link rel="stylesheet" type="text/css" href="css/popup.css"/> 
-        <link href="css/general_1.css" rel="stylesheet" type="text/css"/>
-        <link href="css/froala_editor.css" rel="stylesheet" type="text/css"/>
-        <link href="css/froala_style.css" rel="stylesheet" type="text/css"/>
-        <script src="js/froala_editor.min_editor.js" type="text/javascript"></script>
-        <script src="js/plugins/code_view.min.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="../css/plugins/image_manager.css">
+        <link href="../css/general_1.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
         <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
-        <script src="../js/angulardropdown.js" type="text/javascript"></script>
+        <script src="../js/utilities/angulardropdown.js" type="text/javascript"></script>
         <link href="../css/jquerygrowl.css" rel="stylesheet" type="text/css"/>
-        <script src="../js/jquerygrowl.js" type="text/javascript"></script>
+        <script src="../js/utilities/jquerygrowl.js" type="text/javascript"></script>
+        <script src="../js/utilities/models.js" type="text/javascript"></script>
+        <script src="../js/factory/blockModelFactory.js" type="text/javascript"></script>
          <style>
         #pastprogs,#delmarkprog{display: none;}
     </style>
@@ -81,8 +63,6 @@
                                     left: 5em; 
                                     color: #2D4444;
                                     width:calc(100vw - 50%);
-                                    /*width:57% !important;*/
-                                    /*height: 600px;*/
                                     height:60%;
                                     overflow-y: auto;
                                 }
@@ -114,169 +94,21 @@
                                         width: 62%;
                                 }
                                 
-/* .contentWrapInner {
-    width: 100%;
-    padding-top: 2%;
-    padding-bottom: 4%;
-    overflow-y: scroll;
-    padding-bottom: 45px;
-}
-                            </style>
-    <style>
-        #email_previewdiv{margin-left:10% !important;}
-        .pop-up-background{margin-top:2vw !important;}
-        .fr-box.fr-code-view textarea.fr-code{
-            padding-top: 35px !important;
-        }
-        .fr-editheader {
-            top: 5px !important;
-            bottom: 23px !important;
-            position: fixed !important;
-            height: 39px !important;
-            width: 57%;
-        }
-        .fr-wrapper{    margin-top: 2% !important;}
-        .arrow_top,#emlautomeditorcontainer,#emailautomationcontent,#emailautomation,#textdiv,#myModal,#editpreviewtemplatebottom{display:none;}
-        .in-editor-footer-wrap{margin-left: 10%;margin-top: calc(41vw - 100px)!important;max-width: calc(55vw - 110px)!important;}
 
-.emailEditor-rightCol {
-    width: 40%;
-    border-left: 1px solid #E3E3E3;
-    height: auto;
-    padding-bottom: 0px;
-    margin-top: 60px;
-    background-color: #FFFFFF;
-}
-.emailSideBar-Header {
-    height: 40px;
-    border-bottom: 1px solid #E3E3E3;
-    width: 30%;
-    position: fixed;
-    background-color: #fff;
-}
-.in-editor-footer-wrap {
-    position:fixed;
-    background-color: #f9f9f9;
-    border: 1px solid #D5D9DD;
-    border-radius: 3px;
-    margin-top: calc(38vw - 100px);
-    padding: 20px;
-    text-align: center;
-    max-width: calc(72vw - 110px);
-    z-index: 10;
-    margin-left: 8%;
-}
-
-.block-list {
-    background: #f9f9f9;
-    padding: 0px 20px;
-    height: 75vh;
-    margin-top: 11%;
-    padding-top: 2px;
-    cursor: pointer;
-}
-
-
-.col-emaileditordiv {
-    width: 74%;
-    margin-left: -4%;
-}
-.nav-elements-icon {
-    border-top: 0px solid #203c4f;
-    display: block;
-    line-height: 53px;
-    list-style: none;
-    margin: 0;
-    width: 100%;
-    padding: 0px;
-    width: 35px;
-    height: 35px;
-    margin: auto;
-}
-.right-email-select {
-    height: -webkit-calc(10% - 1px) !important;
-}
-.contentWrap--withSideNav{
-     width: calc(10vw - 70px);
-    position: fixed;
-    left: 70px;
-    top: 0px;
-    height: 100vh;
-    overflow: auto;
-}
-    .emailSideBar-tab-active {
-    text-align: center;
-    height: 40px;
-    border-bottom: 2px #0F76A6 solid;
-    padding-top: 10px;
-    box-sizing: border-box;
-    font-size: 14px;
-    color: #0F76A6;
-    font-weight: 600;
-}
-.emailSideBar-tab {
-    text-align: center;
-    height: 40px;
-    border-bottom: 0px #0F76A6 solid;
-    padding-top: 10px;
-    box-sizing: border-box;
-    font-size: 14px;
-    color: #5F6775;
-    font-weight: 600;
-}
-
-
-.email-Block-Header {
-    padding: 20px 30px;
-    font-size: 16px;
-    color: rgb(43,43,43);
-    font-weight: 400;
-    position: fixed;
-    background-color: #fff;
-    width: 100%;
-    margin-top: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-.email-Block-Selection {
-    margin-top: 31px;
-    background-color: #fff;
-}
-.emailEditor-page-background {
-    padding-top: 60px;
-    width: 100%;
-    height: 100vh;
-    background-color: #EEEEEE;
-}
-iframe{
-    border: 0px;
-} */
     </style>
-            <script src="js/tinymce.min.js" type="text/javascript"></script>
-            <script type="text/javascript" src="js/plugins/align.min.js"></script>
-            <script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
-            <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
-            <script type="text/javascript" src="js/plugins/font_family.min_editor.js"></script>
-            <script type="text/javascript" src="js/plugins/image.min.js"></script>
-            <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
-            <script type="text/javascript" src="js/plugins/file.min.js"></script>
-            <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
-            <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
-            <script type="text/javascript" src="js/plugins/url.min.js"></script>
-            <script type="text/javascript" src="js/plugins/entities.min.js"></script>
-            <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
-            <script type="text/javascript" src="js/plugins/save.min.js"></script>
-            <script type="text/javascript" src="js/plugins/quote.min.js"></script>
-            <script type="text/javascript" src="js/plugins/link.min.js"></script>
+            <script src="../js/tinymce.min.js" type="text/javascript"></script>
 </head>    
 
-    <body ng-app="marketingFlowApp" class="body-normal" ng-controller="marketingController" id="marketingController">
-   <script type="text/ng-template"></script> 
-    <input type="hidden" ng-model="marketingCategoryId" value="{{marketingCategoryId}}"/>
-    <div ng-include src="'genericpopup.html'"></div>
-    <div ng-include src="'navbar.html'"></div> 
-    <div ng-view></div>  
-    <!--Main Content Wrap-->    
+<body ng-app="marketingFlowApp" class="body-normal" ng-controller="marketingController" id="marketingController">
+    <script type="text/ng-template"></script> 
+    <div class="bb-app-frame">
+      <div class="bb-main-app-wrap" >
+          <input type="hidden" ng-model="marketingCategoryId" value="{{marketingCategoryId}}"/>
+          <div ng-include src="'genericpopup.html'"></div>
+          <div ng-include src="'navbar.html'"></div> 
+          <div ng-view class="bb-main-container-wrap"></div>  
+      </div>
+    </div>
 </body>
     
 

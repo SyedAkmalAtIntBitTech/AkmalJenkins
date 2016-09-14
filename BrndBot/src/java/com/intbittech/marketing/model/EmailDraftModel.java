@@ -17,6 +17,15 @@ public class EmailDraftModel {
     private Integer mindbodyid;
     private String emailsubject;
     private String htmlbodystring;
+    private String preheader;
+
+    public String getPreheader() {
+        return preheader;
+    }
+
+    public void setPreheader(String preheader) {
+        this.preheader = preheader;
+    }
 
     public Integer getMindbodyid() {
         return mindbodyid;

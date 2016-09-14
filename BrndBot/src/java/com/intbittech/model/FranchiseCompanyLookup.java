@@ -6,7 +6,9 @@
 package com.intbittech.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +23,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @authorajit @ Intbit
+ * @author AbdulRaqeeb
  */
 @Entity
 @Table(name = "franchise_company_lookup")
@@ -109,5 +111,28 @@ public class FranchiseCompanyLookup implements Serializable {
         this.fkAddedBy = fkAddedBy;
     }
 
-   
+    public static List<Company> getCompanys(List<FranchiseCompanyLookup> franchises) {
+        List<Company> companys = new ArrayList<>();
+        for (FranchiseCompanyLookup franchiseCompanyLookup : franchises) {
+            companys.add(franchiseCompanyLookup.getFkCompanyId());
+        }
+        return companys;
+    }
+
+    
+    public static List<Franchise> getFranchises(List<FranchiseCompanyLookup> franchiseCompanyLookups) {
+        List<Franchise> franchises = new ArrayList<>();
+        for (FranchiseCompanyLookup franchiseCompanyLookup : franchiseCompanyLookups) {
+            franchises.add(franchiseCompanyLookup.getFkFranchiseId());
+        }
+        return franchises;
+    }
+
+    public Boolean getIsHeadQuarter() {
+        return isHeadquarter;
+    }
+
+    public void setIsHeadQuarter(Boolean isHeadQuarter) {
+        this.isHeadquarter = isHeadQuarter;
+    }
 }

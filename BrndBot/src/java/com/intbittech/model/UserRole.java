@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 /**
  *
  * @author Haider Khan @ Intbit
@@ -55,7 +56,5 @@ public class UserRole implements Serializable {
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
-
-   
 
 }

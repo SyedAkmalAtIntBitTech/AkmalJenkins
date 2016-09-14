@@ -15,7 +15,6 @@ import com.intbittech.model.EmailBlockModelLookup;
 import com.intbittech.model.ExternalSourceKeywordLookup;
 import com.intbittech.model.SubCategoryEmailModel;
 import com.intbittech.model.SubCategoryExternalSource;
-import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.services.EmailBlockExternalSourceService;
@@ -25,7 +24,6 @@ import com.intbittech.services.ExternalSourceKeywordLookupService;
 import com.intbittech.services.SubCategoryEmailModelService;
 import com.intbittech.services.SubCategoryExternalSourceService;
 import com.intbittech.utility.ErrorHandlingUtil;
-import com.intbittech.utility.UserSessionUtil;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Locale;
@@ -73,34 +71,28 @@ public class ExternalContentController {
     private SubCategoryEmailModelService subCategoryEmailModelService;
 
     @RequestMapping(value = "/isActivated", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> isActivated() throws SQLException {
+    public ResponseEntity<ContainerResponse> isActivated(@RequestParam("companyId") Integer companyId) throws SQLException {
         GenericResponse<Boolean> genericResponse = new GenericResponse<>();
-        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
-        externalContentProcessor = new ExternalContentProcessor(companyID);
+        externalContentProcessor = new ExternalContentProcessor(companyId);
         genericResponse.addDetail(externalContentProcessor.isActivated());
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "/getActivationLink", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getActivationLink() throws SQLException {
+    public ResponseEntity<ContainerResponse> getActivationLink(@RequestParam("companyId") Integer companyId) throws SQLException {
         GenericResponse<String> genericResponse = new GenericResponse<>();
-        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
-        externalContentProcessor = new ExternalContentProcessor(companyID);
+        externalContentProcessor = new ExternalContentProcessor(companyId);
         genericResponse.addDetail(externalContentProcessor.getActivationLink());
 
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "/getListData/{externalSourceKeywordLookupId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getListData(@PathVariable("externalSourceKeywordLookupId") Integer externalSourceKeywordLookupId) {
+    public ResponseEntity<ContainerResponse> getListData(@RequestParam("companyId") Integer companyId,@PathVariable("externalSourceKeywordLookupId") Integer externalSourceKeywordLookupId) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
             //TODO what if the user has multiple external sources.
-            externalContentProcessor = new ExternalContentProcessor(companyID);
+            externalContentProcessor = new ExternalContentProcessor(companyId);
             ExternalSourceKeywordLookup externalSourceKeywordLookup = externalSourceKeywordLookupService.getByExternalSourceKeywordLookupId(externalSourceKeywordLookupId);
             String query = externalSourceKeywordLookup.getFkExternalSourceKeywordId().getExternalSourceKeywordName();
             ExternalSourceProcessedData externalSourceProcessedData = externalContentProcessor.getListData(query);
@@ -119,20 +111,19 @@ public class ExternalContentController {
 
     @RequestMapping(value = "/getLayoutEmailModelById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getLayoutEmailModelById(@RequestParam("emailModelId") Integer modelId,
-            @RequestParam("isBlock") Boolean isBlock,
-            @RequestParam("externalDataId") Integer externalDataId,
+            @RequestParam("isBlock") Boolean isBlock,@RequestParam("companyId") Integer companyId,
+            @RequestParam("externalDataId") Integer externalDataId, @RequestParam("isRecurring") Boolean isRecurring,
             HttpServletRequest request, HttpServletResponse response) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
             String hostURL = ServletUtil.getServerName(request.getServletContext());
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             Map<String, Object> data = new HashMap<>();
             ExternalSourceKeywordLookup externalSourceKeywordLookup = null;
             externalContentProcessor = new ExternalContentProcessor(companyId);
             Integer externalKeywordId = null;
             Integer emailOrBlockModel = 0;
             Integer blockOrSubcategoryId = 0;
+            if(!isRecurring) {
             if (isBlock) {
                 EmailBlockModelLookup emailBlockModelLookup = emailBlockModelLookupService.getByEmailModelId(modelId);
                 emailOrBlockModel = emailBlockModelLookup.getFkEmailBlockModelId().getEmailBlockModelId();
@@ -169,7 +160,10 @@ public class ExternalContentController {
                 }
 
             }
-            String html = emailModelService.getLayoutEmail(isBlock,emailOrBlockModel, hostURL, companyId, externalSourceKeywordLookup, externalDataId, data);
+            } else {
+                emailOrBlockModel = modelId;
+            }
+            String html = emailModelService.getLayoutEmail(isBlock,emailOrBlockModel, hostURL, companyId, externalSourceKeywordLookup, externalDataId, data, isRecurring);
             genericResponse.addDetail(html);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template retrieved successfully."));
         } catch (Throwable throwable) {

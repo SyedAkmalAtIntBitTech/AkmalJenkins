@@ -12,6 +12,7 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailBlock;
 import com.intbittech.model.EmailBlockExternalSource;
 import com.intbittech.services.EmailBlockExternalSourceService;
+import java.util.List;
 import java.util.Locale;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,15 @@ public class EmailBlockExternalSourceServiceImpl implements EmailBlockExternalSo
         if(emailBlockExternalSource == null)
             throw new ProcessFailed(messageSource.getMessage("emailBlock_not_found",new String[]{}, Locale.US));
         emailBlockDao.delete(emailBlockExternalSource);
+    }
+
+     /**
+     * {@inheritDoc}
+     */
+    public List<EmailBlockExternalSource> getAllEmailBlockExternalSourceByEmailBlockIdAndExternalSourceId(Integer emailBlockId, Integer externalSourceId) throws ProcessFailed {
+         List<EmailBlockExternalSource> emailBlockExternalSourceList = emailBlockExternalSourceDao.getAllEmailBlockExternalSourceByEmailBlockIdAndExternalSourceId(emailBlockId, externalSourceId);
+               
+         return emailBlockExternalSourceList;
     }
     
 }

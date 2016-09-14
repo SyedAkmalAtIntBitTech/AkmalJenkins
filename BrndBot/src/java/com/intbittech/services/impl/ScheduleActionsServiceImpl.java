@@ -46,23 +46,28 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
 
         if (type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString())) {
             if ((program_id != null) && !(program_id.equals("undefined"))) {
-                json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(companyId, Integer.parseInt(program_id));
+              //  json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(companyId, Integer.parseInt(program_id));
+                json_array = ScheduleSocialPostDAO.getScheduledActionsfacebookWithDate(companyId, Integer.parseInt(program_id));    
             }
         } else if (type.equalsIgnoreCase(ScheduledEntityType.Twitter.toString())) {
             if ((program_id != null) && !(program_id.equals("undefined"))) {
-                json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(companyId, Integer.parseInt(program_id));
+//                json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(companyId, Integer.parseInt(program_id));
+                  json_array = ScheduleSocialPostDAO.getScheduledActionstwitterWithDate(companyId, Integer.parseInt(program_id));  
             }
         } else if (type.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
             if ((program_id != null) && !(program_id.equals("undefined"))) {
-                json_array = ScheduleDAO.getScheduledActions(companyId, Integer.parseInt(program_id));
+//                json_array = ScheduleDAO.getScheduledActions(companyId, Integer.parseInt(program_id));
+                  json_array = ScheduleDAO.getScheduledActionsEmailWithDate(companyId, Integer.parseInt(program_id));  
             }
         } else if (type.equalsIgnoreCase("social")) {
             JSONArray json_social = new JSONArray();
-            json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(companyId, Integer.parseInt(program_id));
+//            json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(companyId, Integer.parseInt(program_id));
+              json_array = ScheduleSocialPostDAO.getScheduledActionsfacebookWithDate(companyId, Integer.parseInt(program_id));  
             for (int i = 0; i < json_array.size(); i++) {
                 json_social.add(json_array.get(i));
             }
-            json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(companyId, Integer.parseInt(program_id));
+//            json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(companyId, Integer.parseInt(program_id));
+             json_array = ScheduleSocialPostDAO.getScheduledActionstwitterWithDate(companyId, Integer.parseInt(program_id));   
             for (int i = 0; i < json_array.size(); i++) {
                 json_social.add(json_array.get(i));
             }
@@ -95,17 +100,19 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
             Map<String, Integer> idMap = ScheduleDAO.addToScheduledEmailList(
                     companyId,
                     requestBodyMap.get("email_subject").toString(),
+                    requestBodyMap.get("email_preheader").toString(),
                     Integer.parseInt(marketing_program_id),
                     html_text,
                     requestBodyMap.get("from_email_address").toString(),
                     requestBodyMap.get("email_list").toString(),
                     requestBodyMap.get("from_name").toString(),
                     requestBodyMap.get("reply_to_email_address").toString(),
-                    requestBodyMap.get("to_email_addresses").toString().split(","),
+                    //                    requestBodyMap.get("to_email_addresses").toString().split(","),
                     requestBodyMap.get("schedule_title").toString(),
                     scheduleDesc,
                     new Timestamp(schedule.longValue()),
-                    TemplateStatus.template_saved.toString()
+                    TemplateStatus.template_saved.toString(),
+                    requestBodyMap.get("html_body").toString()
             );
 
             if (!path.equals("")) {
@@ -141,14 +148,15 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                     companyId,
                     Integer.parseInt(schedule_id),
                     requestBodyMap.get("email_subject").toString(),
+                    requestBodyMap.get("email_preheader").toString(),
                     html_text,
                     requestBodyMap.get("from_email_address").toString(),
                     requestBodyMap.get("email_list").toString(),
                     requestBodyMap.get("from_name").toString(),
                     requestBodyMap.get("reply_to_email_address").toString(),
-                    requestBodyMap.get("to_email_addresses").toString().split(","),
                     scheduleDesc,
-                    TemplateStatus.template_saved.toString()
+                    TemplateStatus.template_saved.toString(),
+                    requestBodyMap.get("html_body").toString()
             );
 
             if (!path.equals("")) {
@@ -163,12 +171,12 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
     }
 
     @Override
-    public List<Map<String, Integer>> scheduleSocialPostActions(List<Map<String, Object>> requestBodyList, Integer companyId) {
+    public List<Map<String, Integer>> scheduleSocialPostActions(Map<String, Object> requestBodyMap, Integer companyId) {
         List<Map<String, Integer>> daoResponseList = new ArrayList<>();
         try (Connection conn = ConnectionManager.getInstance().getConnection()) {
             conn.setAutoCommit(false);
             try {
-                for (Map<String, Object> requestBodyMap : requestBodyList) {
+                
                     String metadataString = requestBodyMap.get("metadata").toString();
                     String schedule_id = (String) requestBodyMap.get("schedule_id");
                     String image_type = (String) requestBodyMap.get("image_type");
@@ -182,7 +190,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                             image_type,
                             conn);
                     daoResponseList.add(daoResponse);
-                }
+                    
                 conn.commit();
             } catch (SQLException ex) {
                 conn.rollback();
@@ -196,12 +204,12 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
     }
 
     @Override
-    public List<Map<String, Integer>> scheduleSocialPost(List<Map<String, Object>> requestBodyList, Integer companyId) {
+    public List<Map<String, Integer>> scheduleSocialPost(Map<String, Object> requestBodyMap, Integer companyId) {
         List<Map<String, Integer>> daoResponseList = new ArrayList<>();
         try (Connection conn = ConnectionManager.getInstance().getConnection()) {
             conn.setAutoCommit(false);
             try {
-                for (Map<String, Object> requestBodyMap : requestBodyList) {
+//                for (Map<String, Object> requestBodyMap : requestBodyList) {
                     Double schedule = (Double) requestBodyMap.get("schedule_time");
 
                     Timestamp scheduleTimeStamp = new Timestamp(schedule.longValue());
@@ -225,7 +233,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                             imageType,
                             conn);
                     daoResponseList.add(daoResponse);
-                }
+//                }
                 conn.commit();
             } catch (SQLException ex) {
                 conn.rollback();

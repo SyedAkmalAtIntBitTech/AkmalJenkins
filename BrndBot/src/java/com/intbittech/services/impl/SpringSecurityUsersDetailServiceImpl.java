@@ -7,9 +7,12 @@ package com.intbittech.services.impl;
 
 import com.intbittech.model.UserProfile;
 import com.intbittech.model.Users;
+import com.intbittech.model.UsersRoleCompanyLookup;
+import com.intbittech.services.UserRoleCompanyLookUpService;
 import com.intbittech.services.UsersService;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,9 +29,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("springSecurityUsersDetailServiceImpl")
 public class SpringSecurityUsersDetailServiceImpl implements UserDetailsService {
 
+    private Logger logger = Logger.getLogger(SpringSecurityUsersDetailServiceImpl.class);
+
     @Autowired
     private UsersService usersService;
 
+    @Autowired
+    private UserRoleCompanyLookUpService userRoleLookUpService;
+    
     /**
      *
      * @param username
@@ -40,6 +48,7 @@ public class SpringSecurityUsersDetailServiceImpl implements UserDetailsService 
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
         Users user = usersService.findByUserName(username);
+        
         if (user == null) {
             throw new UsernameNotFoundException("Username not found");
         }
@@ -49,7 +58,19 @@ public class SpringSecurityUsersDetailServiceImpl implements UserDetailsService 
 
     private List<GrantedAuthority> getGrantedAuthorities(Users user) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority(user.getFkUserRoleId().getRoleName()));
+        try{
+
+            List<UsersRoleCompanyLookup> usersRoleLookUp = userRoleLookUpService.getAllUserRolesByUser(user);
+
+            for (int i = 0; i< usersRoleLookUp.size(); i++){
+                UsersRoleCompanyLookup userRole = usersRoleLookUp.get(i);
+                authorities.add(new SimpleGrantedAuthority(userRole.getRoleId().getRoleName()));
+            }
+            return authorities;
+            
+        }catch (Throwable throwable){
+            logger.error(throwable);
+        }
         return authorities;
     }
 

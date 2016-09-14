@@ -5,11 +5,14 @@
  */
 package com.intbittech.modelmappers;
 
+import com.intbittech.model.UserCompanyIds;
+import java.io.Serializable;
+
 /**
  *
  * @author sandeep-kumar
  */
-public class RecurringEmailDetails
+public class RecurringEmailDetails  extends UserCompanyIds  implements Serializable
 {
     
      private Integer recurringEmailTemplateId;

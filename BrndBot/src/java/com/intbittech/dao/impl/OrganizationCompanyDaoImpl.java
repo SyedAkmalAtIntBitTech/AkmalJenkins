@@ -189,5 +189,15 @@ public class OrganizationCompanyDaoImpl implements OrganizationCompanyDao {
             throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
+
+    @Override
+    public void update(OrganizationCompanyLookup organizationCompanyLookup) throws ProcessFailed {
+    try {
+            sessionFactory.getCurrentSession().update(organizationCompanyLookup);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
+        }
+    }
     
 }

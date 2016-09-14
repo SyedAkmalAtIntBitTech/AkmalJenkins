@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
 /**
  *
  * @author ajit
@@ -27,9 +28,7 @@ import javax.persistence.TemporalType;
 @Table(name = "company_marketing_program")
 public class CompanyMarketingProgram implements Serializable {
 
-    @Column(name = "is_pushed")
-    private Boolean isPushed;
-   
+  
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,6 +55,8 @@ public class CompanyMarketingProgram implements Serializable {
     @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
     @ManyToOne
     private Company fkCompanyId;
+    @Column(name = "is_pushed")
+    private Boolean isPushed;
 
     public CompanyMarketingProgram() {
     }
@@ -146,6 +147,5 @@ public class CompanyMarketingProgram implements Serializable {
         this.isPushed = isPushed;
     }
 
-   
 
 }

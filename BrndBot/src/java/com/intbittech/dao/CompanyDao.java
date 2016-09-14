@@ -27,7 +27,7 @@ public interface CompanyDao {
     public List<Company> getAllCompanies() throws ProcessFailed;
     
     /**
-     * This method retrieves the list of {@link Company} from database.
+     * This method retrieves a company out of {@link Company} from database.
      *
      * @param companyId
      * @return {@link Company}
@@ -45,7 +45,7 @@ public interface CompanyDao {
     public Integer save(Company company) throws ProcessFailed;
     
     /**
-     * This method saves {@link Company} to database.
+     * This method update {@link Company} to database.
      *
      * @param company
      * @throws ProcessFailed the process failed
@@ -60,4 +60,5 @@ public interface CompanyDao {
      */
     public Integer saveCompanyPreferences(CompanyPreferences companyPreferences) throws ProcessFailed;
     
+    public boolean isCompanyExist(String companyName)throws ProcessFailed;
 }

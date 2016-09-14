@@ -5,13 +5,14 @@
  */
 package com.intbittech.modelmappers;
 
+import com.intbittech.model.UserCompanyIds;
 import java.io.Serializable;
 
 /**
  *
  * @author ilyas
  */
-public class EmailBlockModelDetails implements Serializable{
+public class EmailBlockModelDetails  extends UserCompanyIds implements Serializable{
     
     private Integer emailBlockModelLookupId;
     private Integer emailBlockId;
@@ -21,7 +22,16 @@ public class EmailBlockModelDetails implements Serializable{
     private String imageFileName;
     private String imageFileData;
     private String htmlData;
+    private boolean isRecurring;
 
+    public boolean getIsRecurring() {
+        return isRecurring;
+    }
+
+    public void setIsRecurring(boolean isRecurring) {
+        this.isRecurring = isRecurring;
+    }
+    
     public Integer getEmailBlockModelLookupId() {
         return emailBlockModelLookupId;
     }

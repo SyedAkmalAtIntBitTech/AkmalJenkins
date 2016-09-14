@@ -4,8 +4,9 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 
-factoryApp.factory('authenticatedServiceFactory', function ($http, $q) {
+factoryApp.factory('authenticatedServiceFactory', function ($http, $q, appSessionFactory) {
     var service = {};
+
     service.makeCall = function (methodType, URL, data, authType) {
         var deffered = $q.defer();
         var config = "";
@@ -14,6 +15,15 @@ factoryApp.factory('authenticatedServiceFactory', function ($http, $q) {
         if (authType === "UPLOADIMAGE")
         {
             if (methodType === "POST") {
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                var userId = kGlobalCompanyObject.userId;
+                var companyId = kGlobalCompanyObject.companyId;
+
+                if (URL.indexOf("?") > 0){
+                    URL = URL + "&userId="+ userId + "&companyId=" + companyId;
+                }else {
+                    URL = URL + "?userId="+ userId + "&companyId=" + companyId;
+                }
                 $http.post(URL, data, {
                     transformRequest: angular.identity,
                     headers: {'Content-Type': undefined}
@@ -21,18 +31,52 @@ factoryApp.factory('authenticatedServiceFactory', function ($http, $q) {
                     deffered.resolve(putData.data);
                 }, function (error) {
                 });
-            }
+
+            });
+        }
         } else {
             if (methodType === "GET") {
+//todo replace when merge complete muzamil      
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                var userId = kGlobalCompanyObject.userId;
+                var companyId = kGlobalCompanyObject.companyId;
+                if (URL.indexOf("?") > 0){
+                    URL = URL + "&userId="+ userId + "&companyId=" + companyId;
+                }else {
+                    URL = URL + "?userId="+ userId + "&companyId=" + companyId;
+                }
                 $http.get(URL, data, config).then(function (getData) {
                     deffered.resolve(getData.data);
                 }, function (error) {
 
                 });
+            });
             } else if (methodType === "POST") {
-                $http.post(URL, data, config).then(function (putData) {
-                    deffered.resolve(putData.data);
-                }, function (error) {
+                appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                    var userId = kGlobalCompanyObject.userId;
+                    var companyId = kGlobalCompanyObject.companyId;
+                    if (!data){
+                        data = {};}
+                    data["userId"] = parseInt(userId);
+                    data["companyId"] = parseInt(companyId);
+                    $http.post(URL, data, config).then(function (putData) {
+                        deffered.resolve(putData.data);
+                    }, function (error) {
+                    });
+                });
+            } else if (methodType === "DELETE"){
+                data = dataWithUserAndCompanyId(data);
+                appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                    var userId = kGlobalCompanyObject.userId;
+                    var companyId = kGlobalCompanyObject.companyId;
+                    if (!data){
+                        data = {};}
+                    data["userId"] = parseInt(userId);
+                    data["companyId"] = parseInt(companyId);
+                    $http.delete(URL, data, config).then(function (putData) {
+                        deffered.resolve(putData.data);
+                    }, function (error) {
+                    });
                 });
             }
         }

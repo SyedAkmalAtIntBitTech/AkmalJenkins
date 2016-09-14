@@ -1,5 +1,4 @@
 <div id="fade" ng-class="fadeClass" class="center-pop-ups">
-        <!-- took this out id="addActionemllist"-->
         <div class="modal-pane modal-pane-width-reg create-email-popup"  ng-show="createEmailListPopup">
             <div class="modal-pane-header-wrap">
                 <h2 class="">Create New Email List</h2>
@@ -9,7 +8,7 @@
                 <div class="input-wrap">
                     <label>Email List Name</label>
                     <a class="input">
-                        <input type="text" id="list_name" ng-model="email.listName" placeholder="Enter a name for the email list" class="fluid" />
+                        <input type="text" id="list_name" ng-model="email.listName" placeholder="Enter a name for the email list" class="fluid"  ng-class="{'invalid-input': email.listName === '' || null}" />
                     </a>
                     <span class="validationAlert" ng-if='email.listName === "" || null'>{{emailListValidation}}</span>
 
@@ -17,7 +16,7 @@
                 <div class="input-wrap">
                     <label>List Description</label>
                     <a class="input">
-                        <input type="text" id="list_description" ng-model="email.listDescription" placeholder="Enter List Description" class="fluid" />
+                        <input type="text" id="list_description" ng-model="email.listDescription" placeholder="Enter List Description" class="fluid"ng-class="{'invalid-input': email.listDescription === '' || null}" />
                     </a>
                     <span class="validationAlert" ng-if='email.listDescription === "" || null'>{{emailDescriptionValidation}}</span>
 
@@ -25,7 +24,7 @@
                 <div class="input-wrap">
                     <label>Default from Address</label>
                     <div class="input">
-                        <input id="default_from_name" ng-model="email.deafultFromName" type="text"  placeholder="Default from Address" class="fluid" />
+                        <input id="default_from_name" ng-model="email.deafultFromName" type="text"  placeholder="Default from Address" class="fluid" ng-class="{'invalid-input': email.deafultFromName === '' || null}"/>
                     </div>
                 <span class="validationAlert" ng-if='email.deafultFromName === "" || null'>{{fromAddressValidation}}</span>
                 <span class="validationAlert" ng-if="createEmailValidation">{{emailaddrValidation}}</span>

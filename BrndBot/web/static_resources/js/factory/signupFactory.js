@@ -28,5 +28,13 @@ factoryApp.factory('signupFactory', function ($q, authenticatedServiceFactory, c
         });
         return deffered.promise;
     };
+    signupFactoryObject.updateUser = function (userDetails) {
+        var deffered = $q.defer();
+        var url = configurationService.updateUserURL();
+        authenticatedServiceFactory.makeCall("POST", url, userDetails, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
     return signupFactoryObject;
 });

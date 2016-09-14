@@ -2,7 +2,8 @@
 <div class="background-pop-up">
     <div class="modal-pane modal-pane-width-reg">
         <div class="success-modal">
-            <img class="success-icon" type="image/svg+xml" src="/BrndBot/user/images/Valid-Check.svg"><img>
+            <img ng-show="postedTo == 'Twitter' || postedTo == 'Facebook'" class="success-icon"   src="/BrndBot/images/success-post-postsched.svg"/>
+            <img ng-show="postedTo == 'Email'" class="success-icon"   src="/BrndBot/images/success-post-emailsched.svg"/>
             <h2>{{postedTo}} Scheduled Successful</h2>
             <p>Your {{postedTo}} has been successfully scheduled to an action</p>
         </div>
@@ -16,7 +17,7 @@
 <div class="background-pop-up">
     <div class="modal-pane modal-pane-width-reg">
         <div class="success-modal">
-            <img class="success-icon" type="image/svg+xml" src="/BrndBot/user/images/success-post-emailsent.svg"/>
+            <img class="success-icon" type="image/svg+xml" src="/BrndBot/images/success-post-emailsent.svg"/>
             <h2>Email Sent Successful</h2>
             <p>Your email has been successfully sent.</p>
         </div>
@@ -30,7 +31,7 @@
 <div class="background-pop-up">
     <div class="modal-pane modal-pane-width-reg">
         <div class="success-modal">
-            <img class="success-icon" type="image/svg+xml" src="/BrndBot/user/images/success-post-postsent.svg"/>
+            <img class="success-icon" type="image/svg+xml" src="/BrndBot/images/success-post-postsent.svg"/>
             <h2>Post Publish Successful</h2>
             <p>Your post has been published successfully.</p>
         </div>
@@ -40,25 +41,3 @@
 </div>
 </div>
 </div>
-<!--    <div class="popUp_background-dark" id="fbSuccessPostPopup" ng-show="isPostSuccess">
-        <div class="popUp popUp_CenterVert">
-           <div class="popUp_header clear">
-                <div  class="pane_title fleft h2 col1of2">Scheduled Successful!</div>
-            </div>
-             <div class="postSent-svg-wrap">
-                 <a href="../../../images/postSent.svg"></a>
-                 <img type="image/svg+xml" src="../images/postSent.svg" class="postSent-svg" style="cursor:pointer;">
-            </div>
-            <div class="pane_content pane-padding pane-editing">
-                <div class="postSent-desc-wrap">
-                    <div class="h3 font--lightGray ">Your post has been successfully scheduled on {{postedTo}}. Would you like to schedule another content on {{postedTo}}? </div>
-                </div>
-                <div class="postSent-button-wrap">
-                  
-                    <div class="fright dashboard-link">
-                        <a href="/BrndBot/user/dashboard"><div class="CTA_Button Button--Gray ">Go to Dashboard</div></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->

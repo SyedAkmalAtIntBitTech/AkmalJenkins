@@ -3,62 +3,67 @@
     Created on : 1 Jun, 2016, 6:02:21 PM
     Author     : sandeep
 -->
-
-<div class="sequence-content-wrap">
-    <div class="top-nav-wrap top-nav-wrap-sequence">
-        <div class="header">
-            <a href="#/signup/company" class="back-button"></a>
-            <h2>Create a Profile</h2>
+    <div class="bb-app-frame">
+        <div class="bb-main-app-wrap"  ng-init="getAllServices()">
+            <div class="bb-main-container-wrap">
+               <div class="bb-top-nav">
+                    <div class="bb-bar-left-wrap bb-one-third-flex-col">
+                        <a href="#/signup/company" class="bb-back-button"></a>
+                        <h3 class="bb-top-nav-title">Create a Profile</h3>
+                    </div>
+                    <div class="bb-bar-center-wrap bb-one-third-flex-col">
+                        <div class="bb-step completed">Company Details</div>
+                            <div class="bb-step current">Integrations</div>
+                            <div class="bb-step upcoming">Company Brand</div>
+                    </div>
+                    <div class="bb-bar-right-wrap bb-one-third-flex-col">
+                        <div class="bb-help-icon">help icon</div>
+                    </div>
+                </div>
+                <div class="bb-main-content-wrap bb-main-content-wrap-padding bb-center-content">
+                    <div class="modal-pane modal-pane-width-reg">
+                        <div class="modal-pane-header-wrap">
+                            <h2 class="">Connect to Your Tools</h2>
+                        </div>
+                        <div class="modal-pane-content-wrap">
+                            <div class="onboarding-content-header-wrap">
+                                <h3 class="onboarding-content-header">Would you like to connect your new profile with tools you currently use?</h3>
+                            </div> 
+                               <div class="input-wrap">
+                                <label> Choose from these BrndBot integrations </label>
+                                <div class="input">
+                                    <div dropdown-select="ddSelectServicesOptions" dropdown-model="ddSelectServices"></div>
+                                    <p class="input-wrap-label">If you do not use any services, please select 'none'</p>
+                                </div>
+                            </div>
+                            <div ng-if="ddSelectServices.value==1">
+                                <div class="input-wrap">
+                                    <label> Enter your MINDBODY Studio ID </label>
+                                    <div class="input ">
+                                        <input class="input_Field " type="text" id="mindbodyStudioId" ng-model="studioId"></input>
+                                        <p class="input-wrap-label">If you need help finding your MINDBODY ID please<a class="input-help" href="#">click here for help</a></p>
+                                    </div>
+                                    <span class="validationAlert" ng-if='studioId === "" || null'>{{studioIdValidation}}</span>
+                                    <span class="validationAlert" ng-if='mindbodyActive'>{{inActiveMindbodyValidation}}</span>
+                                </div>
+                                <div class="input-wrap">
+                                    <label> Enter your MINDBODY Studio ID </label>
+                                   <a class="reg-button gray-button input-wrap-button" ng-click="getActivationLink(studioId)" href="">Click Here to Activate in MINDBODY</a>
+                                </div>
+                                <div class="input-wrap">
+                                    <label> Allow BrndBot to access your MINDBODY data </label>
+                                   <a class="reg-button gray-button input-wrap-button" id="activationLinkDiv" href="{{activationLink}}" id="actiovationLink" target="_blank">Grant access in MINDBODY</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+                <div class="bb-bottom-cta-bar">
+                    <a class="bb-bottom-cta-continue-button"  ng-click="isMindbodyActivated(ddSelectServices,studioId)">
+                        <div class="bb-bottom-cta-continue-button-text">Continue</div>
+                        <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="top-nav-bar-offset"></div>
-
-    <div class="content-wrap content-wrap-padding content-wrap-with-continue-bar content-wrap-flex" ng-init="getAllServices()">
-        <div class="modal-pane modal-pane-width-reg">
-            <div class="modal-pane-header-wrap">
-                <h2 class="">Connect to Your Tools</h2>
-            </div>
-            <div class="modal-pane-content-wrap">
-                <div class="onboarding-content-header-wrap">
-                    <h3 class="onboarding-content-header">Would you like to connect your new profile with tools you currently use?</h3>
-                </div> 
-<!--                 <div class="inputSection col-6of10 ">
-                        <div class="input_Label">Please select a third party service</div>
-                        <select ng-model="thirdPartyService" class="input_Field select_Field clear" id="services" ng-options="service.externalSourceId as service.externalSourceName for service in services">
-                        </select> 
-                    </div>-->
-                   <div class="input-wrap">
-                    <label> Choose from your email lists </label>
-                    <div class="input">
-                        <div dropdown-select="ddSelectServicesOptions" dropdown-model="ddSelectServices"></div>
-                        <p class="input-wrap-label">If you do not use any services, please select 'none'</p>
-                    </div>
-                </div>
-                <div ng-if="ddSelectServices.value==1">
-                    <div class="input-wrap">
-                        <label> Enter your MINDBODY Studio ID </label>
-                        <div class="input ">
-                            <input class="input_Field " type="text" id="mindbodyStudioId" ng-model="studioId"></input>
-                            <p class="input-wrap-label">If you need help finding your MINDBODY ID please<a class="input-help" href="#">click here for help</a></p>
-                        </div>
-                        <span class="validationAlert" ng-if='studioId === "" || null'>{{studioIdValidation}}</span>
-                        <span class="validationAlert" ng-if='mindbodyActive'>{{inActiveMindbodyValidation}}</span>
-
-                    </div>
-                    <div class="input-wrap">
-                        <label> Enter your MINDBODY Studio ID </label>
-                       <a class="reg-button gray-button input-wrap-button" ng-click="getActivationLink(studioId)" href="">Click Here to Activate in MINDBODY</a>
-                    </div>
-                    <div class="input-wrap">
-                        <label> Allow BrndBot to access your MINDBODY data </label>
-                       <a class="reg-button gray-button input-wrap-button" id="activationLinkDiv" href="{{activationLink}}" id="actiovationLink" target="_blank">Grant access in MINDBODY</a>
-                    </div>
-                </div>
-            </div>
-        </div>     
-    </div>
-        <div class="continue-bar-offset"></div>
-    </div>
-<div class="continue-bar sequence-continue-bar">
-    <a id="serviceContinueButton" ng-click="isMindbodyActivated(ddSelectServices,studioId)" class="fright">CONTINUE</a>
-</div>

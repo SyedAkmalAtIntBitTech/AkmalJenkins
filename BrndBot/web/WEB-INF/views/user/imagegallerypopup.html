@@ -26,21 +26,14 @@
 
     <div class="center-pop-ups"  >
 
-        <!--Old Sub Navs-->
-        <!--<div class="popUp_subheader clear">
-            <span  class="popUp_subheader-tabs fleft cursor-shape" id="showGallery" ng-class="selectTabGallery" ng-click="show_Hide_Upload_GalleryImages(true)">From Gallery</span>
-            <span  class="popUp_subheader-tabs fleft cursor-shape" id="shoeUploadimage" ng-class="selectTabUpload" ng-click="show_Hide_Upload_GalleryImages(false)">Upload Image</span>
-        </div>-->
-
-        <div class="modal-pane modal-pane-width-full mbPopup ">
-            <div ng-init="getAllCompanyImages()">
-                <div class="modal-pane-header-wrap">
+        <div class="bb-panel-styling bb-panel-full-width " ng-init="getUserImages()">
+          
+                <div class="bb-panel-header">
                     <h2 class="">Your Images</h2>
                     <!--PUT UPLOAD IMAGE FUNCTIONALITY HERE-->
-                    <div class="upload-photo-button reg-button gray-button" ng-click="showImageUploadPopup()">Upload an Image</div>
+                    <a class="bb-button bb-default-action-button" ng-click="showImageUploadPopup()">Upload an Image</a>
 
                     <a class="modal-pane-header-exit" id="hidepopup" ng-click="show_hide_ImageGalleryPopup(false)"></a>
-                    <!--             <a ng-repeat="mindbody in mindbodylist" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=subCategoryId%>&mindbodyId={{mindbody.id}}&LookupId=<%=LookupId%>">-->
                 </div>
                 <div class="pop-up-inner-gallery" ng-show="chooseImage">
                     <div class="imageGallery-inner-popup">
@@ -63,32 +56,17 @@
                             $event.stopPropagation();"> Upload Image</div>
                     </div>
                 </div>
-                <div class="full-height-modal-pane-content-wrap pop-up-image-gallery-wrap modal-pane-content-social-sequence" ng-init="getUserImages()" ng-show="showUserImages" >
-                    <div class="gallery-image-wrap {{images.companyImagesId}}">
-                        <div class="gallery-image-card image-gal-pop-up" ng-repeat="images in datalists"  ng-click="selectImageToPost(images.imageName, 'gallery', companyId)">
+                <div class="bb-panel-content-wrap bb-panel-static-height" ng-init="getUserImages()" ng-show="showUserImages" >
+                    <div class="bb-gallery-image-wrap {{images.companyImagesId}}">
+                        <div class="bb-gallery-image-card bb-image-gal-pop-up" ng-repeat="images in datalists"  ng-click="selectImageToPost(images.imageName, 'gallery', companyId)">
 
-                            <img  class="gallery-image" id="{{images.companyImagesId}}"  src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}" alt="{{images.imageName}}"/>
+                            <div  class="bb-gallery-image" id="{{images.companyImagesId}}"  style="background-image: url('/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}'); background-position:50% 50%; background-repeat:no-repeat; background-size: contain;"/></div>
                         </div>
                     </div>
                 </div>
-            </div>
+          
 
         </div>
-
-        <!-- THIS IS THE OLD UPLOAD CODE-->
-
-        <!--<div class="popUp-bottom-wide" id="addImageButton" ng-click="addImage()" ng-show="showUserImages">
-            <span class="clickable-area">
-                <div class="popUp-bottom-link">ADD IMAGE</div>
-            </span>
-        </div>
-        <div class="popUp-bottom-wide " id="uploadImageButton"  ng-click="uploadLogo1(myFile1)" ng-show="showUploadImage">
-            <span class="clickable-area">
-                <div class="popUp-bottom-link">UPLOAD IMAGE</div>
-            </span>-->
-
-
-
         <!--PUT THIS UPLOAD FUNCTIONALITY INTO THE MODAL-CTA-CONTAINER-BELOW-->
         <span class="" id="uploadImageSpan" ng-show="showUploadImage">
             <div class="logoUpload-wrap">
@@ -98,9 +76,5 @@
                 <input type="file" file-model="myFile1" class="Add_Button Button--Gray logoUpload--button upload fileupld"/>
             </div>
         </span>
-
-        <!--<div class="modal-cta-container" >
-            <a class="long-button blue-button" id="addActionYourPlan" ng-click="AddAction(addTitle, datePicker, timePicker123, ddSelectAction,programaction.postDate)" href="javascript:void(0)">Create this Action</a>
-        </div>-->
     </div>
 </div>

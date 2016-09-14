@@ -19,7 +19,9 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author ajit @ Intbit
+
+ * @author AbdulRaqeeb
+
  */
 @Entity
 @Table(name = "franchise")
@@ -36,7 +38,6 @@ public class Franchise implements Serializable {
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
- 
 
     public Franchise() {
     }
@@ -68,6 +69,4 @@ public class Franchise implements Serializable {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-
-   
 }

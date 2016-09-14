@@ -15,7 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
+
 
 /**
  *
@@ -79,13 +79,5 @@ public class MarketingProgram implements Serializable {
         this.fkMarketingCategoryId = fkMarketingCategoryId;
     }
 
-    @XmlTransient
-    public Set<CompanyMarketingProgram> getCompanyMarketingProgramSet() {
-        return companyMarketingProgramSet;
-    }
-
-    public void setCompanyMarketingProgramSet(Set<CompanyMarketingProgram> companyMarketingProgramSet) {
-        this.companyMarketingProgramSet = companyMarketingProgramSet;
-    }
 
 }

@@ -27,18 +27,8 @@ import javax.persistence.TemporalType;
 @Table(name = "scheduled_entity_list")
 public class ScheduledEntityList implements Serializable {
 
-    @Column(name = "created_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
-    @Column(name = "updated_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
-    @JoinColumn(name = "assigned_to", referencedColumnName = "user_id")
-    @ManyToOne
-    private Users assignedTo;
-    @JoinColumn(name = "created_by", referencedColumnName = "user_id")
-    @ManyToOne
-    private Users createdBy;
+
+
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -75,6 +65,18 @@ public class ScheduledEntityList implements Serializable {
     @JoinColumn(name = "fk_recurring_email_id", referencedColumnName = "recurring_email_template_id")
     @ManyToOne
     private RecurringEmailTemplate fkRecurringEmailId;
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+    @Column(name = "updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
+    @JoinColumn(name = "assigned_to", referencedColumnName = "user_id")
+    @ManyToOne
+    private Users assignedTo;
+    @JoinColumn(name = "created_by", referencedColumnName = "user_id")
+    @ManyToOne
+    private Users createdBy;
 
     public ScheduledEntityList() {
     }
@@ -218,7 +220,5 @@ public class ScheduledEntityList implements Serializable {
     public void setCreatedBy(Users createdBy) {
         this.createdBy = createdBy;
     }
-
-   
 
 }

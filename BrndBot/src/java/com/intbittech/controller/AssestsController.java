@@ -84,6 +84,12 @@ public class AssestsController {
                 case EMAIL_TEMPLATE_IMAGE:
                     imageBasePath = AppConstants.BASE_ADMIN_EMAIL_TEMPLATE_IMAGE_UPLOAD_PATH;
                     break;
+                case DYNAMIC:
+                    String imageNameWithFolder[] = imageName.split("/");
+                    String folderName = imageNameWithFolder[0];
+                    imageName = imageNameWithFolder[1];
+                    imageBasePath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + AppConstants.GALLERY_FOLDERNAME + File.separator +folderName;
+                    break;
 
             }
             String finalImagePath = imageBasePath + File.separator + imageName;
@@ -114,8 +120,6 @@ public class AssestsController {
         try {
             ImageType imageTypeEnum = ImageType.valueOf(imageType);
             String imageBasePath = "";
-//        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             switch (imageTypeEnum) {
                 case GALLERY:
                     imageBasePath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + AppConstants.GALLERY_FOLDERNAME;

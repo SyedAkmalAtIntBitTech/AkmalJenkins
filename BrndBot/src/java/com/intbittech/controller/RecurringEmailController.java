@@ -6,28 +6,29 @@
 package com.intbittech.controller;
 
 import com.intbittech.model.Organization;
-import com.intbittech.model.RecurringEmailTemplate;
-import com.intbittech.responsemappers.ContainerResponse;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.intbittech.services.RecurringEmailTemplateService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import com.intbittech.responsemappers.TransactionResponse;
-import com.intbittech.utility.ErrorHandlingUtil;
-import org.apache.log4j.Logger;
-import org.springframework.http.HttpStatus;
-import com.intbittech.modelmappers.RecurringEmailDetails;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import com.intbittech.model.OrganizationRecurringEmailLookup;
+import com.intbittech.model.RecurringEmailTemplate;
+import com.intbittech.model.RecurringEmailTemplateModel;
+import com.intbittech.modelmappers.RecurringEmailDetails;
+import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
+import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.services.RecurringEmailTemplateService;
+import com.intbittech.utility.ErrorHandlingUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
@@ -116,13 +117,15 @@ public class RecurringEmailController {
     }
 
     @RequestMapping(value = "updateRecurringEmail", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> updateRecurringEmail(@RequestBody RecurringEmailTemplate recurringEmailTemplate) {
+    public ResponseEntity<ContainerResponse> updateRecurringEmail(@RequestBody RecurringEmailTemplateModel recurringEmailTemplateModel) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-
-            recurringEmailTemplate.setRecurringEmailTemplateId(recurringEmailTemplate.getRecurringEmailTemplateId());
-            recurringEmailTemplate.setTemplateName(recurringEmailTemplate.getTemplateName());
-            recurringEmailTemplate.setHtmlData(recurringEmailTemplate.getHtmlData());
+            
+            RecurringEmailTemplate recurringEmailTemplate = new RecurringEmailTemplate();
+            
+            recurringEmailTemplate.setRecurringEmailTemplateId(recurringEmailTemplateModel.getRecurringEmailTemplateId());
+            recurringEmailTemplate.setTemplateName(recurringEmailTemplateModel.getTemplateName());
+            recurringEmailTemplate.setHtmlData(recurringEmailTemplateModel.getHtmlData());
             recurringEmailTemplateService.update(recurringEmailTemplate);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurringEmail_update", new String[]{}, Locale.US)));
 

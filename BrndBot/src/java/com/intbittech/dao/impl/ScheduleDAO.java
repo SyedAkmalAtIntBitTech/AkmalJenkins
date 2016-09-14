@@ -48,32 +48,32 @@ public class ScheduleDAO {
 
     public static Map<String, Integer> addToScheduledEmailList(int companyId,
             String subject,
+            String preheader,
             Integer marketing_program_id,
             String body,
             String fromAddress,
             String emailListName,
             String fromName,
             String replytoEmailAddress,
-            String[] toAddress,
             String scheduledTitle,
             String scheduleDesc,
             Timestamp scheduledTime,
-            String templateStatus
+            String templateStatus,
+            String html_body
+            
     ) throws SQLException {
 
         int emailScheduleId = -1;
         int scheduleEntityId = -1;
         Map<String, Integer> returnMap = new HashMap<>();
-        PGobject pg_object = new PGobject();
-        JSONObject json_email_addresses = new JSONObject();
-        JSONArray json_array_email_address = new JSONArray();
+
 
         try (Connection connection = connectionManager.getConnection()) {
             connection.setAutoCommit(false);
             try {
                 String sql = "INSERT INTO scheduled_email_list "
-                        + " (fk_company_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address) VALUES "
-                        + " (?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
+                        + " (fk_company_id, subject, body, from_address, email_list_name, from_name,reply_to_email_address, preheader, html_body) VALUES "
+                        + " (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
                 try (PreparedStatement ps = connection.prepareStatement(sql)) {
                     ps.setInt(1, companyId);
                     ps.setString(2, subject);
@@ -81,14 +81,9 @@ public class ScheduleDAO {
                     ps.setString(4, fromAddress);
                     ps.setString(5, emailListName);
                     ps.setString(6, fromName);
-                    for (int i = 0; i < toAddress.length; i++) {
-                        json_array_email_address.add(toAddress[i].trim());
-                    }
-                    json_email_addresses.put(IConstants.kEmailAddressesKey, json_array_email_address);
-                    pg_object.setType("json");
-                    pg_object.setValue(json_email_addresses.toJSONString());
-                    ps.setObject(7, pg_object);
-                    ps.setString(8, replytoEmailAddress);
+                    ps.setString(7, replytoEmailAddress);
+                    ps.setString(8, preheader);
+                    ps.setString(9, html_body);
                     ps.execute();
                     try (ResultSet resultSet = ps.getResultSet()) {
 
@@ -130,29 +125,28 @@ public class ScheduleDAO {
             int companyId,
             int scheduleid,
             String subject,
+            String preheader,
             String body,
             String fromAddress,
             String emailListName,
             String fromName,
-            String replytoEmailAddress,
-            String[] toAddress,
+            String replyToEmailAddress,
             String scheduleDesc,
-            String templateStatus
+            String templateStatus,
+            String html_body
     ) throws SQLException {
 
         int emailScheduleId = -1;
         int scheduleEntityId = -1;
         Map<String, Integer> returnMap = new HashMap<>();
-        PGobject pg_object = new PGobject();
-        JSONObject json_email_addresses = new JSONObject();
-        JSONArray json_array_email_address = new JSONArray();
+
 
         try (Connection connection = connectionManager.getConnection()) {
             connection.setAutoCommit(false);
             try {
                 String sql = "INSERT INTO scheduled_email_list "
-                        + " (fk_company_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address) VALUES "
-                        + " (?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
+                        + " (fk_company_id, subject, body, from_address, email_list_name, from_name, reply_to_email_address, preheader, html_body) VALUES "
+                        + " (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
                 try (PreparedStatement ps = connection.prepareStatement(sql)) {
                     ps.setInt(1, companyId);
                     ps.setString(2, subject);
@@ -160,14 +154,9 @@ public class ScheduleDAO {
                     ps.setString(4, fromAddress);
                     ps.setString(5, emailListName);
                     ps.setString(6, fromName);
-                    for (int i = 0; i < toAddress.length; i++) {
-                        json_array_email_address.add(toAddress[i].trim());
-                    }
-                    json_email_addresses.put(IConstants.kEmailAddressesKey, json_array_email_address);
-                    pg_object.setType("json");
-                    pg_object.setValue(json_email_addresses.toJSONString());
-                    ps.setObject(7, pg_object);
-                    ps.setString(8, replytoEmailAddress);
+                    ps.setString(7, replyToEmailAddress);
+                    ps.setString(8, preheader);
+                    ps.setString(9, html_body);
                     ps.execute();
                     try (ResultSet resultSet = ps.getResultSet()) {
 
@@ -295,17 +284,18 @@ public class ScheduleDAO {
             int days,
             Connection connection) throws SQLException {
         String query_string = "Update scheduled_entity_list"
-                + " SET schedule_title = ?, schedule_time = ?,"
+                + " SET schedule_title = ?, schedule_desc = ?, schedule_time = ?,"
                 + " entity_type = ?, days= ?"
                 + " Where scheduled_entity_list_id = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query_string)) {
 
             ps.setString(1, scheduleTitle);
-            ps.setTimestamp(2, scheduleTime);
-            ps.setString(3, entityType);
-            ps.setInt(4, days);
-            ps.setInt(5, scheduleId);
+            ps.setString(2, scheduleDesc);
+            ps.setTimestamp(3, scheduleTime);
+            ps.setString(4, entityType);
+            ps.setInt(5, days);
+            ps.setInt(6, scheduleId);
             ps.execute();
 
         } catch (Exception e) {
@@ -363,7 +353,7 @@ public class ScheduleDAO {
         String sql = "SELECT DISTINCT ON (scheduled_entity_list_id) slist.*, concat(date(programtable.date_event) - slist.days, ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time, concat(date(programtable.date_event), ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time_recurring, date(schedule_time) schedule_date "
                 + " FROM scheduled_entity_list slist, "
                 + " company_marketing_program programtable"
-                + " WHERE slist.fk_company_id = ? "
+                + " WHERE programtable.status = 'Open' AND slist.fk_company_id = ? "
                 + " AND ((date(schedule_time) <= ? "
                 + " AND date(schedule_time) >= ?) "
                 + " OR ((slist.is_recurring = 'false' AND date(programtable.date_event) - slist.days <= ? "
@@ -576,27 +566,17 @@ public class ScheduleDAO {
                 ps.setString(3, ScheduledEntityType.Email.toString());
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
-                        scheduleEmailId = rs.getInt("scheduled_email_list_id");
-                        pgobject = (PGobject) rs.getObject("to_email_addresses");
-                        pgobject.setType("json");
-                        String obj = pgobject.getValue();
-                        emailJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
-                        emailids_json_array = (JSONArray) emailJSONObject.get(IConstants.kEmailAddressesKey);
-
-                        for (int i = 0; i < emailids_json_array.size(); i++) {
-                            email_ids = emailids_json_array.get(i) + "," + email_ids;
-                        }
 
                         scheduleEmailDetails.put("schedule_email_id", rs.getInt("scheduled_email_list_id"));
                         scheduleEmailDetails.put("user_id", rs.getInt("fk_company_id"));
-                        scheduleEmailDetails.put("subject", rs.getString("subject"));
+                        scheduleEmailDetails.put("subject", rs.getString("subject"));                        
+                        scheduleEmailDetails.put("preheader", rs.getString("preheader"));
                         scheduleEmailDetails.put("body", rs.getString("body"));
                         scheduleEmailDetails.put("from_address", rs.getString("from_address"));
                         scheduleEmailDetails.put("reply_to_email_address", rs.getString("reply_to_email_address"));
                         scheduleEmailDetails.put("email_list_name", rs.getString("email_list_name"));
                         scheduleEmailDetails.put("from_name", rs.getString("from_name"));
-                        scheduleEmailDetails.put("to_email_addresses", email_ids);
-
+                        scheduleEmailDetails.put("html_body", rs.getString("html_body"));
                     }
                 }
             }
@@ -679,7 +659,7 @@ public class ScheduleDAO {
                         Integer entity_id = result_set.getInt("entity_id");
                         String entity_type = result_set.getString("entity_type");
                         if (entity_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
-                            String query_string1 = "Delete from scheduled_entity_list"
+                            String query_string1 = "Delete from scheduled_email_list"
                                     + " where scheduled_email_list_id = ?";
                             try (PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)) {
                                 prepared_statement1.setInt(1, entity_id);
@@ -864,5 +844,57 @@ public class ScheduleDAO {
         }
         return json_email_addresses;
     }
+    
+    public static JSONArray getScheduledActionsEmailWithDate(int companyId, Integer company_marketing_program_id) throws SQLException {
+        Timestamp actionTimestamp = null;
+        Long actionDate = null; 
+        JSONArray json_array_email = new JSONArray();
+        String query = "select sel.*,concat(date(cmp.date_event) - sel.days,' ', "
+                + " sel.schedule_time::time WITH TIME ZONE) as cal_date,concat(date(sel.schedule_time),' ', sel.schedule_time::time WITH TIME ZONE)"
+                + " as cal_rec_date from scheduled_entity_list as sel"
+                +"  INNER JOIN company_marketing_program as cmp on (cmp.company_marketing_program_id = sel.fk_company_marketing_program_id)"
+                + " where  sel.entity_id= ?"
+                + " and sel.entity_type = ? "
+                + " and sel.status = ?"
+                + " and sel.fk_company_marketing_program_id = ?"
+                + " and sel.fk_company_id = ?";
+        
+        try (Connection conn = connectionManager.getConnection();
+                PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, 0);
+            ps.setString(2, ScheduledEntityType.Email.toString());
+            ps.setString(3, TemplateStatus.no_template.toString());
+            ps.setInt(4, company_marketing_program_id);
+            ps.setInt(5, companyId);
+            try (ResultSet result_set = ps.executeQuery()) {
+                while (result_set.next()) {
+
+                    JSONObject json_object = new JSONObject();
+                    Integer id = result_set.getInt("scheduled_entity_list_id");
+                    String schedule_title = result_set.getString("schedule_title");
+                    String schedule_desc = result_set.getString("schedule_desc");
+                    Timestamp scheduleTimestamp = result_set.getTimestamp("schedule_time");
+                    long scheduleTime = scheduleTimestamp.getTime();
+                     if(company_marketing_program_id == 0){
+                        actionTimestamp = result_set.getTimestamp("cal_rec_date");
+                        actionDate = actionTimestamp.getTime();
+                    }
+                    else if(company_marketing_program_id > 0){
+                        actionTimestamp = result_set.getTimestamp("cal_date");
+                        actionDate = actionTimestamp.getTime(); 
+                    }
+                    json_object.put("id", id);
+                    json_object.put("schedule_title", schedule_title);
+                    json_object.put("schedule_desc", schedule_desc);
+                    json_object.put("schedule_time", scheduleTime);
+                    json_object.put("action_date", actionDate);
+
+                    json_array_email.add(json_object);
+                }
+            }
+        }
+        return json_array_email;
+    }
+
 
 }
