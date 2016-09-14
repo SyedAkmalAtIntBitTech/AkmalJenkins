@@ -67,7 +67,8 @@ public class ContactEmailListLookupDaoImpl implements ContactEmailListLookupDao{
                     .createCriteria(ContactEmailListLookup.class)
                     .setFetchMode("fkContactId", FetchMode.JOIN)
                     .setFetchMode("fkEmailListId", FetchMode.JOIN)
-                    .add(Restrictions.eq("fkEmailListId.emailListId", emailListId));
+                    .add(Restrictions.eq("fkEmailListId.emailListId", emailListId))
+                    .add(Restrictions.eq("unsubscribed", Boolean.FALSE));
             List<ContactEmailListLookup> contactEmailListLookup = criteria.list();
             if (contactEmailListLookup.isEmpty()) {
                 return null;

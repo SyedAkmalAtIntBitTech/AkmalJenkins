@@ -73,11 +73,6 @@ public class ContactEmailListLookupServiceImpl implements ContactEmailListLookup
         List<ContactEmailListLookup> contactsList = new ArrayList<>();
         if(emailList != null) {
             contactsList = getContactsByEmailListId(emailList.getEmailListId());
-            for(int i = 0; i<contactsList.size();i++) {
-                if(contactsList.get(i).getUnsubscribed()) {
-                    contactsList.remove(i);
-                }
-            }
         }
         if(contactsList != null) {
             contactsForEmailList = StringUtils.join(contactsList, ',');
