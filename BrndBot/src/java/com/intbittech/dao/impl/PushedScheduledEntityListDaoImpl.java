@@ -9,12 +9,14 @@ import com.intbittech.dao.PushedScheduledEntityListDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.PushedScheduledEntityList;
 import java.util.List;
+import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -30,6 +32,9 @@ public class PushedScheduledEntityListDaoImpl implements PushedScheduledEntityLi
     private static Logger logger = Logger.getLogger(PushedScheduledEntityListDaoImpl.class);
     @Autowired
     private SessionFactory sessionFactory;
+    @Autowired
+     private MessageSource messageSource;
+            
 
     
     /**
@@ -50,7 +55,7 @@ public class PushedScheduledEntityListDaoImpl implements PushedScheduledEntityLi
 
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record");
+            throw new ProcessFailed(messageSource.getMessage("error_retreving_message",new String[]{}, Locale.US));
         }
 
     }
@@ -63,7 +68,7 @@ public class PushedScheduledEntityListDaoImpl implements PushedScheduledEntityLi
             return ((Integer) sessionFactory.getCurrentSession().save(pushedScheduledEntityList));
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while saving record.");
+            throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
         }
     }
 
@@ -75,7 +80,7 @@ public class PushedScheduledEntityListDaoImpl implements PushedScheduledEntityLi
             sessionFactory.getCurrentSession().update(pushedScheduledEntityList);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while updating record.");
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
         }
     }
 
@@ -87,7 +92,7 @@ public class PushedScheduledEntityListDaoImpl implements PushedScheduledEntityLi
             sessionFactory.getCurrentSession().delete(pushedScheduledEntityList);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while deleting record.");
+            throw new ProcessFailed(messageSource.getMessage("error_deleting_message",new String[]{}, Locale.US));
         }
     }
 
@@ -109,7 +114,7 @@ public class PushedScheduledEntityListDaoImpl implements PushedScheduledEntityLi
 
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record");
+            throw new ProcessFailed(messageSource.getMessage("error_retreving_message",new String[]{}, Locale.US));
         }
     }
 
@@ -131,7 +136,7 @@ public class PushedScheduledEntityListDaoImpl implements PushedScheduledEntityLi
 
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record");
+            throw new ProcessFailed(messageSource.getMessage("error_retreving_message",new String[]{}, Locale.US));
         }
     }
     

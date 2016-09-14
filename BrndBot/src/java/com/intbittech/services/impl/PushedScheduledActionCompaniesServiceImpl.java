@@ -10,8 +10,10 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.PushedScheduledActionCompanies;
 import com.intbittech.services.PushedScheduledActionCompaniesService;
 import java.util.List;
+import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +28,8 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
   private static Logger logger = Logger.getLogger(PushedScheduledActionCompaniesServiceImpl.class);
   @Autowired
   private PushedScheduledActionCompaniesDao pushedScheduledActionCompaniesDao;
+  @Autowired
+  private MessageSource messageSource;
 
     /**
      * {@inheritDoc}
@@ -33,7 +37,7 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
     public PushedScheduledActionCompanies getByPushedScheduledActionCompaniesId(Integer pushedScheduledActionCompaniesId) throws ProcessFailed {
         PushedScheduledActionCompanies pushedScheduledActionCompanies = pushedScheduledActionCompaniesDao.getByPushedScheduledActionCompaniesId(pushedScheduledActionCompaniesId);
         if (pushedScheduledActionCompanies == null) {
-            throw new ProcessFailed("No pushed scheduled action companies with id" + pushedScheduledActionCompaniesId + ".");
+            throw new ProcessFailed(messageSource.getMessage("no_pushed_scheduled_action_company_found",new String[]{}, Locale.US));
         }
         return pushedScheduledActionCompanies;
     }
@@ -58,7 +62,7 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
     public void delete(Integer pushedScheduledActionCompaniesId) throws ProcessFailed {
         PushedScheduledActionCompanies pushedScheduledActionCompanies = pushedScheduledActionCompaniesDao.getByPushedScheduledActionCompaniesId(pushedScheduledActionCompaniesId);
         if (pushedScheduledActionCompanies == null) {
-            throw new ProcessFailed("No pushed scheduled action companies with id" + pushedScheduledActionCompaniesId + ".");
+            throw new ProcessFailed(messageSource.getMessage("no_pushed_scheduled_action_company_found",new String[]{}, Locale.US));
         }
         pushedScheduledActionCompaniesDao.delete(pushedScheduledActionCompanies);
     }
@@ -69,7 +73,7 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
     public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByScheduledEntityListId(Integer ScheduledEntityListId) throws ProcessFailed {
         List<PushedScheduledActionCompanies> pushedScheduledActionCompaniesList = pushedScheduledActionCompaniesDao.getAllPushedScheduledActionCompaniesByScheduledEntityListId(ScheduledEntityListId);
         if (pushedScheduledActionCompaniesList == null) {
-            throw new ProcessFailed("No pushed scheduled action companies with id" + ScheduledEntityListId + ".");
+            throw new ProcessFailed(messageSource.getMessage("no_pushed_scheduled_action_company_found",new String[]{}, Locale.US));
         }
         return pushedScheduledActionCompaniesList;
     }
@@ -80,7 +84,7 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
     public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByFranchiseId(Integer franchiseId) throws ProcessFailed {
          List<PushedScheduledActionCompanies> pushedScheduledActionCompaniesList = pushedScheduledActionCompaniesDao.getAllPushedScheduledActionCompaniesByFranchiseId(franchiseId);
         if (pushedScheduledActionCompaniesList == null) {
-            throw new ProcessFailed("No pushed scheduled action companies with id" + franchiseId + ".");
+            throw new ProcessFailed(messageSource.getMessage("no_pushed_scheduled_action_company_found",new String[]{}, Locale.US));
         }
         return pushedScheduledActionCompaniesList;
     }
@@ -91,7 +95,7 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
     public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByCompanyId(Integer companyId) throws ProcessFailed {
         List<PushedScheduledActionCompanies> pushedScheduledActionCompaniesList = pushedScheduledActionCompaniesDao.getAllPushedScheduledActionCompaniesByCompanyId(companyId);
         if (pushedScheduledActionCompaniesList == null) {
-            throw new ProcessFailed("No pushed scheduled action companies with id" + companyId + ".");
+            throw new ProcessFailed(messageSource.getMessage("no_pushed_scheduled_action_company_found",new String[]{}, Locale.US));
         }
         return pushedScheduledActionCompaniesList;
     }

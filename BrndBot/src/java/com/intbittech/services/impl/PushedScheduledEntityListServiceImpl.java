@@ -10,8 +10,10 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.PushedScheduledEntityList;
 import com.intbittech.services.PushedScheduledEntityListService;
 import java.util.List;
+import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +27,9 @@ public class PushedScheduledEntityListServiceImpl implements PushedScheduledEnti
 
     private static Logger logger = Logger.getLogger(PushedScheduledEntityListServiceImpl.class);
     @Autowired
-    PushedScheduledEntityListDao pushedScheduledEntityListDao;
+    private  PushedScheduledEntityListDao pushedScheduledEntityListDao;
+    @Autowired
+    private MessageSource messageSource;
 
     /**
      * {@inheritDoc}
@@ -34,7 +38,7 @@ public class PushedScheduledEntityListServiceImpl implements PushedScheduledEnti
 
         PushedScheduledEntityList pushedScheduledEntityList = pushedScheduledEntityListDao.getByPushedScheduledEntityListId(pushedScheduledEntityListId);
         if (pushedScheduledEntityList == null) {
-            throw new ProcessFailed("No pushed scheduled entity with id" + pushedScheduledEntityListId + ".");
+            throw new ProcessFailed(messageSource.getMessage("no_pushed_scheduled_action_found",new String[]{}, Locale.US));
         }
         return pushedScheduledEntityList;
     }
@@ -60,7 +64,7 @@ public class PushedScheduledEntityListServiceImpl implements PushedScheduledEnti
         
         PushedScheduledEntityList pushedScheduledEntityList = pushedScheduledEntityListDao.getByPushedScheduledEntityListId(pushedScheduledEntityListId);
         if (pushedScheduledEntityList == null) {
-            throw new ProcessFailed("No pushed scheduled entity with id" + pushedScheduledEntityListId + ".");
+            throw new ProcessFailed(messageSource.getMessage("no_pushed_scheduled_action_found",new String[]{}, Locale.US));
         }
         pushedScheduledEntityListDao.delete(pushedScheduledEntityList);
     }
@@ -72,7 +76,7 @@ public class PushedScheduledEntityListServiceImpl implements PushedScheduledEnti
 
         List<PushedScheduledEntityList> pushedScheduledEntityList = pushedScheduledEntityListDao.getAllPushedScheduledEntityListIdByFranchiseId(franchiseId);
         if (pushedScheduledEntityList == null) {
-            throw new ProcessFailed("No pushed scheduled entity with id" + franchiseId + ".");
+            throw new ProcessFailed(messageSource.getMessage("no_pushed_scheduled_action_found",new String[]{}, Locale.US));
         }
         return pushedScheduledEntityList;
     }
@@ -84,7 +88,7 @@ public class PushedScheduledEntityListServiceImpl implements PushedScheduledEnti
         
         List<PushedScheduledEntityList> pushedScheduledEntityList = pushedScheduledEntityListDao.getAllPushedScheduledEntityListIdByScheduledEntityListId(scheduledEntityListId);
         if (pushedScheduledEntityList == null) {
-            throw new ProcessFailed("No pushed scheduled entity with id" + scheduledEntityListId + ".");
+            throw new ProcessFailed(messageSource.getMessage("no_pushed_scheduled_action_found",new String[]{}, Locale.US));
         }
         return pushedScheduledEntityList;
     }
