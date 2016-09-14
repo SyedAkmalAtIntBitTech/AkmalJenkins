@@ -102,8 +102,8 @@ public class PushedScheduledActionCompaniesDaoImpl implements PushedScheduledAct
                     .setFetchMode("fkCompanyId", FetchMode.JOIN)
                     .setFetchMode("fkPushedScheduledActionEntityListId", FetchMode.JOIN)
                     .setFetchMode("fkPushedScheduledActionEntityListId.fkScheduledEntityListId", FetchMode.JOIN)
-                    .createAlias("fkPushedScheduledActionEntityListId.fkScheduledEntityListId", "pscId")
-                    .add(Restrictions.eq("pscId.scheduledEntityListId", ScheduledEntityListId));
+                    .createAlias("fkPushedScheduledActionEntityListId.fkScheduledEntityListId", "scheduledEntityList")
+                    .add(Restrictions.eq("scheduledEntityList.scheduledEntityListId", ScheduledEntityListId));
           List<PushedScheduledActionCompanies> pushedScheduledActionCompanies = criteria.list();
 
             if (pushedScheduledActionCompanies.isEmpty()) {
@@ -128,8 +128,8 @@ public class PushedScheduledActionCompaniesDaoImpl implements PushedScheduledAct
                     .setFetchMode("fkCompanyId", FetchMode.JOIN)
                     .setFetchMode("fkPushedScheduledActionEntityListId", FetchMode.JOIN)
                     .setFetchMode("fkPushedScheduledActionEntityListId.fkFranchiseId", FetchMode.JOIN)
-                    .createAlias("fkPushedScheduledActionEntityListId.fkFranchiseId", "psfId")
-                    .add(Restrictions.eq("psfId.franchiseId", franchiseId));
+                    .createAlias("fkPushedScheduledActionEntityListId.fkFranchiseId", "franchise")
+                    .add(Restrictions.eq("franchise.franchiseId", franchiseId));
           List<PushedScheduledActionCompanies> pushedScheduledActionCompanies = criteria.list();
 
             if (pushedScheduledActionCompanies.isEmpty()) {
