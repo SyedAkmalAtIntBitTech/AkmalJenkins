@@ -5,31 +5,29 @@
  */
 package com.intbittech.services.impl;
 
-import com.intbittech.sendgrid.models.SendGridUsers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.intbittech.sendgrid.models.Subuser;
-import com.intbittech.dao.CategoryDao;
-import com.intbittech.dao.OrganizationCategoryLookupDao;
+import com.intbittech.AppConstants;
 import com.intbittech.divtohtml.StringUtil;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.Category;
 import com.intbittech.responsemappers.OperationStatus;
 import com.intbittech.responsemappers.OperationStatusType;
-import com.intbittech.sendgrid.models.BaseSendGridModel;
 import com.intbittech.sendgrid.models.EmailType;
 import com.intbittech.sendgrid.models.SendGridCNameValidity;
 import com.intbittech.sendgrid.models.SendGridError;
 import com.intbittech.sendgrid.models.SendGridStats;
 import com.intbittech.sendgrid.models.SendGridUser;
-import com.sendgrid.Method;
-import com.sendgrid.Request;
-import com.sendgrid.Response;
+import com.intbittech.sendgrid.models.SendGridUsers;
+import com.intbittech.sendgrid.models.Subuser;
 import com.intbittech.services.EmailServiceProviderService;
+import com.intbittech.utility.IConstants;
 import com.sendgrid.Content;
 import com.sendgrid.Email;
 import com.sendgrid.Mail;
 import com.sendgrid.MailSettings;
+import com.sendgrid.Method;
+import com.sendgrid.Request;
+import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -38,10 +36,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,36 +52,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor = ProcessFailed.class)
 public class EmailServiceProviderServiceImpl implements EmailServiceProviderService {
 
-    private static String sendGridAPI = "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";
 
     private static SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-dd-MM");
 
     private static Logger logger = Logger.getLogger(EmailServiceProviderServiceImpl.class);
 
-    private Response sendEmailTest() throws IOException {
-        Email from = new Email("ar@intbittech.com");
-        from.setName("AbdulRaqeeb");
-        String subject = "Hello World from the SendGrid Java Library!";
-        Email to = new Email("ar@brndbot.com");
-        Content content = new Content("text/plain", "Hello, Email!");
-        Mail mail = new Mail(from, subject, to, content);
-        MailSettings mailSettings = new MailSettings();
-        mail.setMailSettings(mailSettings);
-        List<String> list = new ArrayList<String>();
-        list.add("Category");
-        mail.categories = list;
-        SendGrid sg = new SendGrid(sendGridAPI);
-        Request request = new Request();
-        request.method = Method.POST;
-        request.endpoint = "mail/send";
-        request.body = mail.build();
-        Response response = sg.api(request);
-        System.out.println(response.statusCode);
-        System.out.println(response.body);
-        System.out.println(response.headers);
-        return response;
-    }
-
+    @Autowired
+    private MessageSource messageSource;
+    
     private Map<String, String> generateQueryParams(String key,
             List<String> categories) {
         Map<String, String> map = new HashMap<String, String>();
@@ -116,7 +93,7 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             ObjectMapper mapper = new ObjectMapper();
 
             SendGridUsers sendGridUsers = new SendGridUsers();
-            SendGrid sg = new SendGrid(sendGridAPI);
+            SendGrid sg = new SendGrid(AppConstants.KSendGridAPIKey);
             Request request = new Request();
             request.method = Method.GET;
             request.endpoint = "whitelabel/domains";
@@ -150,12 +127,12 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
     }
 
     @Override
-    public SendGridUser getSubserDetails(String userName) throws ProcessFailed {
+    public SendGridUser getSubuserDetails(String userName) throws ProcessFailed {
         try {
             ObjectMapper mapper = new ObjectMapper();
 
             SendGridUser sendGridUser = new SendGridUser();
-            SendGrid sg = new SendGrid(sendGridAPI);
+            SendGrid sg = new SendGrid(AppConstants.KSendGridAPIKey);
             Request request = new Request();
             request.method = Method.GET;
             request.endpoint = "whitelabel/domains";
@@ -192,10 +169,10 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
         try {
             SendGridCNameValidity sendGridCNameValidity = new SendGridCNameValidity();
             ObjectMapper mapper = new ObjectMapper();
-            SendGrid sg = new SendGrid(sendGridAPI);
+            SendGrid sg = new SendGrid(AppConstants.KSendGridAPIKey);
             Request request = new Request();
             request.method = Method.POST;
-            request.endpoint = "whitelabel/domains/"+sendGridUserId+"/validate";
+            request.endpoint = "whitelabel/domains/" + sendGridUserId + "/validate";
             logRequest(request);
             Response response = sg.api(request);
             logResponse(response);
@@ -216,8 +193,49 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
     }
 
     @Override
-    public Response sendEmail(Mail mail, EmailType emailType) throws ProcessFailed {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public OperationStatus sendEmail(Mail mail, EmailType emailType) throws ProcessFailed {
+        try {
+            
+            mail = formatTo(mail, emailType);
+            
+            ObjectMapper mapper = new ObjectMapper();
+            OperationStatus operationStatus = new OperationStatus();
+            Email from = new Email("ar@intbittech.com");
+            from.setName("AbdulRaqeeb");
+            String subject = "Hello World from the SendGrid Java Library!";
+            Email to = new Email("ar@brndbot.com");
+            Content content = new Content("text/plain", "Hello, Email!");
+            MailSettings mailSettings = new MailSettings();
+            mail.setMailSettings(mailSettings);
+           
+            List<String> list = new ArrayList<String>();
+            list.add("Category");
+            mail.categories = list;
+            mail.
+            SendGrid sg = new SendGrid(AppConstants.KSendGridAPIKey);
+            Request request = new Request();
+            request.method = Method.POST;
+            request.endpoint = "mail/send";
+            request.body = mail.build();
+            logRequest(request);
+            Response response = sg.api(request);
+            logResponse(response);
+            OperationStatusType type = SendGridError.parseStatusCode(response.statusCode);
+            operationStatus.setStatusCode(type);
+
+            if (type != OperationStatusType.Success) {
+                operationStatus = mapError(response);
+            } else {
+            }
+            return operationStatus;
+        } catch (JsonProcessingException ex) {
+            logger.error(ex);
+            throw new ProcessFailed(ex.getMessage());
+        } catch (IOException ex) {
+            logger.error(ex);
+            throw new ProcessFailed(ex.getMessage());
+        }
+
     }
 
     @Override
@@ -226,7 +244,7 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             ObjectMapper mapper = new ObjectMapper();
 
             SendGridStats sendGridStats = new SendGridStats();
-            SendGrid sg = new SendGrid(sendGridAPI);
+            SendGrid sg = new SendGrid(AppConstants.KSendGridAPIKey);
 
             startDate = getStartDate(startDate);
             if (endDate == null) {
@@ -268,7 +286,7 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             SendGridUser sendGridUser = new SendGridUser();
             ObjectMapper mapper = new ObjectMapper();
 
-            SendGrid sg = new SendGrid(sendGridAPI);
+            SendGrid sg = new SendGrid(AppConstants.KSendGridAPIKey);
             Request request = new Request();
             request.method = Method.POST;
             request.endpoint = "subusers";
@@ -319,11 +337,20 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
         if (startDate == null) {
             Calendar cal = Calendar.getInstance();
             cal.setTime(new Date());
-            cal.add(Calendar.DATE, -150);
+            cal.add(Calendar.DATE, -150);//Going all the way back to 6 months
             Date pastDate = cal.getTime();
             return pastDate;
 
         }
         return startDate;
+    }
+
+    private Mail formatTo(Mail mail, EmailType emailType) {
+        if (emailType == EmailType.BrndBot_NoReply) {
+            String companyName = messageSource.getMessage("companyName",new String[]{}, Locale.US);
+            Email from = new Email(IConstants.kNoReplyBrndbot, companyName);
+            mail.setFrom(from);
+        }
+        return mail;
     }
 }

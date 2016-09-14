@@ -6,14 +6,14 @@
 package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.Category;
-import com.intbittech.modelmappers.CategoryDetails;
+import com.intbittech.responsemappers.OperationStatus;
 import com.intbittech.sendgrid.models.EmailType;
+import com.intbittech.sendgrid.models.SendGridCNameValidity;
 import com.intbittech.sendgrid.models.SendGridStats;
 import com.intbittech.sendgrid.models.SendGridUser;
+import com.intbittech.sendgrid.models.SendGridUsers;
 import com.intbittech.sendgrid.models.Subuser;
 import com.sendgrid.Mail;
-import com.sendgrid.Response;
 import java.util.Date;
 import java.util.List;
 
@@ -39,7 +39,7 @@ public interface EmailServiceProviderService {
      * @return
      * @throws ProcessFailed 
      */
-    public Response getAllSubusers() throws ProcessFailed;
+    public SendGridUsers getAllSubusers() throws ProcessFailed;
     
     /**
      * Returns sub user details for a given user name
@@ -47,7 +47,7 @@ public interface EmailServiceProviderService {
      * @return
      * @throws ProcessFailed 
      */
-    public SendGridUser getSubserDetails(String userName) throws ProcessFailed;
+    public SendGridUser getSubuserDetails(String userName) throws ProcessFailed;
 
     
     /**
@@ -56,7 +56,7 @@ public interface EmailServiceProviderService {
      * @return
      * @throws ProcessFailed 
      */
-    public Response validateCNAME(String sendGridUserId) throws ProcessFailed;
+    public SendGridCNameValidity validateCNAME(String sendGridUserId) throws ProcessFailed;
 
     
     
@@ -68,7 +68,7 @@ public interface EmailServiceProviderService {
      * @return
      * @throws ProcessFailed 
      */
-    public Response sendEmail(Mail mail, EmailType emailType) throws ProcessFailed;
+    public OperationStatus sendEmail(Mail mail, EmailType emailType) throws ProcessFailed;
     
     /**
      * Get all statistics based off the category. 

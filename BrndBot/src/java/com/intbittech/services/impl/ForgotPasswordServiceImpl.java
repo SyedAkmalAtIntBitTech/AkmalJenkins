@@ -10,17 +10,20 @@ import com.intbittech.dao.ForgotPasswordDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ForgotPassword;
 import com.intbittech.model.Users;
+import com.intbittech.sendgrid.models.EmailType;
+import com.intbittech.services.EmailServiceProviderService;
 import com.intbittech.services.ForgotPasswordService;
 import com.intbittech.services.UsersService;
-import com.intbittech.email.mandrill.Message;
-import com.intbittech.email.mandrill.Recipient;
-import com.intbittech.email.mandrill.RecipientMetadata;
-import com.intbittech.email.mandrill.SendMail;
-import static com.intbittech.email.mandrill.SendMail.MANDRILL_KEY;
-import java.util.ArrayList;
+import com.intbittech.utility.IConstants;
+import com.intbittech.utility.Utility;
+import com.sendgrid.Content;
+import com.sendgrid.Email;
+import com.sendgrid.Mail;
 import java.util.Date;
+import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,14 +37,17 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 
     private Logger logger = Logger.getLogger(ForgotPasswordServiceImpl.class);
 
-    SendMail send_email = new SendMail();
-
     @Autowired
     ForgotPasswordDao forgotPasswordDAO;
 
     @Autowired
     UsersService usersService;
     
+    @Autowired
+    EmailServiceProviderService emailServiceProviderService;
+    
+    @Autowired
+    private MessageSource messageSource;
 
     @Override
     public Integer save(ForgotPassword forgotPassword) throws ProcessFailed {
@@ -60,6 +66,8 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 
     @Override
     public void sendMail(String email_id, String imageContextPath) {
+        
+        
         Users user = usersService.getUserByEmailId(email_id);
 
         String randomVal = email_id + String.valueOf(user.getUserId()) + new Date().getTime();
@@ -72,36 +80,17 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
         forgotPassword.setRandomLink(hashURL);
         save(forgotPassword);
 
-        Message message = new Message();
-
-        message.setKey(MANDRILL_KEY);
-//                String url=request.getRequestURL().toString().replace("SendEmail","");  
-        message.setHtml("<html><body><p><h2>Forgot your password?</h2></p><p>We received a request to reset the password for your BrndBot account.</p>To reset your password, click on the link below (or copy and paste the URL into your browser):<br />" + imageContextPath + "#/signup/changepassword?userid=" + hashURL + "</body></html>");
-        message.setText("text");
-        message.setSubject("Reset your BrndBot password");
-        message.setFrom_email("mail@brndbot.com");
-        message.setFrom_name("BrndBot");
-        message.setAsync(true);
-
-        ArrayList<Recipient> messageToList = new ArrayList<Recipient>();
-
-        Recipient recipient = new Recipient();
-        recipient.setEmail(email_id);
-        recipient.setType("to");
-
-        messageToList.add(recipient);
-
-        message.setMessageTo(messageToList);
-
-        RecipientMetadata recipientMetadata = new RecipientMetadata();
-        recipientMetadata.setRcpt(email_id);
-
-        ArrayList<RecipientMetadata> metadataList = new ArrayList<RecipientMetadata>();
-        metadataList.add(recipientMetadata);
-        metadataList.add(recipientMetadata);
-
-        message.setRecipient_metadata(metadataList);
-        send_email.sendMail(message);
+        String companyName = messageSource.getMessage("companyName",new String[]{}, Locale.US);
+        String body = messageSource.getMessage("forgotPasswordBody",new String[]{}, Locale.US);
+        String formattedBody = String.format(body, companyName, imageContextPath, hashURL);
+        Content content = new Content(IConstants.kContentHTML, formattedBody);
+        Email emailTo = new Email(email_id, Utility.combineUserName(user));
+        String subject = messageSource.getMessage("forgotPasswordSubject",new String[]{}, Locale.US);
+        String formattedSubject = String.format(subject, companyName);
+        Mail mail = new Mail(null, formattedSubject, emailTo, content);
+        String preHeader = "something";
+        
+        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply);
     }
 
     @Override

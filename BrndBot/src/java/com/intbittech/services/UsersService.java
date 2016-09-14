@@ -126,12 +126,4 @@ public interface UsersService {
      * @throws ProcessFailed the process failed
      */
     public boolean isInviteCodeValid(String inviteCode);
-
-    /**
-     * This method pass fromEmailId,imageContextPath,inviteDetails as input and sends mail from Service layer
-     *
-     * @param fromEmailId
-     * @throws ProcessFailed the process failed
-     */
-    public void sendAcknowledgementEmail(String fromEmailId) throws ProcessFailed;
 }

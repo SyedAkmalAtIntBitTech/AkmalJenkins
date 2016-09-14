@@ -10,6 +10,6 @@ package com.intbittech.sendgrid.models;
  * @author ar
  */
 public enum EmailType {
-    BrndBot_RegularEmail,//Forgot password, Invite user, 
+    BrndBot_NoReply,//Forgot password, Invite user, 
     BrndBot_SubUserRegularEmail,//Send/Scheduled Email
 }
