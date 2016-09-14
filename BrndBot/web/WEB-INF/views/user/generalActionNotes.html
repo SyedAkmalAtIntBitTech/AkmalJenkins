@@ -1,4 +1,10 @@
 <!-- HEAD franchisebackend1 -->
+<html>
+    <head>
+        
+    </head>
+    <body ng-app="yourPlanFlowApp" class="body-normal" ng-controller="yourPlanController" id="yourPlanController">
+        
 <div class="overlay-content" ng-show='generalNotes' style="position: relative">
     <div ng-show="moreThanOneUser">
         <div class="overlay-details-pane" ng-show="isRecurring === false">
@@ -32,8 +38,8 @@
                 </div>
 
         </div>
-        <div class="email-preview-bar">ACTION COMMENTS</div>
-        <div class="action-comments-wrap" style="height:calc(100vh - 450px); background-color: #f2f2f4; width: 100%; padding:30px 60px; overflow-y: scroll;">
+        <div class="email-preview-bar" ng-init="getActionComments(schedule_id)">ACTION COMMENTS</div>
+        <div class="action-comments-wrap" style="height:calc(100vh - 450px); background-color: #f2f2f4; width: 100%; padding:30px 60px; overflow-y: scroll;" >
             <div class="action" style="background-color:white; padding:20px 30px;  border-radius: 3px;  " ng-repeat="comment in comments">
                 <a id="addactionClose" ng-show="comment.isLoginUser==true" ng-click = "removeActionComment(schedule_id,comment.commentId)" class="modal-pane-header-exit" alt="remove comment"></a>
                 <div style="display: inline-flex;">
@@ -55,8 +61,10 @@
     </div>
     <div class="action-comment-input-wrap" style="position: absolute; bottom:0px; width:100%; padding: 15px 60px; background-color:white; ">
         <div class="input">
-            <input size="40" class="fluid" placeholder="comment here" ng-model="comment">
+            <input size="40" class="fluid" id="comment"  placeholder="comment here" ng-model="comment">
             <input type="button" value="comment" ng-click="addActionComment(schedule_id, comment)"/>
         </div>
     </div>
 </div>
+    </body>
+</html>

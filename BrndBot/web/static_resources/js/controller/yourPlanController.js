@@ -331,22 +331,27 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.addActionComment = function (scheduleId, comment) {
-            var commentDetails = {"scheduleId": scheduleId, "comment": comment};
-            yourPlanFactory.addActionCommentPOST(commentDetails).then(function (data) {
-                getActionComments(scheduleId);
-            });
+            if (!comment){
+                alert("comment not added, please add the comment");
+                $("#comment").focus();
+            }else{
+                var commentDetails = {"scheduleId": scheduleId, "comment": comment};
+                yourPlanFactory.addActionCommentPOST(commentDetails).then(function (data) {
+                    $scope.getActionComments(scheduleId);
+                    $("#comment").val("");
+                });
+            }
         };
 
         $scope.getActionComments = function (scheduleId) {
             yourPlanFactory.actionCommentsGet(scheduleId).then(function (data) {
                 $scope.comments = data.d.details;
-                
             });
         };
 
         $scope.removeActionComment = function (scheduleId,commentId){
-            yourPlanFactory.removeActionComments(commentId).then(function(data){
-                getActionComments(scheduleId);
+            yourPlanFactory.removeActionComment(commentId).then(function(data){
+                $scope.getActionComments(scheduleId);
             });
         };
         
@@ -356,7 +361,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var day = dateArray[0];
             var year = dateArray[2];
             var programEndDate = year + "-" + month + "-" + day;
-//            var newDate = moment(programEndDate).format('YYYY-MM-DD');
             return programEndDate;
         };
 

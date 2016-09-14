@@ -224,8 +224,8 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                     String marketingType = "0";
                     
                     String imageType = requestBodyMap.get("image_type").toString();
-                     Double TempUserAssignToId = new Double(requestBodyMap.get("userAssignToId").toString().trim());
-                     Integer userAssignToId = TempUserAssignToId.intValue();
+                    Double TempUserAssignToId = new Double(requestBodyMap.get("userAssignedTo").toString().trim());
+                    Integer userAssignToId = TempUserAssignToId.intValue();
                     Map<String, Integer> daoResponse = ScheduleSocialPostDAO.addToScheduleSocialPost(
                             companyId,
                             requestBodyMap.get("image_name").toString(),

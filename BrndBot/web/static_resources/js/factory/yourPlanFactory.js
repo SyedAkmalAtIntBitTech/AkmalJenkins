@@ -63,10 +63,10 @@ factoryApp.factory('yourPlanFactory', function ($q, authenticatedServiceFactory,
         return deffered.promise;
     };
 
-    yourPlanFactoryObject.removeActionComments = function(commentId){
+    yourPlanFactoryObject.removeActionComment = function(commentId){
         var deffered = $q.defer();
         var url = configurationService.removeActionCommentURL()+ "?commentId=" + commentId;
-        authenticatedServiceFactory.makeCall("DELETE", url, "", "").then(function (data){
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data){
             deffered.resolve(data);
         });
         return deffered.promise;

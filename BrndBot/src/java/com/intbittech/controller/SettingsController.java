@@ -11,7 +11,6 @@ import com.google.gson.Gson;
 import com.intbit.util.CustomStyles;
 import com.intbittech.AppConstants;
 import com.intbittech.externalcontent.ExternalContentProcessor;
-import com.intbittech.model.Address;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.EmailList;

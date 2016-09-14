@@ -4,7 +4,8 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 
-socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope', '$location', '$window', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'companyMarketingProgramFactory', 'companyImagesFactory', 'companyFactory', 'imageFactory', 'socialPostFactory', 'scheduleActionsFactory', 'appSessionFactory', function ($scope, $filter, $rootScope, $location, $window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, companyMarketingProgramFactory, companyImagesFactory, companyFactory, imageFactory, socialPostFactory, scheduleActionsFactory, appSessionFactory) {
+socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope', '$location', '$window', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'companyMarketingProgramFactory', 'companyImagesFactory', 'companyFactory', 'imageFactory', 'socialPostFactory', 'scheduleActionsFactory', 'appSessionFactory','yourPlanFactory', function ($scope, $filter, $rootScope, $location, $window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, companyMarketingProgramFactory, companyImagesFactory, companyFactory, imageFactory, socialPostFactory, scheduleActionsFactory, appSessionFactory,yourPlanFactory) {
+
         $scope.getTwitterActionsData = "";
         $scope.marketingProgramsList = "";
         $scope.twitter_action = "";
@@ -124,7 +125,17 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                 $scope.companyId = data.d.details[0];
             });
         };
-
+        $scope.getAllUsersInCompany = function () {
+            yourPlanFactory.allUsersInCompanyGet().then(function (data) {
+                $scope.allUsers = data.d.details;
+            });
+            yourPlanFactory.noOfUsersInCompanyGet().then(function (data) {
+                var noOfUsersInCompany = data.d.details;
+                if (parseInt(noOfUsersInCompany) > 1) {
+                    $scope.moreThanOneUser = true;
+                }
+            });
+        };
         $scope.selectImage = function (id) {
             $scope.imageUnSelect = 'gallery-item-wrap-selected-true';
             angular.element(document.getElementsByClassName('gallery-item-wrap-selected-true')).removeClass('gallery-item-wrap-selected-true').addClass('gallery-item-wrap-selected');
@@ -799,6 +810,8 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                         }
                     };
                 } else {
+                    
+                    var userAssignToId = $("#assignTo option:selected").val();
                     var schedule_title = $("#ActionName").val();
                     var schedule_date = $("#actionDate").val();
                     var schedule_time = $("#actionTime").val().replace(/ /g, '');
@@ -825,6 +838,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                         "url": shareUrl,
                         "description": linkDescription,
                         "image_type": kGlobalFbPostDataObject.imageType,
+                        "userAssignedTo":userAssignToId,
                         metadata: {
                             description: '"' + linkDescription + '"',
                             post_text: '"' + shareText + '"',
@@ -886,6 +900,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
 //                                window.location = "dashboard";
                             });
                         } else {
+                            var userAssignToId = $("#assignTo option:selected").val();
                             var schedule_title = $("#ActionName").val();
                             var schedule_date = $("#actionDate").val();
                             var schedule_time = $("#actionTime").val().replace(/ /g, '');
@@ -910,6 +925,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                                 schedule_desc: schedule_desc,
                                 schedule_id: $scope.socialAction.toString(),
                                 image_type: $scope.selectImageType,
+                                userAssignedTo:userAssignToId,
                                 token_data: {
                                     "access_token": '"' + accessToken + '"',
                                     "token_secret": '"' + tokenSecret + '"'
@@ -949,6 +965,8 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
 //                            window.location = "dashboard";
                         });
                     } else {
+                        
+                        var userAssignToId = $("#assignTo option:selected").val();
                         var schedule_title = $("#ActionName").val();
                         var schedule_date = $("#actionDate").val();
                         var schedule_time = $("#actionTime").val().replace(/ /g, '');
@@ -971,6 +989,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                             schedule_desc: schedule_desc,
                             schedule_id: $scope.socialAction.toString(),
                             image_type: $scope.selectImageType,
+                            userAssignedTo:userAssignToId,
                             token_data: {
                                 "access_token": '"' + accessToken + '"',
                                 "token_secret": '"' + tokenSecret + '"'

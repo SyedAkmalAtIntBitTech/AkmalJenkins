@@ -92,7 +92,7 @@ public class CommentLogController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
-     @RequestMapping(value = "deleteActionComment", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+     @RequestMapping(value = "/deleteActionComment", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteActionComment(@RequestParam("commentId") Integer commentId) {
 
         TransactionResponse transactionResponse = new TransactionResponse();

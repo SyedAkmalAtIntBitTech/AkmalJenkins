@@ -772,7 +772,7 @@ factoryApp.service('configurationService', function () {
     };
 
     this.removeActionCommentURL = function(){
-        return getHost() + "comment/deleteCommentLog";
+        return getHost() + "comment/deleteActionComment";
     };
     this.addActionURL = function () {
         return getHost() + "AddAction";
