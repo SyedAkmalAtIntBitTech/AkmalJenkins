@@ -25,6 +25,7 @@ import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.UserProfile;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
+import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.EmailListService;
 import com.intbittech.services.RecurringEmailTemplateService;
 import com.intbittech.utility.UserSessionUtil;
@@ -71,6 +72,8 @@ public class MarketingRecurringEmailController {
     private CompanyService companyService;
     @Autowired
     private EmailListService emailListService;
+    @Autowired
+    private ContactEmailListLookupService contactEmailListLookupService;
     String return_response = "false";
 
     /*
@@ -580,13 +583,11 @@ public class MarketingRecurringEmailController {
 
                 if (schedule_entity_list.getEntityId().intValue() != 0) {
                     ScheduledEmailList schedule_email_list = schedule_email_list_service.getById(schedule_entity_list.getEntityId().intValue());
-                    String emailList = emailListService.getEmailList("emailsForEmailList", userCompanyIds.getCompanyId(), schedule_email_list.getEmailListName());
                     json_entity_list.put("recurring_email_body", schedule_email_list.getBody());
                     json_entity_list.put("recurring_email_email_list_name", schedule_email_list.getEmailListName());
                     json_entity_list.put("recurring_email_from_address", schedule_email_list.getFromAddress());
                     json_entity_list.put("recurring_email_reply_to_email_address", schedule_email_list.getReplyToEmailAddress());
                     json_entity_list.put("recurring_email_subject", schedule_email_list.getSubject());
-                    json_entity_list.put("recurring_email_to_email_addresses", emailList);
                     json_entity_list.put("recurring_email_from_name", schedule_email_list.getFromName());
 
                 }

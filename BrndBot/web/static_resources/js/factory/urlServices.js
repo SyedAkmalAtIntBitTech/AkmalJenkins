@@ -499,6 +499,35 @@ factoryApp.service('configurationService', function () {
     this.emailListSaveURL = function () {
         return getHost() + "emaillist/save";
     };
+    
+    this.getAllEmailListWithNoOfContactsForMindBodyURL = function () {
+        return getHost() + "emaillist/getAllEmailListWithNoOfContactsForMindBody";
+    };
+    
+    this.createEmailListURL = function () {
+        return getHost() + "emaillist/createEmailList";
+    };
+    
+    this.addEmailListContactURL = function () {
+        return getHost() + "emaillist/addContact";
+    };
+    
+    this.getContactsOfEmailListURL = function () {
+        return getHost() + "emaillist/getContactsOfEmailList";
+    };
+    
+    this.editContactURL = function () {
+        return getHost() + "emaillist/editContact";
+    };
+    
+    this.deleteEmailListURL = function () {
+        return getHost() + "emaillist/deleteEmailList";
+    };
+    
+    this.emailListGetWithNoOfContactsForUserURL = function () {
+        return getHost() + "emaillist/getAllEmailListWithNoOfContactsForUser";
+    };
+    
 
     //************** marketingFactory ********************//
 

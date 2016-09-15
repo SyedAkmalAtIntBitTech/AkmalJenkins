@@ -17,6 +17,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import com.intbittech.utility.DateTimeUtil;
 import com.intbittech.email.mandrill.SendMail;
+import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.EmailListService;
 
 /**
@@ -56,28 +57,24 @@ public class ScheduleAnEmail implements Runnable {
                     logger.info("Current time:" + new Date());
                     if (shouldPostNow) {
                         logger.info("Should post now is true: Sending Mail");
-                                EmailListService emailListService = SpringContextBridge.services().getEmailListService();
-                            
+                        ContactEmailListLookupService contactEmailListLookupService = SpringContextBridge.services().getContactEmailListLookupService();
                         ScheduledEmailList sendAnEmail = getSendEmail(currentScheduledEmail);
                       
                         Integer companyId = currentScheduledEmail.getFkCompanyId().getCompanyId();
-                        String emailList =  emailListService.getEmailList("emailsForEmailList", companyId, sendAnEmail.getEmailListName());
                         String html_text = sendAnEmail.getBody();
                         String email_subject = sendAnEmail.getSubject();
-                        String jsonString = emailList;
-                        JSONObject json = (JSONObject) new JSONParser().parse(jsonString);
-                        String to_email_addresses = "";
+                        String to_email_addresses = contactEmailListLookupService.getContactsByEmailListNameAndCompanyId(sendAnEmail.getEmailListName(), companyId);
                         String emaillist_name = sendAnEmail.getEmailListName();
                        
                         String reply_to_address = sendAnEmail.getReplyToEmailAddress();
                         String from_email_address = sendAnEmail.getFromAddress();
                         String message = "";
                         String from_name = sendAnEmail.getFromName();
-                        org.json.simple.JSONArray jSONArray = (org.json.simple.JSONArray) json.get("emailAddresses");
-                        for (Integer i = 0; i < jSONArray.size(); i++) {
-                            to_email_addresses = jSONArray.get(i).toString();
+//                        org.json.simple.JSONArray jSONArray = (org.json.simple.JSONArray) json.get("emailAddresses");
+//                        for (Integer i = 0; i < jSONArray.size(); i++) {
+//                            to_email_addresses = jSONArray.get(i).toString();
                             message = SendMail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, companyId, reply_to_address, from_email_address, from_name, "");
-                        }
+//                        }
 //                    String message = "success";//TODO
 
                         if (message.equalsIgnoreCase("success")) {
