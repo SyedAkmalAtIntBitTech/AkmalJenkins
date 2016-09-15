@@ -9,29 +9,12 @@ import com.intbittech.model.UserCompanyIds;
 
 /**
  *
- * @author ajit @ Intbit
+ * @author ajit
  */
-public class CommentLogDetails extends UserCompanyIds{
+public class UpdateActionDetails extends UserCompanyIds {
     
-    private Integer commentLogId;
-    private String comment;
     private Integer scheduleId;
-
-    public Integer getCommentLogId() {
-        return commentLogId;
-    }
-
-    public void setCommentLogId(Integer commentLogId) {
-        this.commentLogId = commentLogId;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
+    private Integer userAssignToId;
 
     public Integer getScheduleId() {
         return scheduleId;
@@ -41,8 +24,11 @@ public class CommentLogDetails extends UserCompanyIds{
         this.scheduleId = scheduleId;
     }
 
-   
-    
-    
-    
+    public Integer getUserAssignToId() {
+        return userAssignToId;
+    }
+
+    public void setUserAssignToId(Integer userAssignToId) {
+        this.userAssignToId = userAssignToId;
+    }
 }

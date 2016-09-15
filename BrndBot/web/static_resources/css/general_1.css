@@ -1767,7 +1767,24 @@ li.sub-nav-tab.active a{
 
 }
 
+#fadeUserSettings
+{
+    display: none;
+    position:  fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(61,83,104,.8) !important;
+    z-index:999999 !important;
+
+}
+
 .fadeClass{
+    display: flex !important;
+}
+
+.fadeClasses{
     display: flex !important;
 }
 .unfadeClass{

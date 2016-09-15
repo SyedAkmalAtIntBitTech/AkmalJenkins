@@ -16,13 +16,13 @@ public interface ScheduleActionsService {
 
     public String getActions(Map<String, Object> requestBodyMap, Integer companyId) throws Exception;
 
-    public Map<String, Integer> scheduleEmail(Map<String, Object> requestBodyMap, Integer companyId);
+    public Map<String, Integer> scheduleEmail(Map<String, Object> requestBodyMap, Integer companyId,Integer createdBy);
 
     public Map<String, Integer> scheduleEmailActions(Map<String, Object> requestBodyMap, Integer companyId);
 
     public List<Map<String, Integer>> scheduleSocialPostActions(Map<String, Object> requestBodyMap, Integer companyId);
 
-    public List<Map<String, Integer>> scheduleSocialPost(Map<String, Object> requestBodyMap, Integer companyId);
+    public List<Map<String, Integer>> scheduleSocialPost(Map<String, Object> requestBodyMap, Integer companyId,Integer createdBy);
     
    
 }

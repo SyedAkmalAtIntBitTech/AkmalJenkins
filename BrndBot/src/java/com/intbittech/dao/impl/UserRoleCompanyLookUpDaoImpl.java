@@ -168,6 +168,22 @@ public class UserRoleCompanyLookUpDaoImpl implements UserRoleCompanyLookUpDao{
         return (UsersRoleCompanyLookup) criteria.list().get(0);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public List<UsersRoleCompanyLookup> getAllUsersRoleCompanyLookupByCompanyId(Integer companyId) throws ProcessFailed {
+        
+         Criteria criteria = sessionFactory.getCurrentSession()
+                .createCriteria(UsersRoleCompanyLookup.class)
+                .setFetchMode("companyId", FetchMode.JOIN)
+                .setFetchMode("roleId", FetchMode.JOIN)
+                .setFetchMode("userId", FetchMode.JOIN)
+                .add(Restrictions.eq("companyId.companyId", companyId));
+        if (criteria.list().isEmpty()) {
+            return null;
+        }
+        return  criteria.list();
+    }
      /**
      * {@inheritDoc}
      */

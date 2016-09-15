@@ -15,6 +15,7 @@ import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.CommentLogService;
 import com.intbittech.utility.ErrorHandlingUtil;
+import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,34 +33,35 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author ajit @ Intbit
  */
 @Controller
+@RequestMapping(value = "/comment")
 public class CommentLogController {
     
     private final static Logger logger = Logger.getLogger(CommentLogController.class);
     @Autowired
     private CommentLogService commentLogService;
     
-      @RequestMapping(value = "saveCommentLog", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> saveCommentLog(@RequestBody CommentLogDetails commentLogDetails) {
+      @RequestMapping(value = "/saveActionComment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveActionComment(@RequestBody CommentLogDetails commentLogDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             CommentLog commentLog = new CommentLog();
            
             ScheduledEntityList scheduledEntityList = new ScheduledEntityList();
-            scheduledEntityList.setScheduledEntityListId(commentLogDetails.getScheduledEntityListId());
+            scheduledEntityList.setScheduledEntityListId(commentLogDetails.getScheduleId());
             commentLog.setFkScheduledEntityid(scheduledEntityList);
             Users userObject = new Users();
-            userObject.setUserId(1);//To-do to get user id from UI
+            userObject.setUserId(commentLogDetails.getUserId());
             commentLog.setCommentedBy(userObject);
             commentLog.setComment(commentLogDetails.getComment());
             commentLogService.save(commentLog);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Comment log created successfully"));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Action comment created successfully"));
         } catch (Throwable ex) {
             logger.error(ex);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
 }
-     @RequestMapping(value = "getAllCommentLog", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+     @RequestMapping(value = "/getAllCommentLog", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllCommentLog() {
          GenericResponse<CommentLogResponse> genericResponse = new GenericResponse();
         try {
@@ -74,11 +76,12 @@ public class CommentLogController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "getAllCommentLogByScheduledEntityListId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getAllCommentLogByScheduledEntityListId(@RequestParam("scheduledEntityListId")Integer scheduledEntityListId ) {
+    @RequestMapping(value = "/getAllCommentByActionId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllCommentLogByActionId(@RequestParam("scheduleId")Integer scheduleId,@RequestParam("userId")Integer userId ) {
          GenericResponse<CommentLogResponse> genericResponse = new GenericResponse();
+         
         try {
-                List<CommentLogResponse> commentLogResponseList = commentLogService.getAllCommentLogByScheduledEntityListId(scheduledEntityListId);
+                List<CommentLogResponse> commentLogResponseList = commentLogService.getAllCommentLogByScheduledEntityListId(scheduleId,userId);
             genericResponse.setDetails(commentLogResponseList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Activity retrieved successfully"));
         } catch (Throwable ex) {
@@ -88,11 +91,13 @@ public class CommentLogController {
 
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-     @RequestMapping(value = "deleteCommentLog", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> deleteCommentLog(@RequestParam("commentLogId") Integer commentLogId) {
+
+     @RequestMapping(value = "/deleteActionComment", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteActionComment(@RequestParam("commentId") Integer commentId) {
+
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-              commentLogService.delete(commentLogId);
+              commentLogService.delete(commentId);
             
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Comment deleted successfully"));
         } catch (Throwable ex) {

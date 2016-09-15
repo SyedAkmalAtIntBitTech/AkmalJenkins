@@ -176,15 +176,23 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         };
 
         $scope.inviteUser = function (userDetails) {
-            var roles = [];
-            roles.push(userDetails.adminRadio);
-            var invitation = {"userRoleLookUpId":"", "emailaddress": userDetails.email, "roles": roles, "task": 'invitation'};
-           
-            onboardingFactory.inviteUserPost(invitation).then(function (data) {
-                growl(data.d.message);
-                $scope.closeOverlay();
-                $location.path("/settings/useraccountsettings");
-            });
+            if (!userDetails){
+                growl(noEmailAndRole);
+            }else if (!userDetails.email) {
+                growl(noEmail);
+            }else if (!userDetails.adminRadio){
+                growl(noRole);
+            }else {
+                var roles = [];
+                roles.push(userDetails.adminRadio);
+                var invitation = {"userRoleLookUpId":"", "emailaddress": userDetails.email, "roles": roles, "task": 'invitation'};
+
+                onboardingFactory.inviteUserPost(invitation).then(function (data) {
+                    growl(data.d.message);
+                    $scope.closeInviteUsersPopup();
+    //                $location.path("/settings/useraccountsettings");
+                });
+            }
         };
 
         $scope.resendUserInvite = function (inviteId) {
@@ -240,14 +248,14 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
         $scope.showAddUser = function ()
         {
-            $scope.fadeClass = 'fadeClass';
+            $scope.fadeClasses = 'fadeClasses';
             $scope.addUserSettings = true;
             $scope.editUserSettings = false;
         };
 
         $scope.showEditUser = function (inviteId,userRoleLookUpId,userEmailId)
         {
-            $scope.fadeClass = 'fadeClass';
+            $scope.fadeClasses = 'fadeClasses';
             $scope.userRoleLookUpId = userRoleLookUpId;
             $scope.userEmailId = userEmailId;
             $scope.inviteId = inviteId;
@@ -258,7 +266,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
         $scope.showResendEmailToUser = function (userRoleLookUpId,userEmailId)
         {
-            $scope.fadeClass = 'fadeClass';
+            $scope.fadeClasses = 'fadeClasses';
             $scope.userRoleLookUpId = userRoleLookUpId;
             $scope.userEmailId = userEmailId;
             $("#editemail").val(userEmailId);
@@ -266,9 +274,9 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             $scope.editUserSettings = true;
         };
 
-        $scope.closeOverlay = function ()
+        $scope.closeInviteUsersPopup = function ()
         {
-            $scope.fadeClass = '';
+            $scope.fadeClasses = '';
             $scope.addUserSettings = false;
         };
         

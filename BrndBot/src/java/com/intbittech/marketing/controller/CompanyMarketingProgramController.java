@@ -17,12 +17,10 @@ import com.intbittech.model.MarketingProgram;
 import com.intbittech.model.RecurringEmailTemplate;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
-import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.MarketingActionService;
 import com.intbittech.services.RecurringEmailTemplateService;
 import com.intbittech.utility.ErrorHandlingUtil;
-import com.intbittech.utility.UserSessionUtil;
 import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,7 +33,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
-import org.hibernate.Transaction;
 import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -229,6 +226,10 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("description", scheduledEntityListObject.getScheduleDesc());
                 jSONObject.put("postDateStatus", postDateStatus);
                 jSONObject.put("status", TemplateStatus.valueOf(scheduledEntityListObject.getStatus()).getDisplayName());
+                jSONObject.put("assignedToId", scheduledEntityListObject.getAssignedTo().getUserId());
+                jSONObject.put("assignedFirstName", scheduledEntityListObject.getAssignedTo().getFirstName());
+                jSONObject.put("assignedLastName", scheduledEntityListObject.getAssignedTo().getLastName());
+                jSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduledEntityListObject.getAssignedTo().getFirstName(), scheduledEntityListObject.getAssignedTo().getLastName()));
                 scheduledEmailJsonArray.put(jSONObject);
             }
             List<ScheduledEntityList> scheduledEmailListForRecurring = scheduledEntityListService.getScheduledEntityListIdForEmailType(userProgram_id, Boolean.FALSE);
@@ -263,6 +264,10 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("postDate", cal.getTimeInMillis());
                 jSONObject.put("postTime", scheduledEntityListObject.getScheduleTime().getTime());
                 jSONObject.put("actionType", scheduledEntityListObject.getEntityType());
+                jSONObject.put("assignedToId", scheduledEntityListObject.getAssignedTo().getUserId());
+                jSONObject.put("assignedFirstName", scheduledEntityListObject.getAssignedTo().getFirstName());
+                jSONObject.put("assignedLastName", scheduledEntityListObject.getAssignedTo().getLastName());
+                jSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduledEntityListObject.getAssignedTo().getFirstName(), scheduledEntityListObject.getAssignedTo().getLastName()));
                 scheduledEmailAndSocailPostJsonForRecurringArray.put(jSONObject);
                 System.out.println(scheduledEmailAndSocailPostJsonForRecurringArray);
 
@@ -297,6 +302,12 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("postDate", cal.getTimeInMillis());
                 jSONObject.put("postTime", scheduledSocialpostListObject.getScheduleTime().getTime());
                 jSONObject.put("actionType", scheduledSocialpostListObject.getEntityType());
+                jSONObject.put("assignedToId", scheduledSocialpostListObject.getAssignedTo().getUserId());
+                jSONObject.put("assignedFirstName", scheduledSocialpostListObject.getAssignedTo().getFirstName());
+                jSONObject.put("assignedLastName", scheduledSocialpostListObject.getAssignedTo().getLastName());
+               jSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduledSocialpostListObject.getAssignedTo().getFirstName(), scheduledSocialpostListObject.getAssignedTo().getLastName()));
+
+
                 scheduledEmailAndSocailPostJsonForRecurringArray.put(jSONObject);
 
             }

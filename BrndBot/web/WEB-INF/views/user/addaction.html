@@ -2,7 +2,7 @@
         <script src="../js/utilities/jquerygrowl.js" type="text/javascript"></script>
 <div id="fade" ng-class="fadeClass" class="center-pop-ups">
     <div class="">
-        <div class="bb-panel-styling bb-panel-default" id="addAction" ng-if="addAction">
+        <div class="bb-panel-styling bb-panel-default" id="addAction" ng-if="addAction" ng-init="getAllUsersInCompany()">
             <div class="bb-panel-header">
                 <h2 class="">Create a New Action</h2>
                 <a id="addactionClose" ng-click = "closeOverlay()" class="modal-pane-header-exit"></a>
@@ -21,7 +21,13 @@
                     <div class="invalidDropdown" dropdown-select="ddSelectActionOptions" dropdown-model="ddSelectAction" dropdown-onchange="chooseActionTypeOnChange(selected)"></div>
                     <span class="validationAlert" ng-if="actionTypeValidation">{{actionDropdownValidation}}</span>
                 </div>
-
+                <div>
+                    <label>Assigned To:</label>
+                    <select id="assignTo" ng-show="moreThanOneUser">
+                        <option value="no assignee" selected>no assignee</option>
+                        <option ng-repeat="users in allUsers" value="{{users.userId}}">{{users.userName}}</option>
+                    </select>
+                </div>
                 <div class="input-wrap-row">
                     <div class="input-wrap half">
                         <label>Action Date</label>

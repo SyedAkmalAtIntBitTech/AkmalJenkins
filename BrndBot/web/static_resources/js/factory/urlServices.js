@@ -763,8 +763,30 @@ factoryApp.service('configurationService', function () {
         return getHost() + "ChangeSchedule";
     };
 
+    this.addActionCommentURL = function(){
+        return getHost() + "comment/saveActionComment";
+    };
+
+    this.getActionCommentsURL = function(){
+        return getHost() + "comment/getAllCommentByActionId";
+    };
+
+    this.removeActionCommentURL = function(){
+        return getHost() + "comment/deleteActionComment";
+    };
     this.addActionURL = function () {
         return getHost() + "AddAction";
+    };
+    this.allUsersInCompanyURL = function(){
+        return getHost() + "getAllUsersOfCompany";
+    };
+    
+    this.noOfUsersInCompanyURL = function(){
+        return getHost() + "getNumberOfUsersInCompany";
+    };
+    
+    this.changeAssignedToURL= function(){
+        return getHost() + "actions/updateActionAssignedTo";
     };
 
     this.scheduledEmailURL = function () {

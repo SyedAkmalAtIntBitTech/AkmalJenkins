@@ -102,7 +102,7 @@ public interface UserRoleCompanyLookUpDao {
      * @return {@link SubCategory}
      * @throws ProcessFailed the process failed
      */
-    
+
    public List<UsersRoleCompanyLookup> getAllUserRolesByUser(Users user) throws ProcessFailed;    
    
    /**
@@ -113,5 +113,6 @@ public interface UserRoleCompanyLookUpDao {
      * @return {@link UsersRoleCompanyLookup}
      * @throws ProcessFailed the process failed
      */
+    public List<UsersRoleCompanyLookup> getAllUsersRoleCompanyLookupByCompanyId(Integer companyId) throws ProcessFailed;  
     public UsersRoleCompanyLookup getUsersRoleCompanyLookupByUserRoleIdAndCompanyId(String userRoleName, Integer companyId) throws ProcessFailed;
 }

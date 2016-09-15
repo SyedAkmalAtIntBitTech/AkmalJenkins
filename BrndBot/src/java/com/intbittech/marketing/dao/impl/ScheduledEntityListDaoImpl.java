@@ -43,6 +43,8 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
                     .setFetchMode("fkCompanyId", FetchMode.JOIN)
                     .setFetchMode("fkCompanyMarketingProgramId", FetchMode.JOIN)
                     .setFetchMode("fkRecurringEmailId", FetchMode.JOIN)
+                    .setFetchMode("assignedTo", FetchMode.JOIN)
+                    .setFetchMode("createdBy", FetchMode.JOIN)
                     .add(Restrictions.eq("scheduledEntityListId", id));
             return (ScheduledEntityList) criteria.list().get(0);
         } catch (ProcessFailed throwable) {
