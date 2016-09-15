@@ -20,7 +20,8 @@ var kGlobalEmailObject = { categoryId : "",
     replyToEmailAddress : "",
     fromAddress : "",
     preheader : "",
-    htmlBody : ""
+    htmlBody : "",
+    pushedEmail : ""
     };
     
 var kGlobalCompanyObject = {

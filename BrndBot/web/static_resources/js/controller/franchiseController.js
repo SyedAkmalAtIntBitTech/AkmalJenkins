@@ -1,5 +1,5 @@
 
-franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$location', 'franchiseFactory', function ($scope, $window, $location, franchiseFactory) {
+franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$location', 'franchiseFactory','redirectFactory', function ($scope, $window, $location, franchiseFactory, redirectFactory) {
        
         $scope.tab = 1;
         $scope.addFranchisePopup = false;
@@ -9,6 +9,14 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
         $scope.franchiseId = "";
         $scope.franchiseName = "";
         $scope.addCompanyPopup = false;
+
+        $scope.redirectToEmailFlow = function (forwardone)
+        {
+//            redirectFactory.redirectFlowTo(forwardone);
+            $window.location = getHost() + "user/" + forwardone;
+            $location.path("/" + forwardone);
+                
+        };
 
         $scope.getFranchiseId = function () {
             var queryString = (function (a) {
