@@ -65,25 +65,25 @@
                       <!--User Created List-->
                     <div class="slat" ng-repeat="email in user_emailAddresses | filter:userSearch">
                         <div class="selection-container col-5p fleft"> 
-                            <div class="selection-icon" id="{{email.contactId}}" ng-click="selectedEmailListCheckbox(email.contactId)">
-                                <input type="checkbox" id="emailid{{email.emailAddress}}" value="{{email.emailAddress}}" name="emaillistname" hidden></input>
+                            <div class="selection-icon" id="{{email.fkContactId.contactId}}" ng-click="selectedEmailListCheckbox(email.fkContactId.contactId)">
+                                <input type="checkbox" id="emailid{{email.fkContactId.emailAddress}}" value="{{email.fkContactId.emailAddress}}" name="emaillistname" hidden></input>
                             </div>
                         </div>                 
                         <div class="slat-name-wrap">
-                            <h2>{{email.emailAddress}}</h2>
+                            <h2>{{email.fkContactId.emailAddress}}</h2>
                             <p>Added {{email.addedDate| date:'  M/dd/yyyy'}}</p>
                         </div>
-                         <div class="slat-detail" ng-show="email.firstName != ''">
-                             <h2 class="overflowclass">{{email.firstName}}</h2>
+                         <div class="slat-detail" ng-show="email.fkContactId.firstName != ''">
+                             <h2 class="overflowclass">{{email.fkContactId.firstName}}</h2>
                             <p>First Name</p>
                         </div>
-                         <div class="slat-detail" ng-show="email.lastName != ''">
-                             <h2 class="overflowclass">{{email.lastName}}</h2>
+                         <div class="slat-detail" ng-show="email.fkContactId.lastName != ''">
+                             <h2 class="overflowclass">{{email.fkContactId.lastName}}</h2>
                             <p>Last Name</p>
                         </div>
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">                           
-                                <a href="" class="reg-button slat-detail-button" ng-click="addContactDetails('update',email.emailAddress,email.contactId,email.firstName,email.lastName,email.addedDate)">Edit Contact</a>
+                                <a href="" class="reg-button slat-detail-button" ng-click="addContactDetails('update',email.fkContactId.emailAddress,email.fkContactId.contactId,email.fkContactId.firstName,email.fkContactId.lastName,email.addedDate)">Edit Contact</a>
                             </div>
                         </div>
                     </div>
@@ -93,15 +93,15 @@
 <!--                 <div class="selection-container col-5p fleft" id="hideformindbdy"> 
                         </div>                 -->
                         <div class="slat-name-wrap">
-                            <h2>{{email.emailAddress}}</h2>
+                            <h2>{{email.fkContactId.emailAddress}}</h2>
                             <p>Added {{email.addedDate| date:'  M/dd/yyyy'}}</p>
                         </div>
-                         <div class="slat-detail" ng-show="email.firstName !== ''">
-                            <h2>{{email.firstName}}</h2>
+                         <div class="slat-detail" ng-show="email.fkContactId.firstName !== ''">
+                            <h2>{{email.fkContactId.firstName}}</h2>
                             <p>First Name</p>
                         </div>
-                         <div class="slat-detail" ng-show="email.lastName !== ''">
-                            <h2>{{email.lastName}}</h2>
+                         <div class="slat-detail" ng-show="email.fkContactId.lastName !== ''">
+                            <h2>{{email.fkContactId.lastName}}</h2>
                             <p>Last Name</p>
                         </div>
 <!--                        <div class="slat-detail-wrap">
@@ -116,7 +116,7 @@
         </div>
     
     <!-- Import Contacts-->   
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" id="tab4" class="hide">
+    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav hide" id="tab4">
             <div class="hub-pane">
             <div class="hub-pane-header-wrap">
                 <h2 class="">Import Email Addresses into {{emailListName}}</h2>

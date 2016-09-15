@@ -500,6 +500,10 @@ factoryApp.service('configurationService', function () {
         return getHost() + "emaillist/save";
     };
     
+    this.addContactListURL = function () {
+        return getHost() + "emaillist/addContactList";
+    };
+    
     this.getAllEmailListWithNoOfContactsForMindBodyURL = function () {
         return getHost() + "emaillist/getAllEmailListWithNoOfContactsForMindBody";
     };

@@ -510,7 +510,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         {
             $scope.activeEmailListContacts = 'activeTab';
             $scope.activeImportContacts = '';
-            $scope.updateList();
+            $scope.updateList("user");
             $("#addcontact").show();
             $scope.showAddContactPopup = false;
         };
@@ -521,7 +521,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             }
         };
 
-        $scope.updateList = function () {
+        $scope.updateList = function (type) {
             $scope.mindbody_emailAddresses = '';
             $scope.user_emailAddresses = '';
             $scope.hideGifImage=true;
@@ -537,23 +537,23 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             var list_name = $scope.emailListName;
             $("#tab4").hide();
             $("#email_list_name").val(list_name);
-            
+            $scope.type = type;
             emailListFactory.getContactsOfEmailList($scope.emailListId).then(function (data){
                 var parseData = data.d.details;
-                if(parseData == ''){
+                alert(JSON.stringify(parseData));
+                if(!parseData){
                     $scope.noContacts=true;
                 }
                 $scope.selected_email_listname = list_name;
                 if($scope.type == 'user'){
                     $scope.user_emailAddresses = parseData;
                     $scope.mindbody_emailAddresses = '';
-                    $scope.hideGifImage=false;
                 }
-                else{
+                if($scope.type == 'mindbody'){
                     $scope.user_emailAddresses = '';
                     $scope.mindbody_emailAddresses = parseData;
-                    $scope.hideGifImage=false;
                 }
+                $scope.hideGifImage=false;
             });
             
             
@@ -643,7 +643,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                         emailListFactory.addEmailListContact(emaildetails).then(function (data){
                             $("#addContactButton").unbind('click');
                             growl(datasaved);
-                            $scope.updateList();
+                            $scope.updateList("user");
                             $scope.overlayFade = false;
                             $scope.showAddContactPopup = false;
                             $("#addContactButton").unbind('click');
@@ -676,7 +676,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                         emailListFactory.editContact(emaildetails).then(function (data) {
 //                            alert(JSON.stringify(data));
                             growl(datasaved);
-                            $scope.updateList();
+                            $scope.updateList("user");
                             $scope.showAddContactPopup = false;
                             $scope.overlayFade = false;
                         });
@@ -876,16 +876,15 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             }
             var firstName = "";
             var lastName = "";
-            var email_list_name = $scope.emailListName;
-            var Emails = {"emailListName": email_list_name, "emailAddresses": emailaddrestextarea, "update": "UpdateEmailList",
-                "emailFirstName": firstName, "emailLastName": lastName};
-            emailListFactory.emailListSavePost(Emails).then(function (data) {
-                if (data.d.operationStatus.statusCode === "Success") {
+            var emailListId = $scope.emailListId;
+            var emaildetails = {"emailAddress":emailaddrestextarea, "firstName": firstName, "lastName": lastName, "emailListId" :emailListId};
+            emailListFactory.addContactList(emaildetails).then(function (data){
+//                alert(JSON.stringify(data));
                     growl(datasaved);
-                    $scope.updateList();
-                } else if (data === error) {
-                    growl(data);
-                }
+                    $('#textArea').val('');
+                    $('#fileUpload').val('');
+                    $scope.showUpdateList();
+                
             });
         };
 
@@ -979,7 +978,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                         selectedemailids = "";
 //                        $location.path("/emaillistdetails");
                         growl("Contact deleted successfully");
-                        $scope.updateList();
+                        $scope.updateList(user);
                         $scope.showAddContactPopup = false;
                     });
                 } else {

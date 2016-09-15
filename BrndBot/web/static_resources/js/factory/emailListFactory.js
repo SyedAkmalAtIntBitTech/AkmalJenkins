@@ -85,6 +85,15 @@ factoryApp.factory('emailListFactory', function ($q, authenticatedServiceFactory
         return deffered.promise;
     };
     
+    emailListFactoryObject.addContactList = function (data) {
+        var deffered = $q.defer();
+        var url = configurationService.addContactListURL();
+        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    
     emailListFactoryObject.emailListSavePost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.emailListSaveURL();
