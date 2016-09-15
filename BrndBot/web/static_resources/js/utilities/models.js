@@ -34,7 +34,10 @@ var kGlobalCompanyObject = {
   userEmailId: "",
   userFirstName: "",
   userLastName: "",
-  userHashId:""
+  userHashId:"",
+  franchiseId: "",
+  franchiseName: "",
+  isHeadquarter: ""
 };
 
 var kGlobalFbPostDataObject = {imgNameToPost: "",
