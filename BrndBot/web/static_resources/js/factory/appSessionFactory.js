@@ -8,7 +8,7 @@ factoryApp.factory('appSessionFactory', function ($q) {
     var fbPostObjectName = "fbPostData";
     var companyObjectName = "companyDetails";
     var dashboardMessageVarName = "dashboardMessage";
-    var userObjectName ="user";
+    var userObjectName = "user";
     var popupObjectName = "popupFlags";
 
     AppSessionFactoryObject.setEmail = function (emailObject) {
@@ -154,7 +154,7 @@ factoryApp.factory('appSessionFactory', function ($q) {
         deffered.resolve(requestedValue);
         return deffered.promise;
     };
-        AppSessionFactoryObject.setPopupFlag = function (popupObject) {
+    AppSessionFactoryObject.setPopupFlag = function (popupObject) {
         var deffered = $q.defer();
         var data = false;
         if (popupObject)
@@ -178,6 +178,16 @@ factoryApp.factory('appSessionFactory', function ($q) {
         return deffered.promise;
     };
 
-
+    AppSessionFactoryObject.clearAllSessions = function () {
+        var deffered = $q.defer();
+        var data = true;
+        localStorage.removeItem(emailObjectName);
+        localStorage.removeItem(fbPostObjectName);
+        localStorage.removeItem(companyObjectName);
+        localStorage.removeItem(dashboardMessageVarName);
+        localStorage.removeItem(userObjectName);
+        deffered.resolve(data);
+        return deffered.promise;
+    };
     return AppSessionFactoryObject;
 });

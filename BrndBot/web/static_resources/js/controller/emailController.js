@@ -172,17 +172,20 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 $scope.isEmailSubEmpty = true;
                 return false;
             }
-            if (!preHeader) {
-                $("#preHeader").focus();
-                $scope.ispreHeaderEmpty = true;
-                return false;
-            }
+//            if (!preHeader) {
+//                $("#preHeader").focus();
+//                $scope.ispreHeaderEmpty = true;
+//                return false;
+//            }
             $scope.isEmailSubEmpty = false;
             $scope.ispreHeaderEmpty = false;
             return true;
         };
         $scope.redirect = function (redirect, categoryId, subCategoryId, mindbody, lookupId, mindbodyId, draftId, emailSubject, preHeader)
         {
+            //preHeader kept hidden so sending empty value
+            preHeader="";
+            
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                 if (lookupId)
                 {
@@ -797,7 +800,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                 categoryId: kGlobalEmailObject.categoryId.toString(),
                                 subCategoryId: kGlobalEmailObject.subCategoryId.toString(),
                                 emailSubject: kGlobalEmailObject.emailSubject,
-                                emailPreHeader: kGlobalEmailObject.preheader
+                                emailPreHeader: kGlobalEmailObject.preheader,
+                                blockAddedCount: $scope.addBlockCount.toString()
                             };
 
                             emailDraftFactory.saveEmailDraftsPost(draftData).then(function (responseText) {
@@ -820,7 +824,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                 categoryId: kGlobalEmailObject.categoryId.toString(),
                                 subCategoryId: kGlobalEmailObject.subCategoryId.toString(),
                                 emailSubject: kGlobalEmailObject.emailSubject,
-                                emailPreHeader: kGlobalEmailObject.preheader
+                                emailPreHeader: kGlobalEmailObject.preheader,
+                                blockAddedCount: $scope.addBlockCount.toString()
                             };
 
                             emailDraftFactory.updateEmailDraftPost(draftData).then(function (responseText) {
@@ -889,7 +894,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                     kGlobalEmailObject.htmlBody = $('#tinymceEditorBody').html();
                                     appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {});
                                     emailDraftFactory.updateEmailDraftPost(draftData).then(function (responseText) {
-                                        if (responseText) {
+                                        if (responseText === true) {
                                             $scope.redirect('emaillistselection', kGlobalEmailObject.categoryId, '', '', '', '', kGlobalEmailObject.draftId, '', '');
                                         } else {
                                             growl("There was a problem while saving the draft! Please try again later.");

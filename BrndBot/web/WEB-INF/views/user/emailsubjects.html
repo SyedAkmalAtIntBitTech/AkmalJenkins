@@ -28,7 +28,7 @@
                 <span class="validationAlert" ng-show="isEmailSubEmpty">{{subjectValidation}}</span>
 
             </div>
-             <div class="input-wrap">
+             <div class="input-wrap hide">
                 <label> Enter Preheader Text</label>
                 <div class="input ">
                     <input id="preHeader" ng-model="$parent.preheader" type="text" value="{{preheader}}" ng-class="{'invalid-input': preheader === '' || null}"   spellcheck="true" placeholder="Enter Preheader Text of email" name="preheader"  class="fluid"/>
@@ -39,7 +39,7 @@
     </div>    
 </div>
 <div class="bb-bottom-cta-bar">
-    <a class="bb-bottom-cta-continue-button bb-ease-all" ng-class="{'bb-valid': $parent.preheader.length>0 && $parent.emailsubject.length>0}" ng-click="redirect('emaileditor','','','','','','',emailsubject,preheader)" >
+    <a class="bb-bottom-cta-continue-button bb-ease-all" ng-class="{'bb-valid': $parent.emailsubject.length>0}" ng-click="redirect('emaileditor','','','','','','',emailsubject,preheader)" >
         <div class="bb-bottom-cta-continue-button-text">Continue</div>
         <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
     </a>
