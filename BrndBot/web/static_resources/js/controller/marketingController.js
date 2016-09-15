@@ -349,6 +349,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             , m = (""+dateStr).match(r);
           return (m) ? Date.UTC(m[1], m[2]-1, m[3], m[4], m[5], m[6]) : undefined;
         };
+        
+        $scope.getNames = function(userName){
+            var user = [];
+            user = userName.split(" ");
+            return user;
+        };
         $scope.changeAssignedTo = function (scheduleId) {
             var userAssignToId = $("#assignTo option:selected").val();
 
@@ -356,8 +362,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             yourPlanFactory.changeAssigedToPOST(assignToDetails).then(function (data) {
                 var userName = data.d.message
                 var user = [];
-//                user = userName.split(" ");
-                user = getNames(userName);
+                user = $scope.getNames(userName);
                 $scope.assignedFirstName = user[0];
                 $scope.assignedLastName = user[1];
                 $scope.assignedToInitialChars = data.d.id;
@@ -366,7 +371,31 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.changeUsers=false;
 //                $scope.closePopup();$scope.promptHideShow(false);$scope.clickedDeleteAction = false;
             });
+        };
 
+        $scope.addActionComment = function (scheduleId, comment) {
+            if (!comment){
+                alert("comment not added, please add the comment");
+                $("#comment").focus();
+            }else{
+                var commentDetails = {"scheduleId": scheduleId, "comment": comment};
+                yourPlanFactory.addActionCommentPOST(commentDetails).then(function (data) {
+                    $scope.getActionComments(scheduleId);
+                    $("#comment").val("");
+                });
+            }
+        };
+
+        $scope.getActionComments = function (scheduleId) {
+            yourPlanFactory.actionCommentsGet(scheduleId).then(function (data) {
+                $scope.comments = data.d.details;
+            });
+        };
+
+        $scope.removeActionComment = function (scheduleId,commentId){
+            yourPlanFactory.removeActionComment(commentId).then(function(data){
+                $scope.getActionComments(scheduleId);
+            });
         };
 
         $scope.closeChangeAssignedToPopup = function(){
@@ -420,7 +449,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 companyMarketingProgramFactory.addActionPost(action).then(function (data) {
                     $scope.closeOverlay();
                     $scope.getProgramActions('emailautomation');
-//                    growl("Action created succesfully");
+                    growl("Action created succesfully");
                 });
             }
         };

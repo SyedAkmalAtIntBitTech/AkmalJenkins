@@ -319,7 +319,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 });
             }
         };
-
+        $scope.getNames = function(userName){
+            var user = [];
+            user = userName.split(" ");
+            return user;
+        };
         $scope.changeAssignedTo = function (scheduleId) {
             var userAssignToId = $("#assignTo option:selected").val();
 
@@ -327,7 +331,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             yourPlanFactory.changeAssigedToPOST(assignToDetails).then(function (data) {
                 var userName = data.d.message
                 var user = [];
-                user = getNames(userName);
+                user = $scope.getNames(userName);
                 $scope.assignedFirstName = user[0];
                 $scope.assignedLastName = user[1];
                 $scope.assignedToInitialChars = data.d.id;
