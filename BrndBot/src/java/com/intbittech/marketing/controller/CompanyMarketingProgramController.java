@@ -119,7 +119,7 @@ public class CompanyMarketingProgramController {
 
                     ScheduledEntityList scheduledEntityList = new ScheduledEntityList();
                     scheduledEntityList.setEntityType(jsonObject.get("type").toString());
-                    scheduledEntityList.setIsRecurring(Boolean.parseBoolean(jsonObject.get("is_recuring").toString()));
+                    scheduledEntityList.setIsRecurring(Boolean.parseBoolean(jsonObject.get("is_recurring").toString()));
                     scheduledEntityList.setScheduleDesc(jsonObject.get("description").toString());
                     scheduledEntityList.setEntityId(0);
                     scheduledEntityList.setScheduleTime(time);
