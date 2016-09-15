@@ -550,7 +550,13 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             } else {
                 $scope.colorsAlert = false;
                 settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
-                    window.location = getHost() + "user/dashboard";
+                    settingsFactory.getRendomColor().then(function (rendomColor){
+                        var profileColor={userProfileColor:rendomColor}; 
+                        settingsFactory.setUserProfileColor(profileColor).then(function (data){
+                             window.location = getHost() + "user/dashboard";
+                        });
+                    });
+                   
                 });
             }
         };
