@@ -9,7 +9,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.actionDropdownValidation = actionDropdownValidation;
         $scope.actionDateValidation = actionDateValidation;
         $scope.lesserDateValidation = lesserDateValidation;
-//        $scope.greaterDateValidation = greaterDateValidation;
+//      $scope.greaterDateValidation = greaterDateValidation;
         $scope.campaignNameValidation = campaignNameValidation;
         $scope.campaignDateValidation = campaignDateValidation;
         $scope.descriptionValidation = descriptionValidation;
@@ -36,6 +36,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.validateLinkName = false;
         $scope.validateLinkUrl = false;
         $scope.addBlockCount = 0;
+        $scope.changeUsers=false;
         $scope.companyAddressDetails = {};
 
         $scope.ddSelectAction = {
@@ -64,7 +65,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.userFirstName = kGlobalCompanyObject.userFirstName;
                 $scope.userLastName = kGlobalCompanyObject.userLastName;
 
-                kGlobalCompanyObject.userHashId = 'undefined';
+                kGlobalCompanyObject.userHashId = '';
                 appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
                 appSessionFactory.getDashboardMessage().then(function(message){
                     if(message)
@@ -139,6 +140,18 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $location.path("/" + pageName);
         };
 
+        $scope.getAllUsersInCompany = function(){
+            yourPlanFactory.allUsersInCompanyGet().then(function (data) {
+                $scope.allUsers = data.d.details;
+            });
+            yourPlanFactory.noOfUsersInCompanyGet().then(function (data) {
+                var noOfUsersInCompany = data.d.details;
+                if (parseInt(noOfUsersInCompany) > 1){
+                    $scope.moreThanOneUser = true;
+                }
+            });
+        };
+
         $scope.getAllMarketingPrograms = function (forward) {
             marketingFactory.companyMarketingCategoriesGet().then(function (data) {
                 $scope.header = "Please choose a type of Marketing Campaign";
@@ -191,8 +204,20 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     "marketing_program_id": $scope.marketingProgramId.toString()
                 };
                 companyMarketingProgramFactory.setMarketingProgramPost(data).then(function (data) {
-                    $scope.redirectToActions("marketingprogramactions", data, 0, "");
-                    growl("Campaign created successfully");
+                   
+                    var responseData = data.operationStatus;
+                     var dataId = data.id;
+                    if(responseData.statusCode == "DataError"){
+                        
+                      growl(responseData.messages[0]);
+                    }
+                    else if(responseData.statusCode == "Success"){
+                                             
+                    $scope.redirectToActions("marketingprogramactions", dataId, 0, "");
+                    growl(responseData.messages[0]);
+                    }
+
+                   
                 });
             }
         };
@@ -339,11 +364,64 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             , m = (""+dateStr).match(r);
           return (m) ? Date.UTC(m[1], m[2]-1, m[3], m[4], m[5], m[6]) : undefined;
         };
+        
+        $scope.getNames = function(userName){
+            var user = [];
+            user = userName.split(" ");
+            return user;
+        };
+        $scope.changeAssignedTo = function (scheduleId) {
+            var userAssignToId = $("#assignTo option:selected").val();
 
+            var assignToDetails = {"scheduleId": scheduleId, "userAssignToId": userAssignToId};
+            yourPlanFactory.changeAssigedToPOST(assignToDetails).then(function (data) {
+                var userName = data.d.message
+                var user = [];
+                user = $scope.getNames(userName);
+                $scope.assignedFirstName = user[0];
+                $scope.assignedLastName = user[1];
+                $scope.assignedToInitialChars = data.d.id;
+
+//                $scope.closeChangeAssignedToPopup(); 
+                $scope.changeUsers=false;
+//                $scope.closePopup();$scope.promptHideShow(false);$scope.clickedDeleteAction = false;
+            });
+        };
+
+        $scope.addActionComment = function (scheduleId, comment) {
+            if (!comment){
+                alert("comment not added, please add the comment");
+                $("#comment").focus();
+            }else{
+                var commentDetails = {"scheduleId": scheduleId, "comment": comment};
+                yourPlanFactory.addActionCommentPOST(commentDetails).then(function (data) {
+                    $scope.getActionComments(scheduleId);
+                    $("#comment").val("");
+                });
+            }
+        };
+
+        $scope.getActionComments = function (scheduleId) {
+            yourPlanFactory.actionCommentsGet(scheduleId).then(function (data) {
+                $scope.comments = data.d.details;
+            });
+        };
+
+        $scope.removeActionComment = function (scheduleId,commentId){
+            yourPlanFactory.removeActionComment(commentId).then(function(data){
+                $scope.getActionComments(scheduleId);
+            });
+        };
+
+        $scope.closeChangeAssignedToPopup = function(){
+            $scope.changeUsers=false;
+        };
+        
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
         {
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
             {
+                var userAssignToId = $("#assignTo option:selected").val();
                 $scope.timePickerVal = false;
                 var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
                 var actionDateTime1 = datePicker.toLocaleString() + " " + actionTime1.toLocaleString();
@@ -382,11 +460,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 
                 var action = {"title": addTitle, "actiontype": actionType.value,
                     "type": "save", "description": "", "marketingType": $scope.programId,
-                    "action_date": epoch_time, "days": days};
+                    "action_date": epoch_time, "days": days, "userAssignToId": userAssignToId};
                 companyMarketingProgramFactory.addActionPost(action).then(function (data) {
                     $scope.closeOverlay();
                     $scope.getProgramActions('emailautomation');
-//                    growl("Action created succesfully");
+                    growl("Action created succesfully");
                 });
             }
         };
@@ -591,7 +669,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //            }
 //        });
 //    };
-        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, action_status, days, marketingName)
+        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, assignedFirstName, assignedLastName,assignedToInitialChars, action_status, days, marketingName)
         {
             $scope.isRecurring = false;
             $scope.savedEmail = false;
@@ -599,6 +677,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.generalSavedDetails = true;
             $scope.generalNotes = false;
             $scope.generalActions = false;
+            $scope.assignedFirstName = assignedFirstName;
+            $scope.assignedLastName = assignedLastName;
+            $scope.assignedToInitialChars = assignedToInitialChars;
             $scope.emailsectionClass = 'emailsectionClass';
             $scope.fadeClass = 'fadeClass';
             $scope.action_template_status = template_status;

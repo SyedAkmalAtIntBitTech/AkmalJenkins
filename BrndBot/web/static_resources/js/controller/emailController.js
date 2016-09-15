@@ -57,7 +57,9 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.validateEmailAddress = false;
         $scope.isEmailSaveAction = false;
         $scope.user = "";
+        $scope.changeStyleAlert = false;
         var sliderDialog = "#emaileditorexternalpopup";
+        $scope.moreThanOneUser = false;
         $scope.companyAddressDetails = {};
 
         //OnPageLoad
@@ -1513,10 +1515,26 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 }
             }
         };
+        $scope.getAllUsersInCompany = function () {
+            yourPlanFactory.allUsersInCompanyGet().then(function (data) {
+                $scope.allUsers = data.d.details;
+            });
+            yourPlanFactory.noOfUsersInCompanyGet().then(function (data) {
+                var noOfUsersInCompany = data.d.details;
+                if (parseInt(noOfUsersInCompany) > 1) {
+                    $scope.moreThanOneUser = true;
+                }
+            });
+        };
 
         $scope.schedulePostToEmail = function (postData) {
             $scope.postedTo = getemail();
             $scope.getScheduleData($scope.selectedMarketingProgram, postData);
+        };
+        var getEpochMillis = function (dateStr) {
+            var r = /^\s*(\d{4})-(\d\d)-(\d\d)\s+(\d\d):(\d\d):(\d\d)\s+UTC\s*$/
+                    , m = ("" + dateStr).match(r);
+            return (m) ? Date.UTC(m[1], m[2] - 1, m[3], m[4], m[5], m[6]) : undefined;
         };
 
         $scope.getScheduleData = function (selectedMarketingProgramId, postData) {
@@ -1555,9 +1573,27 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
                 });
             } else {
+                
+                var userAssignToId = $("#assignTo option:selected").val();
                 var schedule_title = $("#ActionName").val();
                 var schedule_date = $("#actionDate").val();
+
                 var schedule_time = $("#actionTime").val().replace(/ /g, '');
+                
+                var timeValues = [];
+                timeValues = schedule_time.split(":");
+                var hours = timeValues[0];
+                var mins = timeValues[1];
+                var delimiter = timeValues[2];
+
+                if (delimiter == "PM") {
+                    hours = parseInt(hours) + 12;
+                }
+                var newtime = hours + ":" + mins + ":" + "00";
+
+                var currDate = moment(schedule_date).format('YYYY-MM-DD');
+                var epoch_time = getEpochMillis(currDate + " " + newtime + " " + 'UTC');
+                
                 var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
                 var fromDate = new Date(dateAndTime);
                 var todayDate = new Date();
@@ -1567,8 +1603,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 }
                 $scope.dateLesser = false;
 
-                var myEpoch = Date.parse(dateAndTime);
-                console.log("Epoch: " + myEpoch);
+//                var myEpoch = Date.parse(dateAndTime);
+//                console.log("Epoch: " + myEpoch);
                 appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                     email_scheduling = {
                         "from_name": postData.fromName,
@@ -1581,11 +1617,12 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         "email_list": $scope.emailList,
                         program_id: $scope.selectedMarketingProgram.toString(),
                         "schedule_title": schedule_title,
-                        "schedule_time": myEpoch,
+                        "schedule_time": epoch_time,
                         "email_body": $("#dynamictable").contents().find("html").html(),
                         "schedule_desc": ",,,",
                         "iframeName": $scope.randomIframeFilename.toString(),
-                        "html_body": kGlobalEmailObject.htmlBody
+                        "html_body": kGlobalEmailObject.htmlBody,
+                        "userAssignedTo":userAssignToId
                     };
                     scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
                         if (data.d.operationStatus.statusCode === "Success") {

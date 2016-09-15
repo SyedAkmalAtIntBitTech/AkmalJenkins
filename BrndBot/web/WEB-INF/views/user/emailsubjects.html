@@ -2,6 +2,7 @@
     <div class="bb-bar-left-wrap bb-one-third-flex-col">
         <a ng-hide="isEmailSaveAction" href="baseemaileditor#/emailsubcategory" class="bb-back-button"></a>
         <h3 class="bb-top-nav-title">Email Editor</h3>
+        
     </div>
     <div class="bb-bar-center-wrap bb-one-third-flex-col">
         <div class="bb-step current">Email Details</div>
@@ -12,6 +13,7 @@
     <div class="bb-bar-right-wrap bb-one-third-flex-col">
         <a href="dashboard"><div>Exit</div></a>
         <div class="bb-help-icon">help icon</div>
+        <div ng-hide="isEmailSaveAction" class="email-editor-save-exit-button" id="saveToDraft" ng-click="saveToDraftOnClick()"  >Save as Draft and Exit</div> 
     </div>
 </div>
 <div class="bb-main-content-wrap bb-main-content-wrap-padding bb-center-content">

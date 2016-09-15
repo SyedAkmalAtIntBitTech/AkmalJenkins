@@ -8,9 +8,9 @@
              <div class="bb-panel-empty-state-wrap"  ng-show="emaildraftnumber === '0'" ng-hide="emailDraftDetails">
                 <h2 class="bb-panel-empty-state-text">You have no email drafts.</h2>  
             </div>
-            <div class="bb-panel-full-width bb-panel-styling-content-wrap" ng-show="emailDraftDetails">
+            <div class="bb-panel-content-wrap" ng-show="emailDraftDetails">
                 <!--<div class="hub-empty-wrap" ng-show="emaildraftnumber === '0'"><div class="slat" ><div class="selection-container col-5p" id="deleteids"> {{emaildraftsstatus}}</div></div></div>-->
-                    <div class="slat" id="li{{drafts.id}}" ng-repeat="drafts in emaildrafts | filter:userSearch">
+                    <div class="bb-slat" id="li{{drafts.id}}" ng-repeat="drafts in emaildrafts | filter:userSearch" ng-click="showDraftPopup(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.editdate, drafts.subcategoryid, drafts.mindbodyid, drafts.lookupid)">
                         <div class="selection-container col-5p" id="deleteids"> 
                             <!--<div class="selection-icon" id="{{drafts.id}}" ng-click="emailDraftCheckbox(drafts.id)">
                                 <input type="checkbox" id="{{drafts.id}}" value="{{drafts.id}}" name="draftname" style="display:none;"></input>
@@ -21,11 +21,7 @@
                             <h2>{{drafts.emailsubject}}</h2>
                             <p>Last edited on {{drafts.editdate| date: "MMM dd yyyy "}}at{{drafts.editdate| date: " h:mm a"}}</p>
                         </div>
-                        <div class="slat-detail-wrap">
-                            <div class="slat-detail">
-                                <a class="reg-button gray-button slat-detail-button" ng-click="showDraftPopup(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.editdate, drafts.subcategoryid, drafts.mindbodyid, drafts.lookupid)">Manage Draft</a>
-                            </div>
-                        </div>
+                      
                     </div>
             </div>
         </div>

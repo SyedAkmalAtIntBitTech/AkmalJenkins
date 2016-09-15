@@ -1767,7 +1767,24 @@ li.sub-nav-tab.active a{
 
 }
 
+#fadeUserSettings
+{
+    display: none;
+    position:  fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(61,83,104,.8) !important;
+    z-index:999999 !important;
+
+}
+
 .fadeClass{
+    display: flex !important;
+}
+
+.fadeClasses{
     display: flex !important;
 }
 .unfadeClass{
@@ -1783,6 +1800,7 @@ li.sub-nav-tab.active a{
     align-items: center;
     -webkit-justify-content: center;
     justify-content: center;
+    height: 100vh;
 }
 
 #addactionClose{
@@ -1878,11 +1896,7 @@ li.sub-nav-tab.active a{
     overflow-y: auto;
 }
 
-.modal-pane-content-wrap.secondary-option{
-    box-sizing: border-box;
-    border-bottom: 1px solid #E2E3E7;
-    padding: 20px 0px;
-}
+
 
 
 .modal-pane-content-wrap .input-wrap:last-child{
@@ -2760,14 +2774,14 @@ p.modal-content-header{
 .color-palette-wrap{}
 
 .color-explanation{
-    margin-bottom: 30px;
-    margin-top: 40px
+    margin-bottom: 20px;
+    margin-top: 20px
 }
 
 .user-palette{
     display: flex;
-    justify-content: center;
-    align-items: center
+    align-items: center;
+        margin-bottom:40px;
 }
 
 .color-swab{
@@ -3196,6 +3210,7 @@ p.modal-content-header{
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .Social-Add-Image-Wrap-with-img{
@@ -3216,7 +3231,9 @@ p.modal-content-header{
 }
 
 .imageAdded{
-    max-width: 100%;
+    max-width: 540px;
+    margin: auto;
+    width: auto;
 }
 
 .facebook-post-textarea{
@@ -4528,10 +4545,7 @@ textarea.task-textarea:focus{
     cursor: pointer;
 }
 
-.color-picker-space {
-    margin-top: 3vw;
-    margin-left: 7vw;
-}
+
 
 .palette-colorswab-selected {
     border: 2px solid #0F76A6;
@@ -4543,18 +4557,12 @@ textarea.task-textarea:focus{
     cursor: pointer;
 }
 
-.palette.clear {
-    width: 450px;
-}
+
 
 .palette-wrap{
     margin-top: 10px;
 }
 
-.palette{
-    width: 450px;
-    margin: auto;
-}
 
 .logo-palette-colorswab{
     width: 80px;
@@ -5033,6 +5041,9 @@ textarea.task-textarea:focus{
     width: 1100px;
     margin: 20px auto 0px auto;
 }
+.bb-panel-full-width-pop-up{
+    width: 1100px;
+}
 
 .bb-panel-email-preview{
     width: 1200px;
@@ -5040,9 +5051,9 @@ textarea.task-textarea:focus{
 }
 
 
-/*.bb-panel-full-width:first-of-type{
+.bb-panel-full-width:first-of-type{
     margin-top: 0px;
-}*/
+}
 
 
 
@@ -5168,6 +5179,19 @@ textarea.task-textarea:focus{
     margin-left: auto;
     line-height: 50px;
     width: 200px;
+    font-size: 18px;
+    justify-content: center;
+    align-items: center;
+}
+
+.bb-bottom-cta-continue-button-saved-action{
+     padding: 0px 45px;
+    background-color: #F9F9FB;
+    display: inline-flex;
+    height: 50px;
+    margin-left: auto;
+    line-height: 50px;
+    width: 250px;
     font-size: 18px;
     justify-content: center;
     align-items: center;
@@ -5389,6 +5413,11 @@ textarea.task-textarea:focus{
     padding: 9px 20px;
     display: inline-block;
     line-height: 100%;
+    cursor: pointer;
+}
+
+.bb-button:nth-of-type(1){
+    margin-right: 20px;
 }
 
 
@@ -5400,6 +5429,16 @@ textarea.task-textarea:focus{
 .bb-default-action-button:hover{
     background-color: #DCE2E8;
     color: #5A6069;
+}
+
+.bb-secondary-action-button{
+    background-color: #C3CED9;
+    color: #FFFFFF;
+}
+
+.bb-secondary-action-button:hover{
+    background-color: #B3BEC9;
+   
 }
 
 .bb-primary-action-button{
@@ -5520,6 +5559,48 @@ textarea.task-textarea:focus{
 .bb-social-attached-image{
     max-width: 540px;
     max-height: 300px;
+}
+
+.bb-flex-row{
+    display: flex;
+    
+}
+
+.bb-color-palette-selection-wrap{
+    background-color: #f2f2f4;
+    overflow-y: scroll;
+}
+
+.bb-color-palette-selection-header{
+    margin: 20px 0px;
+}
+
+.bb-color-picker-space {
+  margin-top: 10px;
+}
+
+.bb-panel-content-wrap-max-height{
+    max-height: 350px;
+}
+
+.bb-palette{
+    display: flex;
+    flex-flow: wrap;
+}
+
+.bb-color-swab{
+    margin-bottom: 10px;
+    margin-right: 10px;
+    width: 80px;
+    height: 35px;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.bb-panel-content-schedule-wrap{
+    box-sizing: border-box;
+    border-bottom: 1px solid #E2E3E7;
+    padding: 20px 0px;
 }
 
 /*------- INPUT -----*/

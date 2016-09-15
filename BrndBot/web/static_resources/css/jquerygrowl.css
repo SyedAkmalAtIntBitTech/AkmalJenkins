@@ -6,8 +6,8 @@
   z-index: 50000;
   position: fixed; }
   #growls.default {
-    bottom: 30px;
-    left: 0px; }
+    top: 60px;
+    right: 0px; }
   #growls.tl {
     top: 10px;
     left: 10px; }
@@ -36,7 +36,7 @@
   
   opacity: 1;
   position: relative;
-  border-radius: 0px 3px 3px 0px;
+  border-radius: 3px 0px 0px 3px;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.4s ease-in-out;
   transition: all 0.2s ease-in-out; }

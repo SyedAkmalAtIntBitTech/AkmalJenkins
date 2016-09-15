@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -161,6 +162,40 @@ public class UserRoleCompanyLookUpDaoImpl implements UserRoleCompanyLookUpDao{
                 .createCriteria(UsersRoleCompanyLookup.class)
                 .add(Restrictions.eq("userId", user))
                 .add(Restrictions.eq("companyId", company));
+        if (criteria.list().isEmpty()) {
+            return null;
+        }
+        return (UsersRoleCompanyLookup) criteria.list().get(0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<UsersRoleCompanyLookup> getAllUsersRoleCompanyLookupByCompanyId(Integer companyId) throws ProcessFailed {
+        
+         Criteria criteria = sessionFactory.getCurrentSession()
+                .createCriteria(UsersRoleCompanyLookup.class)
+                .setFetchMode("companyId", FetchMode.JOIN)
+                .setFetchMode("roleId", FetchMode.JOIN)
+                .setFetchMode("userId", FetchMode.JOIN)
+                .add(Restrictions.eq("companyId.companyId", companyId));
+        if (criteria.list().isEmpty()) {
+            return null;
+        }
+        return  criteria.list();
+    }
+     /**
+     * {@inheritDoc}
+     */
+    public UsersRoleCompanyLookup getUsersRoleCompanyLookupByUserRoleIdAndCompanyId(String userRoleName, Integer companyId) throws ProcessFailed {
+         Criteria criteria = sessionFactory.getCurrentSession()
+                .createCriteria(UsersRoleCompanyLookup.class)
+                .setFetchMode("companyId.companyId", FetchMode.JOIN)
+                .setFetchMode("userId", FetchMode.JOIN)
+                .setFetchMode("roleId", FetchMode.JOIN)
+                .createAlias("roleId", "rId")
+                .add(Restrictions.eq("rId.roleName", userRoleName))
+                .add(Restrictions.eq("roleId.userRoleId", companyId));
         if (criteria.list().isEmpty()) {
             return null;
         }

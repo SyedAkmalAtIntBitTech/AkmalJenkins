@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
 /**
  *
  * @author Haider Khan @ Intbit
@@ -24,6 +25,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "users")
 public class Users implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

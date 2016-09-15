@@ -17,10 +17,10 @@ import com.intbittech.model.MarketingProgram;
 import com.intbittech.model.RecurringEmailTemplate;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
-import com.intbittech.model.UserProfile;
+import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.MarketingActionService;
 import com.intbittech.services.RecurringEmailTemplateService;
-import com.intbittech.utility.UserSessionUtil;
+import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -61,10 +61,11 @@ public class CompanyMarketingProgramController {
     @Autowired
     private RecurringEmailTemplateService recurringEmailTemplateService;
 
-    @RequestMapping(value = "/setMarketingProgram", method = RequestMethod.POST)
+  @RequestMapping(value = "/setMarketingProgram", method = RequestMethod.POST)
     public @ResponseBody
-    String setUserMarketingProgram(HttpServletRequest request,
+    TransactionResponse setUserMarketingProgram(HttpServletRequest request,
             HttpServletResponse response) throws IOException, Throwable {
+        TransactionResponse transactionResponse = new TransactionResponse();
         try {
             SimpleDateFormat formatter = null;
             Date tillDate = null;
@@ -118,7 +119,7 @@ public class CompanyMarketingProgramController {
 
                     ScheduledEntityList scheduledEntityList = new ScheduledEntityList();
                     scheduledEntityList.setEntityType(jsonObject.get("type").toString());
-                    scheduledEntityList.setIsRecurring(Boolean.parseBoolean(jsonObject.get("is_recurring").toString()));
+                    scheduledEntityList.setIsRecurring(Boolean.parseBoolean(jsonObject.get("is_recuring").toString()));
                     scheduledEntityList.setScheduleDesc(jsonObject.get("description").toString());
                     scheduledEntityList.setEntityId(0);
                     scheduledEntityList.setScheduleTime(time);
@@ -133,11 +134,18 @@ public class CompanyMarketingProgramController {
                     scheduledEntityListService.save(scheduledEntityList);
                 }
             }
-            return link;
+        transactionResponse.setId(link);    
+        transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Company marketing program created successfully"));
+        
+
         } catch (Exception ex) {
+      transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
             logger.error(ex);
         }
-        return "false";
+        //return "false";
+        //transactionResponse.setId("false");    
+        //transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Company marketing program created successfully"));
+    return transactionResponse;
     }
 
     @RequestMapping(value = "/listAllMarketingProgram", method = RequestMethod.GET)
@@ -218,6 +226,10 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("description", scheduledEntityListObject.getScheduleDesc());
                 jSONObject.put("postDateStatus", postDateStatus);
                 jSONObject.put("status", TemplateStatus.valueOf(scheduledEntityListObject.getStatus()).getDisplayName());
+                jSONObject.put("assignedToId", scheduledEntityListObject.getAssignedTo().getUserId());
+                jSONObject.put("assignedFirstName", scheduledEntityListObject.getAssignedTo().getFirstName());
+                jSONObject.put("assignedLastName", scheduledEntityListObject.getAssignedTo().getLastName());
+                jSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduledEntityListObject.getAssignedTo().getFirstName(), scheduledEntityListObject.getAssignedTo().getLastName()));
                 scheduledEmailJsonArray.put(jSONObject);
             }
             List<ScheduledEntityList> scheduledEmailListForRecurring = scheduledEntityListService.getScheduledEntityListIdForEmailType(userProgram_id, Boolean.FALSE);
@@ -252,6 +264,10 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("postDate", cal.getTimeInMillis());
                 jSONObject.put("postTime", scheduledEntityListObject.getScheduleTime().getTime());
                 jSONObject.put("actionType", scheduledEntityListObject.getEntityType());
+                jSONObject.put("assignedToId", scheduledEntityListObject.getAssignedTo().getUserId());
+                jSONObject.put("assignedFirstName", scheduledEntityListObject.getAssignedTo().getFirstName());
+                jSONObject.put("assignedLastName", scheduledEntityListObject.getAssignedTo().getLastName());
+                jSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduledEntityListObject.getAssignedTo().getFirstName(), scheduledEntityListObject.getAssignedTo().getLastName()));
                 scheduledEmailAndSocailPostJsonForRecurringArray.put(jSONObject);
                 System.out.println(scheduledEmailAndSocailPostJsonForRecurringArray);
 
@@ -286,6 +302,12 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("postDate", cal.getTimeInMillis());
                 jSONObject.put("postTime", scheduledSocialpostListObject.getScheduleTime().getTime());
                 jSONObject.put("actionType", scheduledSocialpostListObject.getEntityType());
+                jSONObject.put("assignedToId", scheduledSocialpostListObject.getAssignedTo().getUserId());
+                jSONObject.put("assignedFirstName", scheduledSocialpostListObject.getAssignedTo().getFirstName());
+                jSONObject.put("assignedLastName", scheduledSocialpostListObject.getAssignedTo().getLastName());
+               jSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduledSocialpostListObject.getAssignedTo().getFirstName(), scheduledSocialpostListObject.getAssignedTo().getLastName()));
+
+
                 scheduledEmailAndSocailPostJsonForRecurringArray.put(jSONObject);
 
             }
