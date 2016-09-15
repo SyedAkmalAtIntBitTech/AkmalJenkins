@@ -67,6 +67,7 @@ public interface IConstants {
     final static String kFooterDetailsTwitterUrl = "twitterUrl";
     final static String kFooterDetailsWebsiteUrl = "websiteUrl";
     final static String kFooterDetailsInstagramUrl = "instagramUrl";
+    final static String KUSERPROFILECOLOR = "userProfileColor";
       
     // for external source 
     final static Integer EXTERNAL_SOURCE_NON_MINDBODY = 0;

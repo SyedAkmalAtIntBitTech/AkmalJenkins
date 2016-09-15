@@ -39,7 +39,7 @@ factoryApp.factory('settingsFactory', function ($q, authenticatedServiceFactory,
     settingsFactoryObject.unSubscribeEmails = function (data) {
         var deffered = $q.defer();
         var url = configurationService.unSubscribeEmails();
-        authenticatedServiceFactory.makeCall("POST", url,data, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
@@ -123,7 +123,7 @@ factoryApp.factory('settingsFactory', function ($q, authenticatedServiceFactory,
         var deffered = $q.defer();
         var url = configurationService.setFooterPostURL();
         var data = '{"footerDetails":"' + footerDetails + '"}';
-        authenticatedServiceFactory.makeCall("POST", url, footerDetails,"").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, footerDetails, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
@@ -139,6 +139,32 @@ factoryApp.factory('settingsFactory', function ($q, authenticatedServiceFactory,
             {
                 deffered.resolve(v);
             }});
+        return deffered.promise;
+    };
+    settingsFactoryObject.getRendomColor = function () {
+        var deffered = $q.defer();
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        deffered.resolve(color);
+        return deffered.promise;
+    };
+    settingsFactoryObject.setUserProfileColor = function (userProfileColor) {
+        var deffered = $q.defer();
+        var url = configurationService.setUserProfileColor();
+        authenticatedServiceFactory.makeCall("POST", url, userProfileColor, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    settingsFactoryObject.getUserProfileColor = function () {
+        var deffered = $q.defer();
+        var url = configurationService.getUserProfileColor();
+        authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
+            deffered.resolve(data);
+        });
         return deffered.promise;
     };
 

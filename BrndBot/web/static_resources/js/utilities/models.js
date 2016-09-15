@@ -45,3 +45,5 @@ var kGlobalFbPostDataObject = {imgNameToPost: "",
     description: "",
     imageType: ""
 };
+var kGlobalUserObject ={hasMultipleCompany:false};
+var kGlobalPopupFlagsObject = {emailUnsubscribe:false};
