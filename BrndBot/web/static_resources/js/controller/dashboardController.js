@@ -149,7 +149,7 @@ dashboardFlowApp.controller("dashboardController", ['$scope', '$window', '$locat
                 }
             });
         };
-        $scope.setUnsubscribrFlage = function (isChecked) {
+        $scope.setUnsubscribeFlage = function (isChecked) {
             if (isChecked) {
                 appSessionFactory.getPopupFlag().then(function (kGlobalPopupFlagsObject) {
                     kGlobalPopupFlagsObject.emailUnsubscribe = true;
