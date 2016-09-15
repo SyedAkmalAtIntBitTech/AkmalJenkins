@@ -748,7 +748,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                 categoryId: kGlobalEmailObject.categoryId.toString(),
                                 subCategoryId: kGlobalEmailObject.subCategoryId.toString(),
                                 emailSubject: kGlobalEmailObject.emailSubject,
-                                emailPreHeader: kGlobalEmailObject.preheader
+                                emailPreHeader: kGlobalEmailObject.preheader,
+                                blockAddedCount: $scope.addBlockCount.toString()
                             };
 
                             emailDraftFactory.saveEmailDraftsPost(draftData).then(function (responseText) {
@@ -771,7 +772,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                 categoryId: kGlobalEmailObject.categoryId.toString(),
                                 subCategoryId: kGlobalEmailObject.subCategoryId.toString(),
                                 emailSubject: kGlobalEmailObject.emailSubject,
-                                emailPreHeader: kGlobalEmailObject.preheader
+                                emailPreHeader: kGlobalEmailObject.preheader,
+                                blockAddedCount: $scope.addBlockCount.toString()
                             };
 
                             emailDraftFactory.updateEmailDraftPost(draftData).then(function (responseText) {
@@ -840,7 +842,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                     kGlobalEmailObject.htmlBody = $('#tinymceEditorBody').html();
                                     appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {});
                                     emailDraftFactory.updateEmailDraftPost(draftData).then(function (responseText) {
-                                        if (responseText) {
+                                        if (responseText === true) {
                                             $scope.redirect('emaillistselection', kGlobalEmailObject.categoryId, '', '', '', '', kGlobalEmailObject.draftId, '', '');
                                         } else {
                                             growl("There was a problem while saving the draft! Please try again later.");
