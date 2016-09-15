@@ -167,17 +167,20 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 $scope.isEmailSubEmpty = true;
                 return false;
             }
-            if (!preHeader) {
-                $("#preHeader").focus();
-                $scope.ispreHeaderEmpty = true;
-                return false;
-            }
+//            if (!preHeader) {
+//                $("#preHeader").focus();
+//                $scope.ispreHeaderEmpty = true;
+//                return false;
+//            }
             $scope.isEmailSubEmpty = false;
             $scope.ispreHeaderEmpty = false;
             return true;
         };
         $scope.redirect = function (redirect, categoryId, subCategoryId, mindbody, lookupId, mindbodyId, draftId, emailSubject, preHeader)
         {
+            //preHeader kept hidden so sending empty value
+            preHeader="";
+            
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                 if (lookupId)
                 {
