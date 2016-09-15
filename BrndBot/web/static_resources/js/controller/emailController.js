@@ -56,6 +56,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.validateEmailAddress = false;
         $scope.validateEmailAddress = false;
         $scope.isEmailSaveAction = false;
+        $scope.user = "";
         var sliderDialog = "#emaileditorexternalpopup";
         $scope.companyAddressDetails = {};
 
@@ -113,7 +114,11 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
                     settingsFactory.getAllPreferencesGet().then(function (data) {
                         $("#tinymceEditorBody").append(kGlobalEmailObject.htmlBody);
-                        $scope.launchTinyMceEditor();
+                        if ($scope.user === "intbit@intbit.com") {
+                            $scope.launchTinyMceEditorForOnlyImage();
+                        } else {
+                            $scope.launchTinyMceEditor();
+                        }
                         $scope.loadingOverlay = false; //stop Loading Overlay
                         $scope.hideEmailEditorOverlay = true;
                         $scope.showBlocks();
@@ -338,7 +343,11 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                             $scope.addBlockCount = data.blockAddedCount;
                             $scope.htmlbody = data.htmlbody;
                             $("#tinymceEditorBody").append(data.htmlbody);
-                            $scope.launchTinyMceEditor();
+                            if ($scope.user === "intbit@intbit.com") {
+                                $scope.launchTinyMceEditorForOnlyImage();
+                            } else {
+                                $scope.launchTinyMceEditor();
+                            }
                         }
                     });
                 }
@@ -490,7 +499,12 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
                             $("#tinymceEditorBody").append(styleHtml);
                         }
-                        $scope.launchTinyMceEditor();
+                        if ($scope.user === "intbit@intbit.com") {
+                            $scope.launchTinyMceEditorForOnlyImage();
+                        } else {
+                            $scope.launchTinyMceEditor();
+                        }
+
                     } else {
                         var editorHtml = $('#tinymceEditorBody').html();
                         if (editorHtml.contains('id="' + $scope.htmlTagId + '"')) {
@@ -498,12 +512,20 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 //                        $("#" + $scope.htmlTagId).remove();
 //                        var BlockHtml = '<div id=' + $scope.htmlTagId + ' onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ')>' + emailData.htmldata + '</div>';
 //                        $("#tinymceEditorBody").append(BlockHtml);
-                            $scope.launchTinyMceEditor();
+                            if ($scope.user === "intbit@intbit.com") {
+                                $scope.launchTinyMceEditorForOnlyImage();
+                            } else {
+                                $scope.launchTinyMceEditor();
+                            }
                         } else
                         {
                             BlockHtml = '<div id=' + $scope.htmlTagId + '  class=module onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ',' + mindbodyId + ')>' + emailData.htmldata + '</div>';
                             $("#tinymceEditorBody").append(BlockHtml);
-                            $scope.launchTinyMceEditor();
+                            if ($scope.user === "intbit@intbit.com") {
+                                $scope.launchTinyMceEditorForOnlyImage();
+                            } else {
+                                $scope.launchTinyMceEditor();
+                            }
                         }
                     }
                 });
@@ -540,6 +562,36 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             $('.view').find('table:first').find('td:first').mouseleave(function () {
                 $(this).find('table:first').removeClass('template-border-Active');
             });
+        };
+        $scope.launchTinyMceEditorForOnlyImage = function () {
+            // To Do sandeep... need to add one selector for this in template  
+//            tinymce.EditorManager.editors = [];
+//            tinymce.init({
+//                
+//                selector: 'img#image5',
+//                extended_valid_elements: 'img[class|id|src|style|border=0|alt|title|hspace|vspace|width|height|max-width|max-height|align|onmouseover|onmouseout|name]',
+//                width: 400,
+//                convert_urls: false,
+//                inline: true,
+//                plugins: [
+//                    ' image imagetools'
+//                ],
+//                toolbar: false,
+//                menubar: false
+//            });
+//            $('.innerbg').mouseenter(function (event) {
+//                $("#colpic").css({position: "absolute", top: event.pageY, left: "20px"}).css(" z-index", 30000).show();
+//                seldiv = $(this).parents('[bb-bgcolor]');
+//            });
+//            $(document).click(function () {
+//                $("#colpic").hide();
+//            });
+//            $('.view').find('table:first').find('td:first').mouseenter(function () {
+//                $(this).find('table:first').addClass('template-border-Active');
+//            });
+//            $('.view').find('table:first').find('td:first').mouseleave(function () {
+//                $(this).find('table:first').removeClass('template-border-Active');
+//            });
         };
         $scope.blockIdOnSelected = function (selectedBlock, blockId, mindbodyId) {
             var selectedHtmlBlockId = selectedBlock.id;
@@ -893,8 +945,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     emailObject["value"] = emailMindBodyData[i].emailListName;
                     $scope.ddSelectEmailListOptions.push(emailObject);
                 }
-                
-                
+
+
                 appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                     if (kGlobalEmailObject.emailListName) {
                         var emailObject = {"text": kGlobalEmailObject.emailListName, "value": kGlobalEmailObject.emailListName};
@@ -907,7 +959,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             });
 
 
-            
+
         };
 
 //        $scope.showEmailList = function () {
@@ -1114,7 +1166,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 //            $scope.redirectBaseURL();
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                 $scope.emailSubject = kGlobalEmailObject.emailSubject;
-                if(kGlobalEmailObject.fromName)
+                if (kGlobalEmailObject.fromName)
                     $scope.fromName = kGlobalEmailObject.fromName;
                 if (kGlobalEmailObject.entityScheduleId) {
                     $scope.emaildetailscontbtn = false;

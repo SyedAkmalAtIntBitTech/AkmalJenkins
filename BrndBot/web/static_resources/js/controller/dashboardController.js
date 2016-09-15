@@ -140,20 +140,24 @@ dashboardFlowApp.controller("dashboardController", ['$scope', '$window', '$locat
             redirectFactory.redirectFlowTo(pageName);
         };
         $scope.checkForUnsubscribeEmail = function () {
-            $scope.neverShowUnsubscribeEmailpopup = false;
-            // to do call backend to check for flag
-            if ($scope.neverShowUnsubscribeEmailpopup) {
-
-            } else {
-
-            }
-
+            appSessionFactory.getPopupFlag().then(function (kGlobalPopupFlagsObject) {
+                if (kGlobalPopupFlagsObject.emailUnsubscribe) {
+                    $scope.neverShowUnsubscribeEmailpopup = true;
+                    $scope.redirectToEmailFlow('baseemaileditor');
+                } else {
+                    $scope.neverShowUnsubscribeEmailpopup = false;
+                }
+            });
         };
         $scope.setUnsubscribrFlage = function (isChecked) {
             if (isChecked) {
-                //To do call backend to set flage 
-                $scope.neverShowUnsubscribeEmailpopup = true;
-                $scope.redirectToEmailFlow('baseemaileditor');
+                appSessionFactory.getPopupFlag().then(function (kGlobalPopupFlagsObject) {
+                    kGlobalPopupFlagsObject.emailUnsubscribe = true;
+                    appSessionFactory.setPopupFlag(kGlobalPopupFlagsObject).then(function (data) {
+                        $scope.neverShowUnsubscribeEmailpopup = true;
+                        $scope.redirectToEmailFlow('baseemaileditor');
+                    });
+                });
             } else {
                 $scope.neverShowUnsubscribeEmailpopup = true;
                 $scope.redirectToEmailFlow('baseemaileditor');

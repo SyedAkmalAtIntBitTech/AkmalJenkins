@@ -9,6 +9,7 @@ factoryApp.factory('appSessionFactory', function ($q) {
     var companyObjectName = "companyDetails";
     var dashboardMessageVarName = "dashboardMessage";
     var userObjectName ="user";
+    var popupObjectName = "popupFlags";
 
     AppSessionFactoryObject.setEmail = function (emailObject) {
         var deffered = $q.defer();
@@ -148,6 +149,29 @@ factoryApp.factory('appSessionFactory', function ($q) {
         var userLocalObject = JSON.parse(localStorage.getItem(userObjectName));
         if (userLocalObject) {
             requestedValue = userLocalObject;
+        }
+
+        deffered.resolve(requestedValue);
+        return deffered.promise;
+    };
+        AppSessionFactoryObject.setPopupFlag = function (popupObject) {
+        var deffered = $q.defer();
+        var data = false;
+        if (popupObject)
+        {
+            localStorage.setItem(popupObjectName, JSON.stringify(popupObject));
+            data = true;
+        }
+        deffered.resolve(data);
+        return deffered.promise;
+    };
+    AppSessionFactoryObject.getPopupFlag = function () {
+        var deffered = $q.defer();
+        var requestedValue = kGlobalPopupFlagsObject;
+
+        var popupLocalObject = JSON.parse(localStorage.getItem(popupObjectName));
+        if (popupLocalObject) {
+            requestedValue = popupLocalObject;
         }
 
         deffered.resolve(requestedValue);
