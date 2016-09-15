@@ -36,6 +36,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.validateLinkName = false;
         $scope.validateLinkUrl = false;
         $scope.addBlockCount = 0;
+        $scope.emailListName="";
 
         $scope.ddSelectAction = {
             text: "Select"
@@ -983,30 +984,39 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //                    value: "1"
 //                }
             ];
-            emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
-                var parseData = JSON.parse(data.d.details);
-                $scope.emailLists_user = parseData.allEmailListWithNoOfContacts.user;
-                $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
-                //angulardd
-                var emailAutomationData = parseData.allEmailListWithNoOfContacts.user;
+            
+            appSessionFactory.getCompany().then(function (companyObject){
+                
+                emailListFactory.getAllEmailListWithNoOfContactsForUser(companyObject.companyId).then(function (data) {
+                    $scope.emailLists_user = data.d.details;
+                });
+
+                emailListFactory.getAllEmailListWithNoOfContactsForMindBody(companyObject.companyId).then(function (data) {
+    //                alert(JSON.stringify(data));
+                    $scope.emailLists_mindbody = data.d.details;
+                });
+            
+            });
+                var emailAutomationData = $scope.emailLists_user;
+//                        parseData.allEmailListWithNoOfContacts.user;
                 for (var i = 0; i < emailAutomationData.length; i++)
                 {
                     var emailAutomationObject = {};
                     emailAutomationObject["text"] = emailAutomationData[i].emailListName;
-                    emailAutomationObject["value"] = emailAutomationData[i].emailListName;
+                    emailAutomationObject["value"] = emailAutomationData[i].emailListId;
                     $scope.ddSelectEmailListAutomationDataOptions.push(emailAutomationObject);
                 }
 
                 //For mindbody emaillist
-                emailAutomationData = parseData.allEmailListWithNoOfContacts.mindbody;
+                emailAutomationData = $scope.emailLists_mindbody;
+//                        parseData.allEmailListWithNoOfContacts.mindbody;
                 for (var i = 0; i < emailAutomationData.length; i++)
                 {
                     var emailAutomationObject = {};
                     emailAutomationObject["text"] = emailAutomationData[i].emailListName;
-                    emailAutomationObject["value"] = emailAutomationData[i].emailListName;
+                    emailAutomationObject["value"] = emailAutomationData[i].emailListId;
                     $scope.ddSelectEmailListAutomationDataOptions.push(emailAutomationObject);
                 }
-            });
         };
 
         $scope.ddSelectDateAutomationData = {
@@ -1116,17 +1126,15 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.emailListOnChange = function (emailListName) {
             $scope.emailAutomationListValidation = false;
             $scope.emailLists = "";
-            emailListFactory.emailListGet(emailListName.value, "emailsForEmailList").then(function (emailListData) {
-                var emailListName = $.parseJSON(emailListData.d.details);
-                for (var i = 0; i < emailListName.user_emailAddresses.length; i++) {
-                    var emails = emailListName.user_emailAddresses[i];
-                    $scope.emailLists = $scope.emailLists + eval(JSON.stringify(emails.emailAddress)) + ",";
+            
+            emailListFactory.getContactsOfEmailList(emailListName.value).then(function (emailListData){
+                var emailListDetails = emailListData.d.details;
+                var emails="";
+                for (var i = 0; i < emailListDetails.length; i++) {
+                    emails = emailListDetails[i].fkContactId.emailAddress;
+                    $scope.emailLists = $scope.emailLists + emails + ",";
                 }
-                for (var i = 0; i < emailListName.mindbody_emailAddresses.length; i++) {
-                    var emails = emailListName.mindbody_emailAddresses[i];
-                    $scope.emailLists = $scope.emailLists + eval(JSON.stringify(emails.emailAddress)) + ",";
-                }
-                $scope.emailListName = emailListName.emailListName;
+                $scope.emailListName = emailListDetails[0].fkEmailListId.emailListName;
                 $scope.automationData.selectedEmailList = $scope.emailListName;
             });
         };

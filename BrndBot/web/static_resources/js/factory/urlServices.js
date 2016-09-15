@@ -504,6 +504,10 @@ factoryApp.service('configurationService', function () {
         return getHost() + "emaillist/addContactList";
     };
     
+    this.deleteContactListURL = function () {
+        return getHost() + "emaillist/deleteContactList";
+    };
+    
     this.getAllEmailListWithNoOfContactsForMindBodyURL = function () {
         return getHost() + "emaillist/getAllEmailListWithNoOfContactsForMindBody";
     };

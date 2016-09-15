@@ -143,8 +143,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 //        };
 
         var selectedemailids = "";
-        $scope.selectedEmailListCheckbox = function (id) {
             var count = 0;
+        $scope.selectedEmailListCheckbox = function (id) {
             var content = '<input type="checkbox" name="deleteid" value="' + id + '" hidden="" id="deleteid"' + id + '" checked>';
             var content1 = '<input type="checkbox" name="deleteid" value="' + id + '" hidden="" id="deleteid"' + id + '">';
             var htm = $("#" + id).html();
@@ -166,7 +166,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $("#addcontact").hide();
                 $("#addcontacts").hide();
             }
-            if (count === -1)
+            if (count === 0)
             {
                 $scope.deSelectCheckboxButton = false;
                 $scope.selectCheckboxButton = false;
@@ -540,7 +540,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.type = type;
             emailListFactory.getContactsOfEmailList($scope.emailListId).then(function (data){
                 var parseData = data.d.details;
-                alert(JSON.stringify(parseData));
                 if(!parseData){
                     $scope.noContacts=true;
                 }
@@ -963,28 +962,46 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
 
         $scope.deleteSelected = function () {
+            
             var email_list_name = $scope.emailListName;
-            if (confirm("Are you sure, You want to delete contact?")) {
-//                var email_list_name = "";
                 if (selectedemailids !== "") {
-//                    email_list_name = $("#email_list_name").val();
-                    var Emails = {"update": "deleteEmailInEmailList", "emailListName": email_list_name, "emailAddresses": selectedemailids};
-                    emailListFactory.emailListSavePost(Emails).then(function (data) {
+                    var noOfContactList;
+                var selected_email_lists = "";
+                $("input[type=checkbox]:checked").each(function () {
+                    selected_email_lists += $(this).val() + ",";
+                    noOfContactList = selected_email_lists.split(',');
+                });
+                noOfContactList.pop();
+                var deleteContacts = { "ids" : noOfContactList }; 
+                    emailListFactory.deleteContactList(deleteContacts).then(function (data){
+                        alert(JSON.stringify(data));
                         $scope.deSelectCheckboxButton = false;
                         $scope.selectCheckboxButton = false;
                         $("#addcontact").show();
                         $("#addcontacts").show();
                         $scope.updateList(email_list_name);
                         selectedemailids = "";
-//                        $location.path("/emaillistdetails");
                         growl("Contact deleted successfully");
-                        $scope.updateList(user);
+                        $scope.updateList('user');
                         $scope.showAddContactPopup = false;
                     });
+//                    var Emails = {"update": "deleteEmailInEmailList", "emailListName": email_list_name, "emailAddresses": selectedemailids};
+//                    emailListFactory.emailListSavePost(Emails).then(function (data) {
+//                        $scope.deSelectCheckboxButton = false;
+//                        $scope.selectCheckboxButton = false;
+//                        $("#addcontact").show();
+//                        $("#addcontacts").show();
+//                        $scope.updateList(email_list_name);
+//                        selectedemailids = "";
+////                        $location.path("/emaillistdetails");
+//                        growl("Contact deleted successfully");
+//                        $scope.updateList(user);
+//                        $scope.showAddContactPopup = false;
+//                    });
                 } else {
                     growl(emailnotselected);
                 }
-            }
+//            }
         };
 
         $scope.selemlcheckbox = function (id) {

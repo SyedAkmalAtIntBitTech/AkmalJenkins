@@ -866,32 +866,40 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 //                    value: "1"
 //                }
             ];
-//            $scope.redirectBaseURL();       //this function redirects to base if page is refreshed.            
-            emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
-                var parseData = JSON.parse(data.d.details);
-                $scope.emailLists = parseData.allEmailListWithNoOfContacts.user;
-                $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
+            
+            appSessionFactory.getCompany().then(function (companyObject){
+                emailListFactory.getAllEmailListWithNoOfContactsForUser(companyObject.companyId).then(function (data) {
+                    $scope.emailLists = data.d.details;
+                    var emailAutomationData = $scope.emailLists;
+                    for (var i = 0; i < emailAutomationData.length; i++)
+                    {
+                        var emailObject = {};
+                        emailObject["text"] = emailAutomationData[i].emailListName;
+                        emailObject["value"] = emailAutomationData[i].emailListName;
+                        $scope.ddSelectEmailListOptions.push(emailObject);
+                    }
+                });
+                emailListFactory.getAllEmailListWithNoOfContactsForMindBody(companyObject.companyId).then(function (data) {
+                    $scope.emailListsMindbody = data.d.details;
+                    var emailAutomationData = $scope.emailListsMindbody;
+                
+                    for (var i = 0; i < emailAutomationData.length; i++)
+                    {
+                        var emailObject = {};
+                        emailObject["text"] = emailAutomationData[i].emailListName;
+                        emailObject["value"] = emailAutomationData[i].emailListName;
+                        $scope.ddSelectEmailListOptions.push(emailObject);
+                    }
+                });
                 $scope.showEmailDetails = false;
                 $scope.emailListDiv = true;
-                //angular DD
-                var emailData = parseData.allEmailListWithNoOfContacts.user;
-                for (var i = 0; i < emailData.length; i++)
-                {
-                    var emailObject = {};
-                    emailObject["text"] = emailData[i].emailListName;
-                    emailObject["value"] = emailData[i].emailListName;
-                    $scope.ddSelectEmailListOptions.push(emailObject);
-                }
-                var emailMindBodyData = parseData.allEmailListWithNoOfContacts.mindbody;
-                for (var i = 0; i < emailMindBodyData.length; i++)
-                {
-                    var emailObject = {};
-                    emailObject["text"] = emailMindBodyData[i].emailListName;
-                    emailObject["value"] = emailMindBodyData[i].emailListName;
-                    $scope.ddSelectEmailListOptions.push(emailObject);
-                }
+                
 
             });
+            
+//            $scope.redirectBaseURL();       //this function redirects to base if page is refreshed.        
+                
+                
 
 
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
