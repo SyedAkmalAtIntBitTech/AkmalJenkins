@@ -1,5 +1,5 @@
 
-franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$location', 'franchiseFactory','redirectFactory', function ($scope, $window, $location, franchiseFactory, redirectFactory) {
+franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$location', 'franchiseFactory','redirectFactory','appSessionFactory', function ($scope, $window, $location, franchiseFactory, redirectFactory, appSessionFactory) {
        
         $scope.tab = 1;
         $scope.addFranchisePopup = false;
@@ -12,10 +12,12 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
 
         $scope.redirectToEmailFlow = function (forwardone)
         {
-//            redirectFactory.redirectFlowTo(forwardone);
-            $window.location = getHost() + "user/" + forwardone;
-            $location.path("/" + forwardone);
-                
+            appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
+                kGlobalEmailObject.pushedEmail = true;
+                appSessionFactory.setEmail().then(function (kGlobalEmailObject) {
+                    $window.location = getHost() + "user/" + forwardone;
+                });
+            });
         };
 
         $scope.getFranchiseId = function () {
