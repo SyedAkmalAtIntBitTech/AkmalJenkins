@@ -21,6 +21,9 @@ public class UserCompanyDetails {
     private String userFirstName;
     private String userLastName;
     private String userHashId;
+    private Integer franchiseId;
+    private String franchiseName;
+    private Boolean isHeadquarter;
 
     public String getUserHashId() {
         return userHashId;
@@ -125,6 +128,30 @@ public class UserCompanyDetails {
 
     public void setAccountStatus(String accountStatus) {
         this.accountStatus = accountStatus;
+    }
+
+    public Integer getFranchiseId() {
+        return franchiseId;
+    }
+
+    public void setFranchiseId(Integer franchiseId) {
+        this.franchiseId = franchiseId;
+    }
+
+    public String getFranchiseName() {
+        return franchiseName;
+    }
+
+    public void setFranchiseName(String franchiseName) {
+        this.franchiseName = franchiseName;
+    }
+
+    public Boolean getIsHeadquarter() {
+        return isHeadquarter;
+    }
+
+    public void setIsHeadquarter(Boolean isHeadquarter) {
+        this.isHeadquarter = isHeadquarter;
     }
     
     

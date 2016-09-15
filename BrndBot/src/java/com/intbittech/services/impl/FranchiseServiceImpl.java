@@ -41,23 +41,23 @@ public class FranchiseServiceImpl implements FranchiseService {
     @Override
     public boolean activateCompanyAsFranchise(Integer companyId, Integer franchiseId) throws ProcessFailed {
         boolean returnValue = false;
-        try{
+        try {
             FranchiseCompanyLookup franchiseCompanyLookup = franchiseCompanyLookupDao.getFranchiseHeadquarter(franchiseId);
 
-            if (franchiseCompanyLookup != null){
+            if (franchiseCompanyLookup != null) {
                 franchiseCompanyLookup.setIsHeadQuarter(false);
                 franchiseCompanyLookupDao.update(franchiseCompanyLookup);
 
                 FranchiseCompanyLookup franchiseCompanyLookupToMakeHeadquarter = franchiseCompanyLookupDao.getFranchiseLookup(companyId, franchiseId);
                 franchiseCompanyLookupToMakeHeadquarter.setIsHeadQuarter(true);
                 franchiseCompanyLookupDao.update(franchiseCompanyLookupToMakeHeadquarter);
-            }else {
+            } else {
                 FranchiseCompanyLookup franchiseCompanyLookupToMakeHeadquarter = franchiseCompanyLookupDao.getFranchiseLookup(companyId, franchiseId);
                 franchiseCompanyLookupToMakeHeadquarter.setIsHeadQuarter(true);
                 franchiseCompanyLookupDao.update(franchiseCompanyLookupToMakeHeadquarter);
             }
             returnValue = true;
-        }catch (Throwable throwable){
+        } catch (Throwable throwable) {
             throw new ProcessFailed("No headquarter found.");
         }
         return returnValue;
@@ -65,9 +65,9 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
 
     @Override
-    public void associateCompanyToFranchise(Integer companyId, Users user, Integer franchiseId ) throws ProcessFailed {
+    public void associateCompanyToFranchise(Integer companyId, Users user, Integer franchiseId) throws ProcessFailed {
         FranchiseCompanyLookup franchiseCompanyLookup = franchiseCompanyLookupDao.getFranchiseLookup(companyId, franchiseId);
-        if(franchiseCompanyLookup != null) {
+        if (franchiseCompanyLookup != null) {
             throw new ProcessFailed("Company is already associated with Franchise");
         }
         franchiseCompanyLookup = new FranchiseCompanyLookup();
@@ -81,16 +81,16 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
 
     @Override
-    public void removeCompanyFromFranchise(Integer companyId, Integer franchiseId ) throws ProcessFailed {
+    public void removeCompanyFromFranchise(Integer companyId, Integer franchiseId) throws ProcessFailed {
         FranchiseCompanyLookup franchiseCompanyLookup = franchiseCompanyLookupDao.getFranchiseLookup(companyId, franchiseId);
         if (franchiseCompanyLookup == null) {
             throw new ProcessFailed("Company not found in the franchise.");
         }
         franchiseCompanyLookupDao.delete(franchiseCompanyLookup);
     }
-    
-      @Override
-    public List<Company> getCompaniesForFranchises(Integer franchiseId ) throws ProcessFailed {
+
+    @Override
+    public List<Company> getCompaniesForFranchises(Integer franchiseId) throws ProcessFailed {
         List<Company> companies = franchiseCompanyLookupDao.getCompanyForFranchiseId(new Franchise(franchiseId));
         if (companies == null) {
             throw new ProcessFailed("No Companies with franchise id" + companies + ".");
@@ -99,7 +99,7 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
 
     @Override
-    public List<Franchise> getFranchisesForCompanyId(Integer companyId ) throws ProcessFailed {
+    public List<Franchise> getFranchisesForCompanyId(Integer companyId) throws ProcessFailed {
         List<Franchise> franchises = franchiseCompanyLookupDao.getFranchiseForCompanyId(new Company(companyId));
         if (franchises == null) {
             throw new ProcessFailed("No Franchises with company id" + companyId + ".");
@@ -108,7 +108,7 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
 
     @Override
-    public List<Franchise> getAllFranchises( ) throws ProcessFailed {
+    public List<Franchise> getAllFranchises() throws ProcessFailed {
         List<Franchise> franchises = franchiseDao.getAllFranchise();
         if (franchises == null) {
             throw new ProcessFailed("No Franchises Present");
@@ -117,7 +117,7 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
 
     @Override
-    public void deleteFranchise(Integer franchiseId ) throws ProcessFailed {
+    public void deleteFranchise(Integer franchiseId) throws ProcessFailed {
         Franchise franchise = franchiseDao.getByFranchiseId(franchiseId);
         if (franchise == null) {
             throw new ProcessFailed("No Franchise with id" + franchiseId + ".");
@@ -126,7 +126,7 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
 
     @Override
-    public void updateFranchise(FranchiseDetails franchiseDetails, Integer franchiseId ) throws ProcessFailed {
+    public void updateFranchise(FranchiseDetails franchiseDetails, Integer franchiseId) throws ProcessFailed {
         Franchise franchise = franchiseDao.getByFranchiseId(franchiseId);
         if (franchise == null) {
             throw new ProcessFailed("No Franchise with id" + franchiseId + ".");
@@ -136,20 +136,20 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
 
     @Override
-    public void saveFranchise(FranchiseDetails franchiseDetails ) throws ProcessFailed {
+    public void saveFranchise(FranchiseDetails franchiseDetails) throws ProcessFailed {
         Franchise franchiseDeserialized = FranchiseDetails.deserialize(franchiseDetails);
-        if(franchiseDeserialized.getCreatedAt() == null) {
+        if (franchiseDeserialized.getCreatedAt() == null) {
             franchiseDeserialized.setCreatedAt(new Date());
         }
         franchiseDao.save(franchiseDeserialized);
     }
 
     @Override
-    public FranchiseCompanyLookup getFranchiseLookup(Integer companyId, Integer franchiseId)throws ProcessFailed{
+    public FranchiseCompanyLookup getFranchiseLookup(Integer companyId, Integer franchiseId) throws ProcessFailed {
         FranchiseCompanyLookup franchiseCompanyLookup = franchiseCompanyLookupDao.getFranchiseLookup(companyId, franchiseId);
-        if (franchiseCompanyLookup != null){
+        if (franchiseCompanyLookup != null) {
             return franchiseCompanyLookup;
-        }else {
+        } else {
             return null;
         }
     }
@@ -157,13 +157,21 @@ public class FranchiseServiceImpl implements FranchiseService {
     @Override
     public String getFranchiseHeadquarter(Integer franchiseId) throws ProcessFailed {
         FranchiseCompanyLookup franchiseCompanyLookup = franchiseCompanyLookupDao.getFranchiseHeadquarter(franchiseId);
-        
-        if (franchiseCompanyLookup != null){
+
+        if (franchiseCompanyLookup != null) {
             Company company = companyDao.getCompanyById(franchiseCompanyLookup.getFkCompanyId().getCompanyId());
             return company.getCompanyName();
-        }else {
+        } else {
             return null;
         }
     }
+
+    @Override
+    public FranchiseCompanyLookup getFranchiseByCompanyId(Integer companyId) throws ProcessFailed {
+        FranchiseCompanyLookup franchiseCompanyLookup = franchiseCompanyLookupDao.getFranchiseByCompanyId(companyId);
+        if (franchiseCompanyLookup == null) {
+            throw new ProcessFailed("No Franchise with company id" + companyId + ".");
+        }
+        return franchiseCompanyLookup;
+    }
 }
-  

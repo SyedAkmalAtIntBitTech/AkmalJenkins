@@ -69,4 +69,15 @@ public interface FranchiseCompanyLookupDao {
     public FranchiseCompanyLookup getFranchiseLookup(Integer companyId, Integer franchiseId)throws ProcessFailed;
     
     public FranchiseCompanyLookup getFranchiseHeadquarter(Integer franchiseId)throws ProcessFailed;
+    
+    /**
+     * This method delete particular {@link FranchiseCompanyLookup} based on the
+     * organization from the database.
+     *
+     * @param companyId the companyId
+     * @return FranchiseCompanyLookup
+     * @throws ProcessFailed the process failed
+     */
+    public FranchiseCompanyLookup getFranchiseByCompanyId(Integer companyId)throws ProcessFailed;
+
 }
