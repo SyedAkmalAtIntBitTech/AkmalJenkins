@@ -143,17 +143,17 @@
 <div class="bb-email-editor-wrap" id="emailautomation"  ng-init="getEmailTemplates()" ng-show="automationEditor === true">
 
         <!--Email Preview-->
-        <div id="fade" class="black_overlay emailAutomationFade" ></div>
-        <div id="email_previewdiv" class="hide">
-            <div class="pop-up-background">
-                <div class="pop-up-container-emailPreview" ng-show="emailPreviewPopup"> 
-                    <div class="modal-pane-header-wrap"> 
-                        <div class="emailPreview-header fleft">Email Preview</div>
+        <div id="fade" class="center-pop-ups overlay-dark-bg" ng-show="emailPreviewPopup">
+   
+           
+                <div class="bb-panel-styling bb-panel-email-preview" > 
+                    <div class="bb-panel-header"> 
+                        <h2>Email Preview</h2>
                         <a class=" closeemailpreview modal-pane-header-exit" href="" id="closePrev" ng-click="closeEmailPreviewPopup()">
                         </a>
                     </div>
                     <!--inner-->
-                    <div class="pop-up-inner-ep height400">
+                    <div class="email-preview-col-desktop">
                         <div class="emailPreviews col-1of1 fleft"> 
                             <div class="emailPreview-desktop-col  fleft">
                                 <div class="emailPreview-headers">Desktop Preview</div>
@@ -187,7 +187,7 @@
             <!--// tinymce editor-->
             <div  class="email-editor-wrap">
                 <div class="email-editor-top-buttons-wrap">
-                    <div class="gray-button sequence-page-preview-button reg-button" id="emailpreview" ng-click="emailPreviewOnClick()" ng-show="automationEditor">Preview Email</div> 
+                    <div class="bb-button bb-secondary-action-button" id="emailpreview" ng-click="emailPreviewOnClick()" ng-show="automationEditor">Preview Email</div> 
                 </div>
                 <div class="email-editor-content-wrap">
                     <div  id ="defaultBlock" >
@@ -220,7 +220,7 @@
                 <div class="email-editor-tab-wrap">
                     <div class="editor-col-tab">
                         <div class="{{recurringtab}}" id="recurringtab"  ng-click="getEmailTemplates()">
-                            Automation 
+                            Template 
                         </div>
                     </div>
                     <div class="editor-col-tab">
@@ -230,7 +230,7 @@
                     </div>
                     <div class="editor-col-tab">
                         <div class="{{styletab}}" id="styletab" ng-init="showStyles('false')" ng-click="showStyles('true')">
-                            Change Style
+                            Block Style
                         </div>
                     </div> 
                 </div>
@@ -240,9 +240,9 @@
                     <div class="r-col-editor-header-wrap" id="recurringDivheader" ng-show="recurringDivheader">Select a Recurring template:</div>
                     <div class="block-selection-divider"></div>
                     <ul class="r-col-block-wrap" id="blockdiv" ng-show="blockdivheader">
-                        <li class="editor-block-slat" ng-class="{'editor-block-slat-selected': activeBlock === blocks.emailBlockId}" ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="blockOnClick(blocks.emailBlockId)">
-                            <div id="blklist----{{blocks.emailBlockId}}" class="blockName">{{blocks.emailBlockName}}</div>                            
-                            <div class="addBlock-button reg-button slat-detail-button hideBlockButton" ng-class="{'hideBlockButton': activeBlock !== blocks.emailBlockId}" ng-click="didChooseBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)" >Add Block</div>
+                        <li class="bb-clickable-slat" ng-class="{'editor-block-slat-selected': activeBlock === blocks.emailBlockId}" ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="blockOnClick(blocks.emailBlockId)">
+                            <div id="blklist----{{blocks.emailBlockId}}" class="">{{blocks.emailBlockName}}</div>                            
+                            <div class="editor-add-block-button hideBlockButton" ng-class="{'hideBlockButton': activeBlock !== blocks.emailBlockId}" ng-click="didChooseBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)" >Add Block</div>
                         </li>
                     </ul>
 
@@ -254,9 +254,9 @@
                         </li>
                     </ul>
                     <ul class="r-col-block-wrap" ng-show="recurringDivheader">
-                        <li class="editor-block-slat" ng-class="{'editor-block-slat-selected': activeBlock === email_template.template_id}" ng-repeat="email_template in recuring_email_templates" ng-click="recurringTemplateOnClick(email_template.template_id)">
-                            <div id="recurringlist----{{email_template.template_id}}" class="blockName">{{email_template.template_name}}</div>
-                            <div class="addBlock-button reg-button slat-detail-button hideBlockButton" ng-class="{'hideBlockButton': activeBlock !== email_template.template_id}" ng-click="showHTMLData(email_template.html_data, email_template.template_id)" >Add Block</div>
+                        <li class="bb-clickable-slat" ng-class="{'editor-block-slat-selected': activeBlock === email_template.template_id}" ng-repeat="email_template in recuring_email_templates" ng-click="recurringTemplateOnClick(email_template.template_id)">
+                            <div id="recurringlist----{{email_template.template_id}}" class="">{{email_template.template_name}}</div>
+                            <div class="editor-add-block-button hideBlockButton" ng-class="{'hideBlockButton': activeBlock !== email_template.template_id}" ng-click="showHTMLData(email_template.html_data, email_template.template_id)" >Change Template</div>
                         </li>
                     </ul>
                 </div>
