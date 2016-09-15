@@ -153,7 +153,17 @@ factoryApp.factory('appSessionFactory', function ($q) {
         deffered.resolve(requestedValue);
         return deffered.promise;
     };
-
+    AppSessionFactoryObject.clearAllSessions = function () {
+        var deffered = $q.defer();
+        var data = true;
+        localStorage.removeItem(emailObjectName);
+        localStorage.removeItem(fbPostObjectName);
+        localStorage.removeItem(companyObjectName);
+        localStorage.removeItem(dashboardMessageVarName);
+        localStorage.removeItem(userObjectName);
+        deffered.resolve(data);
+        return deffered.promise;
+    };
 
     return AppSessionFactoryObject;
 });
