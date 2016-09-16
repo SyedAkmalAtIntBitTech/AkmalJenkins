@@ -175,11 +175,13 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                 var linkUrlData = data;
                 for (var i = 0; i < linkUrlData.length; i++)
                 {
-                    var linkUrlObject = {};
-                    linkUrlObject["text"] = linkUrlData[i].prigram_name + " - " + linkUrlData[i].link_name + " - " + linkUrlData[i].url;
-                    linkUrlObject["value"] = linkUrlData[i].link_name;
-                    linkUrlObject["url"] = linkUrlData[i].url;
-                    $scope.ddSelectlinkUrlsOptions.push(linkUrlObject);
+                    if(linkUrlData[i].link_name || linkUrlData[i].url){
+                        var linkUrlObject = {};
+                        linkUrlObject["text"] = linkUrlData[i].link_name + " - " + linkUrlData[i].url;
+                        linkUrlObject["value"] = linkUrlData[i].link_name;
+                        linkUrlObject["url"] = linkUrlData[i].url;
+                        $scope.ddSelectlinkUrlsOptions.push(linkUrlObject);
+                    }   
                 }
             });
         };
