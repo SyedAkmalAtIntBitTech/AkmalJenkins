@@ -34,7 +34,7 @@ public class MindbodyEmailListScheduler {
             ZoneId currentZone = ZoneId.of("America/New_York");
             ZonedDateTime zonedNow = ZonedDateTime.of(localNow, currentZone);
             ZonedDateTime zonedNext5;
-            zonedNext5 = zonedNow.withHour(4).withMinute(0).withSecond(0);
+            zonedNext5 = zonedNow.withHour(23).withMinute(0).withSecond(0);
             if (zonedNow.compareTo(zonedNext5) > 0) {
                 zonedNext5 = zonedNext5.plusDays(1);
             }
