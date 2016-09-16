@@ -813,7 +813,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                     categoryId: kGlobalEmailObject.categoryId.toString(),
                                     subCategoryId: kGlobalEmailObject.subCategoryId.toString(),
                                     emailSubject: kGlobalEmailObject.emailSubject,
-                                    emailPreHeader: kGlobalEmailObject.preheader
+                                    emailPreHeader: kGlobalEmailObject.preheader,
+                                    pushedEmail: kGlobalEmailObject.pushedEmail
                                 };
                                 kGlobalEmailObject.htmlBody = $('#tinymceEditorBody').html();
                                 appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {});
@@ -834,7 +835,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                     mindbodyData: kGlobalEmailObject.mindbodyId.toString(),
                                     categoryId: kGlobalEmailObject.categoryId.toString(),
                                     subCategoryId: kGlobalEmailObject.subCategoryId.toString(),
-                                    emailSubject: kGlobalEmailObject.emailSubject
+                                    emailSubject: kGlobalEmailObject.emailSubject,
+                                    pushedEmail: kGlobalEmailObject.pushedEmail
                                 };
                                 kGlobalEmailObject.htmlBody = $('#tinymceEditorBody').html();
                                 appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {});

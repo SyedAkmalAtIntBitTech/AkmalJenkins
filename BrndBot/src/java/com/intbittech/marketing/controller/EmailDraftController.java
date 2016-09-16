@@ -98,6 +98,8 @@ public class EmailDraftController {
             company.setCompanyId(userCompanyIds.getCompanyId());
             email_draft.setFkCompanyId(company);
             email_draft.setDraftJson(json_object.toString());
+            String pushedEmail = requestBodyMap.get("pushedEmail").toString();
+//            email_draft.setIsPushed(Boolean.TRUE);
             Integer draftID = emaildraftservice.save(email_draft);
             return draftID.toString();
         } catch (Throwable ex) {
@@ -143,6 +145,7 @@ public class EmailDraftController {
             String str_model = (String) AppConstants.GSON.toJson(emaildraftmodel);
             JSONParser json_parser = new JSONParser();
             JSONObject json_object = (JSONObject) json_parser.parse(str_model);
+            String pushedEmail = requestBodyMap.get("pushedEmail").toString();
 
             emaildraft.setDraftJson(json_object.toString());
 
