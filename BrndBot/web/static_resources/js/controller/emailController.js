@@ -788,6 +788,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             });
 
         };
+        
         $scope.saveButtonOnClick = function () {
             $("#tinymceEditorBody").find("p").removeAttr("style").css("margin", "0px");
             settingsFactory.getAllPreferencesGet().then(function (footerResponseData) {
@@ -821,7 +822,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                 emailDraftFactory.saveEmailDraftsPost(draftData).then(function (responseText) {
                                     if (responseText != "0") {
                                         $scope.redirect('emaillistselection', '', '', '', '', '', responseText, '', '');
-                                        //                                document.location.href = "emaillistselection?draftid=" + responseText + "&subject=" + sessionMap["emailSubject"] + "&iframeName=" + $scope.randomIframeFilename + "&categoryId=" + categoryId + "&subCategoryId=" + subCategoryId + "&emailSubject=" + email_subject + "&mindbodyId=" + mindbodydata + "&LookupId=" + LookupId;
+//                                document.location.href = "emaillistselection?draftid=" + responseText + "&subject=" + sessionMap["emailSubject"] + "&iframeName=" + $scope.randomIframeFilename + "&categoryId=" + categoryId + "&subCategoryId=" + subCategoryId + "&emailSubject=" + email_subject + "&mindbodyId=" + mindbodydata + "&LookupId=" + LookupId;
                                     } else {
                                         growl("There was a problem while saving the draft! Please try again later.");
                                     }

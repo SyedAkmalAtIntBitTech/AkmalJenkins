@@ -14,7 +14,8 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
         {
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                 kGlobalEmailObject.pushedEmail = true;
-                appSessionFactory.setEmail().then(function (kGlobalEmailObject) {
+                appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {
+//                    alert(kGlobalEmailObject.pushedEmail);
                     $window.location = getHost() + "user/" + forwardone;
                 });
             });
