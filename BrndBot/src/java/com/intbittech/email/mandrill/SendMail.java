@@ -179,9 +179,11 @@ public class SendMail {
         JSONParser parser = new JSONParser();
         JSONObject companyPreferencesEmailList = (JSONObject) parser.parse(companyPreferences.getEmailList());
         JSONArray userPreferencesJson = (JSONArray)companyPreferencesEmailList.get(IConstants.kEmailListUserKey);
+        JSONArray mindBodyPreferencesJson = (JSONArray) companyPreferencesEmailList.get(IConstants.kEmailListMindbodyKey);
         JSONArray jSONArray = null;
         JSONObject jsonObject = new JSONObject();
         List listemailInfos = new ArrayList();
+        Boolean isFoundEmailList = false;
         for (Object emaiListObject : userPreferencesJson) {
                 JSONObject emailListJSONObject = (JSONObject) emaiListObject;
                 String emailListNameInUserPreferences = (String) emailListJSONObject.get("emailListName");
@@ -193,8 +195,24 @@ public class SendMail {
                         EmailInfo emailinfo = new EmailInfo().fromJSON(jSONArray.get(i).toString());
                         listemailInfos.add(emailinfo);
                     }
+                    isFoundEmailList = true;
                     break;
                 }
+        }
+        
+        if (!isFoundEmailList) {
+            for (Object emaiListObject : mindBodyPreferencesJson) {
+                JSONObject emailListJSONObject = (JSONObject) emaiListObject;
+                String emailListNameInUserPreferences = (String) emailListJSONObject.get("emailListName");
+                if (emailListNameInUserPreferences.equals(emailListName)) {
+                    jSONArray = (JSONArray) emailListJSONObject.get("emailAddresses");
+                    for (int i = 0; i < jSONArray.size(); i++) {
+                        EmailInfo emailinfo = new EmailInfo().fromJSON(jSONArray.get(i).toString());
+                        listemailInfos.add(emailinfo);
+                    }
+                    break;
+                }
+            }
         }
         
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
