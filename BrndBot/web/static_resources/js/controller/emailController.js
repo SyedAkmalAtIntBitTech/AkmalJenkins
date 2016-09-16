@@ -58,6 +58,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.isEmailSaveAction = false;
         $scope.changeStyleAlert = false;
         $scope.pushedEmail = false;
+        $scope.emailTag = "";
+        $scope.noEmailList = "";
         var sliderDialog = "#emaileditorexternalpopup";
         $scope.companyAddressDetails = {};
 
@@ -899,6 +901,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     emailTag["value"] = Tag.tagId;
                     $scope.ddSelectEmailListOptions.push(emailTag);
                 }
+                $scope.noEmailList = false;
             });
         };
 
@@ -1093,7 +1096,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                 var pushedEmail = kGlobalEmailObject.pushedEmail;
                 if (pushedEmail){
-                    
+                    $location.path("/franchisecompanies");
+                    $scope.emailTag = emailAddresses;
                 }else {
                     if ($scope.validateEmails(emailAddresses)) {
                         if ($scope.emailList !== "Manual")

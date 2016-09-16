@@ -19,6 +19,7 @@
 
     <div ng-include src="'sendorschedulepopup.html'"></div> 
     <div ng-include src="'schedulepopup.html'"></div> 
+    <div ng-include src="'emaillistselectionpopup.html'"></div>
     <div class="bb-top-nav" >
         <div class="bb-bar-left-wrap bb-one-third-flex-col">
            <a class="bb-back-button" ng-show="emailListBackButton" id="backemaillist" href="baseemaileditor#/emaillistselection" ></a>
@@ -33,6 +34,7 @@
             </div>
             <div class="modal-pane-content-wrap">
                  <div class="input-wrap">
+                    <input type="button" name="noEmailList" id="noEmailList" ng-show="noEmailList==false" value="No email list"/>
                     <label> Is this email auto-approved? </label>
                     Yes <input type="checkbox" id="xyz" value="xyz"/>
                     <label>Auto approving an email will disallow recipient accounts to edit this email</label>
@@ -46,7 +48,7 @@
             </div>
         </div>
     <div class="bb-bottom-cta-bar">
-        <a class="bb-bottom-cta-continue-button" ng-class="{'bb-valid': emailContinueButton}" ng-click="continueEmailListOnClick(emailAddresses)" >
+        <a class="bb-bottom-cta-continue-button" ng-click="scheduleEmailPopup()" >
             <div class="bb-bottom-cta-continue-button-text">Continue</div>
             <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
         </a>
