@@ -50,7 +50,7 @@ public class EmailListTagDaoImpl implements EmailListTagDao  {
 
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
 
@@ -86,6 +86,25 @@ public class EmailListTagDaoImpl implements EmailListTagDao  {
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_deleting_message",new String[]{}, Locale.US));
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<EmailListTag> getAllEmailListTag() throws ProcessFailed {
+         try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(EmailListTag.class);
+            List<EmailListTag> emailListTag = criteria.list();
+            if (emailListTag.isEmpty()) {
+                return null;
+            }
+            return  criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
     
