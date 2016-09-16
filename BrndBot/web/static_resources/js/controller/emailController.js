@@ -56,7 +56,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.validateEmailAddress = false;
         $scope.validateEmailAddress = false;
         $scope.isEmailSaveAction = false;
-        $scope.user = "";
+        $scope.user = "intbit@intbit.com";
         $scope.changeStyleAlert = false;
         var sliderDialog = "#emaileditorexternalpopup";
         $scope.moreThanOneUser = false;
@@ -570,33 +570,32 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         };
         $scope.launchTinyMceEditorForOnlyImage = function () {
             // To Do sandeep... need to add one selector for this in template  
-//            tinymce.EditorManager.editors = [];
-//            tinymce.init({
-//                
-//                selector: 'img#image5',
-//                extended_valid_elements: 'img[class|id|src|style|border=0|alt|title|hspace|vspace|width|height|max-width|max-height|align|onmouseover|onmouseout|name]',
-//                width: 400,
-//                convert_urls: false,
-//                inline: true,
-//                plugins: [
-//                    ' image imagetools'
-//                ],
-//                toolbar: false,
-//                menubar: false
-//            });
-//            $('.innerbg').mouseenter(function (event) {
-//                $("#colpic").css({position: "absolute", top: event.pageY, left: "20px"}).css(" z-index", 30000).show();
-//                seldiv = $(this).parents('[bb-bgcolor]');
-//            });
-//            $(document).click(function () {
-//                $("#colpic").hide();
-//            });
-//            $('.view').find('table:first').find('td:first').mouseenter(function () {
-//                $(this).find('table:first').addClass('template-border-Active');
-//            });
-//            $('.view').find('table:first').find('td:first').mouseleave(function () {
-//                $(this).find('table:first').removeClass('template-border-Active');
-//            });
+            tinymce.EditorManager.editors = [];
+            tinymce.init({
+                selector: 'img.editable',
+                extended_valid_elements: 'img[class|id|src|style|border=0|alt|title|hspace|vspace|width|height|max-width|max-height|align|onmouseover|onmouseout|name]',
+                width: 400,
+                convert_urls: false,
+                inline: true,
+                plugins: [
+                    ' image imagetools'
+                ],
+                toolbar: false,
+                menubar: false
+            });
+            $('.innerbg').mouseenter(function (event) {
+                $("#colpic").css({position: "absolute", top: event.pageY, left: "20px"}).css(" z-index", 30000).show();
+                seldiv = $(this).parents('[bb-bgcolor]');
+            });
+            $(document).click(function () {
+                $("#colpic").hide();
+            });
+            $('.view').find('table:first').find('td:first').mouseenter(function () {
+                $(this).find('table:first').addClass('template-border-Active');
+            });
+            $('.view').find('table:first').find('td:first').mouseleave(function () {
+                $(this).find('table:first').removeClass('template-border-Active');
+            });
         };
         $scope.blockIdOnSelected = function (selectedBlock, blockId, mindbodyId) {
             var selectedHtmlBlockId = selectedBlock.id;
