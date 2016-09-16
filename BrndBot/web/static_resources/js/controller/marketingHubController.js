@@ -962,8 +962,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
 
         $scope.deleteSelected = function () {
-            
-            var email_list_name = $scope.emailListName;
                 if (selectedemailids !== "") {
                     var noOfContactList;
                 var selected_email_lists = "";
@@ -974,34 +972,17 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 noOfContactList.pop();
                 var deleteContacts = { "ids" : noOfContactList }; 
                     emailListFactory.deleteContactList(deleteContacts).then(function (data){
-                        alert(JSON.stringify(data));
                         $scope.deSelectCheckboxButton = false;
                         $scope.selectCheckboxButton = false;
                         $("#addcontact").show();
-                        $("#addcontacts").show();
-                        $scope.updateList(email_list_name);
                         selectedemailids = "";
-                        growl("Contact deleted successfully");
+                        growl(data.d.operationStatus.messages[0]);
                         $scope.updateList('user');
                         $scope.showAddContactPopup = false;
                     });
-//                    var Emails = {"update": "deleteEmailInEmailList", "emailListName": email_list_name, "emailAddresses": selectedemailids};
-//                    emailListFactory.emailListSavePost(Emails).then(function (data) {
-//                        $scope.deSelectCheckboxButton = false;
-//                        $scope.selectCheckboxButton = false;
-//                        $("#addcontact").show();
-//                        $("#addcontacts").show();
-//                        $scope.updateList(email_list_name);
-//                        selectedemailids = "";
-////                        $location.path("/emaillistdetails");
-//                        growl("Contact deleted successfully");
-//                        $scope.updateList(user);
-//                        $scope.showAddContactPopup = false;
-//                    });
                 } else {
                     growl(emailnotselected);
                 }
-//            }
         };
 
         $scope.selemlcheckbox = function (id) {

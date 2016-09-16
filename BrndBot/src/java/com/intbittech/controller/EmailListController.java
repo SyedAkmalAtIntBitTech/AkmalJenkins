@@ -148,7 +148,8 @@ public class EmailListController {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             for (Integer contactId : deleteIdsDetails.getIds()) {
-                contactEmailListLookupService.delete(contactId);
+//              contactEmailListLookupService.delete(contactId);
+                contactsService.delete(contactId);
             }
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("contact_delete", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
