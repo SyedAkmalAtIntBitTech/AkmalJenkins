@@ -30,6 +30,7 @@ button{
 }
 button {
     overflow: visible;
+    cursor: pointer;
 }
 
 button::-moz-focus-inner {
@@ -434,9 +435,8 @@ a.side-nav-logo{
 
 
 
-.main-nav a.your-plan:hover{
 
-}d
+
 
 
 .main-nav.current a{
@@ -1972,8 +1972,7 @@ p.modal-content-header{
     font-size: 12px;
 }
 
-
-.modal-pane-content-wrap .create-new-action-schedule-wrap{
+.create-new-action-schedule-wrap{
     display: -webkit-flex;
     display: flex;
     -webkit-flex-direction: row;
@@ -5221,11 +5220,13 @@ textarea.task-textarea:focus{
 
 .bb-add-action{
     margin-left: 30px;
+    margin-right: 0px !important;
 }
 
 .bb-jump-to-date{
     margin-left: 20px;
     cursor: pointer;
+    margin-right: 0px !important;
 }
 
 .bb-top-sub-nav-tab:first-child{
