@@ -98,7 +98,12 @@ public class EmailDraftController {
             company.setCompanyId(userCompanyIds.getCompanyId());
             email_draft.setFkCompanyId(company);
             email_draft.setDraftJson(json_object.toString());
-            String pushedEmail = requestBodyMap.get("pushedEmail").toString();
+            boolean pushedEmail = (boolean)requestBodyMap.get("pushedEmail");
+            if (pushedEmail){
+                email_draft.setIsPushed(Boolean.TRUE);
+            }else{
+                email_draft.setIsPushed(Boolean.FALSE);
+            }
 //            email_draft.setIsPushed(Boolean.TRUE);
             Integer draftID = emaildraftservice.save(email_draft);
             return draftID.toString();
@@ -123,7 +128,12 @@ public class EmailDraftController {
             String emailPreHeader = (String) requestBodyMap.get("emailPreHeader");
             Integer categoryId = Integer.parseInt((String)requestBodyMap.get("categoryId"));
             Integer subCategoryId = Integer.parseInt((String) requestBodyMap.get("subCategoryId"));
-            Integer lookupId = Integer.parseInt((String)requestBodyMap.get("lookupId"));
+            String lookupIdStr=(String)requestBodyMap.get("lookupId");
+            Integer lookupId=0;
+            if((!lookupIdStr.equals("null")) && (!lookupIdStr.equals("")))
+            {
+                lookupId = Integer.parseInt(lookupIdStr);
+            }   
             Integer mindbodyId = Integer.parseInt((String) requestBodyMap.get("mindbodyData"));
             Integer draftId = Integer.parseInt((String) requestBodyMap.get("draftId"));
             String bodyString =(String) requestBodyMap.get("bodyString");
@@ -145,8 +155,12 @@ public class EmailDraftController {
             String str_model = (String) AppConstants.GSON.toJson(emaildraftmodel);
             JSONParser json_parser = new JSONParser();
             JSONObject json_object = (JSONObject) json_parser.parse(str_model);
-            String pushedEmail = requestBodyMap.get("pushedEmail").toString();
-
+            boolean pushedEmail = (boolean)requestBodyMap.get("pushedEmail");
+            if (pushedEmail){
+                emaildraft.setIsPushed(Boolean.TRUE);
+            }else{
+                emaildraft.setIsPushed(Boolean.FALSE);
+            }
             emaildraft.setDraftJson(json_object.toString());
 
             emaildraftservice.update(emaildraft);
