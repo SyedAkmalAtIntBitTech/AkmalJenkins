@@ -57,6 +57,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.validateEmailAddress = false;
         $scope.isEmailSaveAction = false;
         $scope.changeStyleAlert = false;
+        $scope.pushedEmail = false;
         var sliderDialog = "#emaileditorexternalpopup";
         $scope.companyAddressDetails = {};
 
@@ -817,6 +818,11 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                     emailPreHeader: kGlobalEmailObject.preheader,
                                     pushedEmail: kGlobalEmailObject.pushedEmail
                                 };
+                                if (kGlobalEmailObject.pushedEmail){
+                                    $scope.pushedEmail = true;
+                                }else {
+                                    $scope.pushedEmail = false;
+                                }
                                 kGlobalEmailObject.htmlBody = $('#tinymceEditorBody').html();
                                 appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {});
                                 emailDraftFactory.saveEmailDraftsPost(draftData).then(function (responseText) {
@@ -839,6 +845,11 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                     emailSubject: kGlobalEmailObject.emailSubject,
                                     pushedEmail: kGlobalEmailObject.pushedEmail
                                 };
+                                if (kGlobalEmailObject.pushedEmail){
+                                    $scope.pushedEmail = true;
+                                }else {
+                                    $scope.pushedEmail = false;
+                                }
                                 kGlobalEmailObject.htmlBody = $('#tinymceEditorBody').html();
                                 appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {});
                                 emailDraftFactory.updateEmailDraftPost(draftData).then(function (responseText) {
@@ -877,18 +888,22 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         };
 
         $scope.getEmailListTagsForFranchise = function(){
-            emailListFactory.emailListTagsForFranchise().then(function (data){
-                
+            emailListFactory.emailListTagsForFranchiseGet().then(function (data){
+                alert(JSON.stringify(data));
+                var parseData = data.d.details;
+                for (var i=0; i< parseData.length; i++){
+                    var Tag = parseData[i];
+                    alert(JSON.stringify(Tag));
+                    var emailTag = {};
+                    emailTag["text"] = Tag.tagName;
+                    emailTag["value"] = Tag.tagId;
+                    $scope.ddSelectEmailListOptions.push(emailTag);
+                }
             });
         };
-        $scope.showEmailList = function () {
 
-            $scope.ddSelectEmailListOptions = [
-//                {
-//                    text: "Manual",
-//                    value: "1"
-//                }
-            ];
+        $scope.showEmailList = function () {
+            $scope.ddSelectEmailListOptions = [];
 //            $scope.redirectBaseURL();       //this function redirects to base if page is refreshed.            
             emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
                 var parseData = JSON.parse(data.d.details);
@@ -926,7 +941,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             });
             $scope.emailList = "1";
             $scope.getEmailSettings();
-        };
+
+          };
 
 //        $scope.showEmailList = function () {
 //            emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {

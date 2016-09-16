@@ -94,10 +94,10 @@ factoryApp.factory('emailListFactory', function ($q, authenticatedServiceFactory
         return deffered.promise;
     };
     
-    emailListFactoryObject.emailListTagsForFranchise = function (data) {
+    emailListFactoryObject.emailListTagsForFranchiseGet = function (data) {
         var deffered = $q.defer();
         var url = configurationService.emailListTagsForFranchiseURL();
-        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
