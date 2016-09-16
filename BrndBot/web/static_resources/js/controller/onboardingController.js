@@ -386,7 +386,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 kGlobalCompanyObject.franchiseId= companyDetails.franchiseId;
                 kGlobalCompanyObject.franchiseName= companyDetails.franchiseName;
                 kGlobalCompanyObject.isHeadquarter= companyDetails.isHeadquarter;
-
                 appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){
                     if (data){
                         onboardingFactory.getAccountStatus(companyDetails).then(function(data){

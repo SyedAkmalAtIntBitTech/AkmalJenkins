@@ -93,6 +93,16 @@ factoryApp.factory('emailListFactory', function ($q, authenticatedServiceFactory
         });
         return deffered.promise;
     };
+    
+    emailListFactoryObject.emailListTagsForFranchise = function (data) {
+        var deffered = $q.defer();
+        var url = configurationService.emailListTagsForFranchiseURL();
+        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    
     return emailListFactoryObject;
 });
 

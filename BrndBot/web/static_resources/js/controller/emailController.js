@@ -1,4 +1,4 @@
-emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$location', 'blockModelFactory', 'companyFactory', 'categoryFactory', 'emailDraftFactory', 'subCategoryFactory', 'externalContentFactory', 'redirectFactory', 'SharedService', 'settingsFactory', 'companyMarketingProgramFactory', 'emailFactory', 'modelFactory', 'emailListFactory', 'scheduleActionsFactory', 'appSessionFactory', 'yourPlanFactory', 'rulesEngineFactory', 'onboardingFactory', function ($scope, $filter, $window, $location, blockModelFactory, companyFactory, categoryFactory, emailDraftFactory, subCategoryFactory, externalContentFactory, redirectFactory, SharedService, settingsFactory, companyMarketingProgramFactory, emailFactory, modelFactory, emailListFactory, scheduleActionsFactory, appSessionFactory, yourPlanFactory, rulesEngineFactory, onboardingFactory) {
+emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$location', 'blockModelFactory', 'companyFactory', 'categoryFactory', 'emailDraftFactory', 'subCategoryFactory', 'externalContentFactory', 'redirectFactory', 'SharedService', 'settingsFactory', 'companyMarketingProgramFactory', 'emailFactory', 'modelFactory', 'emailListFactory', 'scheduleActionsFactory', 'appSessionFactory', 'yourPlanFactory', 'rulesEngineFactory', 'onboardingFactory','franchiseFactory', function ($scope, $filter, $window, $location, blockModelFactory, companyFactory, categoryFactory, emailDraftFactory, subCategoryFactory, externalContentFactory, redirectFactory, SharedService, settingsFactory, companyMarketingProgramFactory, emailFactory, modelFactory, emailListFactory, scheduleActionsFactory, appSessionFactory, yourPlanFactory, rulesEngineFactory, onboardingFactory, franchiseFactory) {
 
         $scope.footerEmailPopup = false;
         $scope.emailChannelId = 3;
@@ -866,6 +866,21 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             text: "Please select an email list"
         };
 
+        $scope.getCompaniesForFranchiseId = function () {
+            
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                var franchiseId = kGlobalCompanyObject.franchiseId;
+                franchiseFactory.getCompaniesForFranchiseId(franchiseId).then(function (data) {
+                    $scope.franchiseCompanies = data.d.details;
+                });
+            });
+        };
+
+        $scope.getEmailListTagsForFranchise = function(){
+            emailListFactory.emailListTagsForFranchise().then(function (data){
+                
+            });
+        };
         $scope.showEmailList = function () {
 
             $scope.ddSelectEmailListOptions = [
@@ -1059,47 +1074,54 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.emailListBackButton = true;
         $scope.continueEmailListOnClick = function (emailAddresses) {
 //            TODO change to AngularJs
-            if ($scope.validateEmails(emailAddresses)) {
-                if ($scope.emailList !== "Manual")
-                {
-                    if ($scope.emailAddresses !== "")
-                    {
-                        $location.path("/emaildetails");
-                        $scope.showEmailDetails = true;
-                        $scope.emailListDiv = false;
-                        $scope.emailContinueButton = false;
-                        $scope.emaildetailscontbtn = true;
-                        $scope.emailListBackButton = false;
-                        $scope.emailDetailsBackButton = true;
-                    } else {
-                        growl("Please select atleast one email list or add email manually.");
-                        $scope.selectCsvOnClick();
-                        $("#emailaddresses").focus();
-                        return false;
-                    }
+            appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
+                var pushedEmail = kGlobalEmailObject.pushedEmail;
+                if (pushedEmail){
+                    
+                }else {
+                    if ($scope.validateEmails(emailAddresses)) {
+                        if ($scope.emailList !== "Manual")
+                        {
+                            if ($scope.emailAddresses !== "")
+                            {
+                                $location.path("/emaildetails");
+                                $scope.showEmailDetails = true;
+                                $scope.emailListDiv = false;
+                                $scope.emailContinueButton = false;
+                                $scope.emaildetailscontbtn = true;
+                                $scope.emailListBackButton = false;
+                                $scope.emailDetailsBackButton = true;
+                            } else {
+                                growl("Please select atleast one email list or add email manually.");
+                                $scope.selectCsvOnClick();
+                                $("#emailaddresses").focus();
+                                return false;
+                            }
 
-                } else {
-                    if ($scope.emailAddresses !== "")
-                    {
-                        $location.path("/emaildetails");
-                        $scope.toAddress = emailAddresses;
-                        $scope.showEmailDetails = true;
-                        $scope.emailListDiv = false;
-                        $scope.emailContinueButton = false;
-                        $scope.emaildetailscontbtn = true;
-                        $scope.emailListBackButton = false;
-                        $scope.emailDetailsBackButton = true;
+                        } else {
+                            if ($scope.emailAddresses !== "")
+                            {
+                                $location.path("/emaildetails");
+                                $scope.toAddress = emailAddresses;
+                                $scope.showEmailDetails = true;
+                                $scope.emailListDiv = false;
+                                $scope.emailContinueButton = false;
+                                $scope.emaildetailscontbtn = true;
+                                $scope.emailListBackButton = false;
+                                $scope.emailDetailsBackButton = true;
+                            } else {
+                                growl("Please select at least one email list or add email manually.");
+                                selectCsvFile();
+                                $("#emailaddresses").focus();
+                                return false;
+                            }
+                        }
                     } else {
-                        growl("Please select at least one email list or add email manually.");
-                        selectCsvFile();
-                        $("#emailaddresses").focus();
-                        return false;
+
                     }
+                    
                 }
-            } else {
-
-            }
-
+            });
         };
 
         $scope.backToEmailList = function () {

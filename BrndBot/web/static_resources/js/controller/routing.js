@@ -79,6 +79,10 @@ emailFlowApp.config(function ($routeProvider) {
                 title: 'BrndBot - Email Details',
                 templateUrl: 'emaildetails.html'
             })
+            .when('/franchisecompanies', {
+                title: 'BrndBot - Franchise Companies',
+                templateUrl: 'franchisecompanies.html'
+            })
             .otherwise({title: 'Category', redirectTo: '/emailcategory'});
 }).run(function ($rootScope) {
     $rootScope.$on("$routeChangeSuccess", function (event, currentRoute) {
