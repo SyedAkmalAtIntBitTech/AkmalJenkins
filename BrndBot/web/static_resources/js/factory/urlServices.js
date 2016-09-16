@@ -524,6 +524,10 @@ factoryApp.service('configurationService', function () {
         return getHost() + "emaillist/getContactsOfEmailList";
     };
     
+    this.getAllEmailListNamesURL = function () {
+        return getHost() + "emaillist/getAllEmailListNames";
+    };
+    
     this.editContactURL = function () {
         return getHost() + "emaillist/editContact";
     };

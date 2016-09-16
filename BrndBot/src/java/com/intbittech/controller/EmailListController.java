@@ -142,14 +142,13 @@ public class EmailListController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
-    //IDS need to contactEmailListLookupId and not contactId
+    //IDS need to be contactLookupId and not contactId
     @RequestMapping(value = "/deleteContactList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteContactList(@RequestBody DeleteIdsDetails deleteIdsDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             for (Integer contactId : deleteIdsDetails.getIds()) {
-//              contactEmailListLookupService.delete(contactId);
-                contactsService.delete(contactId);
+              contactEmailListLookupService.delete(contactId);
             }
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("contact_delete", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
@@ -206,6 +205,7 @@ public class EmailListController {
             for (EmailList emailList : emailLists) {
                 AddEmailListDetails addEmailListDetails = new AddEmailListDetails();
                 addEmailListDetails.setEmailListName(emailList.getEmailListName());
+                addEmailListDetails.setEmailListId(emailList.getEmailListId());
                 allEmailListNames.add(addEmailListDetails);
             }
             genericResponse.setDetails(allEmailListNames);

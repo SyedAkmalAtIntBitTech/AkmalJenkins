@@ -65,7 +65,7 @@
                       <!--User Created List-->
                     <div class="slat" ng-repeat="email in user_emailAddresses | filter:userSearch">
                         <div class="selection-container col-5p fleft"> 
-                            <div class="selection-icon" id="{{email.fkContactId.contactId}}" ng-click="selectedEmailListCheckbox(email.fkContactId.contactId)">
+                            <div class="selection-icon" id="{{email.contactLookupId}}" ng-click="selectedEmailListCheckbox(email.contactLookupId)">
                                 <input type="checkbox" id="emailid{{email.fkContactId.emailAddress}}" value="{{email.fkContactId.emailAddress}}" name="emaillistname" hidden></input>
                             </div>
                         </div>                 

@@ -868,40 +868,25 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             ];
             
             appSessionFactory.getCompany().then(function (companyObject){
-                emailListFactory.getAllEmailListWithNoOfContactsForUser(companyObject.companyId).then(function (data) {
+                
+                emailListFactory.getAllEmailListNames(companyObject.companyId).then(function (data){
                     $scope.emailLists = data.d.details;
                     var emailAutomationData = $scope.emailLists;
                     for (var i = 0; i < emailAutomationData.length; i++)
                     {
                         var emailObject = {};
                         emailObject["text"] = emailAutomationData[i].emailListName;
-                        emailObject["value"] = emailAutomationData[i].emailListName;
-                        $scope.ddSelectEmailListOptions.push(emailObject);
-                    }
-                });
-                emailListFactory.getAllEmailListWithNoOfContactsForMindBody(companyObject.companyId).then(function (data) {
-                    $scope.emailListsMindbody = data.d.details;
-                    var emailAutomationData = $scope.emailListsMindbody;
-                
-                    for (var i = 0; i < emailAutomationData.length; i++)
-                    {
-                        var emailObject = {};
-                        emailObject["text"] = emailAutomationData[i].emailListName;
-                        emailObject["value"] = emailAutomationData[i].emailListName;
+                        emailObject["value"] = emailAutomationData[i].emailListId;
                         $scope.ddSelectEmailListOptions.push(emailObject);
                     }
                 });
                 $scope.showEmailDetails = false;
                 $scope.emailListDiv = true;
                 
-
             });
             
 //            $scope.redirectBaseURL();       //this function redirects to base if page is refreshed.        
-                
-                
-
-
+             
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                 if (kGlobalEmailObject.emailListName) {
                     var emailObject = {"text": kGlobalEmailObject.emailListName, "value": emailList};
@@ -912,15 +897,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             $scope.emailList = "1";
             $scope.getEmailSettings();
         };
-
-//        $scope.showEmailList = function () {
-//            emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
-//                var parseData = JSON.parse(data.d.details);
-//                $scope.emailLists = parseData.allEmailListWithNoOfContacts.user;
-//                $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
-//            });
-//            $scope.emailList = "1";
-//        };
 
         $scope.getEmailSettings = function () {
             settingsFactory.getEmailSettingsGet().then(function (data) {
@@ -973,24 +949,16 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             } else if ($scope.emailList !== "Manual")
             {
                 var emails = "";
-                emailListFactory.emailListGet($scope.emailList, "emailsForEmailList").then(function (data) {
-                    var parseData = JSON.parse(data.d.details);
-                    var JSONData;
-                    if (JSON.stringify(parseData.mindbody_emailAddresses) === "[]")
-                        JSONData = parseData.user_emailAddresses;
-                    else
-                        JSONData = parseData.mindbody_emailAddresses;
+                emailListFactory.getContactsOfEmailList($scope.emailList).then(function (data){
+                    var parseData = data.d.details;
                     var i = 0;
-                    for (i = 0; i < JSONData.length; i++) {
-                        if (JSON.stringify(JSONData[i].emailAddress) !== "") {
+                    for (i = 0; i < parseData.length; i++) {
+                        if (JSON.stringify(parseData[i].fkContactId.emailAddress) !== "") {
                             if (i === 0) {
-                                emails = eval(JSON.stringify(JSONData[i].emailAddress));
+                                emails = eval(JSON.stringify(parseData[i].fkContactId.emailAddress));
                             } else {
-                                emails = emails + "," + eval(JSON.stringify(JSONData[i].emailAddress));
+                                emails = emails + "," + eval(JSON.stringify(parseData[i].fkContactId.emailAddress));
                             }
-//                             $("#emailaddresses").val(emails);/
-//                             $("#toaddress").val(emails);
-//                               selectCsvFile();     
                         }
                     }
                     $scope.emailAddresses = emails;

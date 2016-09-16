@@ -14,6 +14,15 @@ factoryApp.factory('emailListFactory', function ($q, authenticatedServiceFactory
         return deffered.promise;
     };
     
+    emailListFactoryObject.getAllEmailListNames = function (companyId) {
+        var deffered = $q.defer();
+        var url = configurationService.getAllEmailListNamesURL()+"?companyId="+companyId;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    
     emailListFactoryObject.getAllEmailListWithNoOfContactsForUser = function (companyId) {
         var deffered = $q.defer();
         var url = configurationService.emailListGetWithNoOfContactsForUserURL()+"?companyId="+companyId;
@@ -67,14 +76,6 @@ factoryApp.factory('emailListFactory', function ($q, authenticatedServiceFactory
         });
         return deffered.promise;
     };
-//    emailListFactoryObject.emailListSavePost = function (emailListObject) {
-//       var deffered = $q.defer();
-//       var url = configurationService.emailListURL()+"?emailListName="+emailListName+"&update="+requestMap;
-//       authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
-//           deffered.resolve(data);
-//       });
-//       return deffered.promise;
-//   };
    
     emailListFactoryObject.createEmailList = function (data) {
         var deffered = $q.defer();
