@@ -421,7 +421,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
-        {
+        {   
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
             {
                 var userAssignToId = $("#assignTo option:selected").val();
@@ -1071,6 +1071,13 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
         };
 
-    }]);
-
+        $('html').click(function (e) {
+            if (e.target.id == 'fade') {
+                $('[ng-controller="yourPlanController"]').scope().closeOverlay();
+                $('#addactionClose').click();
+            }
+        });
+        
+}]);
+        
        

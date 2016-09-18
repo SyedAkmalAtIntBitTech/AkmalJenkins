@@ -1783,6 +1783,18 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 });
             }
         };
+        
+        
+        $('html').click(function (e) {
+            $('[ng-controller="emailController"]').scope();
+            if (e.target.id == 'sendOrSchedulePopup') {
+                $('#sendOrSchedulePopupClose').click();      
+            }
+            if (e.target.id == 'schedulePopup') {
+                $('#schedulePopupClose').click();   
+            }
+        });
+        
     }]);
 
 

@@ -1,8 +1,8 @@
-<div class="background-pop-up" ng-init="postTypeSelectionPopUp = false"  ng-if='postTypeSelectionPopUp'>
+<div id="sendOrSchedulePopup" class="background-pop-up" ng-init="postTypeSelectionPopUp = false"  ng-if='postTypeSelectionPopUp'>
     <div class="modal-pane modal-pane-width-reg">
         <div class="modal-pane-header-wrap">
             <h2 class="">Send or Schedule</h2>
-            <a class="modal-pane-header-exit" ng-click="hidePopup('sendOrSchedulePopup')"></a>
+            <a id="sendOrSchedulePopupClose" class="modal-pane-header-exit" ng-click="hidePopup('sendOrSchedulePopup')"></a>
         </div>
         <div class="modal-pane-content-wrap">
             <div class="send-or-schedule-wrap">

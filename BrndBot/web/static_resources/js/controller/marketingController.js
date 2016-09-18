@@ -1911,5 +1911,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
             $scope.recurringTemplateOnClick(0);
         };
-
+        
+        $('html').click(function (e) {
+            if (e.target.id == 'fade') {
+                $('[ng-controller="marketingController"]').scope().closeOverlay();
+                $('#addactionClose').click();
+                $('#closePopupSlider').click();
+            }
+        });
     }]);
