@@ -486,6 +486,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.emailsectionClass = '';
             $scope.fadeClass = '';
             $scope.hideSaveButton();
+            $scope.hideReminderSaveButton();
 //            $location.path("/marketingprogramactions");
         };
         $scope.setTab = function (tabName) {
@@ -677,6 +678,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.showReminderSaveButton = function () {
             $scope.showReminderUpdateBtn = true;
         };
+        $scope.hideReminderSaveButton = function () {
+            $scope.showReminderUpdateBtn = false;
+        };
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, assignedFirstName, assignedLastName, assignedToInitialChars, action_status, days, marketingName)
         {
             $scope.isRecurring = false;
@@ -810,7 +814,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();
             var schedule_time = Date.parse(l);
             var myEpoch = schedule_time;
-            var description = "";
+            var description = scheduleUpdatedData.schedule_desc;
 //        if (!validateemailaction()) {
             var action = {
                 "schedule_id": schedule_id.toString(), "type": "update",
@@ -837,6 +841,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     if ($scope.action_template_status == "Template Saved") {
                         $scope.action_template_status = "Approved";
 //                        $scope.scheduleData.email_template_status = 'Approved';
+                    } else if ($scope.action_template_status == "Complete") {
+                        $scope.action_template_status = "No Template";
+                    } else if ($scope.action_template_status == "No Template") {
+                        $scope.action_template_status = "Complete";
                     } else {
                         $scope.action_template_status = "Template Saved";
 //                        $scope.scheduleData.email_template_status = 'Template Saved';
