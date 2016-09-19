@@ -890,19 +890,21 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         };
 
         $scope.getEmailListTagsForFranchise = function(){
-            emailListFactory.emailListTagsForFranchiseGet().then(function (data){
-                alert(JSON.stringify(data));
-                var parseData = data.d.details;
-                for (var i=0; i< parseData.length; i++){
-                    var Tag = parseData[i];
-                    alert(JSON.stringify(Tag));
-                    var emailTag = {};
-                    emailTag["text"] = Tag.tagName;
-                    emailTag["value"] = Tag.tagId;
-                    $scope.ddSelectEmailListOptions.push(emailTag);
-                }
-                $scope.noEmailList = false;
-            });
+            if ($scope.pushedEmail){
+                emailListFactory.emailListTagsForFranchiseGet().then(function (data){
+                    alert(JSON.stringify(data));
+                    var parseData = data.d.details;
+                    for (var i=0; i< parseData.length; i++){
+                        var Tag = parseData[i];
+                        alert(JSON.stringify(Tag));
+                        var emailTag = {};
+                        emailTag["text"] = Tag.tagName;
+                        emailTag["value"] = Tag.tagId;
+                        $scope.ddSelectEmailListOptions.push(emailTag);
+                    }
+                    $scope.noEmailList = false;
+                });
+            }
         };
 
         $scope.showEmailList = function () {
