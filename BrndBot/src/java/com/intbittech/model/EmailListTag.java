@@ -64,5 +64,4 @@ public class EmailListTag implements Serializable {
     public void setTagDescription(String tagDescription) {
         this.tagDescription = tagDescription;
     }
-    
 }

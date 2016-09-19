@@ -113,9 +113,9 @@ factoryApp.factory('emailListFactory', function ($q, authenticatedServiceFactory
         return deffered.promise;
     };
     
-    emailListFactoryObject.emailListTagsForFranchiseGet = function (data) {
+    emailListFactoryObject.emailListTagsForFranchiseGet = function (franchiseId) {
         var deffered = $q.defer();
-        var url = configurationService.emailListTagsForFranchiseURL();
+        var url = configurationService.emailListTagsForFranchiseURL()+ "?franchiseId="+ franchiseId;
         authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });

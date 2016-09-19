@@ -501,7 +501,7 @@ factoryApp.service('configurationService', function () {
     };
     
     this.emailListTagsForFranchiseURL = function () {
-        return getHost() + "emailListTag/getAllEmailListTag";
+        return getHost() + "emailListTag/getAllEmailListTagForFranchise";
     };
     this.addContactListURL = function () {
         return getHost() + "emaillist/addContactList";

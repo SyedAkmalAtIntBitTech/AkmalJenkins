@@ -893,19 +893,23 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                 if (kGlobalEmailObject.pushedEmail){
-                    $scope.ddSelectEmailListOptions = [];
-                    emailListFactory.emailListTagsForFranchiseGet().then(function (data){
-                        var parseData = data.d.details;
-                        for (var i=0; i< parseData.length; i++){
-                            var Tag = parseData[i];
-                            var emailTag = {};
-                            emailTag["text"] = Tag.tagName;
-                            emailTag["value"] = Tag.tagId;
-                            $scope.ddSelectEmailListOptions.push(emailTag);
-                        }
-                        $scope.noEmailList = false;
+                    
+                    appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                    var franchiseId = kGlobalCompanyObject.franchiseId;
+                        $scope.ddSelectEmailListOptions = [];
+                        emailListFactory.emailListTagsForFranchiseGet(franchiseId).then(function (data){
+                            var parseData = data.d.details;
+                            for (var i=0; i< parseData.length; i++){
+                                var Tag = parseData[i];
+                                var emailTag = {};
+                                emailTag["text"] = Tag.tagName;
+                                emailTag["value"] = Tag.tagId;
+                                $scope.ddSelectEmailListOptions.push(emailTag);
+                            }
+                            $scope.noEmailList = false;
+                        });
                     });
-                }                       
+                }
             });
 
         };
