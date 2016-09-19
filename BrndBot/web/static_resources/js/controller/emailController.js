@@ -58,6 +58,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.isEmailSaveAction = false;
         $scope.changeStyleAlert = false;
         $scope.pushedEmail = false;
+        $scope.emailTag = "";
+        $scope.noEmailList = "";
         var sliderDialog = "#emaileditorexternalpopup";
         $scope.companyAddressDetails = {};
 
@@ -888,18 +890,21 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         };
 
         $scope.getEmailListTagsForFranchise = function(){
-            emailListFactory.emailListTagsForFranchiseGet().then(function (data){
-                alert(JSON.stringify(data));
-                var parseData = data.d.details;
-                for (var i=0; i< parseData.length; i++){
-                    var Tag = parseData[i];
-                    alert(JSON.stringify(Tag));
-                    var emailTag = {};
-                    emailTag["text"] = Tag.tagName;
-                    emailTag["value"] = Tag.tagId;
-                    $scope.ddSelectEmailListOptions.push(emailTag);
-                }
-            });
+            if ($scope.pushedEmail){
+                emailListFactory.emailListTagsForFranchiseGet().then(function (data){
+                    alert(JSON.stringify(data));
+                    var parseData = data.d.details;
+                    for (var i=0; i< parseData.length; i++){
+                        var Tag = parseData[i];
+                        alert(JSON.stringify(Tag));
+                        var emailTag = {};
+                        emailTag["text"] = Tag.tagName;
+                        emailTag["value"] = Tag.tagId;
+                        $scope.ddSelectEmailListOptions.push(emailTag);
+                    }
+                    $scope.noEmailList = false;
+                });
+            }
         };
 
         $scope.showEmailList = function () {
@@ -1093,7 +1098,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                 var pushedEmail = kGlobalEmailObject.pushedEmail;
                 if (pushedEmail){
-                    
+                    $location.path("/franchisecompanies");
+                    $scope.emailTag = emailAddresses;
                 }else {
                     if ($scope.validateEmails(emailAddresses)) {
                         if ($scope.emailList !== "Manual")
