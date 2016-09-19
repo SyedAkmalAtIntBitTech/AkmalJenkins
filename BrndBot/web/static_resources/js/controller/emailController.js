@@ -1,4 +1,5 @@
-emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$location', 'blockModelFactory', 'companyFactory', 'categoryFactory', 'emailDraftFactory', 'subCategoryFactory', 'externalContentFactory', 'redirectFactory', 'SharedService', 'settingsFactory', 'companyMarketingProgramFactory', 'emailFactory', 'modelFactory', 'emailListFactory', 'scheduleActionsFactory', 'appSessionFactory', 'yourPlanFactory', 'rulesEngineFactory', 'onboardingFactory','franchiseFactory', function ($scope, $filter, $window, $location, blockModelFactory, companyFactory, categoryFactory, emailDraftFactory, subCategoryFactory, externalContentFactory, redirectFactory, SharedService, settingsFactory, companyMarketingProgramFactory, emailFactory, modelFactory, emailListFactory, scheduleActionsFactory, appSessionFactory, yourPlanFactory, rulesEngineFactory, onboardingFactory, franchiseFactory) {
+emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$location', 'blockModelFactory', 'companyFactory', 'categoryFactory', 'emailDraftFactory', 'subCategoryFactory', 'externalContentFactory', 'redirectFactory', 'SharedService', 'settingsFactory', 'companyMarketingProgramFactory', 'emailFactory', 'modelFactory', 'emailListFactory', 'scheduleActionsFactory', 'appSessionFactory', 'yourPlanFactory', 'rulesEngineFactory', 'onboardingFactory','franchiseFactory','pushedActionsFactory', 
+    function ($scope, $filter, $window, $location, blockModelFactory, companyFactory, categoryFactory, emailDraftFactory, subCategoryFactory, externalContentFactory, redirectFactory, SharedService, settingsFactory, companyMarketingProgramFactory, emailFactory, modelFactory, emailListFactory, scheduleActionsFactory, appSessionFactory, yourPlanFactory, rulesEngineFactory, onboardingFactory, franchiseFactory, pushedActionsFactory) {
 
         $scope.footerEmailPopup = false;
         $scope.emailChannelId = 3;
@@ -61,6 +62,15 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.emailTag = "";
         $scope.noEmailList = "";
         var sliderDialog = "#emaileditorexternalpopup";
+        var companies = [];
+        
+        $scope.setSelectCompany = function(companyId){
+            var companyId = $("#"+companyId+ ":checked").val();
+            var companyIDs = {};
+            companyIDs["companyId"] = companyId;
+            
+            companies.push(companyIDs);
+        };
         $scope.companyAddressDetails = {};
 
         //OnPageLoad
@@ -1536,6 +1546,23 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                             });
 
                         }
+                        var scheduleEntityId = data.d.message;
+                        var autoApproved = $("#autoApproved:checked").val();
+                        var editable = false;
+                        if (autoApproved){
+                            editable = false;
+                        }
+                        appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                            var franchiseId = kGlobalCompanyObject.franchiseId;
+                            var pushedActionDetails = {"autoApproved": autoApproved,
+                                                       "editable":editable, "franchiseId":franchiseId,
+                                                       "scheduleEntityId":scheduleEntityId,
+                                                       "companies":companies};
+                            pushedActionsFactory.saveSchedulePushedActionsCompanies(pushedActionDetails).then(function (data){
+                                
+                            });                       
+                        });
+                                               
                     });
 
                 });
