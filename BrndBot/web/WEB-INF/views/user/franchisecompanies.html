@@ -19,7 +19,6 @@
 
     <div ng-include src="'sendorschedulepopup.html'"></div> 
     <div ng-include src="'schedulepopup.html'"></div> 
-    <div ng-include src="'emaillistselectionpopup.html'"></div>
     <div class="bb-top-nav" >
         <div class="bb-bar-left-wrap bb-one-third-flex-col">
            <a class="bb-back-button" ng-show="emailListBackButton" id="backemaillist" href="baseemaileditor#/emaillistselection" ></a>
@@ -48,7 +47,7 @@
             </div>
         </div>
     <div class="bb-bottom-cta-bar">
-        <a class="bb-bottom-cta-continue-button" ng-click="scheduleEmailPopup()" >
+        <a class="bb-bottom-cta-continue-button" ng-click="openSchedulePopup()" >
             <div class="bb-bottom-cta-continue-button-text">Continue</div>
             <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
         </a>

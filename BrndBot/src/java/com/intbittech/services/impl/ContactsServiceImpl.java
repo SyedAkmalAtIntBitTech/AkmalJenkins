@@ -101,11 +101,12 @@ public class ContactsServiceImpl implements ContactsService{
         UnsubscribedEmails unsubscribedEmails = unsubscribedEmailsService.getByUnsubscribedEmailsAddress(contactDetails.getEmailAddress());
         if(unsubscribedEmails != null) {
             isUnsubscribed = Boolean.TRUE;
-            contactEmailListLookup.setUnsubscribed(isUnsubscribed);
-            contactEmailListLookup.setAddedDate(new Date());
-
-            contactEmailListLookupService.saveOrUpdate(contactEmailListLookup);
         }
+        contactEmailListLookup.setUnsubscribed(isUnsubscribed);
+        contactEmailListLookup.setAddedDate(new Date());
+
+        contactEmailListLookupService.saveOrUpdate(contactEmailListLookup);
+        
         
             
         return contactId;
