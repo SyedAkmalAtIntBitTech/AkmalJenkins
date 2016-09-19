@@ -674,6 +674,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //            }
 //        });
 //    };
+        $scope.showReminderSaveButton = function () {
+            $scope.showReminderUpdateBtn = true;
+        };
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, assignedFirstName, assignedLastName, assignedToInitialChars, action_status, days, marketingName)
         {
             $scope.isRecurring = false;
