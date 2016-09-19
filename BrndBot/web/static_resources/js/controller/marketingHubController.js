@@ -1101,12 +1101,4 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         
         
-        $('html').click(function (e) {
-            if (e.target.id == 'fade') {
-                $('[ng-controller="marketingHubController"]').scope().closeSavedEmailDraftPopup();
-                $('#addactionClose').click();
-                $('#closePopupSlider').click();
-                $('#close').click();
-            }
-        });
     }]);

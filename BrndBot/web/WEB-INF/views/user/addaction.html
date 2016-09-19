@@ -1,6 +1,7 @@
         <link href="../css/jquerygrowl.css" rel="stylesheet" type="text/css"/>
         <script src="../js/utilities/jquerygrowl.js" type="text/javascript"></script>
-<div id="fade" ng-class="fadeClass" class="center-pop-ups">
+    <div id="fade" ng-class="fadeClass" class="center-pop-ups" ng-click="closeOverlay()">
+    </div>
     <div class="">
         <div class="bb-panel-styling bb-panel-default" id="addAction" ng-if="addAction" ng-init="getAllUsersInCompany()">
             <div class="bb-panel-header">
@@ -84,4 +85,3 @@
             </div>
         </div>
     </div>
-</div>

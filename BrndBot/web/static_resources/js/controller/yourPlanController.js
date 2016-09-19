@@ -1070,13 +1070,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             });
 
         };
-
-        $('html').click(function (e) {
-            if (e.target.id == 'fade') {
-                $('[ng-controller="yourPlanController"]').scope().closeOverlay();
-                $('#addactionClose').click();
-            }
-        });
         
 }]);
         

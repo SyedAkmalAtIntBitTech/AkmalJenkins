@@ -1,5 +1,6 @@
-<div id="schedulePopup" class="background-pop-up" ng-init="schedulePopup = false" ng-if="schedulePopup">
-    <div class="bb-panel-default bb-panel-styling" ng-init="getAllMaketingPrograms(selectedSocialmedia)">
+<div id="schedulePopup" class="background-pop-up" ng-init="schedulePopup = false"  ng-click="hidePopup('schedulePopup');hidePopup('sendOrSchedulePopup')"  ng-if="schedulePopup">
+</div>
+    <div class="bb-panel-default bb-panel-styling sendOrSchedulePopup" ng-init="getAllMaketingPrograms(selectedSocialmedia)"  ng-if="schedulePopup"> 
         <div class="bb-panel-header">
             <h2 class="">Send or Schedule</h2>
             <a id="schedulePopupClose" class="modal-pane-header-exit" ng-click="hidePopup('schedulePopup')"></a>
@@ -96,4 +97,3 @@
             <a class="long-button blue-button">{{scheduleButtonData}}</a>
         </div>
     </div>
-</div>

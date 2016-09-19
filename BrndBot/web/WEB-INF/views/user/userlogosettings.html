@@ -67,8 +67,9 @@
         </div>
 
         <!--Update Palette Modal-->
-        <div ng-show="paletteChangePopUp" class="center-pop-ups update-palette-pop-up" id="paletteChangePopup">
-            <div class="modal-pane modal-pane-width-full">
+        <div ng-show="paletteChangePopUp" class="center-pop-ups update-palette-pop-up" id="paletteChangePopup" ng-click="closePaletteChangePopUp()" >   
+        </div>
+            <div class="modal-pane modal-pane-width-full choosePalettePopup" ng-show="paletteChangePopUp" >
                 <div class="modal-pane-header-wrap">
                     <h2 class="">Change Palette Colors</h2>
                     <a ng-click="closePaletteChangePopUp()" id="paletteChangePopupClose" class="modal-pane-header-exit"></a>
@@ -122,7 +123,6 @@
                         </div>
                     </div>
                 </div>
-            </div>     
-        </div>
+            </div>  
     </div>
 </div>

@@ -1183,15 +1183,6 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
 
         };
         
-        $('html').click(function (e) {
-            $('[ng-controller="socialController"]').scope();
-            if (e.target.id == 'sendOrSchedulePopup') {
-                $('#sendOrSchedulePopupClose').click();      
-            }
-            if (e.target.id == 'schedulePopup') {
-                $('#schedulePopupClose').click();   
-            }
-        });
 
     }]);
 //socialFlowApp.directive('toggleClass', function() {

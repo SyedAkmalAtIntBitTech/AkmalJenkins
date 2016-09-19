@@ -446,14 +446,4 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             });
         };
         
-        $('html').click(function (e) {
-            $('[ng-controller="controllerUserChanges"]').scope();
-            if (e.target.id == 'fadeUserSettings') {
-                $('#addactionClose').click();      
-            }
-            if (e.target.id == 'paletteChangePopup') {
-                $('#paletteChangePopupClose').click();      
-            }
-           
-        });
     }]);
