@@ -464,7 +464,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             return true;
         };
 
-        $scope.createEmailNewList = function (email)
+        $scope.createEmailList = function (email)
         {
             if ($scope.emailValidation(email))
             {

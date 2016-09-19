@@ -492,14 +492,6 @@ factoryApp.service('configurationService', function () {
 
     //************** emailListFactory ********************//
 
-    this.emailListURL = function () {
-        return getHost() + "emaillist/get";
-    };
-
-    this.emailListSaveURL = function () {
-        return getHost() + "emaillist/save";
-    };
-    
     this.addContactListURL = function () {
         return getHost() + "emaillist/addContactList";
     };
