@@ -56,7 +56,7 @@ public class EmailListTagController {
     public ResponseEntity<ContainerResponse> getAllEmailListTagForFranchise(@RequestParam("franchiseId")Integer franchiseId) {
          GenericResponse<EmailListTag> genericResponse = new GenericResponse();
         try {
-           List<EmailListTag> emailListTagList = franchiseEmailListTagLookupService.getAllEmailListTagForFranchise(Integer.SIZE);
+           List<EmailListTag> emailListTagList = franchiseEmailListTagLookupService.getAllEmailListTagForFranchise(franchiseId);
             genericResponse.setDetails(emailListTagList);
             
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email list tag for franchise retrieved successfully"));

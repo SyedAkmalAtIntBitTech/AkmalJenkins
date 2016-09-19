@@ -501,9 +501,15 @@ factoryApp.service('configurationService', function () {
     };
     
     this.emailListTagsForFranchiseURL = function () {
-        return getHost() + "emailListTag/getAllEmailListTag";
+        return getHost() + "emailListTag/getAllEmailListTagForFranchise";
     };
-
+    this.addContactListURL = function () {
+        return getHost() + "emaillist/addContactList";
+    };
+    
+    this.deleteContactListURL = function () {
+        return getHost() + "emaillist/deleteContactList";
+    };
     this.getAllEmailListWithNoOfContactsForMindBodyURL = function () {
         return getHost() + "emaillist/getAllEmailListWithNoOfContactsForMindBody";
     };
@@ -518,6 +524,10 @@ factoryApp.service('configurationService', function () {
     
     this.getContactsOfEmailListURL = function () {
         return getHost() + "emaillist/getContactsOfEmailList";
+    };
+    
+    this.getAllEmailListNamesURL = function () {
+        return getHost() + "emaillist/getAllEmailListNames";
     };
     
     this.editContactURL = function () {
