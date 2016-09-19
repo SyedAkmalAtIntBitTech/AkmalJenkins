@@ -12,11 +12,23 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
 
         $scope.redirectToEmailFlow = function (forwardone)
         {
-            appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
-                kGlobalEmailObject.pushedEmail = true;
-                appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {
-//                    alert(kGlobalEmailObject.pushedEmail);
-                    $window.location = getHost() + "user/" + forwardone;
+//            appSessionFactory.clearEmail().then(function(checkCleared){
+//                redirectFactory.redirectFlowTo(forwardone);
+//                $window.location = getHost()+"user/"+forwardone;
+//                var emailsubject=$scope.emailsubject;
+//                if(emailsubject==='')
+//                {
+//                    $scope.emailSubjectError="Email Subject Required!";
+//                }
+//            });
+            
+            appSessionFactory.clearEmail().then(function(checkCleared){
+                appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
+                    kGlobalEmailObject.pushedEmail = true;
+                    appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {
+    //                    alert(kGlobalEmailObject.pushedEmail);
+                        $window.location = getHost() + "user/" + forwardone;
+                    });
                 });
             });
         };

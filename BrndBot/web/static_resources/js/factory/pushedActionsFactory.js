@@ -10,7 +10,7 @@ factoryApp.factory('pushedActionsFactory', function ($q, authenticatedServiceFac
     
     pushedActionsFactoryObject.saveSchedulePushedActionsCompanies = function (pushedActionsDetails) {
     var deffered = $q.defer();
-    var url = configurationService.emailListURL();
+    var url = configurationService.saveSchedulePushedActionsCompaniesURL();
     authenticatedServiceFactory.makeCall("POST", url, pushedActionsDetails, "").then(function (data) {
         deffered.resolve(data);
     });

@@ -61,6 +61,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.pushedEmail = false;
         $scope.emailTag = "";
         $scope.noEmailList = "";
+        $scope.postData = {};
         var sliderDialog = "#emaileditorexternalpopup";
         var companies = [];
         
@@ -1098,6 +1099,11 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 if (pushedEmail){
                     $location.path("/franchisecompanies");
                     $scope.emailTag = emailAddresses;
+                    $scope.postData.fromName = "Intbit";
+                    $scope.postData.emailSubject = "Intbit Email";
+                    $scope.postData.toAddress = "intbit@intbittech.com";
+                    $scope.postData.replyAddress = "reply@intbittech.com";
+                    alert(JSON.stringify($scope.postData));
                 }else {
                     if ($scope.validateEmails(emailAddresses)) {
                         if ($scope.emailList !== "Manual")
@@ -1516,7 +1522,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
         $scope.getScheduleData = function (selectedMarketingProgramId, postData) {
             var email_scheduling = "";
-
+            alert(JSON.stringify(postData));
             if (!$scope.createNewActionPopup) {
                 appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                     email_scheduling = {
@@ -1546,22 +1552,22 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                             });
 
                         }
-                        var scheduleEntityId = data.d.message;
-                        var autoApproved = $("#autoApproved:checked").val();
-                        var editable = false;
-                        if (autoApproved){
-                            editable = false;
-                        }
-                        appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
-                            var franchiseId = kGlobalCompanyObject.franchiseId;
-                            var pushedActionDetails = {"autoApproved": autoApproved,
-                                                       "editable":editable, "franchiseId":franchiseId,
-                                                       "scheduleEntityId":scheduleEntityId,
-                                                       "companies":companies};
-                            pushedActionsFactory.saveSchedulePushedActionsCompanies(pushedActionDetails).then(function (data){
-                                
-                            });                       
-                        });
+//                        var autoApproved = $("#autoApproved:checked").val();
+//                        var editable = false;
+//                        if (autoApproved){
+//                            editable = false;
+//                        }
+//                        appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+//                            var franchiseId = kGlobalCompanyObject.franchiseId;
+//                            var pushedActionDetails = {"autoApproved": autoApproved,
+//                                                       "editable":editable, "franchiseId":franchiseId,
+//                                                       "scheduleEntityId":$scope.socialAction.toString(),
+//                                                       "companies":companies};
+//                             alert(JSON.stringify(pushedActionDetails));
+////                            pushedActionsFactory.saveSchedulePushedActionsCompanies(pushedActionDetails).then(function (data){
+////                                
+////                            });                       
+//                        });
                                                
                     });
 
@@ -1600,6 +1606,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         "html_body": kGlobalEmailObject.htmlBody
                     };
                     scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
+                        alert(JSON.stringify(data));
                         if (data.d.operationStatus.statusCode === "Success") {
                             $scope.schedulePopup = false;
                             $scope.isPostSuccess = true;
@@ -1610,6 +1617,23 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
                         }
                     });
+
+//                    var autoApproved = $("#autoApproved:checked").val();
+//                    var editable = false;
+//                    if (autoApproved){
+//                        editable = false;
+//                    }
+//                    appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+//                        var franchiseId = kGlobalCompanyObject.franchiseId;
+//                        var pushedActionDetails = {"autoApproved": autoApproved,
+//                                                   "editable":editable, "franchiseId":franchiseId,
+//                                                   "scheduleEntityId":$scope.socialAction.toString(),
+//                                                   "companies":companies};
+//                         alert(JSON.stringify(pushedActionDetails));
+////                            pushedActionsFactory.saveSchedulePushedActionsCompanies(pushedActionDetails).then(function (data){
+////                                
+////                            });                       
+//                    });
 
                 });
             }

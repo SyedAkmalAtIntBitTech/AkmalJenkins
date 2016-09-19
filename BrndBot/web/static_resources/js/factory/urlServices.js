@@ -542,6 +542,11 @@ factoryApp.service('configurationService', function () {
         return getHost() + "emaillist/getAllEmailListWithNoOfContactsForUser";
     };
     
+    //************** pushedActionsFactory ********************//
+    
+    this.saveSchedulePushedActionsCompaniesURL = function(){
+        return getHost() + "pushedActions/savePushedScheduledActionCompanies";
+    };
 
     //************** marketingFactory ********************//
 

@@ -6,9 +6,18 @@
 package com.intbittech.services.impl;
 
 import com.intbittech.dao.PushedScheduledActionCompaniesDao;
+import com.intbittech.dao.PushedScheduledEntityListDao;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.Company;
+import com.intbittech.model.Franchise;
 import com.intbittech.model.PushedScheduledActionCompanies;
+import com.intbittech.model.PushedScheduledEntityList;
+import com.intbittech.model.ScheduledEntityList;
+import com.intbittech.modelmappers.ActionCompaniesDetails;
+import com.intbittech.modelmappers.PushedScheduledActionCompaniesDetails;
 import com.intbittech.services.PushedScheduledActionCompaniesService;
+import com.intbittech.utility.IConstants;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -28,6 +37,8 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
   private static Logger logger = Logger.getLogger(PushedScheduledActionCompaniesServiceImpl.class);
   @Autowired
   private PushedScheduledActionCompaniesDao pushedScheduledActionCompaniesDao;
+  @Autowired
+  private PushedScheduledEntityListDao pushedScheduledEntityListDao;
   @Autowired
   private MessageSource messageSource;
 
@@ -98,6 +109,41 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
             throw new ProcessFailed(messageSource.getMessage("no_pushed_scheduled_action_company_found",new String[]{}, Locale.US));
         }
         return pushedScheduledActionCompaniesList;
+    }
+
+    
+     /**
+     * {@inheritDoc}
+     */
+    public void savePushedScheduledActionCompanies(PushedScheduledActionCompaniesDetails pushedScheduledActionCompaniesDetails) throws ProcessFailed {
+        
+        PushedScheduledEntityList pushedScheduledEntityList = new PushedScheduledEntityList();
+        
+        ScheduledEntityList scheduledEntityList = new ScheduledEntityList();
+        scheduledEntityList.setScheduledEntityListId(pushedScheduledActionCompaniesDetails.getPushedScheduledEntityDetails().getScheduledEntityListId());
+        pushedScheduledEntityList.setFkScheduledEntityListId(scheduledEntityList);
+        
+        Franchise franchise = new Franchise();
+        franchise.setFranchiseId(pushedScheduledActionCompaniesDetails.getPushedScheduledEntityDetails().getFranchiseId());
+        pushedScheduledEntityList.setFkFranchiseId(franchise);
+        pushedScheduledEntityList.setAutoApproved(pushedScheduledActionCompaniesDetails.getPushedScheduledEntityDetails().getAutoApproved());
+        pushedScheduledEntityList.setEditable(pushedScheduledActionCompaniesDetails.getPushedScheduledEntityDetails().getEditable());
+        Integer  pushedScheduledEntityListId =   pushedScheduledEntityListDao.save(pushedScheduledEntityList);
+        
+        List<ActionCompaniesDetails> actionCompaniesDetailsList = pushedScheduledActionCompaniesDetails.getActionCompaniesDetails();
+        for (ActionCompaniesDetails actionCompaniesDetails : actionCompaniesDetailsList) {
+            
+            PushedScheduledActionCompanies pushedScheduledActionCompanies = new PushedScheduledActionCompanies();
+            Company company = new  Company();
+            company.setCompanyId(actionCompaniesDetails.getCompanyId());
+            pushedScheduledActionCompanies.setFkCompanyId(company);
+            pushedScheduledEntityList = new PushedScheduledEntityList();
+            pushedScheduledEntityList.setPushedScheduledEntityListId(pushedScheduledEntityListId);
+            pushedScheduledActionCompanies.setFkPushedScheduledActionEntityListId(pushedScheduledEntityList);
+            pushedScheduledActionCompanies.setUpdatedAt(new Date());
+            pushedScheduledActionCompanies.setStatus(IConstants.ACTION_COMPANIES_SENT_STATUS);
+            pushedScheduledActionCompaniesDao.save(pushedScheduledActionCompanies);
+        }
     }
     
 }
