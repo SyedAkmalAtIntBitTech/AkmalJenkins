@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.PushedScheduledActionCompanies;
+import com.intbittech.modelmappers.PushedScheduledActionCompaniesDetails;
 import java.util.List;
 
 /**
@@ -80,5 +81,11 @@ public interface PushedScheduledActionCompaniesService {
      */
     public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByCompanyId(Integer companyId) throws ProcessFailed;
 
-    
+     /**
+     * This method save {@link PushedScheduledActionCompanies} into the database.
+     *
+     * @param pushedScheduledActionCompaniesDetails the pushedScheduledActionCompaniesDetails
+     * @throws ProcessFailed the process failed
+     */
+    public void savePushedScheduledActionCompanies(PushedScheduledActionCompaniesDetails pushedScheduledActionCompaniesDetails) throws ProcessFailed;        
 }

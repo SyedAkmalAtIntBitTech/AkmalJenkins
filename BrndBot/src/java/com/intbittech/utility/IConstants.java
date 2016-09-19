@@ -76,4 +76,8 @@ public interface IConstants {
     final static String MARKETING_PROGRAM_CATEGORY = "MP";
     final static String MARKETING_PROGRAM__ACTION_CATEGORY = "MPA";
     final static String MARKETING_PROGRAM__RECURING_ACTION_CATEGORY = "MPRA";
+    
+    // for  pushed scheduled action companies
+    final static String ACTION_COMPANIES_SENT_STATUS = "Sent";
+    final static String ACTION_COMPANIES_NOT_SENT_STATUS = "NotSent";
 }
