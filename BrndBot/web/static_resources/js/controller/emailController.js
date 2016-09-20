@@ -610,11 +610,11 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 $scope.selectedBlockId = blockId;
                 $scope.htmlTagId = selectedHtmlBlockId;
             }
-            $scope.showStyles(true);
-            $scope.blockdivheader = false;
-            $scope.styledivheader = true;
-            $scope.blocktab = "emailSideBar-tab";
-            $scope.styletab = "emailSideBar-tab-active";
+//            $scope.showStyles(true);
+//            $scope.blockdivheader = false;
+//            $scope.styledivheader = true;
+//            $scope.blocktab = "emailSideBar-tab";
+//            $scope.styletab = "emailSideBar-tab-active";
         };
 
 
