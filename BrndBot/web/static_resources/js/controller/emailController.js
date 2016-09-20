@@ -56,7 +56,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.validateEmailAddress = false;
         $scope.validateEmailAddress = false;
         $scope.isEmailSaveAction = false;
-        $scope.user = "intbit@intbit.com";
+        $scope.user = "";
         $scope.changeStyleAlert = false;
         var sliderDialog = "#emaileditorexternalpopup";
         $scope.moreThanOneUser = false;
@@ -65,19 +65,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         //OnPageLoad
         $scope.emailEditorInit = function () {
             $scope.loadingOverlay = true; //start Loading Overlay
-
-            appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
-                if (kGlobalEmailObject.entityScheduleId)
-                    $scope.isEmailSaveAction = true;
-            });
-
-            //TODO Ilyas refactor this, need to go into email object
-            appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
-                if (kGlobalEmailObject.draftId) {
-                    $scope.redirect('emaileditor', kGlobalEmailObject.categoryId, kGlobalEmailObject.subCategoryId, '', kGlobalEmailObject.lookupId, kGlobalEmailObject.mindbodyId, kGlobalEmailObject.draftId, kGlobalEmailObject.emailSubject, kGlobalEmailObject.preheader);
-                }
-            });
-
             $('#slider-button').click(function () {
                 if ($('#slider-button').css("margin-right") === "900px")
                 {
@@ -89,11 +76,13 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     $('#slider-button').animate({"margin-right": '+=788px'});
                 }
             });
-
-            //            var redirectFromDraft = localStorage.getItem("emailDraftData");
-            //            $.FroalaEditor.DEFAULTS.htmlAllowedAttrs = $.merge($.FroalaEditor.DEFAULTS.htmlAllowedAttrs, ['onclick', 'ng-click']);
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
-
+                if (kGlobalEmailObject.entityScheduleId) {
+                    $scope.isEmailSaveAction = true;
+                }
+                if (kGlobalEmailObject.draftId) {
+                    $scope.redirect('emaileditor', kGlobalEmailObject.categoryId, kGlobalEmailObject.subCategoryId, '', kGlobalEmailObject.lookupId, kGlobalEmailObject.mindbodyId, kGlobalEmailObject.draftId, kGlobalEmailObject.emailSubject, kGlobalEmailObject.preheader);
+                }
                 if (!kGlobalEmailObject.emailScheduleId) {
                     companyMarketingProgramFactory.getAllUserMarketingProgramsSessionIdGet().then(function (urlList) {
                         //                $('#edit').froalaEditor({key: FroalaLicenseKey, linkList: urlList});
@@ -186,8 +175,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.redirect = function (redirect, categoryId, subCategoryId, mindbody, lookupId, mindbodyId, draftId, emailSubject, preHeader)
         {
             //preHeader kept hidden so sending empty value
-            preHeader="";
-            
+            preHeader = "";
+
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                 if (lookupId)
                 {
@@ -621,11 +610,11 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 $scope.selectedBlockId = blockId;
                 $scope.htmlTagId = selectedHtmlBlockId;
             }
-            $scope.showStyles(true);
-            $scope.blockdivheader = false;
-            $scope.styledivheader = true;
-            $scope.blocktab = "emailSideBar-tab";
-            $scope.styletab = "emailSideBar-tab-active";
+//            $scope.showStyles(true);
+//            $scope.blockdivheader = false;
+//            $scope.styledivheader = true;
+//            $scope.blocktab = "emailSideBar-tab";
+//            $scope.styletab = "emailSideBar-tab-active";
         };
 
 
@@ -1572,13 +1561,13 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
                 });
             } else {
-                
+
                 var userAssignToId = $("#assignTo option:selected").val();
                 var schedule_title = $("#ActionName").val();
                 var schedule_date = $("#actionDate").val();
 
                 var schedule_time = $("#actionTime").val().replace(/ /g, '');
-                
+
                 var timeValues = [];
                 timeValues = schedule_time.split(":");
                 var hours = timeValues[0];
@@ -1592,7 +1581,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
                 var currDate = moment(schedule_date).format('YYYY-MM-DD');
                 var epoch_time = getEpochMillis(currDate + " " + newtime + " " + 'UTC');
-                
+
                 var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
                 var fromDate = new Date(dateAndTime);
                 var todayDate = new Date();
@@ -1621,7 +1610,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         "schedule_desc": ",,,",
                         "iframeName": $scope.randomIframeFilename.toString(),
                         "html_body": kGlobalEmailObject.htmlBody,
-                        "userAssignedTo":userAssignToId
+                        "userAssignedTo": userAssignToId
                     };
                     scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
                         if (data.d.operationStatus.statusCode === "Success") {
