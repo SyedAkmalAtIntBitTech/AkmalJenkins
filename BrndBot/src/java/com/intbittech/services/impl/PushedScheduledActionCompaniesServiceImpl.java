@@ -116,7 +116,6 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
      * {@inheritDoc}
      */
     public void savePushedScheduledActionCompanies(PushedScheduledActionCompaniesDetails pushedScheduledActionCompaniesDetails) throws ProcessFailed {
-        
         PushedScheduledEntityList pushedScheduledEntityList = new PushedScheduledEntityList();
         
         ScheduledEntityList scheduledEntityList = new ScheduledEntityList();
@@ -145,5 +144,4 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
             pushedScheduledActionCompaniesDao.save(pushedScheduledActionCompanies);
         }
     }
-    
 }

@@ -67,10 +67,20 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         
         $scope.setSelectCompany = function(company){
             var companyId = $("#"+company+ ":checked").val();
-            var companyIDs = {};
-            companyIDs["companyId"] = companyId;
             
-            companies.push(companyIDs);
+            if(companyId){
+                var companyIDs = {};
+                companyIDs["companyId"] = companyId;
+
+                companies.push(companyIDs);
+            }else {
+                for(var i = 0 ; i< companies.length; i++){
+                    var comp = companies[i];
+                    if (comp.companyId == company){
+                        companies.pop(comp);
+                    }
+                }
+            }
             alert(JSON.stringify(companies));
         };
         $scope.companyAddressDetails = {};
@@ -1526,6 +1536,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             alert(JSON.stringify(postData));
             if (!$scope.createNewActionPopup) {
                 appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
+                    alert($("#dynamictable").contents().find("html").html());
                     email_scheduling = {
                         from_name: postData.fromName,
                         program_id: $scope.selectedMarketingProgram.toString(),
@@ -1544,11 +1555,34 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     };
                     scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
                         if (data.d.operationStatus.statusCode === "Success") {
-                            $scope.schedulePopup = false;
-                            $scope.isPostSuccess = true;
 //                        window.location = "dashboard";
 
                             emailDraftFactory.deleteEmailDraftPost(kGlobalEmailObject.draftId).then(function (responseText) {
+                                if(kGlobalEmailObject.pushedEmail){
+                                     var approved = $("#autoApproved:checked").val();
+                                     var autoApproved = false;
+                                     var editable = false;
+                                     if (approved){
+                                         editable = false;
+                                         autoApproved = true;
+                                     }
+                                     appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                                         var franchiseId = kGlobalCompanyObject.franchiseId;
+
+                                         var pushedScheduledEntityDetails = {"autoApproved": autoApproved,
+                                                                             "editable":editable, "franchiseId":franchiseId,
+                                                                             "scheduledEntityListId":$scope.socialAction};
+                                         var actionCompaniesDetails = companies;
+
+                                         var pushedScheduledActionCompaniesDetails = {"pushedScheduledEntityDetails": pushedScheduledEntityDetails,"actionCompaniesDetails":actionCompaniesDetails};
+                                         pushedActionsFactory.saveSchedulePushedActionsCompanies(pushedScheduledActionCompaniesDetails).then(function (data){
+
+                                         });                       
+                                     });                        
+
+                                }
+                            $scope.schedulePopup = false;
+                            $scope.isPostSuccess = true;
 
                             });
 
@@ -1606,48 +1640,45 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         "iframeName": $scope.randomIframeFilename.toString(),
                         "html_body": kGlobalEmailObject.htmlBody
                     };
-//                    scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
-//                        alert(JSON.stringify(data));
+                    scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
                         
-                        var entity_id = 180;
-                       var approved = $("#autoApproved:checked").val();
-                       var autoApproved = false;
-                       var editable = false;
-                       if (approved){
-                           editable = false;
-                           autoApproved = true;
-                       }
-                       appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
-                           var franchiseId = kGlobalCompanyObject.franchiseId;
-                           var pushedActionDetails = {"autoApproved": autoApproved,
-                                                      "editable":editable, "franchiseId":franchiseId,
-                                                      "scheduledEntityListId":entity_id,
-                                                      "companies":companies};
-                                                  
-                           var pushedScheduledEntityDetails = {"autoApproved": autoApproved,
-                                                               "editable":editable, "franchiseId":franchiseId,
-                                                               "scheduledEntityListId":entity_id};
-                           var actionCompaniesDetails = companies;
-                                                  
-                           var pushedScheduledActionCompaniesDetails = {"pushedScheduledEntityDetails": pushedScheduledEntityDetails,"actionCompaniesDetails":actionCompaniesDetails};
-                           alert(JSON.stringify(pushedScheduledActionCompaniesDetails));
-                           pushedActionsFactory.saveSchedulePushedActionsCompanies(pushedScheduledActionCompaniesDetails).then(function (data){
-
-                           });                       
-                       });                        
-                        
-//                        if (data.d.operationStatus.statusCode === "Success") {
-
-                            
-                            $scope.schedulePopup = false;
-                            $scope.isPostSuccess = true;
+                        if (data.d.operationStatus.statusCode === "Success") {
 
                             emailDraftFactory.deleteEmailDraftPost(kGlobalEmailObject.draftId).then(function (responseText) {
+                                if(kGlobalEmailObject.pushedEmail){
+                                     var entity = data.d.details;
+                                     var parsedEntity = JSON.parse(entity);
+                                     var approved = $("#autoApproved:checked").val();
+                                     var autoApproved = false;
+                                     var editable = false;
+                                     if (approved){
+                                         editable = false;
+                                         autoApproved = true;
+                                     }
+                                     appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                                         var franchiseId = kGlobalCompanyObject.franchiseId;
+                                         var pushedActionDetails = {"autoApproved": autoApproved,
+                                                                    "editable":editable, "franchiseId":franchiseId,
+                                                                    "scheduledEntityListId":parsedEntity.schedule_entity_id,
+                                                                    "companies":companies};
 
+                                         var pushedScheduledEntityDetails = {"autoApproved": autoApproved,
+                                                                             "editable":editable, "franchiseId":franchiseId,
+                                                                             "scheduledEntityListId":parsedEntity.schedule_entity_id};
+                                         var actionCompaniesDetails = companies;
+
+                                         var pushedScheduledActionCompaniesDetails = {"pushedScheduledEntityDetails": pushedScheduledEntityDetails,"actionCompaniesDetails":actionCompaniesDetails};
+                                         pushedActionsFactory.saveSchedulePushedActionsCompanies(pushedScheduledActionCompaniesDetails).then(function (data){
+
+                                         });                       
+                                     });                        
+
+                                }
+                                $scope.schedulePopup = false;
+                                $scope.isPostSuccess = true;
                             });
-
-//                        }
-//                    });
+                        }
+                    });
 
 
                 });
