@@ -981,7 +981,9 @@ public class ScheduleDAO {
                     scheduleDetailJSONObject.put("assignedToId", rs.getInt("user_id"));
                     scheduleDetailJSONObject.put("assignedFirstName", rs.getString("first_name"));
                     scheduleDetailJSONObject.put("assignedLastName", rs.getString("last_name"));
-                    scheduleDetailJSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(rs.getString("first_name"), rs.getString("last_name")));
+                    if(rs.getString("first_name") != null && rs.getString("last_name") !=null){
+                        scheduleDetailJSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(rs.getString("first_name"), rs.getString("last_name")));
+                    }
                     scheduleDetailJSONObject.put("template_status",
                             TemplateStatus.valueOf(rs.getString("status")).getDisplayName());
 

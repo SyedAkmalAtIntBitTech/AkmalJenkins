@@ -5505,12 +5505,16 @@ textarea.task-textarea:focus{
 .bb-gallery-image-wrap{
     display: flex;
     flex-direction: row;
-    flex-flow: flex-wrap;
+    /*flex-flow:flex-wrap;*/
+    flex-flow:wrap;
+    padding:20px 10px 0px 20px;
+    height: 470px;
+    overflow: scroll;
 }
 
 .bb-gallery-image-card{
     height: 150px;
-    width: 246px;
+    width: 235px;
     position: relative;
     margin-right: 20px;
     margin-bottom: 20px;
