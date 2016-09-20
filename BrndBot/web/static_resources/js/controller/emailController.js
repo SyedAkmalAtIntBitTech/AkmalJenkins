@@ -65,12 +65,13 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         var sliderDialog = "#emaileditorexternalpopup";
         var companies = [];
         
-        $scope.setSelectCompany = function(companyId){
-            var companyId = $("#"+companyId+ ":checked").val();
+        $scope.setSelectCompany = function(company){
+            var companyId = $("#"+company+ ":checked").val();
             var companyIDs = {};
             companyIDs["companyId"] = companyId;
             
             companies.push(companyIDs);
+            alert(JSON.stringify(companies));
         };
         $scope.companyAddressDetails = {};
 
@@ -1605,9 +1606,39 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         "iframeName": $scope.randomIframeFilename.toString(),
                         "html_body": kGlobalEmailObject.htmlBody
                     };
-                    scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
-                        alert(JSON.stringify(data));
-                        if (data.d.operationStatus.statusCode === "Success") {
+//                    scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
+//                        alert(JSON.stringify(data));
+                        
+                        var entity_id = 180;
+                       var approved = $("#autoApproved:checked").val();
+                       var autoApproved = false;
+                       var editable = false;
+                       if (approved){
+                           editable = false;
+                           autoApproved = true;
+                       }
+                       appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                           var franchiseId = kGlobalCompanyObject.franchiseId;
+                           var pushedActionDetails = {"autoApproved": autoApproved,
+                                                      "editable":editable, "franchiseId":franchiseId,
+                                                      "scheduledEntityListId":entity_id,
+                                                      "companies":companies};
+                                                  
+                           var pushedScheduledEntityDetails = {"autoApproved": autoApproved,
+                                                               "editable":editable, "franchiseId":franchiseId,
+                                                               "scheduledEntityListId":entity_id};
+                           var actionCompaniesDetails = companies;
+                                                  
+                           var pushedScheduledActionCompaniesDetails = {"pushedScheduledEntityDetails": pushedScheduledEntityDetails,"actionCompaniesDetails":actionCompaniesDetails};
+                           alert(JSON.stringify(pushedScheduledActionCompaniesDetails));
+                           pushedActionsFactory.saveSchedulePushedActionsCompanies(pushedScheduledActionCompaniesDetails).then(function (data){
+
+                           });                       
+                       });                        
+                        
+//                        if (data.d.operationStatus.statusCode === "Success") {
+
+                            
                             $scope.schedulePopup = false;
                             $scope.isPostSuccess = true;
 
@@ -1615,25 +1646,9 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
                             });
 
-                        }
-                    });
-
-//                    var autoApproved = $("#autoApproved:checked").val();
-//                    var editable = false;
-//                    if (autoApproved){
-//                        editable = false;
-//                    }
-//                    appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
-//                        var franchiseId = kGlobalCompanyObject.franchiseId;
-//                        var pushedActionDetails = {"autoApproved": autoApproved,
-//                                                   "editable":editable, "franchiseId":franchiseId,
-//                                                   "scheduleEntityId":$scope.socialAction.toString(),
-//                                                   "companies":companies};
-//                         alert(JSON.stringify(pushedActionDetails));
-////                            pushedActionsFactory.saveSchedulePushedActionsCompanies(pushedActionDetails).then(function (data){
-////                                
-////                            });                       
+//                        }
 //                    });
+
 
                 });
             }

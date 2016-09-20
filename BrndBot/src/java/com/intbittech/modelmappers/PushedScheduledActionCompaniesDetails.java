@@ -5,13 +5,14 @@
  */
 package com.intbittech.modelmappers;
 
+import com.intbittech.model.UserCompanyIds;
 import java.util.List;
 
 /**
  *
  * @author ajit @ Intbit
  */
-public class PushedScheduledActionCompaniesDetails {
+public class PushedScheduledActionCompaniesDetails extends UserCompanyIds{
     
     private PushedScheduledEntityDetails pushedScheduledEntityDetails;
     private List<ActionCompaniesDetails> actionCompaniesDetails;

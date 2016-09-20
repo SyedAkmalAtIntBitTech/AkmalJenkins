@@ -12,7 +12,6 @@ package com.intbittech.modelmappers;
 public class ActionCompaniesDetails {
     
     private Integer companyId;
-    private String companyName;
 
     public Integer getCompanyId() {
         return companyId;
@@ -22,15 +21,4 @@ public class ActionCompaniesDetails {
         this.companyId = companyId;
     }
 
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-    
-    
-    
-    
 }

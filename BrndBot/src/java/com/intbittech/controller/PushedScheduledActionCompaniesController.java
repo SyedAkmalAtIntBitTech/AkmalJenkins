@@ -35,7 +35,7 @@ public class PushedScheduledActionCompaniesController {
     
     
      @RequestMapping(value = "/savePushedScheduledActionCompanies", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> saveActivity(@RequestBody PushedScheduledActionCompaniesDetails pushedScheduledActionCompaniesDetails) {
+    public ResponseEntity<ContainerResponse> savePushedScheduledActionCompanies(@RequestBody PushedScheduledActionCompaniesDetails pushedScheduledActionCompaniesDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
            pushedScheduledActionCompaniesService.savePushedScheduledActionCompanies(pushedScheduledActionCompaniesDetails);
