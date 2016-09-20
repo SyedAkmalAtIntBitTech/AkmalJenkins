@@ -249,6 +249,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.currProgramsDiv = true;
             $scope.pastProgramsDiv = false;
         };
+        
+        $scope.isActive= function (tabName){
+            if($scope.currProgramsDiv)
+                return tabName === 'currentCampaign';
+            else
+                return tabName === 'archivedCampaign';
+        };
+        
         $scope.getProgramActions = function (forward)
         {
             $scope.isOneTimeActionsEmpty=false;
