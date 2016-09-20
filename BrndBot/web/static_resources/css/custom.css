@@ -267,7 +267,7 @@ EDITOR
 {
     width: 35px;
     height: 35px;
-    background: #465057 url(../../images/bgcolor.svg) no-repeat 0px 0px;
+    background: #465057 url(../images/bgcolor.svg) no-repeat 0px 0px;
     cursor: pointer;
     position: absolute;
     margin: 0px 0px 0px -60px;
@@ -672,7 +672,7 @@ EDITOR
     -ms-transition: all 300ms ease;
     -o-transition: all 300ms ease;
     transition: all 300ms ease;
-    background: #465057 url(../../images/tinyMCE_edit-overlay-01.svg);
+    background: #465057 url(../images/tinyMCE_edit-overlay-01.svg);
     float: left;
     font-weight: bold;
     font-size: 18px;
@@ -741,7 +741,7 @@ EDITOR
 }
 .emailrender .drag
 {
-    background: #465057 url(../../images/tinyMCE_edit-overlay-02.svg) no-repeat center;
+    background: #465057 url(../images/tinyMCE_edit-overlay-02.svg) no-repeat center;
     width: 35px;
     height: 35px;
     cursor: move;
