@@ -24,6 +24,14 @@
                                 <p hidden="">{{entitiesdetails.preheader}}{{entitiesdetails.html_body}}</p>
                             </div>
                             <div class="detail-section-item">
+                                <label class="detail-section-label">Schedule Date</label>
+                                <p class="detail-section-data">{{scheduleData.entitiesSelectedDate}}</p>
+                            </div>
+                            <div class="detail-section-item">
+                                <label class="detail-section-label">Schedule Time</label>
+                                <p class="detail-section-data">{{scheduleData.entitiesSelectedDateTime| date'h:mma'}}</p>
+                            </div>
+                            <div class="detail-section-item">
                                 <label class="detail-section-label">send to list</label>
                                 <p class="detail-section-data">{{entitiesdetails.email_list_name}}</p>
                             </div>

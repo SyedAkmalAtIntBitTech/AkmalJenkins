@@ -61,29 +61,15 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
                 $scope.top_subnav_link_active_actionDetail_Class = '';
                 $scope.top_subnav_link_active_notesDetail_Class = '';
                 $scope.pushedEmailSavedDetails = true;
-                $scope.generalActions = false;
-                $scope.generalNotes = false;
+                $scope.associtedAcccounts = false;
             }
-            if (tabName === 'notes') {
+            if (tabName === 'associtedAcccounts') {
                 $scope.top_subnav_link_active_notesDetail_Class = 'top-subnav-link-active-detail-Class';
                 $scope.top_subnav_link_active_actionDetail_Class = '';
                 $scope.top_subnav_link_active_savedDetail_Class = '';
-                $scope.generalNotes = true;
-                $scope.generalActions = false;
+                $scope.associtedAcccounts = true;
                 $scope.pushedEmailSavedDetails = false;
             }
-//            if (tabName === 'reminderDetails') {
-//                $scope.top_subnav_link_active_reminderDetail_Class = 'top-subnav-link-active-detail-Class';
-//                $scope.top_subnav_link_active_savedReminder_Class = '';
-//                $scope.reminderDetailsTab = true;
-//                $scope.savedReminderTab = false;
-//            }
-//            if (tabName === 'savedReminder') {
-//                $scope.top_subnav_link_active_savedReminder_Class = 'top-subnav-link-active-detail-Class';
-//                $scope.top_subnav_link_active_reminderDetail_Class = '';
-//                $scope.savedReminderTab = true;
-//                $scope.reminderDetailsTab = false;
-//            }
         };
 
         $scope.closePopup = function () {
@@ -97,18 +83,16 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
         $scope.promptHideShow = function (flag){
             $scope.clickedRemoveAction = flag;
         };        
-        $scope.getScheduleDetails = function ()
+        $scope.getScheduleDetails = function (scheduleTitle, scheduledEntityListId, entityId, pushedactionDateTime)
         {
             $scope.dateLesser = false;
 //        $scope.entities_selected_time =schedule_time;
 //            var nDate = new Date(action_date + " 10:30 am"); //10:30 am save DST
 //            $scope.calculatedProgramDate = $scope.addDays(nDate, days);
-//            $scope.entities_selected_time = $filter('date')(schedule_time, "MMM dd yyyy");
+            $scope.entitiesSelectedDate = $filter('date')(pushedactionDateTime, "MMM dd yyyy");
             $scope.pushedSavedEmail = false;
-            $scope.schedule_id = 180;
             $scope.pushedEmailSavedDetails = true;
-            $scope.generalNotes = false;
-            $scope.generalActions = false;
+            $scope.associtedAcccounts = false;
             $scope.emailsectionClass = 'emailsectionClass';
             $scope.fadeClass = 'fadeClass';
             $scope.pushedEmail = true;
@@ -118,11 +102,11 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             $scope.scheduledTo = 'POST';
             $scope.setTab('savedDetails');
             $scope.masterActionType = 'Email';
-            $scope.templateApproveButton = "Approve";
-            $scope.templateDisapproveButton = "Disapprove";
-            $scope.savedDetailsAddTemplateButton = "Go to Dashboard";
-            $scope.savedDetailsAddTemplateLink = "dashboard";
-            $scope.setEmailToThisAction="Save Email to this Action";
+//            $scope.templateApproveButton = "Approve";
+//            $scope.templateDisapproveButton = "Disapprove";
+//            $scope.savedDetailsAddTemplateButton = "Go to Dashboard";
+//            $scope.savedDetailsAddTemplateLink = "dashboard";
+//            $scope.setEmailToThisAction="Save Email to this Action";
             $scope.isRecurring = false;
             if (entity_type === getnote()) {
                 $scope.reminderSectionClass = 'reminderSectionClass';
@@ -133,11 +117,8 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
 ////            var time = $filter('date')(schedule_time, "hh : mm : a");
 ////            $("#emaildatetime").val($filter('date')(action_date, "MMM dd yyyy"));
 ////            $("#emaildatetime1").val($filter('date')(action_date, "MMM dd yyyy"));
-////            $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: date,
-////                schedule_id: schedule_id, schedule_desc: schedule_desc,
-////                email_template_status: template_status, schedule_type: entity_type,
-////                marketing_program_name: marketingName, user_marketing_program_id: programId,
-////                days: days, is_today_active: is_today_active, schedule_time: time};
+            $scope.scheduleData = {scheduleTitle: scheduleTitle, entitiesSelectedDateTime: pushedactionDateTime,
+                scheduleId: scheduledEntityListId};
 ////                $('#emailcontentiframe').contents().find('html').html(data.body); 
 //            $scope.globalScheduleData = $scope.scheduleData;
 //

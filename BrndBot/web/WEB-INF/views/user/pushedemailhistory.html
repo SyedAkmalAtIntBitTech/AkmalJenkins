@@ -16,14 +16,14 @@
             </div>
             <div class="bb-panel-full-width bb-panel-styling-content-wrap">
                 
-                <div class="hub-slat-list-wrap">
+                <div class="hub-slat-list-wrap" ng-init="getPushedEmails()">
                     <div class="slat" >
                   
-                        <div class="slat-name-wrap">
-                            <h2>Pushed Email Name</h2>
-                            <p> Created on June 16th 2016 at 9:56:05 PM</p>
+                        <div class="slat-name-wrap" ng-repeat="pushedEmail in pushedEmails">
+                            <h2>{{pushedEmail.pushedActionName}}</h2>
+                            <p>Created on {{pushedEmail.pushedactionDateTime | date:'MMMM d, y at  h:mma' }} June 16th 2016 at 9:56:05 PM</p>
                         </div>
-                         <div class="slat-detail-wrap">
+                        <div class="slat-detail-wrap">
                             <div class="slat-detail">
                                 <h2 >Scheduled</h2>
                                 <p>Status</p>
@@ -31,7 +31,8 @@
                         </div>
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">
-                              <a class="reg-button gray-button slat-detail-button" ng-click="getScheduleDetails()">View Email Details</a>
+                              <a class="reg-button gray-button slat-detail-button" ng-click="getScheduleDetails(pushedEmail.scheduledEntityListId,
+                                          pushedEmail.entityId, pushedEmail.pushedactionDateTime)">View Email Details</a>
                             </div>
                         </div>
                     </div>

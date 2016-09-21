@@ -504,6 +504,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     var emailListDetails = {"emailListName": email.listName, "emailListDescription": email.listDescription, "defaultFromAddress": email.deafultFromName, "emailListType":generalEmailList, "emailListTags":['General']};
                     
                         emailListFactory.createEmailList(emailListDetails).then(function (data){
+                            alert(JSON.stringify(data));
                             growl("Email list created successfully");
                             $scope.createEmailListPopup = false;
                             $("#fade").hide();

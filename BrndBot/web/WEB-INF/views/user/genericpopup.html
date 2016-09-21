@@ -40,7 +40,7 @@
              <a id="emailpost1" ng-click="setTab('savedDetails')" ng-class="top_subnav_link_active_savedDetail_Class" href="">Saved {{savedHeader}}</a>
         </li>
         <li class="sub-nav-tab ">
-             <a id="emailnote1" ng-click="setTab('notes')" ng-class="top_subnav_link_active_notesDetail_Class" ng-if="isRecurring===false" href="">Associated Accounts</a>
+             <a id="emailnote1" ng-click="setTab('associtedAcccounts')" ng-class="top_subnav_link_active_notesDetail_Class" href="">Associated Accounts</a>
         </li>
     </ul>
     
@@ -48,5 +48,6 @@
     <div ng-include src="'generalActionNotes.html'"></div>
     <div ng-include src="'generalSavedDetails.html'"></div>
     <div ng-include src="'pushedactionssaveddetails.html'"></div>
+    <div ng-include src="'pushedactionsassociatedaccounts.html'"></div>
     
 </div>
