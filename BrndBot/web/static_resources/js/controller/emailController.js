@@ -60,7 +60,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.changeStyleAlert = false;
         $scope.pushedEmail = false;
         $scope.emailList = "";
-        $scope.emailTag = "";
+        $scope.emailTag = 0;
         $scope.noEmailList = "";
         $scope.postData = {};
         var sliderDialog = "#emaileditorexternalpopup";
@@ -832,6 +832,16 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
         };
         
+        $scope.setPushedEmail = function(){
+            appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
+                if (kGlobalEmailObject.pushedEmail){
+                    $scope.pushedEmail = true;
+                }else {
+                    $scope.pushedEmail = false;
+                }
+            });
+
+        };
         $scope.saveButtonOnClick = function () {
             $("#tinymceEditorBody").find("p").removeAttr("style").css("margin", "0px");
             settingsFactory.getAllPreferencesGet().then(function (footerResponseData) {
@@ -923,16 +933,21 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             
             appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
                 var franchiseId = kGlobalCompanyObject.franchiseId;
-                franchiseFactory.getCompaniesForFranchiseId(franchiseId,$scope.emailTag).then(function (data) {
-                    $scope.franchiseCompanies = data.d.details;
-                    for (var i=0; i<data.d.details.length; i++){
-                        var franchiseCompany = data.d.details[i];
-                        if (franchiseCompany.isEmail == false){
-                            $scope.isEmailListPresentForCompany = false;
+                appSessionFactory.getEmail().then(function(kGlobalEmailObject){
+                    var emailTagId = kGlobalEmailObject.emailTagId;
+                    franchiseFactory.getCompaniesForFranchiseId(franchiseId,emailTagId).then(function (data) {
+                        $scope.franchiseCompanies = data.d.details;
+                        for (var i=0; i<data.d.details.length; i++){
+                            var franchiseCompany = data.d.details[i];
+                            if (franchiseCompany.isEmailList == false){
+                                $scope.isEmailListPresentForCompany = false;
+                            }
                         }
-                    }
-                    
+
+                    });
+
                 });
+                    
             });
         };
 
@@ -1042,6 +1057,13 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
         $scope.chooseEmailListOnChange = function (listName) {
             $scope.emailList = listName.value;
+            appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
+                if (kGlobalEmailObject.pushedEmail){
+                    kGlobalEmailObject.emailTagId = listName.value;
+                    appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {});
+                }
+            });
+
             $scope.emailTag = listName.value;
             $scope.listSelectionValidation = false;
             $scope.toAddress = "";
@@ -1134,7 +1156,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 var pushedEmail = kGlobalEmailObject.pushedEmail;
                 if (pushedEmail){
                     $location.path("/franchisecompanies");
-                    $scope.emailTag = emailAddresses;
                     $scope.postData.fromName = "Intbit";
                     $scope.postData.emailSubject = "Intbit Email";
                     $scope.postData.toAddress = "intbit@intbittech.com";

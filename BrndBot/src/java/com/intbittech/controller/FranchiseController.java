@@ -242,6 +242,7 @@ public class FranchiseController {
                 companyDetailsForFranchise.setCompanyId(company.getCompanyId());
                 companyDetailsForFranchise.setCompanyName(company.getCompanyName());
                 companyDetailsForFranchise.setIsEmailList(franchiseService.isEmailListTagAssociateToCompany(emailListTagId, company.getCompanyId()));
+                companyDetailsForFranchiseList.add(companyDetailsForFranchise);
             }
             genericResponse.setDetails(companyDetailsForFranchiseList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("All company for franchise retrieved successfully."));
