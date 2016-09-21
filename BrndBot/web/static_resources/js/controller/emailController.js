@@ -514,7 +514,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                             }
                         } else
                         {
-                            BlockHtml = '<div id=' + $scope.htmlTagId + '  class=module onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ',' + mindbodyId + ')>' + emailData.htmldata + '</div>';
+                            BlockHtml = '<div id=' + $scope.htmlTagId + '  class=module onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ',' + mindbodyId + ')><div class="view">' + emailData.htmldata + '</div></div>';
                             $("#tinymceEditorBody").append(BlockHtml);
                             if ($scope.user === "intbit@intbit.com") {
                                 $scope.launchTinyMceEditorForOnlyImage();
