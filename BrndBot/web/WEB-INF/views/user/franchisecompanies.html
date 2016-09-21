@@ -41,7 +41,7 @@
                 <input type="checkbox" id="selectAll" ng-click="toggleAll()" ng-model="isAllSelected"/>Select All
                     <br>
                     <div ng-repeat="company in franchiseCompanies">
-                        <label ng-show="company.isEmailList==true"></label>
+                        <label ng-show="company.isEmailList==true">Email List Present</label>
                         <input type="checkbox" id="{{company.companyId}}" ng-model="company.selected" value="{{company.companyId}}" ng-click="setSelectCompany(company.companyId)"/>
                         <label>{{company.companyName}}</label>
                     </div>   

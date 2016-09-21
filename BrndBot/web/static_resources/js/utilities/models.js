@@ -21,7 +21,8 @@ var kGlobalEmailObject = { categoryId : "",
     fromAddress : "",
     preheader : "",
     htmlBody : "",
-    pushedEmail : false
+    pushedEmail : false,
+    emailTagId :""
     };
     
 var kGlobalCompanyObject = {

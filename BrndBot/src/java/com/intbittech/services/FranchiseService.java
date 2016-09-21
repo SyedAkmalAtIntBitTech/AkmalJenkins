@@ -81,6 +81,16 @@ public interface FranchiseService {
      * @throws ProcessFailed the process failed
      */
     public FranchiseCompanyLookup getFranchiseByCompanyId(Integer companyId)throws ProcessFailed;
+     /**
+     * This method delete particular {@link FranchiseCompanyLookup} based on the
+     * organization from the database.
+     *
+     * @param companyId the companyId
+     * @param emailListTagId the emailListTagId
+     * @return Boolean
+     * @throws ProcessFailed the process failed
+     */
+   public Boolean isEmailListTagAssociateToCompany(Integer emailListTagId, Integer companyId )throws ProcessFailed;
 
     
 }

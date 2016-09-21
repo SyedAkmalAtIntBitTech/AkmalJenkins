@@ -21,7 +21,7 @@ factoryApp.factory('franchiseFactory', function ($q, authenticatedServiceFactory
     };
     franchiseFactoryObject.getCompaniesForFranchiseId = function (franchiseId, emailTag) {
         var deffered = $q.defer();
-        var url = configurationService.getCompaniesForFranchiseIdURL()+"?franchiseId="+franchiseId +"&emailTag="+emailTag;
+        var url = configurationService.getCompaniesForFranchiseIdURL()+"?franchiseId="+franchiseId +"&emailListTagId="+emailTag;
         var data = '';
         authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
