@@ -33,15 +33,16 @@
             </div>
             <div class="modal-pane-content-wrap">
                  <div class="input-wrap">
-                    <input type="button" name="noEmailList" id="noEmailList" ng-show="noEmailList==false" value="No email list"/>
+                    <input type="button" name="noEmailList" id="noEmailList" ng-show="isEmailListPresentForCompany==false" value="No email list"/>
                     <label> Is this email auto-approved? </label>
                     Yes <input type="checkbox" id="autoApproved" value="autoApproved"/>
                     <label>Auto approving an email will disallow recipient accounts to edit this email</label>
                  </div>
-                    <input type="checkbox" id="selectAll" value="selectAll"/>Select All
+                <input type="checkbox" id="selectAll" ng-click="toggleAll()" ng-model="isAllSelected"/>Select All
                     <br>
                     <div ng-repeat="company in franchiseCompanies">
-                        <input type="checkbox" id="{{company.companyId}}" value="{{company.companyId}}" ng-click="setSelectCompany(company.companyId)"/>
+                        <label ng-show="company.isEmailList==true"></label>
+                        <input type="checkbox" id="{{company.companyId}}" ng-model="company.selected" value="{{company.companyId}}" ng-click="setSelectCompany(company.companyId)"/>
                         <label>{{company.companyName}}</label>
                     </div>   
             </div>

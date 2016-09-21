@@ -59,12 +59,29 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.isEmailSaveAction = false;
         $scope.changeStyleAlert = false;
         $scope.pushedEmail = false;
+        $scope.emailList = "";
         $scope.emailTag = "";
         $scope.noEmailList = "";
         $scope.postData = {};
         var sliderDialog = "#emaileditorexternalpopup";
         var companies = [];
-        
+
+        $scope.toggleAll = function() {
+           var toggleStatus = !$scope.isAllSelected;
+           var checked = $("#selectAll:checked").val()
+           if (checked){
+               angular.forEach($scope.franchiseCompanies, function(itm){ itm.selected = toggleStatus; });
+           }else {
+               toggleStatus = false;
+               angular.forEach($scope.franchiseCompanies, function(itm){ itm.selected = toggleStatus; });
+           }
+
+        };
+
+        $scope.optionToggled = function(){
+          $scope.isAllSelected = $scope.franchiseCompanies.every(function(itm){ return itm.selected; })
+        };
+
         $scope.setSelectCompany = function(company){
             var companyId = $("#"+company+ ":checked").val();
             
@@ -81,6 +98,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     }
                 }
             }
+            $scope.optionToggled();
             alert(JSON.stringify(companies));
         };
         $scope.companyAddressDetails = {};
@@ -905,8 +923,15 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             
             appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
                 var franchiseId = kGlobalCompanyObject.franchiseId;
-                franchiseFactory.getCompaniesForFranchiseId(franchiseId).then(function (data) {
+                franchiseFactory.getCompaniesForFranchiseId(franchiseId,$scope.emailTag).then(function (data) {
                     $scope.franchiseCompanies = data.d.details;
+                    for (var i=0; i<data.d.details.length; i++){
+                        var franchiseCompany = data.d.details[i];
+                        if (franchiseCompany.isEmail == false){
+                            $scope.isEmailListPresentForCompany = false;
+                        }
+                    }
+                    
                 });
             });
         };
@@ -1017,6 +1042,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
         $scope.chooseEmailListOnChange = function (listName) {
             $scope.emailList = listName.value;
+            $scope.emailTag = listName.value;
             $scope.listSelectionValidation = false;
             $scope.toAddress = "";
             if ($scope.emailList === "Manual") {
@@ -1028,7 +1054,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 var emails = "";
                 emailListFactory.getContactsOfEmailList($scope.emailList).then(function (data){
                     var parseData = data.d.details;
-                    alert(JSON.stringify(parseData));
                     var i = 0;
                     for (i = 0; i < parseData.length; i++) {
                         if (JSON.stringify(parseData[i].fkContactId.emailAddress) !== "") {
