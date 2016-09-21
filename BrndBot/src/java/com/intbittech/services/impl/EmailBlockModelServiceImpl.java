@@ -83,7 +83,7 @@ public class EmailBlockModelServiceImpl implements EmailBlockModelService {
      * {@inheritDoc}
      */
     public List<EmailBlockModel> getAllNonAddedEmailBlockModels(Integer emailBlockId) throws ProcessFailed {
-        List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupDao.getAllEmailBlockModel(emailBlockId);
+        List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupDao.getAllEmailBlockModel(emailBlockId, Boolean.FALSE);
         ArrayList<Integer> emailBlockModelIds = new ArrayList<>();
         emailBlockModelIds.add(0);
         if(emailBlockModelLookupList!=null)
