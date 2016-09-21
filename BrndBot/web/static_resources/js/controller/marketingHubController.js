@@ -72,10 +72,13 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         
         $scope.displayAllEmailDrafts = function () {
+            $scope.emailDraftDetails = true;
+            $scope.showDataOverlay=true;
             $scope.activeEmailDrafts = 'activeTab';
             $scope.activeEmailHistory = '';
             $scope.activeEmailSettings = '';
             $scope.activeEmailList = '';
+            $scope.emaildrafts= '';
             $scope.emaildropdown = false;
             $scope.saveEmailSettingsButton = false;
             $scope.addEmailListButton = false;
@@ -86,6 +89,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     $scope.emaildraftsstatus = "No email drafts present";
                 } else {
                     $scope.emaildrafts = data.emaildrafts;
+                    $scope.showDataOverlay=false;
                     $scope.emailDraftDetails = true;
                 }
             });
@@ -433,6 +437,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.activeEmailHistory = '';
             $scope.activeEmailSettings = '';
             $scope.activeEmailDrafts = '';
+            $scope.emailListsMindbody = '';
             $scope.hideGifImage=true;
 
             $scope.emaildropdown = false;
@@ -544,6 +549,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
 
         $scope.updateList = function () {
+            $scope.mindbody_emailAddresses = $scope.user_emailAddresses ="";
+            $scope.showDataLoader = true;
             $scope.activeEmailListContacts = 'activeTab';
             $scope.activeImportContacts = '';
             $scope.showEmailListContacts = true;
@@ -564,6 +571,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $scope.mindbody_emailAddresses = parseData.mindbody_emailAddresses;
                 $scope.selected_email_listname = list_name;
                 $scope.type = type;
+                $scope.showDataLoader = false;
                 if (type === 'user') {
                     $("#tab1").hide();
                     $("#tab2").hide();

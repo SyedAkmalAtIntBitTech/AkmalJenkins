@@ -47,6 +47,12 @@
                 
                
                 <div class="bb-slat-list-wrap" >
+                    <div class="external-data-loading-wrap" ng-if="showDataLoader">
+                        <div class="external-data-loading-block">
+                            <div class="loader"></div>
+                            <div class="loader-description">Loading your content</div>
+                        </div>
+                    </div>
                     
                       <!--User Created List-->
                     <div class="bb-slat" ng-repeat="email in user_emailAddresses | filter:userSearch">
