@@ -4843,6 +4843,7 @@ textarea.task-textarea:focus{
     overflow-y: auto;
     flex: 1 1 auto;
     padding: 20px;
+    height: calc(100% - 30vh);
 }
 
 .preview-email-button{
