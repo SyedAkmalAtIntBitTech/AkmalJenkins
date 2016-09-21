@@ -61,5 +61,16 @@ public interface EmailListTagLookupDao {
      */
     public void delete(EmailListTagLookup emailListTagLookup) throws ProcessFailed;
     
+    /**
+     * This method pass id as input and get the {@link EmailListTagLookup} from DAO
+     * layer.
+     *
+     * @param emailListTagId the emailListTagId
+     * @param companyId  the companyId
+     * @return {@link EmailListTagLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public EmailListTagLookup getEmailListTagLookupByEmailListTagIdAndCompanyId(Integer emailListTagId,Integer companyId) throws ProcessFailed;
+    
     
 }

@@ -6,10 +6,12 @@
 package com.intbittech.services.impl;
 
 import com.intbittech.dao.CompanyDao;
+import com.intbittech.dao.EmailListTagLookupDao;
 import com.intbittech.dao.FranchiseCompanyLookupDao;
 import com.intbittech.dao.FranchiseDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
+import com.intbittech.model.EmailListTagLookup;
 import com.intbittech.model.Franchise;
 import com.intbittech.model.FranchiseCompanyLookup;
 import com.intbittech.model.Users;
@@ -37,6 +39,8 @@ public class FranchiseServiceImpl implements FranchiseService {
     private FranchiseCompanyLookupDao franchiseCompanyLookupDao;
     @Autowired
     private CompanyDao companyDao;
+    @Autowired
+    private EmailListTagLookupDao emailListTagLookupDao;
 
     @Override
     public boolean activateCompanyAsFranchise(Integer companyId, Integer franchiseId) throws ProcessFailed {
@@ -173,5 +177,15 @@ public class FranchiseServiceImpl implements FranchiseService {
             throw new ProcessFailed("No Franchise with company id" + companyId + ".");
         }
         return franchiseCompanyLookup;
+    }
+
+    @Override
+    public Boolean isEmailListTagAssociateToCompany(Integer emailListTagId, Integer companyId) throws ProcessFailed {
+        Boolean isEmailList = false;
+        EmailListTagLookup emailListTagLookup = emailListTagLookupDao.getEmailListTagLookupByEmailListTagIdAndCompanyId(emailListTagId, companyId);
+        if(emailListTagLookup != null){
+            isEmailList = true;
+        }
+        return isEmailList;
     }
 }
