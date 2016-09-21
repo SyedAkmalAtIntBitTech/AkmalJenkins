@@ -462,12 +462,13 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                 kGlobalEmailObject.mindbodyId = id;
                 appSessionFactory.setEmail(kGlobalEmailObject).then(function () {
+                    $scope.showStyles("true");
+                    $scope.addHTMLInEmailEditor($scope.firstTemplateForBlock);
+                    $scope.closeMindbodyPopup();
+                    $scope.blockOnClick(0);
                 });
             });
-            $scope.showStyles("true");
-            $scope.addHTMLInEmailEditor($scope.firstTemplateForBlock);
-            $scope.closeMindbodyPopup();
-            $scope.blockOnClick(0);
+            
         };
 
         $scope.addHTMLInEmailEditor = function (templateId) {

@@ -85,7 +85,7 @@ public class BlockModelController {
             for (EmailBlockModelLookup emailBlockModelLookupObject : emailBlockModelLookupList) {
                 EmailBlockModelDetails emailBlockModelDetails = new EmailBlockModelDetails();
                 emailBlockModelDetails.setEmailBlockId(emailBlockModelLookupObject.getFkEmailBlockId().getEmailBlockId());
-                emailBlockModelDetails.setModelId(emailBlockModelLookupObject.getFkEmailBlockModelId().getEmailBlockModelId());
+                emailBlockModelDetails.setModelId(emailBlockModelLookupObject.getEmailBlockModelLookupId());
                 emailBlockModelDetails.setEmailBlockModelName(emailBlockModelLookupObject.getFkEmailBlockModelId().getEmailBlockModelName());
                 emailBlockModelDetails.setHtmlData(emailBlockModelLookupObject.getFkEmailBlockModelId().getHtmlData());
                 emailBlockModelDetails.setImageFileName(emailBlockModelLookupObject.getFkEmailBlockModelId().getImageFileName());
