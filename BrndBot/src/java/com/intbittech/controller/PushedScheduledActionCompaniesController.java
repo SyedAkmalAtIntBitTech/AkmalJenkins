@@ -5,9 +5,7 @@
  */
 package com.intbittech.controller;
 
-import com.intbittech.model.Company;
 import com.intbittech.model.PushedScheduledEntityList;
-import com.intbittech.modelmappers.CompanyDetailsForFranchise;
 import com.intbittech.modelmappers.PushedActionDetails;
 import com.intbittech.modelmappers.PushedScheduledActionCompaniesDetails;
 import com.intbittech.responsemappers.ContainerResponse;
