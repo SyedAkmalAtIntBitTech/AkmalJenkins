@@ -19,9 +19,9 @@ factoryApp.factory('franchiseFactory', function ($q, authenticatedServiceFactory
         });
         return deffered.promise;
     };
-    franchiseFactoryObject.getCompaniesForFranchiseId = function (franchiseId) {
+    franchiseFactoryObject.getCompaniesForFranchiseId = function (franchiseId, emailTag) {
         var deffered = $q.defer();
-        var url = configurationService.getCompaniesForFranchiseIdURL()+"?franchiseId="+franchiseId;
+        var url = configurationService.getCompaniesForFranchiseIdURL()+"?franchiseId="+franchiseId +"&emailTag="+emailTag;
         var data = '';
         authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
             deffered.resolve(data);
