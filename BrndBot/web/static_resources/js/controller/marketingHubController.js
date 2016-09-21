@@ -1,6 +1,8 @@
 marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location', 'settingsFactory', 'emailListFactory', 'emailDraftFactory', 'emailFactory', 'appSessionFactory', function ($scope, $location, settingsFactory, emailListFactory, emailDraftFactory, emailFactory, appSessionFactory) {
 
 //$scope.emailhubHeader = true;
+        $scope.fadeClass = '';
+        $scope.emailsectionClass = '';
         $scope.userSettings =false;
         $scope.addEmailListButton = true;
         $scope.saveEmailSettingsButton = false;
@@ -392,6 +394,51 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             emailFactory.sendEmailGet().then(function (data) {
                 $scope.email_history = JSON.parse(data.d.details);
             });
+        };
+        
+        $scope.setTab = function (tabName) {
+            if (tabName === 'actionDetails') {
+                $scope.top_subnav_link_active_actionDetail_Class = 'top-subnav-link-active-detail-Class';
+                $scope.top_subnav_link_active_notesDetail_Class = '';
+                $scope.top_subnav_link_active_savedDetail_Class = '';
+                $scope.generalActions = true;
+                $scope.generalSavedDetails = false;
+                $scope.generalNotes = false;
+            }
+            if (tabName === 'savedDetails') {
+                $scope.top_subnav_link_active_savedDetail_Class = 'top-subnav-link-active-detail-Class';
+                $scope.top_subnav_link_active_actionDetail_Class = '';
+                $scope.top_subnav_link_active_notesDetail_Class = '';
+                $scope.generalSavedDetails = true;
+                $scope.generalActions = false;
+                $scope.generalNotes = false;
+            }
+            if (tabName === 'notes') {
+                $scope.top_subnav_link_active_notesDetail_Class = 'top-subnav-link-active-detail-Class';
+                $scope.top_subnav_link_active_actionDetail_Class = '';
+                $scope.top_subnav_link_active_savedDetail_Class = '';
+                $scope.generalNotes = true;
+                $scope.generalActions = false;
+                $scope.generalSavedDetails = false;
+            }
+        };
+        $scope.closePopup = function () {
+            $scope.emailsectionClass = '';
+            $scope.fadeClass = '';
+        };
+        
+        $scope.getHistoryDetails = function (details){
+            alert(details);
+            $scope.fadeClass = 'fadeClass';
+            $scope.emailsectionClass = 'emailsectionClass';
+            $scope.generalSavedDetails = true;
+            $scope.generalNotes = false;
+            $scope.generalActions = false;
+            $scope.scheduledTo = 'POST';
+            $scope.setTab('savedDetails');
+            $scope.masterActionType = 'Email';
+            $scope.setEmailToThisAction = "Save Email to this Action";
+            $scope.savedHeader = 'Post';
         };
         $scope.showDraftPopup = function (Id, categoryId, emailSubject, editdate, subCategoryId, mindbodyId, lookupId)
         {
