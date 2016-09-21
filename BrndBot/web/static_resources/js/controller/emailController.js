@@ -362,7 +362,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             }
             if ($scope.isBlockClicked === "true" || $scope.htmlBlockId !== "defaultblock1")
             {
-                blockModelFactory.allEmailBlockModelGet($scope.selectedBlockId).then(function (data) {
+                blockModelFactory.allEmailBlockModelGet($scope.selectedBlockId, false).then(function (data) {
                     $scope.datalistsstyles = data.d.details;
                 });
             } else
@@ -410,7 +410,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
         $scope.didChooseBlock = function (selectedBlockId, externalSourceKeywordLookupId) {
 //            $scope.loadingOverlay = true; //start Loading Overlay
-            blockModelFactory.allEmailBlockModelGet(selectedBlockId).then(function (data) {
+            blockModelFactory.allEmailBlockModelGet(selectedBlockId, false).then(function (data) {
                 $scope.firstTemplateForBlock = data.d.details[0].emailBlockModelLookupId;
                 $scope.isBlockClicked = "true";
                 $scope.htmlBlockId = "";

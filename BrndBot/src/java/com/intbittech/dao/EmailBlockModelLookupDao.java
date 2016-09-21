@@ -32,10 +32,11 @@ public interface EmailBlockModelLookupDao {
      * from database.
      *
      * @param emailBlockId is the emailBlockId
+     * @param isRecurring
      * @return list of {@link EmailBlockModelLookup}
      * @throws ProcessFailed the process failed
      */
-    public List<EmailBlockModelLookup> getAllEmailBlockModel(Integer emailBlockId) throws ProcessFailed;
+    public List<EmailBlockModelLookup> getAllEmailBlockModel(Integer emailBlockId, Boolean isRecurring) throws ProcessFailed;
 
     /**
      * This method save {@link EmailBlockModelLookup} into the database.
