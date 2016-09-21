@@ -59,13 +59,17 @@ public class EmailBlockModelLookupDaoImpl implements EmailBlockModelLookupDao {
     /**
      * {@inheritDoc}
      */
-    public List<EmailBlockModelLookup> getAllEmailBlockModel(Integer emailBlockId) throws ProcessFailed {
+    public List<EmailBlockModelLookup> getAllEmailBlockModel(Integer emailBlockId, Boolean isRecurring) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(EmailBlockModelLookup.class)
                     .setFetchMode("fkEmailBlockId", FetchMode.JOIN)
                     .setFetchMode("fkEmailBlockModelId", FetchMode.JOIN)
+                    
                     .add(Restrictions.eq("fkEmailBlockId.emailBlockId", emailBlockId));
+            if(isRecurring)
+                criteria.createAlias("fkEmailBlockModelId", "emailBlockModel")
+                .add(Restrictions.eq("emailBlockModel.isRecurring", Boolean.TRUE));
             if (criteria.list().isEmpty()) {
                 return null;
             }

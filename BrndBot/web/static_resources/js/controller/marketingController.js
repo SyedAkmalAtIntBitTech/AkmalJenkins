@@ -1809,7 +1809,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $("#styletab").css("background-color", "transparent").css("color", "#19587c");
         };
         $scope.didChooseBlock = function (selectedBlockId, externalSourceKeywordLookupId) {
-            blockModelFactory.allEmailBlockModelGet(selectedBlockId).then(function (data) {
+            blockModelFactory.allEmailBlockModelGet(selectedBlockId, true).then(function (data) {
                 $scope.firstTemplateForBlock = data.d.details[0].emailBlockModelLookupId;
                 $scope.isBlockClicked = "true";
                 $scope.htmlBlockId = "";
@@ -1905,7 +1905,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
             if ($scope.isBlockClicked === "true" || $scope.htmlBlockId !== "defaultblock1")
             {
-                blockModelFactory.allEmailBlockModelGet($scope.selectedBlockId).then(function (data) {
+                blockModelFactory.allEmailBlockModelGet($scope.selectedBlockId,true).then(function (data) {
                     $scope.datalistsstyles = data.d.details;
                 });
             }
