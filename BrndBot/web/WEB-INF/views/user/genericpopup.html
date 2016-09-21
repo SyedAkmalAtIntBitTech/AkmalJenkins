@@ -24,9 +24,9 @@
             </div>
         </div>
     </div>
-    <ul class="sub-nav-tab-wrap with-back-button">
+    <ul class="sub-nav-tab-wrap with-back-button" ng-show="pushedEmail==false">
         <li class="sub-nav-tab ">
-             <a id="emailaction1" val="{{schedule_id}}" ng-click="setTab('actionDetails')" ng-class="top_subnav_link_active_actionDetail_Class" href="">Action Details</a>
+             <a id="emailaction1" val="{{schedule_id}}" ng-click="setTab('actionDetails');" ng-class="top_subnav_link_active_actionDetail_Class" href="">Action Details</a>
         </li>
         <li class="sub-nav-tab ">
              <a id="emailpost1" ng-click="setTab('savedDetails')" ng-class="top_subnav_link_active_savedDetail_Class" href="">Saved {{savedHeader}}</a>
@@ -35,7 +35,18 @@
              <a id="emailnote1" ng-click="setTab('notes')" ng-class="top_subnav_link_active_notesDetail_Class" ng-if="isRecurring===false" href="">Collaboration</a>
         </li>
     </ul>
+    <ul class="sub-nav-tab-wrap with-back-button" ng-show="pushedEmail==true">
+        <li class="sub-nav-tab ">
+             <a id="emailpost1" ng-click="setTab('savedDetails')" ng-class="top_subnav_link_active_savedDetail_Class" href="">Saved {{savedHeader}}</a>
+        </li>
+        <li class="sub-nav-tab ">
+             <a id="emailnote1" ng-click="setTab('notes')" ng-class="top_subnav_link_active_notesDetail_Class" ng-if="isRecurring===false" href="">Associated Accounts</a>
+        </li>
+    </ul>
+    
     <div ng-include src="'generalActionDetails.html'"></div>
     <div ng-include src="'generalActionNotes.html'"></div>
     <div ng-include src="'generalSavedDetails.html'"></div>
+    <div ng-include src="'pushedactionssaveddetails.html'"></div>
+    
 </div>

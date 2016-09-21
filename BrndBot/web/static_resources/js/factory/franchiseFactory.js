@@ -23,11 +23,21 @@ factoryApp.factory('franchiseFactory', function ($q, authenticatedServiceFactory
         var deffered = $q.defer();
         var url = configurationService.getCompaniesForFranchiseIdURL()+"?franchiseId="+franchiseId +"&emailTag="+emailTag;
         var data = '';
-        authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
+    franchiseFactoryObject.getAllPushedEmailsForFranchise = function (franchiseId) {
+        var deffered = $q.defer();
+        var url = configurationService.getAllPushedEmailsForFranchiseURL()+"?franchiseId="+franchiseId;
+        var data = '';
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+
     franchiseFactoryObject.getFranchiseHeadquarter = function (franchiseId) {
         var deffered = $q.defer();
         var url = configurationService.getFranchiseHeadquarterURL()+"?franchiseId="+franchiseId;

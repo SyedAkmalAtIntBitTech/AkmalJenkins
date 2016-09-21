@@ -1,5 +1,5 @@
 
-franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$location', 'franchiseFactory','redirectFactory','appSessionFactory', function ($scope, $window, $location, franchiseFactory, redirectFactory, appSessionFactory) {
+franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$location', 'franchiseFactory','redirectFactory','appSessionFactory','yourPlanFactory', function ($scope, $window, $location, franchiseFactory, redirectFactory, appSessionFactory, yourPlanFactory) {
        
         $scope.tab = 1;
         $scope.addFranchisePopup = false;
@@ -9,19 +9,11 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
         $scope.franchiseId = "";
         $scope.franchiseName = "";
         $scope.addCompanyPopup = false;
-
+        $scope.pushedEmail = false;
+        $scope.clickedRemoveAction = false;
+        
         $scope.redirectToEmailFlow = function (forwardone)
         {
-//            appSessionFactory.clearEmail().then(function(checkCleared){
-//                redirectFactory.redirectFlowTo(forwardone);
-//                $window.location = getHost()+"user/"+forwardone;
-//                var emailsubject=$scope.emailsubject;
-//                if(emailsubject==='')
-//                {
-//                    $scope.emailSubjectError="Email Subject Required!";
-//                }
-//            });
-            
             appSessionFactory.clearEmail().then(function(checkCleared){
                 appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                     kGlobalEmailObject.pushedEmail = true;
@@ -53,7 +45,125 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             $scope.franchiseName = queryString["franchiseName"];
             $scope.getFranchiseHeadquarter();
         };
+        
+        $scope.getAllPushedEmailsForFranchise = function (){
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                var franchiseId = kGlobalCompanyObject.franchiseId;
+                franchiseFactory.getAllPushedEmailsForFranchise(franchiseId).then(function (data){
+                   $scope.allPushedEmails = data.d.details;
+                });
+            });
+        };
 
+        $scope.setTab = function (tabName) {
+            if (tabName === 'savedDetails') {
+                $scope.top_subnav_link_active_savedDetail_Class = 'top-subnav-link-active-detail-Class';
+                $scope.top_subnav_link_active_actionDetail_Class = '';
+                $scope.top_subnav_link_active_notesDetail_Class = '';
+                $scope.pushedEmailSavedDetails = true;
+                $scope.generalActions = false;
+                $scope.generalNotes = false;
+            }
+            if (tabName === 'notes') {
+                $scope.top_subnav_link_active_notesDetail_Class = 'top-subnav-link-active-detail-Class';
+                $scope.top_subnav_link_active_actionDetail_Class = '';
+                $scope.top_subnav_link_active_savedDetail_Class = '';
+                $scope.generalNotes = true;
+                $scope.generalActions = false;
+                $scope.pushedEmailSavedDetails = false;
+            }
+//            if (tabName === 'reminderDetails') {
+//                $scope.top_subnav_link_active_reminderDetail_Class = 'top-subnav-link-active-detail-Class';
+//                $scope.top_subnav_link_active_savedReminder_Class = '';
+//                $scope.reminderDetailsTab = true;
+//                $scope.savedReminderTab = false;
+//            }
+//            if (tabName === 'savedReminder') {
+//                $scope.top_subnav_link_active_savedReminder_Class = 'top-subnav-link-active-detail-Class';
+//                $scope.top_subnav_link_active_reminderDetail_Class = '';
+//                $scope.savedReminderTab = true;
+//                $scope.reminderDetailsTab = false;
+//            }
+        };
+
+        $scope.closePopup = function () {
+            $scope.reminderSectionClass = '';
+            $scope.emailsectionClass = '';
+            $scope.fadeClass = '';
+            $scope.hideSaveButton();
+            $scope.hideReminderSaveButton();
+        };        
+
+        $scope.promptHideShow = function (flag){
+            $scope.clickedRemoveAction = flag;
+        };        
+        $scope.getScheduleDetails = function ()
+        {
+            $scope.dateLesser = false;
+//        $scope.entities_selected_time =schedule_time;
+//            var nDate = new Date(action_date + " 10:30 am"); //10:30 am save DST
+//            $scope.calculatedProgramDate = $scope.addDays(nDate, days);
+//            $scope.entities_selected_time = $filter('date')(schedule_time, "MMM dd yyyy");
+            $scope.pushedSavedEmail = false;
+            $scope.schedule_id = 180;
+            $scope.pushedEmailSavedDetails = true;
+            $scope.generalNotes = false;
+            $scope.generalActions = false;
+            $scope.emailsectionClass = 'emailsectionClass';
+            $scope.fadeClass = 'fadeClass';
+            $scope.pushedEmail = true;
+            var entity_type = 'Email';
+//            $scope.action_template_status = template_status;
+            $scope.generalActionDetailsHeader = 'Email';
+            $scope.scheduledTo = 'POST';
+            $scope.setTab('savedDetails');
+            $scope.masterActionType = 'Email';
+            $scope.templateApproveButton = "Approve";
+            $scope.templateDisapproveButton = "Disapprove";
+            $scope.savedDetailsAddTemplateButton = "Go to Dashboard";
+            $scope.savedDetailsAddTemplateLink = "dashboard";
+            $scope.setEmailToThisAction="Save Email to this Action";
+            $scope.isRecurring = false;
+            if (entity_type === getnote()) {
+                $scope.reminderSectionClass = 'reminderSectionClass';
+                $scope.savedReminderTab = true;
+                $scope.setTab('savedReminder');
+            }
+//            var date = $scope.entities_selected_time;
+////            var time = $filter('date')(schedule_time, "hh : mm : a");
+////            $("#emaildatetime").val($filter('date')(action_date, "MMM dd yyyy"));
+////            $("#emaildatetime1").val($filter('date')(action_date, "MMM dd yyyy"));
+////            $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: date,
+////                schedule_id: schedule_id, schedule_desc: schedule_desc,
+////                email_template_status: template_status, schedule_type: entity_type,
+////                marketing_program_name: marketingName, user_marketing_program_id: programId,
+////                days: days, is_today_active: is_today_active, schedule_time: time};
+////                $('#emailcontentiframe').contents().find('html').html(data.body); 
+//            $scope.globalScheduleData = $scope.scheduleData;
+//
+            if (entity_type === getemail()) {
+                $scope.scheduledTo = 'SEND';
+                  $scope.savedHeader = getemail();
+//                yourPlanFactory.scheduledEmailGet($scope.scheduleData.schedule_id).then(function (data) {
+//                    $scope.entitiesdetails = JSON.parse(data.d.details);
+                    var iframe = document.getElementById('iframeForAction');
+//                    
+//                    if (data.d.details != "{}") {
+                        $scope.pushedSavedEmail = true;
+                        $scope.clickedRemoveAction = false;
+//                        $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
+                        $scope.deleteScheduleButton = "Remove Saved Email";
+                        iframe.contentDocument.body.innerHTML = $scope.entitiesdetails.body;
+                        $scope.iframeLoad();
+//                    } else {
+//                        $scope.savedEmail = false;
+//                        $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
+//                    }
+//                });
+            } 
+//            growl($scope.isRecurring);
+        };
+        
         $scope.showEditFranchisePopup = function (franchiseId) {
             $scope.editFranchisePopup = true;
             $scope.editFranchisePopupDiv = true;
@@ -176,9 +286,9 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             $location.path("/pushedemaildetailbase");
         };
          //Setting tabs in pushedemailbase
-        $scope.setTab = function(newTab){
-              $scope.tab = newTab;
-        };
+//        $scope.setTabs = function(newTab){
+//              $scope.tab = newTab;
+//        };
         
         $scope.isSet = function(tabNum){
              return $scope.tab === tabNum;

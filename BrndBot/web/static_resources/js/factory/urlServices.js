@@ -548,6 +548,10 @@ factoryApp.service('configurationService', function () {
         return getHost() + "pushedActions/savePushedScheduledActionCompanies";
     };
 
+    this.getAllPushedEmailsForFranchiseURL = function(){
+        return getHost() + "pushedActions/savePushedScheduledActionCompanies";
+    };
+
     //************** marketingFactory ********************//
 
     this.marketingProgramsURL = function () {
