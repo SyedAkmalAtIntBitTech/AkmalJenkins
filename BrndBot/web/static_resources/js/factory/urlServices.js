@@ -549,7 +549,7 @@ factoryApp.service('configurationService', function () {
     };
 
     this.getAllPushedEmailsForFranchiseURL = function(){
-        return getHost() + "pushedActions/savePushedScheduledActionCompanies";
+        return getHost() + "pushedActions/getAllPushedActionForFranchise";
     };
 
     //************** marketingFactory ********************//

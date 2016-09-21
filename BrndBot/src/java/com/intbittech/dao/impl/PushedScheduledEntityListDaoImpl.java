@@ -114,7 +114,7 @@ public class PushedScheduledEntityListDaoImpl implements PushedScheduledEntityLi
 
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_retreving_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
 

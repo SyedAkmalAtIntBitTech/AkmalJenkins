@@ -5,11 +5,17 @@
  */
 package com.intbittech.controller;
 
+import com.intbittech.model.PushedScheduledEntityList;
+import com.intbittech.modelmappers.PushedActionDetails;
 import com.intbittech.modelmappers.PushedScheduledActionCompaniesDetails;
 import com.intbittech.responsemappers.ContainerResponse;
+import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.PushedScheduledActionCompaniesService;
+import com.intbittech.services.PushedScheduledEntityListService;
 import com.intbittech.utility.ErrorHandlingUtil;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -27,18 +34,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping(value = "/pushedActions")
 public class PushedScheduledActionCompaniesController {
-    
-   private final static Logger logger = Logger.getLogger(PushedScheduledActionCompaniesController.class);
+
+    private final static Logger logger = Logger.getLogger(PushedScheduledActionCompaniesController.class);
 
     @Autowired
     private PushedScheduledActionCompaniesService pushedScheduledActionCompaniesService;
-    
-    
-     @RequestMapping(value = "/savePushedScheduledActionCompanies", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @Autowired
+    private PushedScheduledEntityListService pushedScheduledEntityListService;
+
+    @RequestMapping(value = "/savePushedScheduledActionCompanies", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> savePushedScheduledActionCompanies(@RequestBody PushedScheduledActionCompaniesDetails pushedScheduledActionCompaniesDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-           pushedScheduledActionCompaniesService.savePushedScheduledActionCompanies(pushedScheduledActionCompaniesDetails);
+            pushedScheduledActionCompaniesService.savePushedScheduledActionCompanies(pushedScheduledActionCompaniesDetails);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Pushed scheduled action companies created successfully"));
         } catch (Throwable ex) {
             logger.error(ex);
@@ -48,5 +57,28 @@ public class PushedScheduledActionCompaniesController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
-    
+    @RequestMapping(value = "/getAllPushedActionForFranchise", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllPushedActionForFranchise(@RequestParam("franchiseId") Integer franchiseId) {
+        GenericResponse<PushedActionDetails> genericResponse = new GenericResponse<>();
+        try {
+            List<PushedActionDetails> pushedActionDetailsList = new ArrayList<>();
+            List<PushedScheduledEntityList> pushedScheduledEntityList = pushedScheduledEntityListService.getAllPushedScheduledEntityListIdByFranchiseId(franchiseId);
+            for (PushedScheduledEntityList pushedScheduledEntityListObject : pushedScheduledEntityList) {
+                PushedActionDetails pushedActionDetails = new PushedActionDetails();
+                pushedActionDetails.setPushedActionName(pushedScheduledEntityListObject.getFkScheduledEntityListId().getScheduleTitle());
+                pushedActionDetails.setScheduledEntityListId(pushedScheduledEntityListObject.getFkScheduledEntityListId().getScheduledEntityListId());
+                pushedActionDetails.setEntityId(pushedScheduledEntityListObject.getFkScheduledEntityListId().getEntityId());
+                pushedActionDetails.setPushedactionDateTime(pushedScheduledEntityListObject.getFkScheduledEntityListId().getScheduleTime().getTime());
+                pushedActionDetailsList.add(pushedActionDetails);
+            }
+            genericResponse.setDetails(pushedActionDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("All pushed action for franchise retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
+
 }

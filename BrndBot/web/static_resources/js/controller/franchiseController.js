@@ -51,6 +51,7 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
                 var franchiseId = kGlobalCompanyObject.franchiseId;
                 franchiseFactory.getAllPushedEmailsForFranchise(franchiseId).then(function (data){
                    $scope.allPushedEmails = data.d.details;
+                   alert(JSON.stringify(data.d.details));
                 });
             });
         };
