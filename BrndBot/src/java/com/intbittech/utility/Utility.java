@@ -6,6 +6,7 @@
 package com.intbittech.utility;
 
 import com.intbittech.divtohtml.StringUtil;
+import com.intbittech.enums.AdminStatus;
 import java.nio.charset.StandardCharsets;
 import com.intbittech.model.EmailInfo;
 import java.nio.file.Files;
@@ -16,6 +17,8 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import com.intbittech.model.EmailInfo;
 import com.intbittech.model.UserCompanyIds;
+import java.util.ArrayList;
+import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -142,4 +145,12 @@ public class Utility {
         return userCompanyIds;
     }
     
+    public static List<String> getAllUserRoleOfCompanyForSendEmail() {
+        List<String> userRoleList = new ArrayList<>();
+        
+        userRoleList.add(AdminStatus.ROLE_ACCOUNT_OWNER.toString());
+        userRoleList.add(AdminStatus.ROLE_MANAGER.toString());
+      
+        return userRoleList;
+    }
 }
