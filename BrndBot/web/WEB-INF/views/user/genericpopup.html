@@ -4,7 +4,7 @@
         <a class="exit-button" ng-click="closePopup();promptHideShow(false);clickedDeleteAction = false;" href="">
         </a>
         <h2> {{generalActionDetailsHeader}} Action Detail</h2>
-        <div class="overlay-header-cta-wrap">
+        <div class="overlay-header-cta-wrap" ng-show="pushedEmail==false">
             <a  class="status-button template-not-approved" ng-show="action_template_status === 'Template Saved' && !isProgramArchived" ng-click="Approval(schedule_id, 'approved', masterActionType)" style="padding: 10px 0px 10px 0px;width: 100px;">
                 <i class=""></i>
                 <label>{{templateApproveButton}}</label>
@@ -40,7 +40,7 @@
              <a id="emailpost1" ng-click="setTab('savedDetails')" ng-class="top_subnav_link_active_savedDetail_Class" href="">Saved {{savedHeader}}</a>
         </li>
         <li class="sub-nav-tab ">
-             <a id="emailnote1" ng-click="setTab('associtedAcccounts')" ng-class="top_subnav_link_active_notesDetail_Class" href="">Associated Accounts</a>
+             <a id="emailnote1" ng-click="setTab('associatedAcccounts')" ng-class="top_subnav_link_active_notesDetail_Class" href="">Associated Accounts</a>
         </li>
     </ul>
     
@@ -48,6 +48,6 @@
     <div ng-include src="'generalActionNotes.html'"></div>
     <div ng-include src="'generalSavedDetails.html'"></div>
     <div ng-include src="'pushedactionssaveddetails.html'"></div>
-    <div ng-include src="'pushedactionsassociatedaccounts.html'"></div>
+    <div ng-include src="'pushedactionassociatedaccounts.html'"></div>
     
 </div>

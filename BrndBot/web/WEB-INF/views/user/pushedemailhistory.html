@@ -11,30 +11,23 @@
             <div class="bb-panel-full-width bb-panel-styling-content-wrap">
                
             </div>
-            <div class="bb-panel-full-width bb-panel-styling-content-wrap" >
+            <div class="bb-panel-full-width bb-panel-styling-content-wrap" ng-show="noPushedEmails">
                 <div class="hub-empty-wrap">No Pushed Emails</div>
             </div>
-            <div class="bb-panel-full-width bb-panel-styling-content-wrap">
+            <div class="bb-panel-full-width bb-panel-styling-content-wrap" ng-init="getAllPushedEmailsForFranchise()">
                 
-                <div class="hub-slat-list-wrap" ng-init="getAllPushedEmailsForFranchise()">
+                <div class="hub-slat-list-wrap" ng-repeat="pushedEmail in allPushedEmails">
                     <div class="slat" >
-                  
-                        <div class="slat-name-wrap" ng-repeat="pushedEmail in pushedEmails">
-                            <h2>{{pushedEmail.pushedActionName}}</h2>
-                            <p>Created on {{pushedEmail.pushedactionDateTime | date:'MMMM d, y at  h:mma' }} June 16th 2016 at 9:56:05 PM</p>
-                        </div>
-                        <div class="slat-detail-wrap">
-                            <div class="slat-detail">
-                                <h2 >Scheduled</h2>
-                                <p>Status</p>
+                            <div class="slat-name-wrap" >
+                                <h2>{{pushedEmail.pushedActionName}}</h2>
+                                <p>Created on {{pushedEmail.pushedactionDateTime | date:'MMMM d, y at  h:mm:ss a' }} </p>
                             </div>
-                        </div>
-                        <div class="slat-detail-wrap">
-                            <div class="slat-detail">
-                              <a class="reg-button gray-button slat-detail-button" ng-click="getScheduleDetails(pushedEmail.scheduledEntityListId,
-                                          pushedEmail.entityId, pushedEmail.pushedactionDateTime)">View Email Details</a>
+                            <div class="slat-detail-wrap">
+                                <div class="slat-detail">
+                                  <a class="reg-button gray-button slat-detail-button" ng-click="getScheduleDetails(pushedEmail.pushedActionName, pushedEmail.scheduledEntityListId,
+                                              pushedEmail.entityId, pushedEmail.pushedactionDateTime)">View Email Details</a>
+                                </div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>

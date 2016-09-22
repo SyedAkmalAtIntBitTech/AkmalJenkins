@@ -250,6 +250,10 @@ franchiseHubApp.config(function ($routeProvider) {
                 title: 'BrndBot - Pushed Emails',
                 templateUrl: 'pushedemailhistory.html'
             })
+            .when('/pushedemaildrafts', {
+                title: 'BrndBot - Pushed Emails',
+                templateUrl: 'pushedemaildrafts.html'
+            })
             .when('/pushedemaildetailbase', {
                 title: 'BrndBot - Pushed Emails',
                 templateUrl: 'pushedemaildetailbase.html'

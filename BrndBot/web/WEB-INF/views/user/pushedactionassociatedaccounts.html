@@ -1,82 +1,30 @@
-<!-- HEAD franchisebackend1 -->
 <div class="overlay-content" ng-show='associatedAccounts' style="position: relative">
-      <div class="overlay-details-pane" ng-show="isRecurring === false">
-                    <div class="overlay-details-pane-header">GENERAL DETAILS</div>
-                    <div class="detail-sections-wrap">
-                        <input type="hidden" class="textbox" id="emaildays" name="emaildays" value="0"/>
-                       
-                        <div class="detail-section half">
-                            <label class="detail-section-label">Action Assignment</label>
-                            <a class="overlay-detail-input  ease-all">
-                                <div class="user-badge" style="height:30px; width:30px; line-height: 30px; text-align: center; margin-right: 15px; border-radius: 30px; background-color:lightblue; font-size: 14px; font-weight: bold; color: white;">AS</div>
-                                <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">Andy Swansburg</span>
-                            </a>
-                        </div>
-                        
-<!--
-<div id="facebooknotesection1" ng-show='generalNotes'>
-    <div class="below-nav-container-saved-post-detail">
-        <div class="inner-content-container-detail">
-            <div class="inner-content-detail">
-                <div class="saved-note-detail">
-                    <div class="notes-container">
-                        <textarea ng-model="scheduleData.schedule_desc" class="notes-container-textarea" name="fb_description" id="fb_description{{scheduleData.schedule_id}}">{{scheduleData.schedule_desc}}</textarea>
-development branch-->
-                    </div>
-                     
-                </div>
-    <div class="email-preview-bar">ACTION COMMENTS</div>
-    <div class="action-comments-wrap" style="height:calc(100vh - 450px); background-color: #f2f2f4; width: 100%; padding:30px 60px; overflow-y: scroll;">
-        <div class="action" style="background-color:white; padding:20px 30px;  border-radius: 3px;  ">
-            <div style="display: inline-flex;">
-                <div style="height:30px; width:30px; line-height: 30px; text-align: center; margin-right: 10px; border-radius: 30px; background-color:lightblue; font-size: 14px; font-weight: bold; color: white;">AS
-                </div>
-                <span style="margin: 0px 5px; line-height: 30px; font-size: 16px; color:#3f3f42;">Andy Swansburg</span>
-                <span style=" font-size: 14px; color: #7c7d82; line-height: 30px; margin-left: 10px; ">August 6th 12:01 PM</span>
+    <div class="overlay-details-pane" ng-show="isRecurring === false">
+        <div class="overlay-details-pane-header">Accounts Pushed To</div>
+        <div class="detail-sections-wrap">
+            <div class="detail-section half">
+                <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">TDM Boston</span>
             </div>
-            <div style=" padding-left: 45px; margin-top: 5px;">
-                <div>@AR it looks good. Can we replace the main image with something from our 
-latest photoshoot though? </div>
+            <div class="detail-section half">
+                <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">Sent</span>
             </div>
         </div>
-        <div class="action" style="background-color:white; padding:20px 30px;  border-radius: 3px; margin-top: 20px;  ">
-            <div style="display: inline-flex;">
-                <div style="height:30px; width:30px; line-height: 30px; text-align: center; margin-right: 10px; border-radius: 30px; background-color:cornflowerblue; font-size: 14px; font-weight: bold; color: white;">SB
-                </div>
-                <span style="margin: 0px 5px; line-height: 30px; font-size: 16px; color:#3f3f42;">Andy Swansburg</span>
-                <span style=" font-size: 14px; color: #7c7d82; line-height: 30px; margin-left: 10px; ">August 6th 12:01 PM</span>
+        <div class="detail-sections-wrap">
+            <div class="detail-section half">
+                <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">TDM BrndBot</span>
             </div>
-            <div style=" padding-left: 45px; margin-top: 5px;">
-                <div>@AR it looks good. Can we replace the main image with something from our 
-latest photoshoot though? </div>
+            <div class="detail-section half">
+                <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">Not Sent</span>
             </div>
         </div>
-        <div class="action" style="background-color:white; padding:20px 30px;  border-radius: 3px; margin-top: 20px;  ">
-            <div style="display: inline-flex;">
-                <div style="height:30px; width:30px; line-height: 30px; text-align: center; margin-right: 10px; border-radius: 30px; background-color:cornflowerblue; font-size: 14px; font-weight: bold; color: white;">SB
-                </div>
-                <span style="margin: 0px 5px; line-height: 30px; font-size: 16px; color:#3f3f42;">Andy Swansburg</span>
-                <span style=" font-size: 14px; color: #7c7d82; line-height: 30px; margin-left: 10px; ">August 6th 12:01 PM</span>
+        <div class="detail-sections-wrap">
+            <div class="detail-section half">
+                <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">TDM California</span>
             </div>
-            <div style=" padding-left: 45px; margin-top: 5px;">
-                <div>@AR it looks good. Can we replace the main image with something from our 
-latest photoshoot though? </div>
+            <div class="detail-section half">
+                <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">Sent</span>
             </div>
         </div>
-        <div class="action" style="background-color:white; padding:20px 30px;  border-radius: 3px; margin-top: 20px;  ">
-            <div style="display: inline-flex;">
-                <div style="height:30px; width:30px; line-height: 30px; text-align: center; margin-right: 10px; border-radius: 30px; background-color:cornflowerblue; font-size: 14px; font-weight: bold; color: white;">SB
-                </div>
-                <span style="margin: 0px 5px; line-height: 30px; font-size: 16px; color:#3f3f42;">Andy Swansburg</span>
-                <span style=" font-size: 14px; color: #7c7d82; line-height: 30px; margin-left: 10px; ">August 6th 12:01 PM</span>
-            </div>
-            <div style=" padding-left: 45px; margin-top: 5px;">
-                <div>@AR it looks good. Can we replace the main image with something from our 
-latest photoshoot though? </div>
-            </div>
-        </div>
-    </div>
-    <div class="action-comment-input-wrap" style="position: absolute; bottom:0px; width:100%; padding: 15px 60px; background-color:white; ">
-        <div class="input"> <input size="40" class="fluid"></div>
+
     </div>
 </div>
