@@ -407,20 +407,25 @@ public class CompanyController {
             List<EmailBlockDetails> emailBlockDetailsList = new ArrayList<>();
             List<OrganizationEmailBlockLookup> organizationEmailBlockList = emailBlockService.getAllEmailBlockByOrganizationIds(organizationIds);
             for (OrganizationEmailBlockLookup organizationEmailBlockObject : organizationEmailBlockList) {
-                EmailBlockDetails emailBlockDetails = new EmailBlockDetails();
-                emailBlockDetails.setEmailBlockId(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId());
-                emailBlockDetails.setEmailBlockName(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockName());
-                emailBlockDetails.setOrganizationId(organizationEmailBlockObject.getFkOrganizationId().getOrganizationId());
+                try {
+                    List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupService.getAllEmailBlockModel(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId(), Boolean.TRUE);
+                    if(emailBlockModelLookupList!= null) {
+                        EmailBlockDetails emailBlockDetails = new EmailBlockDetails();
+                        emailBlockDetails.setEmailBlockId(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId());
+                        emailBlockDetails.setEmailBlockName(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockName());
+                        emailBlockDetails.setOrganizationId(organizationEmailBlockObject.getFkOrganizationId().getOrganizationId());
 
-                List<EmailBlockExternalSource> emailBlockExternalSourceList = emailBlockExternalSourceService.getAllEmailBlockExternalSourceByEmailBlockIdAndExternalSourceId(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId(), IConstants.EXTERNAL_SOURCE_NON_MINDBODY);
-                if (emailBlockExternalSourceList != null) {
-                    EmailBlockExternalSource emailBlockExternalSourceObject = emailBlockExternalSourceList.get(0);
-                    emailBlockDetails.setExternalSourceName(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getFkExternalSourceId().getExternalSourceName());
-                    emailBlockDetails.setExternalSourceKeywordName(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getFkExternalSourceKeywordId().getExternalSourceKeywordName());
-                    emailBlockDetails.setExternalSourceKeywordLookupId(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getExternalSourceKeywordLookupId());
-                    emailBlockDetailsList.add(emailBlockDetails);
+                        List<EmailBlockExternalSource> emailBlockExternalSourceList = emailBlockExternalSourceService.getAllEmailBlockExternalSourceByEmailBlockIdAndExternalSourceId(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId(), IConstants.EXTERNAL_SOURCE_NON_MINDBODY);
+                        if (emailBlockExternalSourceList != null) {
+                            EmailBlockExternalSource emailBlockExternalSourceObject = emailBlockExternalSourceList.get(0);
+                            emailBlockDetails.setExternalSourceName(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getFkExternalSourceId().getExternalSourceName());
+                            emailBlockDetails.setExternalSourceKeywordName(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getFkExternalSourceKeywordId().getExternalSourceKeywordName());
+                            emailBlockDetails.setExternalSourceKeywordLookupId(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getExternalSourceKeywordLookupId());
+                            emailBlockDetailsList.add(emailBlockDetails);
+                        }
+                    }
+                } catch (Throwable throwable) {
                 }
-
             }
             genericResponse.setDetails(emailBlockDetailsList);
             System.out.println(emailBlockDetailsList.size() + emailBlockDetailsList.get(0).getEmailBlockName());

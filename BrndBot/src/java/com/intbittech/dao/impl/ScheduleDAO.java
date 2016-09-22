@@ -915,12 +915,13 @@ public class ScheduleDAO {
                 + "concat(date(programtable.date_event) - slist.days, ' ', slist.schedule_time::time WITH TIME ZONE) "
                 + "as cal_schedule_time, concat(date(programtable.date_event), ' ', slist.schedule_time::time WITH TIME ZONE)"
                 + " as cal_schedule_time_recurring, date(schedule_time) schedule_date ,suser.first_name,suser.last_name,suser.user_id "
-                + "FROM scheduled_entity_list slist,  company_marketing_program programtable,"
-                + " users as suser WHERE programtable.status = 'Open' AND slist.fk_company_id = ?  "
+                + "FROM scheduled_entity_list as slist FULL OUTER JOIN company_marketing_program as programtable"
+                + " on (slist.fk_company_marketing_program_id = programtable.company_marketing_program_id)"
+                + " FULL OUTER JOIN users as suser on (slist.assigned_to = suser.user_id)"
+                + " WHERE programtable.status = 'Open' AND slist.fk_company_id = ?  "
                 + "AND ((date(schedule_time) <= ?  AND date(schedule_time) >= ?) "
                 + "OR ((slist.is_recurring = 'false' AND date(programtable.date_event) - slist.days<= ?  "
                 + "AND date(programtable.date_event) - slist.days >= ?)  )) "
-                + "AND slist.fk_company_marketing_program_id = programtable.company_marketing_program_id AND slist.assigned_to = suser.user_id"
                 + " ORDER BY slist.scheduled_entity_list_id, schedule_time" ;
         try (Connection connection = connectionManager.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)) {
