@@ -1091,7 +1091,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
 
-        $scope.getEmailTemplates = function () {
+        $scope.getEmailTemplates = function (isTemplateClick) {
             $scope.blockdivheader = false;
             $scope.styledivheader = false;
             $scope.recurringDivheader = true;
@@ -1102,7 +1102,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $("#emlautomeditorcontainer").show();
             marketingRecurringEmailFactory.allRecurringEmailTemplatesGet().then(function (data) {
                 $scope.recuring_email_templates = JSON.parse(JSON.stringify(data));
-                $scope.showHTMLData($scope.recuring_email_templates[0].html_data, $scope.recuring_email_templates[0].template_id);
+                if(!isTemplateClick)
+                    $scope.showHTMLData($scope.recuring_email_templates[0].html_data, $scope.recuring_email_templates[0].template_id);
             });
             $scope.recurringTemplateOnClick(0);
         };

@@ -140,7 +140,7 @@
         </div>
 </div>
 
-<div class="bb-email-editor-wrap" id="emailautomation"  ng-init="getEmailTemplates()" ng-show="automationEditor === true">
+<div class="bb-email-editor-wrap" id="emailautomation"  ng-init="getEmailTemplates(false)" ng-show="automationEditor === true">
 
         <!--Email Preview-->
         <div id="fade" class="center-pop-ups overlay-dark-bg" ng-show="emailPreviewPopup">
@@ -218,7 +218,7 @@
 
                 <div class="email-editor-tab-wrap">
                     <div class="editor-col-tab">
-                        <div class="{{recurringtab}}" id="recurringtab"  ng-click="getEmailTemplates()">
+                        <div class="{{recurringtab}}" id="recurringtab"  ng-click="getEmailTemplates(true)">
                             Template 
                         </div>
                     </div>
