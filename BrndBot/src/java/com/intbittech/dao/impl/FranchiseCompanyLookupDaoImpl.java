@@ -139,7 +139,7 @@ public class FranchiseCompanyLookupDaoImpl implements FranchiseCompanyLookupDao 
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(FranchiseCompanyLookup.class)
                     .setFetchMode("fkFranchiseId", FetchMode.JOIN)
-                    .add(Restrictions.eq("isHeadQuarter", true))
+                    .add(Restrictions.eq("isHeadquarter", true))
                     .add(Restrictions.eq("fkFranchiseId.franchiseId", franchiseId));
             if (criteria.list().isEmpty()) {
                 return null;

@@ -132,6 +132,11 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
                         $scope.iframeLoad();
                     }
                 });
+                franchiseFactory.getAllAssociatedAccountForScheduledEntity(scheduledEntityListId).then(function (data){
+                    $scope.associatedCompanies = data.d.details;
+                    alert(JSON.stringify(data.d.details));
+                });
+
             } 
 //            growl($scope.isRecurring);
         };

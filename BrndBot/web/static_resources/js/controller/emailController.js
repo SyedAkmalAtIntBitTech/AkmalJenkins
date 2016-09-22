@@ -65,23 +65,48 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.postData = {};
         var sliderDialog = "#emaileditorexternalpopup";
         var companies = [];
+        var companiesWithNoEmailList = [];
+        var userRoles = {};
 
         $scope.toggleAll = function() {
            var toggleStatus = !$scope.isAllSelected;
            var checked = $("#selectAll:checked").val()
            if (checked){
-               angular.forEach($scope.franchiseCompanies, function(itm){ itm.selected = toggleStatus; });
+               angular.forEach($scope.franchiseCompanies, function(itm){
+                   itm.selected = toggleStatus;
+               });
+               for (var i = 0;i< $scope.franchiseCompanies.length; i++){
+                   var company = $scope.franchiseCompanies[i];
+                   var companyIDs = {};
+                    companyIDs["companyId"] = company.companyId;
+
+                    companies.push(companyIDs);
+               }
            }else {
                toggleStatus = false;
                angular.forEach($scope.franchiseCompanies, function(itm){ itm.selected = toggleStatus; });
-           }
+               for (var i = 0;i< $scope.franchiseCompanies.length; i++){
+                   var company = $scope.franchiseCompanies[i];
+                   var companyIDs = {};
+                    companyIDs["companyId"] = company.companyId;
 
+                    companies.pop(companyIDs);
+               }
+           }
         };
 
         $scope.optionToggled = function(){
           $scope.isAllSelected = $scope.franchiseCompanies.every(function(itm){ return itm.selected; })
         };
+        
+        $scope.sendReminderEmailToCreateEmailList = function(){
+            appSessionFactory.getEmail().then(function(kGlobalEmailObject){
+                var emailTagId = kGlobalEmailObject.emailTagId;
+                franchiseFactory.sendReminderEmailToCreateEmailListPost(companiesWithNoEmailList,emailTagId).then(function (data){
 
+                });
+            });
+        };
         $scope.setSelectCompany = function(company){
             var companyId = $("#"+company+ ":checked").val();
             
@@ -935,12 +960,13 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 var franchiseId = kGlobalCompanyObject.franchiseId;
                 appSessionFactory.getEmail().then(function(kGlobalEmailObject){
                     var emailTagId = kGlobalEmailObject.emailTagId;
-                    franchiseFactory.getCompaniesForFranchiseId(franchiseId,emailTagId).then(function (data) {
+                    franchiseFactory.getCompaniesForFranchiseIdAndEmailListTag(franchiseId,emailTagId).then(function (data) {
                         $scope.franchiseCompanies = data.d.details;
                         for (var i=0; i<data.d.details.length; i++){
                             var franchiseCompany = data.d.details[i];
                             if (franchiseCompany.isEmailList == false){
                                 $scope.isEmailListPresentForCompany = false;
+                                companiesWithNoEmailList.push(franchiseCompany.companyId);
                             }
                         }
 
@@ -1160,7 +1186,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     $scope.postData.emailSubject = "Intbit Email";
                     $scope.postData.toAddress = "intbit@intbittech.com";
                     $scope.postData.replyAddress = "reply@intbittech.com";
-                    alert(JSON.stringify($scope.postData));
                 }else {
                     if ($scope.validateEmails(emailAddresses)) {
                         if ($scope.emailList !== "Manual")
@@ -1619,7 +1644,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                                                              "editable":editable, "franchiseId":franchiseId,
                                                                              "scheduledEntityListId":$scope.socialAction};
                                          var actionCompaniesDetails = companies;
-
                                          var pushedScheduledActionCompaniesDetails = {"pushedScheduledEntityDetails": pushedScheduledEntityDetails,"actionCompaniesDetails":actionCompaniesDetails};
                                          pushedActionsFactory.saveSchedulePushedActionsCompanies(pushedScheduledActionCompaniesDetails).then(function (data){
 

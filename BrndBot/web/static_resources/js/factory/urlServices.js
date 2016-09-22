@@ -552,6 +552,9 @@ factoryApp.service('configurationService', function () {
         return getHost() + "pushedActions/getAllPushedActionForFranchise";
     };
 
+    this.getAllAssociatedAccountForScheduledEntityURL = function(){
+        return getHost() + "pushedActions/getAllAssociatedAccountForScheduledEntity";
+    };
     //************** marketingFactory ********************//
 
     this.marketingProgramsURL = function () {
@@ -985,6 +988,10 @@ factoryApp.service('configurationService', function () {
     };
     
     this.getCompaniesForFranchiseIdURL = function () {
+        return getHost() + "getCompaniesForFranchiseId";
+    };
+
+    this.getCompaniesForFranchiseIdAndEmailListTagURL = function () {
         return getHost() + "getAllCompanyForFranchise";
     };
 

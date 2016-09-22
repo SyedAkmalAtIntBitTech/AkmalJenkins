@@ -5,7 +5,9 @@
  */
 package com.intbittech.controller;
 
+import com.intbittech.model.PushedScheduledActionCompanies;
 import com.intbittech.model.PushedScheduledEntityList;
+import com.intbittech.modelmappers.AssociatedAccountDetails;
 import com.intbittech.modelmappers.PushedActionDetails;
 import com.intbittech.modelmappers.PushedScheduledActionCompaniesDetails;
 import com.intbittech.responsemappers.ContainerResponse;
@@ -73,6 +75,29 @@ public class PushedScheduledActionCompaniesController {
             }
             genericResponse.setDetails(pushedActionDetailsList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("All pushed action for franchise retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
+     @RequestMapping(value = "/getAllAssociatedAccountForScheduledEntity", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllAssociatedAccountForScheduledEntity(@RequestParam("scheduledEntityId") Integer scheduledEntityId) {
+        GenericResponse<AssociatedAccountDetails> genericResponse = new GenericResponse<>();
+        try {
+            List<AssociatedAccountDetails> associatedAccountDetailsList = new ArrayList<>();
+            List<PushedScheduledActionCompanies> PushedScheduledActionCompaniesList = pushedScheduledActionCompaniesService.getAllPushedScheduledActionCompaniesByScheduledEntityListId(scheduledEntityId);
+              for (PushedScheduledActionCompanies pushedScheduledActionCompanies : PushedScheduledActionCompaniesList) {
+                AssociatedAccountDetails associatedAccountDetails = new AssociatedAccountDetails();
+                associatedAccountDetails.setCompanyId(pushedScheduledActionCompanies.getFkCompanyId().getCompanyId());
+                associatedAccountDetails.setCompanyName(pushedScheduledActionCompanies.getFkCompanyId().getCompanyName());
+                associatedAccountDetails.setStatus(pushedScheduledActionCompanies.getStatus());
+                associatedAccountDetailsList.add(associatedAccountDetails);
+            }
+          
+            genericResponse.setDetails(associatedAccountDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("All associated account for scheduled entity retrieved successfully."));
         } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
