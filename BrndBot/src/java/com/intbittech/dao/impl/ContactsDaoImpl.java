@@ -7,7 +7,7 @@ package com.intbittech.dao.impl;
 
 import com.intbittech.dao.ContactsDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.Contacts;
+import com.intbittech.model.Contact;
 import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
 /**
  * <code> {@link ContactsDaoImpl} </code> is implementation of
  * {@link ContactsDao} and perform the database related operation for managing
- * {@link Contacts}
+ * {@link Contact}
  *
  * @author Ajit
  */
@@ -36,16 +36,16 @@ public class ContactsDaoImpl implements ContactsDao {
      /**
      * {@inheritDoc}
      */
-    public Contacts getByContactsId(Integer contactsId) throws ProcessFailed {
+    public Contact getByContactsId(Integer contactsId) throws ProcessFailed {
          try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(Contacts.class)
+                    .createCriteria(Contact.class)
                     .add(Restrictions.eq("contactId", contactsId));
-            List<Contacts> contacts = criteria.list();
+            List<Contact> contacts = criteria.list();
             if (contacts.isEmpty()) {
                 return null;
             }
-            return (Contacts) criteria.list().get(0);
+            return (Contact) criteria.list().get(0);
 
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -56,16 +56,16 @@ public class ContactsDaoImpl implements ContactsDao {
     /**
      * {@inheritDoc}
      */
-    public Contacts getContactByEmailAddress(String emailAddress) throws ProcessFailed {
+    public Contact getContactByEmailAddress(String emailAddress) throws ProcessFailed {
          try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(Contacts.class)
+                    .createCriteria(Contact.class)
                     .add(Restrictions.eq("emailAddress", emailAddress));
-            List<Contacts> contacts = criteria.list();
+            List<Contact> contacts = criteria.list();
             if (contacts.isEmpty()) {
                 return null;
             }
-            return (Contacts) criteria.list().get(0);
+            return (Contact) criteria.list().get(0);
 
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -76,7 +76,7 @@ public class ContactsDaoImpl implements ContactsDao {
      /**
      * {@inheritDoc}
      */
-    public Integer save(Contacts contacts) throws ProcessFailed {
+    public Integer save(Contact contacts) throws ProcessFailed {
         try {
             return ((Integer) sessionFactory.getCurrentSession().save(contacts));
         } catch (Throwable throwable) {
@@ -88,7 +88,7 @@ public class ContactsDaoImpl implements ContactsDao {
      /**
      * {@inheritDoc}
      */
-    public void update(Contacts contacts) throws ProcessFailed {
+    public void update(Contact contacts) throws ProcessFailed {
         try {
             sessionFactory.getCurrentSession().update(contacts);
         } catch (Throwable throwable) {
@@ -100,7 +100,7 @@ public class ContactsDaoImpl implements ContactsDao {
      /**
      * {@inheritDoc}
      */
-    public void delete(Contacts contacts) throws ProcessFailed {
+    public void delete(Contact contacts) throws ProcessFailed {
          try {
             sessionFactory.getCurrentSession().delete(contacts);
         } catch (Throwable throwable) {

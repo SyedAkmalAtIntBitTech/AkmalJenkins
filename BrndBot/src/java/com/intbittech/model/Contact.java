@@ -25,7 +25,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "contacts")
-public class Contacts implements Serializable {
+public class Contact implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,10 +45,10 @@ public class Contacts implements Serializable {
     @OneToMany(mappedBy = "fkContactId")
     private Set<ContactEmailListLookup> contactEmailListLookupSet;
 
-    public Contacts() {
+    public Contact() {
     }
 
-    public Contacts(Integer contactId) {
+    public Contact(Integer contactId) {
         this.contactId = contactId;
     }
 

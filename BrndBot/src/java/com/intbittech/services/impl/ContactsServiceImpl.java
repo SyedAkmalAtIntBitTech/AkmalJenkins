@@ -8,7 +8,7 @@ package com.intbittech.services.impl;
 import com.intbittech.dao.ContactsDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ContactEmailListLookup;
-import com.intbittech.model.Contacts;
+import com.intbittech.model.Contact;
 import com.intbittech.model.EmailList;
 import com.intbittech.model.UnsubscribedEmails;
 import com.intbittech.modelmappers.ContactDetails;
@@ -50,8 +50,8 @@ public class ContactsServiceImpl implements ContactsService{
      /**
      * {@inheritDoc}
      */
-    public Contacts getByContactsId(Integer contactsId) throws ProcessFailed {
-        Contacts contacts = contactsDao.getByContactsId(contactsId);
+    public Contact getByContactsId(Integer contactsId) throws ProcessFailed {
+        Contact contacts = contactsDao.getByContactsId(contactsId);
         if(contacts == null){
            throw new ProcessFailed(messageSource.getMessage("contacts_not_found",new String[]{}, Locale.US));
         }
@@ -61,8 +61,8 @@ public class ContactsServiceImpl implements ContactsService{
     /**
      * {@inheritDoc}
      */
-    public Contacts getContactByEmailAddress(String emailAddress) throws ProcessFailed {
-        Contacts contacts = contactsDao.getContactByEmailAddress(emailAddress);
+    public Contact getContactByEmailAddress(String emailAddress) throws ProcessFailed {
+        Contact contacts = contactsDao.getContactByEmailAddress(emailAddress);
         return contacts;
     }
     
@@ -70,10 +70,10 @@ public class ContactsServiceImpl implements ContactsService{
      * {@inheritDoc}
      */
     public Integer addContact(ContactDetails contactDetails) {
-        Contacts contacts = getContactByEmailAddress(contactDetails.getEmailAddress());
+        Contact contacts = getContactByEmailAddress(contactDetails.getEmailAddress());
         Integer contactId = 0;
         if(contacts == null) {
-            contacts = new Contacts();
+            contacts = new Contact();
             contacts.setEmailAddress(contactDetails.getEmailAddress());
             contacts.setFirstName(contactDetails.getFirstName());
             contacts.setLastName(contactDetails.getLastName());
@@ -85,7 +85,7 @@ public class ContactsServiceImpl implements ContactsService{
         } else {
             contactId = contacts.getContactId();
         }
-        contacts = new Contacts();
+        contacts = new Contact();
         contacts.setContactId(contactId);
         //TODO ilyas Save or update
         ContactEmailListLookup contactEmailListLookup = contactEmailListLookupService.getByEmailListIdAndContactId(contactDetails.getEmailListId(), contactId);
@@ -115,14 +115,14 @@ public class ContactsServiceImpl implements ContactsService{
     /**
      * {@inheritDoc}
      */
-    public Integer save(Contacts contacts) throws ProcessFailed {
+    public Integer save(Contact contacts) throws ProcessFailed {
         return  contactsDao.save(contacts);
     }
 
      /**
      * {@inheritDoc}
      */
-    public void update(Contacts contacts) throws ProcessFailed {
+    public void update(Contact contacts) throws ProcessFailed {
         contactsDao.update(contacts);
     }
 
@@ -130,7 +130,7 @@ public class ContactsServiceImpl implements ContactsService{
      * {@inheritDoc}
      */
     public void delete(Integer contactsId) throws ProcessFailed {
-       Contacts contacts = contactsDao.getByContactsId(contactsId);
+       Contact contacts = contactsDao.getByContactsId(contactsId);
         if(contacts == null){
             throw new ProcessFailed(messageSource.getMessage("contacts_not_found",new String[]{}, Locale.US));
         }

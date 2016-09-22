@@ -9,7 +9,7 @@ import com.intbittech.AppConstants;
 import com.intbittech.enums.EmailListTypeConstants;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ContactEmailListLookup;
-import com.intbittech.model.Contacts;
+import com.intbittech.model.Contact;
 import com.intbittech.model.EmailList;
 import com.intbittech.model.EmailListTagLookup;
 import com.intbittech.model.UserCompanyIds;
@@ -167,7 +167,7 @@ public class EmailListController {
             if (!emailValidator.validate(contactDetails.getEmailAddress())) {
                 throw new ProcessFailed(messageSource.getMessage("contact_not_valid", new String[]{}, Locale.US));
             }
-            Contacts contacts = new Contacts();
+            Contact contacts = new Contact();
             contacts = contactsService.getByContactsId(contactDetails.getContactId());
             contacts.setEmailAddress(contactDetails.getEmailAddress());
             contacts.setFirstName(contactDetails.getFirstName());
