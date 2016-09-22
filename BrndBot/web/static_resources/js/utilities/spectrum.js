@@ -2379,11 +2379,11 @@
 		// takes an element (option) and returns a div with the background-color set to the options value.
 		function createOption(option){
 			var color = option.attr('value');
-			
+                        
 			return $('<div class="color-select-option" />')
 				.css('background-color', color)
 				.attr('data-color', color)
-				
+                        
 				// when clicked on the div, change the select element's value. this will then invoke the select.change() mehtod.
 				.click(function(){
 					if (multiple) {

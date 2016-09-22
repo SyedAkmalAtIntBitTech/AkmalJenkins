@@ -65,7 +65,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             }
             return true;
         };
-
+        
         $scope.signupValidation = function (userDetails) {
             if (!userDetails.userName) {
                 $scope.uniqueUser = false;
@@ -556,6 +556,9 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $scope.activeColorTheme = '';
             $scope.activeColorLogo = '';
             $scope.colorFrom = "custom";
+            assetsFactory.allColorThemesGet().then(function (data) {
+                $scope.globalColors = data.d.details;
+            });
             $("#togglePaletteOnly").spectrum({
                 showPaletteOnly: true,
                 togglePaletteOnly: true,
