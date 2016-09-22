@@ -1163,9 +1163,8 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                 cropPresets: [
                     'Custom',
                     'Original',
-                    ['680x330', '68:33'],
-                    ['350x350', '35:35'],
-                    ['310x370', '31:37']
+                    ['1200x627', '120:62'],
+                    ['600x600', '60:60']
                 ]
             });
             return false;
