@@ -1,5 +1,5 @@
 
-franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$location', '$filter','franchiseFactory','redirectFactory','appSessionFactory','yourPlanFactory', function ($scope, $window, $location, $filter, franchiseFactory, redirectFactory, appSessionFactory, yourPlanFactory) {
+franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$location', '$filter','franchiseFactory','redirectFactory','appSessionFactory','yourPlanFactory','emailDraftFactory', function ($scope, $window, $location, $filter, franchiseFactory, redirectFactory, appSessionFactory, yourPlanFactory, emailDraftFactory) {
        
         $scope.tab = 1;
         $scope.addFranchisePopup = false;
@@ -265,4 +265,51 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
         $scope.isSet = function(tabNum){
              return $scope.tab === tabNum;
         };
+        
+        $scope.displayAllEmailDrafts = function (isPushed) {
+            $scope.activeEmailDrafts = 'activeTab';
+            $scope.activeEmailHistory = '';
+            $scope.activeEmailSettings = '';
+            $scope.activeEmailList = '';
+            $scope.emaildropdown = false;
+            $scope.saveEmailSettingsButton = false;
+            $scope.addEmailListButton = false;
+            $scope.showDeleteEmailList = false;
+            emailDraftFactory.displayAllEmailDraftsGet().then(function (data) {
+                if (data.nodrafts === "yes") {
+                    $scope.emaildraftnumber = '0';
+                    $scope.emaildraftsstatus = "No email drafts present";
+                } else {
+                    $scope.emaildrafts = data.emaildrafts;
+                    $scope.emailDraftDetails = true;
+                }
+            });
+        };
+        $scope.showDraftPopup = function (Id, categoryId, emailSubject, editdate, subCategoryId, mindbodyId, lookupId)
+        {
+            $("#fade").show();
+            $scope.savedEmailDraftPopup = true;
+            emailDraftFactory.getEmailDraftGet(Id).then(function (data) {
+                if (data === "") {
+                    $scope.emaildraftsstatus = noemaildraft;
+                } else {
+                    $scope.htmlbody = data.htmlbody.replace(/contenteditable="true" /g, 'contenteditable="false"');;
+                    $('#draftshow').empty().append($scope.htmlbody);
+                }
+            });
+            $scope.id = Id;
+            $scope.categoryid = categoryId;
+            $scope.emailsubject = emailSubject;
+            $scope.editdate = editdate;
+            $scope.subcategoryid = subCategoryId;
+            $scope.mindbodyId = mindbodyId;
+            $scope.lookupId = lookupId;
+            $('#slider-button').click();
+        };
+        $scope.closeSavedEmailDraftPopup = function ()
+        {
+            $scope.savedEmailDraftPopup = false;
+            $("#fade").hide();
+        };
+        
     }]);
