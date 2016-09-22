@@ -397,28 +397,31 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         
         $scope.setTab = function (tabName) {
-            if (tabName === 'actionDetails') {
-                $scope.top_subnav_link_active_actionDetail_Class = 'top-subnav-link-active-detail-Class';
+//            if (tabName === 'actionDetails') {
+//                $scope.top_subnav_link_active_actionDetail_Class = 'top-subnav-link-active-detail-Class';
+//                $scope.top_subnav_link_active_notesDetail_Class = '';
+//                $scope.top_subnav_link_active_emailHistoryDetail_Class = '';                
+//                $scope.top_subnav_link_active_savedDetail_Class = '';
+//                $scope.generalActions = true;
+//                $scope.generalSavedDetails = false;
+//                $scope.generalNotes = false;
+//            }
+//            if (tabName === 'savedDetails') {
+//                $scope.top_subnav_link_active_savedDetail_Class = 'top-subnav-link-active-detail-Class';
+//                $scope.top_subnav_link_active_actionDetail_Class = '';
+//                $scope.top_subnav_link_active_notesDetail_Class = '';
+//                $scope.top_subnav_link_active_emailHistoryDetail_Class = '';   
+//                $scope.generalSavedDetails = true;
+//                $scope.generalActions = false;
+//                $scope.generalNotes = false;
+//            }
+            if (tabName === 'emailHistory') {
                 $scope.top_subnav_link_active_notesDetail_Class = '';
+                $scope.top_subnav_link_active_actionDetail_Class = '';
                 $scope.top_subnav_link_active_savedDetail_Class = '';
+                $scope.top_subnav_link_active_emailHistoryDetail_Class = 'top-subnav-link-active-detail-Class';   
+                $scope.generalNotes = false;
                 $scope.generalActions = true;
-                $scope.generalSavedDetails = false;
-                $scope.generalNotes = false;
-            }
-            if (tabName === 'savedDetails') {
-                $scope.top_subnav_link_active_savedDetail_Class = 'top-subnav-link-active-detail-Class';
-                $scope.top_subnav_link_active_actionDetail_Class = '';
-                $scope.top_subnav_link_active_notesDetail_Class = '';
-                $scope.generalSavedDetails = true;
-                $scope.generalActions = false;
-                $scope.generalNotes = false;
-            }
-            if (tabName === 'notes') {
-                $scope.top_subnav_link_active_notesDetail_Class = 'top-subnav-link-active-detail-Class';
-                $scope.top_subnav_link_active_actionDetail_Class = '';
-                $scope.top_subnav_link_active_savedDetail_Class = '';
-                $scope.generalNotes = true;
-                $scope.generalActions = false;
                 $scope.generalSavedDetails = false;
             }
         };
@@ -428,17 +431,17 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         
         $scope.getHistoryDetails = function (details){
-            alert(details);
             $scope.fadeClass = 'fadeClass';
             $scope.emailsectionClass = 'emailsectionClass';
-            $scope.generalSavedDetails = true;
-            $scope.generalNotes = false;
-            $scope.generalActions = false;
             $scope.scheduledTo = 'POST';
-            $scope.setTab('savedDetails');
+            $scope.setTab('emailHistory');
             $scope.masterActionType = 'Email';
             $scope.setEmailToThisAction = "Save Email to this Action";
             $scope.savedHeader = 'Post';
+            $scope.savedEmail = true;
+            $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
+            $scope.deleteScheduleButton = "Remove Saved Email";
+            $scope.isEmailHistory =true;
         };
         $scope.showDraftPopup = function (Id, categoryId, emailSubject, editdate, subCategoryId, mindbodyId, lookupId)
         {
