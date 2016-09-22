@@ -71,6 +71,7 @@ public class PushedScheduledActionCompaniesController {
                 pushedActionDetails.setScheduledEntityListId(pushedScheduledEntityListObject.getFkScheduledEntityListId().getScheduledEntityListId());
                 pushedActionDetails.setEntityId(pushedScheduledEntityListObject.getFkScheduledEntityListId().getEntityId());
                 pushedActionDetails.setPushedactionDateTime(pushedScheduledEntityListObject.getFkScheduledEntityListId().getScheduleTime().getTime());
+                pushedActionDetailsList.add(pushedActionDetails);
             }
             genericResponse.setDetails(pushedActionDetailsList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("All pushed action for franchise retrieved successfully."));

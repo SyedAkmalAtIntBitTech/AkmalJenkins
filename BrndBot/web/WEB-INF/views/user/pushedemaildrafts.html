@@ -1,34 +1,30 @@
-     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav">
+<div class="content-wrap content-wrap-padding content-wrap-with-sub-nav">
         <div class="bb-panel-full-width bb-panel-styling" >
             <div class="bb-panel-full-width bb-panel-styling-header-wrap">
-                <h2 class="">Pushed Emails</h2>
+                <h2 class="">Pushed Email Drafts</h2>
                 <input type="text" class="search-bar" placeholder="Search" ng-model="userSearch"  ng-show="email_history.length > 0">
             </div>
             <div class="bb-panel-full-width bb-panel-styling-content-wrap" ng-show="email_history.length == 0">
                 <div class="hub-empty-wrap">No Pushed Emails</div>
             </div>
-            <div class="bb-panel-full-width bb-panel-styling-content-wrap">
+            <div class="bb-panel-full-width bb-panel-styling-content-wrap" ng-init="displayAllEmailDrafts('pushed')">
                 
-                <div class="hub-slat-list-wrap">
+                <div class="hub-slat-list-wrap" ng-repeat="drafts in emaildrafts | filter:userSearch">
                     <div class="slat" >
                   
                         <div class="slat-name-wrap">
-                            <h2>Pushed Email Name</h2>
-                            <p> Created on June 16th 2016 at 9:56:05 PM</p>
-                        </div>
-                         <div class="slat-detail-wrap">
-                            <div class="slat-detail">
-                                <h2 >Scheduled</h2>
-                                <p>Status</p>
-                            </div>
+                            <h2>{{drafts.emailsubject}}</h2>
+                            <p>Last edited on {{drafts.editdate| date: "MMM dd yyyy "}}at{{drafts.editdate| date: " h:mm a"}} Created on June 16th 2016 at 9:56:05 PM</p>
                         </div>
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">
-                              <a class="reg-button gray-button slat-detail-button" href="#/pushedemaildetailbase">View Email Details</a>
+                              <a class="reg-button gray-button slat-detail-button" ng-click="showDraftPopup(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.editdate, drafts.subcategoryid, drafts.mindbodyid, drafts.lookupid)">View Email Details</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+</div>
+<div ng-include="'savedemaildraftpopup.html'"></div>
+
