@@ -94,6 +94,7 @@ public class PushedScheduledActionCompaniesController {
                 associatedAccountDetails.setCompanyId(pushedScheduledActionCompanies.getFkCompanyId().getCompanyId());
                 associatedAccountDetails.setCompanyName(pushedScheduledActionCompanies.getFkCompanyId().getCompanyName());
                 associatedAccountDetails.setStatus(pushedScheduledActionCompanies.getStatus());
+                associatedAccountDetailsList.add(associatedAccountDetails);
             }
           
             genericResponse.setDetails(associatedAccountDetailsList);

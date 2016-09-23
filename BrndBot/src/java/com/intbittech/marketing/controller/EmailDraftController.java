@@ -174,11 +174,15 @@ public class EmailDraftController {
     @RequestMapping(value = "/displayAllEmailDrafts", method = RequestMethod.GET)
     public @ResponseBody
     String displayAllEmailDrafts(HttpServletRequest request,
-            HttpServletResponse response, @RequestParam("companyId") Integer companyId) throws ServletException, IOException, Throwable {
+            HttpServletResponse response, @RequestParam("companyId") Integer companyId, @RequestParam("isPushed") Boolean isPushed) throws ServletException, IOException, Throwable {
         JSONObject json_object_email_draft = new JSONObject();
         try {
-
-            List<EmailDraft> emaildraftlist = emaildraftservice.getAllEmailDrafts(companyId,true);
+            List<EmailDraft> emaildraftlist;
+            if (isPushed){
+                emaildraftlist = emaildraftservice.getAllEmailDrafts(companyId,true);
+            }else {
+                emaildraftlist = emaildraftservice.getAllEmailDrafts(companyId,false);
+            }
 
 
             JSONArray json_array_email_draft = new JSONArray();

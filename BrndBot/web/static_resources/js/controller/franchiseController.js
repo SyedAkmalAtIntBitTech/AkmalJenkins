@@ -132,6 +132,11 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
                         $scope.iframeLoad();
                     }
                 });
+                franchiseFactory.getAllAssociatedAccountForScheduledEntity(scheduledEntityListId).then(function (data){
+                    $scope.associatedCompanies = data.d.details;
+                    alert(JSON.stringify(data.d.details));
+                });
+
             } 
 //            growl($scope.isRecurring);
         };
@@ -266,7 +271,7 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
              return $scope.tab === tabNum;
         };
         
-        $scope.displayAllEmailDrafts = function (isPushed) {
+        $scope.displayAllPushedEmailDrafts = function () {
             $scope.activeEmailDrafts = 'activeTab';
             $scope.activeEmailHistory = '';
             $scope.activeEmailSettings = '';
@@ -275,7 +280,8 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             $scope.saveEmailSettingsButton = false;
             $scope.addEmailListButton = false;
             $scope.showDeleteEmailList = false;
-            emailDraftFactory.displayAllEmailDraftsGet().then(function (data) {
+            var isPushed = true;
+            emailDraftFactory.displayAllEmailDraftsGet(isPushed).then(function (data) {
                 if (data.nodrafts === "yes") {
                     $scope.emaildraftnumber = '0';
                     $scope.emaildraftsstatus = "No email drafts present";
@@ -310,6 +316,29 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
         {
             $scope.savedEmailDraftPopup = false;
             $("#fade").hide();
+        };
+
+        $scope.editDrafts = function (draft_id, category_id, email_subject, sub_category_id, mindbodyId, lookupId) {
+            kGlobalEmailObject.draftId = draft_id;
+            kGlobalEmailObject.categoryId = category_id;
+            kGlobalEmailObject.emailSubject = email_subject;
+            kGlobalEmailObject.subCategoryId = sub_category_id;
+            kGlobalEmailObject.mindbodyId = mindbodyId;
+            kGlobalEmailObject.lookupId = lookupId;
+//            var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id,
+//                "sub_category_id": sub_category_id, "mindbodyId": mindbodyId, "lookupId": lookupId};
+                appSessionFactory.clearEmail().then(function(data){
+                    appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
+                    });
+                });
+//            localStorage.setItem("emailDraftData", JSON.stringify(draftdetails));
+            emailDraftFactory.getEmailDraftGet(draft_id).then(function (data) {
+                if (data === "false") {
+                    growl("There was a problem while saving the draft! Please try again later", "error");
+                } else {
+                    window.open(getHost() + 'user/baseemaileditor#/emaileditor', "_self");
+                }
+            });
         };
         
     }]);

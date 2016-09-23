@@ -79,7 +79,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.saveEmailSettingsButton = false;
             $scope.addEmailListButton = false;
             $scope.showDeleteEmailList = false;
-            emailDraftFactory.displayAllEmailDraftsGet().then(function (data) {
+            var isPushed = false;
+            emailDraftFactory.displayAllEmailDraftsGet(isPushed).then(function (data) {
                 if (data.nodrafts === "yes") {
                     $scope.emaildraftnumber = '0';
                     $scope.emaildraftsstatus = "No email drafts present";

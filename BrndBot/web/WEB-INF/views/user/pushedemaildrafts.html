@@ -7,7 +7,7 @@
             <div class="bb-panel-full-width bb-panel-styling-content-wrap" ng-show="email_history.length == 0">
                 <div class="hub-empty-wrap">No Pushed Emails</div>
             </div>
-            <div class="bb-panel-full-width bb-panel-styling-content-wrap" ng-init="displayAllEmailDrafts('pushed')">
+            <div class="bb-panel-full-width bb-panel-styling-content-wrap" ng-init="displayAllPushedEmailDrafts()">
                 
                 <div class="hub-slat-list-wrap" ng-repeat="drafts in emaildrafts | filter:userSearch">
                     <div class="slat" >

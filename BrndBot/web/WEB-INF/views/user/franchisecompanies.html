@@ -33,7 +33,7 @@
             </div>
             <div class="modal-pane-content-wrap">
                  <div class="input-wrap">
-                    <input type="button" name="noEmailList" id="noEmailList" ng-show="isEmailListPresentForCompany==false" value="No email list"/>
+                     <input type="button" name="noEmailList" id="noEmailList" ng-show="isEmailListPresentForCompany==false" value="No email list" ng-click="sendReminderEmailToCreateEmailList()"/>
                     <label> Is this email auto-approved? </label>
                     Yes <input type="checkbox" id="autoApproved" value="autoApproved"/>
                     <label>Auto approving an email will disallow recipient accounts to edit this email</label>

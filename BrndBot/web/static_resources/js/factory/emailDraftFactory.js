@@ -19,9 +19,9 @@ factoryApp.factory('emailDraftFactory', function ($q, authenticatedServiceFactor
         });
         return deffered.promise;
     };
-    emailDraftFactoryObject.displayAllEmailDraftsGet = function () {
+    emailDraftFactoryObject.displayAllEmailDraftsGet = function (isPushed) {
         var deffered = $q.defer();
-        var url = configurationService.displayAllEmailDraftsURL();
+        var url = configurationService.displayAllEmailDraftsURL()+ "?isPushed="+isPushed;
         authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
             deffered.resolve(data);
         });

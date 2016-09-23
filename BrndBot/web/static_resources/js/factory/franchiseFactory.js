@@ -19,9 +19,19 @@ factoryApp.factory('franchiseFactory', function ($q, authenticatedServiceFactory
         });
         return deffered.promise;
     };
-    franchiseFactoryObject.getCompaniesForFranchiseId = function (franchiseId, emailTag) {
+    franchiseFactoryObject.getCompaniesForFranchiseId = function (franchiseId) {
         var deffered = $q.defer();
-        var url = configurationService.getCompaniesForFranchiseIdURL()+"?franchiseId="+franchiseId +"&emailListTagId="+emailTag;
+        var url = configurationService.getCompaniesForFranchiseIdURL()+"?franchiseId="+franchiseId;
+        var data = '';
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+
+    franchiseFactoryObject.getCompaniesForFranchiseIdAndEmailListTag = function (franchiseId, emailTag) {
+        var deffered = $q.defer();
+        var url = configurationService.getCompaniesForFranchiseIdAndEmailListTagURL()+"?franchiseId="+franchiseId +"&emailListTagId="+emailTag;
         var data = '';
         authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
@@ -31,6 +41,15 @@ factoryApp.factory('franchiseFactory', function ($q, authenticatedServiceFactory
     franchiseFactoryObject.getAllPushedEmailsForFranchise = function (franchiseId) {
         var deffered = $q.defer();
         var url = configurationService.getAllPushedEmailsForFranchiseURL()+"?franchiseId="+franchiseId;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+
+    franchiseFactoryObject.getAllAssociatedAccountForScheduledEntity = function (scheduledEntityId) {
+        var deffered = $q.defer();
+        var url = configurationService.getAllAssociatedAccountForScheduledEntityURL()+"?scheduledEntityId="+scheduledEntityId;
         authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });

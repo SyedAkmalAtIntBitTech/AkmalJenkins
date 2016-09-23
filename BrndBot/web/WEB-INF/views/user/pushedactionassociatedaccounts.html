@@ -1,30 +1,13 @@
 <div class="overlay-content" ng-show='associatedAccounts' style="position: relative">
     <div class="overlay-details-pane" ng-show="isRecurring === false">
         <div class="overlay-details-pane-header">Accounts Pushed To</div>
-        <div class="detail-sections-wrap">
+        <div class="detail-sections-wrap" ng-repeat="company in associatedCompanies">
             <div class="detail-section half">
-                <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">TDM Boston</span>
+                <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">{{company.companyName}}</span>
             </div>
             <div class="detail-section half">
-                <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">Sent</span>
-            </div>
-        </div>
-        <div class="detail-sections-wrap">
-            <div class="detail-section half">
-                <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">TDM BrndBot</span>
-            </div>
-            <div class="detail-section half">
-                <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">Not Sent</span>
+                <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">{{company.status}}</span>
             </div>
         </div>
-        <div class="detail-sections-wrap">
-            <div class="detail-section half">
-                <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">TDM California</span>
-            </div>
-            <div class="detail-section half">
-                <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">Sent</span>
-            </div>
-        </div>
-
     </div>
 </div>
