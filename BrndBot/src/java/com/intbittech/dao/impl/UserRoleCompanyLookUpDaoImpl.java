@@ -187,7 +187,7 @@ public class UserRoleCompanyLookUpDaoImpl implements UserRoleCompanyLookUpDao{
     }
 
     @Override
-    public List<UsersRoleCompanyLookup> getAllUsersRoleCompanyLookupByuserRolesNameAndCompanyId(List<String> userRolesName,Integer companyId) throws ProcessFailed {
+    public List<UsersRoleCompanyLookup> getAllUsersRoleCompanyLookupByuserRolesNameAndCompanyId(List<String> userRolesName,List<Integer> companyIds) throws ProcessFailed {
          Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(UsersRoleCompanyLookup.class)
                 .setFetchMode("companyId.companyId", FetchMode.JOIN)
@@ -195,7 +195,7 @@ public class UserRoleCompanyLookUpDaoImpl implements UserRoleCompanyLookUpDao{
                 .setFetchMode("roleId", FetchMode.JOIN)
                 .createAlias("roleId", "rId")
                 .add(Restrictions.in("rId.roleName", userRolesName))
-                .add(Restrictions.eq("roleId.userRoleId", companyId));
+                .add(Restrictions.in("roleId.userRoleId", companyIds));
         if (criteria.list().isEmpty()) {
             return null;
         }

@@ -93,9 +93,9 @@ public interface PushedScheduledActionCompaniesService {
      /**
      * This method pass id as input and get the {@link SendGridSubUserDetails} from DAO
      * layer.
-     * @param companyId the companyId
+     * @param companyIds the companyIds
      * @return {@link SendGridSubUserDetails}
      * @throws ProcessFailed the process failed
      */
-    public List<UserDetails> getAllUserDetailsOfCompanyIdForSendEmail(Integer companyId) throws ProcessFailed;
+    public List<UserDetails> getAllUserDetailsOfCompanyIdForSendEmail(List<Integer> companyIds) throws ProcessFailed;
 }

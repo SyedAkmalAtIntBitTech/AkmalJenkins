@@ -155,8 +155,8 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
     /**
      * {@inheritDoc}
      */
-    public List<UserDetails> getAllUserDetailsOfCompanyIdForSendEmail(Integer companyId) throws ProcessFailed {
-        List<UsersRoleCompanyLookup> roleCompanyLookupList = roleCompanyLookUpDao.getAllUsersRoleCompanyLookupByuserRolesNameAndCompanyId(Utility.getAllUserRoleOfCompanyForSendEmail(), companyId);
+    public List<UserDetails> getAllUserDetailsOfCompanyIdForSendEmail(List<Integer> companyIds) throws ProcessFailed {
+        List<UsersRoleCompanyLookup> roleCompanyLookupList = roleCompanyLookUpDao.getAllUsersRoleCompanyLookupByuserRolesNameAndCompanyId(Utility.getAllUserRoleOfCompanyForSendEmail(), companyIds);
         if (roleCompanyLookupList == null) {
             throw new ProcessFailed("No user found");
         }
