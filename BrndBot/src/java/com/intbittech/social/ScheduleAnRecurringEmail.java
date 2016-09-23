@@ -58,10 +58,10 @@ public class ScheduleAnRecurringEmail implements Runnable {
                             reply_to_address = "";
                         }
                         String from_email_address = "";
-                        if (sendAnEmail.getReplyToEmailAddress() != null) {
+                        if (sendAnEmail.getFromAddress() != null) {
                             from_email_address = sendAnEmail.getFromAddress();
                         } else {
-                            from_email_address = "";
+                            from_email_address = "mail@brndbot.com";
                         }
                         String from_name = sendAnEmail.getFromName();
                         SendMail anEmail = new SendMail();
