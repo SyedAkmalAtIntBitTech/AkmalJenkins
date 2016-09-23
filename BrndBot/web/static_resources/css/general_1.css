@@ -1770,6 +1770,7 @@ li.sub-nav-tab.active a{
 
 .background-pop-up{
     z-index: 100;
+    top: 0px;
     position: fixed;
     height: 100vh;
     width: 100vw;
