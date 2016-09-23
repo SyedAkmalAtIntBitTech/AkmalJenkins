@@ -428,7 +428,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     $scope.addHTMLInEmailEditor($scope.firstTemplateForBlock);
                     $scope.loadingOverlay = false;
                     $scope.blockOnClick(0);
-                    $scope.showStyles('true');
+//                    $scope.showStyles('true');
                 } else
                 {
                     $scope.hideMindbodyOverlay = false;
@@ -449,7 +449,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                 $scope.loadingOverlay = false; //start Loading Overlay
                                 $scope.hideMindbodyOverlay = true;
                                 $scope.emailScrollyDiv = true;
-                                $scope.showStyles();
+//                                $scope.showStyles();
                             });
                         }
                     });
@@ -468,7 +468,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     $scope.blockOnClick(0);
                 });
             });
-            
+
         };
 
         $scope.addHTMLInEmailEditor = function (templateId) {
@@ -611,6 +611,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 $scope.selectedBlockId = blockId;
                 $scope.htmlTagId = selectedHtmlBlockId;
             }
+            $scope.showAddBlockOnTemplateClick();
 //            $scope.showStyles(true);
 //            $scope.blockdivheader = false;
 //            $scope.styledivheader = true;
@@ -618,7 +619,12 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 //            $scope.styletab = "emailSideBar-tab-active";
         };
 
-
+        $scope.showAddBlockOnTemplateClick = function () {
+            $scope.blockdivheader = true;
+            $scope.styledivheader = false;
+            $scope.styletab = "emailSideBar-tab";
+            $scope.blocktab = "emailSideBar-tab-active";
+        };
         $scope.getFooterDetails = function () {
             settingsFactory.getAllPreferencesGet().then(function (data) {
                 $scope.companyAddressDetails = JSON.parse(data.d.details).companyAddress[0];
