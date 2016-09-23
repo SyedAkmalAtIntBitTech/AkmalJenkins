@@ -1,4 +1,5 @@
-   <div class="bb-top-nav" ng-init="checkForCode()" ng-init="fbTwitterinit()">
+ <div ng-include="'facebookmanagepages.html'"></div>
+ <div class="bb-top-nav" ng-init="checkForCode()" ng-init="fbTwitterinit()">
     <div class="bb-bar-left-wrap bb-one-third-flex-col">
         <a href="socialsequence#/socialsequence" class="bb-back-button"></a>
         <h3 class="bb-top-nav-title">Create a Facebook Post</h3>
@@ -92,7 +93,6 @@
         </a>
     </div>
 
- <div ng-include="'facebookmanagepages.html'"></div>
 <div ng-include src="'schedulepopup.html'"></div>
 <div ng-include src="'sendorschedulepopup.html'"></div>
 <div ng-include src="'sociallistselection.html'"></div>
