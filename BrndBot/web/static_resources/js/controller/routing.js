@@ -126,6 +126,9 @@ settingFlowApp.config(function ($routeProvider) {
             .when('/userlogosettings', {
                 templateUrl: 'userlogosettings.html'
             })
+             .when('/userusersettings', {
+                templateUrl: 'userusersettings.html'
+            })
             .when('/userpalettesettings', {
                 templateUrl: 'userpalettesettings.html'
             })

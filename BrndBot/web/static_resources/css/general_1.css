@@ -14,6 +14,7 @@ body{
     box-sizing: border-box;
     margin: 0px;
     font-weight: 500 !important;
+    color:#5A6069;
 }
 
 .login-page{
@@ -464,6 +465,36 @@ a.side-nav-logo{
 
 .marketing-campaign{
     background-image: url(/BrndBot/images/nav-icons/nav-icons_campaign.svg);
+
+}
+
+.main-nav a:hover.email{
+    background-image: url(/BrndBot/images/nav-icons/nav-icons_emailhub-active.svg);
+}
+
+
+.email.active{
+    background-image: url(/BrndBot/images/nav-icons/nav-icons_emailhub-active.svg);
+
+}
+
+.email{
+    background-image: url(/BrndBot/images/nav-icons/nav-icons_emailhub.svg);
+
+}
+
+.main-nav a:hover.social{
+    background-image: url(/BrndBot/images/nav-icons/nav-icons_socialhub-active.svg);
+}
+
+
+.social.active{
+    background-image: url(/BrndBot/images/nav-icons/nav-icons_socialhub-active.svg);
+
+}
+
+.social{
+    background-image: url(/BrndBot/images/nav-icons/nav-icons_socialhub.svg);
 
 }
 
@@ -2671,7 +2702,7 @@ p.modal-content-header{
 .slat-detail h2{
     text-align: right;  
     overflow: visible;
-    width: 200px;
+    width: 220px;
 }
 
 .slat-detail p{
@@ -4269,7 +4300,7 @@ img.exit-button {
 
 .email-automation-trigger-list-drop{
     margin-left: 10px;
-    width: 200px;
+    width: 250px;
 }
 
 .top-nav-header-cta{
@@ -5076,6 +5107,10 @@ textarea.task-textarea:focus{
    margin-right: 30px;
 }
 
+.bb-panel-header a:first-of-type{
+   margin-right: 0px !important; 
+}
+
 .bb-email-image-pop-up-header{
     height: 55px;
     display: inline-flex;
@@ -5338,6 +5373,17 @@ textarea.task-textarea:focus{
     background-color: #F6F6F8;
     margin-bottom: 10px;
     text-align: left;
+}
+
+.modal-pane-search-input{
+     display: inline-block;
+    padding: 10px;
+    vertical-align: middle;
+    border-radius: 3px;
+    height:35px;
+    background-color: #fff;
+    border: 1px solid #C3CED9;
+    font-size: 14px;
 }
 
 .editor-add-block-button {
@@ -5730,7 +5776,7 @@ input{
 }
 
 p {
-    color:#5A6069;
+    
 }
 
 h2{
@@ -5796,6 +5842,7 @@ color: #5A6069 ;
 
 .modal-max-height{
     max-height: 480px;
+    overflow-y: scroll;
 }
 
 .bb-gallery-image-options{
