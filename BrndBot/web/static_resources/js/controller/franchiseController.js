@@ -134,7 +134,6 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
                 });
                 franchiseFactory.getAllAssociatedAccountForScheduledEntity(scheduledEntityListId).then(function (data){
                     $scope.associatedCompanies = data.d.details;
-                    alert(JSON.stringify(data.d.details));
                 });
 
             } 

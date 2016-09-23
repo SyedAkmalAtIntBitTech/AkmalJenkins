@@ -58,6 +58,15 @@ factoryApp.factory('emailListFactory', function ($q, authenticatedServiceFactory
         });
         return deffered.promise;
     };
+
+    emailListFactoryObject.getContactsOfEmailTag = function (data) {
+        var deffered = $q.defer();
+        var url = configurationService.getContactsOfEmailListURL()+"?emailTag="+data;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
     
     emailListFactoryObject.editContact = function (data) {
         var deffered = $q.defer();

@@ -1083,40 +1083,58 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
         $scope.chooseEmailListOnChange = function (listName) {
             $scope.emailList = listName.value;
+            $scope.emailTag = listName.value;
+            $scope.listSelectionValidation = false;
+            $scope.toAddress = "";
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                 if (kGlobalEmailObject.pushedEmail){
                     kGlobalEmailObject.emailTagId = listName.value;
                     appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {});
+                    
+                    emailListFactory.getContactsOfEmailTag(listName.value).then(function (data){
+                        var parseData = data.d.details;
+                        var i = 0;
+                        for (i = 0; i < parseData.length; i++) {
+                            if (JSON.stringify(parseData[i].fkContactId.emailAddress) !== "") {
+                                if (i === 0) {
+                                    emails = eval(JSON.stringify(parseData[i].fkContactId.emailAddress));
+                                } else {
+                                    emails = emails + "," + eval(JSON.stringify(parseData[i].fkContactId.emailAddress));
+                                }
+                            }
+                        }
+                        $scope.emailAddresses = emails;
+                        $scope.toAddress = emails;
+                        
+                    });
+                }else {
+                    if ($scope.emailList === "Manual") {
+                        emails = "";
+                        $scope.emailAddresses = emails;
+                        $scope.toAddress = emails;
+                    } else if ($scope.emailList !== "Manual")
+                    {
+                        var emails = "";
+                        emailListFactory.getContactsOfEmailList($scope.emailList).then(function (data){
+                            var parseData = data.d.details;
+                            var i = 0;
+                            for (i = 0; i < parseData.length; i++) {
+                                if (JSON.stringify(parseData[i].fkContactId.emailAddress) !== "") {
+                                    if (i === 0) {
+                                        emails = eval(JSON.stringify(parseData[i].fkContactId.emailAddress));
+                                    } else {
+                                        emails = emails + "," + eval(JSON.stringify(parseData[i].fkContactId.emailAddress));
+                                    }
+                                }
+                            }
+                            $scope.emailAddresses = emails;
+                            $scope.toAddress = emails;
+                        });
+                        $scope.emailContinueButton = true;
+                    }
                 }
             });
 
-            $scope.emailTag = listName.value;
-            $scope.listSelectionValidation = false;
-            $scope.toAddress = "";
-            if ($scope.emailList === "Manual") {
-                emails = "";
-                $scope.emailAddresses = emails;
-                $scope.toAddress = emails;
-            } else if ($scope.emailList !== "Manual")
-            {
-                var emails = "";
-                emailListFactory.getContactsOfEmailList($scope.emailList).then(function (data){
-                    var parseData = data.d.details;
-                    var i = 0;
-                    for (i = 0; i < parseData.length; i++) {
-                        if (JSON.stringify(parseData[i].fkContactId.emailAddress) !== "") {
-                            if (i === 0) {
-                                emails = eval(JSON.stringify(parseData[i].fkContactId.emailAddress));
-                            } else {
-                                emails = emails + "," + eval(JSON.stringify(parseData[i].fkContactId.emailAddress));
-                            }
-                        }
-                    }
-                    $scope.emailAddresses = emails;
-                    $scope.toAddress = emails;
-                });
-                $scope.emailContinueButton = true;
-            }
 //            $scope.selectCsvOnClick();
         };
 
