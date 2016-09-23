@@ -555,6 +555,10 @@ factoryApp.service('configurationService', function () {
     this.getAllAssociatedAccountForScheduledEntityURL = function(){
         return getHost() + "pushedActions/getAllAssociatedAccountForScheduledEntity";
     };
+    this.sendReminderEmailToCreateEmailListURL = function(){
+        return getHost() + "pushedActions/sendReminderEmailToCreateEmailList";
+    };
+
     //************** marketingFactory ********************//
 
     this.marketingProgramsURL = function () {

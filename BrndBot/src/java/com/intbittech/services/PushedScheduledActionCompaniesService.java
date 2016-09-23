@@ -8,6 +8,7 @@ package com.intbittech.services;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.PushedScheduledActionCompanies;
 import com.intbittech.modelmappers.PushedScheduledActionCompaniesDetails;
+import com.intbittech.modelmappers.UserDetails;
 import java.util.List;
 
 /**
@@ -87,5 +88,14 @@ public interface PushedScheduledActionCompaniesService {
      * @param pushedScheduledActionCompaniesDetails the pushedScheduledActionCompaniesDetails
      * @throws ProcessFailed the process failed
      */
-    public void savePushedScheduledActionCompanies(PushedScheduledActionCompaniesDetails pushedScheduledActionCompaniesDetails) throws ProcessFailed;        
+    public void savePushedScheduledActionCompanies(PushedScheduledActionCompaniesDetails pushedScheduledActionCompaniesDetails) throws ProcessFailed; 
+    
+     /**
+     * This method pass id as input and get the {@link SendGridSubUserDetails} from DAO
+     * layer.
+     * @param companyIds the companyIds
+     * @return {@link SendGridSubUserDetails}
+     * @throws ProcessFailed the process failed
+     */
+    public List<UserDetails> getAllUserDetailsOfCompanyIdForSendEmail(List<Integer> companyIds) throws ProcessFailed;
 }

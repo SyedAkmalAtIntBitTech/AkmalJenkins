@@ -102,7 +102,9 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.sendReminderEmailToCreateEmailList = function(){
             appSessionFactory.getEmail().then(function(kGlobalEmailObject){
                 var emailTagId = kGlobalEmailObject.emailTagId;
-                franchiseFactory.sendReminderEmailToCreateEmailListPost(companiesWithNoEmailList,emailTagId).then(function (data){
+                var sendReminderEmailDetails = {"companyIds": companiesWithNoEmailList, "emailListTagId":emailTagId};
+                alert(JSON.stringify(sendReminderEmailDetails));
+                franchiseFactory.sendReminderEmailToCreateEmailListPost(sendReminderEmailDetails).then(function (data){
 
                 });
             });

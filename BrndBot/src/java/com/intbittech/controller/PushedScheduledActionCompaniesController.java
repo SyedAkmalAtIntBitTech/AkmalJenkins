@@ -10,6 +10,7 @@ import com.intbittech.model.PushedScheduledEntityList;
 import com.intbittech.modelmappers.AssociatedAccountDetails;
 import com.intbittech.modelmappers.PushedActionDetails;
 import com.intbittech.modelmappers.PushedScheduledActionCompaniesDetails;
+import com.intbittech.modelmappers.SendReminderEmailDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
@@ -82,7 +83,7 @@ public class PushedScheduledActionCompaniesController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
 
     }
-     @RequestMapping(value = "/getAllAssociatedAccountForScheduledEntity", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/getAllAssociatedAccountForScheduledEntity", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllAssociatedAccountForScheduledEntity(@RequestParam("scheduledEntityId") Integer scheduledEntityId) {
         GenericResponse<AssociatedAccountDetails> genericResponse = new GenericResponse<>();
         try {
@@ -104,6 +105,19 @@ public class PushedScheduledActionCompaniesController {
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
 
+    }
+     @RequestMapping(value = "/sendReminderEmailToCreateEmailList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> sendReminderEmailToCreateEmailList(@RequestBody SendReminderEmailDetails sendReminderEmailDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            pushedScheduledActionCompaniesService.getAllUserDetailsOfCompanyIdForSendEmail(sendReminderEmailDetails.getCompanyIds());
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Pushed scheduled action companies created successfully"));
+        } catch (Throwable ex) {
+            logger.error(ex);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
 }

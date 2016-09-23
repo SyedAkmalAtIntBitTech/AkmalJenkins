@@ -133,5 +133,15 @@ factoryApp.factory('franchiseFactory', function ($q, authenticatedServiceFactory
         });
         return deffered.promise;
     };
+    franchiseFactoryObject.sendReminderEmailToCreateEmailListPost = function (sendReminderEmailDetails) {
+        var deffered = $q.defer();
+        var url = configurationService.sendReminderEmailToCreateEmailListURL();
+        var data = '';
+        authenticatedServiceFactory.makeCall("POST", url, sendReminderEmailDetails, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    
     return franchiseFactoryObject;
 });
