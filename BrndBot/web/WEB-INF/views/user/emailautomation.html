@@ -9,9 +9,13 @@
         <a href="createmarketingprogram#/marketingprogramactions" class="bb-back-button"></a>
         <h3 class="bb-top-nav-title">Create an Email Automation</h3>
     </div>
-    <div class="bb-bar-center-wrap bb-one-third-flex-col">
+    <div class="bb-bar-center-wrap bb-one-third-flex-col" ng-show="automationEditor === false">
         <h3 class="bb-step current">Set Up</h3>
         <h3 class="bb-step upcoming">Email Design</h3>
+    </div>
+     <div class="bb-bar-center-wrap bb-one-third-flex-col" ng-show="automationEditor === true">
+        <h3 class="bb-step completed">Set Up</h3>
+        <h3 class="bb-step current">Email Design</h3>
     </div>
     <div class="bb-bar-right-wrap bb-one-third-flex-col">
         <div class="bb-help-icon">help icon</div>
