@@ -37,14 +37,13 @@
                         <div class="color-selection-option cur" ng-class="activeColorLogo"  id="logoColorsDiv" ng-click="getColorsFromLogo()">Logo Colors</div>
                     </div> 
                     <div class="color-selection-tool-wrap">
-                        <div ng-show="colorFrom == 'custom'"  class="color-picker-space" id="">
-                            
-                            <div class="color-select-optgroup"  ng-repeat="color in globalColors">
-                                <div class="color-select-option" data-color="{{color.color1}}" style="background-color: {{color.color1}};" ng-click="getColorID(color.color1)"></div>
-                                <div class="color-select-option" data-color="{{color.color2}}" style="background-color: {{color.color2}};" ng-click="getColorID(color.color2)"></div>
-                                <div class="color-select-option" data-color="{{color.color3}}" style="background-color: {{color.color3}};" ng-click="getColorID(color.color3)"></div>
-                                <div class="color-select-option" data-color="{{color.color4}}" style="background-color: {{color.color4}};" ng-click="getColorID(color.color4)"></div>
+                        <div ng-show="colorFrom == 'custom'" style="display:inline-flex;">
+                            <div style="width:50%;">
+                            <div class="color-select-optgroup"  ng-repeat="colors in globalColors">
+                                <div class="color-select-option" data-color="{{colors.color}}" style="background-color: {{colors.color}};" ng-click="getColorID(colors.color)"></div>
                             </div>
+                            </div>
+                            <div style="width:50%;">
 <!--                            <select id="color-select">
                                 <optgroup  class="color-select-optgroup">
                                         <option value="#D35400"></option>
@@ -59,6 +58,7 @@
                                     $('#color-select').colorSelect();
                             </script>
                             <input type="text" name="togglePaletteOnly" id="togglePaletteOnly" style="display:none !important; visibility: hidden">
+                            </div>
                         </div>
                         <div ng-if="colorFrom == 'theme'" id="themeColorsDiv1" class="palette-theme-global">
                             <div ng-repeat="color in themeColors" class="palette-wrap-globalColors">

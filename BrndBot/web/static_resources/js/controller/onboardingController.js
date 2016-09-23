@@ -556,9 +556,13 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $scope.activeColorTheme = '';
             $scope.activeColorLogo = '';
             $scope.colorFrom = "custom";
-            assetsFactory.allColorThemesGet().then(function (data) {
-                $scope.globalColors = data.d.details;
-            });
+            $scope.defaultColors=[];
+            for(var i=0,j=1;i<defaultFroalaColors.length;i=(i+2),j++){
+                var colors="#"+defaultFroalaColors[i];
+                $scope.defaultColors.push({"color":colors});
+            }
+            $scope.globalColors=$scope.defaultColors;
+
             $("#togglePaletteOnly").spectrum({
                 showPaletteOnly: true,
                 togglePaletteOnly: true,
