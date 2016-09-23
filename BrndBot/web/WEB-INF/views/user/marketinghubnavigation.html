@@ -1,6 +1,6 @@
 <div class="bb-top-nav" ng-init="getUserDetails()">
     <div class="bb-bar-left-wrap bb-one-third-flex-col">
-        <h3 class="bb-top-nav-title">Marketing Hub</h3>
+        <h3 class="bb-top-nav-title">Email Hub</h3>
     </div>
     <div class="bb-bar-right-wrap bb-one-third-flex-col">
         <div class="bb-help-icon">help icon</div>
@@ -12,27 +12,12 @@
     </div>
 </div>
 <div class="bb-top-sub-nav" ng-click="userSettings=false">
-    <div class="hub-dropdown" ng-click="showDropDown()">
-        <span class="hub-dropdown-text" id="emlsclspanid">Email</span>
-        <img type="image/svg+xml" src="/BrndBot/images/dropdown.svg" class="hub-dropdown-icon" style="cursor:pointer;"></img>
-    </div>
    <div class="bb-top-sub-nav-tab"  id="emldrftab" ng-click="displayAllEmailDrafts()"><a href="#/emaildraft" ng-class="activeEmailDrafts">Email Drafts</a></div>
    <div class="bb-top-sub-nav-tab"  id="emlhistab" ng-click="displayEmailHistory()"><a href="#/emailhistory" ng-class="activeEmailHistory">Email History</a></div>
    <div class="bb-top-sub-nav-tab"  id="emllistab" ng-click="emailListGet()"><a href="#/emaillist" ng-class="activeEmailList">Email Lists</a></div>
    <div class="bb-top-sub-nav-tab"  id="emlsettab" ng-click="getEmailSettings()"><a href="#/emailsetting" ng-class="activeEmailSettings">Email Settings</a></div>
 </div>
-<div class="dropdown-hub" ng-show="emaildropdown" ng-click="userSettings=false">
-    <div class="dropdown-inner-hub">
-        <a class="hub-dropdown-section" href="/BrndBot/user/social" id="socialhubli">
-            <img type="image/svg+xml" src="../images/Hub-Dropdowns_social.svg" class="hub-dropdown-section-icon" style="cursor:pointer;"/>
-            <div class=" dropdown-label-active">Social Hub</div>
-        </a>
-        <a class="hub-dropdown-section" href="/BrndBot/user/basemarketinghub#/" id="emailhubli">
-            <img type="image/svg+xml" src="../images/Hub-Dropdowns_email.svg" class="hub-dropdown-section-icon" style="cursor:pointer;"/>
-            <div class=" dropdown-label">Email Hub</div>
-        </a>                     
-    </div>
-</div>
+
 
                         <!--<a href="">
                             <div class="delete-button md-button button fleft"  id="deleteEmaildraft" ng-show="deletDraftsButton" ng-click="deleteDrafts('deleteMultiple');" > Delete Email Drafts</div>
