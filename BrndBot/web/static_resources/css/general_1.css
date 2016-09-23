@@ -5045,6 +5045,10 @@ textarea.task-textarea:focus{
     width: 1100px;
 }
 
+.bb-panel-email-gallery-pop-up{
+    width: 900px;
+}
+
 .bb-panel-email-preview{
     width: 1200px;
     margin: auto;
@@ -5093,7 +5097,12 @@ textarea.task-textarea:focus{
 }
 
 .bb-panel-static-height{
-    height:620px;
+    height:500px;
+    overflow-y: scroll;
+}
+
+.bb-image-gallery-pop-up-content-wrap{
+    height:500px;
     overflow-y: scroll;
 }
 
@@ -5514,12 +5523,14 @@ textarea.task-textarea:focus{
 }
 
 .bb-gallery-image-card{
-    height: 150px;
-    width: 235px;
+    height: 180px;
+    width: 258px;
     position: relative;
-    margin-right: 20px;
+    margin-right: 30px;
     margin-bottom: 20px;
     border: 2px solid transparent;
+    float:left;
+    cursor:pointer;
 }
 
 .bb-gallery-image-card:nth-child(4n){
@@ -5532,8 +5543,8 @@ textarea.task-textarea:focus{
 }
 
 .bb-gallery-image{
-    width:100%;
-    height: 100%;
+    width:258px;
+    height: 180px;
 }
 
 .bb-email-image-pop-up{
@@ -5541,11 +5552,29 @@ textarea.task-textarea:focus{
 }
 .bb-email-gallery-image-card{
     height: 180px;
-    width: 287px;
+    width: 258px;
     position: relative;
     margin-right: 30px;
     margin-bottom: 20px;
     border: 2px solid transparent;
+    float:left;
+    cursor:pointer;
+}
+
+.bb-email-gallery-image-card.active{
+    height: 180px;
+    width: 258px;
+    position: relative;
+    margin-right: 30px;
+    margin-bottom: 20px;
+    border: 2px solid #1EADFC;
+    float:left
+}
+
+.bb-email-gallery-image-card:hover{
+   
+    border: 2px solid #F2F2F4;
+    
 }
 
 .bb-email-gallery-image-card:nth-child(3n){
@@ -5557,10 +5586,6 @@ textarea.task-textarea:focus{
     border: 2px solid #F2F2F4;
 }
 
-.bb-gallery-image{
-    width:100%;
-    height: 100%;
-}
 
 .bb-social-attached-image{
     max-width: 540px;
