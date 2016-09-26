@@ -1807,13 +1807,19 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         };
 
         $scope.openSchedulePopup = function () {
-            $scope.postTypeSelectionPopUp = false;
-            $scope.schedulePopup = true;
-            $scope.existingActionPopup = true;
-            $scope.createNewActionPopup = false;
-            $scope.activeClassExisting = 'active';
-            $scope.activeClassNew = '';
-            $scope.scheduleButtonData = "Schedule";
+            
+            if (companies.length == 0){
+                growl("no company selected, please select any one company");
+                $("#selectAll").focus();
+            }else {
+                $scope.postTypeSelectionPopUp = false;
+                $scope.schedulePopup = true;
+                $scope.existingActionPopup = true;
+                $scope.createNewActionPopup = false;
+                $scope.activeClassExisting = 'active';
+                $scope.activeClassNew = '';
+                $scope.scheduleButtonData = "Schedule";
+            }
         };
 
         $scope.hidePopup = function (popupName) {
