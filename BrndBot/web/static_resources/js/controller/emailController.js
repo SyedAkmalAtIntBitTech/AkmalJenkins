@@ -64,6 +64,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
         //OnPageLoad
         $scope.emailEditorInit = function () {
+            $scope.emailEditorContinueButton=true;
             $scope.loadingOverlay = true; //start Loading Overlay
             $('#slider-button').click(function () {
                 if ($('#slider-button').css("margin-right") === "900px")
@@ -121,7 +122,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 });
             });
             $scope.getColor();
-
         };
         $scope.getColor = function () {
             var colorcodeArray = [];
