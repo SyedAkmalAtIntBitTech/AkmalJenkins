@@ -413,6 +413,16 @@ a.side-nav-logo{
     top: 0px;
 }
 
+.main-nav a:hover.email:after{
+    content: "Email Hub";
+    
+}
+.main-nav a:hover.social:after{
+    content: "Social Hub";
+    
+}
+
+
 .main-nav a:hover.account-mgr:after{
     content: "Account Manager";
     top: 0px;
