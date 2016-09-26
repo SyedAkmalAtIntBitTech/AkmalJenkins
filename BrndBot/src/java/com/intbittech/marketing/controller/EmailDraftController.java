@@ -123,8 +123,22 @@ public class EmailDraftController {
             String emailPreHeader = (String) requestBodyMap.get("emailPreHeader");
             Integer categoryId = Integer.parseInt((String)requestBodyMap.get("categoryId"));
             Integer subCategoryId = Integer.parseInt((String) requestBodyMap.get("subCategoryId"));
-            Integer lookupId = Integer.parseInt((String)requestBodyMap.get("lookupId"));
-            Integer mindbodyId = Integer.parseInt((String) requestBodyMap.get("mindbodyData"));
+            
+            String lookupIdStr=(String)requestBodyMap.get("lookupId");
+            Integer lookupId=0;
+            if((!lookupIdStr.equals("null")) && (!lookupIdStr.equals("")))
+            {
+                lookupId = Integer.parseInt(lookupIdStr);
+            }
+            
+            String mindbodyIdStr=(String) requestBodyMap.get("mindbodyData");
+            Integer mindbodyId=0;
+            if(!mindbodyIdStr.equals("null") && (!mindbodyIdStr.equals("")))
+            {
+                mindbodyId = Integer.parseInt(mindbodyIdStr);
+            }
+            
+            
             Integer draftId = Integer.parseInt((String) requestBodyMap.get("draftId"));
             String bodyString =(String) requestBodyMap.get("bodyString");
             Integer blockAddedCount = Integer.parseInt((String)requestBodyMap.get("blockAddedCount"));
