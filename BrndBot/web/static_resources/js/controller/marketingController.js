@@ -1166,15 +1166,17 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.launchTinyMceEditorForOnlyImage = function () {
             tinymce.EditorManager.editors = [];
             tinymce.init({
-                selector: 'img.editable',
+                selector: 'td.mce-content-body',
                 extended_valid_elements: 'img[class|id|src|style|border=0|alt|title|hspace|vspace|width|height|max-width|max-height|align|onmouseover|onmouseout|name]',
                 width: 400,
                 convert_urls: false,
                 inline: true,
                 plugins: [
-                    ' image imagetools'
+                    'advlist autolink lists link image',
+                    'media table',
+                    'imagetools'
                 ],
-                toolbar: false,
+                toolbar1: 'undo | bold italic |link',
                 menubar: false
             });
         };

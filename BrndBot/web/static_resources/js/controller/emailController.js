@@ -56,7 +56,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.validateEmailAddress = false;
         $scope.validateEmailAddress = false;
         $scope.isEmailSaveAction = false;
-        $scope.companyName = "";
+        $scope.companyName = "Dailey";
         $scope.changeStyleAlert = false;
         var sliderDialog = "#emaileditorexternalpopup";
         $scope.moreThanOneUser = false;
@@ -77,7 +77,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 }
             });
             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
-                $scope.companyName = kGlobalCompanyObject.companyName;
+//                $scope.companyName = kGlobalCompanyObject.companyName;
                 appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                     if (kGlobalEmailObject.entityScheduleId) {
                         $scope.isEmailSaveAction = true;
@@ -107,7 +107,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
                         settingsFactory.getAllPreferencesGet().then(function (data) {
                             $("#tinymceEditorBody").append(kGlobalEmailObject.htmlBody);
-                            if ($scope.companyName.indexOf("Dailey") >= 0){
+                            if ($scope.companyName.indexOf("Dailey") >= 0) {
                                 $scope.launchTinyMceEditorForOnlyImage();
                             } else {
                                 $scope.launchTinyMceEditor();
@@ -544,7 +544,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     'insertdatetime media table contextmenu paste',
                     'template paste textcolor colorpicker textpattern imagetools'
                 ],
-                toolbar1: 'undo | bold italic | alignleft aligncenter alignright | link forecolor | fontselect fontsizeselect custombutton',
+                toolbar1: 'undo | bold italic |  link forecolor | fontselect fontsizeselect custombutton',
                 menubar: false
             });
             $('.innerbg').mouseenter(function (event) {
@@ -562,18 +562,19 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             });
         };
         $scope.launchTinyMceEditorForOnlyImage = function () {
-            // To Do sandeep... need to add one selector for this in template  
             tinymce.EditorManager.editors = [];
             tinymce.init({
-                selector: 'img.editable',
+                selector: 'td.mce-content-body',
                 extended_valid_elements: 'img[class|id|src|style|border=0|alt|title|hspace|vspace|width|height|max-width|max-height|align|onmouseover|onmouseout|name]',
                 width: 400,
                 convert_urls: false,
                 inline: true,
                 plugins: [
-                    ' image imagetools'
+                    'advlist autolink lists link image',
+                    'media table',
+                    'imagetools'
                 ],
-                toolbar: false,
+                 toolbar1: 'undo | bold italic |  link',
                 menubar: false
             });
             $('.innerbg').mouseenter(function (event) {
