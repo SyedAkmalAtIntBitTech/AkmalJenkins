@@ -10,7 +10,7 @@
     opacity: 0;
 }
 .template-border-Active{
-    border: 2px solid rgb(30, 173, 252);
+    border: 1px solid rgb(30, 173, 252);
 }
 </style>
 <div ng-include src="'emailpreview.html'"></div>
@@ -88,10 +88,10 @@
                 </ul>
 
                 <ul class="r-col-block-wrap"  ng-show="styledivheader">
-                    <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.modelId}}" ng-click="addActive('stylelistid' + styles.modelId)">
-                        <div class="block-name">
+                    <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="bb-clickable-slat" id="stylelistid{{styles.modelId}}" ng-click="addActive('stylelistid' + styles.modelId)">
+                        
                             <img id="{{styles.modelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" ng-click="addHTMLInEmailEditor(styles.modelId)" width="100%" />
-                        </div>
+                        
                     </li>
                 </ul>
          

@@ -6,11 +6,15 @@
 package com.intbittech.controller;
 
 import com.intbittech.AppConstants;
+import com.intbittech.model.Company;
 import com.intbittech.model.UserCompanyIds;
+import com.intbittech.model.Users;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.services.CompanyService;
 import com.intbittech.services.SendEmailService;
+import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
@@ -27,6 +31,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -42,6 +47,10 @@ public class EmailController {
     SendEmailService sendEmailService;
     @Autowired
     private MessageSource messageSource;
+    @Autowired
+    UsersService usersService;
+     @Autowired
+    CompanyService companyService;
 
     @RequestMapping(value = "/send", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> sendEMail(HttpServletRequest request,
@@ -66,14 +75,12 @@ public class EmailController {
     
     @RequestMapping(value = "/tags", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> get(HttpServletRequest request,
-            HttpServletResponse response) {
+            HttpServletResponse response,@RequestParam("userId") Integer userId, @RequestParam("companyId") Integer companyId) {
         GenericResponse<String> transactionResponse = new GenericResponse();
         try {
-            Map<String, Object> requestBodyMap
-                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-
-            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
-            String data = sendEmailService.getTags(userCompanyIds.getCompanyId());
+            Users user = usersService.getUserById(userId);
+            Company company = companyService.getCompanyById(companyId);
+            String data = sendEmailService.getTags(company.getCompanyId());
             transactionResponse.addDetail(data);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
