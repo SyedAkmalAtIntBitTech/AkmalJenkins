@@ -772,72 +772,81 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             });
         };
 
+        $scope.exitFromEmailFlow = function() {
+            document.location.href = "dashboard";
+        }
 
-        $scope.saveToDraftOnClick = function () {
-            settingsFactory.getAllPreferencesGet().then(function (data) {
-                var footerData = JSON.parse(data.d.details);
+        $scope.saveToDraftOnClick = function (isEmailEditor) {
+            if (isEmailEditor) {
+                settingsFactory.getAllPreferencesGet().then(function (data) {
+                    var footerData = JSON.parse(data.d.details);
 
-                var footer = $scope.getUserFooter(footerData);
+                    var footer = $scope.getUserFooter(footerData);
 
-                var sendData = {
-                    htmlString: $('#tinymceEditorBody').html() + footer,
-                    iframeName: $scope.randomIframeFilename.toString()
-                };
+                    var sendData = {
+                        htmlString: $('#tinymceEditorBody').html() + footer,
+                        iframeName: $scope.randomIframeFilename.toString()
+                    };
 
-                emailFactory.previewServletPost(sendData).then(function () {
-                    appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
-                        if (!kGlobalEmailObject.draftId) {
-                            if (!kGlobalEmailObject.lookupId) {
-                                kGlobalEmailObject.lookupId = 0;
+                    emailFactory.previewServletPost(sendData).then(function () {
+                        appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
+                            if (!kGlobalEmailObject.draftId) {
+                                if (!kGlobalEmailObject.lookupId) {
+                                    kGlobalEmailObject.lookupId = 0;
+                                }
+                                var draftData = {
+                                    bodyString: $('#tinymceEditorBody').html(),
+                                    lookupId: kGlobalEmailObject.lookupId.toString(),
+                                    mindbodyData: kGlobalEmailObject.mindbodyId.toString(),
+                                    categoryId: kGlobalEmailObject.categoryId.toString(),
+                                    subCategoryId: kGlobalEmailObject.subCategoryId.toString(),
+                                    emailSubject: kGlobalEmailObject.emailSubject,
+                                    emailPreHeader: kGlobalEmailObject.preheader,
+                                    blockAddedCount: $scope.addBlockCount.toString()
+                                };
+
+                                emailDraftFactory.saveEmailDraftsPost(draftData).then(function (responseText) {
+                                    if (responseText !== "0") {
+                                        appSessionFactory.setDashboardMessage("Draft saved successfully.").then(function (sessionSaved) {
+                                            if (sessionSaved)
+                                                document.location.href = "dashboard";
+                                        });
+
+                                    } else {
+                                        growl("There was a problem while saving the draft! Please try again later.");
+                                    }
+                                });
+                            } else {
+                                var draftData = {
+                                    draftId: kGlobalEmailObject.draftId.toString(),
+                                    bodyString: $('#tinymceEditorBody').html(),
+                                    lookupId: kGlobalEmailObject.lookupId.toString(),
+                                    mindbodyData: kGlobalEmailObject.mindbodyId.toString(),
+                                    categoryId: kGlobalEmailObject.categoryId.toString(),
+                                    subCategoryId: kGlobalEmailObject.subCategoryId.toString(),
+                                    emailSubject: kGlobalEmailObject.emailSubject,
+                                    emailPreHeader: kGlobalEmailObject.preheader,
+                                    blockAddedCount: $scope.addBlockCount.toString()
+                                };
+
+                                emailDraftFactory.updateEmailDraftPost(draftData).then(function (responseText) {
+                                    if (responseText === true) {
+                                        growl("Draft updated successfully.");
+                                        document.location.href = "dashboard";
+                                    } else {
+                                        growl("There was a problem while saving the draft! Please try again later.");
+                                    }
+                                });
                             }
-                            var draftData = {
-                                bodyString: $('#tinymceEditorBody').html(),
-                                lookupId: kGlobalEmailObject.lookupId.toString(),
-                                mindbodyData: kGlobalEmailObject.mindbodyId.toString(),
-                                categoryId: kGlobalEmailObject.categoryId.toString(),
-                                subCategoryId: kGlobalEmailObject.subCategoryId.toString(),
-                                emailSubject: kGlobalEmailObject.emailSubject,
-                                emailPreHeader: kGlobalEmailObject.preheader,
-                                blockAddedCount: $scope.addBlockCount.toString()
-                            };
-
-                            emailDraftFactory.saveEmailDraftsPost(draftData).then(function (responseText) {
-                                if (responseText !== "0") {
-                                    appSessionFactory.setDashboardMessage("Draft saved successfully.").then(function (sessionSaved) {
-                                        if (sessionSaved)
-                                            document.location.href = "dashboard";
-                                    });
-
-                                } else {
-                                    growl("There was a problem while saving the draft! Please try again later.");
-                                }
-                            });
-                        } else {
-                            var draftData = {
-                                draftId: kGlobalEmailObject.draftId.toString(),
-                                bodyString: $('#tinymceEditorBody').html(),
-                                lookupId: kGlobalEmailObject.lookupId.toString(),
-                                mindbodyData: kGlobalEmailObject.mindbodyId.toString(),
-                                categoryId: kGlobalEmailObject.categoryId.toString(),
-                                subCategoryId: kGlobalEmailObject.subCategoryId.toString(),
-                                emailSubject: kGlobalEmailObject.emailSubject,
-                                emailPreHeader: kGlobalEmailObject.preheader,
-                                blockAddedCount: $scope.addBlockCount.toString()
-                            };
-
-                            emailDraftFactory.updateEmailDraftPost(draftData).then(function (responseText) {
-                                if (responseText === true) {
-                                    growl("Draft updated successfully.");
-                                    document.location.href = "dashboard";
-                                } else {
-                                    growl("There was a problem while saving the draft! Please try again later.");
-                                }
-                            });
-                        }
+                        });
                     });
                 });
-            });
-
+            } else {
+                appSessionFactory.setDashboardMessage("Draft saved successfully.").then(function (sessionSaved) {
+                    if (sessionSaved)
+                        document.location.href = "dashboard";
+                });
+            }
         };
         $scope.saveButtonOnClick = function () {
             $("#tinymceEditorBody").find("p").removeAttr("style").css("margin", "0px");
