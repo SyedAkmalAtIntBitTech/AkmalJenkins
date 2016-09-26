@@ -147,18 +147,18 @@
 <div class="bb-email-editor-wrap" id="emailautomation"  ng-init="getEmailTemplates(false)" ng-show="automationEditor === true">
 
         <!--Email Preview-->
-        <div id="fade" class="center-pop-ups overlay-dark-bg" ng-show="emailPreviewPopup">
+        <div id="fadeEmailAutomationPreview" class="center-pop-ups overlay-dark-bg" ng-show="emailPreviewPopup">
    
            
-                <div class="bb-panel-styling bb-panel-email-preview" > 
+                <div class="bb-panel-styling bb-panel-email-automation-preview" > 
                     <div class="bb-panel-header"> 
                         <h2>Email Preview</h2>
                         <a class=" closeemailpreview modal-pane-header-exit" href="" id="closePrev" ng-click="closeEmailPreviewPopup()">
                         </a>
                     </div>
                     <!--inner-->
-                    <div class="email-preview-col-desktop">
-                        <div class="emailPreviews col-1of1 fleft"> 
+                    <div class="email-automation-preview-col-desktop">
+                        <div class="emailAutomationPreviews col-1of1 fleft"> 
                             <div class="emailPreview-desktop-col  fleft">
                                 <div class="emailPreview-headers">Desktop Preview</div>
                                 <div class="content">  
@@ -166,9 +166,9 @@
 
                                     </div>                   
                                 </div>
-                                <div class="desktopshow">
+<!--                                <div class="desktopshow">
                                     <iframe id='dynamictable' class="desktoppreview" src=''></iframe> 
-                                </div>                        
+                                </div>                        -->
                             </div>
                             <div class="emailPreview-mobile-col fleft">
                                 <div class="emailPreview-headers">Mobile Preview</div>

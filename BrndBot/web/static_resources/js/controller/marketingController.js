@@ -961,8 +961,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 var footerData = JSON.parse(data.d.details);
                 if (footerData)
                 {
-                    $("#email_previewdiv").show();
-
+                    $("#fadeEmailAutomationPreview").show();                    
                     var footer = $scope.userFooter(footerData);
                     var sendData = {
                         htmlString: $('#tinymceEditorBody').html() + footer,

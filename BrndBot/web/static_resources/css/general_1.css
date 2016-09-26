@@ -1809,6 +1809,18 @@ li.sub-nav-tab.active a{
 
 }
 
+#fadeEmailAutomationPreview
+{
+    display: none;
+    position:  fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(61,83,104,.8) !important;
+    z-index:99999 !important;    
+}
+
 #fadeUserSettings
 {
     display: none;
@@ -4392,14 +4404,19 @@ textarea.task-textarea:focus{
 }
 .emailPreview-desktop-col {
     border-right: 1px solid #e7e7e7;
-    width: 759px;
+    width:calc(100% - 360px);
 }
 .emailPreview-mobile-col {
-    width: 360px;
+    width: 350px;
 }
 .emailPreviews {
     display: block;
     clear: both;
+}
+.emailAutomationPreviews{
+    display: inline-flex;
+    clear:both;
+    background: white;
 }
 .col-1of1 {
     width: 100%;
@@ -4425,7 +4442,10 @@ textarea.task-textarea:focus{
     border-right: 1px solid #e7e7e7;
     width: calc(100% - 360px);
 }
-
+.email-automation-preview-col-desktop{
+    border-right: 1px solid #e7e7e7;
+    width: 100%;
+}
 .email-preview-col-mobile{
     width:360px;
 }
@@ -5094,6 +5114,12 @@ textarea.task-textarea:focus{
 .bb-panel-email-preview{
     width: 1200px;
     margin: auto;
+}
+
+.bb-panel-email-automation-preview{
+    width: 1200px;
+    margin: auto;
+    margin-top:7%;
 }
 
 
