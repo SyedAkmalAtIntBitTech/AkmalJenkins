@@ -252,3 +252,5 @@ var companyAddressSaved = "Company Address saved.";
 var noEmailAndRole = "no email and role selected, please enter the email and select any one role";
 var noEmail = "email not entered please enter the email";
 var noRole = "role not selected, please select the role";
+
+var actionAlreadyScheduled = "This action is already scheduled, please Pause or Disapprove this action first.";

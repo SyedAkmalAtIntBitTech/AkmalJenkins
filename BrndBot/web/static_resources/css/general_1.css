@@ -1067,9 +1067,14 @@ li.sub-nav-tab.active a{
 }
 
 .overlay-header-cta-wrap i{
-    margin-right: 10px;
+    margin-right: 1px;
 }
-
+.facebookManagePopup{
+    background:rgba(61,83,104,.8);
+    position: fixed;
+    z-index: 99;
+    height:100%;
+}
 
 
 /**/

@@ -30,6 +30,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.clickedRemoveAction = false;
         $scope.addUserSettings = false;
         $scope.moreThanOneUser = false;
+
         $scope.ddSelectActionOptions = [
             {
                 text: 'Select',
@@ -138,7 +139,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                         appSessionFactory.clearDashboardMessage().then(function (message) {
                         });
                     }
-                appSessionFactory.getUser().then(function(kGlobalCompanyObject){
+                    appSessionFactory.getUser().then(function (kGlobalCompanyObject) {
                         $scope.hasMultipleCompany = kGlobalCompanyObject.hasMultipleCompany;
                     });
                 });
@@ -322,7 +323,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 });
             }
         };
-        $scope.getNames = function(userName){
+        $scope.getNames = function (userName) {
             var user = [];
             user = userName.split(" ");
             return user;
@@ -343,10 +344,10 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.addActionComment = function (scheduleId, comment) {
-            if (!comment){
+            if (!comment) {
                 alert("comment not added, please add the comment");
                 $("#comment").focus();
-            }else{
+            } else {
                 var commentDetails = {"scheduleId": scheduleId, "comment": comment};
                 yourPlanFactory.addActionCommentPOST(commentDetails).then(function (data) {
                     $scope.getActionComments(scheduleId);
@@ -361,12 +362,12 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             });
         };
 
-        $scope.removeActionComment = function (scheduleId,commentId){
-            yourPlanFactory.removeActionComment(commentId).then(function(data){
+        $scope.removeActionComment = function (scheduleId, commentId) {
+            yourPlanFactory.removeActionComment(commentId).then(function (data) {
                 $scope.getActionComments(scheduleId);
             });
         };
-        
+
         $scope.formatDate = function (programDate) {
             var dateArray = programDate.split('-');
             var month = dateArray[1];
@@ -424,8 +425,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
             {
                 var userAssignToId = $("#assignTo option:selected").val();
-                if(!userAssignToId)
-                        userAssignToId = "0";
+                if (!userAssignToId)
+                    userAssignToId = "0";
                 $scope.timePickerVal = false;
                 var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
                 var actionDateTime1 = datePicker.toLocaleString() + " " + actionTime1.toLocaleString();
@@ -524,7 +525,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.showUpdateBtn = true;
         };
         $scope.globalScheduleData = {};
-        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, assignedFirstName, assignedLastName,assignedToInitialChars, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
+        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, assignedFirstName, assignedLastName, assignedToInitialChars, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
         {
             $scope.dateLesser = false;
 //        $scope.entities_selected_time =schedule_time;
@@ -950,43 +951,46 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.deleteSchedule = function (schedules_to_delete, type, section, isRecurring) {
-            var message;
-            var requestBody;
-            var responseMessage;
-            if (type === "deleteMultiple") {
-                message = multideleteconfirm;
-                requestBody = {"type": "deleteSelected",
-                    "schedule_ids": selected_schedules_to_delete, "entity_type": "null"};
-                responseMessage = multideletesuccess;
-                growl(singledeletesuccess);
-            } else if (type === "delete") {
-                message = singledeleteconfirm;
-                requestBody = {"type": "delete",
-                    "schedule_ids": schedules_to_delete, "entity_type": section,
-                    "isRecurring": isRecurring};
-                responseMessage = singledeletesuccess;
-                growl(singledeletesuccess);
-            } else if (type === "remove") {
-                message = removecnfirm;
-                requestBody = {"type": "removetemplate",
-                    "schedule_ids": schedules_to_delete, "entity_type": section,
-                    "isRecurring": isRecurring};
-                responseMessage = multideletesuccess;
-                growl(singledeletesuccess);
+            if ($scope.action_template_status === 'Approved' && type === "remove") {
+                growl(actionAlreadyScheduled);
+                $scope.promptHideShow(false);
+            } else {
+                var message;
+                var requestBody;
+                var responseMessage;
+                if (type === "deleteMultiple") {
+                    message = multideleteconfirm;
+                    requestBody = {"type": "deleteSelected",
+                        "schedule_ids": selected_schedules_to_delete, "entity_type": "null"};
+                    responseMessage = multideletesuccess;
+                    growl(singledeletesuccess);
+                } else if (type === "delete") {
+                    message = singledeleteconfirm;
+                    requestBody = {"type": "delete",
+                        "schedule_ids": schedules_to_delete, "entity_type": section,
+                        "isRecurring": isRecurring};
+                    responseMessage = singledeletesuccess;
+                    growl(singledeletesuccess);
+                } else if (type === "remove") {
+                    message = removecnfirm;
+                    requestBody = {"type": "removetemplate",
+                        "schedule_ids": schedules_to_delete, "entity_type": section,
+                        "isRecurring": isRecurring};
+                    responseMessage = multideletesuccess;
+                    growl(singledeletesuccess);
+                }
+
+                yourPlanFactory.changeSchedulePost(requestBody).then(function (data) {
+                    if (type === "remove") {
+                        $scope.savedEmail = false;
+                        $scope.action_template_status = "No Template";
+                    } else
+                    {
+                        $scope.closePopup();
+                    }
+                    $scope.getCampaigns();
+                });
             }
-
-            yourPlanFactory.changeSchedulePost(requestBody).then(function (data) {
-                if (type === "remove") {
-                    $scope.savedEmail = false;
-                    $scope.action_template_status = "No Template";
-                }
-                else
-                {
-                    $scope.closePopup();
-                }
-                $scope.getCampaigns();
-            });
-
         };
 
 
@@ -1051,25 +1055,27 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.editSavedEmail = function (scheduleId, entitiesdetails) {
-
-            appSessionFactory.clearEmail().then(function (checkCleared) {
-                kGlobalEmailObject.entityScheduleId = scheduleId;
-                kGlobalEmailObject.emailScheduleId = entitiesdetails.schedule_email_id;
-                kGlobalEmailObject.emailSubject = entitiesdetails.subject;
-                kGlobalEmailObject.preheader = entitiesdetails.preheader;
-                kGlobalEmailObject.toEmailAddresses = entitiesdetails.to_email_addresses;
-                kGlobalEmailObject.htmlBody = entitiesdetails.body;
-                kGlobalEmailObject.emailListName = entitiesdetails.email_list_name;
-                kGlobalEmailObject.fromName = entitiesdetails.from_name;
-                kGlobalEmailObject.fromAddress = getDefaultEmailId();
-                kGlobalEmailObject.replyToEmailAddress = entitiesdetails.reply_to_email_address;
-                kGlobalEmailObject.htmlBody = entitiesdetails.html_body;
-                appSessionFactory.setEmail(kGlobalEmailObject).then(function (saved) {
-                    if (saved === true)
-                        window.open(getHost() + 'user/baseemaileditor#/emailsubjects', "_self");
+            if ($scope.action_template_status !== 'Approved') {
+                appSessionFactory.clearEmail().then(function (checkCleared) {
+                    kGlobalEmailObject.entityScheduleId = scheduleId;
+                    kGlobalEmailObject.emailScheduleId = entitiesdetails.schedule_email_id;
+                    kGlobalEmailObject.emailSubject = entitiesdetails.subject;
+                    kGlobalEmailObject.preheader = entitiesdetails.preheader;
+                    kGlobalEmailObject.toEmailAddresses = entitiesdetails.to_email_addresses;
+                    kGlobalEmailObject.htmlBody = entitiesdetails.body;
+                    kGlobalEmailObject.emailListName = entitiesdetails.email_list_name;
+                    kGlobalEmailObject.fromName = entitiesdetails.from_name;
+                    kGlobalEmailObject.fromAddress = getDefaultEmailId();
+                    kGlobalEmailObject.replyToEmailAddress = entitiesdetails.reply_to_email_address;
+                    kGlobalEmailObject.htmlBody = entitiesdetails.html_body;
+                    appSessionFactory.setEmail(kGlobalEmailObject).then(function (saved) {
+                        if (saved === true)
+                            window.open(getHost() + 'user/baseemaileditor#/emailsubjects', "_self");
+                    });
                 });
-            });
-
+            } else {
+                growl(actionAlreadyScheduled);
+            }
         };
 
     }]);
