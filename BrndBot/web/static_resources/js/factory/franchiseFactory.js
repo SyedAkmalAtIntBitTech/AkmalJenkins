@@ -65,6 +65,16 @@ factoryApp.factory('franchiseFactory', function ($q, authenticatedServiceFactory
         });
         return deffered.promise;
     };
+    franchiseFactoryObject.inviteCompanyPost = function (userDetails) {
+        var deffered = $q.defer();
+        var url = configurationService.inviteCompanyURL();
+        var data = '';
+        authenticatedServiceFactory.makeCall("POST", url, userDetails, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+
     franchiseFactoryObject.getAllNonSelectedCompanies = function (franchiseId) {
         var deffered = $q.defer();
         var url = configurationService.getAllNonSelectedCompaniesURL()+"?franchiseId="+franchiseId;

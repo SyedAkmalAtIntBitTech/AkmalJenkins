@@ -24,6 +24,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.fromAddressValidation = fromAddressValidation;
         $scope.emailAddressValidation = emailAddressValidation;
         $scope.emailaddrValidation = emailaddrValidation;
+        $scope.fromNameValidation = fromNameValidation;
+        $scope.fromNameCheck = false;
         $scope.companyAddressValidation = companyAddressValidation;
         $scope.email = {};
         $scope.company = {};
@@ -297,6 +299,13 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 return false;
             }
 
+            if (!email_settings.from_name) {
+//                $scope.email_settings = {reply_email_address: "", from_address: from_address};
+                $scope.fromNameCheck = true;
+                $("#from_name").focus();
+                return false;
+            }
+
             var reply_email_address = email_settings.reply_email_address;
             var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
             var result = reply_email_address.replace(/\s/g, "").split(/,|;/);
@@ -309,6 +318,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 }
             }
             $scope.replyEmailValidation = false;
+            $scope.fromNameCheck = false;
             return true;
         };
 

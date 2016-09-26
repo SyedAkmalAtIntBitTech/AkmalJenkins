@@ -12,6 +12,7 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
         $scope.pushedEmail = false;
         $scope.clickedRemoveAction = false;
         $scope.noPushedEmails = false;
+        $scope.selectedEmail = "";
         $scope.redirectToEmailFlow = function (forwardone)
         {
             appSessionFactory.clearEmail().then(function(checkCleared){
@@ -186,11 +187,42 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             }
         };
 
+        $scope.getAllCompaniesForFranchiseId = function () {
+
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                var franchiseId = kGlobalCompanyObject.franchiseId;
+                franchiseFactory.getCompaniesForFranchiseId(franchiseId).then(function (data) {
+                    $scope.franchiseCompanies = data.d.details;
+                });
+            });
+        };
+
         $scope.getCompaniesForFranchiseId = function () {
             var franchiseId = $scope.franchiseId;
             franchiseFactory.getCompaniesForFranchiseId(franchiseId).then(function (data) {
                 $scope.franchiseCompanies = data.d.details;
             });
+        };
+
+        $scope.closeOverlay = function(){
+            $scope.fadeClass = '';
+            $scope.addAccount = false;
+        };
+        
+        $scope.inviteCompanies = function (userDetails) {
+            alert(JSON.stringify(userDetails));
+            franchiseFactory.inviteCompanyPost(userDetails).then(function (data) {
+                growl(data.d.message);
+                $scope.closeOverlay();
+                $location.path("/settings/useraccountsettings");
+            });
+        };
+
+        $scope.showAddUser = function ()
+        {
+            $scope.fadeClass = 'fadeClass';
+            $scope.addAccount = true;
+            $scope.editUserSettings = false;
         };
 
         $scope.associateCompanyToFranchise = function () {
@@ -317,6 +349,41 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             $("#fade").hide();
         };
 
+        $scope.deleteDrafts = function (type, id)
+        {
+            var delid = id + ",";
+            var message;
+            if ($scope.selectedEmail == "") {
+                $scope.selectedEmail = id;
+            }
+            //            var selected_emaildrafts_to_delete = id;
+            var requestBody;
+            if (type === "deleteMultiple") {
+                message = multidraftconfirm;
+                requestBody = {"type": "deleteSelected",
+                    "draft_ids": $scope.selectedEmail.toString(), "entity_type": "null"};
+                $scope.deletDraftsButton = false;
+            } else if (type === "delete") {
+                message = singledraftconfirm;
+                requestBody = {"type": "delete",
+                    "draft_ids": $scope.selectedEmail.toString()};
+            }
+            emailDraftFactory.deleteEmailDraftsPost(requestBody).then(function (data) {
+                growl("Data deleted successfully");
+                $scope.displayAllPushedEmailDrafts();
+                $scope.savedEmailDraftPopup = false;
+                $scope.deletDraftsButton = false;
+                $scope.selectedEmail = "";
+                $scope.clickedDeleteAction = false;
+                $scope.closeSavedEmailDraftPopup();
+            });
+        };
+        $scope.closeSavedEmailDraftPopup = function ()
+        {
+            $scope.savedEmailDraftPopup = false;
+            $("#fade").hide();
+        };
+
         $scope.editDrafts = function (draft_id, category_id, email_subject, sub_category_id, mindbodyId, lookupId) {
             kGlobalEmailObject.draftId = draft_id;
             kGlobalEmailObject.categoryId = category_id;
@@ -324,12 +391,13 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             kGlobalEmailObject.subCategoryId = sub_category_id;
             kGlobalEmailObject.mindbodyId = mindbodyId;
             kGlobalEmailObject.lookupId = lookupId;
+            kGlobalEmailObject.pushedEmail = true;
 //            var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id,
 //                "sub_category_id": sub_category_id, "mindbodyId": mindbodyId, "lookupId": lookupId};
-                appSessionFactory.clearEmail().then(function(data){
-                    appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
-                    });
+            appSessionFactory.clearEmail().then(function(data){
+                appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
                 });
+            });
 //            localStorage.setItem("emailDraftData", JSON.stringify(draftdetails));
             emailDraftFactory.getEmailDraftGet(draft_id).then(function (data) {
                 if (data === "false") {

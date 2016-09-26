@@ -253,4 +253,17 @@ public class FranchiseController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
 
     }
+    @RequestMapping(value = "inviteCompanies", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> inviteCompanies(@RequestBody String userDetails){
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+
+        } catch (Throwable ex) {
+            logger.error(ex);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+        
+    }
 }

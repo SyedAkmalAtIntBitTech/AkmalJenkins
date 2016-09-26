@@ -62,6 +62,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.emailList = "";
         $scope.emailTag = 0;
         $scope.noEmailList = "";
+        $scope.noEmailSettings = false;
         $scope.postData = {};
         var sliderDialog = "#emaileditorexternalpopup";
         var companies = [];
@@ -103,7 +104,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             appSessionFactory.getEmail().then(function(kGlobalEmailObject){
                 var emailTagId = kGlobalEmailObject.emailTagId;
                 var sendReminderEmailDetails = {"companyIds": companiesWithNoEmailList, "emailListTagId":emailTagId};
-                alert(JSON.stringify(sendReminderEmailDetails));
                 franchiseFactory.sendReminderEmailToCreateEmailListPost(sendReminderEmailDetails).then(function (data){
 
                 });
@@ -962,6 +962,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 var franchiseId = kGlobalCompanyObject.franchiseId;
                 appSessionFactory.getEmail().then(function(kGlobalEmailObject){
                     var emailTagId = kGlobalEmailObject.emailTagId;
+                    $scope.pushedEmail = kGlobalEmailObject.pushedEmail;
+
                     franchiseFactory.getCompaniesForFranchiseIdAndEmailListTag(franchiseId,emailTagId).then(function (data) {
                         $scope.franchiseCompanies = data.d.details;
                         for (var i=0; i<data.d.details.length; i++){
@@ -1202,10 +1204,20 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 var pushedEmail = kGlobalEmailObject.pushedEmail;
                 if (pushedEmail){
                     $location.path("/franchisecompanies");
-                    $scope.postData.fromName = "Intbit";
-                    $scope.postData.emailSubject = "Intbit Email";
-                    $scope.postData.toAddress = "intbit@intbittech.com";
-                    $scope.postData.replyAddress = "reply@intbittech.com";
+                    settingsFactory.getEmailSettingsGet().then(function (data) {
+                        var parseData = JSON.parse(data.d.details);
+                        if (parseData){
+                            $scope.email_settings = parseData;
+                            $scope.postData.replyAddress = parseData.reply_email_address;
+                            $scope.postData.fromName = parseData.from_name;
+                            $scope.postData.emailSubject = kGlobalEmailObject.emailSubject;
+                            $scope.postData.toAddress = "intbit@intbittech.com";
+                        }else {
+                            $scope.noEmailSettings = true;
+                            $scope.isPostSuccess = true;
+                        }
+                        
+                    });
                 }else {
                     if ($scope.validateEmails(emailAddresses)) {
                         if ($scope.emailList !== "Manual")
@@ -1646,7 +1658,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     };
                     scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
                         if (data.d.operationStatus.statusCode === "Success") {
-//                        window.location = "dashboard";
 
                             emailDraftFactory.deleteEmailDraftPost(kGlobalEmailObject.draftId).then(function (responseText) {
                                 if(kGlobalEmailObject.pushedEmail){
@@ -1677,23 +1688,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                             });
 
                         }
-//                        var autoApproved = $("#autoApproved:checked").val();
-//                        var editable = false;
-//                        if (autoApproved){
-//                            editable = false;
-//                        }
-//                        appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
-//                            var franchiseId = kGlobalCompanyObject.franchiseId;
-//                            var pushedActionDetails = {"autoApproved": autoApproved,
-//                                                       "editable":editable, "franchiseId":franchiseId,
-//                                                       "scheduleEntityId":$scope.socialAction.toString(),
-//                                                       "companies":companies};
-//                             alert(JSON.stringify(pushedActionDetails));
-////                            pushedActionsFactory.saveSchedulePushedActionsCompanies(pushedActionDetails).then(function (data){
-////                                
-////                            });                       
-//                        });
-                                               
                     });
 
                 });
@@ -1747,11 +1741,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                      }
                                      appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
                                          var franchiseId = kGlobalCompanyObject.franchiseId;
-                                         var pushedActionDetails = {"autoApproved": autoApproved,
-                                                                    "editable":editable, "franchiseId":franchiseId,
-                                                                    "scheduledEntityListId":parsedEntity.schedule_entity_id,
-                                                                    "companies":companies};
-
                                          var pushedScheduledEntityDetails = {"autoApproved": autoApproved,
                                                                              "editable":editable, "franchiseId":franchiseId,
                                                                              "scheduledEntityListId":parsedEntity.schedule_entity_id};

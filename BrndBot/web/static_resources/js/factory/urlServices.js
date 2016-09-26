@@ -1030,6 +1030,10 @@ factoryApp.service('configurationService', function () {
     this.deleteFranchiseURL = function () {
         return getHost() + "deleteFranchise";
     };
+    
+    this.inviteCompanyURL = function () {
+        return getHost() + "inviteCompanies";
+    };
 });
 
 

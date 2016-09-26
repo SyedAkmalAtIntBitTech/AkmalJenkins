@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- 
+    Document   : unsubscribeemailspopup
+    Created on : 17 June, 2016, 11:12:37 AM
+    Author     : ilyas
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="shortcut icon" href="images/favicon.png"/>
+        <title>Email Flow</title>
+        
+        <!--<link href="css/normalize.css" rel="stylesheet" type="text/css"/>-->
+        <link href="../css/general_1.css" rel="stylesheet" type="text/css"/>   
+      
+</head>    
+
+<!--need to add fade class-->
+<div id="fade" class="black_overlay center-pop-ups" ng-class="fadeClass">
+        <div class="modal-pane modal-pane-width-reg" id="addUserSettings" ng-show="addAccount">
+            <div class="modal-pane-header-wrap">
+                <h2 class="">To Invite an account to be associated with you enter the company names</h2>
+          <!--<h2 class="">Update a User</h2>-->
+                <a id="addactionClose" ng-click = "closeOverlay()" class="modal-pane-header-exit"></a>
+                <!--<a id="addactionClose" ng-click = "showUserSettingsModal='false'" class="modal-pane-header-exit"></a>-->
+            </div>
+            <div class="modal-pane-content-wrap create-new-schedule-modal">
+                <div class="input-wrap">
+                    <label>Company names</label>
+                    <a class="input">
+                        <input type="text" name="companies" id="companies" ng-model="settings.companies" placeholder="Enter the company names" class="fluid" />
+                    </a>
+                </div>
+            </div>
+               <!--Need to add ng-hide and show if it is a new user or an old user
+        <div class="modal-cta-container">
+            <a class="long-button blue-button">Unsubscribe Now</a>
+        </div>-->
+        <div class="modal-cta-container">
+            <a class="long-button blue-button" ng-click="inviteCompanies(settings)">Send Invite</a>
+        </div>
+        </div>
+           
+</div>
+
