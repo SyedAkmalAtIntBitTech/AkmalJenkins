@@ -56,7 +56,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.validateEmailAddress = false;
         $scope.validateEmailAddress = false;
         $scope.isEmailSaveAction = false;
-        $scope.user = "";
+        $scope.companyName = "";
         $scope.changeStyleAlert = false;
         var sliderDialog = "#emaileditorexternalpopup";
         $scope.moreThanOneUser = false;
@@ -76,46 +76,49 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     $('#slider-button').animate({"margin-right": '+=788px'});
                 }
             });
-            appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
-                if (kGlobalEmailObject.entityScheduleId) {
-                    $scope.isEmailSaveAction = true;
-                }
-                if (kGlobalEmailObject.draftId) {
-                    $scope.redirect('emaileditor', kGlobalEmailObject.categoryId, kGlobalEmailObject.subCategoryId, '', kGlobalEmailObject.lookupId, kGlobalEmailObject.mindbodyId, kGlobalEmailObject.draftId, kGlobalEmailObject.emailSubject, kGlobalEmailObject.preheader);
-                }
-                if (!kGlobalEmailObject.emailScheduleId) {
-                    companyMarketingProgramFactory.getAllUserMarketingProgramsSessionIdGet().then(function (urlList) {
-                        //                $('#edit').froalaEditor({key: FroalaLicenseKey, linkList: urlList});
-                        $scope.blockIdOnSelected('defaultblock1', 0, kGlobalEmailObject.mindbodyId);
-                        if (!kGlobalEmailObject.draftId) {
-                            modelFactory.EmailModelsIdGet(kGlobalEmailObject.subCategoryId).then(function (templateDate) {
-                                var blockList = templateDate.d.details.reverse();
-                                $scope.addHTMLInEmailEditor(blockList[0].modelId);
-                            });
-                        } else {
-                            $scope.getEmailDrafts(kGlobalEmailObject.draftId);
-                        }
-                        $scope.loadingOverlay = false; //stop Loading Overlay
-                        $scope.hideEmailEditorOverlay = true;
-                        $scope.showBlocks();
-                    });
+            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                $scope.companyName = kGlobalCompanyObject.companyName;
+                appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
+                    if (kGlobalEmailObject.entityScheduleId) {
+                        $scope.isEmailSaveAction = true;
+                    }
+                    if (kGlobalEmailObject.draftId) {
+                        $scope.redirect('emaileditor', kGlobalEmailObject.categoryId, kGlobalEmailObject.subCategoryId, '', kGlobalEmailObject.lookupId, kGlobalEmailObject.mindbodyId, kGlobalEmailObject.draftId, kGlobalEmailObject.emailSubject, kGlobalEmailObject.preheader);
+                    }
+                    if (!kGlobalEmailObject.emailScheduleId) {
+                        companyMarketingProgramFactory.getAllUserMarketingProgramsSessionIdGet().then(function (urlList) {
+                            //                $('#edit').froalaEditor({key: FroalaLicenseKey, linkList: urlList});
+                            $scope.blockIdOnSelected('defaultblock1', 0, kGlobalEmailObject.mindbodyId);
+                            if (!kGlobalEmailObject.draftId) {
+                                modelFactory.EmailModelsIdGet(kGlobalEmailObject.subCategoryId).then(function (templateDate) {
+                                    var blockList = templateDate.d.details.reverse();
+                                    $scope.addHTMLInEmailEditor(blockList[0].modelId);
+                                });
+                            } else {
+                                $scope.getEmailDrafts(kGlobalEmailObject.draftId);
+                            }
+                            $scope.loadingOverlay = false; //stop Loading Overlay
+                            $scope.hideEmailEditorOverlay = true;
+                            $scope.showBlocks();
+                        });
 
-                } else {
-                    $scope.blockIdOnSelected('defaultblock1', 0, 0);
+                    } else {
+                        $scope.blockIdOnSelected('defaultblock1', 0, 0);
 
-                    settingsFactory.getAllPreferencesGet().then(function (data) {
-                        $("#tinymceEditorBody").append(kGlobalEmailObject.htmlBody);
-                        if ($scope.user === "intbit@intbit.com") {
-                            $scope.launchTinyMceEditorForOnlyImage();
-                        } else {
-                            $scope.launchTinyMceEditor();
-                        }
-                        $scope.loadingOverlay = false; //stop Loading Overlay
-                        $scope.hideEmailEditorOverlay = true;
-                        $scope.showBlocks();
-                    });
-                }
+                        settingsFactory.getAllPreferencesGet().then(function (data) {
+                            $("#tinymceEditorBody").append(kGlobalEmailObject.htmlBody);
+                            if ($scope.companyName.indexOf("Dailey") >= 0){
+                                $scope.launchTinyMceEditorForOnlyImage();
+                            } else {
+                                $scope.launchTinyMceEditor();
+                            }
+                            $scope.loadingOverlay = false; //stop Loading Overlay
+                            $scope.hideEmailEditorOverlay = true;
+                            $scope.showBlocks();
+                        });
+                    }
 
+                });
             });
             $scope.getColor();
 
@@ -337,7 +340,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                             $scope.addBlockCount = data.blockAddedCount;
                             $scope.htmlbody = data.htmlbody;
                             $("#tinymceEditorBody").append(data.htmlbody);
-                            if ($scope.user === "intbit@intbit.com") {
+                            if ($scope.companyName.indexOf("Dailey") >= 0) {
                                 $scope.launchTinyMceEditorForOnlyImage();
                             } else {
                                 $scope.launchTinyMceEditor();
@@ -494,7 +497,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
                             $("#tinymceEditorBody").append(styleHtml);
                         }
-                        if ($scope.user === "intbit@intbit.com") {
+                        if ($scope.companyName.indexOf("Dailey") >= 0) {
                             $scope.launchTinyMceEditorForOnlyImage();
                         } else {
                             $scope.launchTinyMceEditor();
@@ -507,7 +510,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 //                        $("#" + $scope.htmlTagId).remove();
 //                        var BlockHtml = '<div id=' + $scope.htmlTagId + ' onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ')>' + emailData.htmldata + '</div>';
 //                        $("#tinymceEditorBody").append(BlockHtml);
-                            if ($scope.user === "intbit@intbit.com") {
+                            if ($scope.companyName.indexOf("Dailey") >= 0) {
                                 $scope.launchTinyMceEditorForOnlyImage();
                             } else {
                                 $scope.launchTinyMceEditor();
@@ -516,7 +519,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         {
                             BlockHtml = '<div id=' + $scope.htmlTagId + '  class=module onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ',' + mindbodyId + ')><div class="view">' + emailData.htmldata + '</div></div>';
                             $("#tinymceEditorBody").append(BlockHtml);
-                            if ($scope.user === "intbit@intbit.com") {
+                            if ($scope.companyName.indexOf("Dailey") >= 0) {
                                 $scope.launchTinyMceEditorForOnlyImage();
                             } else {
                                 $scope.launchTinyMceEditor();
@@ -698,9 +701,25 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             var companyAddress = "";
             if (footerData.companyAddress)
             {
-                companyAddress = footerData.companyAddress[0].addressLine1 + "<br/>" + footerData.companyAddress[0].addressLine2 + "<br/>" +
-                        footerData.companyAddress[0].city + ", " + footerData.companyAddress[0].state + "\t\t" +
-                        footerData.companyAddress[0].zipCode + "<br/>" + footerData.companyAddress[0].country;
+                if (footerData.companyAddress[0].addressLine1) {
+                    companyAddress = footerData.companyAddress[0].addressLine1 + "<br/>";
+                }
+                if (footerData.companyAddress[0].addressLine2) {
+                    companyAddress = companyAddress + footerData.companyAddress[0].addressLine2 + "<br/>";
+                }
+                if (footerData.companyAddress[0].city)
+                {
+                    companyAddress = companyAddress + footerData.companyAddress[0].city;
+                }
+                if (footerData.companyAddress[0].state) {
+                    companyAddress = companyAddress + ", " + footerData.companyAddress[0].state + "\t\t";
+                }
+                if (footerData.companyAddress[0].zipCode) {
+                    companyAddress = companyAddress + footerData.companyAddress[0].zipCode + "<br/>";
+                }
+                if (footerData.companyAddress[0].country) {
+                    companyAddress = companyAddress + footerData.companyAddress[0].country;
+                }
             }
 
             var returnFooter = "";
