@@ -78,7 +78,6 @@ public class EmailController {
             HttpServletResponse response,@RequestParam("userId") Integer userId, @RequestParam("companyId") Integer companyId) {
         GenericResponse<String> transactionResponse = new GenericResponse();
         try {
-            Users user = usersService.getUserById(userId);
             Company company = companyService.getCompanyById(companyId);
             String data = sendEmailService.getTags(company.getCompanyId());
             transactionResponse.addDetail(data);
