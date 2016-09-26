@@ -85,7 +85,8 @@ input.timepicki-input {
     	margin: 10px 8px !important;
     	text-align: center;
     	width: 73%;
-        font-size: 18px;
+        font-size: 18px; 
+        padding: 0px !important;
 }
 a.reset_time {
 	float: left;

@@ -30,7 +30,7 @@
     <div class="bb-bar-right-wrap bb-one-third-flex-col">
         <!--<a href="dashboard"><div>Exit</div></a>-->
         <div class="bb-help-icon">help icon</div>
-        <div ng-hide="isEmailSaveAction" class="email-editor-save-exit-button" id="saveToDraft" ng-click="saveToDraftOnClick()"  >Save as Draft and Exit</div> 
+        <div ng-hide="isEmailSaveAction" class="email-editor-save-exit-button" id="saveToDraft" ng-click="saveToDraftOnClick(true)"  >Save as Draft and Exit</div> 
     </div>
 </div>
 
@@ -100,9 +100,8 @@
     <span ng-init="getFooterDetails()">
         <div ng-include src="'emailfooterpopup.html'"></div> 
     </span>
-</div>  
 <div class="bb-bottom-cta-bar">
-    <a class="bb-bottom-cta-continue-button" ng-click="saveButtonOnClick()" >
+    <a class="bb-bottom-cta-continue-button" ng-class="{'bb-valid': emailEditorContinueButton}" ng-click="saveButtonOnClick()" >
         <div class="bb-bottom-cta-continue-button-text">Continue</div>
         <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
     </a>
