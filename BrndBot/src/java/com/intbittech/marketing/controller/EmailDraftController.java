@@ -72,7 +72,7 @@ public class EmailDraftController {
             }    
             String mindbodyIdStr=(String) requestBodyMap.get("mindbodyData");
             Integer mindbodyId=0;
-            if(!mindbodyIdStr.equals("null"))
+            if(!mindbodyIdStr.equals("null") && (!mindbodyIdStr.equals("")))
             {
                 mindbodyId = Integer.parseInt(mindbodyIdStr);
             }  
