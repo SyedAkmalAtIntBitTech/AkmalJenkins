@@ -56,7 +56,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.validateEmailAddress = false;
         $scope.validateEmailAddress = false;
         $scope.isEmailSaveAction = false;
-        $scope.companyName = "Dailey";
+        $scope.companyName = "";
         $scope.changeStyleAlert = false;
         var sliderDialog = "#emaileditorexternalpopup";
         $scope.moreThanOneUser = false;
