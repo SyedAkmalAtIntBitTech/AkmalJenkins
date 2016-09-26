@@ -1599,6 +1599,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             } else {
 
                 var userAssignToId = $("#assignTo option:selected").val();
+                if(!userAssignToId)
+                       userAssignToId = "0";
                 var schedule_title = $("#ActionName").val();
                 var schedule_date = $("#actionDate").val();
 

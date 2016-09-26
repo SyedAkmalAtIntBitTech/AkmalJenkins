@@ -424,6 +424,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
             {
                 var userAssignToId = $("#assignTo option:selected").val();
+                if(!userAssignToId)
+                        userAssignToId = "0";
                 $scope.timePickerVal = false;
                 var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
                 var actionDateTime1 = datePicker.toLocaleString() + " " + actionTime1.toLocaleString();
