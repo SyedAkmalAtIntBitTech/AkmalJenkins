@@ -253,8 +253,8 @@ public class FranchiseController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
 
     }
-    @RequestMapping(value = "inviteCompanies", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> inviteCompanies(@RequestBody String userDetails){
+    @RequestMapping(value = "requestToAddCompanies", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> requestToAddCompanies(@RequestBody String userDetails, @RequestParam("franchiseName") String franchiseName){
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
 

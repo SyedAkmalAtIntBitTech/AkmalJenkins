@@ -209,13 +209,15 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             $scope.addAccount = false;
         };
         
-        $scope.inviteCompanies = function (userDetails) {
-            alert(JSON.stringify(userDetails));
-            franchiseFactory.inviteCompanyPost(userDetails).then(function (data) {
-                growl(data.d.message);
-                $scope.closeOverlay();
-                $location.path("/settings/useraccountsettings");
-            });
+        $scope.requestToAddCompanies = function (userDetails) {
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                var franchiseId = kGlobalCompanyObject.franchiseName;
+                franchiseFactory.requestToAddCompaniesPost(userDetails, franchiseName).then(function (data) {
+                    growl(data.d.message);
+                    $scope.closeOverlay();
+                    $location.path("/settings/useraccountsettings");
+                });
+            });    
         };
 
         $scope.showAddUser = function ()

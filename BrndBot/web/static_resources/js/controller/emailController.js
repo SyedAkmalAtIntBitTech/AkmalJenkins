@@ -97,7 +97,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         };
 
         $scope.optionToggled = function(){
-          $scope.isAllSelected = $scope.franchiseCompanies.every(function(itm){ return itm.selected; })
+          $scope.isAllSelected = $scope.franchiseCompanies.every(function(itm){ return itm.selected; });
         };
         
         $scope.sendReminderEmailToCreateEmailList = function(){
@@ -1086,12 +1086,12 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         };
 
         $scope.chooseEmailListOnChange = function (listName) {
-            $scope.emailList = listName.Text;
-            $scope.emailTag = listName.value;
             $scope.listSelectionValidation = false;
             $scope.toAddress = "";
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                 if (kGlobalEmailObject.pushedEmail){
+                    $scope.emailList = listName.value;
+                    $scope.emailTag = listName.value;
                     kGlobalEmailObject.emailTagId = listName.value;
                     appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {});
                     
@@ -1112,6 +1112,9 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         
                     });
                 }else {
+                    
+                    $scope.emailList = listName.value;
+                    $scope.emailTag = listName.value;
                     if ($scope.emailList === "Manual") {
                         emails = "";
                         $scope.emailAddresses = emails;

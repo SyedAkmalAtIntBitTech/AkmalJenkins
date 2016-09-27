@@ -1031,8 +1031,8 @@ factoryApp.service('configurationService', function () {
         return getHost() + "deleteFranchise";
     };
     
-    this.inviteCompanyURL = function () {
-        return getHost() + "inviteCompanies";
+    this.requestToAddCompaniesURL = function () {
+        return getHost() + "requestToAddCompanies";
     };
 });
 

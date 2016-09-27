@@ -65,9 +65,9 @@ factoryApp.factory('franchiseFactory', function ($q, authenticatedServiceFactory
         });
         return deffered.promise;
     };
-    franchiseFactoryObject.inviteCompanyPost = function (userDetails) {
+    franchiseFactoryObject.requestToAddCompaniesPost = function (userDetails, franchiseName) {
         var deffered = $q.defer();
-        var url = configurationService.inviteCompanyURL();
+        var url = configurationService.requestToAddCompaniesURL()+"?franchiseName="+franchiseName;
         var data = '';
         authenticatedServiceFactory.makeCall("POST", url, userDetails, "").then(function (data) {
             deffered.resolve(data);

@@ -150,8 +150,8 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
             pushedScheduledEntityList.setPushedScheduledEntityListId(pushedScheduledEntityListId);
             pushedScheduledActionCompanies.setFkPushedScheduledActionEntityListId(pushedScheduledEntityList);
             pushedScheduledActionCompanies.setUpdatedAt(new Date());
-            if(franchiseService.activateCompanyAsFranchise(pushedScheduledActionCompaniesDetails.getPushedScheduledEntityDetails().getEmailListTagId(), actionCompaniesDetails.getCompanyId())){
-                  pushedScheduledActionCompanies.setStatus(IConstants.ACTION_COMPANIES_READY_TO_GO);
+            if(franchiseService.isEmailListTagAssociateToCompany(pushedScheduledActionCompaniesDetails.getPushedScheduledEntityDetails().getEmailListTagId(), actionCompaniesDetails.getCompanyId())){
+                 pushedScheduledActionCompanies.setStatus(IConstants.ACTION_COMPANIES_READY_TO_GO);
             }
             else{
                  pushedScheduledActionCompanies.setStatus(IConstants.ACTION_COMPANIES_NO_EMAIL_TAG_CONFIGURED);
