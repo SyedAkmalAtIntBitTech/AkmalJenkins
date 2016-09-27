@@ -1809,15 +1809,15 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $(":button").removeAttr("disabled");
             $("#styletab").css("background-color", "transparent").css("color", "#19587c");
         };
-        $scope.didChooseBlock = function (selectedBlockId, externalSourceKeywordLookupId) {
-            blockModelFactory.allEmailBlockModelGet(selectedBlockId, true).then(function (data) {
+        $scope.didChooseBlock = function (block) {
+            blockModelFactory.allEmailBlockModelGet(block.emailBlockId, true).then(function (data) {
                 $scope.firstTemplateForBlock = data.d.details[0].emailBlockModelLookupId;
                 $scope.isBlockClicked = "true";
                 $scope.htmlBlockId = "";
-                $scope.selectedBlockId = selectedBlockId;
+                $scope.selectedBlockId = block.emailBlockId;
                 ++$scope.addBlockCount;
                 $scope.htmlTagId = "block" + $scope.addBlockCount;
-                if (externalSourceKeywordLookupId === 0)
+                if (block.externalSourceKeywordLookupId === 0)
                 {
                     $scope.emailMindBodyPopup = false;
                     appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
@@ -1837,11 +1837,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.overlayFade = true;
                     $scope.loadingOverlay = true; //start Loading Overlay
                     $scope.emailScrollyDiv = false;
-                    externalContentFactory.activatedGet(externalSourceKeywordLookupId).then(function (data) {
+                    externalContentFactory.activatedGet(block.externalSourceKeywordLookupId).then(function (data) {
                         var externalData = JSON.stringify(data.d.details);
 
                         if (externalData === "[true]") {
-                            externalContentFactory.listDataGet(externalSourceKeywordLookupId).then(function (listData) {
+                            externalContentFactory.listDataGet(block.externalSourceKeywordLookupId).then(function (listData) {
                                 var parseData = JSON.parse(listData.d.details);
                                 $scope.mindbodyDataList = parseData;
                                 $("#fade").show();

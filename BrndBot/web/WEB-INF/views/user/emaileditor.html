@@ -83,7 +83,7 @@
                 <ul class="r-col-block-wrap" id="blockdiv" ng-show="blockdivheader">
                     <li class="bb-clickable-slat" ng-class="{'editor-block-slat-selected': activeBlock === blocks.emailBlockId}" ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="blockOnClick(blocks.emailBlockId)">
                         <div id="blklist----{{blocks.emailBlockId}}" class="block-name">{{blocks.emailBlockName}}</div>                            
-                        <div class="editor-add-block-button hideBlockButton" ng-class="{'hideBlockButton': activeBlock !== blocks.emailBlockId}" ng-click="didChooseBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)" >Add Block</div>
+                        <div class="editor-add-block-button hideBlockButton" ng-class="{'hideBlockButton': activeBlock !== blocks.emailBlockId}" ng-click="didChooseBlock(blocks)" >Add Block</div>
                     </li>
                 </ul>
 

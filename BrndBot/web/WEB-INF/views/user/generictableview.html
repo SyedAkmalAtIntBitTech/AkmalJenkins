@@ -3,26 +3,26 @@
                 <h2>{{header}}</h2>
             </div>
             <div class="bb-panel-content-wrap-clickable-slats">
-                <div ng-show="pageName === 'email'" ng-repeat="category in displayAllCategories | filter:userSearch">
+<!--                <div ng-show="pageName === 'email'" ng-repeat="category in displayAllCategories | filter:userSearch">
                     <div class="bb-clickable-slat" ng-click="redirect(forward, category.categoryId)">                   
                         <h3 >{{category.categoryName}}</h3>  
                         <a id="categoryId" href="#/emailsubcategory" ng-click="setCategoryID(1)">
                             <div class="cat-slat-title">Category 1</div>
                         </a>
                     </div>
-                </div>
+                </div>-->
                 <div  ng-show="pageName === 'marketing'"  ng-repeat="marketingCategory in marketingCategories">
                     <div class="bb-clickable-slat" <h3 ng-click="redirect(forward, marketingCategory.marketingCategoryId, 'nonmindbody', '', '','','','','')">
                         <h3>{{marketingCategory.marketingCategoryName}} </h3>
                     </div>  
                 </div>
                 <div ng-show="pageName === 'emailcategory'" ng-repeat="category in displayAllCategories">
-                    <div class="bb-clickable-slat" ng-click="redirect(forwardone, category.categoryId, '' ,'nonmindbody', '','', '', '', '')">                   
+                    <div class="bb-clickable-slat" ng-click="redirectNew(objectParameter.categoryId=category.categoryId,objectParameter.mindbody='nonmindbody');">                   
                         <h3>{{category.categoryName}}</h3>                    
                     </div>
                 </div>
                 <div ng-show="pageName === 'emailsubcategory'" ng-repeat="subcategory in displayAllCategories">
-                    <div class="bb-clickable-slat" ng-click="redirect(forwardone, '', subcategory.subCategoryId, subcategory.externalSourceName, subcategory.externalSourceKeywordLookupId)">                  
+                    <div class="bb-clickable-slat" ng-click="redirectNew(objectParameter.subCategoryId=subcategory.subCategoryId,objectParameter.mindbody=subcategory.externalSourceName,objectParameter.lookupId=subcategory.externalSourceKeywordLookupId);">                  
                         <h3>{{subcategory.subCategoryName}}</h3>                    
                     </div>
                 </div>
