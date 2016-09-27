@@ -1086,7 +1086,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         };
 
         $scope.chooseEmailListOnChange = function (listName) {
-            $scope.emailList = listName.value;
+            $scope.emailList = listName.Text;
             $scope.emailTag = listName.value;
             $scope.listSelectionValidation = false;
             $scope.toAddress = "";
@@ -1741,14 +1741,17 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                          editable = false;
                                          autoApproved = true;
                                      }
+                                     var emailTagId = kGlobalEmailObject.emailTagId;
                                      appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
                                          var franchiseId = kGlobalCompanyObject.franchiseId;
                                          var pushedScheduledEntityDetails = {"autoApproved": autoApproved,
                                                                              "editable":editable, "franchiseId":franchiseId,
-                                                                             "scheduledEntityListId":parsedEntity.schedule_entity_id};
+                                                                             "scheduledEntityListId":parsedEntity.schedule_entity_id,
+                                                                             "emailListTagId": emailTagId};
                                          var actionCompaniesDetails = companies;
 
-                                         var pushedScheduledActionCompaniesDetails = {"pushedScheduledEntityDetails": pushedScheduledEntityDetails,"actionCompaniesDetails":actionCompaniesDetails};
+                                         var pushedScheduledActionCompaniesDetails = {"pushedScheduledEntityDetails": pushedScheduledEntityDetails,
+                                                                                      "actionCompaniesDetails":actionCompaniesDetails};
                                          pushedActionsFactory.saveSchedulePushedActionsCompanies(pushedScheduledActionCompaniesDetails).then(function (data){
 
                                          });                       
