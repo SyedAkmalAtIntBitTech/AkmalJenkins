@@ -9,7 +9,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.actionDropdownValidation = actionDropdownValidation;
         $scope.actionDateValidation = actionDateValidation;
         $scope.lesserDateValidation = lesserDateValidation;
-//        $scope.greaterDateValidation = greaterDateValidation;
+//      $scope.greaterDateValidation = greaterDateValidation;
         $scope.campaignNameValidation = campaignNameValidation;
         $scope.campaignDateValidation = campaignDateValidation;
         $scope.descriptionValidation = descriptionValidation;
@@ -201,8 +201,20 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     "marketing_program_id": $scope.marketingProgramId.toString()
                 };
                 companyMarketingProgramFactory.setMarketingProgramPost(data).then(function (data) {
-                    $scope.redirectToActions("marketingprogramactions", data, 0, "");
-                    growl("Campaign created successfully");
+                   
+                    var responseData = data.operationStatus;
+                     var dataId = data.id;
+                    if(responseData.statusCode == "DataError"){
+                        
+                      growl(responseData.messages[0]);
+                    }
+                    else if(responseData.statusCode == "Success"){
+                                             
+                    $scope.redirectToActions("marketingprogramactions", dataId, 0, "");
+                    growl(responseData.messages[0]);
+                    }
+
+                   
                 });
             }
         };
@@ -349,6 +361,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             , m = (""+dateStr).match(r);
           return (m) ? Date.UTC(m[1], m[2]-1, m[3], m[4], m[5], m[6]) : undefined;
         };
+        
+        $scope.getNames = function(userName){
+            var user = [];
+            user = userName.split(" ");
+            return user;
+        };
         $scope.changeAssignedTo = function (scheduleId) {
             var userAssignToId = $("#assignTo option:selected").val();
 
@@ -356,7 +374,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             yourPlanFactory.changeAssigedToPOST(assignToDetails).then(function (data) {
                 var userName = data.d.message
                 var user = [];
-                user = userName.split(" ");
+                user = $scope.getNames(userName);
                 $scope.assignedFirstName = user[0];
                 $scope.assignedLastName = user[1];
                 $scope.assignedToInitialChars = data.d.id;
@@ -365,7 +383,31 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.changeUsers=false;
 //                $scope.closePopup();$scope.promptHideShow(false);$scope.clickedDeleteAction = false;
             });
+        };
 
+        $scope.addActionComment = function (scheduleId, comment) {
+            if (!comment){
+                alert("comment not added, please add the comment");
+                $("#comment").focus();
+            }else{
+                var commentDetails = {"scheduleId": scheduleId, "comment": comment};
+                yourPlanFactory.addActionCommentPOST(commentDetails).then(function (data) {
+                    $scope.getActionComments(scheduleId);
+                    $("#comment").val("");
+                });
+            }
+        };
+
+        $scope.getActionComments = function (scheduleId) {
+            yourPlanFactory.actionCommentsGet(scheduleId).then(function (data) {
+                $scope.comments = data.d.details;
+            });
+        };
+
+        $scope.removeActionComment = function (scheduleId,commentId){
+            yourPlanFactory.removeActionComment(commentId).then(function(data){
+                $scope.getActionComments(scheduleId);
+            });
         };
 
         $scope.closeChangeAssignedToPopup = function(){
@@ -419,7 +461,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 companyMarketingProgramFactory.addActionPost(action).then(function (data) {
                     $scope.closeOverlay();
                     $scope.getProgramActions('emailautomation');
-//                    growl("Action created succesfully");
+                    growl("Action created succesfully");
                 });
             }
         };
@@ -624,7 +666,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //            }
 //        });
 //    };
-        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, assignedFirstName, assignedLastName, action_status, days, marketingName)
+        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, assignedFirstName, assignedLastName,assignedToInitialChars, action_status, days, marketingName)
         {
             $scope.isRecurring = false;
             $scope.savedEmail = false;
@@ -634,7 +676,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.generalActions = false;
             $scope.assignedFirstName = assignedFirstName;
             $scope.assignedLastName = assignedLastName;
-            $scope.assignedToInitialChars = assignedFirstName.charAt(0) + assignedLastName.charAt(0);
+            $scope.assignedToInitialChars = assignedToInitialChars;
             $scope.emailsectionClass = 'emailsectionClass';
             $scope.fadeClass = 'fadeClass';
             $scope.action_template_status = template_status;

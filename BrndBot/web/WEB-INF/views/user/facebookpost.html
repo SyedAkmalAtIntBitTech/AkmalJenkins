@@ -69,13 +69,13 @@
                 <div class="Add-Image-Button"> Add Image to Post</div>
             </div>
             <div ng-show="twitterImageDivToPost" class="Social-Add-Image-Wrap " >
-                <span class="clickable-area" ng-click="show_hide_ImageGalleryPopup(true)">
-                    <img  src="/BrndBot/images/add-Image.svg" ng-model="twitterShare.img" class="add-image-icon fleft" style="cursor:pointer;">
-                    <div class="Add-Image-Button fleft">
+               
+                   
+                    <div class="bb-button bb-secondary-action-button" ng-click="show_hide_ImageGalleryPopup(true)">
                         Change Image
                     </div>
-                </span>
-                <span class="clickable-area magginLeftAuto" ng-click="openAviaryEditor('selectedImage')"> edit image</span>
+             
+                <div class="bb-button bb-secondary-action-button" ng-click="openAviaryEditor('selectedImage')"> Edit Image</div>
             </div>
             <div ng-show="twitterImageDivToPost" class="Social-Add-Image-Wrap-with-img " id="addImageDivToTwitterPost">
                 <img ng-src="{{displayImage}}" ng-model="fbPostData.img = displayImage" alt="alt_text" border="0" align="center" id="selectedImage" class="imageAdded">

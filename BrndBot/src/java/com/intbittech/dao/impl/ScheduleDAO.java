@@ -36,6 +36,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.postgresql.util.PGobject;
 import com.intbittech.utility.DateTimeUtil;
+import com.intbittech.utility.Utility;
 
 /**
  *
@@ -980,6 +981,7 @@ public class ScheduleDAO {
                     scheduleDetailJSONObject.put("assignedToId", rs.getInt("user_id"));
                     scheduleDetailJSONObject.put("assignedFirstName", rs.getString("first_name"));
                     scheduleDetailJSONObject.put("assignedLastName", rs.getString("last_name"));
+                    scheduleDetailJSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(rs.getString("first_name"), rs.getString("last_name")));
                     scheduleDetailJSONObject.put("template_status",
                             TemplateStatus.valueOf(rs.getString("status")).getDisplayName());
 

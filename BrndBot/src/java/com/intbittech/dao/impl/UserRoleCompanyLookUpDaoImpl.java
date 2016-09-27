@@ -183,6 +183,22 @@ public class UserRoleCompanyLookUpDaoImpl implements UserRoleCompanyLookUpDao{
             return null;
         }
         return  criteria.list();
-        
+    }
+     /**
+     * {@inheritDoc}
+     */
+    public UsersRoleCompanyLookup getUsersRoleCompanyLookupByUserRoleIdAndCompanyId(String userRoleName, Integer companyId) throws ProcessFailed {
+         Criteria criteria = sessionFactory.getCurrentSession()
+                .createCriteria(UsersRoleCompanyLookup.class)
+                .setFetchMode("companyId.companyId", FetchMode.JOIN)
+                .setFetchMode("userId", FetchMode.JOIN)
+                .setFetchMode("roleId", FetchMode.JOIN)
+                .createAlias("roleId", "rId")
+                .add(Restrictions.eq("rId.roleName", userRoleName))
+                .add(Restrictions.eq("roleId.userRoleId", companyId));
+        if (criteria.list().isEmpty()) {
+            return null;
+        }
+        return (UsersRoleCompanyLookup) criteria.list().get(0);
     }
 }

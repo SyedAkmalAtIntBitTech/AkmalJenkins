@@ -332,8 +332,8 @@ public class ScheduleActionsController {
             scheduledEntityList.setAssignedTo(users);
             scheduledEntityList.setUpdatedAt(new Date());
             scheduledEntityListService.update(scheduledEntityList);
-            transactionResponse.setMessage(Utility.getFirstTwoCharactersOfName(scheduledEntityList.getAssignedTo().getFirstName(), scheduledEntityList.getAssignedTo().getLastName()));
-            transactionResponse.setId(String.valueOf(scheduledEntityList.getAssignedTo().getFirstName().charAt(0)) + String.valueOf(scheduledEntityList.getAssignedTo().getLastName().charAt(0)));
+            transactionResponse.setId(Utility.getFirstTwoCharactersOfName(scheduledEntityList.getAssignedTo().getFirstName(), scheduledEntityList.getAssignedTo().getLastName()));
+            transactionResponse.setMessage(scheduledEntityList.getAssignedTo().getFirstName() + " " + scheduledEntityList.getAssignedTo().getLastName());
             
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Action updated successfully"));
         } catch (Throwable ex) {

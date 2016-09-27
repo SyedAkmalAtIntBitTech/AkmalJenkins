@@ -319,7 +319,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 });
             }
         };
-
+        $scope.getNames = function(userName){
+            var user = [];
+            user = userName.split(" ");
+            return user;
+        };
         $scope.changeAssignedTo = function (scheduleId) {
             var userAssignToId = $("#assignTo option:selected").val();
 
@@ -327,7 +331,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             yourPlanFactory.changeAssigedToPOST(assignToDetails).then(function (data) {
                 var userName = data.d.message
                 var user = [];
-                user = userName.split(" ");
+                user = $scope.getNames(userName);
                 $scope.assignedFirstName = user[0];
                 $scope.assignedLastName = user[1];
                 $scope.assignedToInitialChars = data.d.id;
@@ -514,7 +518,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.showUpdateBtn = true;
         };
         $scope.globalScheduleData = {};
-        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, assignedFirstName, assignedLastName, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
+        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, assignedFirstName, assignedLastName,assignedToInitialChars, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
         {
             $scope.dateLesser = false;
 //        $scope.entities_selected_time =schedule_time;
@@ -525,7 +529,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.schedule_id = schedule_id;
             $scope.assignedFirstName = assignedFirstName;
             $scope.assignedLastName = assignedLastName;
-            $scope.assignedToInitialChars = assignedFirstName.charAt(0) + assignedLastName.charAt(0);
+            $scope.assignedToInitialChars = assignedToInitialChars;
             $scope.generalSavedDetails = true;
             $scope.generalNotes = false;
             $scope.generalActions = false;

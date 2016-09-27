@@ -10,6 +10,7 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.CommentLog;
 import com.intbittech.responsemappers.CommentLogResponse;
 import com.intbittech.services.CommentLogService;
+import com.intbittech.utility.Utility;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -91,7 +92,7 @@ public class CommentLogServiceImpl implements CommentLogService{
             commentLogResponse.setCommentName(activityLog.getComment());
             commentLogResponse.setCommentByEmailId(activityLog.getCommentedBy().getUserName());
             commentLogResponse.setCommentByFirstName(activityLog.getCommentedBy().getFirstName());
-            String initials = String.valueOf(activityLog.getCommentedBy().getFirstName().charAt(0)) + String.valueOf(activityLog.getCommentedBy().getLastName().charAt(0));
+            String initials = Utility.getFirstTwoCharactersOfName(activityLog.getCommentedBy().getFirstName(), activityLog.getCommentedBy().getLastName());
             commentLogResponse.setInitials(initials);
             commentLogResponse.setCommentByLastName(activityLog.getCommentedBy().getLastName());
             commentLogResponse.setScheduledEntityListId(activityLog.getFkScheduledEntityid().getScheduledEntityListId());
