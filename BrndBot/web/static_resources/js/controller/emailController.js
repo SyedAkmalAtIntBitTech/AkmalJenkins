@@ -126,7 +126,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 }
             }
             $scope.optionToggled();
-            alert(JSON.stringify(companies));
         };
         $scope.companyAddressDetails = {};
 
@@ -1481,16 +1480,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
                         }
                     });
-
-
-
-
-
-
-//                    alert("email ActionSaved..");
-//                    localStorage.removeItem("email_Schedule_Id");
-
-
                 }
             }
         };
@@ -1639,10 +1628,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
         $scope.getScheduleData = function (selectedMarketingProgramId, postData) {
             var email_scheduling = "";
-            alert(JSON.stringify(postData));
             if (!$scope.createNewActionPopup) {
                 appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
-                    alert($("#dynamictable").contents().find("html").html());
                     email_scheduling = {
                         from_name: postData.fromName,
                         program_id: $scope.selectedMarketingProgram.toString(),
@@ -1815,19 +1802,32 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         };
 
         $scope.openSchedulePopup = function () {
-            
-            if (companies.length == 0){
-                growl("no company selected, please select any one company");
-                $("#selectAll").focus();
+            appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
+            if(kGlobalEmailObject.pushedEmail){
+                if (companies.length == 0){
+                    growl("no company selected, please select any one company");
+                    $("#selectAll").focus();
+                }else {
+                    $scope.postTypeSelectionPopUp = false;
+                    $scope.schedulePopup = true;
+                    $scope.existingActionPopup = true;
+                    $scope.createNewActionPopup = false;
+                    $scope.activeClassExisting = 'active';
+                    $scope.activeClassNew = '';
+                    $scope.scheduleButtonData = "Schedule";
+                }
+    
             }else {
-                $scope.postTypeSelectionPopUp = false;
-                $scope.schedulePopup = true;
-                $scope.existingActionPopup = true;
-                $scope.createNewActionPopup = false;
-                $scope.activeClassExisting = 'active';
-                $scope.activeClassNew = '';
-                $scope.scheduleButtonData = "Schedule";
+                    $scope.postTypeSelectionPopUp = false;
+                    $scope.schedulePopup = true;
+                    $scope.existingActionPopup = true;
+                    $scope.createNewActionPopup = false;
+                    $scope.activeClassExisting = 'active';
+                    $scope.activeClassNew = '';
+                    $scope.scheduleButtonData = "Schedule";
             }
+            });
+
         };
 
         $scope.hidePopup = function (popupName) {

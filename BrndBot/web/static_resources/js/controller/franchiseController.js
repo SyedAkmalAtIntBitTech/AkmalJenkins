@@ -21,7 +21,6 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
                 appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                     kGlobalEmailObject.pushedEmail = true;
                     appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {
-    //                    alert(kGlobalEmailObject.pushedEmail);
                         $window.location = getHost() + "user/" + forwardone;
                     });
                 });
@@ -140,7 +139,6 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
                 });
 
             } 
-//            growl($scope.isRecurring);
         };
         
         $scope.showEditFranchisePopup = function (franchiseId) {
@@ -157,7 +155,7 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
 
         $scope.getFranchisesForCompanyId = function (companyId) {
             franchiseFactory.getFranchisesForCompanyId(companyId).then(function (data) {
-                alert("Response:" + JSON.stringify(data));
+                growl("Response:" + JSON.stringify(data));
             });
         };
 
@@ -394,13 +392,10 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             kGlobalEmailObject.mindbodyId = mindbodyId;
             kGlobalEmailObject.lookupId = lookupId;
             kGlobalEmailObject.pushedEmail = true;
-//            var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id,
-//                "sub_category_id": sub_category_id, "mindbodyId": mindbodyId, "lookupId": lookupId};
             appSessionFactory.clearEmail().then(function(data){
                 appSessionFactory.setEmail(kGlobalEmailObject).then(function(data){
                 });
             });
-//            localStorage.setItem("emailDraftData", JSON.stringify(draftdetails));
             emailDraftFactory.getEmailDraftGet(draft_id).then(function (data) {
                 if (data === "false") {
                     growl("There was a problem while saving the draft! Please try again later", "error");
