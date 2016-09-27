@@ -20,5 +20,5 @@ public class ActionCompaniesDetails {
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
     }
-
+    
 }

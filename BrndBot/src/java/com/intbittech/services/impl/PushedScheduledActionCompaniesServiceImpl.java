@@ -19,6 +19,7 @@ import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.modelmappers.ActionCompaniesDetails;
 import com.intbittech.modelmappers.PushedScheduledActionCompaniesDetails;
 import com.intbittech.modelmappers.UserDetails;
+import com.intbittech.services.FranchiseService;
 import com.intbittech.services.PushedScheduledActionCompaniesService;
 import com.intbittech.utility.IConstants;
 import com.intbittech.utility.Utility;
@@ -49,6 +50,8 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
     private MessageSource messageSource;
     @Autowired
     private UserRoleCompanyLookUpDao roleCompanyLookUpDao;
+    @Autowired
+    private FranchiseService franchiseService;
 
     /**
      * {@inheritDoc}
@@ -147,7 +150,13 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
             pushedScheduledEntityList.setPushedScheduledEntityListId(pushedScheduledEntityListId);
             pushedScheduledActionCompanies.setFkPushedScheduledActionEntityListId(pushedScheduledEntityList);
             pushedScheduledActionCompanies.setUpdatedAt(new Date());
-            pushedScheduledActionCompanies.setStatus(IConstants.ACTION_COMPANIES_SENT_STATUS);
+            if(franchiseService.activateCompanyAsFranchise(pushedScheduledActionCompaniesDetails.getPushedScheduledEntityDetails().getEmailListTagId(), actionCompaniesDetails.getCompanyId())){
+                  pushedScheduledActionCompanies.setStatus(IConstants.ACTION_COMPANIES_READY_TO_GO);
+            }
+            else{
+                 pushedScheduledActionCompanies.setStatus(IConstants.ACTION_COMPANIES_NO_EMAIL_TAG_CONFIGURED);
+            }
+           
             pushedScheduledActionCompaniesDao.save(pushedScheduledActionCompanies);
         }
     }
@@ -156,7 +165,7 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
      * {@inheritDoc}
      */
     public List<UserDetails> getAllUserDetailsOfCompanyIdForSendEmail(List<Integer> companyIds) throws ProcessFailed {
-        List<UsersRoleCompanyLookup> roleCompanyLookupList = roleCompanyLookUpDao.getAllUsersRoleCompanyLookupByuserRolesNameAndCompanyId(Utility.getAllUserRoleOfCompanyForSendEmail(), companyIds);
+        List<UsersRoleCompanyLookup> roleCompanyLookupList = roleCompanyLookUpDao.getAllUsersRoleCompanyLookupByuserRolesNameAndCompanyId(Utility.getAllUserRoleOfCompanyForNoTagEmailList(), companyIds);
         if (roleCompanyLookupList == null) {
             throw new ProcessFailed("No user found");
         }

@@ -15,6 +15,7 @@ public class PushedScheduledEntityDetails {
     private Boolean editable;
     private Integer franchiseId;
     private Integer scheduledEntityListId;
+    private Integer emailListTagId;
 
     public Boolean getAutoApproved() {
         return autoApproved;
@@ -47,6 +48,15 @@ public class PushedScheduledEntityDetails {
     public void setScheduledEntityListId(Integer scheduledEntityListId) {
         this.scheduledEntityListId = scheduledEntityListId;
     }
+
+    public Integer getEmailListTagId() {
+        return emailListTagId;
+    }
+
+    public void setEmailListTagId(Integer emailListTagId) {
+        this.emailListTagId = emailListTagId;
+    }
+    
     
     
 }

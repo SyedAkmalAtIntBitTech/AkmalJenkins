@@ -145,7 +145,7 @@ public class Utility {
         return userCompanyIds;
     }
     
-    public static List<String> getAllUserRoleOfCompanyForSendEmail() {
+    public static List<String> getAllUserRoleOfCompanyForNoTagEmailList() {
         List<String> userRoleList = new ArrayList<>();
         
         userRoleList.add(AdminStatus.ROLE_ACCOUNT_OWNER.toString());

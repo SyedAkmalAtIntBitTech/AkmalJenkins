@@ -79,5 +79,6 @@ public interface IConstants {
     
     // for  pushed scheduled action companies
     final static String ACTION_COMPANIES_SENT_STATUS = "Sent";
-    final static String ACTION_COMPANIES_NOT_SENT_STATUS = "NotSent";
+    final static String ACTION_COMPANIES_READY_TO_GO = "Ready to go";
+     final static String ACTION_COMPANIES_NO_EMAIL_TAG_CONFIGURED = "No email tag configured";
 }
