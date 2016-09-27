@@ -415,11 +415,11 @@ a.side-nav-logo{
 
 .main-nav a:hover.email:after{
     content: "Email Hub";
-    
+
 }
 .main-nav a:hover.social:after{
     content: "Social Hub";
-    
+
 }
 
 
@@ -2709,7 +2709,7 @@ p.modal-content-header{
 
 .slat-detail-wrap:last-child{
     display: flex;
-   
+
     padding-left: 20px;
 }
 
@@ -2839,7 +2839,7 @@ p.modal-content-header{
 .user-palette{
     display: flex;
     align-items: center;
-        margin-bottom:40px;
+    margin-bottom:40px;
 }
 
 .color-swab{
@@ -2905,7 +2905,7 @@ p.modal-content-header{
 }
 
 .upload-logo-wrap{
-    
+
     display: block;
     text-align: left;
 }
@@ -4239,7 +4239,7 @@ img.exit-button {
     display: flex;
     flex-direction: column;
     align-content: stretch;
-   
+
 }
 
 .content-wrap-sequence-page{
@@ -4296,7 +4296,7 @@ img.exit-button {
 }
 
 .r-col-editor-wrap{
-  flex: 0 0 auto;
+    flex: 0 0 auto;
 
 }
 
@@ -4515,30 +4515,30 @@ textarea.task-textarea:focus{
 }
 
 
- 
- .block-name{
-     
- }
- 
- .slat-options-dropdown{
-     position:absolute;
-     top:calc(100% + 10px);
-     border-radius: 3px;
-     border: 1px solid #D2D3D5;
-     width: 170px;
- }
- 
- .tinyMCE-image-gallery-content-wrap{
-     height:500px;
-     padding: 0px;
-     overflow: hidden;     
- }
- 
- .gallery-image-content-wrap{
-     overflow-y: scroll;
-     height: 445px;
- }
- 
+
+.block-name{
+
+}
+
+.slat-options-dropdown{
+    position:absolute;
+    top:calc(100% + 10px);
+    border-radius: 3px;
+    border: 1px solid #D2D3D5;
+    width: 170px;
+}
+
+.tinyMCE-image-gallery-content-wrap{
+    height:500px;
+    padding: 0px;
+    overflow: hidden;     
+}
+
+.gallery-image-content-wrap{
+    overflow-y: scroll;
+    height: 445px;
+}
+
 .imageGallery-container {
     box-sizing: border-box;
     padding-left: 15px;
@@ -4718,7 +4718,7 @@ textarea.task-textarea:focus{
     flex: 0 0 calc(100vw - 400px);
     background-color: #f2f2f4;
     overflow-y: scroll;
-  
+
 }
 
 .email-editor-top-buttons-wrap{
@@ -4730,7 +4730,7 @@ textarea.task-textarea:focus{
 }
 
 .email-editor-content-wrap{
-  
+
 }
 
 .user-role-selection-wrap{
@@ -5007,7 +5007,7 @@ textarea.task-textarea:focus{
     padding: 5px;
     border-radius: 3px;
     margin-bottom: 10px;
-    
+
 }
 /*------------------------------------
            Page Layout
@@ -5031,11 +5031,11 @@ textarea.task-textarea:focus{
     background-color: white;
     width: 100%;
     border-bottom: 1px solid #DCE2E8;
-   display: inline-flex;
+    display: inline-flex;
     flex-direction: row;
     line-height: 49px;
     align-items: center;
-    
+
 }
 
 .bb-top-sub-nav{
@@ -5043,46 +5043,46 @@ textarea.task-textarea:focus{
     background-color: white;
     width: 100%;
     border-bottom: 1px solid #DCE2E8;
-   display: inline-flex;
+    display: inline-flex;
     flex-direction: row;
-   align-items: center;
-   
+    align-items: center;
+
 }
 
 .bb-top-nav-title{
     margin-left: 30px;
 }
 .bb-bar-left-wrap{
-   display: inline-flex;
-  
+    display: inline-flex;
+
     justify-content: left;
 }
 
 .bb-bar-center-wrap{
-     display: inline-flex;
-    
+    display: inline-flex;
+
     justify-content: center;
 }
 
 .bb-bar-right-wrap{
-     display: inline-flex;
-   margin-left: auto;
-  
+    display: inline-flex;
+    margin-left: auto;
+
     justify-content: flex-end;
 }
 
 .bb-one-third-flex-col{
-      flex: 0 0 33.3%;
+    flex: 0 0 33.3%;
 }
 
 .bb-one-half-flex-col{
-      flex: 0 0 50%;
+    flex: 0 0 50%;
 }
 
 .bb-main-content-wrap{
     flex: auto;
     flex-basis: auto;
-     width: 100%;
+    width: 100%;
     overflow-y: scroll;
 }
 
@@ -5101,7 +5101,7 @@ textarea.task-textarea:focus{
 
 
 .bb-panel-default{
-   width: 600px;
+    width: 600px;
 }
 
 .bb-panel-full-width{
@@ -5146,11 +5146,11 @@ textarea.task-textarea:focus{
 }
 
 .bb-panel-header *:first-child{
-   margin-right: 30px;
+    margin-right: 30px;
 }
 
 .bb-panel-header a:first-of-type{
-   margin-right: 0px !important; 
+    margin-right: 0px !important; 
 }
 
 .bb-email-image-pop-up-header{
@@ -5193,11 +5193,11 @@ textarea.task-textarea:focus{
 
 .bb-sidenavbar{
     flex: 0 0 70px;
-  background-color: #243F54;
+    background-color: #243F54;
 }
 
 .bb-app-frame{
-     display: flex;
+    display: flex;
     flex-direction: column;
     height: 100vh;
     width: 100vw;
@@ -5206,12 +5206,12 @@ textarea.task-textarea:focus{
 
 .bb-center-content{
     display: -webkit-flex;
-   display: flex;
-   -webkit-flex-direction:row;
-   flex-direction: row;
-   -webkit-align-items: center;
-   align-items: center;
-   -webkit-justify-content: center;
+    display: flex;
+    -webkit-flex-direction:row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
     justify-content: center;}
 
 .bb-back-button{
@@ -5226,7 +5226,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-user-profile-dropdown-wrap{
-   padding: 0px 30px;
+    padding: 0px 30px;
     background-color: white;
     display: inline-flex;
     align-items: center;
@@ -5235,7 +5235,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-user-profile-dropdown-wrap:hover{
-   padding: 0px 30px;
+    padding: 0px 30px;
     background-color: #F9F9FB;
     cursor: pointer;
 }
@@ -5253,12 +5253,12 @@ textarea.task-textarea:focus{
     background-color: white;
     width: 100%;
     border-top: 1px #C7D0D9 solid;
-      display: inline-flex;
+    display: inline-flex;
     flex-direction: row;
 }
 
 .bb-bottom-cta-continue-button{
-     padding: 0px 45px;
+    padding: 0px 45px;
     background-color: #F9F9FB;
     display: inline-flex;
     height: 50px;
@@ -5271,7 +5271,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-bottom-cta-continue-button-saved-action{
-     padding: 0px 45px;
+    padding: 0px 45px;
     background-color: #F9F9FB;
     display: inline-flex;
     height: 50px;
@@ -5284,7 +5284,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-bottom-cta-continue-button.bb-valid{
- background-color: #1eadfc;
+    background-color: #1eadfc;
 }
 
 .bb-bottom-cta-continue-button-text{
@@ -5292,8 +5292,8 @@ textarea.task-textarea:focus{
 }
 
 .bb-bottom-cta-continue-button-arrow{
- display: none;
- height: 13px;
+    display: none;
+    height: 13px;
 }
 
 .bb-valid .bb-bottom-cta-continue-button-text{
@@ -5302,7 +5302,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-valid .bb-bottom-cta-continue-button-arrow{
- display: block;
+    display: block;
 }
 
 .bb-add-action{
@@ -5317,7 +5317,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-top-sub-nav-tab:first-child{
-   
+
     margin-left: 30px;
 }
 
@@ -5336,22 +5336,22 @@ textarea.task-textarea:focus{
 }
 
 .bb-top-sub-nav-tab:hover{
-   cursor: pointer;
+    cursor: pointer;
     color: #5A6069;
 }
 
 .bb-tab-active{
     color: #0F76A6;
-     box-shadow: inset 0 -3px #0F76A6 ;
+    box-shadow: inset 0 -3px #0F76A6 ;
 }
 
 .bb-tab-active:hover{
     color: #0F76A6;
-     box-shadow: inset 0 -3px #0F76A6 ;
+    box-shadow: inset 0 -3px #0F76A6 ;
 }
 
 .bb-top-sub-nav-backbutton-offset{
-   padding-left: 45px;
+    padding-left: 45px;
 }
 
 .bb-help-icon{
@@ -5387,7 +5387,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-email-editor-wrap{
-   display: flex;
+    display: flex;
     flex-direction: row;
     flex: 1 1 auto;
     width: 100vw;
@@ -5418,7 +5418,7 @@ textarea.task-textarea:focus{
 }
 
 .modal-pane-search-input{
-     display: inline-block;
+    display: inline-block;
     padding: 10px;
     vertical-align: middle;
     border-radius: 3px;
@@ -5429,24 +5429,24 @@ textarea.task-textarea:focus{
 }
 
 .editor-add-block-button {
-     background-color: #1EADFC;
+    background-color: #1EADFC;
     float: left;
-     color: #FFFFFF;
-     cursor: pointer;
-     border-radius: 3px;
-     padding: 9px 12px;
-     border-radius: 3px;
-     text-align: center;
-     font-size:14px;
-     font-weight: 500;
-     line-height: 14px;
-     margin-top: 10px;
- }
- .editor-add-block-button:hover {
-     background-color: #0299EC;
- }
+    color: #FFFFFF;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 9px 12px;
+    border-radius: 3px;
+    text-align: center;
+    font-size:14px;
+    font-weight: 500;
+    line-height: 14px;
+    margin-top: 10px;
+}
+.editor-add-block-button:hover {
+    background-color: #0299EC;
+}
 
- .email-editor-save-exit-button{
+.email-editor-save-exit-button{
     padding: 0px 15px;
     height: 49px;
     text-align: center;
@@ -5496,7 +5496,7 @@ textarea.task-textarea:focus{
     margin-right: 30px;
     display: block;
     align-content: center;
-  
+
 }
 
 .bb-dash-panel-cta-wrap{
@@ -5506,7 +5506,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-button{
-     border-radius: 3px;
+    border-radius: 3px;
     font-size: 14px;
     font-weight: 500;
     padding: 9px 20px;
@@ -5537,7 +5537,7 @@ textarea.task-textarea:focus{
 
 .bb-secondary-action-button:hover{
     background-color: #B3BEC9;
-   
+
 }
 
 .bb-primary-action-button{
@@ -5546,7 +5546,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-primary-action-button:hover{
-   background-color: #0299EC;
+    background-color: #0299EC;
     color: white;
 }
 
@@ -5581,7 +5581,7 @@ textarea.task-textarea:focus{
 
 .bb-empty-state-text{
     margin-bottom: 20px;
-    
+
 }
 
 .bb-your-plan-empty-state-wrap{
@@ -5660,15 +5660,15 @@ textarea.task-textarea:focus{
 }
 
 .bb-email-gallery-image-card:hover{
-   
+
     border: 2px solid #F2F2F4;
-    
+
 }
 
 .bb-email-gallery-image-card:nth-child(3n){
     margin-right: 0px;
 }
-    
+
 .bb--email-image-gal-pop-up:hover{
     cursor: pointer;
     border: 2px solid #F2F2F4;
@@ -5682,7 +5682,7 @@ textarea.task-textarea:focus{
 
 .bb-flex-row{
     display: flex;
-    
+
 }
 
 .bb-color-palette-selection-wrap{
@@ -5695,7 +5695,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-color-picker-space {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 .bb-panel-content-wrap-max-height{
@@ -5818,7 +5818,7 @@ input{
 }
 
 p {
-    
+
 }
 
 h2{
@@ -5868,7 +5868,7 @@ h3{
 
 .hub-section .section-header p{
     font-size: 14px;
-color: #5A6069 ;
+    color: #5A6069 ;
     line-height: 140%;
     margin-top: 4px;
 }
@@ -5918,9 +5918,9 @@ color: #5A6069 ;
 }
 
 
-///Page-Structure.css ends ////
+/*.....Page-Structure.css ends.....*/ 
 
-////Navigation.css starts ///////
+/*.....Navigation.css starts.......*/
 .topNav-withSubnav {
     width: calc(100vw - 70px);
 }
@@ -5977,16 +5977,16 @@ color: #5A6069 ;
     font-weight: 600;
     cursor: pointer;
 }
-////Navigation.css ends ///////
+/*.........Navigation.css ends .........*/
 
-//////General-Utility.css starts///
+/*........General-Utility.css starts......*/
 
 .clickable-area {
     width: 100%;
 }
-////General-Utility.css ends//
+/*......General-Utility.css ends.........*/
 
-//popup.css and style_detail_overlay_6.css starts ///
+/*......popup.css and style_detail_overlay_6.css starts ......*/
 .body-normal {
     background-color: #ECF0F2 !important;
     box-sizing: border-box;
@@ -6042,8 +6042,8 @@ color: #5A6069 ;
 }
 
 .reminderSectionClass{
-     display: block;
-     margin-right: 0px !important;
+    display: block;
+    margin-right: 0px !important;
 }
 
 #email_previewdiv {
@@ -6132,11 +6132,11 @@ img#prevfbimg {
     color: #0F76A6;
     font-size: 14px;
 }
-//popup.css and style_detail_overlay_6.css Ends ///
+/*....popup.css and style_detail_overlay_6.css Ends.....*/
 
 .editor-slat-button{
     margin-top: 10px;
-    
+
 }
 
 .email-bottom-padding{
@@ -6157,10 +6157,13 @@ img#prevfbimg {
     overflow: hidden;
 }
 .magginLeftAuto{
-   margin-left: auto;
+    margin-left: auto;
 }
 .margin-around{
     margin: 3px 5px 3px 25px;
 }
-
+/*....on hover template border color...*/
+.template-border-Active{
+    border: 1px solid rgb(30, 173, 252);
+}
 

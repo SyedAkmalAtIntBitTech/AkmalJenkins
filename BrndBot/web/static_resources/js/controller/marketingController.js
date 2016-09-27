@@ -1147,7 +1147,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $("#defaultblock1").empty().append("<div class=view>" + emailData.htmldata + "</div>");
 
                 } else {
-                    $("#tinymceEditorBody").append("<div id=defaultblock1><div class=view>" + emailData.htmldata + "</div></div");
+                    $("#tinymceEditorBody").append("<div id=defaultblock1 class=module><div class=view>" + emailData.htmldata + "</div></div");
                 }
                 $scope.templateId = id;
                 if ($scope.companyName.indexOf("Dailey") >= 0) {
@@ -1174,6 +1174,19 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 toolbar1: 'undo | bold italic | alignleft aligncenter alignright | link forecolor | fontselect fontsizeselect ',
                 menubar: false
             });
+            $('.innerbg').mouseenter(function (event) {
+                $("#colpic").css({position: "absolute", top: event.pageY, left: "20px"}).css(" z-index", 30000).show();
+                seldiv = $(this).parents('[bb-bgcolor]');
+            });
+            $(document).click(function () {
+                $("#colpic").hide();
+            });
+            $('.view').find('table:first').find('td:first').mouseenter(function () {
+                $(this).find('table:first').addClass('template-border-Active');
+            });
+            $('.view').find('table:first').find('td:first').mouseleave(function () {
+                $(this).find('table:first').removeClass('template-border-Active');
+            });
         };
         $scope.launchTinyMceEditorForOnlyImage = function () {
             tinymce.EditorManager.editors = [];
@@ -1190,6 +1203,19 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 ],
                 toolbar1: 'undo | bold italic |link',
                 menubar: false
+            });
+            $('.innerbg').mouseenter(function (event) {
+                $("#colpic").css({position: "absolute", top: event.pageY, left: "20px"}).css(" z-index", 30000).show();
+                seldiv = $(this).parents('[bb-bgcolor]');
+            });
+            $(document).click(function () {
+                $("#colpic").hide();
+            });
+            $('.view').find('table:first').find('td:first').mouseenter(function () {
+                $(this).find('table:first').addClass('template-border-Active');
+            });
+            $('.view').find('table:first').find('td:first').mouseleave(function () {
+                $(this).find('table:first').removeClass('template-border-Active');
             });
         };
         $scope.getFooterDetails = function () {
@@ -1949,7 +1975,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                             }
                         } else
                         {
-                            var BlockHtml = '<div id=' + $scope.htmlTagId + '  class=module onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ',' + mindbodyId + ')>' + emailData.htmldata + '</div>';
+                            var BlockHtml = '<div id=' + $scope.htmlTagId + '  class=module onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ',' + mindbodyId + ')><div class="view">' + emailData.htmldata + '</div></div>';
                             $("#tinymceEditorBody").append(BlockHtml);
                             if ($scope.companyName.indexOf("Dailey") >= 0) {
                                 $scope.launchTinyMceEditorForOnlyImage();
