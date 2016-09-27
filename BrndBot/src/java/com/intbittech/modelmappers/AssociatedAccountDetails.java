@@ -16,6 +16,15 @@ public class AssociatedAccountDetails implements Serializable {
     private Integer companyId;
     private String companyName;
     private String status;
+    private long updatedDate;
+
+    public long getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(long updatedDate) {
+        this.updatedDate = updatedDate;
+    }
 
     public Integer getCompanyId() {
         return companyId;
