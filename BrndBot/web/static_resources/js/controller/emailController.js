@@ -78,7 +78,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 }
             });
             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
-//                $scope.companyName = kGlobalCompanyObject.companyName;
+                $scope.companyName = kGlobalCompanyObject.companyName;
                 appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                     if (kGlobalEmailObject.entityScheduleId) {
                         $scope.isEmailSaveAction = true;
