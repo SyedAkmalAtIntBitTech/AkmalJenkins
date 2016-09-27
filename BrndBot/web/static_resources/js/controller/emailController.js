@@ -1668,12 +1668,14 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                          editable = false;
                                          autoApproved = true;
                                      }
+                                     var emailTagId = kGlobalEmailObject.emailTagId;
                                      appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
                                          var franchiseId = kGlobalCompanyObject.franchiseId;
 
                                          var pushedScheduledEntityDetails = {"autoApproved": autoApproved,
                                                                              "editable":editable, "franchiseId":franchiseId,
-                                                                             "scheduledEntityListId":$scope.socialAction};
+                                                                             "scheduledEntityListId":$scope.socialAction, 
+                                                                             "emailListTagId": emailTagId};
                                          var actionCompaniesDetails = companies;
                                          var pushedScheduledActionCompaniesDetails = {"pushedScheduledEntityDetails": pushedScheduledEntityDetails,"actionCompaniesDetails":actionCompaniesDetails};
                                          pushedActionsFactory.saveSchedulePushedActionsCompanies(pushedScheduledActionCompaniesDetails).then(function (data){
