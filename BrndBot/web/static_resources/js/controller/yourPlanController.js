@@ -416,7 +416,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         {
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
             {
-                var userAssignToId = $("#assignTo option:selected").val();
+                var userAssignToId = $("#assignToUser option:selected").val();
                 $scope.timePickerVal = false;
                 var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
                 var actionDateTime1 = datePicker.toLocaleString() + " " + actionTime1.toLocaleString();
@@ -446,13 +446,12 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 var days = 0;
                 var action = {"title": addTitle, "actiontype": actionType.value, "type": "save",
                     "description": "", "marketingType": 0, "action_date": epoch_time, "days": days, "userAssignToId": userAssignToId};
-                yourPlanFactory.addActionPost(action).then(function (data) {
-                    growl("Action Saved");
-                    $scope.getCampaigns();
-                    $scope.closeOverlay();
-                });
-            }
-            ;
+//                yourPlanFactory.addActionPost(action).then(function (data) {
+//                    growl("Action Saved");
+//                    $scope.getCampaigns();
+//                    $scope.closeOverlay();
+//                });
+            };
         };
 
         $scope.closePopup = function () {

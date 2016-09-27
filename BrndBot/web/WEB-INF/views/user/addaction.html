@@ -23,8 +23,8 @@
                 </div>
                 <div>
                     <label>Assigned To:</label>
-                    <select id="assignTo" ng-show="moreThanOneUser">
-                        <option value="no assignee" selected>no assignee</option>
+                    <select id="assignToUser" ng-show="moreThanOneUser">
+                        <option value="0" selected>no assignee</option>
                         <option ng-repeat="users in allUsers" value="{{users.userId}}">{{users.userName}}</option>
                     </select>
                 </div>
