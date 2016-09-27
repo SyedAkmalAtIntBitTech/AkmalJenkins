@@ -39,6 +39,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.addBlockCount = 0;
         $scope.changeUsers = false;
         $scope.companyName = "";
+        $scope.editSavedEmail = false;
 
         $scope.companyAddressDetails = {};
 
@@ -132,7 +133,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.programId = programId;
             $location.path("/" + pageName);
         };
-        $scope.redirectToEmailAutomation = function (pageName, add, programId, zero)
+        $scope.redirectToEmailAutomation = function (pageName, add, programId, zero, editSavedEmail)
         {
 //            $scope.programId = programId;
             if ($scope.action_template_status !== 'Approved') {
@@ -141,6 +142,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.zero = zero;
                 $scope.entityId = zero;
                 $scope.closePopup();
+                if(editSavedEmail)
+                    $scope.editSavedEmail = true;
+                else
+                    $scope.editSavedEmail = false;
                 $location.path("/" + pageName);
             } else {
                 growl(actionAlreadyScheduled);
@@ -1131,7 +1136,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $("#emlautomeditorcontainer").show();
             marketingRecurringEmailFactory.allRecurringEmailTemplatesGet().then(function (data) {
                 $scope.recuring_email_templates = JSON.parse(JSON.stringify(data));
-                if (!isTemplateClick)
+                if (!isTemplateClick && !$scope.editSavedEmail)
                     $scope.showHTMLData($scope.recuring_email_templates[0].html_data, $scope.recuring_email_templates[0].template_id);
             });
             $scope.recurringTemplateOnClick(0);
@@ -1349,6 +1354,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         var daysDropDownSelect = {"text": data.recurring_email_days, "value": data.recurring_email_days};
                         $scope.setDays(daysDropDownSelect);
                     }
+                    console.log(JSON.stringify(data));
 //                    alert(JSON.stringify(data.recurring_email_body));
                     //TODO Sandeep
                     $scope.froalaHtmlData = data.recurring_email_body;
@@ -1673,6 +1679,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 var recurring_action = {
                                     "entity_id": $scope.entityId.toString(),
                                     "template_id": $scope.templateId, "html_data": $scope.froalaHtmlData + footer,
+                                    "html_body": $scope.froalaHtmlData,
                                     "days": days.toString(), "emaillist": emaillist,
                                     "to_email_addresses": to_email_addresses,
                                     "subject": subject, "from_name": from_name,
