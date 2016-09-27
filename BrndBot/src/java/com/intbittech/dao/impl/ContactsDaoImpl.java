@@ -7,7 +7,7 @@ package com.intbittech.dao.impl;
 
 import com.intbittech.dao.ContactsDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.Contact;
+import com.intbittech.model.Contacts;
 import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
 /**
  * <code> {@link ContactsDaoImpl} </code> is implementation of
  * {@link ContactsDao} and perform the database related operation for managing
- * {@link Contact}
+ * {@link Contacts}
  *
  * @author Ajit
  */
@@ -36,16 +36,16 @@ public class ContactsDaoImpl implements ContactsDao {
      /**
      * {@inheritDoc}
      */
-    public Contact getByContactsId(Integer contactsId) throws ProcessFailed {
+    public Contacts getByContactsId(Integer contactsId) throws ProcessFailed {
          try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(Contact.class)
+                    .createCriteria(Contacts.class)
                     .add(Restrictions.eq("contactId", contactsId));
-            List<Contact> contacts = criteria.list();
+            List<Contacts> contacts = criteria.list();
             if (contacts.isEmpty()) {
                 return null;
             }
-            return (Contact) criteria.list().get(0);
+            return (Contacts) criteria.list().get(0);
 
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -56,16 +56,16 @@ public class ContactsDaoImpl implements ContactsDao {
     /**
      * {@inheritDoc}
      */
-    public Contact getContactByEmailAddress(String emailAddress) throws ProcessFailed {
+    public Contacts getContactByEmailAddress(String emailAddress) throws ProcessFailed {
          try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(Contact.class)
+                    .createCriteria(Contacts.class)
                     .add(Restrictions.eq("emailAddress", emailAddress));
-            List<Contact> contacts = criteria.list();
-            if (contacts.isEmpty()) {
+            List<Contacts> contact = criteria.list();
+            if (contact.isEmpty()) {
                 return null;
             }
-            return (Contact) criteria.list().get(0);
+            return (Contacts) criteria.list().get(0);
 
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -76,9 +76,9 @@ public class ContactsDaoImpl implements ContactsDao {
      /**
      * {@inheritDoc}
      */
-    public Integer save(Contact contacts) throws ProcessFailed {
+    public Integer save(Contacts contact) throws ProcessFailed {
         try {
-            return ((Integer) sessionFactory.getCurrentSession().save(contacts));
+            return ((Integer) sessionFactory.getCurrentSession().save(contact));
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
@@ -88,9 +88,9 @@ public class ContactsDaoImpl implements ContactsDao {
      /**
      * {@inheritDoc}
      */
-    public void update(Contact contacts) throws ProcessFailed {
+    public void update(Contacts contact) throws ProcessFailed {
         try {
-            sessionFactory.getCurrentSession().update(contacts);
+            sessionFactory.getCurrentSession().update(contact);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
@@ -100,9 +100,9 @@ public class ContactsDaoImpl implements ContactsDao {
      /**
      * {@inheritDoc}
      */
-    public void delete(Contact contacts) throws ProcessFailed {
+    public void delete(Contacts contact) throws ProcessFailed {
          try {
-            sessionFactory.getCurrentSession().delete(contacts);
+            sessionFactory.getCurrentSession().delete(contact);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_deleting_message",new String[]{}, Locale.US));

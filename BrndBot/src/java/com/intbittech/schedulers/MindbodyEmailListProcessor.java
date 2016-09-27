@@ -11,7 +11,7 @@ import com.intbittech.divtohtml.StringUtil;
 import com.intbittech.enums.EmailListTypeConstants;
 import com.intbittech.mindbody.MindBodyClass;
 import com.intbittech.model.CompanyPreferences;
-import com.intbittech.model.Contact;
+import com.intbittech.model.Contacts;
 import com.intbittech.model.EmailInfo;
 import com.intbittech.model.EmailList;
 import com.intbittech.modelmappers.AddEmailListDetails;

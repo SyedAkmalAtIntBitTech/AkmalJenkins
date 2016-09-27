@@ -57,7 +57,7 @@ public interface UnsubscribedEmailsService {
 
     /**
      * This method delete particular {@link UnsubscribedEmails} based on the
-     * contacts from the database.
+     * contact from the database.
      *
      * @param unsubscribedEmailsId the unsubscribedEmailsId
      * @throws ProcessFailed the process failed

@@ -40,7 +40,7 @@ public class ContactEmailListLookup implements Serializable {
     private Boolean unsubscribed;
     @JoinColumn(name = "fk_contact_id", referencedColumnName = "contact_id")
     @ManyToOne
-    private Contact fkContactId;
+    private Contacts fkContactId;
     @JoinColumn(name = "fk_email_list_id", referencedColumnName = "email_list_id")
     @ManyToOne
     private EmailList fkEmailListId;
@@ -76,11 +76,11 @@ public class ContactEmailListLookup implements Serializable {
         this.unsubscribed = unsubscribed;
     }
 
-    public Contact getFkContactId() {
+    public Contacts getFkContactId() {
         return fkContactId;
     }
 
-    public void setFkContactId(Contact fkContactId) {
+    public void setFkContactId(Contacts fkContactId) {
         this.fkContactId = fkContactId;
     }
 

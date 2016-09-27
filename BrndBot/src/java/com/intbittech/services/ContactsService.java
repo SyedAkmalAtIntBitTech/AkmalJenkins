@@ -6,7 +6,7 @@
 package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.Contact;
+import com.intbittech.model.Contacts;
 import com.intbittech.modelmappers.ContactDetails;
 
 /**
@@ -18,54 +18,54 @@ import com.intbittech.modelmappers.ContactDetails;
 public interface ContactsService {
     
      /**
-     * This method pass id as input and get the {@link Contact} from DAO
+     * This method pass id as input and get the {@link Contacts} from DAO
      * layer.
      *
      * @param contactsId the contactsId
-     * @return {@link Contact}
+     * @return {@link Contacts}
      * @throws ProcessFailed the process failed
      */
-    public Contact getByContactsId(Integer contactsId) throws ProcessFailed;
+    public Contacts getByContactsId(Integer contactsId) throws ProcessFailed;
     
     /**
-     * This method pass id as input and get the {@link Contact} from DAO
+     * This method pass id as input and get the {@link Contacts} from DAO
      * layer.
      *
      * @param emailAddress the emailAddress
-     * @return {@link Contact}
+     * @return {@link Contacts}
      * @throws ProcessFailed the process failed
      */
-    public Contact getContactByEmailAddress(String emailAddress) throws ProcessFailed;
+    public Contacts getContactByEmailAddress(String emailAddress) throws ProcessFailed;
     
     /**
-     * This method save {@link Contact} into the database.
+     * This method save {@link Contacts} into the database.
      *
-     * @param contacts the contacts
+     * @param contact the contact
      * @return the Integer
      * @throws ProcessFailed the process failed
      */
-    public Integer save(Contact contacts) throws ProcessFailed;
+    public Integer save(Contacts contact) throws ProcessFailed;
 
     /**
-     * This method update {@link Contact} updates existing data from the
+     * This method update {@link Contacts} updates existing data from the
      * database.
      *
-     * @param contacts the contacts
+     * @param contact the contact
      * @throws ProcessFailed the process failed
      */
-    public void update(Contact contacts) throws ProcessFailed;
+    public void update(Contacts contact) throws ProcessFailed;
 
     /**
-     * This method delete particular {@link Contact} based on the
-     * contacts from the database.
+     * This method delete particular {@link Contacts} based on the
+     * contact from the database.
      *
-     * @param contactsId the contactsId
+     * @param contactId the contactId
      * @throws ProcessFailed the process failed
      */
-    public void delete(Integer contactsId) throws ProcessFailed;
+    public void delete(Integer contactId )throws ProcessFailed;
     
     /**
-     * This method save {@link Contact} into the database.
+     * This method save {@link Contacts} into the database.
      *
      * @param contactDetails the contactDetails
      * @return the Integer

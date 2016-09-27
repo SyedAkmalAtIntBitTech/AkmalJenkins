@@ -85,8 +85,8 @@ public class ContactEmailListLookupServiceImpl implements ContactEmailListLookup
      * {@inheritDoc}
      */
     public ContactEmailListLookup getByEmailListIdAndContactId(Integer emailListId, Integer contactId) throws ProcessFailed {
-        ContactEmailListLookup contacts = contactEmailListLookupDao.getByEmailListIdAndContactId(emailListId, contactId);
-        return contacts;
+        ContactEmailListLookup contact = contactEmailListLookupDao.getByEmailListIdAndContactId(emailListId, contactId);
+        return contact;
     }
 
     /**
