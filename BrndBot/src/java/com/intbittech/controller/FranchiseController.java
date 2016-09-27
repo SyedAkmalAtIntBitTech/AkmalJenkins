@@ -13,6 +13,7 @@ import com.intbittech.model.UserProfile;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.modelmappers.CompanyDetailsForFranchise;
 import com.intbittech.modelmappers.FranchiseDetails;
+import com.intbittech.modelmappers.RequestToAddCompanies;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
@@ -254,10 +255,14 @@ public class FranchiseController {
 
     }
     @RequestMapping(value = "requestToAddCompanies", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> requestToAddCompanies(@RequestBody String userDetails, @RequestParam("franchiseName") String franchiseName){
+    public ResponseEntity<ContainerResponse> requestToAddCompanies(@RequestBody RequestToAddCompanies requestToAddCompanies){
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-
+            if (franchiseService.requestToAddCompanies(requestToAddCompanies.getCompanyNames(), requestToAddCompanies.getFranchiseName(), requestToAddCompanies.getUserId())){
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("request_sent", new String[]{}, Locale.US)));
+            }else {
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("request_not_sent", new String[]{}, Locale.US)));                
+            }
         } catch (Throwable ex) {
             logger.error(ex);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));

@@ -65,11 +65,11 @@ factoryApp.factory('franchiseFactory', function ($q, authenticatedServiceFactory
         });
         return deffered.promise;
     };
-    franchiseFactoryObject.requestToAddCompaniesPost = function (userDetails, franchiseName) {
+    franchiseFactoryObject.requestToAddCompaniesPost = function (userCompanyDetails) {
         var deffered = $q.defer();
-        var url = configurationService.requestToAddCompaniesURL()+"?franchiseName="+franchiseName;
+        var url = configurationService.requestToAddCompaniesURL();
         var data = '';
-        authenticatedServiceFactory.makeCall("POST", url, userDetails, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, userCompanyDetails, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

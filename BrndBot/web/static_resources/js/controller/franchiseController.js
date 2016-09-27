@@ -211,17 +211,16 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             $scope.addAccount = false;
         };
         
-        $scope.requestToAddCompanies = function (userDetails) {
+        $scope.requestToAddCompanies = function (companyNames) {
             appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
-                var franchiseId = kGlobalCompanyObject.franchiseName;
-                franchiseFactory.requestToAddCompaniesPost(userDetails, franchiseName).then(function (data) {
-                    growl(data.d.message);
+                var franchiseName = kGlobalCompanyObject.franchiseName;
+                var requestToAddCompanies = {"companyNames": companyNames.companies, "franchiseName": franchiseName};
+                franchiseFactory.requestToAddCompaniesPost(requestToAddCompanies).then(function (data) {
+                    growl(data.d.operationStatus.messages);
                     $scope.closeOverlay();
-                    $location.path("/settings/useraccountsettings");
                 });
             });    
         };
-
         $scope.showAddUser = function ()
         {
             $scope.fadeClass = 'fadeClass';
