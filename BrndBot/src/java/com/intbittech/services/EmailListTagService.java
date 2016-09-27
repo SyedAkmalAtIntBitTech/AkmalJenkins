@@ -27,6 +27,16 @@ public interface EmailListTagService {
     public EmailListTag getByEmailListTagId(Integer emailListTagId) throws ProcessFailed;
     
     /**
+     * This method pass id as input and get the {@link EmailListTag} from DAO
+     * layer.
+     *
+     * @param tagName the tagName
+     * @return {@link EmailListTag}
+     * @throws ProcessFailed the process failed
+     */
+    public EmailListTag getByTagName(String tagName) throws ProcessFailed;
+    
+    /**
      * This method save {@link EmailListTag} into the database.
      *
      * @param emailListTag the emailListTag

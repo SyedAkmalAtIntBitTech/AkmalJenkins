@@ -15,14 +15,22 @@ import com.intbittech.model.EmailListTag;
 public interface EmailListTagDao {
     
      /**
-     * This method pass id as input and get the {@link EmailListTag} from DAO
-     * layer.
+     * This method pass id as input and get the {@link EmailListTag} from database.
      *
      * @param emailListTagId the emailListTagId
      * @return {@link EmailListTag}
      * @throws ProcessFailed the process failed
      */
     public EmailListTag getByEmailListTagId(Integer emailListTagId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailListTag} from database.
+     *
+     * @param tagName the tagName
+     * @return {@link EmailListTag}
+     * @throws ProcessFailed the process failed
+     */
+    public EmailListTag getByTagName(String tagName) throws ProcessFailed;
     
     /**
      * This method save {@link EmailListTag} into the database.

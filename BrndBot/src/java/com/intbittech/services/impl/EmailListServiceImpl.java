@@ -6,7 +6,6 @@
 package com.intbittech.services.impl;
 
 import com.intbittech.dao.EmailListDao;
-import com.intbittech.enums.EmailListTagConstants;
 import com.intbittech.enums.EmailListTypeConstants;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
@@ -17,6 +16,7 @@ import com.intbittech.modelmappers.AddEmailListDetails;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.EmailListService;
 import com.intbittech.services.EmailListTagLookupService;
+import com.intbittech.services.EmailListTagService;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -34,24 +34,27 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(rollbackFor = ProcessFailed.class)
 public class EmailListServiceImpl implements EmailListService {
-    
+
     enum EmailListType {
-        
+
         Regular, Mindbody
     };
-    
+
     private final static Logger logger = Logger.getLogger(EmailListServiceImpl.class);
     private final static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    
+
     @Autowired
     private MessageSource messageSource;
-    
+
     @Autowired
     private CompanyPreferencesService companyPreferencesService;
-    
+
     @Autowired
     private EmailListDao emailListDao;
-    
+
+    @Autowired
+    private EmailListTagService emailListTagService;
+
     @Autowired
     EmailListTagLookupService emailListTagLookupService;
 
@@ -65,14 +68,14 @@ public class EmailListServiceImpl implements EmailListService {
         }
         return emailList;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public Boolean checkUniqueness(Integer companyId, String emailListName) throws ProcessFailed {
         return emailListDao.checkUniqueness(companyId, emailListName);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -86,10 +89,11 @@ public class EmailListServiceImpl implements EmailListService {
      */
     public Integer save(AddEmailListDetails addEmailListDetails) throws ProcessFailed {
         EmailList emailList = new EmailList();
-        if(addEmailListDetails.getCreatedDate() == null)
+        if (addEmailListDetails.getCreatedDate() == null) {
             emailList.setCreatedDate(new Date());
-        else
+        } else {
             emailList.setCreatedDate(addEmailListDetails.getCreatedDate());
+        }
         emailList.setEmailListName(addEmailListDetails.getEmailListName());
         emailList.setDescription(addEmailListDetails.getEmailListDescription());
         emailList.setDefaultFromAddress(addEmailListDetails.getDefaultFromAddress());
@@ -103,12 +107,22 @@ public class EmailListServiceImpl implements EmailListService {
         emailList.setFkCompanyId(company);
         Integer emailListId = emailListDao.save(emailList);
         emailList = getByEmailListId(emailListId);
-        if(addEmailListDetails.getEmailListTags()!=null) {
-            for(String tag : addEmailListDetails.getEmailListTags()) {
+        if (addEmailListDetails.getEmailListTags() != null) {
+            for (String tag : addEmailListDetails.getEmailListTags()) {
                 EmailListTagLookup emailListTagLookup = new EmailListTagLookup();
                 emailListTagLookup.setFkEmailListId(emailList);
-                EmailListTag emailListTag = new EmailListTag();
-                emailListTag.setTagId(EmailListTagConstants.valueOf(tag).getEmailListTag());
+                EmailListTag emailListTag = emailListTagService.getByTagName(tag);
+                Integer emailListTagId = 0;
+                if (emailListTag == null) {
+                    emailListTag = new EmailListTag();
+                    emailListTag.setTagName(tag);
+                    emailListTagId = emailListTagService.save(emailListTag);
+                } else {
+                    emailListTagId = emailListTag.getTagId();
+                }
+                
+                emailListTag = new EmailListTag();
+                emailListTag.setTagId(emailListTagId);
                 emailListTagLookup.setFkEmailListTagId(emailListTag);
                 emailListTagLookupService.save(emailListTagLookup);
             }
@@ -133,7 +147,7 @@ public class EmailListServiceImpl implements EmailListService {
         }
         emailListDao.delete(emailList);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -144,7 +158,7 @@ public class EmailListServiceImpl implements EmailListService {
         }
         return emailLists;
     }
-    
+
     /**
      * {@inheritDoc}
      */
