@@ -254,7 +254,7 @@ public class FranchiseController {
 
     }
     @RequestMapping(value = "requestToAddCompanies", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> requestToAddCompanies(@RequestBody String userDetails, @RequestParam("franchiseName") String franchiseName){
+    public ResponseEntity<ContainerResponse> requestToAddCompanies(@RequestBody String userDetails, @RequestParam("franchiseName") String franchiseName,@RequestParam("userId")Integer userId){
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
 
