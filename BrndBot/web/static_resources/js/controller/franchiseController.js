@@ -13,6 +13,8 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
         $scope.clickedRemoveAction = false;
         $scope.noPushedEmails = false;
         $scope.selectedEmail = "";
+        $scope.clickedDeleteAction = false;
+        
         $scope.redirectToEmailFlow = function (forwardone)
         {
             appSessionFactory.clearEmail().then(function(checkCleared){
@@ -376,7 +378,6 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
                 $scope.savedEmailDraftPopup = false;
                 $scope.deletDraftsButton = false;
                 $scope.selectedEmail = "";
-                $scope.clickedDeleteAction = false;
                 $scope.closeSavedEmailDraftPopup();
             });
         };
