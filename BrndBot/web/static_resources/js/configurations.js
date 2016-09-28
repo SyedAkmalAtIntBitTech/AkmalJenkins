@@ -41,6 +41,22 @@ var bitlyUserName = "sandeep264328";
 var bitlyKey = "R_63e2f83120b743bc9d9534b841d41be6";
 var aviaryApiKey = "75ed2ca5-7d87-454f-ab9f-e46446ed542d";
 
+var kGlobalFooterTop = "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\" bgcolor=\"#f2f2f4\" style=\"border-collapse:collapse\"> <tbody> <tr> <td valign=\"top\"> <center style=\"width:100%\"> <div style=\"max-width:680px\"> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" bgcolor=\"#f2f2f4\" width=\"100%\" style=\"max-width:680px\"> <tbody> <tr> <td style=\"padding-top:40px; text-align:center;\" class=\"mobile-padding\"> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" width=\"200px\" style=\"max-width:300px;background-color:#inherit\"> <tbody> <tr>";
+
+var kGlobalFooterFB = "<td style=\"text-align:center\"> <table> <tbody> <tr> <td style=\"text-align:center\"> <a href=\"$$$footerFB$$$\" target=\"_blank\"><img src=\"" + global_host_address + "images/Facebook_Filled.png" + "\" alt=\"Facebook Icon\" style=\"border:0;width:30px\"></a> </td> </tr> </tbody> </table> </td>";
+
+var kGlobalFooterTwitter = "<td style=\"text-align:center\"> <table> <tbody> <tr> <td style=\"text-align:center\"> <a href=\"$$$footerTwitter$$$\" target=\"_blank\"><img src=\"" + global_host_address + "images/Twitter_Filled.png" + "\" alt=\"Twitter Icon\" style=\"border:0;width:30px\"></a> </td> </tr> </tbody> </table> </td>";
+
+var kGlobalFooterWebsite = "<tr> <td style=\"text-align:center; padding: 40px 0px 20px 0px;font-family:sans-serif;font-size:12px;line-height:120%;text-align:center;color:#555555;\"> <a href=\"$$$footerWebsite$$$\" target=\"_blank\">Visit Our Website</a> </td> </tr>";
+
+var kGlobalFooterInstagram = "<td style=\"text-align:center\"> <table> <tbody> <tr> <td style=\"text-align:center\"> <a href=\"$$$footerInstagram$$$\" target=\"_blank\"><img src=\"" + global_host_address + "images/Insta_Filled.png" + "\" alt=\"Instagram Icon\" style=\"border:0;width:30px\"></a> </td> </tr> </tbody> </table> </td>";
+
+var kGlobalFooterMiddle = "</tr> </tbody> </table> </td> </tr>";
+
+var kGlobalFooterAddress = "<tr> <td style=\"font-family:sans-serif;font-size:12px;line-height:120%;text-align:center;color:#555555;padding:20px 55px 60px 55px\"> $$$footerAddress$$$ </td> </tr>";
+
+var kGlobalFooterBottom = "</tbody> </table> </div> </center> </td> </tr> </tbody> </table>";
+
 
 function getHost(){
      return global_host_address;
