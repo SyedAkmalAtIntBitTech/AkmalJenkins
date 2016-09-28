@@ -144,6 +144,9 @@ a {
     font-weight: 500;
 }
 
+#addcontact{
+    margin-left: 50%;
+}
 .long-button{
     padding: 9px 30px;
     border-radius: 3px;
@@ -3710,8 +3713,9 @@ p.modal-content-header{
     padding-right: 20px !important;
 }
 .md-button {
-    padding: 7px 16px 7px 16px;
-    border-radius: 3px;
+    /*padding: 7px 16px 7px 16px;*/
+    border-radius: 3px;   
+    line-height: 100%;
 }
 .remove-action-detail {
     float: left;

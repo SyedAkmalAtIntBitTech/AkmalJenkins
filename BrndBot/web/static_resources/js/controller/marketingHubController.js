@@ -170,8 +170,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 //        };
 
         var selectedemailids = "";
+        var count = 0;
         $scope.selectedEmailListCheckbox = function (id) {
-            var count = 0;
             var content = '<input type="checkbox" name="deleteid" value="' + id + '" hidden="" id="deleteid"' + id + '" checked>';
             var content1 = '<input type="checkbox" name="deleteid" value="' + id + '" hidden="" id="deleteid"' + id + '">';
             var htm = $("#" + id).html();
@@ -193,7 +193,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $("#addcontact").hide();
                 $("#addcontacts").hide();
             }
-            if (count === -1)
+            if (count <= 0)
             {
                 $scope.deSelectCheckboxButton = false;
                 $scope.selectCheckboxButton = false;
@@ -204,6 +204,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 
         $scope.deSelectCheckbox = function () {
             count = 0;
+            selectedemailids = "";
             var htm = $(".selection-icon-selected").html();
             if (htm.contains('class="check-icon"')) {
                 $(".selection-icon-selected").html('');
@@ -925,8 +926,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         $scope.showAddContacts = function () {
             count = 0;
-            $(".delete-button").hide();
-            $(".gray-button").hide();
+            $("#addcontact").show();
             $("#showList").hide();
             $("#tab4").show();
             $("#importListli").addClass("top-subnav-link-active");
@@ -939,6 +939,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $("#tab4").show();
             $scope.showAddContactPopup = false;
             $scope.showEmailListContacts = false;
+            $scope.deSelectCheckboxButton = false;
+            $scope.selectCheckboxButton = false;
             $scope.activeEmailListContacts = ''
             $scope.activeImportContacts = 'activeTab';
         };
