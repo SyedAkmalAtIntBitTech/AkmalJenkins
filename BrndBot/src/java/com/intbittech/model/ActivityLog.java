@@ -43,7 +43,7 @@ public class ActivityLog implements Serializable {
     @JoinColumn(name = "fk_activity_id", referencedColumnName = "activity_id")
     @ManyToOne(optional = false)
     private Activity fkActivityId;
-    @JoinColumn(name = "fk_Scheduled Entity _id", referencedColumnName = "scheduled_entity_list_id")
+    @JoinColumn(name = "fk_scheduled_entity_id", referencedColumnName = "scheduled_entity_list_id")
     @ManyToOne(optional = false)
     private ScheduledEntityList fkScheduledEntityid;
     @JoinColumn(name = "assigned_to", referencedColumnName = "user_id")
