@@ -5335,6 +5335,10 @@ textarea.task-textarea:focus{
     margin-right: 20px;
 }
 
+.bb-top-sub-nav-tab.active a{
+    color: #0F76A6;
+    box-shadow: inset 0 -3px #0F76A6 ;    
+}
 .bb-ease-all{
     transition: all 0.3s ease;
 }

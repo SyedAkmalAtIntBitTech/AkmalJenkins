@@ -270,7 +270,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
             $rootScope.FbProfileName = profileName;
             $scope.postData = {};
             $scope.selectedSocialmedia = "facebook";
-            $scope.postTypeSelectionPopUp = true;
+//            $scope.postTypeSelectionPopUp = true;
             $scope.postTo = "Post to Facebook";
         };
         $scope.postToSelectedPage = function () {
