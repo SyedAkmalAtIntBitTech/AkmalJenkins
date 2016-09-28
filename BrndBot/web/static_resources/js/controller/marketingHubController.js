@@ -547,6 +547,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.activeEmailListContacts = 'activeTab';
             $scope.activeImportContacts = '';
             $scope.showEmailListContacts = true;
+            $scope.noUserContactList=false;
+            $scope.noMindbodyContactList=false;
+            $scope.user_emailAddresses='';
+            $scope.mindbody_emailAddresses ='';
             $("#importListli").removeClass("top-subnav-link-active");
             $("#importList").removeClass("h3-active-subnav");
             $("#emailListli").addClass("top-subnav-link-active");
@@ -563,6 +567,22 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $scope.user_emailAddresses = parseData.user_emailAddresses;
                 $scope.mindbody_emailAddresses = parseData.mindbody_emailAddresses;
                 $scope.selected_email_listname = list_name;
+                if($scope.user_emailAddresses == ''){
+                        $scope.noUserContactList=true;
+                        $scope.noMindbodyContactList=false;
+                }
+                if($scope.mindbody_emailAddresses == ''){
+                        $scope.noUserContactList=true;
+                        $scope.noMindbodyContactList=false;
+                }
+                if($scope.user_emailAddresses!=''){
+                        $scope.noUserContactList=false;
+                        $scope.noMindbodyContactList=false;
+                }
+                if($scope.mindbody_emailAddresses!=''){
+                        $scope.noUserContactList=false;
+                        $scope.noMindbodyContactList=false;
+                }
                 $scope.type = type;
                 if (type === 'user') {
                     $("#tab1").hide();

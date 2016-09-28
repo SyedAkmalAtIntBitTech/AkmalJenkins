@@ -34,7 +34,7 @@
            <div class="bb-top-sub-nav-tab"  id="importListli" ng-click="showAddContacts()"><a id="importList" ng-class="activeImportContacts">Add Contacts</a></div>
         </div>
     <!--Main Content--> 
-    <div class="bb-main-content-wrap bb-main-content-wrap-padding" ng-show="showEmailListContacts">
+    <div class="bb-main-content-wrap bb-main-content-wrap-emaillist bb-main-content-wrap-padding" ng-show="showEmailListContacts">
     <div class="bb-panel-full-width bb-panel-styling" ng-init="updateList()">
             <div class="bb-panel-header">
                 <h2 class="">Email List Contacts</h2>
@@ -43,7 +43,13 @@
             <div class="bb-panel-full-width bb-panel-styling-content-wrap">
                 
                 <!--Empty List-->
-                <div class="hub-empty-wrap" ng-show="email.emailAddress == '' && type == 'user'">No Contacts in List</div>
+                
+                <div class="bb-slat-list-wrap"  ng-show="noUserContactList">
+                    <div class="hub-empty-wrap">No Contacts in List</div>
+                </div>
+                <div class="bb-slat-list-wrap"  ng-show="noMindbodyContactList">
+                    <div class="hub-empty-wrap">No Contacts in List</div>
+                </div>
                 
                
                 <div class="bb-slat-list-wrap" >

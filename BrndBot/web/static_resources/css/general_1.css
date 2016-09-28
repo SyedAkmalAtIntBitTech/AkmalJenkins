@@ -5094,7 +5094,9 @@ textarea.task-textarea:focus{
     padding: 30px 0px;
 }
 
-
+.bb-main-content-wrap-emaillist{
+        height: 75vh;
+}
 
 .bb-panel-styling{
     border: 1px #C7D0D9 solid;
