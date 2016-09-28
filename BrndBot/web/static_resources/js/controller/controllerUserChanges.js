@@ -189,6 +189,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
                 onboardingFactory.inviteUserPost(invitation).then(function (data) {
                     growl(data.d.message);
+                    $scope.getInvitedUsers();
                     $scope.closeInviteUsersPopup();
     //                $location.path("/settings/useraccountsettings");
                 });
