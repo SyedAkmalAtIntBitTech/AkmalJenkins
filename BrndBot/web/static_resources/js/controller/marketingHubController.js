@@ -356,17 +356,15 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             var footerInstagramUrl = "";
             if (company.instagramUrl)
                 footerInstagramUrl = company.instagramUrl;
-            else
-            {
-                var footerPopupDetails = {"facebookUrl": footerFacebookUrl, "twitterUrl": footerTwitterUrl, "instagramUrl": footerInstagramUrl, "websiteUrl": footerWebsiteUrl};
-                $scope.emailFooterPopupDetails = false;
+            
+            var footerPopupDetails = {"facebookUrl": footerFacebookUrl, "twitterUrl": footerTwitterUrl, "instagramUrl": footerInstagramUrl, "websiteUrl": footerWebsiteUrl};
+            $scope.emailFooterPopupDetails = false;
+            $scope.getFooterDetails();
+            settingsFactory.setFooterPost(footerPopupDetails).then(function (data) {
                 $scope.getFooterDetails();
-                settingsFactory.setFooterPost(footerPopupDetails).then(function (data) {
-                    $scope.getFooterDetails();
-                    growl("Settings saved successfully");
-                });
-            }
-            ;
+                growl("Settings saved successfully");
+            });
+            
         };
         $scope.emailFooterPopup = function ()
         {
