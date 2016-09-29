@@ -5,10 +5,12 @@
  */
 package com.intbittech.email.mandrill;
 
-import com.intbittech.utility.IConstants;
 import com.intbittech.component.SpringContextBridge;
 import com.intbittech.dao.impl.EmailHistoryDAO;
 import com.intbittech.model.CompanyPreferences;
+import com.intbittech.model.EmailInfo;
+import com.intbittech.services.CompanyPreferencesService;
+import com.intbittech.utility.IConstants;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
@@ -19,8 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.intbittech.model.EmailInfo;
-import com.intbittech.services.CompanyPreferencesService;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
