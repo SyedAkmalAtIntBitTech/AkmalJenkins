@@ -7,6 +7,7 @@ package com.intbittech.controller;
 
 import com.intbittech.enums.AdminStatus;
 import com.intbittech.model.Company;
+import com.intbittech.model.FranchiseCompanyLookup;
 import com.intbittech.model.UserCompanyDetails;
 import com.intbittech.model.UserProfile;
 import com.intbittech.model.Users;
@@ -16,6 +17,7 @@ import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.ForgotPasswordService;
+import com.intbittech.services.FranchiseService;
 import com.intbittech.services.UserRoleCompanyLookUpService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
@@ -55,6 +57,8 @@ public class UserController {
     private UsersService usersService;
     @Autowired
     private CompanyService companyService;
+    @Autowired
+    private FranchiseService franchiseService;
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String userWelcomePage(ModelMap model) {
@@ -85,6 +89,7 @@ public class UserController {
                 UsersRoleCompanyLookup usersRoleCompanyLookup = listUsersRoleCompanyLookup.get(i);
                 
                 UserCompanyDetails userCompanyDetails = new UserCompanyDetails();
+                 FranchiseCompanyLookup franchiseCompanyLookup = franchiseService.getFranchiseByCompanyId(usersRoleCompanyLookup.getCompanyId().getCompanyId());
                 
                 userCompanyDetails.setUserId(userId);
                 userCompanyDetails.setCompanyId(usersRoleCompanyLookup.getCompanyId().getCompanyId());
@@ -95,7 +100,9 @@ public class UserController {
                 userCompanyDetails.setUserEmailId(user.getUserName());
                 userCompanyDetails.setUserFirstName(user.getFirstName());
                 userCompanyDetails.setUserLastName(user.getLastName());
-                
+                userCompanyDetails.setFranchiseId(franchiseCompanyLookup.getFkFranchiseId().getFranchiseId());
+                userCompanyDetails.setFranchiseName(franchiseCompanyLookup.getFkFranchiseId().getFranchiseName());
+                userCompanyDetails.setIsHeadquarter(franchiseCompanyLookup.getIsHeadQuarter());
                 listUserCompanyDetails.add(userCompanyDetails);
             }
             genericResponse.setDetails(listUserCompanyDetails);
@@ -118,7 +125,7 @@ public class UserController {
             List<UserCompanyDetails> listUserCompanyDetails = new ArrayList<UserCompanyDetails>();
 
                 UsersRoleCompanyLookup userRoleLookUp = userRoleCompanyLookUpService.getUsersRoleLookupByUserAndCompany(user, company);
-                
+               
                 UserCompanyDetails userCompanyDetails = new UserCompanyDetails();
 
                 userCompanyDetails.setCompanyId(userRoleLookUp.getCompanyId().getCompanyId());

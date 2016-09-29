@@ -25,7 +25,8 @@
                     <div class="input-wrap">
                         <label> Default From Name </label>
                         <div class="input">
-                            <input id="from_address" class="fluid" type="text" ng-model="email_settings.from_name"   name="from_address"  placeholder="Enter default from name"/>
+                            <input id="from_name" class="fluid" type="text" ng-model="email_settings.from_name"   name="from_address"  placeholder="Enter default from name"/>
+                            <span class="validationAlert" ng-if='fromNameCheck'>{{fromNameValidation}}</span>
                         </div>
                         <p class="input-wrap-label"> This is the name your clients will see in their inbox</p>
                     </div>

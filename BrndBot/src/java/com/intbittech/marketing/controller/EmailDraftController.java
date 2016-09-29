@@ -100,6 +100,13 @@ public class EmailDraftController {
             company.setCompanyId(userCompanyIds.getCompanyId());
             email_draft.setFkCompanyId(company);
             email_draft.setDraftJson(json_object.toString());
+            boolean pushedEmail = (boolean)requestBodyMap.get("pushedEmail");
+            if (pushedEmail){
+                email_draft.setIsPushed(Boolean.TRUE);
+            }else{
+                email_draft.setIsPushed(Boolean.FALSE);
+            }
+//            email_draft.setIsPushed(Boolean.TRUE);
             Integer draftID = emaildraftservice.save(email_draft);
             return draftID.toString();
         } catch (Throwable ex) {
@@ -123,22 +130,18 @@ public class EmailDraftController {
             String emailPreHeader = (String) requestBodyMap.get("emailPreHeader");
             Integer categoryId = Integer.parseInt((String)requestBodyMap.get("categoryId"));
             Integer subCategoryId = Integer.parseInt((String) requestBodyMap.get("subCategoryId"));
-            
             String lookupIdStr=(String)requestBodyMap.get("lookupId");
             Integer lookupId=0;
             if((!lookupIdStr.equals("null")) && (!lookupIdStr.equals("")))
             {
                 lookupId = Integer.parseInt(lookupIdStr);
             }
-            
             String mindbodyIdStr=(String) requestBodyMap.get("mindbodyData");
             Integer mindbodyId=0;
             if(!mindbodyIdStr.equals("null") && (!mindbodyIdStr.equals("")))
             {
                 mindbodyId = Integer.parseInt(mindbodyIdStr);
             }
-            
-            
             Integer draftId = Integer.parseInt((String) requestBodyMap.get("draftId"));
             String bodyString =(String) requestBodyMap.get("bodyString");
             Integer blockAddedCount = Integer.parseInt((String)requestBodyMap.get("blockAddedCount"));
@@ -161,7 +164,12 @@ public class EmailDraftController {
             String str_model = (String) AppConstants.GSON.toJson(emaildraftmodel);
             JSONParser json_parser = new JSONParser();
             JSONObject json_object = (JSONObject) json_parser.parse(str_model);
-
+            boolean pushedEmail = (boolean)requestBodyMap.get("pushedEmail");
+            if (pushedEmail){
+                emaildraft.setIsPushed(Boolean.TRUE);
+            }else{
+                emaildraft.setIsPushed(Boolean.FALSE);
+            }
             emaildraft.setDraftJson(json_object.toString());
 
             emaildraftservice.update(emaildraft);
@@ -175,12 +183,16 @@ public class EmailDraftController {
     @RequestMapping(value = "/displayAllEmailDrafts", method = RequestMethod.GET)
     public @ResponseBody
     String displayAllEmailDrafts(HttpServletRequest request,
-            HttpServletResponse response, @RequestParam("companyId") Integer companyId) throws ServletException, IOException, Throwable {
+            HttpServletResponse response, @RequestParam("companyId") Integer companyId, @RequestParam("isPushed") Boolean isPushed) throws ServletException, IOException, Throwable {
         JSONObject json_object_email_draft = new JSONObject();
         try {
+            List<EmailDraft> emaildraftlist;
+            if (isPushed){
+                emaildraftlist = emaildraftservice.getAllEmailDrafts(companyId,true);
+            }else {
+                emaildraftlist = emaildraftservice.getAllEmailDrafts(companyId,false);
+            }
 
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            List<EmailDraft> emaildraftlist = emaildraftservice.getAllEmailDrafts(companyId);
 
             JSONArray json_array_email_draft = new JSONArray();
             

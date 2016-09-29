@@ -19,7 +19,7 @@
 
     <div ng-include src="'sendorschedulepopup.html'"></div> 
     <div ng-include src="'schedulepopup.html'"></div> 
-    <div class="bb-top-nav" >
+    <div class="bb-top-nav" ng-init="setPushedEmail()">
         <div class="bb-bar-left-wrap bb-one-third-flex-col">
            <a class="bb-back-button" ng-show="emailListBackButton" id="backemaillist" href="baseemaileditor#/emaileditor" ></a>
                 <a class="bb-back-button" ng-show="emailDetailsBackButton" href="" ng-click="backToEmailList()" id="backemaildetails"></a>
@@ -35,14 +35,45 @@
         <div class="bb-bar-right-wrap bb-one-third-flex-col">
             <!--<a href="dashboard"><div>Exit</div></a>-->
             <div class="bb-help-icon">help icon</div>
-            <div ng-hide="isEmailSaveAction" class="email-editor-save-exit-button" id="saveToDraft" ng-click="saveToDraftOnClick(false)"  >Save as Draft and Exit</div> 
-            <div ng-show="isEmailSaveAction" class="email-editor-save-exit-button" id="saveToDraft" ng-click="exitFromEmailFlow()"  >Exit</div> 
+            <div ng-hide="isEmailSaveAction" class="email-editor-save-exit-button" id="saveToDraft" ng-click="saveToDraftOnClick()">Save as Draft and Exit</div> 
+            <div ng-show="isEmailSaveAction" class="email-editor-save-exit-button" id="saveToDraft" ng-click="saveToDraftOnClick()">Exit</div> 
         </div>
     </div>
-    <div class="bb-main-content-wrap bb-main-content-wrap-padding bb-center-content" id="emaillistselid" ng-init="showEmailList()">
-        <div class="bb-panel-styling bb-panel-default" >
-            <div class="bb-panel-header">
-                <h2>Select a Send To List</h2>
+    <div ng-show="pushedEmail" class="bb-main-content-wrap bb-main-content-wrap-padding bb-center-content" id="emaillistselid" ng-init="getEmailListTagsForFranchise()">
+        <div class="modal-pane modal-pane-width-reg" >
+            <div class="modal-pane-header-wrap">
+                <h2 class="fleft">Please select a push through email list</h2>
+            </div>
+            <div class="modal-pane-content-wrap">
+                 <div class="input-wrap">
+                    <label> Choose which email list to push </label>
+                    <div class="input">
+                        <div dropdown-select="ddSelectEmailListOptions" dropdown-model="ddSelectEmailList"  dropdown-onchange="chooseEmailListOnChange(selected)"></div>
+                        <span class="validationAlert" ng-if="listSelectionValidation">{{listValidation}}</span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-2of4 fleft pushUp-30" ng-show="clickToUpload"> 
+                <div class="h3 col-1of1" id="dragtext">Drag and drop a csv file here and click to upload:</div>
+                <div id="drop-zone" class="col-1of4 pushUp-30">
+                    <input type="file" id="fileid" class="filrstyle" getfile-Name />
+                    <p id="filetext" >Click to Select file {{filename}}</p>
+                </div>
+            </div>
+            <div  class="col-2of4 fleft pushUp-30 lftpad-10" ng-show="emailAddressTextarea">
+                <div class="h3 col-1of1" id="entertext">Enter Email Addresses manually here:</div>
+                <textarea class="emailaddresstextarea pushUp" ng-model="$parent.emailAddresses" id="emailaddresses"></textarea>
+            </div>
+
+            <input type="button" value="Upload" ng-show="uploadButton" ng-click="uploadFileButton()" class="md-button add-action-button noborder" />      
+        <!--</div>-->
+        </div>        
+    </div>
+    <div ng-show="pushedEmail==false" class="bb-main-content-wrap bb-main-content-wrap-padding bb-center-content" id="emaillistselid" ng-init="showEmailList()">
+        <div class="modal-pane modal-pane-width-reg" >
+            <div class="modal-pane-header-wrap">
+                <h2 class="fleft">Select a Send To List</h2>
             </div>
             <div class="bb-panel-content-wrap">
                  <div class="input-wrap">

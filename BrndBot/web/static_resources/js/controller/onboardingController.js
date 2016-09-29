@@ -390,20 +390,22 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 kGlobalCompanyObject.roleId = companyDetails.roleId;
                 kGlobalCompanyObject.accountStatus = companyDetails.accountStatus;
                 kGlobalCompanyObject.userEmailId = companyDetails.userEmailId;
-                kGlobalCompanyObject.userFirstName = companyDetails.userFirstName;
-                kGlobalCompanyObject.userLastName = companyDetails.userLastName;
-
-                appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
-                    if (data) {
-                        onboardingFactory.getAccountStatus(companyDetails).then(function (data) {
-                            $scope.message = data.d.message;
-                            if (data.d.message == 'Activated') {
-                                window.location = getHost() + "user/dashboard";
-                            } else if (data.d.message == 'Deactivated') {
-                                growl("your account has been deactivated, please contact system admin");
-                                window.location = getHost() + "login";
-                            }
-                            $scope.hideDataOverlay = false;
+                kGlobalCompanyObject.userFirstName= companyDetails.userFirstName;
+                kGlobalCompanyObject.userLastName= companyDetails.userLastName;
+                kGlobalCompanyObject.franchiseId= companyDetails.franchiseId;
+                kGlobalCompanyObject.franchiseName= companyDetails.franchiseName;
+                kGlobalCompanyObject.isHeadquarter= companyDetails.isHeadquarter;
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){
+                    if (data){
+                        onboardingFactory.getAccountStatus(companyDetails).then(function(data){
+                           $scope.message = data.d.message; 
+                           if (data.d.message == 'Activated'){
+                               window.location = getHost() + "user/dashboard";
+                           }else if (data.d.message == 'Deactivated'){
+                               growl("your account has been deactivated, please contact system admin");
+                               window.location = getHost() + "login";
+                           }
+                           $scope.hideDataOverlay = false;
                         });
                     }
 

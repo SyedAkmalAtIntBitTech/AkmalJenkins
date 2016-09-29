@@ -77,4 +77,11 @@ public interface IConstants {
     final static String MARKETING_PROGRAM_CATEGORY = "MP";
     final static String MARKETING_PROGRAM__ACTION_CATEGORY = "MPA";
     final static String MARKETING_PROGRAM__RECURING_ACTION_CATEGORY = "MPRA";
+    
+    // for  pushed scheduled action companies
+    final static String ACTION_COMPANIES_SENT_STATUS = "Sent";
+    final static String ACTION_COMPANIES_READY_TO_GO = "Ready to go";
+     final static String ACTION_COMPANIES_NO_EMAIL_TAG_CONFIGURED = "No email tag configured";
+     // support email id
+     final static String SUPPORT_BRNDBOT_EMAIL_ID = "support@brndbot.com";
 }

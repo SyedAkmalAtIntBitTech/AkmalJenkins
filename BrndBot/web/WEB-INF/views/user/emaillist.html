@@ -21,21 +21,32 @@
                        <!-- <div class="selection-container col-5p"> 
                             <div class="selection-icon" id="{{email.emailListID}}" ng-click="selectedEmailCheckbox(email.emailListID)">
                                 <input type="checkbox" id="{{email.emailListID}}" value="{{email.emailListName}}" name="entityname" hidden></input>
+            <div class="hub-pane-content-wrap" ng-init="emailListGet()">
+                <div class="hub-empty-wrap" ng-if="emailLists.length <= 0 || emailLists.length == undefined">No email list present</div>
+                <div class="hub-slat-list-wrap" ng-show="emailLists.length > 0" ng-repeat="email in emailLists"> 
+                    <div class="slat">
+                        <div class="selection-container col-5p"> 
+                            <div class="selection-icon" id="{{email.emailListId}}" ng-click="selectedEmailCheckbox(email.emailListId)">
+                                <input type="checkbox" id="{{email.emailListId}}" value="{{email.emailListName}}" name="entityname" hidden></input>
                             </div>
                         </div>-->
                         <div class="slat-name-wrap">
                             <h2>{{email.emailListName}}</h2>
-                            <p>Created on {{email.emailListAddedDate| date: 'MM-dd-yyyy'}}</p>
+                            <p>Created on {{email.createdDate| date: 'MM-dd-yyyy'}}</p>
                         </div>
                         <div class="col-7of10 slat-unit fleft ">
                             <div class="slat-detail-wrap">
                                 <div class="slat-detail">
-                                    <h2>{{email.noofcontants}}</h2>
-                                    <p>Contacts</p>
+                                    <h2>{{email.numberOfContacts}}</h2>
+                                    <p>Number of Contacts</p>
                                 </div>
                             </div>
                         </div>
-                        
+                        <div class="slat-detail-wrap">
+                            <div class="slat-detail slat-detail-button ">
+                                <!--<div class="reg-button slat-detail-button" ng-click="viewEmailListDetails(email, 'user')">Manage Email List</div>-->
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -62,26 +73,21 @@
                 
                 </div>
                 <div class="bb-slat-list-wrap" ng-show="emailListsMindbody.length > 0" ng-repeat="email in emailListsMindbody">
-                    <div class="bb-slat" ng-click="viewEmailListDetails(email.emailListName, 'user')">
+                    <div class="bb-slat" ng-click="viewEmailListDetails(email.emailListName, 'mindbody')">
                         <!--<div class="slat-icon-wrap"></div>-->
                         <div class="slat-name-wrap">
                             <h2>{{email.emailListName}}</h2>
-                            <p>Created on {{email.emailListAddedDate| date: 'MM-dd-yyyy'}}</p>
+                            <p>Created on {{email.createdDate| date: 'MM-dd-yyyy'}}</p>
                         </div>
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">
-                                <h2>{{email.noofcontants}}</h2>
+                                <h2>{{email.numberOfContacts}}</h2>
                                 <p>Number of Contacts</p>
                             </div>
                         </div>
-                        <!--<div class="slat-detail-wrap">
-                            <div class="slat-detail slat-detail-button ">
-                                    <a class="reg-button slat-detail-button" >Manage Email List</a>
-                            </div>-->
                         </div>
                     </div>
                 </div>
             </div>
 
         </div>
-    </div>
