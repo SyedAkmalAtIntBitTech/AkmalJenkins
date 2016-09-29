@@ -36,7 +36,22 @@
                                     <input class="fluid" id="companyName" ng-model="companyData.companyName" placeholder="Company Name" ng-class="{'invalid-input': companyData.companyName === '' || null}"></input>
                                 </div>
                                 <span class="validationAlert" ng-if='companyData.companyName == "" || null' id="companyValidation">{{companyValidation}}</span>
-                            </div>                
+                            </div> 
+                            <div class="input-wrap onboarding">
+                                <label> Company Address </label>
+                                <div class="input">
+                                   <input onFocus="geolocate()" class="fluid" id="companyAddress" ng-model="companyData.companyAddress" placeholder="Company Address" ng-class="{'invalid-input': companyData.companyAddress === '' || null}"></input>
+                                </div>
+                                <div class="hide">
+                                    <input ng-model="companyData.addressline1" id="street_number">
+                                    <input ng-model="companyData.addressline2" id="route">
+                                    <input ng-model="companyData.city" id="locality">
+                                    <input ng-model="companyData.state" id="administrative_area_level_1">
+                                    <input ng-model="companyData.zipcode" id="postal_code">
+                                    <input ng-model="companyData.country" id="country">
+                                </div> 
+                                <span class="validationAlert" ng-if='companyData.companyAddress == "" || null' id="companyAddressValidation">{{companyAddressValidation}}</span>
+                            </div>
                            <div class="input-wrap onboarding">
                                 <label> Please select an Organization</label>
                                 <div class="input">
@@ -59,3 +74,4 @@
         </div>
     </div>
 </body>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-aw9KjncC2ozrBz6glsVjNjW9Fkmy8ME&libraries=places&callback=initAutocomplete" async defer></script>

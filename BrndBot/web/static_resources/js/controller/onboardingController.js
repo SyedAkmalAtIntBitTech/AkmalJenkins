@@ -8,6 +8,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.colorFrom = "custom";
         $scope.organizationValidation = false;
         $scope.companyValidation = companyValidation;
+        $scope.companyAddressValidation = companyAddressValidation;
         $scope.dropdownValidation = dropdownValidation;
         $scope.colorValidation = colorValidation;
         $scope.studioIdValidation = studioIdValidation;
@@ -319,6 +320,14 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 $scope.companyData.companyName = "";
                 $("#companyName").focus();
                 return false;
+            } else if (!companyData.companyAddress) {
+                $scope.companyData.companyAddress = "";
+                $("#companyAddress").focus();
+                return false;
+            } else if (!companyData.addressline2 || !companyData.city || !companyData.state || !companyData.zipcode || !companyData.country) {
+                $scope.companyData.companyAddress = "";
+                $("#companyAddress").focus();
+                return false;
             } else if (!companyData.ddSelectOrganization.value || companyData.ddSelectOrganization.value === "0") {
                 $scope.organizationValidation = true;
                 return false;
@@ -329,6 +338,16 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.saveCompany = function (companyData) {
             $scope.companyName = companyData.companyName;
             $scope.organizationId = companyData.ddSelectOrganization.value;
+            $scope.address1 = document.getElementById('street_number').value;
+            $scope.address2 = document.getElementById('route').value;
+            $scope.city = document.getElementById('locality').value;
+            $scope.state = document.getElementById('administrative_area_level_1').value;
+            $scope.zipcode = document.getElementById('postal_code').value;
+            $scope.country = document.getElementById('country').value;
+            
+            var companyAddressDetails = {"addressLine1":$scope.address1,"addressLine2":$scope.address2,
+                                            "city":$scope.city,"state":$scope.state,"zipcode":$scope.zipcode,"country":$scope.country
+                                           };                           
             if ($scope.validationCode(companyData))
             {
                 appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
@@ -363,7 +382,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                                     $scope.companies = data.d.details;
                                 }
                             });
-
+                            onboardingFactory.saveCompanyAddress(companyAddressDetails).then(function (data){alert(JSON.stringify(data));});
 //                            appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
                             //TODO Set the companyId in Auth factory file
                             $location.path("/signup/datasource");
@@ -682,3 +701,69 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             });
         };
     }]);
+
+      // This example displays an address form, using the autocomplete feature
+      // of the Google Places API to help users fill in the information.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+      var placeSearch, autocomplete;
+      var componentForm = {
+        street_number: 'long_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'long_name',
+        country: 'long_name',
+        postal_code: 'long_name'
+      };
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('companyAddress')),
+            {types: ['geocode']});
+
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
+      }
+
+      function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+        for (var component in componentForm) {
+            document.getElementById(component).value = '';
+            document.getElementById(component).disabled = false;
+        }
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+          var addressType = place.address_components[i].types[0];
+          if (componentForm[addressType]) {
+            var val = place.address_components[i][componentForm[addressType]];
+            document.getElementById(addressType).value = val;
+          }
+        }
+        var inputvalues = $('#country,#postal_code,#administrative_area_level_1,#locality,#route,#street_number');
+        inputvalues.trigger('input');
+      }
+
+      // Bias the autocomplete object to the user's geographical location,
+      // as supplied by the browser's 'navigator.geolocation' object.
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
