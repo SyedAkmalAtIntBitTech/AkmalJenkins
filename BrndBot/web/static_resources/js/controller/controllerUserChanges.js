@@ -1,4 +1,4 @@
-settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$location', 'signupFactory', 'settingsFactory', 'assetsFactory', 'onboardingFactory', function ($scope, $window, $location, signupFactory, settingsFactory, assetsFactory, onboardingFactory) {
+settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$location', 'signupFactory', 'settingsFactory', 'assetsFactory', 'onboardingFactory', 'appSessionFactory', function ($scope, $window, $location, signupFactory, settingsFactory, assetsFactory, onboardingFactory, appSessionFactory) {
 
         $scope.inputType = 'password';
         $scope.colorFrom = "custom";
@@ -6,12 +6,84 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.confirmPasswordValidation = confirmPasswordValidation;
         $scope.confirmPasswordMissmatch = confirmPasswordMissmatch;
         $scope.logoValidation = logoValidation;
+        $scope.addressLine1Validation = addressLine1Validation;
+        $scope.addressLine2Validation = addressLine2Validation;
+        $scope.cityValidation = cityValidation;
+        $scope.stateValidation = stateValidation;
+        $scope.zipcodeValidation = zipcodeValidation;
+        $scope.countryValidation = countryValidation;
         $scope.showPaletteChangePopUp="";
         $scope.addUserSettings = false;                   
         $scope.userRoleLookUpId = "";
         $scope.inviteId = "";
         $scope.passwordText = "";
+        $scope.companyName = "";
+        $scope.userFirstName = "";
+        $scope.userLastName = "";
+        $scope.userRole = "";
+        $scope.logourl = "";
+        $scope.showCustomColorPicker = false;
+        $scope.companyAddressDetails = {};
+        $scope.userDetails = {};
 
+        $scope.getUserDetails = function(){
+            
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                $scope.companyName = kGlobalCompanyObject.companyName;
+                $scope.userFirstName = kGlobalCompanyObject.userFirstName;
+                $scope.userLastName = kGlobalCompanyObject.userLastName;
+                $scope.userRole = kGlobalCompanyObject.roleName; 
+                $scope.logourl = kGlobalCompanyObject.logourl;
+                $scope.userDetails.userFirstName=$scope.userFirstName;
+                $scope.userDetails.userLastName=$scope.userLastName;                
+            });
+        };
+        
+        $scope.validateCompanyAddress = function (companyAddressData) {
+            if (!companyAddressData.addressLine1) {
+                $scope.companyAddressDetails.addressLine1 = "";
+                $("#addressLine1").focus();
+                return false;
+            }
+            else if (!companyAddressData.city) {
+                $scope.companyAddressDetails.city = "";
+                $("#city").focus();
+                return false;
+            }
+            else if (!companyAddressData.state) {
+                $scope.companyAddressDetails.state = "";
+                $("#state").focus();
+                return false;
+            } 
+            else if (!companyAddressData.zipCode) {
+                $scope.companyAddressDetails.zipCode = "";
+                $("#zipcode").focus();
+                return false;
+            }
+            else if (!companyAddressData.country) {
+                $scope.companyAddressDetails.country = "";
+                $("#country").focus();
+                return false;
+            }
+            return true;
+        };
+        
+        $scope.getCompanyAddress = function (){
+            settingsFactory.getAllPreferencesGet().then(function (data) {
+                $scope.companyAddressDetails=JSON.parse(data.d.details).companyAddress[0];
+            });            
+        };
+        
+        
+        $scope.updateCompanyAddress = function (company){
+            if($scope.validateCompanyAddress(company)){
+            var companyAddress = {"addressLine1":company.addressLine1,"addressLine2":company.addressLine2,"city":company.city,"state":company.state,"zipcode":company.zipCode,"country":company.country};
+            onboardingFactory.saveCompanyAddress(companyAddress).then(function (data){
+                growl(companyAddressSaved);
+            });  
+            }
+        };
+        
         // Hide & show password function
         $scope.hideShowPassword = function () {
             if ($scope.inputType == 'password')
@@ -22,16 +94,30 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
         $scope.accountSettingsValidation = function (password, confirmPassword) {
             if (!password) {
-                $scope.password = "";
+                $scope.userDetails.password = "";
                 $("#newpassword").focus();
                 return false;
             }
             if (!confirmPassword) {
-                $scope.confirmPassword = "";
+                $scope.userDetails.confirmPassword = "";
                 $("#confirmpassword").focus();
                 return false;
             }
             if($scope.isConfirmPasswordSame(confirmPassword))
+            return true;
+        };
+        
+        $scope.userAccountSettingsValidation = function (fname, lname) {
+            if (!fname) {
+                $scope.userDetails.userFirstName = "";
+                $("#firstName").focus();
+                return false;
+            }
+            if (!lname) {
+                $scope.userDetails.userLastName = "";
+                $("#lastName").focus();
+                return false;
+            }
             return true;
         };
         
@@ -52,27 +138,62 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             }
         };
         
-        $scope.changePassword = function (password, confirmPassword) {
-            if ($scope.accountSettingsValidation(password, confirmPassword))
+        $scope.changePassword = function (userDetails) {
+            if ($scope.accountSettingsValidation(userDetails.password, userDetails.confirmPassword))
             {
-                var password_object = {"password": password, "confirmpassword": confirmPassword, "type": "update"};
+                var password_object = {"password": userDetails.password, "confirmpassword": userDetails.confirmPassword, "type": "update"};
                 signupFactory.resetPasswordPost(password_object).then(function (data) {
                     growl("Password changed successfully");
                     $scope.status = data;
                 });
             }
         };
+        
+        $scope.changeUserName = function (userDetails){
+            if($scope.userAccountSettingsValidation(userDetails.userFirstName, userDetails.userLastName))
+            {   
+                var userName = {"firstName":userDetails.userFirstName,"lastName":userDetails.userLastName};
+                signupFactory.updateUser(userName).then(function (data) { 
+                    appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                    kGlobalCompanyObject.userFirstName = userDetails.userFirstName;
+                    kGlobalCompanyObject.userLastName = userDetails.userLastName;                   
+                    
+                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function(){
+                        appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                            $scope.companyName = kGlobalCompanyObject.companyName;
+                            $scope.userFirstName = kGlobalCompanyObject.userFirstName;
+                            $scope.userLastName = kGlobalCompanyObject.userLastName;
+                            $scope.userRole = kGlobalCompanyObject.roleName; 
+                            $scope.logourl = kGlobalCompanyObject.logourl;
+                            $scope.userDetails.userFirstName=$scope.userFirstName;
+                            $scope.userDetails.userLastName=$scope.userLastName;    
+                        });
+                    });
+                    });
+                  growl(eval(JSON.stringify(data.d.operationStatus.messages)));  
+                });
+            }
+        };
 
         $scope.inviteUser = function (userDetails) {
-            var roles = [];
-            roles.push(userDetails.adminRadio);
-            var invitation = {"userRoleLookUpId":"", "emailaddress": userDetails.email, "roles": roles, "task": 'invitation'};
-           
-            onboardingFactory.inviteUserPost(invitation).then(function (data) {
-                growl(data.d.message);
-                $scope.closeOverlay();
-                $location.path("/settings/useraccountsettings");
-            });
+            if (!userDetails){
+                growl(noEmailAndRole);
+            }else if (!userDetails.email) {
+                growl(noEmail);
+            }else if (!userDetails.adminRadio){
+                growl(noRole);
+            }else {
+                var roles = [];
+                roles.push(userDetails.adminRadio);
+                var invitation = {"userRoleLookUpId":"", "emailaddress": userDetails.email, "roles": roles, "task": 'invitation'};
+
+                onboardingFactory.inviteUserPost(invitation).then(function (data) {
+                    growl(data.d.message);
+                    $scope.getInvitedUsers();
+                    $scope.closeInviteUsersPopup();
+    //                $location.path("/settings/useraccountsettings");
+                });
+            }
         };
 
         $scope.resendUserInvite = function (inviteId) {
@@ -86,7 +207,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
         $scope.editUser = function (userDetails) {
             var roles = [];
-            roles.push(userDetails.adminRadio);
+            roles.push(userDetails.editAdminRadio);
             //TODO change with the latest after merge Muzamil
             var invitation = {"inviteId":$scope.inviteId, "userRoleLookUpId":$scope.userRoleLookUpId.toString(), "emailaddress": $scope.userEmailId, "roles": roles, "task": 'invitation'};
             
@@ -111,31 +232,42 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             });
         };
         
-
-        $scope.setTab = function (type, password, confirmPassword, logoImage) {
-            if (type === 'account') {
-                $scope.userAccountSetClass = 'active';
-                $scope.userLogoSetClass = '';
-                $scope.password = password;
-                $scope.confirmPassword = confirmPassword;
-            }
-            if (type === 'logo') {
-                $scope.userAccountSetClass = '';
-                $scope.userLogoSetClass = 'active';
-                $scope.logoImage = logoImage;
-            }
+        $scope.isActive = function (viewLocation) {
+            return viewLocation === $location.path();
         };
+
+//        $scope.setTab = function (type, password, confirmPassword, logoImage) {
+//            if (type === 'account') {
+//                $scope.userLogoSetClass = '';
+//                $scope.userUserSetClass = '';
+//                $scope.userAccountSetClass = 'active';
+//                $scope.password = password;
+//                $scope.confirmPassword = confirmPassword;
+//            }
+//            if (type === 'logo') {
+//                $scope.userAccountSetClass = '';
+//                $scope.userUserSetClass = '';
+//                $scope.userLogoSetClass = 'active';
+//                $scope.logoImage = logoImage;
+//            }
+//            if (type === 'user') {
+//                $scope.userAccountSetClass = '';
+//                $scope.userLogoSetClass = '';
+//                $scope.userUserSetClass = 'active';
+//                $scope.logoImage = logoImage;
+//            }
+//        };
 
         $scope.showAddUser = function ()
         {
-            $scope.fadeClass = 'fadeClass';
+            $scope.fadeClasses = 'fadeClasses';
             $scope.addUserSettings = true;
             $scope.editUserSettings = false;
         };
 
         $scope.showEditUser = function (inviteId,userRoleLookUpId,userEmailId)
         {
-            $scope.fadeClass = 'fadeClass';
+            $scope.fadeClasses = 'fadeClasses';
             $scope.userRoleLookUpId = userRoleLookUpId;
             $scope.userEmailId = userEmailId;
             $scope.inviteId = inviteId;
@@ -146,7 +278,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
         $scope.showResendEmailToUser = function (userRoleLookUpId,userEmailId)
         {
-            $scope.fadeClass = 'fadeClass';
+            $scope.fadeClasses = 'fadeClasses';
             $scope.userRoleLookUpId = userRoleLookUpId;
             $scope.userEmailId = userEmailId;
             $("#editemail").val(userEmailId);
@@ -154,9 +286,9 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             $scope.editUserSettings = true;
         };
 
-        $scope.closeOverlay = function ()
+        $scope.closeInviteUsersPopup = function ()
         {
-            $scope.fadeClass = '';
+            $scope.fadeClasses = '';
             $scope.addUserSettings = false;
         };
         
@@ -195,6 +327,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             $scope.activeColorPicker = '';
             $scope.activeColorLogo = '';
             $scope.colorFrom = "theme";
+           
             assetsFactory.allColorThemesGet().then(function (data) {
                 $scope.curPage = 0;
                 $scope.pageSize = 10;

@@ -112,5 +112,22 @@ public class CompanyDaoImpl implements CompanyDao{
             throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
         }
     }
+
+    @Override
+    public boolean isCompanyExist(String companyName) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(Company.class)
+                    .add(Restrictions.eq("companyName", companyName));
+            if (criteria.list().isEmpty()) {
+                return false;
+            }else {
+                return true;
+            }
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+        }        
+    }
     
 }

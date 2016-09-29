@@ -3,52 +3,82 @@
     <div class="modal-pane modal-pane-width-reg popUp_CenterVert" >
         <div class="modal-pane-header-wrap">
             <h2 class="">Email Footer Settings</h2>
-            <a class="modal-pane-header-exit">
-                <div class="popUp_close " ng-click="hideEmailFooterPopupDetails()">
-                    <img type="image/svg+xml" src="../images/Pop-Up-Exit-Button.svg" class="fleft popUp_close-icon cursor-shape">
-                </div>
-            </a>
+            <a class="modal-pane-header-exit" ng-click="hideEmailFooterPopupDetails()"></a>
         </div>
         <div class="modal-pane-content-wrap" style="overflow-y: scroll;">
             <p class="modal-content-header">Change the settings of the email footer. A company address must be entered. All fields that are left blank will not show up as links in the footer.</p>
             <div class="input-wrap">
-                <label>Company Address </label>
+                <label>Company Address Line 1</label>
                 <div class="input">
-                    
-                    <input id="footerAddress" ng-model="company.address"></input>
-                    <p> We need this to comply with email spam (CANSPAM) laws</p>
+                    <input id="addressLine1" ng-model="companyAddressDetails.addressLine1" />
                 </div>
+                <span class="validationAlert" ng-if='companyAddressDetails.addressLine1 == "" || null' >{{addressLine1Validation}}</span>
+            </div>
+            <div class="input-wrap">
+                <label>Company Address Line 2</label>
+                <div class="input">
+                    <input id="addressLine2" ng-model="companyAddressDetails.addressLine2" />
+                </div>
+                <!--<span class="validationAlert" ng-if='companyAddressDetails.addressLine2 == "" || null'  >{{addressLine2Validation}}</span>-->
+            </div>
+            <div class="input-wrap">
+                <label>City</label>
+                <div class="input">
+                    <input id="city" ng-model="companyAddressDetails.city" />
+                </div>
+                <span class="validationAlert" ng-if='companyAddressDetails.city == "" || null' >{{cityValidation}}</span>
+            </div>
+            <div class="input-wrap">
+                <label>State</label>
+                <div class="input">
+                    <input id="state" ng-model="companyAddressDetails.state" />
+                </div>
+                <span class="validationAlert" ng-if='companyAddressDetails.state == "" || null' >{{stateValidation}}</span>
+            </div>
+            <div class="input-wrap">
+                <label>Zip code</label>
+                <div class="input">
+                    <input id="zipcode" ng-model="companyAddressDetails.zipCode" />
+                </div>
+                <span class="validationAlert" ng-if='companyAddressDetails.zipCode == "" || null' >{{zipcodeValidation}}</span>
+            </div>
+            <div class="input-wrap">
+                <label>Country</label>
+                <div class="input">
+                    <input id="country" ng-model="companyAddressDetails.country" />
+                </div>
+                <span class="validationAlert" ng-if='companyAddressDetails.country == "" || null' >{{countryValidation}}</span>
             </div>
             <div class="input-wrap">
                 <label> Website URL </label>
                 <div class="input">
-                    <input id="footerWebsiteUrl" ng-model="company.websiteUrl"></input>
+                    <input id="footerWebsiteUrl" ng-model="companyAddressDetails.websiteUrl"></input>
                     <p> This can be copied from the browser <a class="input-help" href="#">Click to learn how</a></p>
                 </div>
             </div>
             <div class="input-wrap">
                 <label> Facebook URL </label>
                 <div class="input">
-                    <input id="footerFacebookUrl" ng-model="company.facebookUrl"></input>
+                    <input id="footerFacebookUrl" ng-model="companyAddressDetails.facebookUrl"></input>
                     <p> Log into your company's Facebook page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
                 </div>
             </div>
             <div class="input-wrap">
                 <label> Twitter URL </label>
                 <div class="input">
-                    <input id="footerTwitterUrl" ng-model="company.twitterUrl"></input>
+                    <input id="footerTwitterUrl" ng-model="companyAddressDetails.twitterUrl"></input>
                     <p> Log into your company's Twitter page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
                 </div>
             </div>
             <div class="input-wrap">
                 <label> Instagram URL </label>
                 <div class="input">
-                    <input id="footerInstagramUrl" ng-model="company.instagramUrl"></input>
+                    <input id="footerInstagramUrl" ng-model="companyAddressDetails.instagramUrl"></input>
                     <p> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
                 </div>
             </div>
         </div>
-        <div class="modal-cta-container" ng-click="changeFooterDetails(company)">
+        <div class="modal-cta-container" ng-click="changeFooterDetails(companyAddressDetails)">
             <a class="long-button blue-button">Save Email Footer Settings</a>
         </div>
     </div>

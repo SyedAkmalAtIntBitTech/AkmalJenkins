@@ -1,118 +1,100 @@
 <style>
     .rcorners2 {
-    width: 30px;
-    height: 23px;
-    background: #DFDFDF url('../images/backbutton.svg') no-repeat 0px -252px;
-    cursor: pointer;
-    position: absolute;
-    margin: -10px 0px 0px -12px;
-    border-radius: 15px;
-    opacity: 0;
-}
-.template-border-Active{
-    border: 2px solid rgb(30, 173, 252);
-}
+        width: 30px;
+        height: 23px;
+        background: #DFDFDF url('../images/backbutton.svg') no-repeat 0px -252px;
+        cursor: pointer;
+        position: absolute;
+        margin: -10px 0px 0px -12px;
+        border-radius: 15px;
+        opacity: 0;
+    }
 </style>
 <div ng-include src="'emailpreview.html'"></div>
-    <!--Main Content GENERIC--> 
- <div ng-include src="'emaileditormindbodypopup.html'"></div>     
-<div class="main-content-wrap no-side-nav" ng-init="emailEditorInit()">
-   
-    <div class="top-nav-wrap full">
-        <div class="sequence-page-header">
-            <div class="sequence-left-wrap" ng-init="redirectBaseURL()">
-                
-                <a class="sequence-page-back-button" href="baseemaileditor#/emailsubjects"></a>
-                <h2 class="sequence-page-title"> Create an Email</h2>
-            </div>
-            <div class="sequence-step-wrap">
-                <ul>
-                    <a class="sequence-step">Subject</a>
-                    <a class="sequence-step active">Design</a>
-                    <a class="sequence-step ">Send To</a>
-                    <a class="sequence-step">Final Details</a>
-                </ul>
-            </div>
-            <div class="sequence-page-header-cta-wrap">
-                <!--<a>Exit</a>-->
-                <div ng-hide="isEmailSaveAction" class="email-editor-save-exit-button" id="saveToDraft" ng-click="saveToDraftOnClick()"  >Save as Draft and Exit</div> 
-            </div>
-        </div>
-    </div>
-    <div class="top-s-nav-bar-offset"></div>   
-   <div class="content-wrap content-wrap-sequence-page-editor" >
-        <!--...................tinyMce test code...............-->
-         <div  class="email-editor-wrap">
-                <div class="email-editor-top-buttons-wrap">
-                    <a class="reg-button slat-detail-button" id="emailpreview" ng-click="emailPreviewOnClick()">Preview Email</a>
-                </div>
-            <div class="email-editor-content-wrap">
-                <div  id ="defaultBlock" >
-                    <div class="editor_rightside ui-sortable" >
-                        <div class="emailrender ui-sortable" id="tinymceEditorBody" ></div>
-                    </div>
-                </div>
-            </div>
-             <div class="email-bottom-padding">Your Footer Will Be Added On Previewing and Sending</div>
-            <div class="emailEditor-leftCol float-lt" style="">
-                <div class="in-editor-footer-wrap" style="position: fixed; bottom: 6%;width: 75%;">
-                    <h3>Email Footer</h3>
-                    <p>Your email footer is the same on every email. You 
-                        see the footer in this email by previewing your email. To edit
-                        the footer click email footer settings.</p>
-                    <span class="reg-button gray-button" ng-click="editFooter()">Edit Email Footer</span>
-                </div>
-            </div>
-    
-            <div id="colpic" class="displayNone" style="width: 200px;height:200px;margin-top: -20px" >
-                <p ng-repeat="color in  colorcode.colors"style="display: inline-block;width: 20px;height:20px;background-color: {{color}}"  ng-click="chengeTemplateColor(color)">
-                </p>
-            </div>
-        </div>
-        <div class="email-editor-right-col">
-            <div class="email-editor-tab-wrap">
-                <div class="editor-col-tab">
-                    <div class="{{blocktab}}" id="blocktab" ng-init="showBlocks()" ng-click="showBlocks()">
-                        Add Block
-                    </div>
-                </div>
-                <div class="editor-col-tab">
-                    <div class="{{styletab}}" id="styletab" ng-init="showStyles('false')" ng-click="showStyles('true')">
-                        Change Style
-                    </div>
-                </div> 
-            </div>
-            <div class="r-col-editor-wrap">
-                <div class="r-col-editor-header-wrap" id="blockdivheader" ng-show="blockdivheader">Select a block to add:</div>
-                <div class="r-col-editor-header-wrap" id="styledivheader" ng-show="styledivheader">Select a style for this block:</div>
-                <div class="block-selection-divider"></div>
-                <ul class="r-col-block-wrap" id="blockdiv" ng-show="blockdivheader">
-                    <li class="editor-block-slat" ng-class="{'editor-block-slat-selected': activeBlock === blocks.emailBlockId}" ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="blockOnClick(blocks.emailBlockId)">
-                        <div id="blklist----{{blocks.emailBlockId}}" class="blockName">{{blocks.emailBlockName}}</div>                            
-                        <div class="addBlock-button reg-button slat-detail-button hideBlockButton" ng-class="{'hideBlockButton': activeBlock !== blocks.emailBlockId}" ng-click="didChooseBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)" >Add Block</div>
-                    </li>
-                </ul>
+<div ng-include src="'emaileditormindbodypopup.html'"></div>   
 
-                <ul class="r-col-block-wrap"  ng-show="styledivheader">
-                    <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.modelId}}" ng-click="addActive('stylelistid' + styles.modelId)">
-                        <div class="block-name">
-                            <img id="{{styles.modelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" ng-click="addHTMLInEmailEditor(styles.modelId)" width="100%" />
-                        </div>
-                    </li>
-                </ul>
+<div class="bb-top-nav" ng-init="emailEditorInit()">
+    <div class="bb-bar-left-wrap bb-one-third-flex-col" ng-init="redirectBaseURL()">
+        <a href="baseemaileditor#/emailsubjects" class="bb-back-button"></a>
+        <h3 class="bb-top-nav-title">Email Editor</h3>
+    </div>
+    <div class="bb-bar-center-wrap bb-one-third-flex-col">
+        <div class="bb-step completed">Email Details</div>
+        <div class="bb-step current">Design</div>
+        <div class="bb-step upcoming">Send To</div>
+        <div class="bb-step upcoming">Final Details</div>
+    </div>
+    <div class="bb-bar-right-wrap bb-one-third-flex-col">
+        <!--<a href="dashboard"><div>Exit</div></a>-->
+        <div class="bb-help-icon">help icon</div>
+        <div ng-hide="isEmailSaveAction" class="email-editor-save-exit-button" id="saveToDraft" ng-click="saveToDraftOnClick(true)"  >Save as Draft and Exit</div> 
+    </div>
+</div>
+<div class="bb-email-editor-wrap" >
+    <div  class="email-editor-wrap">
+        <div class="email-editor-top-buttons-wrap">
+            <a class="bb-button bb-secondary-action-button" id="emailpreview" ng-click="emailPreviewOnClick()">Preview Email</a>
+        </div>
+        <div class="email-editor-content-wrap">
+            <div  id ="defaultBlock" >
+                <div class="editor_rightside ui-sortable" >
+                    <div class="emailrender ui-sortable" id="tinymceEditorBody" ></div>
+                </div>
             </div>
         </div>
+        <div class="email-bottom-padding">Your Footer Will Be Added On Previewing and Sending</div>
+        <div class="emailEditor-leftCol float-lt" style="">
+            <div class="in-editor-footer-wrap" style="position: fixed; bottom: 6%;width: 75%;">
+                <h3>Email Footer</h3>
+                <p>Your email footer is the same on every email. You 
+                    see the footer in this email by previewing your email. To edit
+                    the footer click email footer settings.</p>
+                <span class="reg-button gray-button" ng-click="editFooter()">Edit Email Footer</span>
+            </div>
+        </div>
+
+        <div id="colpic" class="displayNone" style="width: 200px;height:200px;margin-top: -20px" >
+            <p ng-repeat="color in  colorcode.colors"style="display: inline-block;width: 20px;height:20px;background-color: {{color}}"  ng-click="chengeTemplateColor(color)">
+            </p>
+        </div>
     </div>
-    <span ng-init="getFooterDetails()">
-        <div ng-include src="'emailfooterpopup.html'"></div> 
-    </span>
-</div>  
-<div class="bottom-cta-bar" id="bottomdiv">
-    <div class="bottom-cta-button-container-lg">
-        <a href="">
-            <div class="bottom-continue-button button-text-1" id="saveButton" ng-click="saveButtonOnClick()">Continue</div>
-        </a>
+    <div class="email-editor-right-col">
+        <div class="email-editor-tab-wrap">
+            <div class="editor-col-tab">
+                <div class="{{blocktab}}" id="blocktab" ng-init="showBlocks()" ng-click="showBlocks()">
+                    Add Block
+                </div>
+            </div>
+            <div class="editor-col-tab">
+                <div class="{{styletab}}" id="styletab" ng-init="showStyles('false')" ng-click="showStyles('true')">
+                    Change Style
+                </div>
+            </div> 
+        </div>
+        <div class="r-col-editor-header-wrap" id="blockdivheader" ng-show="blockdivheader">Select a block to add:</div>
+        <div class="r-col-editor-header-wrap" id="styledivheader" ng-show="styledivheader">Select a style for this block:</div>
+        <div class="block-selection-divider"></div>
+        <ul class="r-col-block-wrap" id="blockdiv" ng-show="blockdivheader">
+            <li class="bb-clickable-slat" ng-class="{'editor-block-slat-selected': activeBlock === blocks.emailBlockId}" ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="blockOnClick(blocks.emailBlockId)">
+                <div id="blklist----{{blocks.emailBlockId}}" class="block-name">{{blocks.emailBlockName}}</div>                            
+                <div class="editor-add-block-button hideBlockButton" ng-class="{'hideBlockButton': activeBlock !== blocks.emailBlockId}" ng-click="didChooseBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)" >Add Block</div>
+            </li>
+        </ul>
+        <ul class="r-col-block-wrap"  ng-show="styledivheader">
+            <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="bb-clickable-slat" id="stylelistid{{styles.modelId}}" ng-click="addActive('stylelistid' + styles.modelId)">
+                <img id="{{styles.modelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" ng-click="addHTMLInEmailEditor(styles.modelId)" width="100%" />
+            </li>
+        </ul>
     </div>
+</div>
+<span ng-init="getFooterDetails()">
+    <div ng-include src="'emailfooterpopup.html'"></div> 
+</span>
+<div class="bb-bottom-cta-bar">
+    <a class="bb-bottom-cta-continue-button" ng-class="{'bb-valid': emailEditorContinueButton}" ng-click="saveButtonOnClick()" >
+        <div class="bb-bottom-cta-continue-button-text">Continue</div>
+        <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
+    </a>
 </div>
 <div id="light" class="white_content closepopup">
     <a href = "javascript:void(0)" style="text-decoration:none;">
@@ -122,103 +104,4 @@
         </div>
     </a>
 </div>
-<script>
-    $(document).ready(function () {
-//                $('.view').find('table:first').find('td:first').mouseenter(function () {
-//                    $(this).find('table:first').addClass('template-border-Active');
-//                });
-//                $('.view').find('table:first').find('td:first').mouseleave(function () {
-//                    $(this).find('table:first').removeClass('template-border-Active');
-//                });
-                $(".editor_rightside .emailrender").sortable({
-                    connectWith: ".module",
-                    opacity: .8,
-                    handle: ".drag",
-                    axis: "y",
-                    placeholder: 'highlight',
-                    helper: function () {
-                        return $("<div class='highlight' style='height:40px;text-align:center;line-height:40px;'><div style='background-color:#0F76A6;width:600px;margin:auto; color:#ffffff;'>Move This Block</div></div>");
-                    }
-                });
-
-                $(".modules_sidebar .module").draggable({
-                    connectToSortable: ".emailrender",
-                    placeholder: "highlight",
-                    helper: function () {
-                        var modimg = $(this).find('.mod_thumb img').attr('src');
-                        return $("<div style='position:absolute;background-color:#ffffff;border-radius:3px;border:1px solid #dadada;width:40px;height:40px;'><img src='" + modimg + "' width='40' height='40'></div>");
-                    },
-                    cursorAt: {left: -1, top: -10},
-                    // start:function(){
-                    // 	var winh=$(".emailrender").height();
-                    //     $(".emailrender").css("height",winh+100);
-                    // },
-                    drag: function (e, t) {
-                        t.helper.width(40);
-
-                        t.helper.find('.preview').remove();
-                        t.helper.find('.module').css({"background": "none!important", "border": "none!important"});
-                        $('.emailrender').find('.preview').remove();
-                        //$(".emailrender").css("padding-bottom", "90px");
-                    },
-                    stop: function () {
-                        $('.view').find('table:first').find('table:first .colorSelectorinner:first').css({"margin-left": "-20px"});
-                        $('.emailrender a').click(function (event) {
-                            event.preventDefault();
-                        });
-                        dragactions();
-                        move_up_down();
-                        colorselector();
-                        $('.innerbg').mouseenter(function () {
-                            var seldiv = $(this).parents('[bb-bgcolor]');
-                            $(this).colpick({
-                                layout: 'hex',
-                                submit: 0,
-                                onChange: function (hsb, hex, rgb, fromSetColor) {
-                                    $(seldiv).find('table:first').attr('bgcolor', '#' + hex);
-                                }
-                            });
-                        });
-                        upload_buttons();
-
-                    }
-                });
-            });
-        </script>
-        <script>
-            $(document).ready(function () {
-                dragactions();
-                removeElm() ;
-            });
-            function dragactions() {
-                $('.view').find('table:first').find('td:first').mouseenter(function () {
-                    $(this).find('table:first').addClass('selecthover');
-                });
-                $('.view').find('table:first').find('td:first').mouseleave(function () {
-                    $(this).find('table:first').removeClass('selecthover');
-                });
-            }
-            function removeElm() {
-                $(".emailrender").delegate(".remove", "click", function (e) {
-                    e.preventDefault();
-                    $(this).closest('table').parents('.module ').slideUp('200', function () {
-                        $(this).remove();
-                    });
-                    $(this).closest('.remove').css("opacity", "0");
-                    $(this).parents('.view').find('table:first').find('table:first').removeClass('selecthoverred');
-                    $(this).parents('.view').find('.move_controls').show();
-                });
-            }
-
-            function clearDemo() {
-                $(".emailrender").empty()
-            }
-
-            function removeMenuClasses() {
-                $("#menu-layoutit li button").removeClass("active")
-            }
-
-            function cleanHtml(e) {
-                $(e).parent().append($(e).children().html())
-            }
-        </script>
+<script src="../js/utilities/drag-delete-template.js" type="text/javascript"></script>

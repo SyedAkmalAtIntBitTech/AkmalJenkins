@@ -1,58 +1,34 @@
+    <div ng-include src="'genericpopup.html'"></div>
+
      <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav">
-        <div class="hub-pane" >
-            <div class="hub-pane-header-wrap">
+        <div class="bb-panel-full-width bb-panel-styling" >
+            <div class="bb-panel-full-width bb-panel-styling-header-wrap">
                 <h2 class="">Pushed Emails</h2>
                 <input type="text" class="search-bar" placeholder="Search" ng-model="userSearch"  ng-show="email_history.length > 0">
             </div>
-            <div class="hub-pane-content-wrap" ng-show="email_history.length == 0">
+            <div class="bb-panel-full-width bb-panel-styling-content-wrap" ng-show="email_history.length == 0">
                 <div class="hub-empty-wrap">No Pushed Emails</div>
             </div>
-            <div class="hub-pane-content-wrap">
-                
-                <div class="hub-slat-list-wrap">
-                    <div class="slat" >
-                  
-                        <div class="slat-name-wrap">
-                            <h2>Pushed Email Name</h2>
-                            <p> Created on June 16th 2016 at 9:56:05 PM</p>
-                        </div>
-                         <div class="slat-detail-wrap">
-                            <div class="slat-detail">
-                                <h2 >Scheduled</h2>
-                                <p>Status</p>
-                            </div>
-                        </div>
-                        <div class="slat-detail-wrap">
-                            <div class="slat-detail">
-                              <a class="reg-button gray-button slat-detail-button" href="#/pushedemaildetailbase">View Email Details</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="bb-panel-full-width bb-panel-styling-content-wrap">
+               
             </div>
-            <div class="hub-pane-content-wrap" >
+            <div class="bb-panel-full-width bb-panel-styling-content-wrap" ng-show="noPushedEmails">
                 <div class="hub-empty-wrap">No Pushed Emails</div>
             </div>
-            <div class="hub-pane-content-wrap">
+            <div class="bb-panel-full-width bb-panel-styling-content-wrap" ng-init="getAllPushedEmailsForFranchise()">
                 
-                <div class="hub-slat-list-wrap">
+                <div class="hub-slat-list-wrap" ng-repeat="pushedEmail in allPushedEmails">
                     <div class="slat" >
-                  
-                        <div class="slat-name-wrap">
-                            <h2>Pushed Email Name</h2>
-                            <p> Created on June 16th 2016 at 9:56:05 PM</p>
-                        </div>
-                         <div class="slat-detail-wrap">
-                            <div class="slat-detail">
-                                <h2 >Scheduled</h2>
-                                <p>Status</p>
+                            <div class="slat-name-wrap" >
+                                <h2>{{pushedEmail.pushedActionName}}</h2>
+                                <p>Created on {{pushedEmail.pushedactionDateTime | date:'MMMM d, y at  h:mm:ss a' }} </p>
                             </div>
-                        </div>
-                        <div class="slat-detail-wrap">
-                            <div class="slat-detail">
-                              <a class="reg-button gray-button slat-detail-button" ng-click="viewPushedEmailDetails()">View Email Details</a>
+                            <div class="slat-detail-wrap">
+                                <div class="slat-detail">
+                                  <a class="reg-button gray-button slat-detail-button" ng-click="getScheduleDetails(pushedEmail.pushedActionName, pushedEmail.scheduledEntityListId,
+                                              pushedEmail.entityId, pushedEmail.pushedactionDateTime)">View Email Details</a>
+                                </div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -1,10 +1,22 @@
 <div class="popUp_background-dark" id="fbSuccessPostPopup" ng-show="isPostSuccess">
 <div class="background-pop-up">
     <div class="modal-pane modal-pane-width-reg">
-        <div class="success-modal">
-            <img class="success-icon" type="image/svg+xml" src="/BrndBot/images/Valid-Check.svg"><img>
+        <div class="success-modal" ng-show="pushedEmail==false">
+            <img ng-show="postedTo == 'Twitter' || postedTo == 'Facebook'" class="success-icon"   src="/BrndBot/images/success-post-postsched.svg"/>
+            <img ng-show="postedTo == 'Email'" class="success-icon"   src="/BrndBot/images/success-post-emailsched.svg"/>
             <h2>{{postedTo}} Scheduled Successful</h2>
             <p>Your {{postedTo}} has been successfully scheduled to an action</p>
+        </div>
+        <div class="success-modal" ng-show="pushedEmail && noEmailSettings==false">
+            <img ng-show="postedTo == 'Twitter' || postedTo == 'Facebook'" class="success-icon"   src="/BrndBot/images/success-post-postsched.svg"/>
+            <img ng-show="postedTo == 'Email'" class="success-icon"   src="/BrndBot/images/success-post-emailsched.svg"/>
+            <h2>Email Pushed Successful</h2>
+            <p>Your email has been successfully pushed.</p>
+        </div>
+        <div ng-show="pushedEmail && noEmailSettings" class="success-modal">
+            <img class="success-icon" type="image/svg+xml" src="/BrndBot/images/success-post-emailsent.svg"/>
+            <h2>Pushed Email Alert!</h2>
+            <p>It looks that you have not entered the email settings, kindly go to email settings page and update the email settings.</p>
         </div>
     <div class="modal-cta-container">
         <a class="long-button blue-button"  href="/BrndBot/user/dashboard">Go to Dashboard</a>
@@ -15,12 +27,23 @@
 <div class="popUp_background-dark" id="mailSentSuccess" ng-show="isMailSent">
 <div class="background-pop-up">
     <div class="modal-pane modal-pane-width-reg">
-        <div class="success-modal">
+        <div ng-show="pushedEmail==false" class="success-modal">
             <img class="success-icon" type="image/svg+xml" src="/BrndBot/images/success-post-emailsent.svg"/>
             <h2>Email Sent Successful</h2>
             <p>Your email has been successfully sent.</p>
         </div>
-    <div class="modal-cta-container">
+<!--        <div ng-show="pushedEmail" class="success-modal">
+            <img class="success-icon" type="image/svg+xml" src="/BrndBot/images/success-post-emailsent.svg"/>
+            <h2>Email Pushed Successful</h2>
+            <p>Your email has been successfully pushed.</p>
+        </div>
+        <div ng-show="pushedEmail && noEmailSettings" class="success-modal">
+            <img class="success-icon" type="image/svg+xml" src="/BrndBot/images/success-post-emailsent.svg"/>
+            <h2>Email Pushed Successful</h2>
+            <p>Your email has been successfully pushed.</p>
+        </div>-->
+
+        <div class="modal-cta-container">
         <a class="long-button blue-button"  href="/BrndBot/user/dashboard">Go to Dashboard</a>
     </div>
 </div>

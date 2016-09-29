@@ -56,7 +56,7 @@ public class BlockModelController {
     public ResponseEntity<ContainerResponse> getAllEmailBlockModelById(@RequestParam("emailBlockId") Integer emailBlockId) {
         GenericResponse<EmailBlockModelDetails> genericResponse = new GenericResponse<>();
         try {
-            List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupService.getAllEmailBlockModel(emailBlockId);
+            List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupService.getAllEmailBlockModel(emailBlockId, Boolean.FALSE);
             List<EmailBlockModelDetails> emailModelDetailsList = new ArrayList<>();
             for (EmailBlockModelLookup emailBlockModelLookupObject : emailBlockModelLookupList) {
                 EmailBlockModelDetails emailBlockModelDetails = new EmailBlockModelDetails();
@@ -77,15 +77,15 @@ public class BlockModelController {
     }
     
     @RequestMapping(value = "getAllEmailBlockModelsByBlockId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getAllEmailBlockModelsByBlockId(@RequestParam("emailBlockId") Integer emailBlockId) {
+    public ResponseEntity<ContainerResponse> getAllEmailBlockModelsByBlockId(@RequestParam("emailBlockId") Integer emailBlockId, @RequestParam("isRecurring") Boolean isRecurring) {
         GenericResponse<EmailBlockModelDetails> genericResponse = new GenericResponse<>();
         try {
-            List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupService.getAllEmailBlockModel(emailBlockId);
+            List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupService.getAllEmailBlockModel(emailBlockId, isRecurring);
             List<EmailBlockModelDetails> emailModelDetailsList = new ArrayList<>();
             for (EmailBlockModelLookup emailBlockModelLookupObject : emailBlockModelLookupList) {
                 EmailBlockModelDetails emailBlockModelDetails = new EmailBlockModelDetails();
                 emailBlockModelDetails.setEmailBlockId(emailBlockModelLookupObject.getFkEmailBlockId().getEmailBlockId());
-                emailBlockModelDetails.setModelId(emailBlockModelLookupObject.getFkEmailBlockModelId().getEmailBlockModelId());
+                emailBlockModelDetails.setModelId(emailBlockModelLookupObject.getEmailBlockModelLookupId());
                 emailBlockModelDetails.setEmailBlockModelName(emailBlockModelLookupObject.getFkEmailBlockModelId().getEmailBlockModelName());
                 emailBlockModelDetails.setHtmlData(emailBlockModelLookupObject.getFkEmailBlockModelId().getHtmlData());
                 emailBlockModelDetails.setImageFileName(emailBlockModelLookupObject.getFkEmailBlockModelId().getImageFileName());

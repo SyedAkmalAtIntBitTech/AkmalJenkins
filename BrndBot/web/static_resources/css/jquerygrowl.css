@@ -3,11 +3,11 @@
  * 1.3.2
  */
 #growls {
-  z-index: 50000;
+  z-index: 9999999;
   position: fixed; }
   #growls.default {
-    top: 10px;
-    right: 10px; }
+    top: 60px;
+    right: 0px; }
   #growls.tl {
     top: 10px;
     left: 10px; }
@@ -33,15 +33,16 @@
     margin-right: auto; }
 
 .growl {
-  opacity: 0.8;
-  filter: alpha(opacity=80);
+  
+  opacity: 1;
   position: relative;
-  border-radius: 4px;
-  -webkit-transition: all 0.4s ease-in-out;
+  border-radius: 3px 0px 0px 3px;
+  -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out; }
+  transition: all 0.2s ease-in-out; }
   .growl.growl-incoming {
     opacity: 0;
+    left:0px;
     filter: alpha(opacity=0); }
   .growl.growl-outgoing {
     opacity: 0;
@@ -51,8 +52,8 @@
     padding: 5px;
     margin: 5px; }
   .growl.growl-medium {
-    width: 250px;
-    padding: 10px;
+    width: 200px;
+    padding: 15px;
     margin: 10px; }
   .growl.growl-large {
     width: 300px;
@@ -65,8 +66,10 @@
     color: #FFF;
     background: #C0392B; }
   .growl.growl-notice {
-    color: #FFF;
-    background: #2ECC71; }
+    color: #49505B;
+    background: #FFF;
+    border: 1px solid #C7D0D9; 
+  }
   .growl.growl-warning {
     color: #FFF;
     background: #F39C12; }

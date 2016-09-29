@@ -223,7 +223,7 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 .hideinput{
     border:0px;
     width:0px;
-    top: 0px;
+    top: 5px;
     position: relative;
-    left: -160px;
+    left: -125px;
 }

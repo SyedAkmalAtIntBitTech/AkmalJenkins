@@ -10,7 +10,6 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="../css/general_1.css" />
         <script src="../js/utilities/jquery-1.11.3.min.js" type="text/javascript"></script> 
-        <link href="css/style_detail_overlay-1.css" rel="stylesheet" type="text/css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="../js/utilities/jquery-1.11.3.min.js" type="text/javascript"></script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
@@ -30,19 +29,43 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                     }
                 };
             });
-
+            appp.directive('toggleClass',function(){
+                    var directiveDefinitionObject = {
+                    restrict: 'A',
+                    template: '<span ng-click=";localFunction()" ng-class="selected"  ng-transclude></span>',
+                    replace: true,
+                    scope: {
+                        model: '='
+                    },
+                    transclude: true,
+                    link: function (scope, element, attrs) {
+                        scope.localFunction = function () {
+                            scope.model.value = scope.$id;
+                        };
+                        scope.$watch('model.value', function () {
+                            if (scope.model.value === scope.$id) {
+                                scope.selected = "bb-email-gallery-image-card active";
+                            } else {
+                                scope.selected = 'bb-email-gallery-image-card';
+                            }
+                        });
+                    }
+                };
+                return directiveDefinitionObject;
+            });
             appp.controller("imgPopupController", function ($scope, $http, $q) {
                 $scope.imageToBeUploaded = '../images/uploadPhoto.svg';
                 $scope.imageSelected = 'gallery-item-wrap-selected-true';
                 $scope.imageUnSelect = 'gallery-item-wrap-selected';
                 var imageurl = "";
                 var deffered = $q.defer();
+                var companyId = JSON.parse(localStorage.getItem("companyDetails")).companyId;
                 $scope.getAllCompanyImages = function () {
                     $scope.fadeClass = 'fadeClass';
                     $scope.showUploadImage = false;
                     $scope.showUserImages = true;
                     $scope.chooseImage = true;
-                    $http.get(getHost() + "companyImages/get", "", "").then(function (getData) {
+                    $http.get(getHost() + "companyImages/get?companyId="+companyId, "", "").then(function (getData) {
                         $scope.datalists = getData.data.d.details;
                         $scope.companyId = getData.data.d.details[0].fkCompanyId.companyId;
                         deffered.resolve(getData.data);
@@ -70,7 +93,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                     var deffered = $q.defer();
                     var fd = new FormData();
                     fd.append('file', event.target.files[0]);
-                    $http.post(getHost() + "images/save", fd, {
+                    $http.post(getHost() + "images/save?companyId="+companyId, fd, {
                         transformRequest: angular.identity,
                         headers: {'Content-Type': undefined}
                     }).then(function (putData) {
@@ -97,36 +120,29 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
             }
         </style>
     </head>
-    <body ng-app="imgPopup" class="center-pop-ups" ng-controller="imgPopupController">
+    <body ng-app="imgPopup" ng-controller="imgPopupController">
         <input type="hidden" id="imageDiv">
-
-        <div  class="center-pop-ups " id="fade" ng-class="fadeClass">
-
-            <div class="center-pop-ups" style="height:100vh;">
-                <div class="modal-pane modal-pane-width-full mbPopup ">
-                    <div ng-init="getAllCompanyImages()">
-                        <div class="modal-pane-header-wrap">
-                            <div class="upload-photo-button reg-button gray-button" ng-click="showImageUploadPopup()">Upload an Image</div>
+                <div class="bb-email-image-pop-up" ng-init="getAllCompanyImages()">
+                   
+                        <div class="bb-email-image-pop-up-header">
+                            <a class="bb-button bb-default-action-button" ng-click="showImageUploadPopup()">Upload an Image</a>
                         </div>
                         <div class="pop-up-inner-gallery" ng-show="chooseImage">
-                            <div class="imageGallery-inner-popup">
+                            <div class="imageGallery-inner-popup" style="display: none !important;">
                                 <div class="imageUpload-container">
                                     <div class="browse-button">
                                         <input type="file"  hidden="" id="filesToUpload" custom-on-change="uploadFile"/>
                                     </div>
                                 </div>                     
                             </div>
-                            <div class="full-height-modal-pane-content-wrap modal-pane-content-social-sequence" ng-show="showUserImages" >
-                                <div class="gallery-image-wrap {{images.companyImagesId}}">
-                                    <div class="gallery-image-card" ng-repeat="images in datalists"  ng-click="selectImageToPost(images.imageName, 'gallery', companyId,images.companyImagesId)">
-                                        <img ng-class="{'imageBorder': setImageBorder === images.companyImagesId}"  class="gallery-image" id="{{images.companyImagesId}}"  src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}" alt="{{images.imageName}}"/>
+                            <div class="bb-panel-content-wrap gallery-image-content-wrap" ng-show="showUserImages" >
+                                <div ng-init="model = { value: 'bb-email-gallery-image-wrap active'}">
+                                    <div toggle-class model="model" ng-repeat="images in datalists"  ng-click="selectImageToPost(images.imageName, 'gallery', companyId,images.companyImagesId)">
+                                        <div  class="bb-gallery-image" id="{{images.companyImagesId}}"  style="background-image: url('/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}'); background-position:50% 50%; background-repeat:no-repeat; background-size: contain;"/></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
-            </div>
-        </div>
     </body>
 </html>

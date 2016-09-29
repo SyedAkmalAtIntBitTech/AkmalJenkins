@@ -211,7 +211,7 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             List<String> list = new ArrayList<String>();
             list.add("Category");
             mail.categories = list;
-            mail.
+//            mail.
             SendGrid sg = new SendGrid(AppConstants.KSendGridAPIKey);
             Request request = new Request();
             request.method = Method.POST;

@@ -7,15 +7,22 @@ package com.intbittech.controller;
 
 import com.intbittech.AppConstants;
 import com.intbittech.enums.ScheduledEntityType;
+import com.intbittech.marketing.service.ScheduledEntityListService;
+import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
+import com.intbittech.model.Users;
+import com.intbittech.modelmappers.UpdateActionDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
+import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.ScheduleActionsService;
+import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.MapUtility;
 import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +37,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -47,6 +55,10 @@ public class ScheduleActionsController {
     private ScheduleActionsService actionsService;
     @Autowired
     private MessageSource messageSource;
+    @Autowired
+    private ScheduledEntityListService scheduledEntityListService;
+    @Autowired
+    private UsersService usersService;
 
     @RequestMapping(value = "/getActions", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getActions(HttpServletRequest request,
@@ -59,7 +71,7 @@ public class ScheduleActionsController {
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             String data = actionsService.getActions(requestBodyMap, userCompanyIds.getCompanyId());
             transactionResponse.addDetail(AppConstants.GSON.toJson(data));
-                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
 
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -75,10 +87,10 @@ public class ScheduleActionsController {
         try {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-           UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
-           List<String> errors = validateScheduleEmailRequestBody(requestBodyMap);
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+            List<String> errors = validateScheduleEmailRequestBody(requestBodyMap);
             if (errors.isEmpty()) {
-                Map<String, Integer> data = actionsService.scheduleEmail(requestBodyMap, userCompanyIds.getCompanyId());
+                Map<String, Integer> data = actionsService.scheduleEmail(requestBodyMap, userCompanyIds.getCompanyId(),userCompanyIds.getUserId());
                 transactionResponse.addDetail(AppConstants.GSON.toJson(data));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
             } else {
@@ -98,8 +110,8 @@ public class ScheduleActionsController {
         try {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-           UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
-            
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+
             List<String> errors = validateScheduleEmailActionsRequestBody(requestBodyMap);
             if (errors.isEmpty()) {
                 Map<String, Integer> data = actionsService.scheduleEmailActions(requestBodyMap, userCompanyIds.getCompanyId());
@@ -119,18 +131,17 @@ public class ScheduleActionsController {
     public ResponseEntity<ContainerResponse> scheduleSocialPostActions(HttpServletRequest request,
             HttpServletResponse response) {
         GenericResponse<String> transactionResponse = new GenericResponse();
-        
+
         try {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             List<String> errors = validateRequestBodyList(requestBodyMap);
 
-            
-                userCompanyIds.setCompanyId((userCompanyIds.getCompanyId()));
-                userCompanyIds.setUserId(userCompanyIds.getUserId());
-                String type = requestBodyMap.get("type").toString();
-                String metadataString = requestBodyMap.get("metadata").toString();
+            userCompanyIds.setCompanyId((userCompanyIds.getCompanyId()));
+            userCompanyIds.setUserId(userCompanyIds.getUserId());
+            String type = requestBodyMap.get("type").toString();
+            String metadataString = requestBodyMap.get("metadata").toString();
 
             if (errors.isEmpty()) {
                 List<Map<String, Integer>> responseData = actionsService.scheduleSocialPostActions(requestBodyMap, userCompanyIds.getCompanyId());
@@ -145,7 +156,7 @@ public class ScheduleActionsController {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/scheduleSocialPost", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> scheduleSocialPost(HttpServletRequest request,
             HttpServletResponse response) {
@@ -155,15 +166,15 @@ public class ScheduleActionsController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             List<String> errors = validateRequestBodyList(requestBodyMap);
+            UserCompanyIds userCompany = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+            userCompanyIds.setCompanyId(userCompany.getCompanyId());
+            userCompanyIds.setUserId(userCompany.getUserId());
+            String type = requestBodyMap.get("type").toString();
+            String metadataString = requestBodyMap.get("metadata").toString();
+            errors.addAll(validateMetadata(metadataString, type));
 
-                userCompanyIds.setCompanyId((Integer.parseInt(requestBodyMap.get("companyId").toString())));
-                userCompanyIds.setUserId((Integer.parseInt(requestBodyMap.get("userId").toString())));
-                String type = requestBodyMap.get("type").toString();
-                String metadataString = requestBodyMap.get("metadata").toString();
-                errors.addAll(validateMetadata(metadataString, type));
-                
             if (errors.isEmpty()) {
-                List<Map<String, Integer>> responseData = actionsService.scheduleSocialPost(requestBodyMap, userCompanyIds.getCompanyId());
+                List<Map<String, Integer>> responseData = actionsService.scheduleSocialPost(requestBodyMap, userCompanyIds.getCompanyId(),userCompanyIds.getUserId());
                 transactionResponse.addDetail(AppConstants.GSON.toJson(responseData));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
             } else {
@@ -222,9 +233,9 @@ public class ScheduleActionsController {
             if (!MapUtility.mapContainsKey(requestBodyMap, "to_email_addresses")) {
                 errorMsgs.add("To email address is missing");
             }
-            if (!MapUtility.mapContainsKey(requestBodyMap, "email_body")) {
-                errorMsgs.add("Email body is missing");
-            }
+//            if (!MapUtility.mapContainsKey(requestBodyMap, "html_body")) {
+//                errorMsgs.add("Email body is missing");
+//            }
             if (!MapUtility.mapContainsKey(requestBodyMap, "email_list")) {
                 errorMsgs.add("Email List name is missing");
             }
@@ -244,7 +255,7 @@ public class ScheduleActionsController {
     private List<String> validateRequestBodyList(Map<String, Object> requestBodyMap) {
         List<String> errorMessages = new ArrayList<>();
 
-            errorMessages.addAll(validateScheduleSocialPostActionsRequestBody(requestBodyMap));
+        errorMessages.addAll(validateScheduleSocialPostActionsRequestBody(requestBodyMap));
 
         return errorMessages;
     }
@@ -265,9 +276,9 @@ public class ScheduleActionsController {
             }
         }
 
-        if (!MapUtility.mapContainsKey(requestBody, "token_data")) {
-            errorMsgs.add("token_data JSON is missing");
-        }
+//        if (!MapUtility.mapContainsKey(requestBody, "token_data")) {
+//            errorMsgs.add("token_data JSON is missing");
+//        }
 
         if (!MapUtility.mapContainsKey(requestBody, "metadata")) {
             errorMsgs.add("metadata JSON is missing");
@@ -309,5 +320,27 @@ public class ScheduleActionsController {
         });
 
         return errorMsgs;
+    }
+    
+     @RequestMapping(value = "/updateActionAssignedTo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> updateActionAssignedTo(@RequestBody UpdateActionDetails updateActionDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+           ScheduledEntityList scheduledEntityList = scheduledEntityListService.getById(updateActionDetails.getScheduleId());
+            Users users = usersService.getUserById(updateActionDetails.getUserAssignToId());
+            users.setUserId(updateActionDetails.getUserAssignToId());
+            scheduledEntityList.setAssignedTo(users);
+            scheduledEntityList.setUpdatedAt(new Date());
+            scheduledEntityListService.update(scheduledEntityList);
+            transactionResponse.setId(Utility.getFirstTwoCharactersOfName(scheduledEntityList.getAssignedTo().getFirstName(), scheduledEntityList.getAssignedTo().getLastName()));
+            transactionResponse.setMessage(scheduledEntityList.getAssignedTo().getFirstName() + " " + scheduledEntityList.getAssignedTo().getLastName());
+            
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Action updated successfully"));
+        } catch (Throwable ex) {
+            logger.error(ex);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 }

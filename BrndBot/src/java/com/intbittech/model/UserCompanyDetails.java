@@ -9,7 +9,8 @@ package com.intbittech.model;
  *
  * @author Syed Muzamil at IntBit Technologies.
  */
-public class UserCompanyDetails  extends UserCompanyIds {
+public class UserCompanyDetails {
+    private Integer userId;
     private Integer companyId;
     private String companyName;
     private String roleName;
@@ -19,8 +20,19 @@ public class UserCompanyDetails  extends UserCompanyIds {
     private String userEmailId;
     private String userFirstName;
     private String userLastName;
-    private Integer userId;
+    private String userHashId;
+    private Integer franchiseId;
+    private String franchiseName;
+    private Boolean isHeadquarter;
 
+    public String getUserHashId() {
+        return userHashId;
+    }
+
+    public void setUserHashId(String userHashId) {
+        this.userHashId = userHashId;
+    }
+    
     public Integer getUserId() {
         return userId;
     }
@@ -116,6 +128,30 @@ public class UserCompanyDetails  extends UserCompanyIds {
 
     public void setAccountStatus(String accountStatus) {
         this.accountStatus = accountStatus;
+    }
+
+    public Integer getFranchiseId() {
+        return franchiseId;
+    }
+
+    public void setFranchiseId(Integer franchiseId) {
+        this.franchiseId = franchiseId;
+    }
+
+    public String getFranchiseName() {
+        return franchiseName;
+    }
+
+    public void setFranchiseName(String franchiseName) {
+        this.franchiseName = franchiseName;
+    }
+
+    public Boolean getIsHeadquarter() {
+        return isHeadquarter;
+    }
+
+    public void setIsHeadquarter(Boolean isHeadquarter) {
+        this.isHeadquarter = isHeadquarter;
     }
     
     

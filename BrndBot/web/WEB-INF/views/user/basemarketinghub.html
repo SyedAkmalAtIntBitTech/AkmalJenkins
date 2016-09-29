@@ -37,12 +37,14 @@
     
      
 
-    <body ng-app="marketinghubFlowApp" ng-controller="marketingHubController">
+<body ng-app="marketinghubFlowApp" ng-controller="marketingHubController">
+    <div class="bb-app-frame">
+      <div class="bb-main-app-wrap" >
         <div ng-include src="'navbar.html'"></div>
-        <div class="main-content-wrap">
-            <div ng-view></div> 
-        </div>
-    </body>
+        <div ng-view class="bb-main-container-wrap"></div> 
+      </div>
+    </div>
+</body>
 </html>
 
 

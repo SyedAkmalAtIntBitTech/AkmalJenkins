@@ -9,7 +9,7 @@ import com.intbittech.dao.UserRoleDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
-import com.intbittech.model.UsersRoleLookup;
+import com.intbittech.model.UsersRoleCompanyLookup;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;

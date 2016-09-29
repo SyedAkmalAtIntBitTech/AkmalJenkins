@@ -13,6 +13,7 @@ import com.intbittech.dao.impl.ScheduleDAO;
 import com.intbittech.dao.impl.ScheduleSocialPostDAO;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.services.ScheduleActionsService;
+import com.intbittech.utility.StringUtility;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -46,23 +47,28 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
 
         if (type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString())) {
             if ((program_id != null) && !(program_id.equals("undefined"))) {
-                json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(companyId, Integer.parseInt(program_id));
+              //  json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(companyId, Integer.parseInt(program_id));
+                json_array = ScheduleSocialPostDAO.getScheduledActionsfacebookWithDate(companyId, Integer.parseInt(program_id));    
             }
         } else if (type.equalsIgnoreCase(ScheduledEntityType.Twitter.toString())) {
             if ((program_id != null) && !(program_id.equals("undefined"))) {
-                json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(companyId, Integer.parseInt(program_id));
+//                json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(companyId, Integer.parseInt(program_id));
+                  json_array = ScheduleSocialPostDAO.getScheduledActionstwitterWithDate(companyId, Integer.parseInt(program_id));  
             }
         } else if (type.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
             if ((program_id != null) && !(program_id.equals("undefined"))) {
-                json_array = ScheduleDAO.getScheduledActions(companyId, Integer.parseInt(program_id));
+//                json_array = ScheduleDAO.getScheduledActions(companyId, Integer.parseInt(program_id));
+                  json_array = ScheduleDAO.getScheduledActionsEmailWithDate(companyId, Integer.parseInt(program_id));  
             }
         } else if (type.equalsIgnoreCase("social")) {
             JSONArray json_social = new JSONArray();
-            json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(companyId, Integer.parseInt(program_id));
+//            json_array = ScheduleSocialPostDAO.getScheduledActionsfacebook(companyId, Integer.parseInt(program_id));
+              json_array = ScheduleSocialPostDAO.getScheduledActionsfacebookWithDate(companyId, Integer.parseInt(program_id));  
             for (int i = 0; i < json_array.size(); i++) {
                 json_social.add(json_array.get(i));
             }
-            json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(companyId, Integer.parseInt(program_id));
+//            json_array = ScheduleSocialPostDAO.getScheduledActionstwitter(companyId, Integer.parseInt(program_id));
+             json_array = ScheduleSocialPostDAO.getScheduledActionstwitterWithDate(companyId, Integer.parseInt(program_id));   
             for (int i = 0; i < json_array.size(); i++) {
                 json_social.add(json_array.get(i));
             }
@@ -72,7 +78,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
     }
 
     @Override
-    public Map<String, Integer> scheduleEmail(Map<String, Object> requestBodyMap, Integer companyId) {
+    public Map<String, Integer> scheduleEmail(Map<String, Object> requestBodyMap, Integer companyId,Integer createdBy) {
 
         try {
 
@@ -81,6 +87,11 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
             String scheduleDesc = requestBodyMap.containsKey("schedule_desc")
                     ? String.valueOf(requestBodyMap.get("schedule_desc")) : null;
             String marketing_program_id = (String) requestBodyMap.get("program_id");
+            String userAssignedToString = (String) requestBodyMap.get("userAssignedTo");
+            if(StringUtility.isEmpty(userAssignedToString))
+                userAssignedToString = "0.0";
+             Double TempUserAssignToId = new Double(userAssignedToString.trim());
+             Integer userAssignToId = TempUserAssignToId.intValue();
 
             //Added by Syed Ilyas 27 Nov 2015 - email body from iframe
             String html_text = "";
@@ -107,7 +118,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                     scheduleDesc,
                     new Timestamp(schedule.longValue()),
                     TemplateStatus.template_saved.toString(),
-                    requestBodyMap.get("html_body").toString()
+                    requestBodyMap.get("html_body").toString(),createdBy, userAssignToId
             );
 
             if (!path.equals("")) {
@@ -199,7 +210,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
     }
 
     @Override
-    public List<Map<String, Integer>> scheduleSocialPost(Map<String, Object> requestBodyMap, Integer companyId) {
+    public List<Map<String, Integer>> scheduleSocialPost(Map<String, Object> requestBodyMap, Integer companyId,Integer createdBy) {
         List<Map<String, Integer>> daoResponseList = new ArrayList<>();
         try (Connection conn = ConnectionManager.getInstance().getConnection()) {
             conn.setAutoCommit(false);
@@ -214,7 +225,10 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                     String scheduleDesc = requestBodyMap.containsKey("schedule_desc")
                             ? String.valueOf(requestBodyMap.get("schedule_desc")) : null;
                     String marketingType = "0";
+                    
                     String imageType = requestBodyMap.get("image_type").toString();
+                    Double TempUserAssignToId = new Double(requestBodyMap.get("userAssignedTo").toString().trim());
+                    Integer userAssignToId = TempUserAssignToId.intValue();
                     Map<String, Integer> daoResponse = ScheduleSocialPostDAO.addToScheduleSocialPost(
                             companyId,
                             requestBodyMap.get("image_name").toString(),
@@ -225,7 +239,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                             scheduleDesc,
                             scheduleTimeStamp,
                             TemplateStatus.template_saved.toString(),
-                            imageType,
+                            imageType,createdBy, userAssignToId,
                             conn);
                     daoResponseList.add(daoResponse);
 //                }

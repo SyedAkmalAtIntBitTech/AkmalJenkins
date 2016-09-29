@@ -20,7 +20,35 @@ var kGlobalEmailObject = { categoryId : "",
     replyToEmailAddress : "",
     fromAddress : "",
     preheader : "",
-    htmlBody : ""
+    htmlBody : "",
+    pushedEmail : false,
+    emailTagId :""
     };
+    
+var kGlobalCompanyObject = {
+  userId : "",
+  companyId : "",
+  companyName : "",
+  roleName : "",
+  roleId : "",
+  logourl : "",
+  accountStatus: "",
+  userEmailId: "",
+  userFirstName: "",
+  userLastName: "",
+  userHashId:"",
+  franchiseId: "",
+  franchiseName: "",
+  isHeadquarter: ""
+};
 
-
+var kGlobalFbPostDataObject = {imgNameToPost: "",
+    accessToken: "",
+    postText: "",
+    title: "",
+    url: "",
+    description: "",
+    imageType: ""
+};
+var kGlobalUserObject ={hasMultipleCompany:false};
+var kGlobalPopupFlagsObject = {emailUnsubscribe:false};

@@ -60,4 +60,5 @@ public interface CompanyDao {
      */
     public Integer saveCompanyPreferences(CompanyPreferences companyPreferences) throws ProcessFailed;
     
+    public boolean isCompanyExist(String companyName)throws ProcessFailed;
 }
