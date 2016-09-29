@@ -84,7 +84,7 @@ public interface EmailListDao {
 
     /**
      * This method delete particular {@link EmailList} based on the
-     * contacts from the database.
+     * contact from the database.
      *
      * @param emailList the emailList
      * @throws ProcessFailed the process failed

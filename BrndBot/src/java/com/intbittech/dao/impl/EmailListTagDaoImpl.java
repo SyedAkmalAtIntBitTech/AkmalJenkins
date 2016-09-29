@@ -53,6 +53,26 @@ public class EmailListTagDaoImpl implements EmailListTagDao  {
             throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public EmailListTag getByTagName(String tagName) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(EmailListTag.class)
+                    .add(Restrictions.eq("tagName", tagName));
+            List<EmailListTag> emailListTag = criteria.list();
+            if (emailListTag.isEmpty()) {
+                return null;
+            }
+            return (EmailListTag) criteria.list().get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+        }
+    }
 
     /**
      * {@inheritDoc}

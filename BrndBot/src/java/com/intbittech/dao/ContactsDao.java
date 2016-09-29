@@ -36,27 +36,27 @@ public interface ContactsDao {
     /**
      * This method save {@link Contacts} into the database.
      *
-     * @param contacts the contacts
+     * @param contact the contact
      * @return the Integer
      * @throws ProcessFailed the process failed
      */
-    public Integer save(Contacts contacts) throws ProcessFailed;
+    public Integer save(Contacts contact) throws ProcessFailed;
 
     /**
      * This method update {@link Contacts} updates existing data from the
      * database.
      *
-     * @param contacts the contacts
+     * @param contact the contact
      * @throws ProcessFailed the process failed
      */
-    public void update(Contacts contacts) throws ProcessFailed;
+    public void update(Contacts contact) throws ProcessFailed;
 
     /**
      * This method delete particular {@link Contacts} based on the
      * contacts from the database.
      *
-     * @param contacts the contacts
+     * @param contact the contact
      * @throws ProcessFailed the process failed
      */
-    public void delete(Contacts contacts) throws ProcessFailed;
+    public void delete(Contacts contact) throws ProcessFailed;
 }

@@ -52,7 +52,7 @@ public interface UnsubscribedEmailsDao {
 
     /**
      * This method delete particular {@link UnsubscribedEmails} based on the
-     * contacts from the database.
+     * contact from the database.
      *
      * @param unsubscribedEmails the unsubscribedEmails
      * @throws ProcessFailed the process failed

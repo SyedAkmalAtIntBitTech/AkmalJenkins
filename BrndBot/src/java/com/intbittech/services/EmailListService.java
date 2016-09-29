@@ -89,7 +89,7 @@ public interface EmailListService {
 
     /**
      * This method delete particular {@link EmailList} based on the
-     * contacts from the database.
+     * contact from the database.
      *
      * @param emailListId the emailListId
      * @throws ProcessFailed the process failed

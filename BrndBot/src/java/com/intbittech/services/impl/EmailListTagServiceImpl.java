@@ -43,6 +43,14 @@ public class EmailListTagServiceImpl implements EmailListTagService{
         }
             return emailListTag;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public EmailListTag getByTagName(String tagName) throws ProcessFailed {
+        EmailListTag emailListTag = emailListTagDao.getByTagName(tagName);
+        return emailListTag;
+    }
 
     /**
      * {@inheritDoc}

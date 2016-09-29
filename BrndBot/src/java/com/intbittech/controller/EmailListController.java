@@ -167,12 +167,12 @@ public class EmailListController {
             if (!emailValidator.validate(contactDetails.getEmailAddress())) {
                 throw new ProcessFailed(messageSource.getMessage("contact_not_valid", new String[]{}, Locale.US));
             }
-            Contacts contacts = new Contacts();
-            contacts = contactsService.getByContactsId(contactDetails.getContactId());
-            contacts.setEmailAddress(contactDetails.getEmailAddress());
-            contacts.setFirstName(contactDetails.getFirstName());
-            contacts.setLastName(contactDetails.getLastName());
-            contactsService.update(contacts);
+            Contacts contact = new Contacts();
+            contact = contactsService.getByContactsId(contactDetails.getContactId());
+            contact.setEmailAddress(contactDetails.getEmailAddress());
+            contact.setFirstName(contactDetails.getFirstName());
+            contact.setLastName(contactDetails.getLastName());
+            contactsService.update(contact);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("contact_edit", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);

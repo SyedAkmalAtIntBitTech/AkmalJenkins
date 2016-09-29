@@ -96,10 +96,10 @@ public class EmailListDBUtility {
                 JSONArray userEmailListJSONARRAY = (JSONArray) savedEmailJSONObject.get(IConstants.kEmailListUserKey);
                 JSONArray mindBodyEmailListJSONARRAY = (JSONArray) savedEmailJSONObject.get(IConstants.kEmailListMindbodyKey);
                 if (userEmailListJSONARRAY != null && userEmailListJSONARRAY.size() > 0) {
-                    processEmailListAndContats(userEmailListJSONARRAY, companyId, EmailListTypeConstants.General.name());
+                    processEmailListAndContacts(userEmailListJSONARRAY, companyId, EmailListTypeConstants.General.name());
                 }
                 if (mindBodyEmailListJSONARRAY != null && mindBodyEmailListJSONARRAY.size() > 0) {
-                    processEmailListAndContats(mindBodyEmailListJSONARRAY, companyId, EmailListTypeConstants.Mindbody.name());
+                    processEmailListAndContacts(mindBodyEmailListJSONARRAY, companyId, EmailListTypeConstants.Mindbody.name());
                 }
             }
 
@@ -108,7 +108,7 @@ public class EmailListDBUtility {
         }
     }
 
-    public static void processEmailListAndContats(JSONArray emailListJSONARRAY, Integer companyId, String emailListType) throws java.text.ParseException {
+    public static void processEmailListAndContacts(JSONArray emailListJSONARRAY, Integer companyId, String emailListType) throws java.text.ParseException {
         if (emailListJSONARRAY != null && emailListJSONARRAY.size() > 0) {
             for (Object emailListObject : emailListJSONARRAY) {
                 JSONObject emailListJSONObject = (JSONObject) emailListObject;

@@ -61,8 +61,8 @@ public class ContactsDaoImpl implements ContactsDao {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(Contacts.class)
                     .add(Restrictions.eq("emailAddress", emailAddress));
-            List<Contacts> contacts = criteria.list();
-            if (contacts.isEmpty()) {
+            List<Contacts> contact = criteria.list();
+            if (contact.isEmpty()) {
                 return null;
             }
             return (Contacts) criteria.list().get(0);
@@ -76,9 +76,9 @@ public class ContactsDaoImpl implements ContactsDao {
      /**
      * {@inheritDoc}
      */
-    public Integer save(Contacts contacts) throws ProcessFailed {
+    public Integer save(Contacts contact) throws ProcessFailed {
         try {
-            return ((Integer) sessionFactory.getCurrentSession().save(contacts));
+            return ((Integer) sessionFactory.getCurrentSession().save(contact));
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
@@ -88,9 +88,9 @@ public class ContactsDaoImpl implements ContactsDao {
      /**
      * {@inheritDoc}
      */
-    public void update(Contacts contacts) throws ProcessFailed {
+    public void update(Contacts contact) throws ProcessFailed {
         try {
-            sessionFactory.getCurrentSession().update(contacts);
+            sessionFactory.getCurrentSession().update(contact);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
@@ -100,9 +100,9 @@ public class ContactsDaoImpl implements ContactsDao {
      /**
      * {@inheritDoc}
      */
-    public void delete(Contacts contacts) throws ProcessFailed {
+    public void delete(Contacts contact) throws ProcessFailed {
          try {
-            sessionFactory.getCurrentSession().delete(contacts);
+            sessionFactory.getCurrentSession().delete(contact);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_deleting_message",new String[]{}, Locale.US));
