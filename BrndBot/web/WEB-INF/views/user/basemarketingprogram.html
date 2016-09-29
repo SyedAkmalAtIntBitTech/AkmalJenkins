@@ -1,17 +1,26 @@
-
-
- <div class="main-content-wrap">
-       
-    <div class="top-nav-wrap">
-        <div class="header">
-            <h2 class="">Create a Marketing Campaign</h2>
-        </div>
+<style>
+    .bb-sidenavbar{
+        display: none;
+    } 
+    
+</style>
+<div class="bb-top-nav">
+    <div class="bb-bar-left-wrap bb-one-third-flex-col">
+        <a href="dashboard" class="bb-back-button"></a>
+        <h3 class="bb-top-nav-title">Create a Marketing Campaign</h3>
     </div>
-    <div class="top-nav-bar-offset"></div>
-    <div class="content-wrap content-wrap-flex "> 
-        <div ng-init="getAllMarketingPrograms('marketingprogram')">
-            <div ng-include src="'generictableview.html'"></div>    
-        </div>
+    <div class="bb-bar-center-wrap bb-one-third-flex-col">
+         <div class="bb-step current">Select Category</div>
+        <div class="bb-step upcoming">Select Template</div>
+        <div class="bb-step upcoming">Campaign Details</div>
     </div>
- </div>
-   
+    <div class="bb-bar-right-wrap bb-one-third-flex-col">
+        <div class="bb-help-icon">help icon</div>
+    </div>
+</div>
+
+<div class="bb-main-content-wrap bb-main-content-wrap-padding bb-center-content"> 
+    <div ng-init="getAllMarketingPrograms('marketingprogram')">
+        <div ng-include src="'generictableview.html'"></div>    
+    </div>
+</div>

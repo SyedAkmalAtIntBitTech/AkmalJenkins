@@ -201,6 +201,8 @@ var countryValidation = "Please enter your Country";
 var companyAddressValidation= "Please enter your Company Address";
 var dropdownValidation = "Please select your Organization";
 var newPasswordValidation = "Password not entered! Please enter the password";
+var newFirstNameValidation = "Please enter First name";
+var newLastNameValidation = "Please enter Last name";
 var confirmPasswordValidation = "Confirm password not entered! Please enter the confirm password";
 var studioIdValidation = "No studio id entered, kindly enter the studio id";
 var emailListValidation  = "Email list name not entered! Please enter the email list name";
@@ -213,11 +215,12 @@ var subjectValidation = "Please enter the email subject";
 var preHeaderValidation = "Please enter preheader for email"
 var listValidation = "This email list contains Invalid email";
 var colorValidation = "Please choose all four colors";
-var actionNameValidation = "Title not entered, Please enter the title";
-var actionDropdownValidation = "No action type selected, select a action type";
-var actionDateValidation = "Date not selected, Please select the date";
+var actionNameValidation = "Oops! Enter an Action Name";
+var actionDropdownValidation = "Please Select an Action Type";
+var actionDateValidation = "Please Select a Date";
+var actionTimeValidation = "Please Select a Time";
 var actionNameListValidation = "Action name not selected, Please select an action name";
-var lesserDateValidation  = "The selected date and time is lesser than todays date and time, please change the date and time";
+var lesserDateValidation  = "That date is in the past.";
 //var greaterDateValidation  = "The selected date is greater than program date, please change the date";
 var campaignNameValidation = "Enter the campaign name!";
 var campaignDateValidation = "Enter the program date!";
@@ -243,3 +246,11 @@ var confirmPasswordMissmatch = "Sorry, Confirm password didn't matched with Pass
 var importContactValidation = "No Contacts to import!, Please Enter atleast One Contact.";
 var linkNameValidation = "Link name not entered! Please entered the link name.";
 var linkUrlValidation = "Link url not entered Or Not Valid! Please Enter the Valid link url.";
+var companyAddressSaved = "Company Address saved.";
+
+// validation alert messages
+var noEmailAndRole = "no email and role selected, please enter the email and select any one role";
+var noEmail = "email not entered please enter the email";
+var noRole = "role not selected, please select the role";
+
+var actionAlreadyScheduled = "This action is already scheduled, please Pause or Disapprove this action first.";

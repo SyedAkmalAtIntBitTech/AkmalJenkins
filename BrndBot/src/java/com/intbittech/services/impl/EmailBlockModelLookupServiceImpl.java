@@ -64,8 +64,8 @@ public class EmailBlockModelLookupServiceImpl implements EmailBlockModelLookupSe
         emailBlockModelLookupDao.delete(emailBlockModelLookup);
     }
 
-    public List<EmailBlockModelLookup> getAllEmailBlockModel(Integer emailBlockId) throws ProcessFailed {
-        List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupDao.getAllEmailBlockModel(emailBlockId);
+    public List<EmailBlockModelLookup> getAllEmailBlockModel(Integer emailBlockId, Boolean isRecurring) throws ProcessFailed {
+        List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupDao.getAllEmailBlockModel(emailBlockId, isRecurring);
         if (emailBlockModelLookupList == null) {
             throw new ProcessFailed(messageSource.getMessage("emailBlockModel_not_found", new String[]{}, Locale.US));
         }

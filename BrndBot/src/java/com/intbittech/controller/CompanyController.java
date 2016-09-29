@@ -16,6 +16,7 @@ import com.intbittech.model.OrganizationEmailBlockLookup;
 import com.intbittech.model.OrganizationMarketingCategoryLookup;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.UserProfile;
+import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.modelmappers.CategoryDetails;
 import com.intbittech.modelmappers.ChannelDetails;
 import com.intbittech.modelmappers.CompanyAllDetails;
@@ -27,6 +28,7 @@ import com.intbittech.modelmappers.OrganizationDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.responsemappers.UsersDetailsResponse;
 import com.intbittech.services.ChannelService;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.EmailBlockExternalSourceService;
@@ -34,6 +36,7 @@ import com.intbittech.services.EmailBlockModelLookupService;
 import com.intbittech.services.EmailBlockService;
 import com.intbittech.services.MarketingCategoryService;
 import com.intbittech.services.OrganizationCategoryLookupService;
+import com.intbittech.services.UserRoleCompanyLookUpService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.IConstants;
 import com.intbittech.utility.UserSessionUtil;
@@ -83,6 +86,8 @@ public class CompanyController {
 
     @Autowired
     private MessageSource messageSource;
+    @Autowired
+    private UserRoleCompanyLookUpService userRoleCompanyLookUpService;
     
     @RequestMapping(value = "getCurrentCompany",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getCurrentCompany(@RequestParam("companyId") Integer companyId) {
@@ -402,20 +407,25 @@ public class CompanyController {
             List<EmailBlockDetails> emailBlockDetailsList = new ArrayList<>();
             List<OrganizationEmailBlockLookup> organizationEmailBlockList = emailBlockService.getAllEmailBlockByOrganizationIds(organizationIds);
             for (OrganizationEmailBlockLookup organizationEmailBlockObject : organizationEmailBlockList) {
-                EmailBlockDetails emailBlockDetails = new EmailBlockDetails();
-                emailBlockDetails.setEmailBlockId(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId());
-                emailBlockDetails.setEmailBlockName(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockName());
-                emailBlockDetails.setOrganizationId(organizationEmailBlockObject.getFkOrganizationId().getOrganizationId());
+                try {
+                    List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupService.getAllEmailBlockModel(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId(), Boolean.TRUE);
+                    if(emailBlockModelLookupList!= null) {
+                        EmailBlockDetails emailBlockDetails = new EmailBlockDetails();
+                        emailBlockDetails.setEmailBlockId(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId());
+                        emailBlockDetails.setEmailBlockName(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockName());
+                        emailBlockDetails.setOrganizationId(organizationEmailBlockObject.getFkOrganizationId().getOrganizationId());
 
-                List<EmailBlockExternalSource> emailBlockExternalSourceList = emailBlockExternalSourceService.getAllEmailBlockExternalSourceByEmailBlockIdAndExternalSourceId(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId(), IConstants.EXTERNAL_SOURCE_NON_MINDBODY);
-                if (emailBlockExternalSourceList != null) {
-                    EmailBlockExternalSource emailBlockExternalSourceObject = emailBlockExternalSourceList.get(0);
-                    emailBlockDetails.setExternalSourceName(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getFkExternalSourceId().getExternalSourceName());
-                    emailBlockDetails.setExternalSourceKeywordName(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getFkExternalSourceKeywordId().getExternalSourceKeywordName());
-                    emailBlockDetails.setExternalSourceKeywordLookupId(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getExternalSourceKeywordLookupId());
-                    emailBlockDetailsList.add(emailBlockDetails);
+                        List<EmailBlockExternalSource> emailBlockExternalSourceList = emailBlockExternalSourceService.getAllEmailBlockExternalSourceByEmailBlockIdAndExternalSourceId(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId(), IConstants.EXTERNAL_SOURCE_NON_MINDBODY);
+                        if (emailBlockExternalSourceList != null) {
+                            EmailBlockExternalSource emailBlockExternalSourceObject = emailBlockExternalSourceList.get(0);
+                            emailBlockDetails.setExternalSourceName(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getFkExternalSourceId().getExternalSourceName());
+                            emailBlockDetails.setExternalSourceKeywordName(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getFkExternalSourceKeywordId().getExternalSourceKeywordName());
+                            emailBlockDetails.setExternalSourceKeywordLookupId(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getExternalSourceKeywordLookupId());
+                            emailBlockDetailsList.add(emailBlockDetails);
+                        }
+                    }
+                } catch (Throwable throwable) {
                 }
-
             }
             genericResponse.setDetails(emailBlockDetailsList);
             System.out.println(emailBlockDetailsList.size() + emailBlockDetailsList.get(0).getEmailBlockName());
@@ -427,4 +437,46 @@ public class CompanyController {
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
+    @RequestMapping(value = "getNumberOfUsersInCompany",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getNumberOfUsersInCompany(@RequestParam("companyId") Integer companyId) {
+        GenericResponse<Integer> genericResponse = new GenericResponse<Integer>();
+        try {
+            List<Integer> noOfUsersInCompany = new ArrayList<>();
+            List<UsersRoleCompanyLookup> UsersRoleCompanyLookupList = userRoleCompanyLookUpService.getAllUsersRoleCompanyLookupByCompanyId(companyId);
+            
+            noOfUsersInCompany.add(UsersRoleCompanyLookupList.size());
+            genericResponse.setDetails(noOfUsersInCompany);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("number_of_user_company_get_all", new String[]{}, Locale.US)));
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "getAllUsersOfCompany",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllUsersOfCompany(@RequestParam("companyId") Integer companyId) {
+        GenericResponse<UsersDetailsResponse> genericResponse = new GenericResponse<UsersDetailsResponse>();
+        try {
+             List<UsersDetailsResponse> usersDetailsResponseList = new ArrayList<>();
+            List<UsersRoleCompanyLookup> UsersRoleCompanyLookupList = userRoleCompanyLookUpService.getAllUsersRoleCompanyLookupByCompanyId(companyId);
+            for (UsersRoleCompanyLookup usersRoleCompanyLookup : UsersRoleCompanyLookupList) {
+                UsersDetailsResponse  usersDetailsResponse = new UsersDetailsResponse();
+                usersDetailsResponse.setUserId(usersRoleCompanyLookup.getUserId().getUserId());
+                usersDetailsResponse.setFirstName(usersRoleCompanyLookup.getUserId().getFirstName());
+                usersDetailsResponse.setLastName(usersRoleCompanyLookup.getUserId().getLastName());
+                usersDetailsResponse.setUserName(usersRoleCompanyLookup.getUserId().getUserName());
+                usersDetailsResponseList.add(usersDetailsResponse);
+            }
+            genericResponse.setDetails(usersDetailsResponseList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("user_company_get_all", new String[]{}, Locale.US)));
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+
 }

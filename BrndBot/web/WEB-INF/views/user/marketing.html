@@ -1,77 +1,70 @@
 
 <div ng-include src="'addaction.html'"></div>
-<div class="main-content-wrap" >
-    <div class="top-nav-wrap">
-        <div class="header">
-            <h2 class="">Your Plan</h2>
-            <div class="top-nav-cta-container">
-
-                <div class="yourplan-user-dropdown" ng-init="getUserDetails()" ng-click="userSettings=true">
-                        <span class="hub-dropdown-text" >{{userFirstName}} {{userLastName}}</span>
-                        <img type="image/svg+xml" src="/BrndBot/images/dropdown.svg" class="hub-dropdown-icon" style="cursor:pointer;"></img>
-                        
-                        <div class="dropdown-yourplan-user-settings" ng-show="userSettings">
-                                <a class="hub-dropdown-section" href="settings" id="socialhubli">
-                                    <div class=" dropdown-label-active">Settings</div>
-                                </a>
-                                <a class="hub-dropdown-section" href="" id="socialhubli">
-                                    <div class=" dropdown-label-active" ng-click="showCompanyList()">Change Company</div>
-                                </a>
-                                <a class="hub-dropdown-section" href="#/marketing" id="socialhubli">
-                                    <div class=" dropdown-label-active">Upgrade Account</div>
-                                </a>
-                                <a class="hub-dropdown-section" href="/BrndBot/logout" id="emailhubli">
-                                    <div class=" dropdown-label">Log Out</div>
-                                </a>                     
-                        </div>
-                </div>
-                            
-
-            </div>
-                    
-        </div>
-    <div class="top-sub-nav" ng-click="userSettings=false">
-        <div class="" ng-click="setCurrentDateActions()">
-            <div class="your-plan-cal-dropdown" for="jumptodatepicker" > 
-                <a href="javascript:void(0)" class="reg-button blue-button margin-around" id="liPriority" ng-click="ShowAddAction()">Add Action</a>
-                <!--<label for="jumptodatepicker"><i style="cursor: pointer;"></i></label>-->
-                <label class="reg-button slat-detail-button margin-around" for="jumptodatepicker" >JUMP TO DATE</label>
-                <input type="text"  name="datepicker" id="jumptodatepicker" readonly class="hideinput"/>
-            </div>
-
-            <script>
-                var picker = new Pikaday(
-                        {
-                            field: document.getElementById('jumptodatepicker'),
-                            format: 'YYYY-MM-DD',
-                            firstDay: 1,
-                            minDate: new Date('2000-01-01'),
-                            maxDate: new Date('2050-12-31'),
-                            yearRange: [2000, 2050],
-                            onSelect: function () {
-                                var mydate = this.getMoment();
-                                var mydt = mydate.toLocaleString();
-                                var myDate = new Date(mydt);
-                                angular.element(document.getElementById('yourPlanController')).scope().setCurrentDate(myDate);
-                            }
-                        });
-            </script>
-        </div>
-    </div>
+<div ng-include src="'usersettingpopup.html'"></div>
+    <div class="bb-top-nav" ng-init="getUserDetails()">
+         <div class="bb-bar-left-wrap bb-one-third-flex-col">
+             <h3 class="bb-top-nav-title">Your Plan</h3>
+         </div>
+         <div class="bb-bar-right-wrap bb-one-third-flex-col">
+             <div class="bb-help-icon">help icon</div>
+             <div class="bb-user-profile-dropdown-wrap" ng-init="getUserDetails()" ng-click="userSettings=true">
+                 <div class="bb-user-profile-user-name">{{userFirstName}} {{userLastName}}</div>
+                 <img type="image/svg+xml" src="/BrndBot/images/dropdown.svg" class="hub-dropdown-icon" style="cursor:pointer;"/>
+             </div>
+             <div ng-include src="'usersettingsDropDown.html'" class="bb-user-settings-dropdown-target"></div>
+         </div>
      </div>
-    <div class="top-nav-bar-offset"></div>
-    <div class="top-subnav-bar-offset"></div>
+    <div class="bb-top-sub-nav" ng-init="getAllUsersInCompany()">
+        <a href="javascript:void(0)" class="bb-button bb-primary-action-button bb-add-action" id="liPriority" ng-click="ShowAddAction()">Add Action</a>
+        <div class="" ng-click="setCurrentDateActions()">
+                <div class="your-plan-cal-dropdown" for="jumptodatepicker" > 
 
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-init="getCampaigns()" ng-click="userSettings=false">
-        <div class="your-plan-wrap" ng-repeat="entity in entitySet">
+                    <!--<label for="jumptodatepicker"><i style="cursor: pointer;"></i></label>-->
+                    <label class="bb-default-action-button bb-button bb-jump-to-date" for="jumptodatepicker" >Jump to Date</label>
+                    <input type="text"  name="datepicker" id="jumptodatepicker" readonly class="hideinput"/>
+                </div>
+
+                <script>
+                    var picker = new Pikaday(
+                            {
+                                field: document.getElementById('jumptodatepicker'),
+                                format: 'YYYY-MM-DD',
+                                firstDay: 1,
+                                minDate: new Date('2000-01-01'),
+                                maxDate: new Date('2050-12-31'),
+                                yearRange: [2000, 2050],
+                                onSelect: function () {
+                                    var mydate = this.getMoment();
+                                    var mydt = mydate.toLocaleString();
+                                    var myDate = new Date(mydt);
+                                    angular.element(document.getElementById('yourPlanController')).scope().setCurrentDate(myDate);
+                                }
+                            });
+                </script>
+            </div>
+    </div>
+    <div class="bb-main-content-wrap bb-main-content-wrap-padding" ng-init="getCampaigns()" ng-click="userSettings=false">
+        <div class="bb-panel-styling bb-panel-full-width" ng-repeat="entity in entitySet">
             <div class="your-plan-pane" >
-                <div class="action-list-pane-header">
+                <div class="bb-panel-header">
                     <h3 class="your-plan-date" ng-show="entity.date == today_date">Today's Actions</h3>
                     <h3 class="your-plan-date" ng-show="(entity.date != today_date)">{{getDayOfMonth(entity.date)}} {{myYear(mySplit(entity.date, 1))}} {{mySplit(entity.date, 2)}} {{mySplit(entity.date, 0)}}</h3>
                 </div>
-                <div class="your-plan-action-wrap" ng-repeat="entitydetails in entity.dataArray">
-                    <div class="slat">
-                        <div class="your-plan-icon-wrap">
+                <div class="bb-slat-list-wrap" ng-hide="entity.dataArray == ''" >
+                    <div class="bb-slat" ng-repeat="entitydetails in entity.dataArray" ng-click="getScheduleDetails(entitydetails.schedule_id,
+                                                       entitydetails.template_status,
+                                                       entitydetails.schedule_time,
+                                                       entitydetails.entity_type,
+                                                       entitydetails.assignedFirstName,
+                                                       entitydetails.assignedLastName,
+                                                       entitydetails.assignedToInitialChars,
+                                                       entitydetails.schedule_title,
+                                                       entitydetails.schedule_description,
+                                                       entitydetails.marketingName,
+                                                       entitydetails.user_marketing_program_id,
+                                                       entitydetails.days,
+                                                       entitydetails.is_today_active, entity.date)" >
+                        <div class="bb-your-plan-icon-wrap">
                             <div ng-show="entitydetails.entity_type != master_note">
                                 <div class="your-plan-icon hint--top" ng-show="entitydetails.template_status == 'Template Saved'"  data-hint="Template Saved" > 
                                     <img src="/BrndBot/images/template-saved.svg" />
@@ -115,31 +108,23 @@
                         </div>
 
 
-                        <div class="slat-detail-wrap">
+                        <!--<div class="slat-detail-wrap">
                             <div class="slat-detail">
                                 <a class="reg-button slat-detail-button" 
-                                   ng-click="getScheduleDetails(entitydetails.schedule_id,
-                                                       entitydetails.template_status,
-                                                       entitydetails.schedule_time,
-                                                       entitydetails.entity_type,
-                                                       entitydetails.schedule_title,
-                                                       entitydetails.schedule_description,
-                                                       entitydetails.marketingName,
-                                                       entitydetails.user_marketing_program_id,
-                                                       entitydetails.days,
-                                                       entitydetails.is_today_active, entity.date)">Action Details</a>
+                                   >Action Details</a>
                             </div>
-                        </div>
+                        </div>-->
 
                     </div>
 
                 </div>
-                <div class="slat" ng-show="entity.dataArray == ''">
-                    <div class="your-plan-empty-date"> No actions scheduled for today</div>
+                <div class="bb-your-plan-empty-state-wrap" ng-show="entity.dataArray == ''">
+                    
+                        <div class="bb-your-plan-empty-state-text"> No actions scheduled for today</div>
+                
                 </div>
             </div>
         </div>
-        <div class="bottom-offset"></div>
-    </div>
+        </div>
 
-</div>
+

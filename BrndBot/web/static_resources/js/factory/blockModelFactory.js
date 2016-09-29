@@ -12,9 +12,9 @@ factoryApp.factory('blockModelFactory', function ($q, authenticatedServiceFactor
         });
         return deffered.promise;
     };
-    blockModelFactoryObject.allEmailBlockModelGet = function (emailBlockId) {
+    blockModelFactoryObject.allEmailBlockModelGet = function (emailBlockId, isRecurring) {
         var deffered = $q.defer();
-        var url = configurationService.allEmailBlockModelURL() + "?emailBlockId=" + emailBlockId;
+        var url = configurationService.allEmailBlockModelURL() + "?emailBlockId=" + emailBlockId+"&isRecurring="+isRecurring;
         authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });

@@ -77,5 +77,4 @@ public class Company implements Serializable {
     public void setInviteCode(String inviteCode) {
         this.inviteCode = inviteCode;
     }
-
 }

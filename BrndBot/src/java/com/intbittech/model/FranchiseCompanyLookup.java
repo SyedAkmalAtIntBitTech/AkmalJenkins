@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2015 Intbit Technologies. This software and documentation contains
+ * confidential and proprietary information that is owned by Intbit
+ * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 package com.intbittech.model;
 
@@ -12,7 +12,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,28 +30,37 @@ import javax.persistence.TemporalType;
 public class FranchiseCompanyLookup implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "franchise_company_lookup_id")
     private Integer franchiseCompanyLookupId;
-    @Column(name = "is_headquarter")
-    private Boolean isHeadQuarter;
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
+    @Basic(optional = false)
+    @Column(name = "is_headquarter")
+    private boolean isHeadquarter;
     @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Company fkCompanyId;
     @JoinColumn(name = "fk_franchise_id", referencedColumnName = "franchise_id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     private Franchise fkFranchiseId;
     @JoinColumn(name = "fk_added_by", referencedColumnName = "user_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Users fkAddedByUserId;
- 
+    @ManyToOne(optional = false)
+    private Users fkAddedBy;
+
     public FranchiseCompanyLookup() {
+    }
+
+    public FranchiseCompanyLookup(Integer franchiseCompanyLookupId) {
+        this.franchiseCompanyLookupId = franchiseCompanyLookupId;
+    }
+
+    public FranchiseCompanyLookup(Integer franchiseCompanyLookupId, boolean isHeadquarter) {
+        this.franchiseCompanyLookupId = franchiseCompanyLookupId;
+        this.isHeadquarter = isHeadquarter;
     }
 
     public Integer getFranchiseCompanyLookupId() {
@@ -71,6 +79,14 @@ public class FranchiseCompanyLookup implements Serializable {
         this.createdAt = createdAt;
     }
 
+    public boolean getIsHeadquarter() {
+        return isHeadquarter;
+    }
+
+    public void setIsHeadquarter(boolean isHeadquarter) {
+        this.isHeadquarter = isHeadquarter;
+    }
+
     public Company getFkCompanyId() {
         return fkCompanyId;
     }
@@ -87,15 +103,14 @@ public class FranchiseCompanyLookup implements Serializable {
         this.fkFranchiseId = fkFranchiseId;
     }
 
-    public Users getFkAddedByUserId() {
-        return fkAddedByUserId;
+    public Users getFkAddedBy() {
+        return fkAddedBy;
     }
 
-    public void setFkAddedByUserId(Users fkAddedByUserId) {
-        this.fkAddedByUserId = fkAddedByUserId;
+    public void setFkAddedBy(Users fkAddedBy) {
+        this.fkAddedBy = fkAddedBy;
     }
-    
-    
+
     public static List<Company> getCompanys(List<FranchiseCompanyLookup> franchises) {
         List<Company> companys = new ArrayList<>();
         for (FranchiseCompanyLookup franchiseCompanyLookup : franchises) {
@@ -114,10 +129,10 @@ public class FranchiseCompanyLookup implements Serializable {
     }
 
     public Boolean getIsHeadQuarter() {
-        return isHeadQuarter;
+        return isHeadquarter;
     }
 
     public void setIsHeadQuarter(Boolean isHeadQuarter) {
-        this.isHeadQuarter = isHeadQuarter;
+        this.isHeadquarter = isHeadQuarter;
     }
 }

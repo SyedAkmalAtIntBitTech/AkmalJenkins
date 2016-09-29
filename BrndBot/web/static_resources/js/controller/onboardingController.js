@@ -201,19 +201,21 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             if (queryString["accessdenied"] !== undefined) {
                 growl("user does not exist, please check the user name and password");
             }
-            if ($location.search().userid) {
-                appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
-                    kGlobalCompanyObject.userHashId = $location.search().userid;
-                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+//            appSessionFactory.clearAllSessions().then(function () {
+                if ($location.search().userid) {
+                    appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                        kGlobalCompanyObject.userHashId = $location.search().userid;
+                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                        });
                     });
-                });
-            } else {
-                appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
-                    kGlobalCompanyObject.userHashId = "";
-                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                } else {
+                    appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                        kGlobalCompanyObject.userHashId = "";
+                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                        });
                     });
-                });
-            }
+                }
+//            });
         };
 
         $scope.getLoggedInUserId = function () {
@@ -224,14 +226,14 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                         if (data1) {
                             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                                 var userHashId = kGlobalCompanyObject.userHashId;
-                                if (userHashId) {
+                                alert(userHashId);
+                                if (userHashId != "") {
                                     var user = {"invitationCode": userHashId}
                                     onboardingFactory.saveInvitedUserPost(user).then(function (data2) {
                                         var message = data2.d.message;
                                         var userId = data2.d.id;
                                         kGlobalCompanyObject.userHashId = "";
-                                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
-                                        });
+                                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {});
                                         appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                                             kGlobalCompanyObject.userId = data2.d.id;
                                             appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data3) {
@@ -239,7 +241,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                                             });
                                         });
                                     });
-                                } else if (!userHashId) {
+                                } else if (userHashId == "") {
                                     $scope.getAllUserCompanies(data.d.details[0]);
                                 }
                             });
@@ -318,8 +320,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 $scope.companyData.companyName = "";
                 $("#companyName").focus();
                 return false;
-            }
-            else if (!companyData.ddSelectOrganization.value || companyData.ddSelectOrganization.value === "0") {
+            } else if (!companyData.ddSelectOrganization.value || companyData.ddSelectOrganization.value === "0") {
                 $scope.organizationValidation = true;
                 return false;
             }
@@ -357,8 +358,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                                         kGlobalCompanyObject.userFirstName = companyDetails.userFirstName;
                                         kGlobalCompanyObject.userLastName = companyDetails.userLastName;
 
-                                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
-                                        });
+                                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {});
                                     });
                                 } else {
                                     $scope.companies = data.d.details;
@@ -414,13 +414,19 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.getAllUserCompanies = function (userId) {
             onboardingFactory.getAllUserCompanies(userId).then(function (data) {
                 var detail = data.d.details;
-                if (detail.length === 1) {
-                    var companyDetails = detail[0];
-                    $scope.getAccountStatus(companyDetails);
-                } else {
-                    $scope.companies = data.d.details;
-                }
-                $scope.hideDataOverlay = false;
+                appSessionFactory.getUser().then(function (kGlobalUserObject) {
+                    if (detail.length === 1) {
+                        kGlobalUserObject.hasMultipleCompany = false;
+                        var companyDetails = detail[0];
+                        $scope.getAccountStatus(companyDetails);
+                    } else {
+                        kGlobalUserObject.hasMultipleCompany = true;
+                        $scope.companies = data.d.details;
+                    }
+                    appSessionFactory.setUser(kGlobalUserObject).then(function (data) {
+                    $scope.hideDataOverlay = false;
+                    });
+                });
             });
         };
 
@@ -434,20 +440,22 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 kGlobalCompanyObject.roleId = companyDetails.roleId;
                 kGlobalCompanyObject.accountStatus = companyDetails.accountStatus;
                 kGlobalCompanyObject.userEmailId = companyDetails.userEmailId;
-                kGlobalCompanyObject.userFirstName = companyDetails.userFirstName;
-                kGlobalCompanyObject.userLastName = companyDetails.userLastName;
-
-                appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
-                    if (data) {
-                        onboardingFactory.getAccountStatus(companyDetails).then(function (data) {
-                            $scope.message = data.d.message;
-                            if (data.d.message == 'Activated') {
-                                window.location = getHost() + "user/dashboard";
-                            } else if (data.d.message == 'Deactivated') {
-                                growl("your account has been deactivated, please contact system admin");
-                                window.location = getHost() + "login";
-                            }
-                            $scope.hideDataOverlay = false;
+                kGlobalCompanyObject.userFirstName= companyDetails.userFirstName;
+                kGlobalCompanyObject.userLastName= companyDetails.userLastName;
+                kGlobalCompanyObject.franchiseId= companyDetails.franchiseId;
+                kGlobalCompanyObject.franchiseName= companyDetails.franchiseName;
+                kGlobalCompanyObject.isHeadquarter= companyDetails.isHeadquarter;
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){
+                    if (data){
+                        onboardingFactory.getAccountStatus(companyDetails).then(function(data){
+                           $scope.message = data.d.message; 
+                           if (data.d.message == 'Activated'){
+                               window.location = getHost() + "user/dashboard";
+                           }else if (data.d.message == 'Deactivated'){
+                               growl("your account has been deactivated, please contact system admin");
+                               window.location = getHost() + "login";
+                           }
+                           $scope.hideDataOverlay = false;
                         });
                     }
 
@@ -484,8 +492,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                     $scope.studioId = "";
                     $("#mindbodyStudioId").focus();
                     return false;
-                }
-                else {
+                } else {
                     onboardingFactory.isMindbodyActivated().then(function (data) {
                         var activation = JSON.stringify(data.d.details[0]);
                         globalActivation = activation;
@@ -608,11 +615,16 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 //               growl("Please choose all 4 colors.");
                 $scope.colorsAlert = true;
                 return false;
-            }
-            else {
+            } else {
                 $scope.colorsAlert = false;
                 settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
-                    window.location = getHost() + "user/dashboard";
+                    settingsFactory.getRendomColor().then(function (rendomColor){
+                        var profileColor={userProfileColor:rendomColor}; 
+                        settingsFactory.setUserProfileColor(profileColor).then(function (data){
+                             window.location = getHost() + "user/dashboard";
+                        });
+                    });
+                   
                 });
             }
         };
@@ -630,7 +642,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 //        });
 
         $scope.stepsModel = [];
-        $scope.stepsModel.push("/BrndBot/images/upload-icon.svg");
+        $scope.stepsModel.push("");
 
         $scope.imageUpload = function (element) {
             var reader = new FileReader();
@@ -650,8 +662,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 $scope.user = {emailid: ""};
                 $("#inputemail").focus();
                 return false;
-            }
-            else {
+            } else {
                 signupFactory.forgotPasswordPost(user).then(function (data) {
                     growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                     $scope.status = data;

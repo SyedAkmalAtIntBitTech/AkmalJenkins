@@ -1,10 +1,15 @@
 
 <input type="hidden" ng-model="showTwitterLink"/>     
-<div class="main-content-wrap" ng-init="fbTwitterinit()">
-    <div class="top-nav-wrap">
-        <div class="header">
-            <a class="back-button" href="socialsequence#/socialsequence"></a>
-            <h2 class="">Create a Twitter Post</h2>
+<div class="bb-main-content-wrap" ng-init="fbTwitterinit()">
+    <div class="bb-top-nav ng-scope">
+        <div class="bb-bar-left-wrap bb-one-third-flex-col">
+            <a href="socialsequence#/socialsequence" class="bb-back-button"></a>
+            <h3 class="bb-top-nav-title">Create a Twitter Post</h3>
+        </div>
+        <div class="bb-bar-center-wrap bb-one-third-flex-col">
+        </div>
+        <div class="bb-bar-right-wrap bb-one-third-flex-col">
+            <div class="bb-help-icon">help icon</div>
         </div>
     </div>
     <div class="top-nav-bar-offset"></div>
@@ -17,7 +22,7 @@
                 <div class="input-wrap">
                     <label> What would you like to share? </label>
                     <div class="input ">
-                        <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="twitterShareText"  maxlength="116" ng-model="twitterPostData.text"></textarea>
+                        <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="twitterShareText"  maxlength="116" ng-model="twitterPostData.text"  ng-class="{'invalid-input': twitterPostData.text === '' || null}"></textarea>
                     </div>
                     <span class="validationAlert" ng-if='twitterPostData.text === "" || null'>{{actionNameValidation}}</span>
 
@@ -35,7 +40,7 @@
                     <div class="input-wrap">
                         <label>Write a Custom Link</label>
                         <div class="input ">
-                            <input  class="fluid" ng-model="twitterPostData.url" placeholder="http://www.brndbot.com" id="linkOfUrls"></input>
+                            <input  class="fluid" ng-model="twitterPostData.url" placeholder="http://www.brndbot.com" id="linkOfUrls"  ng-class="{'invalid-input': twitterPostData.url === '' || null}"></input>
                         </div>
                         <span class="validationAlert"  ng-if='twitterPostData.url === "" || null'>{{customLinkValidation}}</span>
 

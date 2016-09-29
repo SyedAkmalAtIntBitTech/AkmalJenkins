@@ -11,10 +11,9 @@ import com.google.gson.Gson;
 import com.intbit.util.CustomStyles;
 import com.intbittech.AppConstants;
 import com.intbittech.externalcontent.ExternalContentProcessor;
-import com.intbittech.model.Address;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
-import com.intbittech.model.EmailList;
+import com.intbittech.modelmappers.EmailListDetails;
 import com.intbittech.model.InvitedUsers;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
@@ -22,6 +21,7 @@ import com.intbittech.modelmappers.AddressDetails;
 import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.modelmappers.FooterDetails;
 import com.intbittech.modelmappers.InviteDetails;
+import com.intbittech.modelmappers.UserProfileColorDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
@@ -29,8 +29,10 @@ import com.intbittech.schedulers.MindbodyEmailListProcessor;
 import com.intbittech.services.AddressService;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
+import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.EmailListService;
 import com.intbittech.services.ForgotPasswordService;
+import com.intbittech.services.UnsubscribedEmailsService;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UsersService;
 import com.intbittech.social.CompanyPreferencesFacebook;
@@ -102,9 +104,15 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
     @Autowired
     CompanyService companyService;
-    
+
     @Autowired
     AddressService addressService;
+
+    @Autowired
+    UnsubscribedEmailsService unsubscribedEmailsService;
+    
+    @Autowired
+    ContactEmailListLookupService contactEmailListLookupService;
     
     @Autowired
     private MessageSource messageSource;
@@ -180,9 +188,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         try {
 
             boolean returnMessage = usersInviteService.removeUsersByInviteIdAndCompanyId(inviteId, userCompanyIds.getCompanyId());
-            if (returnMessage){
+            if (returnMessage) {
                 transactionResponse.setMessage(messageSource.getMessage("user_removed", new String[]{}, Locale.US));
-            }else{
+            } else {
 
                 transactionResponse.setMessage(messageSource.getMessage("user_remove_failure", new String[]{}, Locale.US));
             }
@@ -245,7 +253,40 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
+    @RequestMapping(value = "/setUserProfileColor", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> setUserProfileColor(@RequestBody UserProfileColorDetails userProfileColorDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            Company company = companyService.getCompanyById(userProfileColorDetails.getCompanyId());
+            companyPreferencesService.setUserProfileColor(userProfileColorDetails, company);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyCategories_color_update", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "/getUserProfileColor", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getUserProfileColor(HttpServletRequest request,
+            HttpServletResponse response, @RequestParam("companyId") Integer companyId) {
+        GenericResponse<String> genericResponse = new GenericResponse<>();
+
+        try {
+            Company company = companyService.getCompanyById(companyId);
+            String colorArray = companyPreferencesService.getUserProfileColor(company);
+            genericResponse.addDetail(colorArray);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+
     @RequestMapping(value = "/saveAddress", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveAddress(@RequestBody AddressDetails addressDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
@@ -310,9 +351,8 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             CompanyPreferences companyPreferences = companyPreferencesService.getByCompany(company);
             JSONParser parser = new JSONParser();
             JSONObject jSONObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
-            
-            if(companyPreferences.getFkAddressId()!=null)
-            {
+
+            if (companyPreferences.getFkAddressId() != null) {
                 JSONObject addressJSONObject = new JSONObject();
                 addressJSONObject.put("addressLine1", companyPreferences.getFkAddressId().getAddressLine1());
                 addressJSONObject.put("addressLine2", companyPreferences.getFkAddressId().getAddressLine2());
@@ -685,7 +725,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     }
 
     @RequestMapping(value = "/unsubscribeEmails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> unsubscribeEmails(HttpServletRequest request, @RequestBody EmailList emailList) {
+    public ResponseEntity<ContainerResponse> unsubscribeEmails(HttpServletRequest request,@RequestBody EmailListDetails emailList) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
 
@@ -730,21 +770,25 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     }
 
     @RequestMapping(value = "/saveUnsubscribeEmails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> saveUnsubscribeEmails(HttpServletRequest request, @RequestBody EmailList emailList) {
+    public ResponseEntity<ContainerResponse> saveUnsubscribeEmails(HttpServletRequest request,@RequestBody EmailListDetails emailList) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+//            Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
-            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
-            companyPreferencesService.saveUnsubscribeEmails(userCompanyIds.getCompanyId(), emailList.getEmailList());
+//            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+//            companyPreferencesService.saveUnsubscribeEmails(userCompanyIds.getCompanyId(), emailList.getEmailList());
+            unsubscribedEmailsService.save(emailList.getCompanyId(), emailList.getEmailList());
             Runnable myRunnable = new Runnable() {
                 public void run() {
                     try {
-                        CompanyPreferences companyPreferences = companyPreferencesService.getByCompanyId(userCompanyIds.getCompanyId());
+                        //Todo ilyas refactor this
+                        CompanyPreferences companyPreferences = companyPreferencesService.getByCompanyId(emailList.getCompanyId());
                         Integer studioId = Integer.parseInt(companyPreferences.getCompanyLocation());
                         MindbodyEmailListProcessor mindbodyEmailListProcessor = new MindbodyEmailListProcessor();
-                        mindbodyEmailListProcessor.processEachRow(userCompanyIds.getCompanyId(), studioId);
-                        emailListService.updateUnsubscribedUserEmailLists(companyPreferences);
+                        mindbodyEmailListProcessor.processEachRow(emailList.getCompanyId(), studioId);
+//                        emailListService.updateUnsubscribedUserEmailLists(companyPreferences);
+                        contactEmailListLookupService.updateUnsubscribedUserEmailLists(emailList.getCompanyId());
+                            
                     } catch (Throwable throwable) {
 
                     }
