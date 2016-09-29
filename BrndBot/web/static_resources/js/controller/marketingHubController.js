@@ -68,6 +68,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                         appSessionFactory.clearDashboardMessage().then(function(message){
                         });
                     }
+                appSessionFactory.getUser().then(function(kGlobalCompanyObject){
+                        $scope.hasMultipleCompany = kGlobalCompanyObject.hasMultipleCompany;
+                    });
                 });
             });
         };
@@ -84,6 +87,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             var isPushed = false;
             emailDraftFactory.displayAllEmailDraftsGet(isPushed).then(function (data) {
                 if (data.nodrafts === "yes") {
+                    $scope.emailDraftDetails=false;
                     $scope.emaildraftnumber = '0';
                     $scope.emaildraftsstatus = "No email drafts present";
                 } else {
@@ -169,7 +173,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 //        };
 
         var selectedemailids = "";
-            var count = 0;
+        var count = 0;
         $scope.selectedEmailListCheckbox = function (id) {
             var content = '<input type="checkbox" name="deleteid" value="' + id + '" hidden="" id="deleteid"' + id + '" checked>';
             var content1 = '<input type="checkbox" name="deleteid" value="' + id + '" hidden="" id="deleteid"' + id + '">';
@@ -192,7 +196,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $("#addcontact").hide();
                 $("#addcontacts").hide();
             }
-            if (count === 0)
+            if (count <= 0)
             {
                 $scope.deSelectCheckboxButton = false;
                 $scope.selectCheckboxButton = false;
@@ -203,6 +207,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 
         $scope.deSelectCheckbox = function () {
             count = 0;
+            selectedemailids = "";
             var htm = $(".selection-icon-selected").html();
             if (htm.contains('class="check-icon"')) {
                 $(".selection-icon-selected").html('');
@@ -362,17 +367,15 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             var footerInstagramUrl = "";
             if (company.instagramUrl)
                 footerInstagramUrl = company.instagramUrl;
-            else
-            {
-                var footerPopupDetails = {"facebookUrl": footerFacebookUrl, "twitterUrl": footerTwitterUrl, "instagramUrl": footerInstagramUrl, "websiteUrl": footerWebsiteUrl};
-                $scope.emailFooterPopupDetails = false;
+            
+            var footerPopupDetails = {"facebookUrl": footerFacebookUrl, "twitterUrl": footerTwitterUrl, "instagramUrl": footerInstagramUrl, "websiteUrl": footerWebsiteUrl};
+            $scope.emailFooterPopupDetails = false;
+            $scope.getFooterDetails();
+            settingsFactory.setFooterPost(footerPopupDetails).then(function (data) {
                 $scope.getFooterDetails();
-                settingsFactory.setFooterPost(footerPopupDetails).then(function (data) {
-                    $scope.getFooterDetails();
-                    growl("Settings saved successfully");
-                });
-            }
-            ;
+                growl("Settings saved successfully");
+            });
+            
         };
         $scope.emailFooterPopup = function ()
         {
@@ -567,6 +570,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.activeEmailListContacts = 'activeTab';
             $scope.activeImportContacts = '';
             $scope.showEmailListContacts = true;
+            $scope.noUserContactList=false;
+            $scope.noMindbodyContactList=false;
+            $scope.user_emailAddresses='';
+            $scope.mindbody_emailAddresses ='';
             $("#importListli").removeClass("top-subnav-link-active");
             $("#importList").removeClass("h3-active-subnav");
             $("#emailListli").addClass("top-subnav-link-active");
@@ -590,9 +597,50 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     $scope.user_emailAddresses = '';
                     $scope.mindbody_emailAddresses = parseData;
                 }
+                if($scope.user_emailAddresses == ''){
+                        $scope.noUserContactList=true;
+                        $scope.noMindbodyContactList=false;
+                }
+                if($scope.mindbody_emailAddresses == ''){
+                        $scope.noUserContactList=true;
+                        $scope.noMindbodyContactList=false;
+                }
+                if($scope.user_emailAddresses!=''){
+                        $scope.noUserContactList=false;
+                        $scope.noMindbodyContactList=false;
+                }
+                if($scope.mindbody_emailAddresses!=''){
+                        $scope.noUserContactList=false;
+                        $scope.noMindbodyContactList=false;
+                }
+                $scope.type = type;
+                if (type === 'user') {
+                    $("#tab1").hide();
+                    $("#tab2").hide();
+                    $("#tab3").show();
+                    $("#addcontacts").show();
+                    $("#deleteSelected").show();
+                    $("#selectAll").show();
+                    for (var i = 0; i <= data.user_emailAddresses.length; i++) {
+                        var emailadd = data.user_emailAddresses[i];
+                        if (emailadd.emailAddress === "") {
+                            $("#NoContacts").css("display", "block");
+                            setTimeout(function ()
+                            {
+                                $('input[type="checkbox"]').css("display", "none");
+                            }, 100);
+                        }
+                    }
+                } else if (type === 'mindbody') {
+                    $("#addcontact").hide();
+                    $("#email1").hide();
+                    setTimeout(function ()
+                    {
+                        $('input[type="checkbox"]').css("display", "none");
+                    }, 100);
+                }
                 $scope.hideGifImage=false;
             });
-            
         };
 
         $scope.emailIdValidation = function (email) {
@@ -901,8 +949,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         $scope.showAddContacts = function () {
             count = 0;
-            $(".delete-button").hide();
-            $(".gray-button").hide();
+            $("#addcontact").show();
             $("#showList").hide();
             $("#tab4").show();
             $("#importListli").addClass("top-subnav-link-active");
@@ -915,6 +962,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $("#tab4").show();
             $scope.showAddContactPopup = false;
             $scope.showEmailListContacts = false;
+            $scope.deSelectCheckboxButton = false;
+            $scope.selectCheckboxButton = false;
             $scope.activeEmailListContacts = ''
             $scope.activeImportContacts = 'activeTab';
         };

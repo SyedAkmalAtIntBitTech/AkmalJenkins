@@ -26,7 +26,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.uniqueUser = false;
         $scope.userDetails = {};
         $scope.user = {};
-        $scope.companyData= {};
+        $scope.companyData = {};
 
         function validateSignUp()
         {
@@ -61,7 +61,8 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 return false;
             }
             return true;
-        };
+        }
+        ;
 
         $scope.signupValidation = function (userDetails) {
             if (!userDetails.userName) {
@@ -70,7 +71,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 $("#usernamesignup").focus();
                 return false;
             }
-            
+
             var uniqueuser = userDetails.userName;
             var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
             var result = uniqueuser.replace(/\s/g, "").split(/,|;/);
@@ -89,25 +90,25 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 $("#passwordsignup").focus();
                 return false;
             }
-            if ($scope.confirmPassword === ""||$scope.confirmPassword == null ) {
+            if ($scope.confirmPassword === "" || $scope.confirmPassword == null) {
                 $scope.createEmailValidation = false;
                 $scope.confirmPassword = "";
                 $("#confirmpasswordsignup").focus();
                 return false;
             }
-            if($scope.isConfirmPasswordSame($scope.confirmPassword))
-            return true;
-        };
-        
-        $scope.isConfirmPasswordSame = function (cPassword){
-            if(cPassword === ""){
-                $scope.confirmPasswordError=true;
-                return false;
-            }else if($scope.userDetails.userPassword === cPassword){
-                $scope.isConfirmPasswordSamePassword=false;
+            if ($scope.isConfirmPasswordSame($scope.confirmPassword))
                 return true;
-            }else{
-                $scope.isConfirmPasswordSamePassword=true;
+        };
+
+        $scope.isConfirmPasswordSame = function (cPassword) {
+            if (cPassword === "") {
+                $scope.confirmPasswordError = true;
+                return false;
+            } else if ($scope.userDetails.userPassword === cPassword) {
+                $scope.isConfirmPasswordSamePassword = false;
+                return true;
+            } else {
+                $scope.isConfirmPasswordSamePassword = true;
                 return false;
             }
         };
@@ -118,79 +119,80 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             {
                 onboardingFactory.saveUserPost(userDetails).then(function (data) {
                     var userId = data.d.message;
-                    appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                    appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                         kGlobalCompanyObject.userId = userId;
-                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){
-                            if (data){
+                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                            if (data) {
                                 $("#signform").submit();
                                 $location.path("/signup/company");
                             }
-                        appSessionFactory.getCompany().then(function(kGlobalCompanyObject1){
-                        });
-                            
+
                         });
                     });
                 });
             }
         };
-        $scope.getUserId = function (){
+        $scope.getUserId = function () {
             $scope.userHashId = $location.search().userid;
-                var queryString = (function(a) {
-                    if (a == "") return {};
-                    var b = {};
-                    for (var i = 0; i < a.length; ++i)
-                    {
-                        var p=a[i].split('=', 2);
-                        if (p.length == 1)
-                            b[p[0]] = "";
-                        else
-                            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
-                    }
-                    return b;
-                })(window.location.search.substr(1).split('&'));
-            
-            if (queryString["accessdenied"] !== undefined){
+            var queryString = (function (a) {
+                if (a == "")
+                    return {};
+                var b = {};
+                for (var i = 0; i < a.length; ++i)
+                {
+                    var p = a[i].split('=', 2);
+                    if (p.length == 1)
+                        b[p[0]] = "";
+                    else
+                        b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+                }
+                return b;
+            })(window.location.search.substr(1).split('&'));
+
+            if (queryString["accessdenied"] !== undefined) {
                 growl("user does not exist, please check the user name and password");
             }
-            if($location.search().userid){
-                appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
-                    kGlobalCompanyObject.userHashId = $location.search().userid;
-                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){
+//            appSessionFactory.clearAllSessions().then(function () {
+                if ($location.search().userid) {
+                    appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                        kGlobalCompanyObject.userHashId = $location.search().userid;
+                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                        });
                     });
-                });
-            }else {
-                appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
-                    kGlobalCompanyObject.userHashId = "";
-                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){
+                } else {
+                    appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                        kGlobalCompanyObject.userHashId = "";
+                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                        });
                     });
-                });
-            }
-         };
+                }
+//            });
+        };
 
-        $scope.getLoggedInUserId = function(){
-            onboardingFactory.getLoggedInUserId().then(function (data){
-                appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+        $scope.getLoggedInUserId = function () {
+            onboardingFactory.getLoggedInUserId().then(function (data) {
+                appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                     kGlobalCompanyObject.userId = data.d.details[0];
-                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data1){
-                        if (data1){
-                            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data1) {
+                        if (data1) {
+                            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                                 var userHashId = kGlobalCompanyObject.userHashId;
-                                if (userHashId){
+                                if (userHashId) {
                                     var user = {"invitationCode": userHashId}
                                     onboardingFactory.saveInvitedUserPost(user).then(function (data2) {
                                         var message = data2.d.message;
                                         var userId = data2.d.id;
                                         kGlobalCompanyObject.userHashId = "";
-                                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
-                                        appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {});
+                                        appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                                             kGlobalCompanyObject.userId = data2.d.id;
-                                            appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data3){
+                                            appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data3) {
                                                 $scope.getAllUserCompanies(userId);
                                             });
                                         });
                                     });
-                                }else if (!userHashId){
-                                    $scope.getAllUserCompanies(data.d.details[0]); 
+                                } else if (!userHashId) {
+                                    $scope.getAllUserCompanies(data.d.details[0]);
                                 }
                             });
                         }
@@ -198,22 +200,24 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 });
             });
         };
-        
+
         $scope.saveInvitedUser = function (userDetails) {
-            
-        var user = {"userName": userDetails.userName, "firstName": userDetails.firstName, 
-                    "lastName": userDetails.lastName, "userPassword": userDetails.userPassword,
-                    "invitationCode": $scope.userHashId}
+
+            var user = {"userName": userDetails.userName, "firstName": userDetails.firstName,
+                "lastName": userDetails.lastName, "userPassword": userDetails.userPassword,
+                "invitationCode": $scope.userHashId}
             onboardingFactory.saveInvitedUserPost(user).then(function (data) {
                 var message = data.d.message;
                 var userId = data.d.id;
-                appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                     kGlobalCompanyObject.userId = data.d.id;
-                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function(){data});
+                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function () {
+                        data
+                    });
                     growl(message);
                     window.location = getHost() + "login";
                 });
-            });    
+            });
         };
 
         $scope.isUserUnique = function () {
@@ -224,7 +228,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 if (isUserUnique === "false") {
                     $scope.uniqueUser = true;
                     $("#usernamesignup").focus();
-                }else{
+                } else {
                     $scope.uniqueUser = false;
                 }
             });
@@ -261,13 +265,12 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         };
 
         $scope.validationCode = function (companyData) {
-            
+
             if (!companyData.companyName) {
                 $scope.companyData.companyName = "";
                 $("#companyName").focus();
                 return false;
-            }
-            else if (!companyData.ddSelectOrganization.value || companyData.ddSelectOrganization.value === "0") {
+            } else if (!companyData.ddSelectOrganization.value || companyData.ddSelectOrganization.value === "0") {
                 $scope.organizationValidation = true;
                 return false;
             }
@@ -278,43 +281,43 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $scope.companyName = companyData.companyName;
             $scope.organizationId = companyData.ddSelectOrganization.value;
             if ($scope.validationCode(companyData))
-            { 
-                appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+            {
+                appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                     var userIdvalue = kGlobalCompanyObject.userId;
-                    var companyDetails = {"userId":userIdvalue, "companyName": $scope.companyName, "organizationId": $scope.organizationId};
-                   
+                    var companyDetails = {"userId": userIdvalue, "companyName": $scope.companyName, "organizationId": $scope.organizationId};
+
                     onboardingFactory.saveCompanyPost(companyDetails).then(function (data) {
                         var companyId = data.d.message;
-                        if (parseInt(companyId) == 0){
+                        if (parseInt(companyId) == 0) {
                             growl("company name already exist, please give some other company name");
-                        }else {
+                        } else {
                             kGlobalCompanyObject.companyId = companyId;
 
-                            onboardingFactory.getAllUserCompanies(userIdvalue).then(function(data){
-                               var detail = data.d.details;
-                                if (detail.length === 1){
-                                   var companyDetails = detail[0];
-                                    appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                            onboardingFactory.getAllUserCompanies(userIdvalue).then(function (data) {
+                                var detail = data.d.details;
+                                if (detail.length === 1) {
+                                    var companyDetails = detail[0];
+                                    appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                                         kGlobalCompanyObject.userId = companyDetails.userId;
                                         kGlobalCompanyObject.companyId = companyDetails.companyId;
                                         kGlobalCompanyObject.companyName = companyDetails.companyName;
                                         kGlobalCompanyObject.roleName = companyDetails.roleName;
-                                        kGlobalCompanyObject.roleId= companyDetails.roleId;
+                                        kGlobalCompanyObject.roleId = companyDetails.roleId;
                                         kGlobalCompanyObject.accountStatus = companyDetails.accountStatus;
                                         kGlobalCompanyObject.userEmailId = companyDetails.userEmailId;
-                                        kGlobalCompanyObject.userFirstName= companyDetails.userFirstName;
-                                        kGlobalCompanyObject.userLastName= companyDetails.userLastName;
+                                        kGlobalCompanyObject.userFirstName = companyDetails.userFirstName;
+                                        kGlobalCompanyObject.userLastName = companyDetails.userLastName;
 
-                                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
+                                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {});
                                     });
-                                    }else{
-                                       $scope.companies = data.d.details; 
-                                    }
-                                });
-                            
+                                } else {
+                                    $scope.companies = data.d.details;
+                                }
+                            });
+
 //                            appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
                             //TODO Set the companyId in Auth factory file
-                                $location.path("/signup/datasource");
+                            $location.path("/signup/datasource");
                         }
                     });
                 });
@@ -358,27 +361,33 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 }
             });
         };
-        $scope.getAllUserCompanies = function (userId){
-            onboardingFactory.getAllUserCompanies(userId).then(function(data){
-               var detail = data.d.details;
-                if (detail.length === 1){
-                   var companyDetails = detail[0];
-                   $scope.getAccountStatus(companyDetails);
-                }else{
-                   $scope.companies = data.d.details; 
-                }
-               $scope.hideDataOverlay = false;
+        $scope.getAllUserCompanies = function (userId) {
+            onboardingFactory.getAllUserCompanies(userId).then(function (data) {
+                var detail = data.d.details;
+                appSessionFactory.getUser().then(function (kGlobalUserObject) {
+                    if (detail.length === 1) {
+                        kGlobalUserObject.hasMultipleCompany = false;
+                        var companyDetails = detail[0];
+                        $scope.getAccountStatus(companyDetails);
+                    } else {
+                        kGlobalUserObject.hasMultipleCompany = true;
+                        $scope.companies = data.d.details;
+                    }
+                    appSessionFactory.setUser(kGlobalUserObject).then(function (data) {
+                                 $scope.hideDataOverlay = false;
+                    });
+                });
             });
         };
 
-        $scope.getAccountStatus = function(companyDetails){
-            
-            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+        $scope.getAccountStatus = function (companyDetails) {
+
+            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                 kGlobalCompanyObject.userId = companyDetails.userId;
                 kGlobalCompanyObject.companyId = companyDetails.companyId;
                 kGlobalCompanyObject.companyName = companyDetails.companyName;
                 kGlobalCompanyObject.roleName = companyDetails.roleName;
-                kGlobalCompanyObject.roleId= companyDetails.roleId;
+                kGlobalCompanyObject.roleId = companyDetails.roleId;
                 kGlobalCompanyObject.accountStatus = companyDetails.accountStatus;
                 kGlobalCompanyObject.userEmailId = companyDetails.userEmailId;
                 kGlobalCompanyObject.userFirstName= companyDetails.userFirstName;
@@ -399,19 +408,19 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                            $scope.hideDataOverlay = false;
                         });
                     }
-                    
+
                 });
-                
+
             });
 
         };
-        
+
         $scope.getActivationLink = function (studioId) {
             $scope.mindbodyActive = false;
             onboardingFactory.saveStudioIdPost(studioId).then(function (data) {
                 var studioIdSaved = eval(JSON.stringify(data.d.message));
                 if (studioIdSaved === "true") {
-                    externalContentFactory.activationLinkGet().then(function (data) {                       
+                    externalContentFactory.activationLinkGet().then(function (data) {
                         $scope.activationLink = data.d.details[0];
                         growl("Mindbody activated successfully");
                     });
@@ -429,8 +438,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                     $scope.studioId = "";
                     $("#mindbodyStudioId").focus();
                     return false;
-                }
-                else {
+                } else {
                     onboardingFactory.isMindbodyActivated().then(function (data) {
                         var activation = JSON.stringify(data.d.details[0]);
                         globalActivation = activation;
@@ -539,11 +547,16 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 //               growl("Please choose all 4 colors.");
                 $scope.colorsAlert = true;
                 return false;
-            }
-            else {
+            } else {
                 $scope.colorsAlert = false;
                 settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
-                    window.location = getHost() + "user/dashboard";
+                    settingsFactory.getRendomColor().then(function (rendomColor){
+                        var profileColor={userProfileColor:rendomColor}; 
+                        settingsFactory.setUserProfileColor(profileColor).then(function (data){
+                             window.location = getHost() + "user/dashboard";
+                        });
+                    });
+                   
                 });
             }
         };
@@ -581,8 +594,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 $scope.user = {emailid: ""};
                 $("#inputemail").focus();
                 return false;
-            }
-            else {
+            } else {
                 signupFactory.forgotPasswordPost(user).then(function (data) {
                     growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                     $scope.status = data;

@@ -247,3 +247,10 @@ var importContactValidation = "No Contacts to import!, Please Enter atleast One 
 var linkNameValidation = "Link name not entered! Please entered the link name.";
 var linkUrlValidation = "Link url not entered Or Not Valid! Please Enter the Valid link url.";
 var companyAddressSaved = "Company Address saved.";
+
+// validation alert messages
+var noEmailAndRole = "no email and role selected, please enter the email and select any one role";
+var noEmail = "email not entered please enter the email";
+var noRole = "role not selected, please select the role";
+
+var actionAlreadyScheduled = "This action is already scheduled, please Pause or Disapprove this action first.";

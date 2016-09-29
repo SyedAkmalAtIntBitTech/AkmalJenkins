@@ -1,46 +1,51 @@
-dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$location', 'categoryFactory', 'subCategoryFactory','externalContentFactory','redirectFactory','SharedService','onboardingFactory','appSessionFactory', function ($scope, $window, $location, categoryFactory, subCategoryFactory,externalContentFactory,redirectFactory,SharedService,onboardingFactory,appSessionFactory) {
+dashboardFlowApp.controller("dashboardController", ['$scope', '$window', '$location', 'categoryFactory', 'subCategoryFactory', 'externalContentFactory', 'redirectFactory', 'SharedService', 'onboardingFactory', 'appSessionFactory', function ($scope, $window, $location, categoryFactory, subCategoryFactory, externalContentFactory, redirectFactory, SharedService, onboardingFactory, appSessionFactory) {
         $scope.emailChannelId = 3;
         $scope.printChannelId = 2;
         $scope.imageChannelId = 1;
         $scope.forward = "";
         $scope.categoryId = "";
-        $scope.lookupId="";
-        $scope.externalSourceName="";
-        $scope.subCategoryId="";
-        $scope.mindbodyid="";
-        $scope.emailsubject="";
-        $scope.emailSubjectError="";
-        $scope.sharedData="";
+        $scope.lookupId = "";
+        $scope.externalSourceName = "";
+        $scope.subCategoryId = "";
+        $scope.mindbodyid = "";
+        $scope.emailsubject = "";
+        $scope.emailSubjectError = "";
+        $scope.sharedData = "";
         $scope.companyName = "";
         $scope.userFirstName = "";
         $scope.userLastName = "";
         $scope.userRole = "";
         $scope.logourl = "";
-        $scope.companyList = false;        
-        
-        $scope.getUserDetails = function(){
-            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+        $scope.companyList = false;
+        $scope.neverShowUnsubscribeEmailpopup = true;
+
+        $scope.getUserDetails = function () {
+            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                 $scope.companyName = kGlobalCompanyObject.companyName;
                 $scope.userFirstName = kGlobalCompanyObject.userFirstName;
                 $scope.userLastName = kGlobalCompanyObject.userLastName;
-                $scope.userRole = kGlobalCompanyObject.roleName; 
+                $scope.userRole = kGlobalCompanyObject.roleName;
                 $scope.logourl = kGlobalCompanyObject.logourl;
 
-                appSessionFactory.getDashboardMessage().then(function(message){
-                    if(message)
+                appSessionFactory.getDashboardMessage().then(function (message) {
+                    if (message)
                     {
                         growl(message);
-                        appSessionFactory.clearDashboardMessage().then(function(message){
+                        appSessionFactory.clearDashboardMessage().then(function (message) {
                         });
                     }
+                    appSessionFactory.getUser().then(function (kGlobalCompanyObject) {
+                        $scope.hasMultipleCompany = kGlobalCompanyObject.hasMultipleCompany;
+                    });
+
                 });
             });
         };
-        
-        $scope.showCompanyList = function(){
-         window.location = getHost() + "user/loading";
+
+        $scope.showCompanyList = function () {
+            window.location = getHost() + "user/loading";
         };
-        
+
 //        $scope.getAllUserCompanies = function (){
 //            onboardingFactory.getAllUserCompanies().then(function(data){
 //               $scope.companies = data.d.details; 
@@ -48,45 +53,45 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
 //            });
 //        };
 //        
-        $scope.redirect = function (redirect, categoryId, mindbody,lookupId, mindbodyid)
-        {            
-            $scope.lookupId=lookupId;
+        $scope.redirect = function (redirect, categoryId, mindbody, lookupId, mindbodyid)
+        {
+            $scope.lookupId = lookupId;
             if (mindbody === '')
             {
                 $scope.categoryId = categoryId;
             }
             if (mindbody === 'Mindbody')
             {
-                $scope.externalSourceName='mindbody';
-                redirect =$scope.forwardone ;
-                $scope.lookupId=lookupId;
+                $scope.externalSourceName = 'mindbody';
+                redirect = $scope.forwardone;
+                $scope.lookupId = lookupId;
                 $scope.subCategoryId = categoryId;
             }
             if (mindbody === 'nonmindbody')
             {
-                if (redirect==='emailexternalsource')
+                if (redirect === 'emailexternalsource')
                 {
                     redirect = $scope.forwardtwo;
                     $scope.subCategoryId = categoryId;
                 }
                 $scope.categoryId = categoryId;
-            } 
+            }
             if (mindbodyid !== '')
             {
                 $scope.mindbodyid = mindbodyid;
-            } 
+            }
             $location.path("/" + redirect);
         };
-        $scope.redirectToEmailFlow = function(forwardone)
+        $scope.redirectToEmailFlow = function (forwardone)
         {
-            appSessionFactory.clearEmail().then(function(checkCleared){
-            redirectFactory.redirectFlowTo(forwardone);
-            $window.location = getHost()+"user/"+forwardone;
-            var emailsubject=$scope.emailsubject;
-            if(emailsubject==='')
-            {
-                $scope.emailSubjectError="Email Subject Required!";
-            }
+            appSessionFactory.clearEmail().then(function (checkCleared) {
+                redirectFactory.redirectFlowTo(forwardone);
+                $window.location = getHost() + "user/" + forwardone;
+                var emailsubject = $scope.emailsubject;
+                if (emailsubject === '')
+                {
+                    $scope.emailSubjectError = "Email Subject Required!";
+                }
             });
         };
         $scope.getCategories = function (forwardone)
@@ -98,7 +103,7 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
                 $scope.displayAllCategories = data.d.details;
             });
         };
-        $scope.getSubCategories = function (forwardone,forwardtwo)
+        $scope.getSubCategories = function (forwardone, forwardtwo)
         {
             $scope.pageName = "emailsubcategory";
             subCategoryFactory.allSubCategoriesGet($scope.categoryId).then(function (data) {
@@ -112,29 +117,52 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
         $scope.getActive = function (lookupId)
         {
             externalContentFactory.activatedGet(lookupId).then(function (data) {
-                var minddata= JSON.stringify(data.d.details);
-                if(minddata === "[true]"){
+                var minddata = JSON.stringify(data.d.details);
+                if (minddata === "[true]") {
                     externalContentFactory.listDataGet(lookupId).then(function (data) {
-                        var parseData=JSON.parse(data.d.details);
-                        $scope.mindbodylist=parseData.mindbody_data;
+                        var parseData = JSON.parse(data.d.details);
+                        $scope.mindbodylist = parseData.mindbody_data;
                     });
-                }
-                else
+                } else
                 {
-                    
+
                 }
             });
         };
-        $scope.redirectFlow= function(pageName)
-        { 
-            redirectFactory.redirectFlowTo(pageName);        
+        $scope.redirectFlow = function (pageName)
+        {
+            redirectFactory.redirectFlowTo(pageName);
         };
 
 
-        $scope.redirectToMarketingProgram= function(pageName)
+        $scope.redirectToMarketingProgram = function (pageName)
         {
-            redirectFactory.redirectFlowTo(pageName);    
-        };        
+            redirectFactory.redirectFlowTo(pageName);
+        };
+        $scope.checkForUnsubscribeEmail = function () {
+            appSessionFactory.getPopupFlag().then(function (kGlobalPopupFlagsObject) {
+                if (kGlobalPopupFlagsObject.emailUnsubscribe) {
+                    $scope.neverShowUnsubscribeEmailpopup = true;
+                    $scope.redirectToEmailFlow('baseemaileditor');
+                } else {
+                    $scope.neverShowUnsubscribeEmailpopup = false;
+                }
+            });
+        };
+        $scope.setUnsubscribeFlage = function (isChecked) {
+            if (isChecked) {
+                appSessionFactory.getPopupFlag().then(function (kGlobalPopupFlagsObject) {
+                    kGlobalPopupFlagsObject.emailUnsubscribe = true;
+                    appSessionFactory.setPopupFlag(kGlobalPopupFlagsObject).then(function (data) {
+                        $scope.neverShowUnsubscribeEmailpopup = true;
+                        $scope.redirectToEmailFlow('baseemaileditor');
+                    });
+                });
+            } else {
+                $scope.neverShowUnsubscribeEmailpopup = true;
+                $scope.redirectToEmailFlow('baseemaileditor');
+            }
+        };
     }]);
 
 

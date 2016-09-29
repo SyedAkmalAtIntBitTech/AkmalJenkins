@@ -22,7 +22,7 @@
 
 
 
-    <div class="bb-main-content-wrap bb-main-content-wrap-padding" id="" ng-show="showCampaignActions==true">
+    <div class="bb-main-content-wrap bb-main-content-wrap-padding" id="" ng-show="showCampaignActions==true" ng-init='getAllUsersInCompany()'>
         
              <div class="bb-panel-full-width bb-panel-styling">
                 <div class="bb-panel-header">
@@ -92,6 +92,9 @@
                                             programaction.programTemplateName,
                                             programaction.description,
                                             programaction.postTime,
+                                            programaction.assignedFirstName,
+                                            programaction.assignedLastName,
+                                            programaction.assignedToInitialChars,
                                             programaction.postDateStatus,
                                             programaction.days,
                                             programs.programdetails.programName)">
@@ -140,7 +143,7 @@
             <div class="bb-panel-header">
                 <h2 class="">Marketing Campaign Details</h2>
             </div>
-            <div class="bb-panel-full-width bb-panel-styling-content-wrap">
+            <div class="bb-panel-content-wrap">
                 <div class="hub-section">
                     <div class="input-wrap">
                         <label>Marketing Campaign Name</label>

@@ -436,10 +436,11 @@ public class MarketingRecurringEmailController {
             String entity_id = (String) requestBodyMap.get("entity_id");
             String days = (String) requestBodyMap.get("days");
             String emaillist = (String) requestBodyMap.get("emaillist");
-                      String subject = (String) requestBodyMap.get("subject");
+            String subject = (String) requestBodyMap.get("subject");
             String from_name = (String) requestBodyMap.get("from_name");
             Double template_id = (Double) requestBodyMap.get("template_id");
             String html_data = (String) requestBodyMap.get("html_data");
+            String html_body = (String) requestBodyMap.get("html_body");
 
             //Add by Syed Ilyas 27 Nov 2015 - adds email header
             String htmlHeader = "";
@@ -492,6 +493,7 @@ public class MarketingRecurringEmailController {
 
             schedule_email_list.setEmailListName(emaillist);
             schedule_email_list.setBody(html_data);
+            schedule_email_list.setHtmlBody(html_body);
             org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject) getFromAddress(userCompanyIds.getCompanyId());
 
             if (jsonFromAddress != null) {
@@ -583,7 +585,7 @@ public class MarketingRecurringEmailController {
 
                 if (schedule_entity_list.getEntityId().intValue() != 0) {
                     ScheduledEmailList schedule_email_list = schedule_email_list_service.getById(schedule_entity_list.getEntityId().intValue());
-                    json_entity_list.put("recurring_email_body", schedule_email_list.getBody());
+                    json_entity_list.put("recurring_email_body", schedule_email_list.getHtmlBody());
                     json_entity_list.put("recurring_email_email_list_name", schedule_email_list.getEmailListName());
                     json_entity_list.put("recurring_email_from_address", schedule_email_list.getFromAddress());
                     json_entity_list.put("recurring_email_reply_to_email_address", schedule_email_list.getReplyToEmailAddress());

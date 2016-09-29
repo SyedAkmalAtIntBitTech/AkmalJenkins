@@ -162,5 +162,17 @@ public class UserRoleCompanyLookUpServiceImpl implements UserRoleCompanyLookUpSe
         return statusReturn;
 
     }
+
+   /**
+     * {@inheritDoc}
+     */
+    public List<UsersRoleCompanyLookup> getAllUsersRoleCompanyLookupByCompanyId(Integer companyId) throws ProcessFailed {
+         List<UsersRoleCompanyLookup> usersRoleCompanyLookupList = usersRoleCompanyLookUpDao.getAllUsersRoleCompanyLookupByCompanyId(companyId);
+        if(usersRoleCompanyLookupList == null)
+        {
+             throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
+        }
+        return usersRoleCompanyLookupList;
+    }
     
 }

@@ -16,7 +16,7 @@
     <div class="bb-bar-left-wrap bb-one-third-flex-col">
         <a href="basemarketinghub#/emaillist" class="bb-back-button"></a>
         <h3 class="bb-top-nav-title">{{emailListName}}</h3>
-    </div>
+    </div>       
    
     <div class="bb-bar-right-wrap bb-one-third-flex-col">
         <a id="unselect" href="" class="gray-button reg-button pushright fleft" ng-show="deSelectCheckboxButton">
@@ -30,11 +30,11 @@
 </div>
 
         <div class="bb-top-sub-nav bb-top-sub-nav-backbutton-offset">
-           <div class="bb-top-sub-nav-tab"  id="emailListli" ng-click="showUpdateList()"><a  ng-class="activeEmailDrafts">Email List Contacts</a></div>
+           <div class="bb-top-sub-nav-tab"  id="emailListli" ng-click="showUpdateList()"><a  ng-class="activeEmailListContacts">Email List Contacts</a></div>
            <div class="bb-top-sub-nav-tab"  id="importListli" ng-click="showAddContacts()"><a id="importList" ng-class="activeImportContacts">Add Contacts</a></div>
         </div>
     <!--Main Content--> 
-    <div class="bb-main-content-wrap bb-main-content-wrap-padding" ng-show="showEmailListContacts">
+    <div class="bb-main-content-wrap bb-main-content-wrap-emaillist bb-main-content-wrap-padding" ng-show="showEmailListContacts">
     <div class="bb-panel-full-width bb-panel-styling" ng-init="updateList()">
             <div class="bb-panel-header">
                 <h2 class="">Email List Contacts</h2>
@@ -111,11 +111,10 @@
             <div class="bb-panel-full-width bb-panel-styling">
             <div class="bb-panel-header">
                 <h2 class="">Import Email Addresses into {{emailListName}}</h2>
+                <div id="addcontact" class="bb-button add-button" ng-click="addContactDetails('add','','','','')"> Add Contact</div>
             </div>
             <div class="bb-panel-full-width bb-panel-styling-content-wrap" >
-                <a href="javascript:void(0)" class="fleft">
-                    <div id="bb-button" class="add-button reg-button" ng-click="addContactDetails('add','','','','')"> Add Contact</div>    
-               </a>
+                
                 <div id="emailsubjectdiv">
            
 

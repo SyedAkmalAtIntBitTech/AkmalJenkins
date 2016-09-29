@@ -27,9 +27,6 @@ import javax.persistence.TemporalType;
 @Table(name = "scheduled_entity_list")
 public class ScheduledEntityList implements Serializable {
 
-
-
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

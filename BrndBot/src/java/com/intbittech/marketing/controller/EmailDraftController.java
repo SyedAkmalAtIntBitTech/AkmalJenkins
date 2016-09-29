@@ -64,6 +64,7 @@ public class EmailDraftController {
             Integer categoryId = Integer.parseInt((String)requestBodyMap.get("categoryId"));
             Integer subCategoryId = Integer.parseInt((String) requestBodyMap.get("subCategoryId"));
             String lookupIdStr=(String)requestBodyMap.get("lookupId");
+            Integer blockAddedCount = Integer.parseInt((String)requestBodyMap.get("blockAddedCount"));
             Integer lookupId=0;
             if((!lookupIdStr.equals("null")) && (!lookupIdStr.equals("")))
             {
@@ -71,7 +72,7 @@ public class EmailDraftController {
             }    
             String mindbodyIdStr=(String) requestBodyMap.get("mindbodyData");
             Integer mindbodyId=0;
-            if(!mindbodyIdStr.equals("null"))
+            if(!mindbodyIdStr.equals("null") && (!mindbodyIdStr.equals("")))
             {
                 mindbodyId = Integer.parseInt(mindbodyIdStr);
             }  
@@ -90,6 +91,7 @@ public class EmailDraftController {
             emaildraftmodel.setCategoryid(categoryId);
             emaildraftmodel.setSubcategoryid(subCategoryId);
             emaildraftmodel.setHtmlbodystring(bodyString);
+            emaildraftmodel.setBlockAddedCount(blockAddedCount);
 
             String str_model = (String) AppConstants.GSON.toJson(emaildraftmodel);
             JSONParser json_parser = new JSONParser();
@@ -133,10 +135,16 @@ public class EmailDraftController {
             if((!lookupIdStr.equals("null")) && (!lookupIdStr.equals("")))
             {
                 lookupId = Integer.parseInt(lookupIdStr);
-            }   
-            Integer mindbodyId = Integer.parseInt((String) requestBodyMap.get("mindbodyData"));
+            }
+            String mindbodyIdStr=(String) requestBodyMap.get("mindbodyData");
+            Integer mindbodyId=0;
+            if(!mindbodyIdStr.equals("null") && (!mindbodyIdStr.equals("")))
+            {
+                mindbodyId = Integer.parseInt(mindbodyIdStr);
+            }
             Integer draftId = Integer.parseInt((String) requestBodyMap.get("draftId"));
             String bodyString =(String) requestBodyMap.get("bodyString");
+            Integer blockAddedCount = Integer.parseInt((String)requestBodyMap.get("blockAddedCount"));
             EmailDraft emaildraft = emaildraftservice.getById(draftId);
 
             EmailDraftModel emaildraftmodel = new EmailDraftModel();
@@ -148,6 +156,7 @@ public class EmailDraftController {
             emaildraftmodel.setSubcategoryid(subCategoryId);
             emaildraftmodel.setLookupid(lookupId);
             emaildraftmodel.setMindbodyid(mindbodyId);
+            emaildraftmodel.setBlockAddedCount(blockAddedCount);
 
             Date edit_date = new Date();
 
@@ -257,6 +266,7 @@ public class EmailDraftController {
             JSONObject json_draft_data = (JSONObject) json_parser.parse(json_string_data);
             json_object.put("emailsubject", json_draft_data.get("emailsubject"));
             json_object.put("htmlbody", json_draft_data.get("htmlbodystring"));
+            json_object.put("blockAddedCount", json_draft_data.get("blockAddedCount"));
 
             return json_object.toString();
         } catch (Exception e) {

@@ -1,5 +1,6 @@
 
 <div ng-include src="'addaction.html'"></div>
+<div ng-include src="'usersettingpopup.html'"></div>
 
     <div class="bb-top-nav" ng-init="getUserDetails()">
          <div class="bb-bar-left-wrap bb-one-third-flex-col">
@@ -14,7 +15,7 @@
              <div ng-include src="'usersettingsDropDown.html'" class="bb-user-settings-dropdown-target"></div>
          </div>
      </div>
-    <div class="bb-top-sub-nav">
+    <div class="bb-top-sub-nav" ng-init="getAllUsersInCompany()">
         <a href="javascript:void(0)" class="bb-button bb-primary-action-button bb-add-action" id="liPriority" ng-click="ShowAddAction()">Add Action</a>
         <div class="" ng-click="setCurrentDateActions()">
                 <div class="your-plan-cal-dropdown" for="jumptodatepicker" > 
@@ -55,6 +56,9 @@
                                                        entitydetails.template_status,
                                                        entitydetails.schedule_time,
                                                        entitydetails.entity_type,
+                                                       entitydetails.assignedFirstName,
+                                                       entitydetails.assignedLastName,
+                                                       entitydetails.assignedToInitialChars,
                                                        entitydetails.schedule_title,
                                                        entitydetails.schedule_description,
                                                        entitydetails.marketingName,

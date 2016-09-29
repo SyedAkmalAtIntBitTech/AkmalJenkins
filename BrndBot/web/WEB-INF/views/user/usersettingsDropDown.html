@@ -1,8 +1,8 @@
 <div class="bb-dropdown-wrap" ng-show="userSettings">
-        <a class="hub-dropdown-section" href="settings" id="socialhubli">
+        <a class="hub-dropdown-section" href="settings#/" id="socialhubli">
             <div class=" dropdown-label-active">Settings</div>
         </a>
-        <a class="hub-dropdown-section" href="" id="socialhubli" ng-click="showCompanyList()">
+        <a ng-if="hasMultipleCompany" class="hub-dropdown-section" href="" id="socialhubli" ng-click="showCompanyList()">
             <div class=" dropdown-label-active" >Change Company</div>
         </a>
         <!--<a class="hub-dropdown-section" href="#/marketing" id="socialhubli">

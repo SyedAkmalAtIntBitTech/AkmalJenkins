@@ -17,12 +17,10 @@ import com.intbittech.model.MarketingProgram;
 import com.intbittech.model.RecurringEmailTemplate;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
-import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.MarketingActionService;
 import com.intbittech.services.RecurringEmailTemplateService;
 import com.intbittech.utility.ErrorHandlingUtil;
-import com.intbittech.utility.UserSessionUtil;
 import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,7 +33,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
-import org.hibernate.Transaction;
 import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -64,7 +61,7 @@ public class CompanyMarketingProgramController {
     @Autowired
     private RecurringEmailTemplateService recurringEmailTemplateService;
 
-  @RequestMapping(value = "/setMarketingProgram", method = RequestMethod.POST)
+    @RequestMapping(value = "/setMarketingProgram", method = RequestMethod.POST)
     public @ResponseBody
     TransactionResponse setUserMarketingProgram(HttpServletRequest request,
             HttpServletResponse response) throws IOException, Throwable {
@@ -76,11 +73,11 @@ public class CompanyMarketingProgramController {
             MarketingProgram marketingProgram = new MarketingProgram();
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-            
+
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             Company company = new Company();
             company.setCompanyId(userCompanyIds.getCompanyId());
-            
+
             addCompanyMarketingProgram.setCompanyMarketingProgramName(requestBodyMap.get("program_name").toString());
             String target = requestBodyMap.get("program_date_time").toString();
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -122,7 +119,7 @@ public class CompanyMarketingProgramController {
 
                     ScheduledEntityList scheduledEntityList = new ScheduledEntityList();
                     scheduledEntityList.setEntityType(jsonObject.get("type").toString());
-                    scheduledEntityList.setIsRecurring(Boolean.parseBoolean(jsonObject.get("is_recuring").toString()));
+                    scheduledEntityList.setIsRecurring(Boolean.parseBoolean(jsonObject.get("is_recurring").toString()));
                     scheduledEntityList.setScheduleDesc(jsonObject.get("description").toString());
                     scheduledEntityList.setEntityId(0);
                     scheduledEntityList.setScheduleTime(time);
@@ -137,18 +134,17 @@ public class CompanyMarketingProgramController {
                     scheduledEntityListService.save(scheduledEntityList);
                 }
             }
-        transactionResponse.setId(link);    
-        transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Company marketing program created successfully"));
-        
+            transactionResponse.setId(link);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Company marketing program created successfully"));
 
         } catch (Exception ex) {
-      transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
             logger.error(ex);
         }
         //return "false";
         //transactionResponse.setId("false");    
         //transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Company marketing program created successfully"));
-    return transactionResponse;
+        return transactionResponse;
     }
 
     @RequestMapping(value = "/listAllMarketingProgram", method = RequestMethod.GET)
@@ -158,25 +154,24 @@ public class CompanyMarketingProgramController {
         List<CompanyMarketingProgram> companyMarketingProgramList = companyMarketingProgramService.getAllCompanyMarketingProgramByType(companyId, programType);
         JSONObject jsonObject = new JSONObject();
         JSONArray json_array = new JSONArray();
-        if(companyMarketingProgramList !=null)
-        {
-        for (CompanyMarketingProgram companyMarketingProgramObject : companyMarketingProgramList) {
-            JSONObject json_obj = new JSONObject();
-            json_obj.put("id", companyMarketingProgramObject.getCompanyMarketingProgramId());
-            json_obj.put("program_name", companyMarketingProgramObject.getCompanyMarketingProgramName());
-            Date create_date = companyMarketingProgramObject.getCreatedDate();
-            Date end_date = companyMarketingProgramObject.getDateEvent();
-            Long create_date_in = create_date.getTime();
-            Long end_date_in = end_date.getTime();
-            json_obj.put("start_date", create_date_in);
-            json_obj.put("end_date", end_date_in);
-            if ((programType.equalsIgnoreCase("Open")) || (programType.equalsIgnoreCase("Closed"))) {
-                Integer noofrecords = scheduledEntityListService.getCurrentRecords(companyMarketingProgramObject.getCompanyMarketingProgramId());
-                json_obj.put("noofpostleft", noofrecords);
-            }
-            json_array.put(json_obj);
+        if (companyMarketingProgramList != null) {
+            for (CompanyMarketingProgram companyMarketingProgramObject : companyMarketingProgramList) {
+                JSONObject json_obj = new JSONObject();
+                json_obj.put("id", companyMarketingProgramObject.getCompanyMarketingProgramId());
+                json_obj.put("program_name", companyMarketingProgramObject.getCompanyMarketingProgramName());
+                Date create_date = companyMarketingProgramObject.getCreatedDate();
+                Date end_date = companyMarketingProgramObject.getDateEvent();
+                Long create_date_in = create_date.getTime();
+                Long end_date_in = end_date.getTime();
+                json_obj.put("start_date", create_date_in);
+                json_obj.put("end_date", end_date_in);
+                if ((programType.equalsIgnoreCase("Open")) || (programType.equalsIgnoreCase("Closed"))) {
+                    Integer noofrecords = scheduledEntityListService.getCurrentRecords(companyMarketingProgramObject.getCompanyMarketingProgramId());
+                    json_obj.put("noofpostleft", noofrecords);
+                }
+                json_array.put(json_obj);
 
-        }
+            }
         }
         jsonObject.put("programs", json_array);
         return jsonObject.toString();
@@ -211,7 +206,7 @@ public class CompanyMarketingProgramController {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(eventDate);
                 cal.add(Calendar.DAY_OF_MONTH, -days);
-         
+
                 postDateStatus = true;
                 if (scheduledEntityListObject.getFkRecurringEmailId() != null) {
                     RecurringEmailTemplate recurringEmailTemplate = recurringEmailTemplateService.getRecurringEmailTemplateById(scheduledEntityListObject.getFkRecurringEmailId().getRecurringEmailTemplateId());
@@ -229,6 +224,20 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("description", scheduledEntityListObject.getScheduleDesc());
                 jSONObject.put("postDateStatus", postDateStatus);
                 jSONObject.put("status", TemplateStatus.valueOf(scheduledEntityListObject.getStatus()).getDisplayName());
+                if (scheduledEntityListObject.getAssignedTo() != null) {
+                                        if (scheduledEntityListObject.getAssignedTo().getUserId() != null) {
+                        jSONObject.put("assignedToId", scheduledEntityListObject.getAssignedTo().getUserId());
+                    }
+                    if (scheduledEntityListObject.getAssignedTo().getFirstName() != null) {
+                        jSONObject.put("assignedFirstName", scheduledEntityListObject.getAssignedTo().getFirstName());
+                    }
+                    if (scheduledEntityListObject.getAssignedTo().getLastName() != null) {
+                        jSONObject.put("assignedLastName", scheduledEntityListObject.getAssignedTo().getLastName());
+                    }
+                    if (scheduledEntityListObject.getAssignedTo().getFirstName() != null && scheduledEntityListObject.getAssignedTo().getLastName() != null) {
+                        jSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduledEntityListObject.getAssignedTo().getFirstName(), scheduledEntityListObject.getAssignedTo().getLastName()));
+                    }
+                }
                 scheduledEmailJsonArray.put(jSONObject);
             }
             List<ScheduledEntityList> scheduledEmailListForRecurring = scheduledEntityListService.getScheduledEntityListIdForEmailType(userProgram_id, Boolean.FALSE);
@@ -248,7 +257,7 @@ public class CompanyMarketingProgramController {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(eventDate);
                 cal.add(Calendar.DAY_OF_MONTH, -days);
-        
+
                 postDateStatus = true;
                 JSONObject jSONObject = new JSONObject();
                 jSONObject.put("scheduledEntityListId", scheduledEntityListObject.getScheduledEntityListId());
@@ -263,8 +272,22 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("postDate", cal.getTimeInMillis());
                 jSONObject.put("postTime", scheduledEntityListObject.getScheduleTime().getTime());
                 jSONObject.put("actionType", scheduledEntityListObject.getEntityType());
+                if (scheduledEntityListObject.getAssignedTo() != null) {
+                    if (scheduledEntityListObject.getAssignedTo().getUserId() != null) {
+                        jSONObject.put("assignedToId", scheduledEntityListObject.getAssignedTo().getUserId());
+                    }
+                    if (scheduledEntityListObject.getAssignedTo().getFirstName() != null) {
+                        jSONObject.put("assignedFirstName", scheduledEntityListObject.getAssignedTo().getFirstName());
+                    }
+                    if (scheduledEntityListObject.getAssignedTo().getLastName() != null) {
+                        jSONObject.put("assignedLastName", scheduledEntityListObject.getAssignedTo().getLastName());
+                    }
+                    if (scheduledEntityListObject.getAssignedTo().getFirstName() != null && scheduledEntityListObject.getAssignedTo().getLastName() != null) {
+                        jSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduledEntityListObject.getAssignedTo().getFirstName(), scheduledEntityListObject.getAssignedTo().getLastName()));
+                    }
+                }
                 scheduledEmailAndSocailPostJsonForRecurringArray.put(jSONObject);
-                System.out.println(scheduledEmailAndSocailPostJsonForRecurringArray);
+//                System.out.println(scheduledEmailAndSocailPostJsonForRecurringArray);
 
             }
             List<ScheduledEntityList> scheduledEntityListForSocialpost = scheduledEntityListService.getScheduledEntityListIdForSocialPostType(userProgram_id);
@@ -283,7 +306,7 @@ public class CompanyMarketingProgramController {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(eventDate);
                 cal.add(Calendar.DAY_OF_MONTH, -days);
-    
+
                 postDateStatus = true;
                 JSONObject jSONObject = new JSONObject();
                 jSONObject.put("scheduledEntityListId", scheduledSocialpostListObject.getScheduledEntityListId());
@@ -297,6 +320,20 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("postDate", cal.getTimeInMillis());
                 jSONObject.put("postTime", scheduledSocialpostListObject.getScheduleTime().getTime());
                 jSONObject.put("actionType", scheduledSocialpostListObject.getEntityType());
+                if (scheduledSocialpostListObject.getAssignedTo() != null) {
+                    if (scheduledSocialpostListObject.getAssignedTo().getUserId() != null) {
+                        jSONObject.put("assignedToId", scheduledSocialpostListObject.getAssignedTo().getUserId());
+                    }
+                    if (scheduledSocialpostListObject.getAssignedTo().getFirstName() != null) {
+                        jSONObject.put("assignedFirstName", scheduledSocialpostListObject.getAssignedTo().getFirstName());
+                    }
+                    if (scheduledSocialpostListObject.getAssignedTo().getLastName() != null) {
+                        jSONObject.put("assignedLastName", scheduledSocialpostListObject.getAssignedTo().getLastName());
+                    }
+                    if (scheduledSocialpostListObject.getAssignedTo().getFirstName() != null && scheduledSocialpostListObject.getAssignedTo().getLastName() != null) {
+                        jSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduledSocialpostListObject.getAssignedTo().getFirstName(), scheduledSocialpostListObject.getAssignedTo().getLastName()));
+                    }
+                }
                 scheduledEmailAndSocailPostJsonForRecurringArray.put(jSONObject);
 
             }
@@ -441,7 +478,6 @@ public class CompanyMarketingProgramController {
         return "false";
     }
 
-
     @RequestMapping(value = "/approveStatusRecurring", method = RequestMethod.POST)
     public @ResponseBody
     String approveStatusRecurring(HttpServletRequest request,
@@ -469,7 +505,7 @@ public class CompanyMarketingProgramController {
         return "false";
     }
 
-     @RequestMapping(value = "/approveStatus", method = RequestMethod.POST)
+    @RequestMapping(value = "/approveStatus", method = RequestMethod.POST)
     public @ResponseBody
     String approveStatus(HttpServletRequest request,
             HttpServletResponse response) throws IOException, Throwable {
@@ -478,7 +514,7 @@ public class CompanyMarketingProgramController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
-            Integer entity_id = Integer.parseInt((String)requestBodyMap.get("entity_id"));
+            Integer entity_id = Integer.parseInt((String) requestBodyMap.get("entity_id"));
             String template_status = (String) requestBodyMap.get("template_status");
 
             ScheduledEntityList scheduled_entity_list = scheduledEntityListService.getEntityById(entity_id);
@@ -487,9 +523,9 @@ public class CompanyMarketingProgramController {
                 scheduled_entity_list.setStatus(TemplateStatus.approved.toString());
             } else if (template_status.equalsIgnoreCase("template_saved")) {
                 scheduled_entity_list.setStatus(TemplateStatus.template_saved.toString());
-            } else if (template_status.equalsIgnoreCase("complete")){
+            } else if (template_status.equalsIgnoreCase("complete")) {
                 scheduled_entity_list.setStatus(TemplateStatus.complete.toString());
-            } else if (template_status.equalsIgnoreCase("no_template")){
+            } else if (template_status.equalsIgnoreCase("no_template")) {
                 scheduled_entity_list.setStatus(TemplateStatus.no_template.toString());
             }
             scheduledEntityListService.update(scheduled_entity_list);

@@ -11,7 +11,7 @@
            <a class="bb-back-button" ng-show="emailDetailsBackButton" href="" ng-click="backToEmailList()" id="backemaildetails" ></a>
            
             <h3 class="bb-top-nav-title">Email Editor</h3>
-            <div ng-hide="isEmailSaveAction" class="email-editor-save-exit-button" id="saveToDraft" ng-click="saveToDraftOnClick()"  >Save as Draft and Exit</div> 
+            
         </div>
         <div class="bb-bar-center-wrap bb-one-third-flex-col">
                <div class="bb-step completed">Email Details</div>
@@ -20,17 +20,19 @@
         <div class="bb-step current">Final Details</div>
         </div>
         <div class="bb-bar-right-wrap bb-one-third-flex-col">
+            <!--<a class="email-editor-save-exit-button" href="dashboard"><div>Exit</div></a>-->
+            <div ng-hide="isEmailSaveAction" class="email-editor-save-exit-button" id="saveToDraft" ng-click="saveToDraftOnClick(false)"  >Save as Draft and Exit</div> 
             <div class="bb-help-icon">help icon</div>
         </div>
     </div>
 
     <div class="bb-main-content-wrap bb-main-content-wrap-padding bb-center-content" id="emaillistselid">
-        <div class="modal-pane modal-pane-width-reg" id="emaildetailsids"  ng-show="showEmailDetails==true">
-            <div class="modal-pane-header-wrap">
+        <div class="bb-panel-styling bb-panel-default" id="emaildetailsids"  ng-show="showEmailDetails==true">
+            <div class="bb-panel-header">
                 <h2>Email Details</h2>
                 
             </div>
-            <div class="modal-pane-content-wrap">
+            <div class="bb-panel-content-wrap">
                  <div class="input-wrap">
                     <label> Enter a Subject Line </label>
                     <div class="input ">
