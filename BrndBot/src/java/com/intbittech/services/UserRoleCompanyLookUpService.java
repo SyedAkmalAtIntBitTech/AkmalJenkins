@@ -123,6 +123,16 @@ public interface UserRoleCompanyLookUpService {
      * @return {@link String}
      * @throws ProcessFailed the process failed
      */
-    public String getStatus(UserCompanyDetails userCompanyDetails)throws ProcessFailed;        
-    
+    public String getStatus(UserCompanyDetails userCompanyDetails)throws ProcessFailed;
+  
+     /**
+     * This method retrieves the list of {@link UsersRoleCompanyLookup} from Database.
+     *
+     * @param companyId the companyId
+     * @return {@link UsersRoleCompanyLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public List<UsersRoleCompanyLookup> getAllUsersRoleCompanyLookupByCompanyId(Integer companyId) throws ProcessFailed;  
 }
+    
+

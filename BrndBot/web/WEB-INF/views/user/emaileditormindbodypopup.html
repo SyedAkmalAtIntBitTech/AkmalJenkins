@@ -2,14 +2,14 @@
 
     <!--MainContent-->
 
-   <div class="modal-pane modal-pane-width-full ">
+   <div class="bb-panel-styling bb-panel-full-width ">
        <div >
-            <div class="modal-pane-header-wrap">
+            <div class="bb-panel-header">
                 <h2>Select content for this block</h2>
                  <input class="modal-pane-search-input" type="text" placeholder="Search" ng-model="userSearch">
                  <a class="modal-pane-header-exit" ng-click="closeMindbodyPopup()"></a>
             </div>
-            <div class="modal-pane-content-wrap sequence-page" ng-show="loadingOverlay">
+            <div class="bb-panel-content-wrap modal-max-height" ng-show="loadingOverlay">
                  <div class="external-data-loading-wrap" >
                     <div class="external-data-loading-block">
                         <div class="loader"></div>
@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </div>
-           <div class="modal-pane-content-wrap sequence-page"  ng-init="hideMindbodyOverlay = false" ng-if="hideMindbodyOverlay">
+           <div class="bb-panel-content-wrap modal-max-height"  ng-init="hideMindbodyOverlay = false" ng-if="hideMindbodyOverlay">
                 <a ng-repeat="mindbody in mindbodyDataList.mindbody_data | filter:userSearch" ng-click="didSelectMindbodyDataId(mindbody.id)" class="slat external-data">
                     <div class="slat-name-wrap">
                         <h2>{{mindbody.column1}}</h2>

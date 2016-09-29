@@ -48,6 +48,15 @@ factoryApp.factory('emailListFactory', function ($q, authenticatedServiceFactory
         });
         return deffered.promise;
     };
+
+    emailListFactoryObject.getContactsOfEmailTag = function (data) {
+        var deffered = $q.defer();
+        var url = configurationService.getContactsOfEmailListURL()+"?emailTag="+data;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
     
     emailListFactoryObject.editContact = function (data) {
         var deffered = $q.defer();
@@ -94,6 +103,24 @@ factoryApp.factory('emailListFactory', function ($q, authenticatedServiceFactory
         return deffered.promise;
     };  
     
+    emailListFactoryObject.emailListSavePost = function (data) {
+        var deffered = $q.defer();
+        var url = configurationService.emailListSaveURL();
+        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    
+    emailListFactoryObject.emailListTagsForFranchiseGet = function (franchiseId) {
+        var deffered = $q.defer();
+        var url = configurationService.emailListTagsForFranchiseURL()+ "?franchiseId="+ franchiseId;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+
     return emailListFactoryObject;
 });
 

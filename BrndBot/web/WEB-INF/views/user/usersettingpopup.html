@@ -4,25 +4,24 @@
     Created on : 17 June, 2016, 11:12:37 AM
     Author     : ilyas
 -->
-
+<!--
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="shortcut icon" href="images/favicon.png"/>
         <title>Email Flow</title>
         
-        
-        <!--<link href="css/normalize.css" rel="stylesheet" type="text/css"/>-->
+        <link href="css/normalize.css" rel="stylesheet" type="text/css"/>
         <link href="../css/general_1.css" rel="stylesheet" type="text/css"/>   
       
-</head>    
+</head>    -->
 
 <!--need to add fade class-->
-<div id="fade" class="black_overlay center-pop-ups" ng-class="fadeClass">
+<div id="fadeUserSettings" class="black_overlay center-pop-ups" ng-class="fadeClasses">
         <div class="modal-pane modal-pane-width-reg" id="addUserSettings" ng-show="addUserSettings">
             <div class="modal-pane-header-wrap">
                 <h2 class="">Invite a New User</h2>
           <!--<h2 class="">Update a User</h2>-->
-                <a id="addactionClose" ng-click = "closeOverlay()" class="modal-pane-header-exit"></a>
+                <a id="addactionClose" ng-click = "closeInviteUsersPopup()" class="modal-pane-header-exit"></a>
                 <!--<a id="addactionClose" ng-click = "showUserSettingsModal='false'" class="modal-pane-header-exit"></a>-->
             </div>
             <div class="modal-pane-content-wrap create-new-schedule-modal">
@@ -67,7 +66,7 @@
         </div>
         </div>
            
-        <div class="modal-pane modal-pane-width-reg" id="addUserSettings" ng-show="editUserSettings">
+        <div class="modal-pane modal-pane-width-reg" id="editUserSettings" ng-show="editUserSettings">
             <div class="modal-pane-header-wrap">
                 <h2 class="">Edit User Role</h2>
                 <!--<h2 class="">Update a User</h2>-->
@@ -117,10 +116,10 @@
             </div>
         </div>
 
-        <div class="modal-pane modal-pane-width-reg" id="addUserSettings" ng-show="resendUserEmail">
+<!--        <div class="modal-pane modal-pane-width-reg" id="addUserSettings" ng-show="resendUserEmail">
             <div class="modal-pane-header-wrap">
                 <h2 class="">Invite User </h2>
-                <!--<h2 class="">Update a User</h2>-->
+                <h2 class="">Update a User</h2>
                 <a id="addactionClose" ng-click = "closeOverlay()" class="modal-pane-header-exit"></a>
             </div>
             <div class="modal-pane-content-wrap create-new-schedule-modal">
@@ -135,7 +134,7 @@
                     <h3 class="user-role-selection-wrap-header">USER PERMISSIONS</h3>
                     <div class="user-role-option-wrap">
                         <div class="user-role-check-box-wrap">
-                            <!--Need to add ng-click to hide and show active checkbox-->
+                            Need to add ng-click to hide and show active checkbox
                             <input type="radio" ng-value="1" ng-model="settings.adminRadio" name="adminRadio" id="adminRadio">
                         </div>
                         <div class="user-role-definition-wrap">
@@ -145,7 +144,7 @@
                     </div>
                     <div class="user-role-option-wrap">
                         <div class="user-role-check-box-wrap">
-                            <!--Need to add ng-click to hide and show active checkbox-->
+                            Need to add ng-click to hide and show active checkbox
                             <input type="radio" ng-value="2" ng-model="settings.adminRadio" name="adminRadio" id="adminRadio">
                         </div>
                         <div class="user-role-definition-wrap">
@@ -155,9 +154,9 @@
                     </div>
                     
                     <div class="user-role-option-wrap">
-                        <!--Need to add ng-click to hide and show active checkbox-->
+                        Need to add ng-click to hide and show active checkbox
                        <div class="user-role-check-box-wrap">
-                            <!--Need to add ng-click to hide and show active checkbox-->
+                            Need to add ng-click to hide and show active checkbox
                             <input type="radio" ng-value="4" ng-model="settings.adminRadio" name="adminRadio" id="adminRadio">
                         </div>
                         <div class="user-role-definition-wrap">
@@ -167,14 +166,14 @@
                     </div>
                 </div>
             </div>
-               <!--Need to add ng-hide and show if it is a new user or an old user
+               Need to add ng-hide and show if it is a new user or an old user
         <div class="modal-cta-container">
             <a class="long-button blue-button">Unsubscribe Now</a>
-        </div>-->
-        <div class="modal-cta-container">
-            <a class="long-button blue-button" ng-click="resendUserEmail(settings)">Edit User</a>
-            </div>
         </div>
+            <div class="modal-cta-container">
+                <a class="long-button blue-button" ng-click="resendUserEmail(settings)">Edit User</a>
+            </div>
+        </div>-->
     
 </div>
 

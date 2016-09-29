@@ -1,0 +1,118 @@
+
+<div class="bb-panel-full-width bb-panel-styling" ng-init="getEntityDetails()">
+    <div class="bb-panel-header">
+        <h2 class="">Email Automation Set Up</h2>
+    </div>
+    <div class="bb-panel-content-wrap">
+        <div class="hub-section">
+            <div class="section-header">
+                <h3>General Details</h3>
+            </div>
+            <div class="input-wrap">
+                <label> Enter a name for this automated email: </label>
+                <div class="input">
+                    <input id="recuring_email_title"  type="text" required placeholder="Enter Name of email" ng-model="automationData.title" value="{{entity_details.recurring_email_title}}"  ng-class="{'invalid-input': automationData.title === '' || null}" class="fluid"/>
+                </div>
+                <span class="validationAlert" ng-if='automationData.title === "" || null'>{{actionNameValidation}}</span>
+
+                <p class="input-wrap-label"> Make this something that your clients will recognize</p>
+            </div>
+            <div class="input-wrap">
+                <label> Enter a description</label>
+                <div class="input">
+                    <input id="recuring_description"  type="text" required   ng-class="{'invalid-input': automationData.description === '' || null}"
+                           placeholder="Enter description of email" ng-model="automationData.description" value="{{entity_details.recurring_email_description}}" class="fluid"/>
+                    <span class="validationAlert" ng-if='automationData.description === "" || null'>{{descriptionValidation}}</span>
+
+                    <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
+                </div>
+            </div>
+        </div>
+        <div class="hub-section">
+            <div class="section-header">
+                <h3>Trigger Details</h3>
+            </div>
+            <div class="email-automation-trigger-sentence-wrap">
+                <div class="">
+                    Send an email to a recipient
+                </div>
+                <div class="day-drop-down-email-auto">
+                    <div dropdown-select="ddSelectDateAutomationDataOptions" dropdown-model="ddSelectDateAutomationData" dropdown-onchange="setDays(selected)"></div>
+                </div>
+                <span class="validationAlert" ng-if="emailAutomationDayValidation">{{automationDayValidation}}</span>
+
+                <div class="">
+                    <div class="">
+                        days after they are added to
+                    </div>
+                </div>
+                <div class="email-automation-trigger-list-drop" ng-click="emailListDropdown()">
+                    <div dropdown-select="ddSelectEmailListAutomationDataOptions" dropdown-model="ddSelectEmailListAutomationData" dropdown-onchange="emailListOnChange(selected)"></div>
+                </div>
+                <span class="validationAlert" ng-if="emailAutomationListValidation">{{automatedEmailListValidation}}</span>
+
+            </div>
+            <div class="input-wrap">
+                <label> Enter a Time of Day to Send this Email</label>
+                <a class="clickable-input fluid">
+                    <div class="date-time-select-icon">
+                        <object type="image/svg+xml" data="/BrndBot/images/time-gray.svg" style="cursor:pointer;"> </object>
+                    </div>
+                    <input id="timepicker1" readonly type="text" name="timepicker1" ng-model="automationData.time" class="time-date-select"  ng-class="{'invalid-input': automationData.time === '' || null}"
+                           value="{{entity_details.recurring_email_time| date: 'hh : mm : a'}}" /> 
+
+                    <script src="../js/utilities/timepicki.js" type="text/javascript"></script>
+                    <script>
+                               $('#timepicker1').timepicki({
+                                   show_meridian: true,
+                                   min_hour_value: 0,
+                                   max_hour_value: 12,
+                                   step_size_minutes: 01,
+                                   overflow_minutes: true,
+                                   increase_direction: 'up',
+                                   disable_keyboard_mobile: true
+                               });
+                    </script>
+                </a>
+                <span class="validationAlert" ng-if="automationTime">{{scheduleTimeValidation}}</span>
+
+            </div>
+        </div>
+        <div class="hub-section">
+            <div class="section-header">
+                <h3>Email Details</h3>
+            </div>
+            <div class="input-wrap">
+                <label> Enter a subject line: </label>
+                <div class="input">
+                    <input id="recuring_email_subject"  type="text" required placeholder="Enter subject" ng-model="automationData.subject" value="{{entity_details.recurring_email_subject}}" ng-class="{'invalid-input': automationData.subject === '' || null}" class="fluid"/>
+                </div>
+                <span class="validationAlert" ng-if='automationData.subject === "" || null'>{{subjectValidation}}</span>
+
+                <p class="input-wrap-label"> Make this something that your clients will recognize</p>
+            </div>
+            <div class="input-wrap">
+                <label> Enter a from name</label>
+                <div class="input">
+                    <input id="recurring_from_name" class="fluid" type="text" ng-model="automationData.fromName"  ng-class="{'invalid-input': automationData.fromName === '' || null}" required  placeholder="Enter from name" 
+                           value="{{entity_details.recurring_email_from_name}}"/>
+                    <span class="validationAlert" ng-if='automationData.fromName === "" || null'>{{fromNameValidation}}</span>
+
+                    <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
+                </div>
+            </div>
+            <div class="input-wrap">
+                <label> Enter a Reply to Address</label>
+                <div class="input">
+                    <input id="reply_address" class="fluid" ng-model="automationData.replyAddress" ng-class="{'invalid-input': automationData.replyAddress === '' || null}" type="text" 
+                           required  placeholder="Enter reply-to-address" 
+                           value="{{entity_details.recurring_email_reply_to_email_address}}"/>
+                    <span class="validationAlert" ng-if='automationData.replyAddress === "" || null'>{{replyToValidation}}</span>
+                    <span class="validationAlert" ng-if="validateEmailId">{{emailValidation}}</span>
+
+                    <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

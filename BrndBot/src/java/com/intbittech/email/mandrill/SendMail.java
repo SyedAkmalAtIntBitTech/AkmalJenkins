@@ -41,7 +41,7 @@ public class SendMail {
     private static final Logger logger = Logger.getLogger(com.intbittech.utility.Utility.getClassName(SendMail.class));
 //    public final static String MANDRILL_KEY = "qiy8dbHXdGU46qX53MvGdQ";//Test key
     public final static String MANDRILL_KEY = "UMOD7RKLNPwoGrCL7XnvTg";//Prod key changed 17 june from new account - BrndBot1
-    
+
     public static MessageResponses sendMail(Message message) {
         try {
             logger.log(Level.INFO, "Message:" + message.toJSONString());
@@ -106,14 +106,14 @@ public class SendMail {
             logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while updating org name:", null));
         }
     }
-    
-    public static String getTag(String subject){
+
+    public static String getTag(String subject) {
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy h mm a");
         String formattedDate = sdf.format(new Date());
-        String tag =  subject + " - " + formattedDate;
+        String tag = subject + " - " + formattedDate;
         return tag;
     }
-    
+
     public static String sendEmail(String html_text, String email_subject, String to_email_addresses, String emaillist_name, Integer user_id, String reply_to_address, String from_email_address, String from_name, String to_name) {
         String returnMessage = "";
         try {
@@ -138,9 +138,9 @@ public class SendMail {
             Recipient rec = new Recipient();
 
             rec.setEmail(to_email_addresses);
-            if (to_name != null){
+            if (to_name != null) {
                 rec.setName(to_name);
-            }else{
+            } else {
                 rec.setName(to_email_addresses);
             }
             rec.setType("to");
@@ -173,34 +173,56 @@ public class SendMail {
     }
 
     public JSONArray getAllEmailAddressesForEmailList(Integer companyId, Integer days, String emailListName) throws Throwable {
-        
+
         CompanyPreferencesService companyPreferencesService = SpringContextBridge.services().getCompanyPreferencesService();
         CompanyPreferences companyPreferences = companyPreferencesService.getByCompanyId(companyId);
         JSONParser parser = new JSONParser();
         JSONObject companyPreferencesEmailList = (JSONObject) parser.parse(companyPreferences.getEmailList());
-        JSONArray userPreferencesJson = (JSONArray)companyPreferencesEmailList.get(IConstants.kEmailListUserKey);
+        JSONArray userPreferencesJson = (JSONArray) companyPreferencesEmailList.get(IConstants.kEmailListUserKey);
+        JSONArray mindBodyPreferencesJson = (JSONArray) companyPreferencesEmailList.get(IConstants.kEmailListMindbodyKey);
         JSONArray jSONArray = null;
         JSONObject jsonObject = new JSONObject();
         List listemailInfos = new ArrayList();
-        for (Object emaiListObject : userPreferencesJson) {
+        Boolean isFoundEmailList = false;
+        if (userPreferencesJson != null) {
+            for (Object emaiListObject : userPreferencesJson) {
                 JSONObject emailListJSONObject = (JSONObject) emaiListObject;
                 String emailListNameInUserPreferences = (String) emailListJSONObject.get("emailListName");
                 if (emailListNameInUserPreferences.equals(emailListName)) {
-                    
-                    jSONArray = (JSONArray)emailListJSONObject.get("emailAddresses");
-                    for (int i = 0; i < jSONArray.size(); i++){
+
+                    jSONArray = (JSONArray) emailListJSONObject.get("emailAddresses");
+                    for (int i = 0; i < jSONArray.size(); i++) {
 
                         EmailInfo emailinfo = new EmailInfo().fromJSON(jSONArray.get(i).toString());
                         listemailInfos.add(emailinfo);
                     }
+                    isFoundEmailList = true;
                     break;
                 }
+            }
         }
-        
+
+        if (mindBodyPreferencesJson != null) {
+            if (!isFoundEmailList) {
+                for (Object emaiListObject : mindBodyPreferencesJson) {
+                    JSONObject emailListJSONObject = (JSONObject) emaiListObject;
+                    String emailListNameInUserPreferences = (String) emailListJSONObject.get("emailListName");
+                    if (emailListNameInUserPreferences.equals(emailListName)) {
+                        jSONArray = (JSONArray) emailListJSONObject.get("emailAddresses");
+                        for (int i = 0; i < jSONArray.size(); i++) {
+                            EmailInfo emailinfo = new EmailInfo().fromJSON(jSONArray.get(i).toString());
+                            listemailInfos.add(emailinfo);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         JSONArray jsonArrayEmailAddresses = new JSONArray();
         for (Integer i = 0; i < listemailInfos.size(); i++) {
-            EmailInfo emailInfo = (EmailInfo)listemailInfos.get(i);
+            EmailInfo emailInfo = (EmailInfo) listemailInfos.get(i);
             String createDate = emailInfo.getAddedDate().toString();
             Date date = formatter.parse(createDate);
             Calendar cal = Calendar.getInstance();

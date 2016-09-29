@@ -2,31 +2,36 @@
         <script src="../js/utilities/jquerygrowl.js" type="text/javascript"></script>
 <div id="fade" ng-class="fadeClass" class="center-pop-ups">
     <div class="">
-        <div class="modal-pane modal-pane-width-reg" id="addAction" ng-if="addAction">
-            <div class="modal-pane-header-wrap">
+        <div class="bb-panel-styling bb-panel-default" id="addAction" ng-if="addAction" ng-init="getAllUsersInCompany()">
+            <div class="bb-panel-header">
                 <h2 class="">Create a New Action</h2>
                 <a id="addactionClose" ng-click = "closeOverlay()" class="modal-pane-header-exit"></a>
             </div>
-            <div class="modal-pane-content-wrap create-new-schedule-modal">
+            <div class="bb-panel-content-wrap">
                 <div class="input-wrap">
                     <label>Action Name</label>
                     <a class="input">
-                        <input type="text" name="addactiontitle" id="addactiontitle" ng-model="addTitle" placeholder="Enter Title" class="fluid" />
+                        <input type="text" name="addactiontitle" id="addactiontitle" ng-class="{'invalid-input': addTitle === '' || null}" ng-model="addTitle" placeholder="Enter Title" class="fluid" />
                         <input type="hidden" id="marketing_program" value="0" name="marketing_program_type"/>
                     </a>
                     <span class="validationAlert" ng-if='addTitle === "" || null'>{{actionNameValidation}}</span>
-
                 </div>
                 <div class="input-wrap">
                     <label>Action Type</label>
-                    <div dropdown-select="ddSelectActionOptions" dropdown-model="ddSelectAction" dropdown-onchange="chooseActionTypeOnChange(selected)"></div>
+                    <div class="invalidDropdown" dropdown-select="ddSelectActionOptions" dropdown-model="ddSelectAction" dropdown-onchange="chooseActionTypeOnChange(selected)"></div>
                     <span class="validationAlert" ng-if="actionTypeValidation">{{actionDropdownValidation}}</span>
                 </div>
-
+                <!--<div>
+                    <label>Assigned To:</label>
+                    <select id="assignTo" ng-show="moreThanOneUser">
+                        <option value="no assignee" selected>no assignee</option>
+                        <option ng-repeat="users in allUsers" value="{{users.userId}}">{{users.userName}}</option>
+                    </select>
+                </div>-->
                 <div class="input-wrap-row">
                     <div class="input-wrap half">
                         <label>Action Date</label>
-                        <a class="clickable-input fluid">
+                        <a class="clickable-input fluid " ng-class="{'invalid-input': datePicker === '' || null}">
                             <div class="date-time-select-icon">
                                 <object type="image/svg+xml" data="/BrndBot/images/calendar-gray.svg" style="cursor:pointer;"> </object>
                             </div>
@@ -48,7 +53,7 @@
                     </div>
                     <div class="input-wrap half">
                         <label>Action Time</label>
-                        <a class="clickable-input fluid">
+                        <a class="clickable-input fluid" ng-class="{'invalid-input': timePickerVal || dateLesser}">
                             <div class="date-time-select-icon">
                                 <object type="image/svg+xml" data="/BrndBot/images/time-gray.svg" style="cursor:pointer;"> </object>
                             </div>
@@ -66,11 +71,11 @@
                                 });
                             </script>
                         </a>
-                        <span class="validationAlert" ng-if="timePickerVal">{{actionDateValidation}}</span>
-
+                        <span class="validationAlert" ng-if="timePickerVal">{{actionTimeValidation}}</span>
+                        <span class="validationAlert" ng-if="dateLesser">{{lesserDateValidation}}</span>
                     </div>
                 </div>
-                 <span class="validationAlert" ng-if="dateLesser">{{lesserDateValidation}}</span>
+                 
 
             </div>
             <div class="modal-cta-container" >

@@ -1,18 +1,26 @@
-<div class="main-content-wrap">
     <div ng-include src="'marketinghubnavigation.html'"></div>
     <div ng-include src="'createemailList.html'"></div>
-    <div class="top-nav-bar-offset"></div>
-    <div class="top-subnav-bar-offset"></div>
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" d="emaillistsdiv" ng-show="emallistdetails">
+    
+    <div class="bb-main-content-wrap bb-main-content-wrap-padding" id="emaillistsdiv" ng-show="emallistdetails" ng-click="showHideUserSettings(false)">
 
         <!--USER ADDED LISTS-->
-        <div class="hub-pane">
-            <div class="hub-pane-header-wrap">
+        <div class="bb-panel-full-width bb-panel-styling">
+            <div class="bb-panel-header">
                 <h2 class="">Email Lists</h2>
-                <a href="">
-                    <div id="addemlstbtn" class="long-button green-button" ng-show="addEmailListButton" ng-click="addEmailList()"> Create Email List</div>
+                <a href="" id="addemlstbtn" class="bb-button bb-default-action-button bb-last-button" ng-show="addEmailListButton" ng-click="addEmailList()">
+                    Create Email List
                 </a>
             </div>
+            <div class="bb-panel-content" ng-init="emailListGet()">
+                <div class="bb-panel-empty-state-wrap" ng-if="emailLists.length <= 0 || emailLists.length == undefined">
+                    <h2 class="bb-panel-empty-state-text">You have no email lists.</h2>  
+                
+                </div>
+                <div class="bb-slat-list-wrap" ng-show="emailLists.length > 0" ng-repeat="email in emailLists"> 
+                    <div class="bb-slat" ng-click="viewEmailListDetails(email.emailListName, 'user')">
+                       <!-- <div class="selection-container col-5p"> 
+                            <div class="selection-icon" id="{{email.emailListID}}" ng-click="selectedEmailCheckbox(email.emailListID)">
+                                <input type="checkbox" id="{{email.emailListID}}" value="{{email.emailListName}}" name="entityname" hidden></input>
             <div class="hub-pane-content-wrap" ng-init="emailListGet()">
                 <div class="hub-empty-wrap" ng-if="emailLists.length <= 0 || emailLists.length == undefined">No email list present</div>
                 <div class="hub-slat-list-wrap" ng-show="emailLists.length > 0" ng-repeat="email in emailLists"> 
@@ -21,7 +29,7 @@
                             <div class="selection-icon" id="{{email.emailListId}}" ng-click="selectedEmailCheckbox(email.emailListId)">
                                 <input type="checkbox" id="{{email.emailListId}}" value="{{email.emailListName}}" name="entityname" hidden></input>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="slat-name-wrap">
                             <h2>{{email.emailListName}}</h2>
                             <p>Created on {{email.createdDate| date: 'MM-dd-yyyy'}}</p>
@@ -36,7 +44,7 @@
                         </div>
                         <div class="slat-detail-wrap">
                             <div class="slat-detail slat-detail-button ">
-                                <div class="reg-button slat-detail-button" ng-click="viewEmailListDetails(email, 'user')">Manage Email List</div>
+                                <!--<div class="reg-button slat-detail-button" ng-click="viewEmailListDetails(email, 'user')">Manage Email List</div>-->
                             </div>
                         </div>
 
@@ -46,16 +54,27 @@
 
         </div>
 
-        <!--MINDBODY LINKED LISTS-->
-        <div class="hub-pane">
-            <div class="hub-pane-header-wrap">
+        
+        <div class="bb-panel-full-width bb-panel-styling">
+            <div class="bb-panel-header">
                 <h2 class="">MINDBODY Index Connected Lists</h2>
             </div>
-            <div class="hub-pane-content-wrap" ng-init="emailListGet()">
-                <div class="hub-empty-wrap"  ng-if="emailListsMindbody==''">There are no MINDBODY Index Lists</div>
-                <div class="hub-slat-list-wrap" ng-show="emailListsMindbody.length > 0" ng-repeat="email in emailListsMindbody">
-                    <div class="slat">
-                        <div class="slat-icon-wrap"></div>
+            <div class="bb-panel-content" ng-init="emailListGet()">
+                <div  class="bb-panel-empty-state-wrap" ng-if="hideGifImage">
+                    <div class="external-data-loading-wrap" >
+                    <div class="external-data-loading-block">
+                        <div class="loader"></div>
+                        <div class="loader-description">Loading your content</div>
+                    </div>
+                </div>
+                </div>
+                <div class="bb-panel-empty-state-wrap"   ng-if="emailListsMindbody.length <= 0 || emailListsMindbody.length == undefined ">
+                    <h2 class="bb-panel-empty-state-text">There are no MINDBODY Index Lists.</h2>  
+                
+                </div>
+                <div class="bb-slat-list-wrap" ng-show="emailListsMindbody.length > 0" ng-repeat="email in emailListsMindbody">
+                    <div class="bb-slat" ng-click="viewEmailListDetails(email.emailListName, 'mindbody')">
+                        <!--<div class="slat-icon-wrap"></div>-->
                         <div class="slat-name-wrap">
                             <h2>{{email.emailListName}}</h2>
                             <p>Created on {{email.createdDate| date: 'MM-dd-yyyy'}}</p>
@@ -66,15 +85,9 @@
                                 <p>Number of Contacts</p>
                             </div>
                         </div>
-                        <div class="slat-detail-wrap">
-                            <div class="slat-detail slat-detail-button ">
-                                    <a class="reg-button slat-detail-button" ng-click="viewEmailListDetails(email, 'mindbody')">Manage Email List</a>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
         </div>
-    </div>
-</div>

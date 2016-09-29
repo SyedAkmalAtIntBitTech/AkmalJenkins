@@ -492,6 +492,18 @@ factoryApp.service('configurationService', function () {
 
     //************** emailListFactory ********************//
 
+    this.emailListURL = function () {
+        return getHost() + "emaillist/get";
+    };
+
+    this.emailListSaveURL = function () {
+        return getHost() + "emaillist/save";
+    };
+    
+    this.emailListTagsForFranchiseURL = function () {
+        return getHost() + "emailListTag/getAllEmailListTagForFranchise";
+    };
+
     this.addContactListURL = function () {
         return getHost() + "emaillist/addContactList";
     };
@@ -499,7 +511,6 @@ factoryApp.service('configurationService', function () {
     this.deleteContactListURL = function () {
         return getHost() + "emaillist/deleteContactList";
     };
-    
     this.getAllEmailListWithNoOfContactsForMindBodyURL = function () {
         return getHost() + "emaillist/getAllEmailListWithNoOfContactsForMindBody";
     };
@@ -532,6 +543,22 @@ factoryApp.service('configurationService', function () {
         return getHost() + "emaillist/getAllEmailListWithNoOfContactsForUser";
     };
     
+    //************** pushedActionsFactory ********************//
+    
+    this.saveSchedulePushedActionsCompaniesURL = function(){
+        return getHost() + "pushedActions/savePushedScheduledActionCompanies";
+    };
+
+    this.getAllPushedEmailsForFranchiseURL = function(){
+        return getHost() + "pushedActions/getAllPushedActionForFranchise";
+    };
+
+    this.getAllAssociatedAccountForScheduledEntityURL = function(){
+        return getHost() + "pushedActions/getAllAssociatedAccountForScheduledEntity";
+    };
+    this.sendReminderEmailToCreateEmailListURL = function(){
+        return getHost() + "pushedActions/sendReminderEmailToCreateEmailList";
+    };
 
     //************** marketingFactory ********************//
 
@@ -607,6 +634,10 @@ factoryApp.service('configurationService', function () {
         return getHost() + "onboarding/isUserUnique";
     };
 
+    this.updateUserURL = function () {
+        return getHost() + "signup/updateUser";
+    };
+
     this.saveUserURL = function () {
         return getHost() + "onboarding/saveUser";
     };
@@ -625,7 +656,7 @@ factoryApp.service('configurationService', function () {
     this.saveCompanyURL = function () {
         return getHost() + "onboarding/saveCompany";
     };
-    
+
     this.saveCompanyAddressURL = function () {
         return getHost() + "/settings/saveAddress";
     };
@@ -685,7 +716,7 @@ factoryApp.service('configurationService', function () {
     this.unSubscribeEmails = function () {
         return getHost() + "settings/saveUnsubscribeEmails";
     };
-    
+
     this.inviteUserURL = function () {
         return getHost() + "settings/sendInvitation";
     };
@@ -700,8 +731,8 @@ factoryApp.service('configurationService', function () {
     this.resendUserInviteURL = function () {
         return getHost() + "settings/resendInvitation";
     };
-    
-    this.getInvitedUsersURL = function (){
+
+    this.getInvitedUsersURL = function () {
         return getHost() + "settings/getInvitedUsers";
     };
 
@@ -756,28 +787,34 @@ factoryApp.service('configurationService', function () {
     this.setFooterPostURL = function () {
         return getHost() + "settings/setFooter";
     };
+    this.setUserProfileColor = function () {
+        return getHost() + "settings/setUserProfileColor";
+    };
+    this.getUserProfileColor = function () {
+        return getHost() + "settings/getUserProfileColor";
+    };
 
     //************** userFactory ********************/    
 
     this.userWelcomePageURL = function () {
         return getHost() + "user";
     };
-    
-    this.getAllUserCompaniesURL = function (){
+
+    this.getAllUserCompaniesURL = function () {
         return getHost() + "user/getAllUserCompanyDetails";
     };
 
-    this.getUserCompanyDetailsURL = function (){
+    this.getUserCompanyDetailsURL = function () {
         return getHost() + "user/getUserCompanyDetails";
     };
-    this.getLoggedInUserId = function(){
+    this.getLoggedInUserId = function () {
         return getHost() + "user/getLoggedInUserId";
     };
-    
-    this.getAccountStatusURL = function (){
+
+    this.getAccountStatusURL = function () {
         return getHost() + "user/checkUserCompanyActivation";
     };
-    
+
     this.userJspPagesURL = function () {
         return getHost() + "user";
     };
@@ -792,8 +829,30 @@ factoryApp.service('configurationService', function () {
         return getHost() + "ChangeSchedule";
     };
 
+    this.addActionCommentURL = function(){
+        return getHost() + "comment/saveActionComment";
+    };
+
+    this.getActionCommentsURL = function(){
+        return getHost() + "comment/getAllCommentByActionId";
+    };
+
+    this.removeActionCommentURL = function(){
+        return getHost() + "comment/deleteActionComment";
+    };
     this.addActionURL = function () {
         return getHost() + "AddAction";
+    };
+    this.allUsersInCompanyURL = function(){
+        return getHost() + "getAllUsersOfCompany";
+    };
+    
+    this.noOfUsersInCompanyURL = function(){
+        return getHost() + "getNumberOfUsersInCompany";
+    };
+    
+    this.changeAssignedToURL= function(){
+        return getHost() + "actions/updateActionAssignedTo";
     };
 
     this.scheduledEmailURL = function () {
@@ -950,19 +1009,23 @@ factoryApp.service('configurationService', function () {
     this.getRecurringEntityURL = function () {
         return getHost() + "getRecurringEntity";
     };
-    
+
     //************** franchiseFactory ********************/  
-    
+
     this.getAllFranchisesURL = function () {
         return getHost() + "getAllFranchises";
     };
-    
+
     this.getFranchisesForCompanyIdURL = function () {
         return getHost() + "getFranchisesForCompanyId";
     };
-    
+
     this.getCompaniesForFranchiseIdURL = function () {
         return getHost() + "getCompaniesForFranchiseId";
+    };
+
+    this.getCompaniesForFranchiseIdAndEmailListTagURL = function () {
+        return getHost() + "getAllCompanyForFranchise";
     };
 
     this.getFranchiseHeadquarterURL = function () {
@@ -972,29 +1035,33 @@ factoryApp.service('configurationService', function () {
     this.getAllNonSelectedCompaniesURL = function () {
         return getHost() + "getAllNonSelectedCompanies";
     };
-    
+
     this.activateCompanyAsFranchiseURL = function () {
         return getHost() + "activateCompanyAsFranchise";
     };
-    
+
     this.associateCompanyToFranchiseURL = function () {
         return getHost() + "associateCompanyToFranchise";
     };
-    
+
     this.removeCompanyFromFranchiseURL = function () {
         return getHost() + "removeCompanyFromFranchise";
     };
-    
+
     this.saveFranchiseURL = function () {
         return getHost() + "saveFranchise";
     };
-    
-     this.updateFranchiseURL = function () {
+
+    this.updateFranchiseURL = function () {
         return getHost() + "updateFranchise";
     };
-    
+
     this.deleteFranchiseURL = function () {
         return getHost() + "deleteFranchise";
+    };
+    
+    this.requestToAddCompaniesURL = function () {
+        return getHost() + "requestToAddCompanies";
     };
 });
 

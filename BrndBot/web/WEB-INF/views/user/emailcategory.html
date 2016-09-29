@@ -1,17 +1,19 @@
-<!--Main Content Wrap-->
-    <div ng-include src="'navbar.html'"></div> 
-<div class="main-content-wrap">
-    <div class="top-nav-wrap">
-        <div class="header">
-            <a class="back-button" href="dashboard"></a>
-            <h2 class="">Create an Email</h2>
-        </div>
+<div class="bb-top-nav">
+    <div class="bb-bar-left-wrap bb-one-third-flex-col">
+        <a href="dashboard" class="bb-back-button"></a>
+        <h3 class="bb-top-nav-title">Choose an Email Template</h3>
     </div>
-    <div class="top-nav-bar-offset"></div>
-    <div class="content-wrap content-wrap-flex content-wrap-with-continue-bar">                         
-        <div ng-init="getCategories('emailsubcategory')">
-            <div ng-include src="'generictableview.html'"></div>  
-        </div>
+    <div class="bb-bar-center-wrap bb-one-third-flex-col">
+      
+    </div>
+    <div class="bb-bar-right-wrap bb-one-third-flex-col">
+        <div class="bb-help-icon">help icon</div>
+        <a  href="dashboard" class="email-editor-save-exit-button"  >Cancel</a> 
+    </div>
+</div>
+<div class="bb-main-content-wrap  bb-center-content">                         
+    <div ng-init="getCategories('emailsubcategory')">
+        <div ng-include src="'generictableview.html'"></div>  
     </div>
 </div>
 

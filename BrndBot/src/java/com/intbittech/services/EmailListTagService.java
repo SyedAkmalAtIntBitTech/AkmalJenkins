@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailListTag;
+import java.util.List;
 
 /**
  * <code>{@link EmailListTagService}</code> is service layer interface for
@@ -62,5 +63,14 @@ public interface EmailListTagService {
      * @throws ProcessFailed the process failed
      */
     public void delete(Integer emailListTagId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailListTag} from DAO
+     * layer.
+     *
+s    * @return {@link EmailListTag}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailListTag> getAllEmailListTag() throws ProcessFailed;
     
 }

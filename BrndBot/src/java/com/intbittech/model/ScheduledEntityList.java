@@ -62,6 +62,18 @@ public class ScheduledEntityList implements Serializable {
     @JoinColumn(name = "fk_recurring_email_id", referencedColumnName = "recurring_email_template_id")
     @ManyToOne
     private RecurringEmailTemplate fkRecurringEmailId;
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+    @Column(name = "updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
+    @JoinColumn(name = "assigned_to", referencedColumnName = "user_id")
+    @ManyToOne
+    private Users assignedTo;
+    @JoinColumn(name = "created_by", referencedColumnName = "user_id")
+    @ManyToOne
+    private Users createdBy;
 
     public ScheduledEntityList() {
     }
@@ -172,6 +184,38 @@ public class ScheduledEntityList implements Serializable {
 
     public void setFkRecurringEmailId(RecurringEmailTemplate fkRecurringEmailId) {
         this.fkRecurringEmailId = fkRecurringEmailId;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Users getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(Users assignedTo) {
+        this.assignedTo = assignedTo;
+    }
+
+    public Users getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Users createdBy) {
+        this.createdBy = createdBy;
     }
 
 }

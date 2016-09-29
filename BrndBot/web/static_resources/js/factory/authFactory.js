@@ -65,7 +65,6 @@ factoryApp.factory('authenticatedServiceFactory', function ($http, $q, appSessio
                     });
                 });
             } else if (methodType === "DELETE"){
-                data = dataWithUserAndCompanyId(data);
                 appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
                     var userId = kGlobalCompanyObject.userId;
                     var companyId = kGlobalCompanyObject.companyId;

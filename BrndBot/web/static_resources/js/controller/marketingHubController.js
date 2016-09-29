@@ -1,6 +1,7 @@
 marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location', 'settingsFactory', 'emailListFactory', 'emailDraftFactory', 'emailFactory', 'appSessionFactory', function ($scope, $location, settingsFactory, emailListFactory, emailDraftFactory, emailFactory, appSessionFactory) {
 
 //$scope.emailhubHeader = true;
+        $scope.userSettings =false;
         var count = 0;
         var selectedemailids = "";
         $scope.addEmailListButton = true;
@@ -23,6 +24,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.fromAddressValidation = fromAddressValidation;
         $scope.emailAddressValidation = emailAddressValidation;
         $scope.emailaddrValidation = emailaddrValidation;
+        $scope.fromNameValidation = fromNameValidation;
+        $scope.fromNameCheck = false;
         $scope.companyAddressValidation = companyAddressValidation;
         $scope.email = {};
         $scope.company = {};
@@ -45,8 +48,33 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.deafultFromName = "";
         $scope.replyEmailValidation = false;
         $scope.replyToAddress = false;
-        var generalEmailList = "General";
+        $scope.showHideUserSettings = function (flag){
+            $scope.userSettings=flag;
+        };
 
+        var generalEmailList = "General";
+        $scope.getUserDetails = function(){
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                $scope.companyName = kGlobalCompanyObject.companyName;
+                $scope.userFirstName = kGlobalCompanyObject.userFirstName;
+                $scope.userLastName = kGlobalCompanyObject.userLastName;
+
+                kGlobalCompanyObject.userHashId = 'undefined';
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
+                appSessionFactory.getDashboardMessage().then(function(message){
+                    if(message)
+                    {
+                        growl(message);
+                        appSessionFactory.clearDashboardMessage().then(function(message){
+                        });
+                    }
+                appSessionFactory.getUser().then(function(kGlobalCompanyObject){
+                        $scope.hasMultipleCompany = kGlobalCompanyObject.hasMultipleCompany;
+                    });
+                });
+            });
+        };
+        
         $scope.displayAllEmailDrafts = function () {
             $scope.activeEmailDrafts = 'activeTab';
             $scope.activeEmailHistory = '';
@@ -56,8 +84,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.saveEmailSettingsButton = false;
             $scope.addEmailListButton = false;
             $scope.showDeleteEmailList = false;
-            emailDraftFactory.displayAllEmailDraftsGet().then(function (data) {
+            var isPushed = false;
+            emailDraftFactory.displayAllEmailDraftsGet(isPushed).then(function (data) {
                 if (data.nodrafts === "yes") {
+                    $scope.emailDraftDetails=false;
                     $scope.emaildraftnumber = '0';
                     $scope.emaildraftsstatus = "No email drafts present";
                 } else {
@@ -143,7 +173,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 //        };
 
         var selectedemailids = "";
-            var count = 0;
+        var count = 0;
         $scope.selectedEmailListCheckbox = function (id) {
             var content = '<input type="checkbox" name="deleteid" value="' + id + '" hidden="" id="deleteid"' + id + '" checked>';
             var content1 = '<input type="checkbox" name="deleteid" value="' + id + '" hidden="" id="deleteid"' + id + '">';
@@ -166,7 +196,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $("#addcontact").hide();
                 $("#addcontacts").hide();
             }
-            if (count === 0)
+            if (count <= 0)
             {
                 $scope.deSelectCheckboxButton = false;
                 $scope.selectCheckboxButton = false;
@@ -177,6 +207,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 
         $scope.deSelectCheckbox = function () {
             count = 0;
+            selectedemailids = "";
             var htm = $(".selection-icon-selected").html();
             if (htm.contains('class="check-icon"')) {
                 $(".selection-icon-selected").html('');
@@ -273,6 +304,13 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 return false;
             }
 
+            if (!email_settings.from_name) {
+//                $scope.email_settings = {reply_email_address: "", from_address: from_address};
+                $scope.fromNameCheck = true;
+                $("#from_name").focus();
+                return false;
+            }
+
             var reply_email_address = email_settings.reply_email_address;
             var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
             var result = reply_email_address.replace(/\s/g, "").split(/,|;/);
@@ -285,6 +323,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 }
             }
             $scope.replyEmailValidation = false;
+            $scope.fromNameCheck = false;
             return true;
         };
 
@@ -328,17 +367,15 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             var footerInstagramUrl = "";
             if (company.instagramUrl)
                 footerInstagramUrl = company.instagramUrl;
-            else
-            {
-                var footerPopupDetails = {"facebookUrl": footerFacebookUrl, "twitterUrl": footerTwitterUrl, "instagramUrl": footerInstagramUrl, "websiteUrl": footerWebsiteUrl};
-                $scope.emailFooterPopupDetails = false;
+            
+            var footerPopupDetails = {"facebookUrl": footerFacebookUrl, "twitterUrl": footerTwitterUrl, "instagramUrl": footerInstagramUrl, "websiteUrl": footerWebsiteUrl};
+            $scope.emailFooterPopupDetails = false;
+            $scope.getFooterDetails();
+            settingsFactory.setFooterPost(footerPopupDetails).then(function (data) {
                 $scope.getFooterDetails();
-                settingsFactory.setFooterPost(footerPopupDetails).then(function (data) {
-                    $scope.getFooterDetails();
-                    growl("Settings saved successfully");
-                });
-            }
-            ;
+                growl("Settings saved successfully");
+            });
+            
         };
         $scope.emailFooterPopup = function ()
         {
@@ -407,6 +444,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.activeEmailHistory = '';
             $scope.activeEmailSettings = '';
             $scope.activeEmailDrafts = '';
+            $scope.hideGifImage=true;
 
             $scope.emaildropdown = false;
             $scope.addEmailListButton = true;
@@ -416,19 +454,26 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.saveEmailSettingsButton = false;
             $scope.deletDraftsButton = false;
             $scope.emallistdetails = true;
+
+            emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
+                $scope.hideGifImage=false;
+                var parseData = JSON.parse(data.d.details);
+                $scope.emailLists = parseData.allEmailListWithNoOfContacts.user;
+                $scope.emailListsMindbody = parseData.allEmailListWithNoOfContacts.mindbody;
             appSessionFactory.getCompany().then(function (companyObject){
                 
-            emailListFactory.getAllEmailListWithNoOfContactsForUser(companyObject.companyId).then(function (data) {
-                $scope.emailLists = data.d.details;
-            });
+               emailListFactory.getAllEmailListWithNoOfContactsForUser(companyObject.companyId).then(function (data) {
+                    $scope.emailLists = data.d.details;
+               });
             
-            emailListFactory.getAllEmailListWithNoOfContactsForMindBody(companyObject.companyId).then(function (data) {
-//                alert(JSON.stringify(data));
-                $scope.emailListsMindbody = data.d.details;
-            });
+                emailListFactory.getAllEmailListWithNoOfContactsForMindBody(companyObject.companyId).then(function (data) {
+    //                alert(JSON.stringify(data));
+                    $scope.emailListsMindbody = data.d.details;
+                });
             
             });
-        };
+        });
+    };
 
         $scope.emailValidation = function (email) {
             if (!email.listName) {
@@ -473,6 +518,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     var emailListDetails = {"emailListName": email.listName, "emailListDescription": email.listDescription, "defaultFromAddress": email.deafultFromName, "emailListType":generalEmailList, "emailListTags":['General']};
                     
                         emailListFactory.createEmailList(emailListDetails).then(function (data){
+                            alert(JSON.stringify(data));
                             growl("Email list created successfully");
                             $scope.createEmailListPopup = false;
                             $("#fade").hide();
@@ -524,6 +570,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.activeEmailListContacts = 'activeTab';
             $scope.activeImportContacts = '';
             $scope.showEmailListContacts = true;
+            $scope.noUserContactList=false;
+            $scope.noMindbodyContactList=false;
+            $scope.user_emailAddresses='';
+            $scope.mindbody_emailAddresses ='';
             $("#importListli").removeClass("top-subnav-link-active");
             $("#importList").removeClass("h3-active-subnav");
             $("#emailListli").addClass("top-subnav-link-active");
@@ -547,9 +597,50 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     $scope.user_emailAddresses = '';
                     $scope.mindbody_emailAddresses = parseData;
                 }
+                if($scope.user_emailAddresses == ''){
+                        $scope.noUserContactList=true;
+                        $scope.noMindbodyContactList=false;
+                }
+                if($scope.mindbody_emailAddresses == ''){
+                        $scope.noUserContactList=true;
+                        $scope.noMindbodyContactList=false;
+                }
+                if($scope.user_emailAddresses!=''){
+                        $scope.noUserContactList=false;
+                        $scope.noMindbodyContactList=false;
+                }
+                if($scope.mindbody_emailAddresses!=''){
+                        $scope.noUserContactList=false;
+                        $scope.noMindbodyContactList=false;
+                }
+                $scope.type = type;
+                if (type === 'user') {
+                    $("#tab1").hide();
+                    $("#tab2").hide();
+                    $("#tab3").show();
+                    $("#addcontacts").show();
+                    $("#deleteSelected").show();
+                    $("#selectAll").show();
+                    for (var i = 0; i <= data.user_emailAddresses.length; i++) {
+                        var emailadd = data.user_emailAddresses[i];
+                        if (emailadd.emailAddress === "") {
+                            $("#NoContacts").css("display", "block");
+                            setTimeout(function ()
+                            {
+                                $('input[type="checkbox"]').css("display", "none");
+                            }, 100);
+                        }
+                    }
+                } else if (type === 'mindbody') {
+                    $("#addcontact").hide();
+                    $("#email1").hide();
+                    setTimeout(function ()
+                    {
+                        $('input[type="checkbox"]').css("display", "none");
+                    }, 100);
+                }
                 $scope.hideGifImage=false;
             });
-            
         };
 
         $scope.emailIdValidation = function (email) {
@@ -858,8 +949,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         $scope.showAddContacts = function () {
             count = 0;
-            $(".delete-button").hide();
-            $(".gray-button").hide();
+            $("#addcontact").show();
             $("#showList").hide();
             $("#tab4").show();
             $("#importListli").addClass("top-subnav-link-active");
@@ -872,6 +962,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $("#tab4").show();
             $scope.showAddContactPopup = false;
             $scope.showEmailListContacts = false;
+            $scope.deSelectCheckboxButton = false;
+            $scope.selectCheckboxButton = false;
             $scope.activeEmailListContacts = ''
             $scope.activeImportContacts = 'activeTab';
         };

@@ -48,6 +48,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.intbittech.social.PostToFacebook;
 import com.intbittech.social.PostToTwitter;
 import com.intbittech.utility.Utility;
+import java.time.LocalDateTime;
+//import java.sql.Date;
+
 
 /**
  *
@@ -92,7 +95,7 @@ public class YourPlanController {
             toDate = LocalDate.parse(request.getParameter("to"));
             Integer companyId= Integer.parseInt(request.getParameter("companyId"));
             JSONObject scheduledEntities = 
-                     ScheduleDAO.getScheduledEntities(companyId, fromDate, toDate);
+                     ScheduleDAO.getScheduledEntitiesWithUser(companyId, fromDate, toDate);
             messageList.add(AppConstants.GSON.toJson(scheduledEntities));
             genericResponse.setDetails(messageList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success",new String[]{}, Locale.US)));
@@ -234,6 +237,8 @@ public class YourPlanController {
                         Double tempDays = new Double(requestBodyMap.get("days").toString().trim());
                         Integer marketingType=tempmarketingType.intValue();
                         Integer days = tempDays.intValue();
+                        Double TempUserAssignToId = new Double(requestBodyMap.get("userAssignToId").toString().trim());
+                        Integer userAssignToId = TempUserAssignToId.intValue();
                         int scheduleId = ScheduleDAO.addToScheduleEntityList(null,
                             requestBodyMap.get("title").toString(),
                             marketingType,
@@ -242,7 +247,7 @@ public class YourPlanController {
                             requestBodyMap.get("actiontype").toString(), 
                             days.toString().trim(),
                             templateStatus,
-                            userCompanyIds.getCompanyId(),
+                            userCompanyIds.getCompanyId(),userCompanyIds.getUserId(),userAssignToId,
                             conn
                         );
                     conn.commit();
@@ -322,7 +327,7 @@ public class YourPlanController {
 //                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, "Log while updating the Actions");
             }
 
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             logger.error(ex);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
         }

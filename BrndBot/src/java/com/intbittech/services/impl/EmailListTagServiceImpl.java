@@ -9,6 +9,7 @@ import com.intbittech.dao.EmailListTagDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailListTag;
 import com.intbittech.services.EmailListTagService;
+import java.util.List;
 import java.util.Locale;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,18 @@ public class EmailListTagServiceImpl implements EmailListTagService{
            throw new ProcessFailed(messageSource.getMessage("email_list_tag_not_found",new String[]{}, Locale.US));
         }
            emailListTagDao.delete(emailListTag);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    
+    public List<EmailListTag> getAllEmailListTag() throws ProcessFailed {
+         List<EmailListTag> emailListTagList = emailListTagDao.getAllEmailListTag();
+        if(emailListTagList == null){
+            throw new ProcessFailed(messageSource.getMessage("email_list_tag_not_found",new String[]{}, Locale.US));
+        }
+            return emailListTagList;
     }
     
 }
