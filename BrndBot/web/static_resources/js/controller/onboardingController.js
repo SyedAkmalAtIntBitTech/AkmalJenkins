@@ -226,7 +226,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                         if (data1) {
                             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                                 var userHashId = kGlobalCompanyObject.userHashId;
-                                alert(userHashId);
                                 if (userHashId != "") {
                                     var user = {"invitationCode": userHashId}
                                     onboardingFactory.saveInvitedUserPost(user).then(function (data2) {
