@@ -95,6 +95,18 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             $scope.showUpdateBtn = false;
         };
 
+        $scope.closeOverlay = function(){
+            $scope.addFranchisePopup=false;
+            $scope.addFranchisePopupDiv=false;
+            $scope.editFranchisePopup=false;
+            $scope.editFranchisePopupDiv=false;
+        };
+
+        $scope.openAddFranchisePopup = function(){
+            $scope.addFranchisePopup=true;
+            $scope.addFranchisePopupDiv=true;
+        };
+
         $scope.hideReminderSaveButton = function (){
             $scope.showReminderUpdateBtn=false;  
         };
@@ -255,7 +267,8 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             } else {
                 franchiseFactory.saveFranchise(franchiseName).then(function (data) {
                     growl(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
-                    window.open(getHost() + 'admin/franchise', "_self");
+                    $scope.closeOverlay();
+                    $scope.getAllFranchises();
                 });
             }
         };
@@ -270,7 +283,8 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             } else {
                 franchiseFactory.updateFranchise(franchiseId, franchiseName).then(function (data) {
                     growl(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
-                    window.open(getHost() + 'admin/franchise', "_self");
+                    $scope.closeOverlay();
+                    $scope.getAllFranchises();
                 });
             }
         };

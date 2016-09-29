@@ -57,7 +57,7 @@ public interface FranchiseService {
      * @param category the category
      * @throws ProcessFailed the process failed
      */
-    public void updateFranchise(FranchiseDetails franchiseDetails, Integer franchiseId) throws ProcessFailed;
+    public boolean updateFranchise(FranchiseDetails franchiseDetails, Integer franchiseId) throws ProcessFailed;
 
      /**
      * This method save {@link Category} into the database.
@@ -66,8 +66,10 @@ public interface FranchiseService {
      * @return the Integer
      * @throws ProcessFailed the process failed
      */
-    public void saveFranchise(FranchiseDetails franchiseDetails) throws ProcessFailed;
+    public boolean saveFranchise(FranchiseDetails franchiseDetails) throws ProcessFailed;
 
+    public boolean isFranchiseExist(String FranchiseName)throws ProcessFailed;
+    
     public FranchiseCompanyLookup getFranchiseLookup(Integer companyId, Integer franchiseId)throws ProcessFailed;
     
     public String getFranchiseHeadquarter(Integer franchiseId)throws ProcessFailed;

@@ -867,7 +867,9 @@ li.sub-nav-tab.active a{
 .content-wrap-padding{
     padding: 25px 0px;
 }
-
+.modal-pane-full-width{
+    width:80%;
+}
 .content-wrap-flex{
     display: -webkit-flex;
     display: flex;
@@ -4605,7 +4607,8 @@ textarea.task-textarea:focus{
 }
 
 .palette-colorswab-global {
-    width: 75px;
+    /*width: 75px;*/
+    width: 15%;
     height: 35px;
     border: 1px solid #D2D3D5;
     border-radius: 3px;
@@ -4614,8 +4617,13 @@ textarea.task-textarea:focus{
     margin-bottom: 10px;
     cursor: pointer;
 }
-
-
+.palette-wrap-globalColors{
+    width:100%;
+}
+.color-picker-space {
+    margin-top: 2vw;
+    margin-left: 7vw;
+}
 
 .palette-colorswab-selected {
     border: 2px solid #0F76A6;
@@ -6171,6 +6179,24 @@ img#prevfbimg {
 }
 .margin-around{
     margin: 3px 5px 3px 25px;
+}
+#browserCompatibilityPopup{
+    position:  fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(61,83,104,.8) !important;
+    z-index:99999 !important;
+
+}
+.addPopUp{
+    height: 100px;
+    text-align: center;
+    vertical-align:auto;
+    line-height: 60px;
+    margin-top:20%;
+    margin-left: 30%;
 }
 /*....on hover template border color...*/
 .template-border-Active{

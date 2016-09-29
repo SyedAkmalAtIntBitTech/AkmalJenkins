@@ -65,6 +65,15 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             growl(pikaday.toString());
         };
 
+        $scope.showCompanyList = function(){
+            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                    kGlobalCompanyObject.userHashId = "";
+                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                    });
+                });
+         window.location = getHost() + "user/loading";
+        };
+        
         var user_selected_date = '';
         var picker = new Pikaday(
                 {
@@ -554,6 +563,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.setEmailToThisAction = "Save Email to this Action";
             $scope.savedHeader = 'Post';
             $scope.isRecurring = false;
+            $scope.pushedEmail=false;
             if (entity_type === getnote()) {
                 $scope.reminderSectionClass = 'reminderSectionClass';
                 $scope.savedReminderTab = true;

@@ -39,6 +39,12 @@ dashboardFlowApp.controller("dashboardController", ['$scope', '$window', '$locat
                     });
 
                 });
+                appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                    kGlobalCompanyObject.userHashId = "";
+                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                    });
+                });
+                
             });
         };
 

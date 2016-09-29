@@ -22,7 +22,6 @@
             </div>
             <div class="bb-flex-row bb-panel-content-wrap-max-height">
             <div class="bb-panel-content-wrap bb-one-half-flex-col" ng-init="getColorFromPicker()">
-              
                     <div class="onboarding-content-header-wrap">
                         <h3 class="onboarding-content-header">Click on a color swab below and choose a color from the right hand options</h3>
                     </div>   
@@ -50,7 +49,26 @@
                     
                         <div class="bb-button bb-secondary-action-button" ng-click="showCustomColorPicker = true" ng-hide="showCustomColorPicker ">Show Custom Color Picker</div>
                         <div class="bb-button bb-secondary-action-button" ng-click="showCustomColorPicker = false" ng-show="showCustomColorPicker">Hide Custom Color Picker</div>
-                        <div   class="bb-color-picker-space" ng-show="showCustomColorPicker" id="picker"></div>
+                        <div   class="bb-color-picker-space" ng-show="showCustomColorPicker" id="picker">
+                            <div  style="display:inline-flex;">
+                            <div style="width:50%;">
+                            <div class="color-select-optgroup"  ng-repeat="colors in globalColors">
+                                <div class="color-select-option" data-color="{{colors.color}}" style="background-color: {{colors.color}};" ng-click="getColorID(colors.color)"></div>
+                            </div>
+                            </div>
+                            <div style="width:50%;">
+<!--                            <select id="color-select">
+                                <optgroup  class="color-select-optgroup">
+                                        <option value="#277BD5"></option>
+                                </optgroup>
+                            </select>-->
+                            <script language="javascript" type="text/javascript">
+                                    $('#color-select').colorSelect();
+                            </script>
+                            <input type="text" name="togglePaletteOnly" id="togglePaletteOnly" style="display:none !important; visibility: hidden">
+                            </div>
+                        </div>
+                        </div>
                         <h3 class="bb-color-palette-selection-header">Your Logo Colors</h3>
                         <div   id="logocolor1" >
                             <div class="bb-palette " id="picktheme">
@@ -73,8 +91,6 @@
                             </div>
                         </div>
                         <!--ng-if="colorFrom === 'logo'"-->
-                        
-                    
                
             </div>
         </div>     
@@ -88,4 +104,5 @@
                 </a>
             </div>
     </div>
+</div>
 </div>
