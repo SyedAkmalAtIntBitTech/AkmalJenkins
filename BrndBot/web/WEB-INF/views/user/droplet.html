@@ -2,17 +2,20 @@
 <html>
 <head>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
-        <!-- Dependencies! -->
-    <script type="text/javascript" src="js/ng-droplet.js"></script>
-    <script type="text/javascript" src="js/progressbar.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+    <!-- Application! -->
+    <script type="text/javascript" src="../js/utilities/droplet.js"></script>
+    <script type="text/javascript" src="../js/utilities/ng-droplet.js"></script>
+    <script type="text/javascript" src="../js/utilities/progressbar.js"></script>
+    <script src="../js/utilities/angularappconfiguration.js" type="text/javascript"></script>
+    <script src="../js/factory/authFactory.js" type="text/javascript"></script>
+    <script src="../js/factory/appSessionFactory.js" type="text/javascript"></script>
+    <script src="../js/utilities/models.js" type="text/javascript"></script>
+    <script src="../js/configurations.js" type="text/javascript"></script>   
 
     <!-- Styles! -->
-    <link rel="stylesheet" type="text/css" href="css/Default.css" />
+    <link rel="stylesheet" type="text/css" href="../css/droplet.css" />
     <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" rel="stylesheet" type="text/css">
-
-    <!-- Application! -->
-    <script type="text/javascript" src="js/default.js"></script>
 
 </head>
 <body ng-app="dropletApp">
@@ -23,7 +26,7 @@
 
         <section class="droplet" ng-controller="IndexController" ng-class="{ uploading: interface.isUploading() }">
 
-            <h1><a target="_blank" href="https://github.com/Wildhoney/ngDroplet">ngDroplet</a></h1>
+            <!--<h1></h1>-->
 
             <ul class="statistics">
                 <li><label>Valid:</label> {{interface.getFiles(interface.FILE_TYPES.VALID).length}}</li>

@@ -5,8 +5,6 @@
  */
 package com.intbittech.services.impl;
 
-import com.controller.GenerateHashPassword;
-import com.intbittech.AppConstants;
 import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.EmailListTagLookupDao;
 import com.intbittech.dao.FranchiseCompanyLookupDao;
@@ -14,7 +12,6 @@ import com.intbittech.dao.FranchiseDao;
 import com.intbittech.dao.UsersDao;
 import com.intbittech.email.mandrill.Message;
 import com.intbittech.email.mandrill.Recipient;
-import com.intbittech.email.mandrill.RecipientMetadata;
 import com.intbittech.email.mandrill.SendMail;
 import static com.intbittech.email.mandrill.SendMail.MANDRILL_KEY;
 import com.intbittech.exception.ProcessFailed;
@@ -22,14 +19,10 @@ import com.intbittech.model.Company;
 import com.intbittech.model.EmailListTagLookup;
 import com.intbittech.model.Franchise;
 import com.intbittech.model.FranchiseCompanyLookup;
-import com.intbittech.model.Invite;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.FranchiseDetails;
-import com.intbittech.modelmappers.InviteDetails;
-import com.intbittech.modelmappers.TaskDetails;
 import com.intbittech.services.FranchiseService;
 import com.intbittech.utility.IConstants;
-import com.intbittech.utility.StringUtility;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -113,7 +106,7 @@ public class FranchiseServiceImpl implements FranchiseService {
         }
         franchiseCompanyLookupDao.delete(franchiseCompanyLookup);
     }
-
+    
     @Override
     public List<Company> getCompaniesForFranchises(Integer franchiseId) throws ProcessFailed {
         List<Company> companies = franchiseCompanyLookupDao.getCompanyForFranchiseId(new Franchise(franchiseId));
@@ -151,22 +144,34 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
 
     @Override
-    public void updateFranchise(FranchiseDetails franchiseDetails, Integer franchiseId) throws ProcessFailed {
+    public boolean updateFranchise(FranchiseDetails franchiseDetails, Integer franchiseId ) throws ProcessFailed {
         Franchise franchise = franchiseDao.getByFranchiseId(franchiseId);
         if (franchise == null) {
             throw new ProcessFailed("No Franchise with id" + franchiseId + ".");
         }
-        franchise.setFranchiseName(franchiseDetails.getFranchiseName());
-        franchiseDao.update(franchise);
+        boolean franchiseExist = isFranchiseExist(franchiseDetails.getFranchiseName());
+        if (franchiseExist){
+            return false;
+        }else {
+            franchise.setFranchiseName(franchiseDetails.getFranchiseName());
+            franchiseDao.update(franchise);
+            return true;
+        }
     }
 
     @Override
-    public void saveFranchise(FranchiseDetails franchiseDetails) throws ProcessFailed {
+    public boolean saveFranchise(FranchiseDetails franchiseDetails ) throws ProcessFailed {
         Franchise franchiseDeserialized = FranchiseDetails.deserialize(franchiseDetails);
         if (franchiseDeserialized.getCreatedAt() == null) {
             franchiseDeserialized.setCreatedAt(new Date());
         }
-        franchiseDao.save(franchiseDeserialized);
+        boolean franchiseExist = isFranchiseExist(franchiseDeserialized.getFranchiseName());
+        if (franchiseExist){
+            return false;
+        }else {
+            franchiseDao.save(franchiseDeserialized);
+            return true;
+        }
     }
 
     @Override
@@ -191,6 +196,17 @@ public class FranchiseServiceImpl implements FranchiseService {
         }
     }
 
+    @Override
+    public boolean isFranchiseExist(String FranchiseName) throws ProcessFailed {
+        Franchise franchise = franchiseDao.getByFranchiseName(FranchiseName);
+
+        if (franchise != null){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    
     @Override
     public FranchiseCompanyLookup getFranchiseByCompanyId(Integer companyId) throws ProcessFailed {
         FranchiseCompanyLookup franchiseCompanyLookup = franchiseCompanyLookupDao.getFranchiseByCompanyId(companyId);
@@ -250,6 +266,5 @@ public class FranchiseServiceImpl implements FranchiseService {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("mail_send_problem",new String[]{}, Locale.US));
         }
-
     }
 }

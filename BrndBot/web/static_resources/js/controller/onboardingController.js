@@ -23,6 +23,9 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.confirmPasswordValidation = confirmPasswordValidation;
         $scope.confirmPasswordMissmatch = confirmPasswordMissmatch;
         $scope.uniqueUserValidation = uniqueUserValidation;
+        $scope.browserCompatibilityPopup = false;
+        $scope.browserCompatibilityPopupDiv = false;
+        $scope.loginForm = false;
         $scope.uniqueUser = false;
         $scope.userDetails = {};
         $scope.user = {};
@@ -61,9 +64,8 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 return false;
             }
             return true;
-        }
-        ;
-
+        };
+        
         $scope.signupValidation = function (userDetails) {
             if (!userDetails.userName) {
                 $scope.uniqueUser = false;
@@ -126,13 +128,60 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                                 $("#signform").submit();
                                 $location.path("/signup/company");
                             }
+                            appSessionFactory.getCompany().then(function (kGlobalCompanyObject1) {
+                            });
 
                         });
                     });
                 });
             }
         };
+
+        function checkBrowser() {
+            if ((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1)
+            {
+                $scope.browserCompatibilityPopup = true;
+                $scope.browserCompatibilityPopupDiv = true;
+            }
+            else if (navigator.userAgent.indexOf("Chrome") != -1)
+            {
+                $scope.loginForm = true;
+                $scope.browserCompatibilityPopup = false;
+                $scope.browserCompatibilityPopupDiv = false;
+            }
+            else if (navigator.userAgent.indexOf("Safari") != -1)
+            {
+                $scope.loginForm = true;
+                $scope.browserCompatibilityPopup = false;
+                $scope.browserCompatibilityPopupDiv = false;
+            }
+            else if (navigator.userAgent.indexOf("Firefox") != -1)
+            {
+                $scope.browserCompatibilityPopup = true;
+                $scope.browserCompatibilityPopupDiv = true;
+                $scope.loginForm = false;
+            }
+            else if ((navigator.userAgent.indexOf("MSIE") != -1) || (!!document.documentMode == true)) //IF IE > 10
+            {
+                $scope.browserCompatibilityPopup = true;
+                $scope.browserCompatibilityPopupDiv = true;
+                $scope.loginForm = false;
+            }
+            else
+            {
+                $scope.browserCompatibilityPopup = true;
+                $scope.browserCompatibilityPopupDiv = true;
+                $scope.loginForm = false;
+            }
+        };
+        $scope.closeOverlay = function(){
+            $scope.browserCompatibilityPopup = false;
+            $scope.browserCompatibilityPopupDiv = false;
+            $scope.loginForm = true;
+
+        };
         $scope.getUserId = function () {
+            checkBrowser();
             $scope.userHashId = $location.search().userid;
             var queryString = (function (a) {
                 if (a == "")
@@ -177,7 +226,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                         if (data1) {
                             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                                 var userHashId = kGlobalCompanyObject.userHashId;
-                                if (userHashId) {
+                                if (userHashId != "") {
                                     var user = {"invitationCode": userHashId}
                                     onboardingFactory.saveInvitedUserPost(user).then(function (data2) {
                                         var message = data2.d.message;
@@ -191,7 +240,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                                             });
                                         });
                                     });
-                                } else if (!userHashId) {
+                                } else if (userHashId == "") {
                                     $scope.getAllUserCompanies(data.d.details[0]);
                                 }
                             });
@@ -374,7 +423,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                         $scope.companies = data.d.details;
                     }
                     appSessionFactory.setUser(kGlobalUserObject).then(function (data) {
-                                 $scope.hideDataOverlay = false;
+                    $scope.hideDataOverlay = false;
                     });
                 });
             });
@@ -422,7 +471,11 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 if (studioIdSaved === "true") {
                     externalContentFactory.activationLinkGet().then(function (data) {
                         $scope.activationLink = data.d.details[0];
-                        growl("Mindbody activated successfully");
+                        if ($scope.activationLink) {
+                            growl("Mindbody activated successfully.");
+                        } else {
+                            growl("Mindbody not activated.");
+                        }
                     });
                 }
             });
@@ -509,15 +562,29 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $scope.activeColorTheme = '';
             $scope.activeColorLogo = '';
             $scope.colorFrom = "custom";
-            $('#picker').colpick({
-                flat: true,
-                layout: 'hex',
-                onSubmit: function (hsb, hex, rgb, el) {
-                    //for haking hex value growl(hex);
-                    $('.palette-colorswab-selected').css("background-color", "#" + hex);
-                    $('.palette-colorswab-selected').val("#" + hex);
+            $scope.defaultColors=[];
+            for(var i=0,j=1;i<defaultFroalaColors.length;i=(i+2),j++){
+                var colors="#"+defaultFroalaColors[i];
+                $scope.defaultColors.push({"color":colors});
+            }
+            $scope.globalColors=$scope.defaultColors;
 
-                }
+            $("#togglePaletteOnly").spectrum({
+                showPaletteOnly: true,
+                togglePaletteOnly: true,
+                togglePaletteMoreText: 'more',
+                togglePaletteLessText: 'less',
+                color: 'blanchedalmond',
+                palette: [
+                    ["#000", "#444", "#666", "#999", "#ccc", "#eee", "#f3f3f3", "#fff"],
+                    ["#f00", "#f90", "#ff0", "#0f0", "#0ff", "#00f", "#90f", "#f0f"],
+                    ["#f4cccc", "#fce5cd", "#fff2cc", "#d9ead3", "#d0e0e3", "#cfe2f3", "#d9d2e9", "#ead1dc"],
+                    ["#ea9999", "#f9cb9c", "#ffe599", "#b6d7a8", "#a2c4c9", "#9fc5e8", "#b4a7d6", "#d5a6bd"],
+                    ["#e06666", "#f6b26b", "#ffd966", "#93c47d", "#76a5af", "#6fa8dc", "#8e7cc3", "#c27ba0"],
+                    ["#c00", "#e69138", "#f1c232", "#6aa84f", "#45818e", "#3d85c6", "#674ea7", "#a64d79"],
+                    ["#900", "#b45f06", "#bf9000", "#38761d", "#134f5c", "#0b5394", "#351c75", "#741b47"],
+                    ["#600", "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#20124d", "#4c1130"]
+                ]
             });
         };
         $scope.getColorID = function (color) {
