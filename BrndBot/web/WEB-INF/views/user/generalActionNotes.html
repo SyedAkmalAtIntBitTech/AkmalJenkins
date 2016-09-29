@@ -19,13 +19,13 @@
                             <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">{{assignedFirstName}} {{assignedLastName}}</span>
                         </a>
                     </div>
-<!--                    <div ng-show="changeUsers">
+                    <div ng-show="changeUsers">
                         <a id="addactionClose" ng-click = "changeUsers=false" class="modal-pane-header-exit"></a>
                         <select id="assignTo">
                             <option ng-repeat="users in allUsers" value="{{users.userId}}">{{users.userName}}</option>
                         </select><br><br>
                         <input type="button" id="changeUser" value="change user" ng-click="changeAssignedTo(schedule_id)"/>
-                    </div>-->
+                    </div>
     <!--
     <div id="facebooknotesection1" ng-show='generalNotes'>
     <div class="below-nav-container-saved-post-detail">
@@ -61,7 +61,7 @@
     </div>
     <div class="action-comment-input-wrap" style="position: absolute; bottom:0px; width:100%; padding: 15px 60px; background-color:white; ">
         <div class="input">
-            <input size="40" class="fluid" id="comment"  placeholder="comment here" ng-model="comment">
+            <textarea size="40" class="fluid" id="comment" placeholder="comment here" ng-model="comment"></textarea>
             <input type="button" value="comment" ng-click="addActionComment(schedule_id, comment)"/>
         </div>
     </div>
