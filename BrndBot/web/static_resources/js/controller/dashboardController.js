@@ -44,6 +44,12 @@ dashboardFlowApp.controller("dashboardController", ['$scope', '$window', '$locat
                     appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
                     });
                 });
+                appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
+                    var value = isCurrent;
+                });
+                appSessionFactory.isCurrentCompanyAFranchiseHeadquarter().then(function (isHead){
+                    var value = isHead;
+                });
                 
             });
         };

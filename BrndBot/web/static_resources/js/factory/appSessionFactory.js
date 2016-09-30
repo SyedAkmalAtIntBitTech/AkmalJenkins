@@ -90,7 +90,41 @@ factoryApp.factory('appSessionFactory', function ($q) {
         deffered.resolve(requestedValue);
         return deffered.promise;
     };
+    
+    AppSessionFactoryObject.isCurrentCompanyInFranchise = function(){
+        var deffered = $q.defer();
+        var requestValue = false;
+        var franchiseId = 0;
+        
+        var companyLocalObject = JSON.parse(localStorage.getItem(companyObjectName));
+        franchiseId = companyLocalObject.franchiseId;
 
+        if (franchiseId == null){
+            requestValue = false;
+        }else {
+            requestValue = true;            
+        }
+        deffered.resolve(requestValue);
+        return deffered.promise;
+    };
+
+    AppSessionFactoryObject.isCurrentCompanyAFranchiseHeadquarter = function(){
+        var deffered = $q.defer();
+        var requestValue = false;
+        var isHeadquarter = 0;
+        
+        var companyLocalObject = JSON.parse(localStorage.getItem(companyObjectName));
+        isHeadquarter = companyLocalObject.isHeadquarter;
+
+        if (isHeadquarter == null){
+            requestValue = false;
+        }else {
+            requestValue = true;            
+        }
+        deffered.resolve(requestValue);
+        return deffered.promise;
+    };
+    
     AppSessionFactoryObject.clearCompany = function () {
         var deffered = $q.defer();
         var data = true;
