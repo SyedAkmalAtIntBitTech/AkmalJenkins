@@ -13,10 +13,15 @@ import com.intbittech.dao.impl.ScheduleDAO;
 import com.intbittech.AppConstants;
 import com.intbittech.dao.impl.ScheduleSocialPostDAO;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.Activity;
+import com.intbittech.model.ActivityLog;
+import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
+import com.intbittech.model.Users;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.services.ActivityLogService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import java.io.BufferedReader;
 import java.io.File;
@@ -47,8 +52,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.intbittech.social.PostToFacebook;
 import com.intbittech.social.PostToTwitter;
+import com.intbittech.utility.IConstants;
 import com.intbittech.utility.Utility;
 import java.time.LocalDateTime;
+import java.util.Date;
 //import java.sql.Date;
 
 
@@ -64,6 +71,9 @@ public class YourPlanController {
     
     @Autowired
     private MessageSource messageSource;
+    @Autowired
+    private ActivityLogService activityLogService;
+    
     
     @RequestMapping(value = "/GetScheduledEntities", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> GetScheduledEntities(HttpServletRequest request, HttpServletResponse response) {
@@ -253,7 +263,30 @@ public class YourPlanController {
                     conn.commit();
                     Map<String, Object> data = new HashMap<>();
                     data.put("schedule_entity_id", scheduleId);
-                    
+                    ActivityLog activityLog = new ActivityLog();
+                   ScheduledEntityList scheduledEntityList = new ScheduledEntityList();
+                   scheduledEntityList.setScheduledEntityListId(scheduleId);
+                   activityLog.setFkScheduledEntityid(scheduledEntityList);
+                   Activity activity = new Activity();
+                   activity.setActivityId(IConstants.ACTIVITY_CREATED_ACTION_ID);
+                   Users  createdUser = new Users();
+                   createdUser.setUserId(userCompanyIds.getUserId());                    
+                   createdUser.setUserId(userCompanyIds.getUserId());
+                   activityLog.setCreatedBy(createdUser);
+                   activityLog.setCreatedAt(new Date());
+                   activityLog.setFkActivityId(activity);
+                   activityLogService.save(activityLog);
+                   
+                   ActivityLog activityLogObject = new ActivityLog();
+                   activityLogObject.setFkScheduledEntityid(scheduledEntityList);
+                   activity.setActivityId(IConstants.ACTIVITY_ASSIGNED_TO_ID);
+                   activityLogObject.setCreatedBy(createdUser);
+                   activityLogObject.setCreatedAt(new Date());
+                    Users  assignedUser = new Users();
+                    assignedUser.setUserId(userAssignToId);
+                    activityLogObject.setAssignedTo(assignedUser);
+                     activityLogObject.setFkActivityId(activity);
+                   activityLogService.save(activityLogObject);
                     transactionResponse.setMessage(AppConstants.GSON.toJson(data));
                     transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success",new String[]{}, Locale.US)));
                 } catch (SQLException ex) {
