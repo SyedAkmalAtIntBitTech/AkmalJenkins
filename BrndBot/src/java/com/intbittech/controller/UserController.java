@@ -91,6 +91,11 @@ public class UserController {
                 UserCompanyDetails userCompanyDetails = new UserCompanyDetails();
                  FranchiseCompanyLookup franchiseCompanyLookup = franchiseService.getFranchiseByCompanyId(usersRoleCompanyLookup.getCompanyId().getCompanyId());
                 
+                 if (franchiseCompanyLookup != null){
+                    userCompanyDetails.setFranchiseId(franchiseCompanyLookup.getFkFranchiseId().getFranchiseId());
+                    userCompanyDetails.setFranchiseName(franchiseCompanyLookup.getFkFranchiseId().getFranchiseName());
+                    userCompanyDetails.setIsHeadquarter(franchiseCompanyLookup.getIsHeadQuarter());
+                 }
                 userCompanyDetails.setUserId(userId);
                 userCompanyDetails.setCompanyId(usersRoleCompanyLookup.getCompanyId().getCompanyId());
                 userCompanyDetails.setCompanyName(usersRoleCompanyLookup.getCompanyId().getCompanyName());
@@ -100,9 +105,6 @@ public class UserController {
                 userCompanyDetails.setUserEmailId(user.getUserName());
                 userCompanyDetails.setUserFirstName(user.getFirstName());
                 userCompanyDetails.setUserLastName(user.getLastName());
-                userCompanyDetails.setFranchiseId(franchiseCompanyLookup.getFkFranchiseId().getFranchiseId());
-                userCompanyDetails.setFranchiseName(franchiseCompanyLookup.getFkFranchiseId().getFranchiseName());
-                userCompanyDetails.setIsHeadquarter(franchiseCompanyLookup.getIsHeadQuarter());
                 listUserCompanyDetails.add(userCompanyDetails);
             }
             genericResponse.setDetails(listUserCompanyDetails);
