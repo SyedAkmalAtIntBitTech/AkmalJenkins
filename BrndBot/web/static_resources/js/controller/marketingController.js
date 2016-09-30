@@ -40,6 +40,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.changeUsers = false;
         $scope.companyName = "";
         $scope.editSavedEmail = false;
+        this.tab = 1;
 
         $scope.companyAddressDetails = {};
         $scope.emailListName="";
@@ -63,7 +64,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 value: 'Email'
             }
         ];
-
         $scope.getUserDetails = function () {
             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                 $scope.companyName = kGlobalCompanyObject.companyName;
@@ -249,18 +249,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.showPastPrograms();
             });
         };
-        $scope.showPastPrograms = function () {
-            $scope.currProgramsDiv = false;
-            $scope.pastProgramsDiv = true;
-            $scope.currentCampaignClass = '';
-            $scope.archivedCampaignClass = 'activeCampaign';
+        
+        this.selectTab = function (setTab){
+            this.tab = setTab;
         };
-        $scope.showCurrentPrograms = function () {
-            $scope.archivedCampaignClass = '';
-            $scope.currentCampaignClass = 'activeCampaign';
-            $scope.currProgramsDiv = true;
-            $scope.pastProgramsDiv = false;
+        this.isSelected = function(checkTab) {
+            return this.tab === checkTab;
         };
+        
         $scope.getProgramActions = function (forward)
         {
             $scope.isOneTimeActionsEmpty = false;
