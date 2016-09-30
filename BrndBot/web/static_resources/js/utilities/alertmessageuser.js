@@ -199,6 +199,7 @@ var stateValidation = "Please enter your State";
 var zipcodeValidation = "Please enter your zipcode";
 var countryValidation = "Please enter your Country";
 var companyAddressValidation= "Please enter and select your Company Address";
+var invalidCompanyAddressValidation = "Please select valid Address";
 var dropdownValidation = "Please select your Organization";
 var newPasswordValidation = "Password not entered! Please enter the password";
 var newFirstNameValidation = "Please enter First name";

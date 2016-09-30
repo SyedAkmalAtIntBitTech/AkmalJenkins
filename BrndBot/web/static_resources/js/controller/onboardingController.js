@@ -9,6 +9,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.organizationValidation = false;
         $scope.companyValidation = companyValidation;
         $scope.companyAddressValidation = companyAddressValidation;
+        $scope.invalidCompanyAddressValidation = invalidCompanyAddressValidation;
         $scope.dropdownValidation = dropdownValidation;
         $scope.colorValidation = colorValidation;
         $scope.studioIdValidation = studioIdValidation;
@@ -325,7 +326,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 $("#companyAddress").focus();
                 return false;
             } else if (!companyData.addressline2 || !companyData.city || !companyData.state || !companyData.zipcode || !companyData.country) {
-                $scope.companyData.companyAddress = "";
                 $("#companyAddress").focus();
                 return false;
             } else if (!companyData.ddSelectOrganization.value || companyData.ddSelectOrganization.value === "0") {
@@ -344,18 +344,15 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $scope.state = document.getElementById('administrative_area_level_1').value;
             $scope.zipcode = document.getElementById('postal_code').value;
             $scope.country = document.getElementById('country').value;
-            
-            var companyAddressDetails = {"addressLine1":$scope.address1,"addressLine2":$scope.address2,
-                                            "city":$scope.city,"state":$scope.state,"zipcode":$scope.zipcode,"country":$scope.country
-                                           };                           
+                                      
             if ($scope.validationCode(companyData))
             {
                 appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                     var userIdvalue = kGlobalCompanyObject.userId;
                     var companyDetails = {"userId": userIdvalue, "companyName": $scope.companyName, "organizationId": $scope.organizationId};
-
+                    
                     onboardingFactory.saveCompanyPost(companyDetails).then(function (data) {
-                        var companyId = data.d.message;
+                        var companyId = data.d.message;alert(companyId);
                         if (parseInt(companyId) == 0) {
                             growl("company name already exist, please give some other company name");
                         } else {
@@ -382,10 +379,15 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                                     $scope.companies = data.d.details;
                                 }
                             });
+                            appSessionFactory.getCompany().then(function (kGlobalCompanyObject){
+                            var companyAddressDetails = {"companyId":kGlobalCompanyObject.companyId,"addressLine1":$scope.address1,"addressLine2":$scope.address2,
+                                            "city":$scope.city,"state":$scope.state,"zipcode":$scope.zipcode,"country":$scope.country }; 
+                                        
                             onboardingFactory.saveCompanyAddress(companyAddressDetails).then(function (data){alert(JSON.stringify(data));});
 //                            appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
                             //TODO Set the companyId in Auth factory file
                             $location.path("/signup/datasource");
+                            });
                         }
                     });
                 });
