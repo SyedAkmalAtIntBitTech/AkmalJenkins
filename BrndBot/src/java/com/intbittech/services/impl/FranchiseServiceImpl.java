@@ -21,8 +21,15 @@ import com.intbittech.model.Franchise;
 import com.intbittech.model.FranchiseCompanyLookup;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.FranchiseDetails;
+import com.intbittech.sendgrid.models.EmailType;
+import com.intbittech.services.EmailServiceProviderService;
 import com.intbittech.services.FranchiseService;
+import com.intbittech.services.UsersService;
 import com.intbittech.utility.IConstants;
+import com.intbittech.utility.Utility;
+import com.sendgrid.Content;
+import com.sendgrid.Email;
+import com.sendgrid.Mail;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,6 +62,10 @@ public class FranchiseServiceImpl implements FranchiseService {
     private MessageSource messageSource;
     @Autowired
     private UsersDao usersDao;
+    @Autowired
+    private UsersService usersService;
+    @Autowired
+    EmailServiceProviderService emailServiceProviderService;
 
     @Override
     public boolean activateCompanyAsFranchise(Integer companyId, Integer franchiseId) throws ProcessFailed {
@@ -106,7 +117,7 @@ public class FranchiseServiceImpl implements FranchiseService {
         }
         franchiseCompanyLookupDao.delete(franchiseCompanyLookup);
     }
-    
+
     @Override
     public List<Company> getCompaniesForFranchises(Integer franchiseId) throws ProcessFailed {
         List<Company> companies = franchiseCompanyLookupDao.getCompanyForFranchiseId(new Franchise(franchiseId));
@@ -144,15 +155,15 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
 
     @Override
-    public boolean updateFranchise(FranchiseDetails franchiseDetails, Integer franchiseId ) throws ProcessFailed {
+    public boolean updateFranchise(FranchiseDetails franchiseDetails, Integer franchiseId) throws ProcessFailed {
         Franchise franchise = franchiseDao.getByFranchiseId(franchiseId);
         if (franchise == null) {
             throw new ProcessFailed("No Franchise with id" + franchiseId + ".");
         }
         boolean franchiseExist = isFranchiseExist(franchiseDetails.getFranchiseName());
-        if (franchiseExist){
+        if (franchiseExist) {
             return false;
-        }else {
+        } else {
             franchise.setFranchiseName(franchiseDetails.getFranchiseName());
             franchiseDao.update(franchise);
             return true;
@@ -160,15 +171,15 @@ public class FranchiseServiceImpl implements FranchiseService {
     }
 
     @Override
-    public boolean saveFranchise(FranchiseDetails franchiseDetails ) throws ProcessFailed {
+    public boolean saveFranchise(FranchiseDetails franchiseDetails) throws ProcessFailed {
         Franchise franchiseDeserialized = FranchiseDetails.deserialize(franchiseDetails);
         if (franchiseDeserialized.getCreatedAt() == null) {
             franchiseDeserialized.setCreatedAt(new Date());
         }
         boolean franchiseExist = isFranchiseExist(franchiseDeserialized.getFranchiseName());
-        if (franchiseExist){
+        if (franchiseExist) {
             return false;
-        }else {
+        } else {
             franchiseDao.save(franchiseDeserialized);
             return true;
         }
@@ -200,13 +211,13 @@ public class FranchiseServiceImpl implements FranchiseService {
     public boolean isFranchiseExist(String FranchiseName) throws ProcessFailed {
         Franchise franchise = franchiseDao.getByFranchiseName(FranchiseName);
 
-        if (franchise != null){
+        if (franchise != null) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
-    
+
     @Override
     public FranchiseCompanyLookup getFranchiseByCompanyId(Integer companyId) throws ProcessFailed {
         FranchiseCompanyLookup franchiseCompanyLookup = franchiseCompanyLookupDao.getFranchiseByCompanyId(companyId);
@@ -220,7 +231,7 @@ public class FranchiseServiceImpl implements FranchiseService {
     public Boolean isEmailListTagAssociateToCompany(Integer emailListTagId, Integer companyId) throws ProcessFailed {
         Boolean isEmailList = false;
         EmailListTagLookup emailListTagLookup = emailListTagLookupDao.getEmailListTagLookupByEmailListTagIdAndCompanyId(emailListTagId, companyId);
-        if(emailListTagLookup != null){
+        if (emailListTagLookup != null) {
             isEmailList = true;
         }
         return isEmailList;
@@ -230,41 +241,25 @@ public class FranchiseServiceImpl implements FranchiseService {
     public Boolean requestToAddCompanies(String companiesName, String franchiseName, Integer userId) throws ProcessFailed {
         Users users = usersDao.getUserById(userId);
         String fromName = users.getFirstName() + " " + users.getLastName();
-        return sendRequestToAddCompaniesEmail(users.getUserName(),fromName,IConstants.SUPPORT_BRNDBOT_EMAIL_ID,companiesName,franchiseName);
+        return sendRequestToAddCompaniesEmail(users.getUserName(), fromName, IConstants.SUPPORT_BRNDBOT_EMAIL_ID, companiesName, franchiseName);
     }
-    
-    public Boolean sendRequestToAddCompaniesEmail(String fromEmailId, String fromName, String sendTo,String companiesName, String franchiseName )throws ProcessFailed {
-        try{
-            
 
-        Message message = new Message();
+    public Boolean sendRequestToAddCompaniesEmail(String fromEmailId, String fromName, String sendTo, String companyName, String franchiseName) throws ProcessFailed {
+        try {
 
-        message.setKey(MANDRILL_KEY);
-//        TODO code to be modified
-        String htmlBody = "<html><body><p><h2>Add Company To Franchise:</h2></p><p>You are requested to add " + companiesName + " to franchise " + franchiseName + ".</p></body></html>";
-        message.setHtml(htmlBody);
-//        message.setText("text");
-        /** need to change the above link and below message**/
-        message.setSubject("Request to add Company");
-        message.setFrom_email("mail@brndbot.com");
-        message.setFrom_name(fromName);
-        message.setAsync(true);
-
-        ArrayList<Recipient> messageToList = new ArrayList<Recipient>();
-
-        Recipient recipient = new Recipient();
-        recipient.setEmail(sendTo);
-        recipient.setType("to");
-
-        messageToList.add(recipient);
-
-        message.setMessageTo(messageToList);
-
-        sendEmail.sendMail(message);
-        return true;
-        }catch (Throwable throwable){
+            Users user = usersService.getUserByEmailId(sendTo);
+            String htmlBody = messageSource.getMessage("requestToAddCompany", new String[]{}, Locale.US);
+            String formattedBody = String.format(htmlBody, companyName, franchiseName);
+            Content content = new Content(IConstants.kContentHTML, formattedBody);
+            Email emailTo = new Email(sendTo, Utility.combineUserName(user));
+            String subject = "Request to add Company";
+            Mail mail = new Mail(null, subject, emailTo, content);
+            String preHeader = "something";
+            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply);
+            return true;
+        } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("mail_send_problem",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("mail_send_problem", new String[]{}, Locale.US));
         }
     }
 }
