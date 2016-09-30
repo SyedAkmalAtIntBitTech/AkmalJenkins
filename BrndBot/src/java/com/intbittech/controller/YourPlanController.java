@@ -253,6 +253,7 @@ public class YourPlanController {
                     conn.commit();
                     Map<String, Object> data = new HashMap<>();
                     data.put("schedule_entity_id", scheduleId);
+                    
                     transactionResponse.setMessage(AppConstants.GSON.toJson(data));
                     transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success",new String[]{}, Locale.US)));
                 } catch (SQLException ex) {
