@@ -5,10 +5,14 @@
  */
 package com.intbittech.services;
 
+import static com.intbittech.enums.ScheduledEntityType.Twitter;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.modelmappers.CompanyColorsDetails;
+import com.intbittech.modelmappers.EmailSettings;
+import com.intbittech.modelmappers.Facebook;
 import com.intbittech.modelmappers.FooterDetails;
+import com.intbittech.modelmappers.Twitter;
 import com.intbittech.modelmappers.UserProfileColorDetails;
 import java.util.List;
 import java.util.Map;
@@ -24,9 +28,9 @@ public interface CompanyPreferencesService {
 
     public CompanyPreferences getByCompany(Company company);
 
-    public void updateEmailSettings(JSONObject json_object, Company company);
+    public void updateEmailSettings(EmailSettings emailSettings, Company company);
 
-    public JSONObject getEmailSettings(Company company);
+    public EmailSettings getEmailSettings(Company company);
 
     public List<String> getColors(Company company);
 
@@ -49,4 +53,18 @@ public interface CompanyPreferencesService {
     public void saveUnsubscribeEmails(Integer companyId, List<String> emailList);
 
     public Map<String, String> getUnsubscribedEmailsMap(CompanyPreferences companyPreferences);
+    
+    public void setTwitterDetails(Twitter twitter,Company company);
+    
+    public Twitter getTwitterDetails(Integer companyId);
+    
+    public void deleteTwitterDetails(Integer companyId);
+        
+    public void setFacebookDetails(Facebook facebook,Company company);
+ 
+    public Twitter getFacebookDetails(Integer companyId);
+    
+    public void deleteFacebookDetails(Integer companyId);
+    
+    
 }

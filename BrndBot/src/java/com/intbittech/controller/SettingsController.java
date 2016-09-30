@@ -7,6 +7,7 @@ package com.intbittech.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
 import com.controller.SqlMethods;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.intbit.util.CustomStyles;
 import com.intbittech.AppConstants;
@@ -19,6 +20,7 @@ import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.AddressDetails;
 import com.intbittech.modelmappers.CompanyColorsDetails;
+import com.intbittech.modelmappers.EmailSettings;
 import com.intbittech.modelmappers.FooterDetails;
 import com.intbittech.modelmappers.InviteDetails;
 import com.intbittech.modelmappers.UserProfileColorDetails;
@@ -306,11 +308,11 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             Company company = companyService.getCompanyById(userCompanyIds.getCompanyId());
             String reply_email_address = (String) requestBodyMap.get("reply_email_address");
             String from_name = (String) requestBodyMap.get("from_name");
-            JSONObject json_object = new JSONObject();
-            json_object.put(IConstants.kEmailFromAddress, from_address);
-            json_object.put(IConstants.kEmailReplyAddress, reply_email_address);
-            json_object.put(IConstants.kFromName, from_name);
-            companyPreferencesService.updateEmailSettings(json_object, company);
+            EmailSettings emailSettings = new EmailSettings();
+            emailSettings.setFromAddress(from_address);
+            emailSettings.setReplyEmailAddress(reply_email_address);
+            emailSettings.setFromName(from_name);
+            companyPreferencesService.updateEmailSettings(emailSettings, company);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {
@@ -325,8 +327,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
             Company company = companyService.getCompanyById(companyId);
-            JSONObject jsonObject = companyPreferencesService.getEmailSettings(company);
-            genericResponse.addDetail(new Gson().toJson(jsonObject));
+            EmailSettings emailSettings = companyPreferencesService.getEmailSettings(company);
+            ObjectMapper mapper = new ObjectMapper();
+            genericResponse.addDetail(mapper.writeValueAsString(emailSettings));
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
         } catch (Throwable throwable) {
             logger.error(throwable);

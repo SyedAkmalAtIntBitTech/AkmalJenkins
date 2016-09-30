@@ -398,7 +398,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                         onboardingFactory.getAccountStatus(companyDetails).then(function (data) {
                             $scope.message = data.d.message;
                             if (data.d.message == 'Activated') {
-                                window.location = getHost() + "user/dashboard";
+                                window.location = getHost() + "user/yourplan#/marketing";
                             } else if (data.d.message == 'Deactivated') {
                                 growl("your account has been deactivated, please contact system admin");
                                 window.location = getHost() + "login";
