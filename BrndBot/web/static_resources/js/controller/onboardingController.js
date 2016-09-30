@@ -334,7 +334,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                     var userIdvalue = kGlobalCompanyObject.userId;
                     var companyDetails = {"userId": userIdvalue, "companyName": $scope.companyName, "organizationId": $scope.organizationId};
-
                     onboardingFactory.saveCompanyPost(companyDetails).then(function (data) {
                         var companyId = data.d.message;
                         if (parseInt(companyId) == 0) {
@@ -430,7 +429,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         };
 
         $scope.getAccountStatus = function (companyDetails) {
-
+            
             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                 kGlobalCompanyObject.userId = companyDetails.userId;
                 kGlobalCompanyObject.companyId = companyDetails.companyId;
@@ -457,7 +456,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                            $scope.hideDataOverlay = false;
                         });
                     }
-
                 });
 
             });
