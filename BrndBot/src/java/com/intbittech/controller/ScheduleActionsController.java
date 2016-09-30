@@ -8,6 +8,8 @@ package com.intbittech.controller;
 import com.intbittech.AppConstants;
 import com.intbittech.enums.ScheduledEntityType;
 import com.intbittech.marketing.service.ScheduledEntityListService;
+import com.intbittech.model.Activity;
+import com.intbittech.model.ActivityLog;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
@@ -15,9 +17,11 @@ import com.intbittech.modelmappers.UpdateActionDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.services.ActivityLogService;
 import com.intbittech.services.ScheduleActionsService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
+import com.intbittech.utility.IConstants;
 import com.intbittech.utility.MapUtility;
 import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
@@ -59,6 +63,8 @@ public class ScheduleActionsController {
     private ScheduledEntityListService scheduledEntityListService;
     @Autowired
     private UsersService usersService;
+    @Autowired
+    private ActivityLogService activityLogService;
 
     @RequestMapping(value = "/getActions", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getActions(HttpServletRequest request,
@@ -332,6 +338,17 @@ public class ScheduleActionsController {
             scheduledEntityList.setAssignedTo(users);
             scheduledEntityList.setUpdatedAt(new Date());
             scheduledEntityListService.update(scheduledEntityList);
+            ActivityLog activityLog = new ActivityLog();
+            activityLog.setFkScheduledEntityid(scheduledEntityList);
+            Activity activity = new Activity();
+            activity.setActivityId(IConstants.ACTIVITY_REASSIGNED_TO_ID);
+            Users createdUser = new Users();
+            createdUser.setUserId(updateActionDetails.getUserId());
+            activityLog.setCreatedBy(createdUser);
+            activityLog.setAssignedTo(users);
+            activityLog.setFkActivityId(activity);
+            activityLogService.save(activityLog);
+
             transactionResponse.setId(Utility.getFirstTwoCharactersOfName(scheduledEntityList.getAssignedTo().getFirstName(), scheduledEntityList.getAssignedTo().getLastName()));
             transactionResponse.setMessage(scheduledEntityList.getAssignedTo().getFirstName() + " " + scheduledEntityList.getAssignedTo().getLastName());
             
