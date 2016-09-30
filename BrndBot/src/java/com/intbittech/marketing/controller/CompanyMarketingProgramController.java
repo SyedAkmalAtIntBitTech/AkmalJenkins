@@ -10,6 +10,8 @@ import com.intbittech.AppConstants;
 import com.intbittech.enums.TemplateStatus;
 import com.intbittech.marketing.service.CompanyMarketingProgramService;
 import com.intbittech.marketing.service.ScheduledEntityListService;
+import com.intbittech.model.Activity;
+import com.intbittech.model.ActivityLog;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyMarketingProgram;
 import com.intbittech.model.MarketingAction;
@@ -17,7 +19,9 @@ import com.intbittech.model.MarketingProgram;
 import com.intbittech.model.RecurringEmailTemplate;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
+import com.intbittech.model.Users;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.services.ActivityLogService;
 import com.intbittech.services.MarketingActionService;
 import com.intbittech.services.RecurringEmailTemplateService;
 import com.intbittech.utility.ErrorHandlingUtil;
@@ -60,6 +64,8 @@ public class CompanyMarketingProgramController {
     private MarketingActionService marketingActionService;
     @Autowired
     private RecurringEmailTemplateService recurringEmailTemplateService;
+    @Autowired
+    private ActivityLogService activityLogService;
 
     @RequestMapping(value = "/setMarketingProgram", method = RequestMethod.POST)
     public @ResponseBody
@@ -516,19 +522,31 @@ public class CompanyMarketingProgramController {
 
             Integer entity_id = Integer.parseInt((String) requestBodyMap.get("entity_id"));
             String template_status = (String) requestBodyMap.get("template_status");
-
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);    
             ScheduledEntityList scheduled_entity_list = scheduledEntityListService.getEntityById(entity_id);
-
+            Activity activity = new Activity();
             if (template_status.equalsIgnoreCase("approved")) {
                 scheduled_entity_list.setStatus(TemplateStatus.approved.toString());
+                 activity.setActivityId(IConstants.ACTIVITY_APPROVED_ACTION_ID);
             } else if (template_status.equalsIgnoreCase("template_saved")) {
                 scheduled_entity_list.setStatus(TemplateStatus.template_saved.toString());
+                activity.setActivityId(IConstants.ACTIVITY_DISAPPROVED_ACTION_ID);
             } else if (template_status.equalsIgnoreCase("complete")) {
                 scheduled_entity_list.setStatus(TemplateStatus.complete.toString());
+                activity.setActivityId(IConstants.ACTIVITY_UPDATED_TEMPLATE_ID);
             } else if (template_status.equalsIgnoreCase("no_template")) {
                 scheduled_entity_list.setStatus(TemplateStatus.no_template.toString());
             }
-            scheduledEntityListService.update(scheduled_entity_list);
+              scheduledEntityListService.update(scheduled_entity_list);
+            ActivityLog activityLog = new ActivityLog();
+            activityLog.setFkScheduledEntityid(scheduled_entity_list);
+            
+           
+            Users createdUser = new Users();
+            createdUser.setUserId(userCompanyIds.getUserId());
+            activityLog.setCreatedBy(createdUser);
+            activityLog.setFkActivityId(activity);
+            activityLogService.save(activityLog);
 
             return "true";
         } catch (Throwable throwable) {
