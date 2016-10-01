@@ -80,28 +80,7 @@ public class ScheduleAnRecurringEmail implements Runnable {
                         SendEmailService sendEmailService = SpringContextBridge.services().getSendEmailService();
                         sendEmailService.sendMail(emailDataDetails);
                         
-//                        JSONArray jsonArray = anEmail.getAllEmailAddressesForEmailList(companyId, days, emaillist_name);
-//
-//                        for (int i = 0; i < jsonArray.size(); i++) {
-//
-//                            EmailInfo emailInfo = (EmailInfo) jsonArray.get(i);
-//
-//                            html_text = html_text.replace(IConstants.kEmailClientFirstName, emailInfo.getFirstName());
-//                            html_text = html_text.replace(IConstants.kEmailClientFirstName.toLowerCase(), emailInfo.getFirstName());
-//
-//                            html_text = html_text.replace(IConstants.kEmailClientLastName, emailInfo.getLastName());
-//                            html_text = html_text.replace(IConstants.kEmailClientLastName.toLowerCase(), emailInfo.getLastName());
-//
-//                            html_text = html_text.replace(IConstants.kEmailClientFullName, Utility.getFullName(emailInfo));
-//                            html_text = html_text.replace(IConstants.kEmailClientFullName.toLowerCase(), Utility.getFullName(emailInfo));
-//
-//                            message = SendMail.sendEmail(html_text, email_subject,
-//                                    emailInfo.getEmailAddress(), emaillist_name, companyId, reply_to_address, from_email_address, from_name, Utility.getFullName(emailInfo));
-//                        }
-//                      String message = "success";//TODO
-//                        if (message.equalsIgnoreCase("success")) {
-                            updateStatusScheduledEmail(currentScheduledRecurringEmail);
-//                        }
+                        updateStatusScheduledEmail(currentScheduledRecurringEmail);
                     }
                 }
             }
