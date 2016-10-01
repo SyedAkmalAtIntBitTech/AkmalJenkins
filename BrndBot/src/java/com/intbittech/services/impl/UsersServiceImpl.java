@@ -11,7 +11,6 @@ import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.UserRoleCompanyLookUpDao;
 import com.intbittech.dao.UsersDao;
 import com.intbittech.dao.UsersInviteDao;
-import com.intbittech.email.mandrill.SendMail;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.Invite;
@@ -61,9 +60,6 @@ public class UsersServiceImpl implements UsersService {
     @Autowired
     private UsersInviteService usersInviteService;
 
-    @Autowired
-    private UsersInviteDao usersInviteDao;
-
     private UserRoleCompanyLookUpDao usersRoleLookUpDao;    
     
     @Autowired
@@ -78,8 +74,6 @@ public class UsersServiceImpl implements UsersService {
     @Autowired
     private EmailServiceProviderService emailServiceProviderService;
     
-    SendMail send_email = new SendMail();
-
     /**
      * {@inheritDoc}
      */

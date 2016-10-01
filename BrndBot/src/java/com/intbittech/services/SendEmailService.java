@@ -5,6 +5,7 @@
  */
 package com.intbittech.services;
 
+import com.intbittech.modelmappers.EmailDataDetails;
 import java.util.Map;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Map;
  */
 public interface SendEmailService {
 
-    public void sendMail(Map<String, Object> requestBodyMap, Integer companyId) throws Exception;
+    public void sendMail(EmailDataDetails emailDataDetails) throws Exception;
 
     public String getTags(Integer companyId) throws Exception;
 

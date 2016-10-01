@@ -10,10 +10,6 @@ import com.intbittech.dao.EmailListTagLookupDao;
 import com.intbittech.dao.FranchiseCompanyLookupDao;
 import com.intbittech.dao.FranchiseDao;
 import com.intbittech.dao.UsersDao;
-import com.intbittech.email.mandrill.Message;
-import com.intbittech.email.mandrill.Recipient;
-import com.intbittech.email.mandrill.SendMail;
-import static com.intbittech.email.mandrill.SendMail.MANDRILL_KEY;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.EmailListTagLookup;
@@ -30,7 +26,6 @@ import com.intbittech.utility.Utility;
 import com.sendgrid.Content;
 import com.sendgrid.Email;
 import com.sendgrid.Mail;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -57,7 +52,6 @@ public class FranchiseServiceImpl implements FranchiseService {
     private CompanyDao companyDao;
     @Autowired
     private EmailListTagLookupDao emailListTagLookupDao;
-    SendMail sendEmail = new SendMail();
     @Autowired
     private MessageSource messageSource;
     @Autowired
@@ -243,7 +237,8 @@ public class FranchiseServiceImpl implements FranchiseService {
         String fromName = users.getFirstName() + " " + users.getLastName();
         return sendRequestToAddCompaniesEmail(users.getUserName(), fromName, IConstants.SUPPORT_BRNDBOT_EMAIL_ID, companiesName, franchiseName);
     }
-
+    
+    //TODO Ilyas this needs to corrected, its wrong right now sendTO goes to support???
     public Boolean sendRequestToAddCompaniesEmail(String fromEmailId, String fromName, String sendTo, String companyName, String franchiseName) throws ProcessFailed {
         try {
 
@@ -251,9 +246,12 @@ public class FranchiseServiceImpl implements FranchiseService {
             String htmlBody = messageSource.getMessage("requestToAddCompany", new String[]{}, Locale.US);
             String formattedBody = String.format(htmlBody, companyName, franchiseName);
             Content content = new Content(IConstants.kContentHTML, formattedBody);
-            Email emailTo = new Email(sendTo, Utility.combineUserName(user));
             String subject = "Request to add Company";
+            Email emailTo = new Email(sendTo, Utility.combineUserName(user));
+            user = usersService.getUserByEmailId(fromEmailId);
+            Email emailFrom = new Email(fromEmailId, Utility.combineUserName(user));
             Mail mail = new Mail(null, subject, emailTo, content);
+            mail.setFrom(emailFrom);
             String preHeader = "something";
             emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply);
             return true;
