@@ -105,7 +105,7 @@ public class SendEmailServiceImpl implements SendEmailService {
         //TODO need to check and change this
         int lastUpdateId = EmailHistoryDAO.addToEmailHistory(emailDataDetails.getCompanyId(),
                 emailDataDetails.getHtmlData(), emailDataDetails.getFromEmailAddress(), emailDataDetails.getEmailList(),
-                toEmailIds, emailDataDetails.getEmailSubject(), SendMail.getTag(emailDataDetails.getEmailSubject()));
+                toEmailIds, emailDataDetails.getEmailSubject(), "TODO add tag/category here");
         //TODO check this and remove insertMandrillEmailId
 //        if (mandrillResponse != null && lastUpdateId != -1) {
 //            EmailHistoryDAO.insertMandrillEmailId(mandrillResponse, lastUpdateId);
