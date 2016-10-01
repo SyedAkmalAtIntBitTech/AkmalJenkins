@@ -2769,8 +2769,8 @@ p.modal-content-header{
 }
 
 .social-channel-icon{
-    width:25px;
-    height: 25px;
+    width:35px;
+    height: 35px;
     margin-right: 20px;
 }
 
@@ -4474,9 +4474,6 @@ textarea.task-textarea:focus{
 }
 
 
-.social-channel-icon{
-    height: 35px;
-}
 
 .facebook-settings-update-container{
     display: inline-flex;
@@ -5151,6 +5148,17 @@ textarea.task-textarea:focus{
     align-items: center;
 }
 
+.bb-panel-footer{
+    height: 40px;
+    display: inline-flex;
+    flex-direction: row;
+    line-height: 55px;
+    border-top: 1px #C7D0D9 solid;
+    width: 100%;
+    padding: 0px 30px;
+    align-items: center;
+}
+
 .bb-panel-header *:first-child{
     margin-right: 30px;
 }
@@ -5405,7 +5413,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-email-auto-height{
-    height: calc(100vh-100px);
+    height: calc(100vh - 100px);
 }
 
 .bb-clickable-slat{
@@ -5746,6 +5754,14 @@ textarea.task-textarea:focus{
     padding: 20px 0px;
 }
 
+.powered-by-mb-logo{
+    background-image: url(/BrndBot/images/poweredbymindbody.png) ;
+    height: 30px;
+    width: 100px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    
+}
 /*------- INPUT -----*/
 
 .input input{
