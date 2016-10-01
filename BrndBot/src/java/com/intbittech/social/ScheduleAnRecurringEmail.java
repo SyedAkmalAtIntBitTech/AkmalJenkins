@@ -69,7 +69,7 @@ public class ScheduleAnRecurringEmail implements Runnable {
                         
                         EmailDataDetails emailDataDetails = new EmailDataDetails();
                         emailDataDetails.setCompanyId(companyId);
-                        emailDataDetails.setEmailList(emaillist_name);
+                        emailDataDetails.setEmailListName(emaillist_name);
                         emailDataDetails.setEmailSubject(email_subject);
                         emailDataDetails.setFromEmailAddress(from_email_address);
                         emailDataDetails.setFromName(from_name);

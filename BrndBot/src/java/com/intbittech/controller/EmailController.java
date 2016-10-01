@@ -83,7 +83,7 @@ public class EmailController {
             }
             EmailDataDetails emailDataDetails = new EmailDataDetails();
             emailDataDetails.setCompanyId(userCompanyIds.getCompanyId());
-            emailDataDetails.setEmailList(emaillist_name);
+            emailDataDetails.setEmailListName(emaillist_name);
             emailDataDetails.setEmailSubject(email_subject);
             emailDataDetails.setFromEmailAddress(from_email_address);
             emailDataDetails.setFromName(from_name);

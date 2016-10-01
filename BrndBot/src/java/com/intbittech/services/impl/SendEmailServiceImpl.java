@@ -61,9 +61,9 @@ public class SendEmailServiceImpl implements SendEmailService {
         Mail mail = new Mail();
         String toEmailIds = "";
         if(emailDataDetails.getIsRecurring())
-            toEmailIds = contactEmailListLookupService.getContactsByEmailListNameAndCompanyIdForToday(emailDataDetails.getEmailList(), emailDataDetails.getCompanyId(),emailDataDetails.getDays());
+            toEmailIds = contactEmailListLookupService.getContactsByEmailListNameAndCompanyIdForToday(emailDataDetails.getEmailListName(), emailDataDetails.getCompanyId(),emailDataDetails.getDays());
         else
-            toEmailIds = contactEmailListLookupService.getContactsByEmailListNameAndCompanyId(emailDataDetails.getEmailList(), emailDataDetails.getCompanyId());
+            toEmailIds = contactEmailListLookupService.getContactsByEmailListNameAndCompanyId(emailDataDetails.getEmailListName(), emailDataDetails.getCompanyId());
 
         
         Email emailFrom = new Email(emailDataDetails.getFromEmailAddress(), emailDataDetails.getFromName());
@@ -104,7 +104,7 @@ public class SendEmailServiceImpl implements SendEmailService {
         
         //TODO need to check and change this
         int lastUpdateId = EmailHistoryDAO.addToEmailHistory(emailDataDetails.getCompanyId(),
-                emailDataDetails.getHtmlData(), emailDataDetails.getFromEmailAddress(), emailDataDetails.getEmailList(),
+                emailDataDetails.getHtmlData(), emailDataDetails.getFromEmailAddress(), emailDataDetails.getEmailListName(),
                 toEmailIds, emailDataDetails.getEmailSubject(), "TODO add tag/category here");
         //TODO check this and remove insertMandrillEmailId
 //        if (mandrillResponse != null && lastUpdateId != -1) {

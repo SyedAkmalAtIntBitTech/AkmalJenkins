@@ -16,11 +16,12 @@ public class EmailDataDetails extends UserCompanyIds implements Serializable {
     
     private String emailSubject;
     private String htmlData;
-    private String emailList;
+    private String emailListName;
     private String replyToEmailAddress;
     private String fromEmailAddress;
     private String fromName;
     private String iFrameName;
+    //change to enum
     private Boolean isRecurring;
     private Integer days;
 
@@ -40,12 +41,12 @@ public class EmailDataDetails extends UserCompanyIds implements Serializable {
         this.htmlData = htmlData;
     }
 
-    public String getEmailList() {
-        return emailList;
+    public String getEmailListName() {
+        return emailListName;
     }
 
-    public void setEmailList(String emailList) {
-        this.emailList = emailList;
+    public void setEmailListName(String emailListName) {
+        this.emailListName = emailListName;
     }
 
     public String getReplyToEmailAddress() {
