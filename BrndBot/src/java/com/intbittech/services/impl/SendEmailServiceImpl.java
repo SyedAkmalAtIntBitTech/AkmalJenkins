@@ -5,6 +5,7 @@
  */
 package com.intbittech.services.impl;
 
+import com.google.gson.Gson;
 import com.intbittech.AppConstants;
 import com.intbittech.utility.ServletUtil;
 import com.intbittech.dao.impl.EmailHistoryDAO;
@@ -29,6 +30,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
