@@ -6,6 +6,7 @@
 package com.intbittech.services.impl;
 
 import com.intbittech.dao.ContactsDao;
+import com.intbittech.dao.UnsubscribedEmailCompanyDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ContactEmailListLookup;
 import com.intbittech.model.Contacts;
@@ -46,6 +47,9 @@ public class ContactsServiceImpl implements ContactsService{
     
     @Autowired
     private MessageSource messageSource;
+    
+    @Autowired
+    private UnsubscribedEmailCompanyDao unsubscribedEmailCompanyDao;
     
      /**
      * {@inheritDoc}
@@ -99,10 +103,8 @@ public class ContactsServiceImpl implements ContactsService{
         //checks if contact is unsubscribed, base on that sets below value
         Boolean isUnsubscribed = Boolean.FALSE;
         UnsubscribedEmails unsubscribedEmails = unsubscribedEmailsService.getByUnsubscribedEmailsAddress(contactDetails.getEmailAddress());
-        if(unsubscribedEmails != null) {
-            isUnsubscribed = Boolean.TRUE;
-        }
-        contactEmailListLookup.setUnsubscribed(isUnsubscribed);
+        Boolean isEmailUnsubscribed = unsubscribedEmailCompanyDao.isEmailUnsubscribed(contactDetails.getCompanyId(), unsubscribedEmails.getUnsubscribedEmailId());
+        contactEmailListLookup.setUnsubscribed(isEmailUnsubscribed);
         contactEmailListLookup.setAddedDate(new Date());
 
         contactEmailListLookupService.saveOrUpdate(contactEmailListLookup);
