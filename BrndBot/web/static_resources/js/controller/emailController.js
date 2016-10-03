@@ -1100,7 +1100,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         //            $scope.redirectBaseURL();       //this function redirects to base if page is refreshed.            
 
                     appSessionFactory.getCompany().then(function (companyObject){
-
+                        
                         emailListFactory.getAllEmailListNames(companyObject.companyId).then(function (data){
                             $scope.emailLists = data.d.details;
                             var emailAutomationData = $scope.emailLists;
@@ -1209,7 +1209,9 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     } else if ($scope.emailList !== "Manual")
                     {
                         var emails = "";
+                        alert(JSON.stringify($scope.emailList));
                         emailListFactory.getContactsOfEmailList($scope.emailList).then(function (data){
+                            alert(JSON.stringify(data));
                             var parseData = data.d.details;
                             var i = 0;
                             for (i = 0; i < parseData.length; i++) {

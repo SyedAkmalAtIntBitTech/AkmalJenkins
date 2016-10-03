@@ -174,12 +174,22 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 });
             }
         };
-
+        
+        $scope.emailAdressValidation = function (email) {
+            var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+                if (regex.test(email)) {
+                    return false;
+                }
+            return true;
+        };
+        
         $scope.inviteUser = function (userDetails) {
             if (!userDetails){
                 growl(noEmailAndRole);
             }else if (!userDetails.email) {
                 growl(noEmail);
+            }else if ($scope.emailAdressValidation(userDetails.email)) {
+                growl(emailValidation);
             }else if (!userDetails.adminRadio){
                 growl(noRole);
             }else {

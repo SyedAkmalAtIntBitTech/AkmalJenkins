@@ -4,6 +4,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.past = "";
         $scope.endDate = "";
         $scope.programId = "";
+        $scope.ddSelectedUser= '0';
         $scope.randomIframeFilename = event.timeStamp;
         $scope.actionNameValidation = actionNameValidation;
         $scope.actionDropdownValidation = actionDropdownValidation;
@@ -40,6 +41,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.changeUsers = false;
         $scope.companyName = "";
         $scope.editSavedEmail = false;
+        $scope.changeUsers=false;
 
         $scope.companyAddressDetails = {};
         $scope.emailListName="";
@@ -64,6 +66,25 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
         ];
 
+        
+        $scope.ddSelectUserOptions = [ {
+                text: 'Select',
+                value: '0'
+            }
+        ];
+        
+        $scope.openChangeUserDD = function (flag){
+            $scope.changeUsers=flag;
+        };
+        
+        $scope.ddSelectUser = {text: "Select"};
+        
+        
+        $scope.chooseUserOnChange = function (actionValue) {
+            $scope.ddSelectedUser = actionValue.value;
+        };
+        
+        
         $scope.getUserDetails = function () {
             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                 $scope.companyName = kGlobalCompanyObject.companyName;
@@ -155,7 +176,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.getAllUsersInCompany = function () {
             yourPlanFactory.allUsersInCompanyGet().then(function (data) {
-                $scope.allUsers = data.d.details;
+//                $scope.allUsers = data.d.details;
+                $scope.ddSelectUserOptions = [{text: 'Select',value: '0'}];
+                
+                for (var i = 0; i < data.d.details.length; i++) {
+                    $scope.ddSelectUserOptions.push({"text": data.d.details[i].userName, "value": data.d.details[i].userId});
+                }
             });
             yourPlanFactory.noOfUsersInCompanyGet().then(function (data) {
                 var noOfUsersInCompany = data.d.details;
@@ -164,6 +190,13 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 }
             });
         };
+        
+         $scope.ChangeUserOnChange = function (changedValue){
+            $scope.ddSelectedUser=changedValue.value;
+            $scope.changeAssignedTo($scope.schedule_id);
+            $scope.openChangeUserDD(false);
+        };
+
 
         $scope.getAllMarketingPrograms = function (forward) {
             marketingFactory.companyMarketingCategoriesGet().then(function (data) {
@@ -380,9 +413,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         var getEpochMillis = function (dateStr) {
-            var r = /^\s*(\d{4})-(\d\d)-(\d\d)\s+(\d\d):(\d\d):(\d\d)\s+UTC\s*$/
+            var r = /^\s*(\d\d) (\d\d) (\d{4})\s+(\d\d):(\d\d):(\d\d)\s+UTC\s*$/
                     , m = ("" + dateStr).match(r);
-            return (m) ? Date.UTC(m[1], m[2] - 1, m[3], m[4], m[5], m[6]) : undefined;
+            return (m) ? Date.UTC(m[3], m[2] - 1, m[1], m[4], m[5], m[6]) : undefined;
         };
 
         $scope.getNames = function (userName) {
@@ -391,9 +424,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             return user;
         };
         $scope.changeAssignedTo = function (scheduleId) {
-            var userAssignToId = $("#assignTo option:selected").val();
-
-            var assignToDetails = {"scheduleId": scheduleId, "userAssignToId": userAssignToId};
+            
+            var assignToDetails = {"scheduleId": scheduleId, "userAssignToId": $scope.ddSelectedUser};
             yourPlanFactory.changeAssigedToPOST(assignToDetails).then(function (data) {
                 var userName = data.d.message
                 var user = [];
@@ -441,9 +473,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         {
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
             {
-                var userAssignToId = $("#assignTo option:selected").val();
-                if (!userAssignToId)
-                    userAssignToId = "0";
+                if (!$scope.ddSelectedUser)
+                    $scope.ddSelectedUser = "0";
                 $scope.timePickerVal = false;
                 var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
                 var actionDateTime1 = datePicker.toLocaleString() + " " + actionTime1.toLocaleString();
@@ -482,7 +513,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
                 var action = {"title": addTitle, "actiontype": actionType.value,
                     "type": "save", "description": "", "marketingType": $scope.programId,
-                    "action_date": epoch_time, "days": days, "userAssignToId": userAssignToId};
+                    "action_date": epoch_time, "days": days, "userAssignToId": $scope.ddSelectedUser};
                 companyMarketingProgramFactory.addActionPost(action).then(function (data) {
                     $scope.closeOverlay();
                     $scope.getProgramActions('emailautomation');
