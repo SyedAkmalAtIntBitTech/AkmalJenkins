@@ -57,7 +57,7 @@ public class SendEmailServiceImpl implements SendEmailService {
     public void sendMail(EmailDataDetails emailDataDetails) throws Exception {
         Mail mail = new Mail();
         List<ContactEmailListLookup>  toEmailIds = new ArrayList<>();
-        if(emailDataDetails.getEmailCategory() == EmailCategory.Recurring.name())
+        if(emailDataDetails.getEmailCategory().equals(EmailCategory.Recurring.name()))
             toEmailIds = contactEmailListLookupService.getContactsByEmailListNameAndCompanyIdForToday(emailDataDetails.getEmailListName(), emailDataDetails.getCompanyId(),emailDataDetails.getDays());
         else
             toEmailIds = contactEmailListLookupService.getContactsByEmailListNameAndCompanyId(emailDataDetails.getEmailListName(), emailDataDetails.getCompanyId());
