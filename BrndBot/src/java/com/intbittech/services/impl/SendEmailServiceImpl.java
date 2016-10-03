@@ -13,6 +13,7 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.services.SendEmailService;
 import com.intbittech.email.mandrill.MandrillApiHandler;
 import com.intbittech.email.mandrill.SendMail;
+import com.intbittech.model.ContactEmailListLookup;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.EmailDataDetails;
 import com.intbittech.sendgrid.models.EmailType;
@@ -59,7 +60,7 @@ public class SendEmailServiceImpl implements SendEmailService {
     @Override
     public void sendMail(EmailDataDetails emailDataDetails) throws Exception {
         Mail mail = new Mail();
-        String toEmailIds = "";
+        List<ContactEmailListLookup>  toEmailIds = new ArrayList<>();
         if(emailDataDetails.getIsRecurring())
             toEmailIds = contactEmailListLookupService.getContactsByEmailListNameAndCompanyIdForToday(emailDataDetails.getEmailListName(), emailDataDetails.getCompanyId(),emailDataDetails.getDays());
         else
@@ -80,12 +81,12 @@ public class SendEmailServiceImpl implements SendEmailService {
         //TODO preheader
 //        mail.addHeader("preHeader", preheader);
 
-        String emailids[] = toEmailIds.split(",");
-        
-        for (int i = 0; i < emailids.length; i++) {
+        for (ContactEmailListLookup currectContact : toEmailIds) {
             Personalization personalization = new Personalization();
-            Users user = usersService.getUserByEmailId(emailids[i]);
-            Email emailToObject = new Email(emailids[i], Utility.combineUserName(user));
+            Users user = new Users();
+            user.setFirstName(currectContact.getFkContactId().getFirstName());
+            user.setLastName(currectContact.getFkContactId().getLastName());
+            Email emailToObject = new Email(currectContact.getFkContactId().getEmailAddress(), Utility.combineUserName(user));
             personalization.addTo(emailToObject);
             
             personalization.addSubstitution(IConstants.kEmailClientFirstName, user.getFirstName());
@@ -105,7 +106,7 @@ public class SendEmailServiceImpl implements SendEmailService {
         //TODO need to check and change this
         int lastUpdateId = EmailHistoryDAO.addToEmailHistory(emailDataDetails.getCompanyId(),
                 emailDataDetails.getHtmlData(), emailDataDetails.getFromEmailAddress(), emailDataDetails.getEmailListName(),
-                toEmailIds, emailDataDetails.getEmailSubject(), "TODO add tag/category here");
+                "", emailDataDetails.getEmailSubject(), "TODO add tag/category here");
         //TODO check this and remove insertMandrillEmailId
 //        if (mandrillResponse != null && lastUpdateId != -1) {
 //            EmailHistoryDAO.insertMandrillEmailId(mandrillResponse, lastUpdateId);

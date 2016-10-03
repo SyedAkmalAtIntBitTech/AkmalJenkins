@@ -71,38 +71,27 @@ public class ContactEmailListLookupServiceImpl implements ContactEmailListLookup
     /**
      * {@inheritDoc}
      */
-    public String getContactsByEmailListNameAndCompanyId(String emailListName, Integer companyId) throws ProcessFailed {
+    public List<ContactEmailListLookup> getContactsByEmailListNameAndCompanyId(String emailListName, Integer companyId) throws ProcessFailed {
         String contactsForEmailList = "";
         EmailList emailList = emailListService.getEmailListByCompanyIdAndEmailListName(companyId, emailListName);
         List<ContactEmailListLookup> contactsList = new ArrayList<>();
         if (emailList != null) {
             contactsList = getContactsByEmailListId(emailList.getEmailListId());
         }
-        List<String> emailAddresses = new ArrayList<>();
-        if (contactsList != null) {
-            for (ContactEmailListLookup contact : contactsList) {
-                emailAddresses.add(contact.getFkContactId().getEmailAddress());
-            }
-        }
 
-        if (emailAddresses != null) {
-            contactsForEmailList = StringUtils.join(emailAddresses, ',');
-        }
-
-        return contactsForEmailList;
+       return contactsList;
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getContactsByEmailListNameAndCompanyIdForToday(String emailListName, Integer companyId, Integer days) throws ProcessFailed, ParseException {
-        String contactsForEmailList = "";
+    public List<ContactEmailListLookup> getContactsByEmailListNameAndCompanyIdForToday(String emailListName, Integer companyId, Integer days) throws ProcessFailed, ParseException {
         EmailList emailList = emailListService.getEmailListByCompanyIdAndEmailListName(companyId, emailListName);
         List<ContactEmailListLookup> contactsList = new ArrayList<>();
+        List<ContactEmailListLookup> returnContactsList = new ArrayList<>();
         if (emailList != null) {
             contactsList = getContactsByEmailListId(emailList.getEmailListId());
         }
-        List<String> emailAddresses = new ArrayList<>();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         if (contactsList != null) {
             for (ContactEmailListLookup contact : contactsList) {
@@ -115,16 +104,12 @@ public class ContactEmailListLookupServiceImpl implements ContactEmailListLookup
                 Date todayDate = Calendar.getInstance().getTime();
                 String currentDateString = formatter.format(todayDate);
                 if (postDate.equalsIgnoreCase(currentDateString)) {
-                    emailAddresses.add(contact.getFkContactId().getEmailAddress());
+                    returnContactsList.add(contact);
                 }
             }
         }
 
-        if (emailAddresses != null) {
-            contactsForEmailList = StringUtils.join(emailAddresses, ',');
-        }
-
-        return contactsForEmailList;
+       return returnContactsList;
     }
 
     /**

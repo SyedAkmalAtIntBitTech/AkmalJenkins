@@ -58,7 +58,7 @@ public interface ContactEmailListLookupService {
      * @return string of emailListName
      * @throws ProcessFailed the process failed
      */
-    public String getContactsByEmailListNameAndCompanyId(String emailListName,Integer companyId) throws ProcessFailed;
+    public List<ContactEmailListLookup> getContactsByEmailListNameAndCompanyId(String emailListName,Integer companyId) throws ProcessFailed;
     
     /**
      * This method pass id as input and get the {@link ContactEmailListLookup} from DAO
@@ -70,7 +70,7 @@ public interface ContactEmailListLookupService {
      * @return string of emailListName
      * @throws ProcessFailed the process failed
      */
-    public String getContactsByEmailListNameAndCompanyIdForToday(String emailListName, Integer companyId, Integer days) throws ProcessFailed, ParseException;
+    public List<ContactEmailListLookup> getContactsByEmailListNameAndCompanyIdForToday(String emailListName, Integer companyId, Integer days) throws ProcessFailed, ParseException;
     
     /**
      * This method pass id as input and get the {@link ContactEmailListLookup} from DAO
