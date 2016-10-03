@@ -305,7 +305,6 @@ public class UsersInviteServiceImpl implements UsersInviteService{
 
         message.setKey(MANDRILL_KEY);
 //        TODO code to be modified
-//        message.setText("text");
 /**     need to change the above link and below message     **/
         if (userStatus.equals(AppConstants.User_Status_New)){
              message.setHtml("<html><body><p><h2>User Invitation:</h2></p><p>You have been invited to join your company in BrndBot.</p>To create a user, click on the link below (or copy and paste the URL into your browser):<br />" + imageContextPath + "#/signup/userregistration?userid=" + hashURL + "</body></html>");

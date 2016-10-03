@@ -6,6 +6,7 @@
 package com.controller;
 
 import com.intbittech.schedulers.MindbodyEmailListScheduler;
+import com.intbittech.utility.EmailListDBUtility;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
@@ -87,8 +88,8 @@ public class ApplicationContextListener implements ServletContextListener {
 //        socialPostScheduler.startEmailScheduler();
 //        socialPostScheduler.startRecurringEmailScheduler();
         
-        //Checks if default user program exists else adds general program which is used for your plan
-//        UserProgramUtility.generalProgramChecker();
+        //Processor to convert emaillist and contacts from JSON to Tables
+//        EmailListDBUtility.emailListJSONToTable();
     }
 
     @Override

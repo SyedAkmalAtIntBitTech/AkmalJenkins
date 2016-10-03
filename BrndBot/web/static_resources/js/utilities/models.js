@@ -20,7 +20,9 @@ var kGlobalEmailObject = { categoryId : "",
     replyToEmailAddress : "",
     fromAddress : "",
     preheader : "",
-    htmlBody : ""
+    htmlBody : "",
+    pushedEmail : false,
+    emailTagId :""
     };
     
 var kGlobalCompanyObject = {
@@ -34,7 +36,10 @@ var kGlobalCompanyObject = {
   userEmailId: "",
   userFirstName: "",
   userLastName: "",
-  userHashId:""
+  userHashId:"",
+  franchiseId: "",
+  franchiseName: "",
+  isHeadquarter: ""
 };
 
 var kGlobalFbPostDataObject = {imgNameToPost: "",

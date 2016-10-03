@@ -63,13 +63,11 @@ public class ScheduleDAO {
             String html_body,
             Integer createdBy,
             Integer assignedTo
-            
     ) throws SQLException {
 
         int emailScheduleId = -1;
         int scheduleEntityId = -1;
         Map<String, Integer> returnMap = new HashMap<>();
-
 
         try (Connection connection = connectionManager.getConnection()) {
             connection.setAutoCommit(false);
@@ -106,8 +104,8 @@ public class ScheduleDAO {
                         "0",
                         templateStatus,
                         companyId,
-                         createdBy,
-                         assignedTo,
+                        createdBy,
+                        assignedTo,
                         connection);
 
                 connection.commit();
@@ -144,7 +142,6 @@ public class ScheduleDAO {
         int emailScheduleId = -1;
         int scheduleEntityId = -1;
         Map<String, Integer> returnMap = new HashMap<>();
-
 
         try (Connection connection = connectionManager.getConnection()) {
             connection.setAutoCommit(false);
@@ -223,17 +220,16 @@ public class ScheduleDAO {
             int companyId,
             Integer createdBy,
             Integer assignedTo,
-            
             Connection connection) throws SQLException {
-            String sql = "INSERT INTO scheduled_entity_list"
-                    + " (entity_id, schedule_title,schedule_time,entity_type,"
-                    + "status,fk_company_id, schedule_desc,is_recurring,"
-                    + "fk_company_marketing_program_id,days,till_date,fk_recurring_email_id,created_by,assigned_to,created_at,updated_at"
-                    + ") VALUES"
-                    + " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP) RETURNING scheduled_entity_list_id";
+        String sql = "INSERT INTO scheduled_entity_list"
+                + " (entity_id, schedule_title,schedule_time,entity_type,"
+                + "status,fk_company_id, schedule_desc,is_recurring,"
+                + "fk_company_marketing_program_id,days,till_date,fk_recurring_email_id,created_by,assigned_to,created_at,updated_at"
+                + ") VALUES"
+                + " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP) RETURNING scheduled_entity_list_id";
 
         int scheduleId = -1;
-               
+
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             if (entityId == null) {
                 ps.setInt(1, 0);
@@ -251,8 +247,12 @@ public class ScheduleDAO {
             ps.setInt(10, Integer.parseInt(days));
             ps.setTimestamp(11, null);
             ps.setNull(12, java.sql.Types.INTEGER);
-            ps.setInt(13,createdBy );
-            ps.setInt(14,assignedTo );
+            ps.setInt(13, createdBy);
+            if (assignedTo == 0) {
+                ps.setNull(14, java.sql.Types.INTEGER);
+            } else {
+                ps.setInt(14, assignedTo);
+            }
 
             ps.execute();
             try (ResultSet rs = ps.getResultSet()) {
@@ -265,7 +265,7 @@ public class ScheduleDAO {
         return scheduleId;
     }
 
-      public static int updateDescriptionScheduledEntity(Integer scheduleId,
+    public static int updateDescriptionScheduledEntity(Integer scheduleId,
             String scheduleDesc,
             Connection connection) throws SQLException {
         String query_string = "Update scheduled_entity_list"
@@ -284,7 +284,7 @@ public class ScheduleDAO {
         }
         return scheduleId;
     }
-    
+
     public static int updateScheduledEntity(Integer scheduleId,
             String scheduleTitle,
             String scheduleDesc,
@@ -368,8 +368,8 @@ public class ScheduleDAO {
                 + " AND date(schedule_time) >= ?) "
                 + " OR ((slist.is_recurring = 'false' AND date(programtable.date_event) - slist.days <= ? "
                 + " AND date(programtable.date_event) - slist.days >= ?) "
-//                + " OR (slist.is_recurring = 'true' AND date(programtable.date_event) <= ? "
-//                + " AND date(programtable.date_event) >= ?))) "
+                //                + " OR (slist.is_recurring = 'true' AND date(programtable.date_event) <= ? "
+                //                + " AND date(programtable.date_event) >= ?))) "
                 + " )) "
                 + " AND slist.fk_company_marketing_program_id = programtable.company_marketing_program_id"
                 + " ORDER BY slist.scheduled_entity_list_id, schedule_time ";
@@ -394,7 +394,7 @@ public class ScheduleDAO {
                     } else {
                         Timestamp scheduleTimestamp1 = rs.getTimestamp("cal_schedule_time");
                         if (rs.getBoolean("is_recurring")) {
-                            
+
                             scheduleDate = rs.getTimestamp("cal_schedule_time_recurring").getTime();
                         } else {
                             scheduleDate = scheduleTimestamp1.getTime();
@@ -421,7 +421,7 @@ public class ScheduleDAO {
                         Timestamp scheduleTimestamp1 = rs.getTimestamp("cal_schedule_time");
                         long scheduleTime1;
                         if (rs.getBoolean("is_recurring")) {
-                           scheduleTime1 = rs.getTimestamp("schedule_time").getTime();
+                            scheduleTime1 = rs.getTimestamp("schedule_time").getTime();
                         } else {
                             scheduleTime1 = rs.getTimestamp("schedule_time").getTime();
                         }
@@ -506,7 +506,7 @@ public class ScheduleDAO {
                         String jsonParsedString = new Date(Long.parseLong(pair.getKey().toString())).toString();
                         if (jsonParsedString.equals(parsedDateString)) {
                             if (jsonArray.size() > 0) {
-                                for (i = 0; i<jsonArray.size(); i++){
+                                for (i = 0; i < jsonArray.size(); i++) {
                                     jsonArrayDateJSONEntities.add(jsonArray.get(i));
                                 }
                                 resultIterator.remove(); // avoids a ConcurrentModificationException                            
@@ -579,7 +579,7 @@ public class ScheduleDAO {
 
                         scheduleEmailDetails.put("schedule_email_id", rs.getInt("scheduled_email_list_id"));
                         scheduleEmailDetails.put("user_id", rs.getInt("fk_company_id"));
-                        scheduleEmailDetails.put("subject", rs.getString("subject"));                        
+                        scheduleEmailDetails.put("subject", rs.getString("subject"));
                         scheduleEmailDetails.put("preheader", rs.getString("preheader"));
                         scheduleEmailDetails.put("body", rs.getString("body"));
                         scheduleEmailDetails.put("from_address", rs.getString("from_address"));
@@ -854,21 +854,21 @@ public class ScheduleDAO {
         }
         return json_email_addresses;
     }
-    
+
     public static JSONArray getScheduledActionsEmailWithDate(int companyId, Integer company_marketing_program_id) throws SQLException {
         Timestamp actionTimestamp = null;
-        Long actionDate = null; 
+        Long actionDate = null;
         JSONArray json_array_email = new JSONArray();
         String query = "select sel.*,concat(date(cmp.date_event) - sel.days,' ', "
                 + " sel.schedule_time::time WITH TIME ZONE) as cal_date,concat(date(sel.schedule_time),' ', sel.schedule_time::time WITH TIME ZONE)"
                 + " as cal_rec_date from scheduled_entity_list as sel"
-                +"  INNER JOIN company_marketing_program as cmp on (cmp.company_marketing_program_id = sel.fk_company_marketing_program_id)"
+                + "  INNER JOIN company_marketing_program as cmp on (cmp.company_marketing_program_id = sel.fk_company_marketing_program_id)"
                 + " where  sel.entity_id= ?"
                 + " and sel.entity_type = ? "
                 + " and sel.status = ?"
                 + " and sel.fk_company_marketing_program_id = ?"
                 + " and sel.fk_company_id = ?";
-        
+
         try (Connection conn = connectionManager.getConnection();
                 PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, 0);
@@ -885,13 +885,12 @@ public class ScheduleDAO {
                     String schedule_desc = result_set.getString("schedule_desc");
                     Timestamp scheduleTimestamp = result_set.getTimestamp("schedule_time");
                     long scheduleTime = scheduleTimestamp.getTime();
-                     if(company_marketing_program_id == 0){
+                    if (company_marketing_program_id == 0) {
                         actionTimestamp = result_set.getTimestamp("cal_rec_date");
                         actionDate = actionTimestamp.getTime();
-                    }
-                    else if(company_marketing_program_id > 0){
+                    } else if (company_marketing_program_id > 0) {
                         actionTimestamp = result_set.getTimestamp("cal_date");
-                        actionDate = actionTimestamp.getTime(); 
+                        actionDate = actionTimestamp.getTime();
                     }
                     json_object.put("id", id);
                     json_object.put("schedule_title", schedule_title);
@@ -904,24 +903,25 @@ public class ScheduleDAO {
             }
         }
         return json_array_email;
-    }   
-    
+    }
+
     public static JSONObject getScheduledEntitiesWithUser(Integer companyId,
             LocalDate fromDate, LocalDate toDate) throws SQLException {
 
         Map<String, JSONArray> result = new LinkedHashMap<>();
 
-        String sql =  "SELECT DISTINCT ON (scheduled_entity_list_id) slist.*, "
+        String sql = "SELECT DISTINCT ON (scheduled_entity_list_id) slist.*, "
                 + "concat(date(programtable.date_event) - slist.days, ' ', slist.schedule_time::time WITH TIME ZONE) "
                 + "as cal_schedule_time, concat(date(programtable.date_event), ' ', slist.schedule_time::time WITH TIME ZONE)"
                 + " as cal_schedule_time_recurring, date(schedule_time) schedule_date ,suser.first_name,suser.last_name,suser.user_id "
-                + "FROM scheduled_entity_list slist,  company_marketing_program programtable,"
-                + " users as suser WHERE programtable.status = 'Open' AND slist.fk_company_id = ?  "
+                + "FROM scheduled_entity_list as slist FULL OUTER JOIN company_marketing_program as programtable"
+                + " on (slist.fk_company_marketing_program_id = programtable.company_marketing_program_id)"
+                + " FULL OUTER JOIN users as suser on (slist.assigned_to = suser.user_id)"
+                + " WHERE programtable.status = 'Open' AND slist.fk_company_id = ?  "
                 + "AND ((date(schedule_time) <= ?  AND date(schedule_time) >= ?) "
                 + "OR ((slist.is_recurring = 'false' AND date(programtable.date_event) - slist.days<= ?  "
                 + "AND date(programtable.date_event) - slist.days >= ?)  )) "
-                + "AND slist.fk_company_marketing_program_id = programtable.company_marketing_program_id AND slist.assigned_to = suser.user_id"
-                + " ORDER BY slist.scheduled_entity_list_id, schedule_time" ;
+                + " ORDER BY slist.scheduled_entity_list_id, schedule_time";
         try (Connection connection = connectionManager.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, companyId);
@@ -941,7 +941,7 @@ public class ScheduleDAO {
                     } else {
                         Timestamp scheduleTimestamp1 = rs.getTimestamp("cal_schedule_time");
                         if (rs.getBoolean("is_recurring")) {
-                            
+
                             scheduleDate = rs.getTimestamp("cal_schedule_time_recurring").getTime();
                         } else {
                             scheduleDate = scheduleTimestamp1.getTime();
@@ -966,7 +966,7 @@ public class ScheduleDAO {
                     } else {
                         long scheduleTime1;
                         if (rs.getBoolean("is_recurring")) {
-                           scheduleTime1 = rs.getTimestamp("schedule_time").getTime();
+                            scheduleTime1 = rs.getTimestamp("schedule_time").getTime();
                         } else {
                             scheduleTime1 = rs.getTimestamp("schedule_time").getTime();
                         }
@@ -981,7 +981,9 @@ public class ScheduleDAO {
                     scheduleDetailJSONObject.put("assignedToId", rs.getInt("user_id"));
                     scheduleDetailJSONObject.put("assignedFirstName", rs.getString("first_name"));
                     scheduleDetailJSONObject.put("assignedLastName", rs.getString("last_name"));
-                    scheduleDetailJSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(rs.getString("first_name"), rs.getString("last_name")));
+                    if (rs.getString("first_name") != null && rs.getString("last_name") != null) {
+                        scheduleDetailJSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(rs.getString("first_name"), rs.getString("last_name")));
+                    }
                     scheduleDetailJSONObject.put("template_status",
                             TemplateStatus.valueOf(rs.getString("status")).getDisplayName());
 
@@ -1048,10 +1050,10 @@ public class ScheduleDAO {
                         String jsonParsedString = new Date(Long.parseLong(pair.getKey().toString())).toString();
                         if (jsonParsedString.equals(parsedDateString)) {
                             if (jsonArray.size() > 0) {
-                                for (i = 0; i<jsonArray.size(); i++){
+                                for (i = 0; i < jsonArray.size(); i++) {
                                     jsonArrayDateJSONEntities.add(jsonArray.get(i));
                                 }
-                                resultIterator.remove();                            
+                                resultIterator.remove();
                             }
                         }
 

@@ -225,10 +225,18 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("postDateStatus", postDateStatus);
                 jSONObject.put("status", TemplateStatus.valueOf(scheduledEntityListObject.getStatus()).getDisplayName());
                 if (scheduledEntityListObject.getAssignedTo() != null) {
-                    jSONObject.put("assignedToId", scheduledEntityListObject.getAssignedTo().getUserId());
-                    jSONObject.put("assignedFirstName", scheduledEntityListObject.getAssignedTo().getFirstName());
-                    jSONObject.put("assignedLastName", scheduledEntityListObject.getAssignedTo().getLastName());
-                    jSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduledEntityListObject.getAssignedTo().getFirstName(), scheduledEntityListObject.getAssignedTo().getLastName()));
+                                        if (scheduledEntityListObject.getAssignedTo().getUserId() != null) {
+                        jSONObject.put("assignedToId", scheduledEntityListObject.getAssignedTo().getUserId());
+                    }
+                    if (scheduledEntityListObject.getAssignedTo().getFirstName() != null) {
+                        jSONObject.put("assignedFirstName", scheduledEntityListObject.getAssignedTo().getFirstName());
+                    }
+                    if (scheduledEntityListObject.getAssignedTo().getLastName() != null) {
+                        jSONObject.put("assignedLastName", scheduledEntityListObject.getAssignedTo().getLastName());
+                    }
+                    if (scheduledEntityListObject.getAssignedTo().getFirstName() != null && scheduledEntityListObject.getAssignedTo().getLastName() != null) {
+                        jSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduledEntityListObject.getAssignedTo().getFirstName(), scheduledEntityListObject.getAssignedTo().getLastName()));
+                    }
                 }
                 scheduledEmailJsonArray.put(jSONObject);
             }
@@ -264,12 +272,22 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("postDate", cal.getTimeInMillis());
                 jSONObject.put("postTime", scheduledEntityListObject.getScheduleTime().getTime());
                 jSONObject.put("actionType", scheduledEntityListObject.getEntityType());
-                jSONObject.put("assignedToId", scheduledEntityListObject.getAssignedTo().getUserId());
-                jSONObject.put("assignedFirstName", scheduledEntityListObject.getAssignedTo().getFirstName());
-                jSONObject.put("assignedLastName", scheduledEntityListObject.getAssignedTo().getLastName());
-                jSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduledEntityListObject.getAssignedTo().getFirstName(), scheduledEntityListObject.getAssignedTo().getLastName()));
+                if (scheduledEntityListObject.getAssignedTo() != null) {
+                    if (scheduledEntityListObject.getAssignedTo().getUserId() != null) {
+                        jSONObject.put("assignedToId", scheduledEntityListObject.getAssignedTo().getUserId());
+                    }
+                    if (scheduledEntityListObject.getAssignedTo().getFirstName() != null) {
+                        jSONObject.put("assignedFirstName", scheduledEntityListObject.getAssignedTo().getFirstName());
+                    }
+                    if (scheduledEntityListObject.getAssignedTo().getLastName() != null) {
+                        jSONObject.put("assignedLastName", scheduledEntityListObject.getAssignedTo().getLastName());
+                    }
+                    if (scheduledEntityListObject.getAssignedTo().getFirstName() != null && scheduledEntityListObject.getAssignedTo().getLastName() != null) {
+                        jSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduledEntityListObject.getAssignedTo().getFirstName(), scheduledEntityListObject.getAssignedTo().getLastName()));
+                    }
+                }
                 scheduledEmailAndSocailPostJsonForRecurringArray.put(jSONObject);
-                System.out.println(scheduledEmailAndSocailPostJsonForRecurringArray);
+//                System.out.println(scheduledEmailAndSocailPostJsonForRecurringArray);
 
             }
             List<ScheduledEntityList> scheduledEntityListForSocialpost = scheduledEntityListService.getScheduledEntityListIdForSocialPostType(userProgram_id);
@@ -302,11 +320,20 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("postDate", cal.getTimeInMillis());
                 jSONObject.put("postTime", scheduledSocialpostListObject.getScheduleTime().getTime());
                 jSONObject.put("actionType", scheduledSocialpostListObject.getEntityType());
-                jSONObject.put("assignedToId", scheduledSocialpostListObject.getAssignedTo().getUserId());
-                jSONObject.put("assignedFirstName", scheduledSocialpostListObject.getAssignedTo().getFirstName());
-                jSONObject.put("assignedLastName", scheduledSocialpostListObject.getAssignedTo().getLastName());
-                jSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduledSocialpostListObject.getAssignedTo().getFirstName(), scheduledSocialpostListObject.getAssignedTo().getLastName()));
-
+                if (scheduledSocialpostListObject.getAssignedTo() != null) {
+                    if (scheduledSocialpostListObject.getAssignedTo().getUserId() != null) {
+                        jSONObject.put("assignedToId", scheduledSocialpostListObject.getAssignedTo().getUserId());
+                    }
+                    if (scheduledSocialpostListObject.getAssignedTo().getFirstName() != null) {
+                        jSONObject.put("assignedFirstName", scheduledSocialpostListObject.getAssignedTo().getFirstName());
+                    }
+                    if (scheduledSocialpostListObject.getAssignedTo().getLastName() != null) {
+                        jSONObject.put("assignedLastName", scheduledSocialpostListObject.getAssignedTo().getLastName());
+                    }
+                    if (scheduledSocialpostListObject.getAssignedTo().getFirstName() != null && scheduledSocialpostListObject.getAssignedTo().getLastName() != null) {
+                        jSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduledSocialpostListObject.getAssignedTo().getFirstName(), scheduledSocialpostListObject.getAssignedTo().getLastName()));
+                    }
+                }
                 scheduledEmailAndSocailPostJsonForRecurringArray.put(jSONObject);
 
             }

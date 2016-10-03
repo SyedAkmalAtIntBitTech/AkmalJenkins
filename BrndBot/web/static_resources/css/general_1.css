@@ -14,6 +14,7 @@ body{
     box-sizing: border-box;
     margin: 0px;
     font-weight: 500 !important;
+    color:#5A6069;
 }
 
 .login-page{
@@ -143,6 +144,9 @@ a {
     font-weight: 500;
 }
 
+#addcontact{
+    margin-left: 50%;
+}
 .long-button{
     padding: 9px 30px;
     border-radius: 3px;
@@ -412,6 +416,16 @@ a.side-nav-logo{
     top: 0px;
 }
 
+.main-nav a:hover.email:after{
+    content: "Email Hub";
+
+}
+.main-nav a:hover.social:after{
+    content: "Social Hub";
+
+}
+
+
 .main-nav a:hover.account-mgr:after{
     content: "Account Manager";
     top: 0px;
@@ -464,6 +478,36 @@ a.side-nav-logo{
 
 .marketing-campaign{
     background-image: url(/BrndBot/images/nav-icons/nav-icons_campaign.svg);
+
+}
+
+.main-nav a:hover.email{
+    background-image: url(/BrndBot/images/nav-icons/nav-icons_emailhub-active.svg);
+}
+
+
+.email.active{
+    background-image: url(/BrndBot/images/nav-icons/nav-icons_emailhub-active.svg);
+
+}
+
+.email{
+    background-image: url(/BrndBot/images/nav-icons/nav-icons_emailhub.svg);
+
+}
+
+.main-nav a:hover.social{
+    background-image: url(/BrndBot/images/nav-icons/nav-icons_socialhub-active.svg);
+}
+
+
+.social.active{
+    background-image: url(/BrndBot/images/nav-icons/nav-icons_socialhub-active.svg);
+
+}
+
+.social{
+    background-image: url(/BrndBot/images/nav-icons/nav-icons_socialhub.svg);
 
 }
 
@@ -823,7 +867,9 @@ li.sub-nav-tab.active a{
 .content-wrap-padding{
     padding: 25px 0px;
 }
-
+.modal-pane-full-width{
+    width:80%;
+}
 .content-wrap-flex{
     display: -webkit-flex;
     display: flex;
@@ -1027,9 +1073,14 @@ li.sub-nav-tab.active a{
 }
 
 .overlay-header-cta-wrap i{
-    margin-right: 10px;
+    margin-right: 1px;
 }
-
+.facebookManagePopup{
+    background:rgba(61,83,104,.8);
+    position: fixed;
+    z-index: 99;
+    height:100%;
+}
 
 
 /**/
@@ -1740,6 +1791,7 @@ li.sub-nav-tab.active a{
 
 .background-pop-up{
     z-index: 100;
+    top: 0px;
     position: fixed;
     height: 100vh;
     width: 100vw;
@@ -1773,6 +1825,17 @@ li.sub-nav-tab.active a{
     top: 15vh;
     left: 45vh;
     z-index:150;
+}
+#fadeEmailAutomationPreview
+{
+    display: none;
+    position:  fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(61,83,104,.8) !important;
+    z-index:99999 !important;    
 }
 
 #fadeUserSettings
@@ -2642,7 +2705,7 @@ p.modal-content-header{
 
 
 .slat-name-wrap{
-    width: 40%;
+    width: 80%;
 }
 
 .slat-name-wrap h2{
@@ -2667,7 +2730,7 @@ p.modal-content-header{
 
 .slat-detail-wrap:last-child{
     display: flex;
-   
+
     padding-left: 20px;
 }
 
@@ -2688,7 +2751,7 @@ p.modal-content-header{
 .slat-detail h2{
     text-align: right;  
     overflow: visible;
-    width: 200px;
+    width: 220px;
 }
 
 .slat-detail p{
@@ -2797,7 +2860,7 @@ p.modal-content-header{
 .user-palette{
     display: flex;
     align-items: center;
-        margin-bottom:40px;
+    margin-bottom:40px;
 }
 
 .color-swab{
@@ -2863,7 +2926,7 @@ p.modal-content-header{
 }
 
 .upload-logo-wrap{
-    
+
     display: block;
     text-align: left;
 }
@@ -3668,8 +3731,9 @@ p.modal-content-header{
     padding-right: 20px !important;
 }
 .md-button {
-    padding: 7px 16px 7px 16px;
-    border-radius: 3px;
+    /*padding: 7px 16px 7px 16px;*/
+    border-radius: 3px;   
+    line-height: 100%;
 }
 .remove-action-detail {
     float: left;
@@ -4214,7 +4278,7 @@ img.exit-button {
     display: flex;
     flex-direction: column;
     align-content: stretch;
-   
+
 }
 
 .content-wrap-sequence-page{
@@ -4271,7 +4335,7 @@ img.exit-button {
 }
 
 .r-col-editor-wrap{
-  flex: 0 0 auto;
+    flex: 0 0 auto;
 
 }
 
@@ -4303,7 +4367,7 @@ img.exit-button {
 
 .email-automation-trigger-list-drop{
     margin-left: 10px;
-    width: 200px;
+    width: 250px;
 }
 
 .top-nav-header-cta{
@@ -4384,14 +4448,19 @@ textarea.task-textarea:focus{
 }
 .emailPreview-desktop-col {
     border-right: 1px solid #e7e7e7;
-    width: 759px;
+    width:calc(100% - 360px);
 }
 .emailPreview-mobile-col {
-    width: 360px;
+    width: 350px;
 }
 .emailPreviews {
     display: block;
     clear: both;
+}
+.emailAutomationPreviews{
+    display: inline-flex;
+    clear:both;
+    background: white;
 }
 .col-1of1 {
     width: 100%;
@@ -4417,7 +4486,10 @@ textarea.task-textarea:focus{
     border-right: 1px solid #e7e7e7;
     width: calc(100% - 360px);
 }
-
+.email-automation-preview-col-desktop{
+    border-right: 1px solid #e7e7e7;
+    width: 100%;
+}
 .email-preview-col-mobile{
     width:360px;
 }
@@ -4485,30 +4557,30 @@ textarea.task-textarea:focus{
 }
 
 
- 
- .block-name{
-     
- }
- 
- .slat-options-dropdown{
-     position:absolute;
-     top:calc(100% + 10px);
-     border-radius: 3px;
-     border: 1px solid #D2D3D5;
-     width: 170px;
- }
- 
- .tinyMCE-image-gallery-content-wrap{
-     height:500px;
-     padding: 0px;
-     overflow: hidden;     
- }
- 
- .gallery-image-content-wrap{
-     overflow-y: scroll;
-     height: 445px;
- }
- 
+
+.block-name{
+
+}
+
+.slat-options-dropdown{
+    position:absolute;
+    top:calc(100% + 10px);
+    border-radius: 3px;
+    border: 1px solid #D2D3D5;
+    width: 170px;
+}
+
+.tinyMCE-image-gallery-content-wrap{
+    height:500px;
+    padding: 0px;
+    overflow: hidden;     
+}
+
+.gallery-image-content-wrap{
+    overflow-y: scroll;
+    height: 445px;
+}
+
 .imageGallery-container {
     box-sizing: border-box;
     padding-left: 15px;
@@ -4571,7 +4643,8 @@ textarea.task-textarea:focus{
 }
 
 .palette-colorswab-global {
-    width: 75px;
+    /*width: 75px;*/
+    width: 15%;
     height: 35px;
     border: 1px solid #D2D3D5;
     border-radius: 3px;
@@ -4580,8 +4653,13 @@ textarea.task-textarea:focus{
     margin-bottom: 10px;
     cursor: pointer;
 }
-
-
+.palette-wrap-globalColors{
+    width:100%;
+}
+.color-picker-space {
+    margin-top: 2vw;
+    margin-left: 7vw;
+}
 
 .palette-colorswab-selected {
     border: 2px solid #0F76A6;
@@ -4688,7 +4766,7 @@ textarea.task-textarea:focus{
     flex: 0 0 calc(100vw - 400px);
     background-color: #f2f2f4;
     overflow-y: scroll;
-  
+
 }
 
 .email-editor-top-buttons-wrap{
@@ -4700,7 +4778,7 @@ textarea.task-textarea:focus{
 }
 
 .email-editor-content-wrap{
-  
+
 }
 
 .user-role-selection-wrap{
@@ -4880,6 +4958,7 @@ textarea.task-textarea:focus{
     overflow-y: auto;
     flex: 1 1 auto;
     padding: 20px;
+    height: calc(100% - 30vh);
 }
 
 .preview-email-button{
@@ -4976,7 +5055,7 @@ textarea.task-textarea:focus{
     padding: 5px;
     border-radius: 3px;
     margin-bottom: 10px;
-    
+
 }
 /*------------------------------------
            Page Layout
@@ -5000,11 +5079,11 @@ textarea.task-textarea:focus{
     background-color: white;
     width: 100%;
     border-bottom: 1px solid #DCE2E8;
-   display: inline-flex;
+    display: inline-flex;
     flex-direction: row;
     line-height: 49px;
     align-items: center;
-    
+
 }
 
 .bb-top-sub-nav{
@@ -5012,46 +5091,46 @@ textarea.task-textarea:focus{
     background-color: white;
     width: 100%;
     border-bottom: 1px solid #DCE2E8;
-   display: inline-flex;
+    display: inline-flex;
     flex-direction: row;
-   align-items: center;
-   
+    align-items: center;
+
 }
 
 .bb-top-nav-title{
     margin-left: 30px;
 }
 .bb-bar-left-wrap{
-   display: inline-flex;
-  
+    display: inline-flex;
+
     justify-content: left;
 }
 
 .bb-bar-center-wrap{
-     display: inline-flex;
-    
+    display: inline-flex;
+
     justify-content: center;
 }
 
 .bb-bar-right-wrap{
-     display: inline-flex;
-   margin-left: auto;
-  
+    display: inline-flex;
+    margin-left: auto;
+
     justify-content: flex-end;
 }
 
 .bb-one-third-flex-col{
-      flex: 0 0 33.3%;
+    flex: 0 0 33.3%;
 }
 
 .bb-one-half-flex-col{
-      flex: 0 0 50%;
+    flex: 0 0 50%;
 }
 
 .bb-main-content-wrap{
     flex: auto;
     flex-basis: auto;
-     width: 100%;
+    width: 100%;
     overflow-y: scroll;
 }
 
@@ -5059,7 +5138,9 @@ textarea.task-textarea:focus{
     padding: 30px 0px;
 }
 
-
+.bb-main-content-wrap-emaillist{
+        height: 75vh;
+}
 
 .bb-panel-styling{
     border: 1px #C7D0D9 solid;
@@ -5070,7 +5151,7 @@ textarea.task-textarea:focus{
 
 
 .bb-panel-default{
-   width: 600px;
+    width: 600px;
 }
 
 .bb-panel-full-width{
@@ -5081,9 +5162,19 @@ textarea.task-textarea:focus{
     width: 1100px;
 }
 
+.bb-panel-email-gallery-pop-up{
+    width: 900px;
+}
+
 .bb-panel-email-preview{
     width: 1200px;
     margin: auto;
+}
+
+.bb-panel-email-automation-preview{
+    width: 1200px;
+    margin: auto;
+    margin-top:7%;
 }
 
 
@@ -5105,7 +5196,11 @@ textarea.task-textarea:focus{
 }
 
 .bb-panel-header *:first-child{
-   margin-right: 30px;
+    margin-right: 30px;
+}
+
+.bb-panel-header a:first-of-type{
+    margin-right: 0px !important; 
 }
 
 .bb-email-image-pop-up-header{
@@ -5129,7 +5224,12 @@ textarea.task-textarea:focus{
 }
 
 .bb-panel-static-height{
-    height:620px;
+    height:500px;
+    overflow-y: scroll;
+}
+
+.bb-image-gallery-pop-up-content-wrap{
+    height:500px;
     overflow-y: scroll;
 }
 
@@ -5143,11 +5243,11 @@ textarea.task-textarea:focus{
 
 .bb-sidenavbar{
     flex: 0 0 70px;
-  background-color: #243F54;
+    background-color: #243F54;
 }
 
 .bb-app-frame{
-     display: flex;
+    display: flex;
     flex-direction: column;
     height: 100vh;
     width: 100vw;
@@ -5156,12 +5256,12 @@ textarea.task-textarea:focus{
 
 .bb-center-content{
     display: -webkit-flex;
-   display: flex;
-   -webkit-flex-direction:row;
-   flex-direction: row;
-   -webkit-align-items: center;
-   align-items: center;
-   -webkit-justify-content: center;
+    display: flex;
+    -webkit-flex-direction:row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
     justify-content: center;}
 
 .bb-back-button{
@@ -5176,7 +5276,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-user-profile-dropdown-wrap{
-   padding: 0px 30px;
+    padding: 0px 30px;
     background-color: white;
     display: inline-flex;
     align-items: center;
@@ -5185,7 +5285,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-user-profile-dropdown-wrap:hover{
-   padding: 0px 30px;
+    padding: 0px 30px;
     background-color: #F9F9FB;
     cursor: pointer;
 }
@@ -5203,12 +5303,12 @@ textarea.task-textarea:focus{
     background-color: white;
     width: 100%;
     border-top: 1px #C7D0D9 solid;
-      display: inline-flex;
+    display: inline-flex;
     flex-direction: row;
 }
 
 .bb-bottom-cta-continue-button{
-     padding: 0px 45px;
+    padding: 0px 45px;
     background-color: #F9F9FB;
     display: inline-flex;
     height: 50px;
@@ -5221,7 +5321,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-bottom-cta-continue-button-saved-action{
-     padding: 0px 45px;
+    padding: 0px 45px;
     background-color: #F9F9FB;
     display: inline-flex;
     height: 50px;
@@ -5234,7 +5334,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-bottom-cta-continue-button.bb-valid{
- background-color: #1eadfc;
+    background-color: #1eadfc;
 }
 
 .bb-bottom-cta-continue-button-text{
@@ -5242,8 +5342,8 @@ textarea.task-textarea:focus{
 }
 
 .bb-bottom-cta-continue-button-arrow{
- display: none;
- height: 13px;
+    display: none;
+    height: 13px;
 }
 
 .bb-valid .bb-bottom-cta-continue-button-text{
@@ -5252,7 +5352,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-valid .bb-bottom-cta-continue-button-arrow{
- display: block;
+    display: block;
 }
 
 .bb-add-action{
@@ -5267,7 +5367,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-top-sub-nav-tab:first-child{
-   
+
     margin-left: 30px;
 }
 
@@ -5281,27 +5381,31 @@ textarea.task-textarea:focus{
     margin-right: 20px;
 }
 
+.bb-top-sub-nav-tab.active a{
+    color: #0F76A6;
+    box-shadow: inset 0 -3px #0F76A6 ;    
+}
 .bb-ease-all{
     transition: all 0.3s ease;
 }
 
 .bb-top-sub-nav-tab:hover{
-   cursor: pointer;
+    cursor: pointer;
     color: #5A6069;
 }
 
 .bb-tab-active{
     color: #0F76A6;
-     box-shadow: inset 0 -3px #0F76A6 ;
+    box-shadow: inset 0 -3px #0F76A6 ;
 }
 
 .bb-tab-active:hover{
     color: #0F76A6;
-     box-shadow: inset 0 -3px #0F76A6 ;
+    box-shadow: inset 0 -3px #0F76A6 ;
 }
 
 .bb-top-sub-nav-backbutton-offset{
-   padding-left: 45px;
+    padding-left: 45px;
 }
 
 .bb-help-icon{
@@ -5337,7 +5441,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-email-editor-wrap{
-   display: flex;
+    display: flex;
     flex-direction: row;
     flex: 1 1 auto;
     width: 100vw;
@@ -5367,25 +5471,36 @@ textarea.task-textarea:focus{
     text-align: left;
 }
 
-.editor-add-block-button {
-     background-color: #1EADFC;
-    float: left;
-     color: #FFFFFF;
-     cursor: pointer;
-     border-radius: 3px;
-     padding: 9px 12px;
-     border-radius: 3px;
-     text-align: center;
-     font-size:14px;
-     font-weight: 500;
-     line-height: 14px;
-     margin-top: 10px;
- }
- .editor-add-block-button:hover {
-     background-color: #0299EC;
- }
+.modal-pane-search-input{
+    display: inline-block;
+    padding: 10px;
+    vertical-align: middle;
+    border-radius: 3px;
+    height:35px;
+    background-color: #fff;
+    border: 1px solid #C3CED9;
+    font-size: 14px;
+}
 
- .email-editor-save-exit-button{
+.editor-add-block-button {
+    background-color: #1EADFC;
+    float: left;
+    color: #FFFFFF;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 9px 12px;
+    border-radius: 3px;
+    text-align: center;
+    font-size:14px;
+    font-weight: 500;
+    line-height: 14px;
+    margin-top: 10px;
+}
+.editor-add-block-button:hover {
+    background-color: #0299EC;
+}
+
+.email-editor-save-exit-button{
     padding: 0px 15px;
     height: 49px;
     text-align: center;
@@ -5435,7 +5550,7 @@ textarea.task-textarea:focus{
     margin-right: 30px;
     display: block;
     align-content: center;
-  
+
 }
 
 .bb-dash-panel-cta-wrap{
@@ -5445,7 +5560,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-button{
-     border-radius: 3px;
+    border-radius: 3px;
     font-size: 14px;
     font-weight: 500;
     padding: 9px 20px;
@@ -5476,7 +5591,7 @@ textarea.task-textarea:focus{
 
 .bb-secondary-action-button:hover{
     background-color: #B3BEC9;
-   
+
 }
 
 .bb-primary-action-button{
@@ -5485,7 +5600,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-primary-action-button:hover{
-   background-color: #0299EC;
+    background-color: #0299EC;
     color: white;
 }
 
@@ -5520,7 +5635,7 @@ textarea.task-textarea:focus{
 
 .bb-empty-state-text{
     margin-bottom: 20px;
-    
+
 }
 
 .bb-your-plan-empty-state-wrap{
@@ -5542,16 +5657,22 @@ textarea.task-textarea:focus{
 .bb-gallery-image-wrap{
     display: flex;
     flex-direction: row;
-    flex-flow: flex-wrap;
+    /*flex-flow:flex-wrap;*/
+    flex-flow:wrap;
+    padding:20px 10px 0px 20px;
+    height: 470px;
+    overflow: scroll;
 }
 
 .bb-gallery-image-card{
-    height: 150px;
-    width: 246px;
+    height: 180px;
+    width: 258px;
     position: relative;
-    margin-right: 20px;
+    margin-right: 30px;
     margin-bottom: 20px;
     border: 2px solid transparent;
+    float:left;
+    cursor:pointer;
 }
 
 .bb-gallery-image-card:nth-child(4n){
@@ -5564,8 +5685,8 @@ textarea.task-textarea:focus{
 }
 
 .bb-gallery-image{
-    width:100%;
-    height: 100%;
+    width:258px;
+    height: 180px;
 }
 
 .bb-email-image-pop-up{
@@ -5573,26 +5694,40 @@ textarea.task-textarea:focus{
 }
 .bb-email-gallery-image-card{
     height: 180px;
-    width: 287px;
+    width: 258px;
     position: relative;
     margin-right: 30px;
     margin-bottom: 20px;
     border: 2px solid transparent;
+    float:left;
+    cursor:pointer;
+}
+
+.bb-email-gallery-image-card.active{
+    height: 180px;
+    width: 258px;
+    position: relative;
+    margin-right: 30px;
+    margin-bottom: 20px;
+    border: 2px solid #1EADFC;
+    float:left
+}
+
+.bb-email-gallery-image-card:hover{
+
+    border: 2px solid #F2F2F4;
+
 }
 
 .bb-email-gallery-image-card:nth-child(3n){
     margin-right: 0px;
 }
-    
+
 .bb--email-image-gal-pop-up:hover{
     cursor: pointer;
     border: 2px solid #F2F2F4;
 }
 
-.bb-gallery-image{
-    width:100%;
-    height: 100%;
-}
 
 .bb-social-attached-image{
     max-width: 540px;
@@ -5601,7 +5736,7 @@ textarea.task-textarea:focus{
 
 .bb-flex-row{
     display: flex;
-    
+
 }
 
 .bb-color-palette-selection-wrap{
@@ -5614,7 +5749,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-color-picker-space {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 .bb-panel-content-wrap-max-height{
@@ -5737,7 +5872,7 @@ input{
 }
 
 p {
-    color:#5A6069;
+
 }
 
 h2{
@@ -5787,7 +5922,7 @@ h3{
 
 .hub-section .section-header p{
     font-size: 14px;
-color: #5A6069 ;
+    color: #5A6069 ;
     line-height: 140%;
     margin-top: 4px;
 }
@@ -5803,6 +5938,7 @@ color: #5A6069 ;
 
 .modal-max-height{
     max-height: 480px;
+    overflow-y: scroll;
 }
 
 .bb-gallery-image-options{
@@ -5836,9 +5972,9 @@ color: #5A6069 ;
 }
 
 
-///Page-Structure.css ends ////
+/*.....Page-Structure.css ends.....*/ 
 
-////Navigation.css starts ///////
+/*.....Navigation.css starts.......*/
 .topNav-withSubnav {
     width: calc(100vw - 70px);
 }
@@ -5895,16 +6031,16 @@ color: #5A6069 ;
     font-weight: 600;
     cursor: pointer;
 }
-////Navigation.css ends ///////
+/*.........Navigation.css ends .........*/
 
-//////General-Utility.css starts///
+/*........General-Utility.css starts......*/
 
 .clickable-area {
     width: 100%;
 }
-////General-Utility.css ends//
+/*......General-Utility.css ends.........*/
 
-//popup.css and style_detail_overlay_6.css starts ///
+/*......popup.css and style_detail_overlay_6.css starts ......*/
 .body-normal {
     background-color: #ECF0F2 !important;
     box-sizing: border-box;
@@ -5960,8 +6096,8 @@ color: #5A6069 ;
 }
 
 .reminderSectionClass{
-     display: block;
-     margin-right: 0px !important;
+    display: block;
+    margin-right: 0px !important;
 }
 
 #email_previewdiv {
@@ -6050,11 +6186,11 @@ img#prevfbimg {
     color: #0F76A6;
     font-size: 14px;
 }
-//popup.css and style_detail_overlay_6.css Ends ///
+/*....popup.css and style_detail_overlay_6.css Ends.....*/
 
 .editor-slat-button{
     margin-top: 10px;
-    
+
 }
 
 .email-bottom-padding{
@@ -6075,10 +6211,31 @@ img#prevfbimg {
     overflow: hidden;
 }
 .magginLeftAuto{
-   margin-left: auto;
+    margin-left: auto;
 }
 .margin-around{
     margin: 3px 5px 3px 25px;
 }
+#browserCompatibilityPopup{
+    position:  fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(61,83,104,.8) !important;
+    z-index:99999 !important;
 
+}
+.addPopUp{
+    height: 100px;
+    text-align: center;
+    vertical-align:auto;
+    line-height: 60px;
+    margin-top:20%;
+    margin-left: 30%;
+}
+/*....on hover template border color...*/
+.template-border-Active{
+    border: 1px solid rgb(30, 173, 252);
+}
 

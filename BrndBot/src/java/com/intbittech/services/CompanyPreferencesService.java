@@ -47,6 +47,4 @@ public interface CompanyPreferencesService {
     public List<CompanyPreferences> getAll();
 
     public void saveUnsubscribeEmails(Integer companyId, List<String> emailList);
-
-    public Map<String, String> getUnsubscribedEmailsMap(CompanyPreferences companyPreferences);
 }

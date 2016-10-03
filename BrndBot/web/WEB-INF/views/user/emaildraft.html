@@ -1,11 +1,11 @@
 <div ng-include src="'marketinghubnavigation.html'"></div>
 
     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" id="emaildraftsdiv" >
-        <div class="bb-panel-full-width bb-panel-styling" ng-init="displayAllEmailDrafts()">
+        <div class="bb-panel-full-width bb-panel-styling" ng-init="displayAllEmailDrafts(false)">
             <div class="bb-panel-header">
                 <h2 class="">Your Email Drafts</h2>
             </div>
-             <div class="bb-panel-empty-state-wrap"  ng-show="emaildraftnumber === '0'" ng-hide="emailDraftDetails">
+             <div class="bb-panel-empty-state-wrap"  ng-show="emaildraftnumber === '0'" >
                 <h2 class="bb-panel-empty-state-text">You have no email drafts.</h2>  
             </div>
             <div class="bb-panel-content-wrap" ng-show="emailDraftDetails">
@@ -27,4 +27,3 @@
         </div>
     </div>
     <div ng-include="'savedemaildraftpopup.html'"></div>
-</div>

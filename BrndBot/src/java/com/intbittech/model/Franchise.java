@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2015 Intbit Technologies. This software and documentation contains
+ * confidential and proprietary information that is owned by Intbit
+ * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 package com.intbittech.model;
 
@@ -19,7 +19,9 @@ import javax.persistence.TemporalType;
 
 /**
  *
+
  * @author AbdulRaqeeb
+
  */
 @Entity
 @Table(name = "franchise")
@@ -64,7 +66,7 @@ public class Franchise implements Serializable {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createAt) {
-        this.createdAt = createAt;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

@@ -11,7 +11,9 @@ import com.intbittech.model.FranchiseCompanyLookup;
 import com.intbittech.model.OrganizationCompanyLookup;
 import com.intbittech.model.UserProfile;
 import com.intbittech.modelmappers.CompanyDetails;
+import com.intbittech.modelmappers.CompanyDetailsForFranchise;
 import com.intbittech.modelmappers.FranchiseDetails;
+import com.intbittech.modelmappers.RequestToAddCompanies;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
@@ -41,18 +43,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 
 public class FranchiseController {
-    
+
     private Logger logger = Logger.getLogger(FranchiseController.class);
 
     @Autowired
     private CompanyService companyService;
-    
+
     @Autowired
     private FranchiseService franchiseService;
-    
+
     @Autowired
     private MessageSource messageSource;
-    
+
     @RequestMapping(value = "getAllFranchises", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllFranchises() {
         GenericResponse<Franchise> genericResponse = new GenericResponse<>();
@@ -67,7 +69,7 @@ public class FranchiseController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
 
     }
-    
+
     @RequestMapping(value = "getFranchisesForCompanyId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getFranchisesForCompanyId(@RequestParam("companyId") Integer companyId) {
         GenericResponse<Franchise> genericResponse = new GenericResponse<>();
@@ -82,7 +84,7 @@ public class FranchiseController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
 
     }
-    
+
     @RequestMapping(value = "getCompaniesForFranchiseId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getCompaniesForFranchiseId(@RequestParam("franchiseId") Integer franchiseId) {
         GenericResponse<Company> genericResponse = new GenericResponse<>();
@@ -110,89 +112,92 @@ public class FranchiseController {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
-    @RequestMapping(value = "getAllNonSelectedCompanies",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @RequestMapping(value = "getAllNonSelectedCompanies", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllNonSelectedCompanies(@RequestParam("franchiseId") Integer franchiseId) {
         GenericResponse<CompanyDetails> genericResponse = new GenericResponse<CompanyDetails>();
         try {
-            List<OrganizationCompanyLookup> organizationCompaniesList =  companyService.getAllOrganizationCompanies();
+            List<OrganizationCompanyLookup> organizationCompaniesList = companyService.getAllOrganizationCompanies();
             List<CompanyDetails> companyDetailsList = new ArrayList<>();
-            for(OrganizationCompanyLookup organizationCompanyObject : organizationCompaniesList)
-            {
+            for (OrganizationCompanyLookup organizationCompanyObject : organizationCompaniesList) {
                 CompanyDetails companyDetails = new CompanyDetails();
                 companyDetails.setCompanyId(organizationCompanyObject.getFkCompanyId().getCompanyId());
                 companyDetails.setCompanyName(organizationCompanyObject.getFkCompanyId().getCompanyName());
                 companyDetails.setOrganizationName(organizationCompanyObject.getFkOrganizationId().getOrganizationName());
                 FranchiseCompanyLookup franchiseCompanyLookup = franchiseService.getFranchiseLookup(organizationCompanyObject.getFkCompanyId().getCompanyId(), franchiseId);
-                if (franchiseCompanyLookup == null){
+                if (franchiseCompanyLookup == null) {
                     companyDetailsList.add(companyDetails);
                 }
             }
             genericResponse.setDetails(companyDetailsList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("company_get_all",new String[]{}, Locale.US)));
-            
-            
-        } catch(Throwable throwable) {
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("company_get_all", new String[]{}, Locale.US)));
+
+        } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
-    }    
+    }
+
     //This method will be called in the admin of BrndBot. Not in user experience.
     @RequestMapping(value = "activateCompanyAsFranchise", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> activateCompanyAsFranchise(@RequestParam("companyId") Integer companyId, @RequestParam("franchiseId") Integer franchiseId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             boolean returnValue = franchiseService.activateCompanyAsFranchise(companyId, franchiseId);
-            if (returnValue){
+            if (returnValue) {
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Company activated as headquarter."));
-            }else {
+            } else {
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Not able to create the company as headquerter."));
             }
-            
-        } catch(Throwable throwable) {
+
+        } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
-        return new ResponseEntity<>(new ContainerResponse(transactionResponse),HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "associateCompanyToFranchise", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> associateCompanyToFranchise(@RequestParam("companyId") Integer companyId, @RequestParam("franchiseId") Integer franchiseId) {
-                TransactionResponse transactionResponse = new TransactionResponse();
+        TransactionResponse transactionResponse = new TransactionResponse();
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             franchiseService.associateCompanyToFranchise(companyId, userProfile.getUser(), franchiseId);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email block created successfully."));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Company associated to franchise."));
             
         } catch(Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
-        return new ResponseEntity<>(new ContainerResponse(transactionResponse),HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "removeCompanyFromFranchise", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> removeCompanyFromFranchise(@RequestParam("companyId") Integer companyId, @RequestParam("franchiseId") Integer franchiseId) {
-                TransactionResponse transactionResponse = new TransactionResponse();
+        TransactionResponse transactionResponse = new TransactionResponse();
         try {
             franchiseService.removeCompanyFromFranchise(companyId, franchiseId);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email block created successfully."));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Company removed from franchise."));
             
         } catch(Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
-        return new ResponseEntity<>(new ContainerResponse(transactionResponse),HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "saveFranchise", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> saveFranchise(@RequestBody String franchiseName) {       
+    public ResponseEntity<ContainerResponse> saveFranchise(@RequestBody String franchiseName) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             FranchiseDetails franchiseDetails = new FranchiseDetails(franchiseName);
-            franchiseService.saveFranchise(franchiseDetails);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Franchise created successfully"));
+            boolean returnFlag = franchiseService.saveFranchise(franchiseDetails);
+            if (returnFlag){
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Franchise created successfully"));
+            }else{
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Franchise already exist"));
+            }
         } catch (Throwable ex) {
             logger.error(ex);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
@@ -203,12 +208,16 @@ public class FranchiseController {
 
     @RequestMapping(value = "updateFranchise", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> updateFranchise(@RequestBody String franchiseName, @RequestParam("franchiseId") Integer franchiseId) {
-        
+
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             FranchiseDetails franchiseDetails = new FranchiseDetails(franchiseName);
-            franchiseService.updateFranchise(franchiseDetails, franchiseId);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Franchise updated successfully"));
+            boolean returnFlag = franchiseService.updateFranchise(franchiseDetails, franchiseId);
+            if (returnFlag){
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Franchise updated successfully"));
+            }else {
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Franchise already exist"));
+            }
 
         } catch (Throwable ex) {
             logger.error(ex);
@@ -229,5 +238,45 @@ public class FranchiseController {
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "getAllCompanyForFranchise", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllCompanyForFranchise(@RequestParam("franchiseId") Integer franchiseId, @RequestParam("emailListTagId") Integer emailListTagId) {
+        GenericResponse<CompanyDetailsForFranchise> genericResponse = new GenericResponse<>();
+        try {
+            List<CompanyDetailsForFranchise> companyDetailsForFranchiseList = new ArrayList<>();
+            List<Company> companys = franchiseService.getCompaniesForFranchises(franchiseId);
+            for (Company company : companys) {
+                CompanyDetailsForFranchise companyDetailsForFranchise = new CompanyDetailsForFranchise();
+                companyDetailsForFranchise.setCompanyId(company.getCompanyId());
+                companyDetailsForFranchise.setCompanyName(company.getCompanyName());
+                companyDetailsForFranchise.setIsEmailList(franchiseService.isEmailListTagAssociateToCompany(emailListTagId, company.getCompanyId()));
+                companyDetailsForFranchiseList.add(companyDetailsForFranchise);
+            }
+            genericResponse.setDetails(companyDetailsForFranchiseList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("All company for franchise retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
+    @RequestMapping(value = "requestToAddCompanies", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> requestToAddCompanies(@RequestBody RequestToAddCompanies requestToAddCompanies){
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            if (franchiseService.requestToAddCompanies(requestToAddCompanies.getCompanyNames(), requestToAddCompanies.getFranchiseName(), requestToAddCompanies.getUserId())){
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("request_sent", new String[]{}, Locale.US)));
+            }else {
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("request_not_sent", new String[]{}, Locale.US)));                
+            }
+        } catch (Throwable ex) {
+            logger.error(ex);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+        
     }
 }
