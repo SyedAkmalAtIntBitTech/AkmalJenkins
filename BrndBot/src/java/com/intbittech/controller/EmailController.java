@@ -106,14 +106,15 @@ public class EmailController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
+    //TODO need to refactor tags for sendgrid
     @RequestMapping(value = "/tags", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> get(HttpServletRequest request,
             HttpServletResponse response, @RequestParam("userId") Integer userId, @RequestParam("companyId") Integer companyId) {
         GenericResponse<String> transactionResponse = new GenericResponse();
         try {
             Company company = companyService.getCompanyById(companyId);
-            String data = sendEmailService.getTags(company.getCompanyId());
-            transactionResponse.addDetail(data);
+//            String data = sendEmailService.getTags(company.getCompanyId());
+            transactionResponse.addDetail("");
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {

@@ -11,8 +11,6 @@ import com.intbittech.utility.ServletUtil;
 import com.intbittech.dao.impl.EmailHistoryDAO;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.services.SendEmailService;
-import com.intbittech.email.mandrill.MandrillApiHandler;
-import com.intbittech.email.mandrill.SendMail;
 import com.intbittech.model.ContactEmailListLookup;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.EmailDataDetails;
@@ -32,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -113,21 +110,21 @@ public class SendEmailServiceImpl implements SendEmailService {
 //        }
     }
 
-    @Override
-    public String getTags(Integer userId) throws Exception {
-        List<Map<String, Object>> tagsFromMandrill = MandrillApiHandler.getTags();
-        List<Map<String, Object>> tagsFromMandrillForUser = new ArrayList<>();
-
-        Set<String> tagsForUser = EmailHistoryDAO.getTagsForUser(userId);
-        for (Map<String, Object> mTag : tagsFromMandrill) {
-            if (mTag.get("tag") != null) {
-                if (tagsForUser.contains(mTag.get("tag").toString())) {
-                    tagsFromMandrillForUser.add(mTag);
-                }
-            }
-        }
-        return new Gson().toJson(tagsFromMandrillForUser);
-    }
+//    @Override
+//    public String getTags(Integer userId) throws Exception {
+//        List<Map<String, Object>> tagsFromMandrill = MandrillApiHandler.getTags();
+//        List<Map<String, Object>> tagsFromMandrillForUser = new ArrayList<>();
+//
+//        Set<String> tagsForUser = EmailHistoryDAO.getTagsForUser(userId);
+//        for (Map<String, Object> mTag : tagsFromMandrill) {
+//            if (mTag.get("tag") != null) {
+//                if (tagsForUser.contains(mTag.get("tag").toString())) {
+//                    tagsFromMandrillForUser.add(mTag);
+//                }
+//            }
+//        }
+//        return new Gson().toJson(tagsFromMandrillForUser);
+//    }
 
     @Override
     public String previewEmail(Integer companyId, Map<String, Object> requestBodyMap) {
