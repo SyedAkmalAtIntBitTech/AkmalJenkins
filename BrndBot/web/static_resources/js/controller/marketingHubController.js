@@ -48,6 +48,18 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.deafultFromName = "";
         $scope.replyEmailValidation = false;
         $scope.replyToAddress = false;
+        $scope.isCurrentCompanyInFranchise = false;
+        $scope.isCurrentCompanyAFranchiseHeadquarter = false;
+
+        $scope.getCompanyStatus = function() {
+            appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
+                $scope.isCurrentCompanyInFranchise = isCurrent;
+            });
+            appSessionFactory.isCurrentCompanyAFranchiseHeadquarter().then(function (isHead){
+                $scope.isCurrentCompanyAFranchiseHeadquarter = isHead;
+            });
+        };
+        
         $scope.showHideUserSettings = function (flag){
             $scope.userSettings=flag;
         };

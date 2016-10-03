@@ -52,7 +52,22 @@
                     <div>{{comment.commentName}} </div>
                 </div>
             </div>
-        </div>        
+        </div>     
+        <div class="action-comments-wrap" style="height:calc(100vh - 450px); background-color: #f2f2f4; width: 100%; padding:30px 60px; overflow-y: scroll;" >
+            <div class="action" style="background-color:white; padding:20px 30px;  border-radius: 3px;  " ng-repeat="activity in activityLog">
+                <a id="addactionClose" ng-show="comment.isLoginUser==true" ng-click = "removeActionComment(schedule_id,comment.commentId)" class="modal-pane-header-exit" alt="remove comment"></a>
+                <div style="display: inline-flex;">
+<!--                    <div style="height:30px; width:30px; line-height: 30px; text-align: center; margin-right: 10px; border-radius: 30px; background-color:lightblue; font-size: 14px; font-weight: bold; color: white;">{{comment.initials}}</div>-->
+                    <span style="margin: 0px 5px; line-height: 30px; font-size: 16px; color:#3f3f42;">{{comment.commentByFirstName}} {{comment.commentByLastName}}</span>
+                    <span style="margin: 0px 5px; line-height: 30px; font-size: 16px; color:#3f3f42;">{{comment.commentByFirstName}} {{comment.commentByLastName}}</span>
+                    
+                    <span style=" font-size: 14px; color: #7c7d82; line-height: 30px; margin-left: 10px; ">{{comment.createdAt | date:"MMMM d, y 'at' h:mma"}}</span>
+                </div>
+                <div style=" padding-left: 45px; margin-top: 5px;">
+                    <div>{{comment.commentName}} </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div ng-show="moreThanOneUser==false">
         <br>

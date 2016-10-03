@@ -14,6 +14,17 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
         $scope.noPushedEmails = false;
         $scope.selectedEmail = "";
         $scope.clickedDeleteAction = false;
+        $scope.isCurrentCompanyInFranchise = false;
+        $scope.isCurrentCompanyAFranchiseHeadquarter = false;
+
+        $scope.getCompanyStatus = function() {
+            appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
+                $scope.isCurrentCompanyInFranchise = isCurrent;
+            });
+            appSessionFactory.isCurrentCompanyAFranchiseHeadquarter().then(function (isHead){
+                $scope.isCurrentCompanyAFranchiseHeadquarter = isHead;
+            });
+        };
         
         $scope.redirectToEmailFlow = function (forwardone)
         {

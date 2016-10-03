@@ -116,10 +116,10 @@ factoryApp.factory('appSessionFactory', function ($q) {
         var companyLocalObject = JSON.parse(localStorage.getItem(companyObjectName));
         isHeadquarter = companyLocalObject.isHeadquarter;
 
-        if (isHeadquarter == null){
-            requestValue = false;
+        if (isHeadquarter){
+            requestValue = true;
         }else {
-            requestValue = true;            
+            requestValue = false;            
         }
         deffered.resolve(requestValue);
         return deffered.promise;

@@ -54,6 +54,18 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
         var schedule_desc = "";
         $rootScope.CurrentFbAccessToken = "";
         $scope.linkpost = false;
+        $scope.isCurrentCompanyInFranchise = false;
+        $scope.isCurrentCompanyAFranchiseHeadquarter = false;
+
+        $scope.getCompanyStatus = function() {
+            appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
+                $scope.isCurrentCompanyInFranchise = isCurrent;
+            });
+            appSessionFactory.isCurrentCompanyAFranchiseHeadquarter().then(function (isHead){
+                $scope.isCurrentCompanyAFranchiseHeadquarter = isHead;
+            });
+        };
+
 
         $scope.getManagePage = function (selectedSocialmedia, postData) {
             appSessionFactory.getFbPostData().then(function (kGlobalFbPostDataObject) {

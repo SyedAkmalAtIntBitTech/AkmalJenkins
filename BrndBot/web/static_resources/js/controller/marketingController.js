@@ -40,6 +40,18 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.changeUsers = false;
         $scope.companyName = "";
         $scope.editSavedEmail = false;
+        $scope.isCurrentCompanyInFranchise = false;
+        $scope.isCurrentCompanyAFranchiseHeadquarter = false;
+
+        $scope.getCompanyStatus = function() {
+            appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
+                $scope.isCurrentCompanyInFranchise = isCurrent;
+            });
+            appSessionFactory.isCurrentCompanyAFranchiseHeadquarter().then(function (isHead){
+                $scope.isCurrentCompanyAFranchiseHeadquarter = isHead;
+            });
+        };
+
 
         $scope.companyAddressDetails = {};
         $scope.emailListName="";

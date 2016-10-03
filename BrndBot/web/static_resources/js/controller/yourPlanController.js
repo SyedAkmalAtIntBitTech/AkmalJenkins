@@ -1,5 +1,5 @@
 
-yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'appSessionFactory', 'onboardingFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, appSessionFactory, onboardingFactory) {
+yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'appSessionFactory', 'onboardingFactory', 'activityFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, appSessionFactory, onboardingFactory, activityFactory) {
 
 //$scope.iframeLoad = function (){
 //    growl($('iframe').contents().find('body').height());
@@ -30,6 +30,17 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.clickedRemoveAction = false;
         $scope.addUserSettings = false;
         $scope.moreThanOneUser = false;
+        $scope.isCurrentCompanyInFranchise = false;
+        $scope.isCurrentCompanyAFranchiseHeadquarter = false;
+
+        $scope.getCompanyStatus = function() {
+            appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
+                $scope.isCurrentCompanyInFranchise = isCurrent;
+            });
+            appSessionFactory.isCurrentCompanyAFranchiseHeadquarter().then(function (isHead){
+                $scope.isCurrentCompanyAFranchiseHeadquarter = isHead;
+            });
+        };
 
         $scope.ddSelectActionOptions = [
             {
@@ -428,7 +439,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 }
             });
         };
-
+        $scope.getActivityLog = function(){
+            activityFactory.activitiesGet().then(function (data){
+               $scope.activityLog = data.d.details; 
+            });
+        };
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
         {
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
