@@ -457,5 +457,5 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $scope.stepsModel.push(e.target.result);
             });
         };
-
+        
     }]);

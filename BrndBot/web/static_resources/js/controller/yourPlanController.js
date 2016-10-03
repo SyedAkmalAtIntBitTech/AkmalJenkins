@@ -49,7 +49,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 value: 'Reminder'
             }
         ];
-
+        
         $scope.ddSelectAction = {text: "Select"};
 
         $scope.showCompanyList = function () {
@@ -79,6 +79,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 {
                     field: document.getElementById('jumptodatepicker'),
                     firstDay: 1,
+                    format: 'MM DD YYYY',
                     minDate: new Date('2000-01-01'),
                     maxDate: new Date('2050-12-31'),
                     yearRange: [2000, 2050],
@@ -430,7 +431,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
-        {
+        {   
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
             {
                 var userAssignToId = $("#assignTo option:selected").val();
@@ -1087,7 +1088,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 growl(actionAlreadyScheduled);
             }
         };
-
-    }]);
-
+        
+}]);
+        
        

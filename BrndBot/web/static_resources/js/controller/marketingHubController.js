@@ -1126,4 +1126,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.showAddContactPopup = false;
             $scope.overlayFade = false;
         };
+        
+        
     }]);

@@ -991,7 +991,8 @@ li.sub-nav-tab.active a{
     right: 0;
     width: 850px;
     height: 100vh;
-    background: #FFFFFF;
+    background: #FFFFFF;  
+    z-index: 99999;
 }
 
 .overlay-wrap .header{
@@ -1819,6 +1820,12 @@ li.sub-nav-tab.active a{
 
 }
 
+.sendOrSchedulePopup{
+    position:  fixed;
+    top: 15vh;
+    left: 45vh;
+    z-index:150;
+}
 #fadeEmailAutomationPreview
 {
     display: none;
@@ -1875,6 +1882,15 @@ li.sub-nav-tab.active a{
 {
     display: block;
     z-index: 999999;
+    position: fixed;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    left:55vh;
+    top:20vh;
 }
 
 .modal-pane{
@@ -1925,7 +1941,7 @@ li.sub-nav-tab.active a{
     height:30px;
     border-radius: 3px;
     padding:0px 10px;
-    margin-left: auto;
+    margin-left: 10vh;
     border: 1px solid #c9c9c9;
     width:200px;
 }
@@ -3745,6 +3761,23 @@ p.modal-content-header{
 .pop-up-background {
     width: calc(96vw - 853px) !important;
     margin-top: 10vw;
+    position: fixed;
+    z-index: 99999;
+    left:55vh;
+}
+
+#addUserSettings{
+    z-index: 999999;
+    position: fixed;
+    left:55vh;
+    top:20vh;  
+}
+
+.choosePalettePopup{
+    z-index: 999999;
+    position: fixed;
+    left:30vh;
+    top:20vh;      
 }
 
 .pop-up-container-createEmail {
@@ -4471,8 +4504,11 @@ textarea.task-textarea:focus{
 }
 
 .create-email-popup{
-    margin-left: 30%;
-    margin-top: 10vw;
+    display: block;
+    z-index: 999999;
+    position: fixed;
+    margin-left: 45vh;
+    margin-top: 5vw;
 }
 
 
