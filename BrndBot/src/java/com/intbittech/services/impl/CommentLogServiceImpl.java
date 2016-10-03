@@ -103,6 +103,7 @@ public class CommentLogServiceImpl implements CommentLogService {
             commentLogResponse.setCreatedByLastName(commentLog.getCommentedBy().getLastName());
             String initials = Utility.getFirstTwoCharactersOfName(commentLog.getCommentedBy().getFirstName(), commentLog.getCommentedBy().getLastName());
             commentLogResponse.setInitials(initials);
+            commentLogResponse.setIsActivity(false);
             commentLogResponse.setScheduledEntityListId(commentLog.getFkScheduledEntityid().getScheduledEntityListId());
             commentLogResponse.setCreatedAt(commentLog.getCreatedAt());
             commentLogResponse.setCommentId(commentLog.getCommentLogId());
@@ -124,7 +125,7 @@ public class CommentLogServiceImpl implements CommentLogService {
             commentActivityLogResponse.setIsActivity(true);
             commentActivityLogResponse.setAssignedToEmailId(activityLog.getAssignedTo().getUserName());
             commentActivityLogResponse.setAssignedToFirstName(activityLog.getAssignedTo().getFirstName());
-            commentActivityLogResponse.setAssignedToFirstName(activityLog.getAssignedTo().getLastName());
+            commentActivityLogResponse.setAssignedToLastName(activityLog.getAssignedTo().getLastName());
             commentActivityLogResponse.setCommentId(activityLog.getActivityLogId());
             if (activityLog.getCreatedBy().getUserId() == userId) {
                 commentActivityLogResponse.setIsLoginUser(true);

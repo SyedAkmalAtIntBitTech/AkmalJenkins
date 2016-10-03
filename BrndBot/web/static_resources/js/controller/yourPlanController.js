@@ -379,6 +379,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.getActionComments = function (scheduleId) {
             yourPlanFactory.actionCommentsGet(scheduleId).then(function (data) {
                 $scope.comments = data.d.details;
+                alert(JSON.stringify($scope.comments));
+                console.log(JSON.stringify($scope.comments));
             });
         };
 
