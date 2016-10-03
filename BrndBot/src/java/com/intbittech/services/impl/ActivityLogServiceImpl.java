@@ -7,9 +7,14 @@ package com.intbittech.services.impl;
 
 import com.intbittech.dao.ActivityLogDao;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.Activity;
 import com.intbittech.model.ActivityLog;
+import com.intbittech.model.ScheduledEntityList;
+import com.intbittech.model.Users;
+import com.intbittech.modelmappers.ActivityLogDetails;
 import com.intbittech.responsemappers.ActivityLogResponse;
 import com.intbittech.services.ActivityLogService;
+import com.intbittech.utility.IConstants;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -56,7 +61,6 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     /**
      * {@inheritDoc}
      */
-
     public List<ActivityLogResponse> getAllActivityLogByScheduledEntityListId(Integer scheduledEntityListId) throws ProcessFailed {
         List<ActivityLog> activityLogList = activityLogDao.getAllActivityLogByScheduledEntityListId(scheduledEntityListId);
         if (activityLogList == null) {
@@ -90,6 +94,30 @@ public class ActivityLogServiceImpl implements ActivityLogService {
             activityLogResponseList.add(activityLogResponse);
         }
         return activityLogResponseList;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Integer saveActivityLog(ActivityLogDetails activityLogDetails) throws ProcessFailed {
+
+        ActivityLog activityLog = new ActivityLog();
+        ScheduledEntityList scheduledEntityList = new ScheduledEntityList();
+        scheduledEntityList.setScheduledEntityListId(activityLogDetails.getScheduledEntityId());
+        activityLog.setFkScheduledEntityid(scheduledEntityList);
+        Activity activity = new Activity();
+        activity.setActivityId(activityLogDetails.getActivityId());
+        if (activityLogDetails.getAssignedTo() != null) {
+            Users assignedTo = new Users();
+            assignedTo.setUserId(activityLogDetails.getAssignedTo());
+            activityLog.setAssignedTo(assignedTo);
+        }
+        Users createdUser = new Users();
+        createdUser.setUserId(activityLogDetails.getCreatedBy());
+        activityLog.setCreatedBy(createdUser);
+        activityLog.setCreatedAt(new Date());
+        activityLog.setFkActivityId(activity);
+        return activityLogDao.save(activityLog);
     }
 
 }
