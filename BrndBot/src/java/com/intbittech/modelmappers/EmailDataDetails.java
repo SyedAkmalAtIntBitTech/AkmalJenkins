@@ -23,11 +23,6 @@ public class EmailDataDetails extends UserCompanyIds implements Serializable {
     private String iFrameName;
     //change to enum
     private String emailCategory;
-    
-    private enum emailGenre {
-        General, Recurring;
-    }
-    
     private Integer days;
 
     public String getEmailSubject() {
