@@ -890,6 +890,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                     subCategoryId: kGlobalEmailObject.subCategoryId.toString(),
                                     emailSubject: kGlobalEmailObject.emailSubject,
                                     emailPreHeader: kGlobalEmailObject.preheader,
+                                    pushedEmail: kGlobalEmailObject.pushedEmail,
                                     blockAddedCount: $scope.addBlockCount.toString()
                                 };
 
@@ -914,6 +915,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                     subCategoryId: kGlobalEmailObject.subCategoryId.toString(),
                                     emailSubject: kGlobalEmailObject.emailSubject,
                                     emailPreHeader: kGlobalEmailObject.preheader,
+                                    pushedEmail: kGlobalEmailObject.pushedEmail,
                                     blockAddedCount: $scope.addBlockCount.toString()
                                 };
 
