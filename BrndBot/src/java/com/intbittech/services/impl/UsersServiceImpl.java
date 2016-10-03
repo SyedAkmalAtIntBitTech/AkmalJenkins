@@ -22,6 +22,8 @@ import com.intbittech.modelmappers.InviteDetails;
 import com.intbittech.modelmappers.TaskDetails;
 import com.intbittech.modelmappers.UserDetails;
 import com.intbittech.sendgrid.models.EmailType;
+import com.intbittech.sendgrid.models.SendGridUser;
+import com.intbittech.sendgrid.models.Subuser;
 import com.intbittech.services.EmailServiceProviderService;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UserRoleCompanyLookUpService;
@@ -126,7 +128,8 @@ public class UsersServiceImpl implements UsersService {
 
             user = new Users();
             user.setUserName(usersDetails.getUserName());
-            user.setUserPassword(passwordEncoder.encode(usersDetails.getUserPassword()));
+            String encodedPassword = passwordEncoder.encode(usersDetails.getUserPassword());
+            user.setUserPassword(encodedPassword);
             user.setFirstName(usersDetails.getFirstName());
             user.setLastName(usersDetails.getLastName());
 
@@ -143,7 +146,14 @@ public class UsersServiceImpl implements UsersService {
             usersRoleLookUp.setRoleId(userRole);
 
             usersRoleLookUpDao.save(usersRoleLookUp);
-
+            
+            //Save subuser in sendgrid
+            Subuser subuser = new Subuser();
+            subuser.setEmail(usersDetails.getUserName());
+            subuser.setPassword(encodedPassword);
+            SendGridUser sendGridUser = emailServiceProviderService.addSubuser(subuser);
+            //TODO save userID in db
+            
             returnUserId = userId;
         } catch (Throwable throwable) {
             returnMessage = "false";

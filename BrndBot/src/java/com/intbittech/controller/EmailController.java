@@ -6,6 +6,7 @@
 package com.intbittech.controller;
 
 import com.intbittech.AppConstants;
+import com.intbittech.enums.EmailCategory;
 import com.intbittech.model.Company;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
@@ -89,7 +90,7 @@ public class EmailController {
             emailDataDetails.setFromName(from_name);
             emailDataDetails.setHtmlData(html_text);
             emailDataDetails.setReplyToEmailAddress(reply_to_address);
-            emailDataDetails.setIsRecurring(Boolean.FALSE);
+            emailDataDetails.setEmailCategory(EmailCategory.General.name());
             sendEmailService.sendMail(emailDataDetails);
             //Added by Syed Ilyas 27 Nov 2015 - changed to NOT
             if (!path.equals("")) {

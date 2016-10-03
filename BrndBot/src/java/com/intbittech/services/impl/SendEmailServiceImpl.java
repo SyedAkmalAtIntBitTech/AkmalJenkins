@@ -5,10 +5,10 @@
  */
 package com.intbittech.services.impl;
 
-import com.google.gson.Gson;
 import com.intbittech.AppConstants;
 import com.intbittech.utility.ServletUtil;
 import com.intbittech.dao.impl.EmailHistoryDAO;
+import com.intbittech.enums.EmailCategory;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.services.SendEmailService;
 import com.intbittech.model.ContactEmailListLookup;
@@ -29,7 +29,6 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,7 +57,7 @@ public class SendEmailServiceImpl implements SendEmailService {
     public void sendMail(EmailDataDetails emailDataDetails) throws Exception {
         Mail mail = new Mail();
         List<ContactEmailListLookup>  toEmailIds = new ArrayList<>();
-        if(emailDataDetails.getIsRecurring())
+        if(emailDataDetails.getEmailCategory() == EmailCategory.Recurring.name())
             toEmailIds = contactEmailListLookupService.getContactsByEmailListNameAndCompanyIdForToday(emailDataDetails.getEmailListName(), emailDataDetails.getCompanyId(),emailDataDetails.getDays());
         else
             toEmailIds = contactEmailListLookupService.getContactsByEmailListNameAndCompanyId(emailDataDetails.getEmailListName(), emailDataDetails.getCompanyId());

@@ -6,6 +6,7 @@
 package com.intbittech.social;
 
 import com.intbittech.component.SpringContextBridge;
+import com.intbittech.enums.EmailCategory;
 import com.intbittech.utility.IConstants;
 import com.intbittech.model.ScheduledEmailList;
 import com.intbittech.model.ScheduledEntityList;
@@ -72,7 +73,7 @@ public class ScheduleAnEmail implements Runnable {
                         emailDataDetails.setFromName(from_name);
                         emailDataDetails.setHtmlData(html_text);
                         emailDataDetails.setReplyToEmailAddress(reply_to_address);
-                        emailDataDetails.setIsRecurring(Boolean.FALSE);
+                        emailDataDetails.setEmailCategory(EmailCategory.General.name());
                         SendEmailService sendEmailService = SpringContextBridge.services().getSendEmailService();
                         sendEmailService.sendMail(emailDataDetails);
 

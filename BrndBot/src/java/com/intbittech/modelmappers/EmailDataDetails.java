@@ -22,7 +22,12 @@ public class EmailDataDetails extends UserCompanyIds implements Serializable {
     private String fromName;
     private String iFrameName;
     //change to enum
-    private Boolean isRecurring;
+    private String emailCategory;
+    
+    private enum emailGenre {
+        General, Recurring;
+    }
+    
     private Integer days;
 
     public String getEmailSubject() {
@@ -81,12 +86,12 @@ public class EmailDataDetails extends UserCompanyIds implements Serializable {
         this.iFrameName = iFrameName;
     }
 
-    public Boolean getIsRecurring() {
-        return isRecurring;
+    public String getEmailCategory() {
+        return emailCategory;
     }
 
-    public void setIsRecurring(Boolean isRecurring) {
-        this.isRecurring = isRecurring;
+    public void setEmailCategory(String emailCategory) {
+        this.emailCategory = emailCategory;
     }
 
     public Integer getDays() {
@@ -96,4 +101,6 @@ public class EmailDataDetails extends UserCompanyIds implements Serializable {
     public void setDays(Integer days) {
         this.days = days;
     }
+    
+    
 }
