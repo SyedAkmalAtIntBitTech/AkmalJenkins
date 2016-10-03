@@ -9,7 +9,7 @@ import com.intbittech.model.CommentLog;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.CommentLogDetails;
-import com.intbittech.responsemappers.CommentLogResponse;
+import com.intbittech.responsemappers.CommentActivityLogResponse;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
@@ -63,9 +63,9 @@ public class CommentLogController {
 }
      @RequestMapping(value = "/getAllCommentLog", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllCommentLog() {
-         GenericResponse<CommentLogResponse> genericResponse = new GenericResponse();
+         GenericResponse<CommentActivityLogResponse> genericResponse = new GenericResponse();
         try {
-                List<CommentLogResponse> commentLogResponseList = commentLogService.getAllCommentLog();
+                List<CommentActivityLogResponse> commentLogResponseList = commentLogService.getAllCommentLog();
             genericResponse.setDetails(commentLogResponseList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Activity retrieved successfully"));
         } catch (Throwable ex) {
@@ -78,10 +78,10 @@ public class CommentLogController {
     
     @RequestMapping(value = "/getAllCommentByActionId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllCommentLogByActionId(@RequestParam("scheduleId")Integer scheduleId,@RequestParam("userId")Integer userId ) {
-         GenericResponse<CommentLogResponse> genericResponse = new GenericResponse();
+         GenericResponse<CommentActivityLogResponse> genericResponse = new GenericResponse();
          
         try {
-                List<CommentLogResponse> commentLogResponseList = commentLogService.getAllCommentLogByScheduledEntityListId(scheduleId,userId);
+                List<CommentActivityLogResponse> commentLogResponseList = commentLogService.getAllCommentLogByScheduledEntityListId(scheduleId,userId);
             genericResponse.setDetails(commentLogResponseList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Activity retrieved successfully"));
         } catch (Throwable ex) {
