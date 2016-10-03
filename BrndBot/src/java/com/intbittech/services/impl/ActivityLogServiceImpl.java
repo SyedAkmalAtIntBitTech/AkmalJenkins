@@ -115,7 +115,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
         Users createdUser = new Users();
         createdUser.setUserId(activityLogDetails.getCreatedBy());
         activityLog.setCreatedBy(createdUser);
-
+        activityLog.setCreatedAt(new Date());
         activityLog.setFkActivityId(activity);
         return activityLogDao.save(activityLog);
     }

@@ -5,8 +5,10 @@
  */
 package com.intbittech.services.impl;
 
+import com.intbittech.dao.ActivityLogDao;
 import com.intbittech.dao.CommentLogDao;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.ActivityLog;
 import com.intbittech.model.CommentLog;
 import com.intbittech.responsemappers.CommentLogResponse;
 import com.intbittech.services.CommentLogService;
@@ -30,6 +32,8 @@ public class CommentLogServiceImpl implements CommentLogService{
     private static Logger logger = Logger.getLogger(CommentLogServiceImpl.class);
     @Autowired
     private CommentLogDao commentLogDao;  
+    @Autowired
+    private ActivityLogDao activityLogDao;
 
      /**
      * {@inheritDoc}
@@ -59,7 +63,8 @@ public class CommentLogServiceImpl implements CommentLogService{
         if (CommentLogList == null) {
             throw new ProcessFailed("No Comment log found.");
         }
-        List<CommentLogResponse> commentLogResponseList = getAllCommentLogResponse(CommentLogList,userId);
+        List<ActivityLog> activityLogList =activityLogDao.getAllActivityLogByScheduledEntityListId(scheduledEntityListId);
+        List<CommentLogResponse> commentLogResponseList = getAllCommentLogResponse(CommentLogList,activityLogList,userId);
         return commentLogResponseList;
     }
 
@@ -85,20 +90,21 @@ public class CommentLogServiceImpl implements CommentLogService{
         commentLogDao.delete(CommentLog);
     }
     
-    private List<CommentLogResponse> getAllCommentLogResponse(List<CommentLog> commentLogList,Integer userId) {
+    private List<CommentLogResponse> getAllCommentLogResponse(List<CommentLog> commentLogList,List<ActivityLog> activityLogList,Integer userId) {
         List<CommentLogResponse> commentLogResponseList = new ArrayList<>();
-        for (CommentLog activityLog : commentLogList) {
-            CommentLogResponse commentLogResponse = new CommentLogResponse();
-            commentLogResponse.setCommentName(activityLog.getComment());
-            commentLogResponse.setCommentByEmailId(activityLog.getCommentedBy().getUserName());
-            commentLogResponse.setCommentByFirstName(activityLog.getCommentedBy().getFirstName());
-            String initials = Utility.getFirstTwoCharactersOfName(activityLog.getCommentedBy().getFirstName(), activityLog.getCommentedBy().getLastName());
+         
+        for (CommentLog commentLog : commentLogList) {
+           CommentLogResponse commentLogResponse = new CommentLogResponse();
+            commentLogResponse.setCommentName(commentLog.getComment());
+            commentLogResponse.setCommentByEmailId(commentLog.getCommentedBy().getUserName());
+            commentLogResponse.setCommentByFirstName(commentLog.getCommentedBy().getFirstName());
+            String initials = Utility.getFirstTwoCharactersOfName(commentLog.getCommentedBy().getFirstName(), commentLog.getCommentedBy().getLastName());
             commentLogResponse.setInitials(initials);
-            commentLogResponse.setCommentByLastName(activityLog.getCommentedBy().getLastName());
-            commentLogResponse.setScheduledEntityListId(activityLog.getFkScheduledEntityid().getScheduledEntityListId());
-            commentLogResponse.setCreatedAt(activityLog.getCreatedAt());
-            commentLogResponse.setCommentId(activityLog.getCommentLogId());
-            if(activityLog.getCommentedBy().getUserId() == userId){
+            commentLogResponse.setCommentByLastName(commentLog.getCommentedBy().getLastName());
+            commentLogResponse.setScheduledEntityListId(commentLog.getFkScheduledEntityid().getScheduledEntityListId());
+            commentLogResponse.setCreatedAt(commentLog.getCreatedAt());
+            commentLogResponse.setCommentId(commentLog.getCommentLogId());
+            if(commentLog.getCommentedBy().getUserId() == userId){
                 commentLogResponse.setIsLoginUser(true);
            }
             else{
@@ -106,6 +112,27 @@ public class CommentLogServiceImpl implements CommentLogService{
            }
             commentLogResponseList.add(commentLogResponse);
         }
+             for (ActivityLog activityLog : activityLogList) {
+           CommentLogResponse commentLogResponse = new CommentLogResponse();
+            commentLogResponse.setCommentName(activityLog.getFkActivityId().getActivityName());
+            commentLogResponse.setCommentByEmailId(activityLog.getCreatedBy().getUserName());
+            commentLogResponse.setCommentByFirstName(activityLog.getCreatedBy().getFirstName());
+            String initialsName = Utility.getFirstTwoCharactersOfName(activityLog.getCreatedBy().getFirstName(), activityLog.getCreatedBy().getLastName());
+            commentLogResponse.setInitials(initialsName);
+            commentLogResponse.setCommentByLastName(activityLog.getCreatedBy().getLastName());
+            commentLogResponse.setScheduledEntityListId(activityLog.getFkScheduledEntityid().getScheduledEntityListId());
+            commentLogResponse.setCreatedAt(activityLog.getCreatedAt());
+            commentLogResponse.setCommentId(activityLog.getActivityLogId());
+            if(activityLog.getCreatedBy().getUserId() == userId){
+                commentLogResponse.setIsLoginUser(true);
+           }
+            else{
+                commentLogResponse.setIsLoginUser(false);
+           }
+            commentLogResponseList.add(commentLogResponse);
+             }
+            
+        
         return commentLogResponseList;
     }
 }
