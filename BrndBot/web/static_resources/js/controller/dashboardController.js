@@ -17,6 +17,8 @@ dashboardFlowApp.controller("dashboardController", ['$scope', '$window', '$locat
         $scope.userRole = "";
         $scope.logourl = "";
         $scope.companyList = false;
+        $scope.isCurrentCompanyInFranchise = false;
+        $scope.isCurrentCompanyAFranchiseHeadquarter = false;
         $scope.neverShowUnsubscribeEmailpopup = true;
 
         $scope.getUserDetails = function () {
@@ -45,10 +47,10 @@ dashboardFlowApp.controller("dashboardController", ['$scope', '$window', '$locat
                     });
                 });
                 appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
-                    var value = isCurrent;
+                    $scope.isCurrentCompanyInFranchise = isCurrent;
                 });
                 appSessionFactory.isCurrentCompanyAFranchiseHeadquarter().then(function (isHead){
-                    var value = isHead;
+                    $scope.isCurrentCompanyAFranchiseHeadquarter = isHead;
                 });
                 
             });
