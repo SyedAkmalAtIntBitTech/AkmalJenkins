@@ -15,6 +15,7 @@ public class ActivityLogDetails {
     private Integer activityId;
     private Integer scheduledEntityId;
     private Integer assignedTo;
+    private Integer createdBy;
 
     public Integer getActivityLogId() {
         return activityLogId;
@@ -46,6 +47,14 @@ public class ActivityLogDetails {
 
     public void setAssignedTo(Integer assignedTo) {
         this.assignedTo = assignedTo;
+    }
+
+    public Integer getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Integer createdBy) {
+        this.createdBy = createdBy;
     }
     
     
