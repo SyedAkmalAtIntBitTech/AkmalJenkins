@@ -954,6 +954,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     }
                     growl(templetestatussaved);
                     $scope.getCampaigns();
+                    $scope.getActionComments();
                 } else {
                     growl(savingrecordproblem, "error");
                 }
