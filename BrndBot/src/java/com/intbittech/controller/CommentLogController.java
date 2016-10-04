@@ -18,7 +18,6 @@ import com.intbittech.services.ActivityLogService;
 import com.intbittech.services.CommentLogService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.IConstants;
-import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
