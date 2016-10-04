@@ -12,14 +12,23 @@ import com.intbittech.model.ActivityLog;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.ActivityLogDetails;
+import com.intbittech.modelmappers.UserDetails;
 import com.intbittech.responsemappers.ActivityLogResponse;
+import com.intbittech.sendgrid.models.EmailType;
 import com.intbittech.services.ActivityLogService;
+import com.intbittech.services.EmailServiceProviderService;
 import com.intbittech.utility.IConstants;
+import com.intbittech.utility.Utility;
+import com.sendgrid.Content;
+import com.sendgrid.Email;
+import com.sendgrid.Mail;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +43,11 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     private static Logger logger = Logger.getLogger(ActivityLogServiceImpl.class);
     @Autowired
     private ActivityLogDao activityLogDao;
+    @Autowired
+    private MessageSource messageSource;
+
+    @Autowired
+    private EmailServiceProviderService emailServiceProviderService;
 
     /**
      * {@inheritDoc}
@@ -111,6 +125,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
             Users assignedTo = new Users();
             assignedTo.setUserId(activityLogDetails.getAssignedTo());
             activityLog.setAssignedTo(assignedTo);
+//            sendNotificationEmail(assignedTo.getUserName(), Utility.combineUserName(assignedTo));
         }
         Users createdUser = new Users();
         createdUser.setUserId(activityLogDetails.getCreatedBy());
@@ -119,5 +134,22 @@ public class ActivityLogServiceImpl implements ActivityLogService {
         activityLog.setFkActivityId(activity);
         return activityLogDao.save(activityLog);
     }
-
+    
+    public Boolean sendNotificationEmail(String toEmailId, UserDetails usersDetails)throws ProcessFailed {
+        try {
+            String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
+            String body = messageSource.getMessage("acknowledgement_message", new String[]{}, Locale.US);
+            String formattedBody = String.format(body);
+            Content content = new Content(IConstants.kContentHTML, formattedBody);
+            Email emailTo = new Email(toEmailId, Utility.combineUserName(usersDetails));
+            String subject = messageSource.getMessage("acknowledgement_subject", new String[]{}, Locale.US);
+            String formattedSubject = String.format(subject, companyName);
+            Mail mail = new Mail(null, formattedSubject, emailTo, content);
+            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply);
+            return true;
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("mail_send_problem", new String[]{}, Locale.US));
+        }
+    }
 }

@@ -13,7 +13,7 @@ import java.util.Date;
  *
  * @author ilyas
  */
-public class UserDetails   extends UserCompanyIds implements Serializable {
+public class UserDetails extends UserCompanyIds implements Serializable {
     
     private Integer userId;
     private String userName;
