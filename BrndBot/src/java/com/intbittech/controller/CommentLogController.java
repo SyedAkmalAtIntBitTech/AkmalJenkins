@@ -8,13 +8,16 @@ package com.intbittech.controller;
 import com.intbittech.model.CommentLog;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.Users;
+import com.intbittech.modelmappers.ActivityLogDetails;
 import com.intbittech.modelmappers.CommentLogDetails;
 import com.intbittech.responsemappers.CommentActivityLogResponse;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.services.ActivityLogService;
 import com.intbittech.services.CommentLogService;
 import com.intbittech.utility.ErrorHandlingUtil;
+import com.intbittech.utility.IConstants;
 import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -35,17 +38,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping(value = "/comment")
 public class CommentLogController {
-    
+
     private final static Logger logger = Logger.getLogger(CommentLogController.class);
     @Autowired
     private CommentLogService commentLogService;
-    
-      @RequestMapping(value = "/saveActionComment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Autowired
+    private ActivityLogService activityLogService;
+
+    @RequestMapping(value = "/saveActionComment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveActionComment(@RequestBody CommentLogDetails commentLogDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             CommentLog commentLog = new CommentLog();
-           
+
             ScheduledEntityList scheduledEntityList = new ScheduledEntityList();
             scheduledEntityList.setScheduledEntityListId(commentLogDetails.getScheduleId());
             commentLog.setFkScheduledEntityid(scheduledEntityList);
@@ -60,12 +65,13 @@ public class CommentLogController {
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
-}
-     @RequestMapping(value = "/getAllCommentLog", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    }
+
+    @RequestMapping(value = "/getAllCommentLog", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllCommentLog() {
-         GenericResponse<CommentActivityLogResponse> genericResponse = new GenericResponse();
+        GenericResponse<CommentActivityLogResponse> genericResponse = new GenericResponse();
         try {
-                List<CommentActivityLogResponse> commentLogResponseList = commentLogService.getAllCommentLog();
+            List<CommentActivityLogResponse> commentLogResponseList = commentLogService.getAllCommentLog();
             genericResponse.setDetails(commentLogResponseList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Activity retrieved successfully"));
         } catch (Throwable ex) {
@@ -75,13 +81,13 @@ public class CommentLogController {
 
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/getAllCommentByActionId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getAllCommentLogByActionId(@RequestParam("scheduleId")Integer scheduleId,@RequestParam("userId")Integer userId ) {
-         GenericResponse<CommentActivityLogResponse> genericResponse = new GenericResponse();
-         
+    public ResponseEntity<ContainerResponse> getAllCommentLogByActionId(@RequestParam("scheduleId") Integer scheduleId, @RequestParam("userId") Integer userId) {
+        GenericResponse<CommentActivityLogResponse> genericResponse = new GenericResponse();
+
         try {
-                List<CommentActivityLogResponse> commentLogResponseList = commentLogService.getAllCommentLogByScheduledEntityListId(scheduleId,userId);
+            List<CommentActivityLogResponse> commentLogResponseList = commentLogService.getAllCommentLogByScheduledEntityListId(scheduleId, userId);
             genericResponse.setDetails(commentLogResponseList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Activity retrieved successfully"));
         } catch (Throwable ex) {
@@ -92,13 +98,19 @@ public class CommentLogController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
-     @RequestMapping(value = "/deleteActionComment", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> deleteActionComment(@RequestParam("commentId") Integer commentId) {
+    @RequestMapping(value = "/deleteActionComment", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteActionComment(@RequestParam("commentId") Integer commentId, @RequestParam("userId") Integer userId) {
 
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-              commentLogService.delete(commentId);
-            
+            CommentLog commentLog = commentLogService.getCommentLogByCommentLogId(commentId);
+            commentLogService.delete(commentId);
+            ActivityLogDetails activityLogDetails = new ActivityLogDetails();
+            activityLogDetails.setActivityId(IConstants.ACTIVITY_DELETED_COMMENT_ACTION_ID);
+            activityLogDetails.setScheduledEntityId(commentLog.getFkScheduledEntityid().getScheduledEntityListId());
+            activityLogDetails.setCreatedBy(userId);
+            activityLogService.saveActivityLog(activityLogDetails);
+
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Comment deleted successfully"));
         } catch (Throwable ex) {
             logger.error(ex);
@@ -107,5 +119,5 @@ public class CommentLogController {
 
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
 }
