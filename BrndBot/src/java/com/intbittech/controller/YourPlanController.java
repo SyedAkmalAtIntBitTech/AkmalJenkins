@@ -281,7 +281,7 @@ public class YourPlanController {
                         activityLogDetailsObject.setAssignedTo(userAssignToId);
                         activityLogDetailsObject.setScheduledEntityId(scheduleId);
                         activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
-                        activityLogService.saveActivityLog(activityLogDetails);                        
+                        activityLogService.saveActivityLog(activityLogDetailsObject);                        
                         transactionResponse.setMessage(AppConstants.GSON.toJson(data));
                         transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
                     } catch (SQLException ex) {
