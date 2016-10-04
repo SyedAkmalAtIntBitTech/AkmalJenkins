@@ -21,7 +21,7 @@
                     </div>
                     <div ng-show="changeUsers">
                         <a id="addactionClose" ng-click = "changeUsers=false" class="modal-pane-header-exit"></a>
-                        <select id="assignTo1">
+                        <select id="changeAssignTo">
                             <option ng-repeat="users in allUsers" value="{{users.userId}}">{{users.userName}}</option>
                         </select><br><br>
                         <input type="button" id="changeUser" value="change user" ng-click="changeAssignedTo(schedule_id)"/>

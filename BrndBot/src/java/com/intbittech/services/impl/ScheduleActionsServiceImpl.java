@@ -128,7 +128,23 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                     TemplateStatus.template_saved.toString(),
                     requestBodyMap.get("html_body").toString(), createdBy, userAssignToId
             );
-
+            Integer scheduleEntityId = idMap.get("schedule_entity_id");
+                ActivityLogDetails activityLogDetails = new ActivityLogDetails();
+                activityLogDetails.setActivityId(IConstants.ACTIVITY_CREATED_ACTION_ID);
+                activityLogDetails.setScheduledEntityId(scheduleEntityId);
+                activityLogDetails.setCreatedBy(createdBy);
+                activityLogService.saveActivityLog(activityLogDetails);
+                ActivityLogDetails activityLogDetailsObject = new ActivityLogDetails();
+                activityLogDetailsObject.setActivityId(IConstants.ACTIVITY_ADDED_TEMPLATE_ID);
+                activityLogDetailsObject.setScheduledEntityId(scheduleEntityId);
+                activityLogDetailsObject.setCreatedBy(createdBy);
+                activityLogService.saveActivityLog(activityLogDetailsObject);
+                ActivityLogDetails activityLog = new ActivityLogDetails();
+                activityLog.setActivityId(IConstants.ACTIVITY_ASSIGNED_TO_ID);
+                activityLog.setScheduledEntityId(scheduleEntityId);
+                activityLog.setCreatedBy(createdBy);
+                activityLog.setAssignedTo(userAssignToId);
+                activityLogService.saveActivityLog(activityLog);
             if (!path.equals("")) {
                 File IframeDelete = new File(path);
                 IframeDelete.delete();
@@ -157,7 +173,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                 File file = new File(path);
                 html_text = FileUtils.readFileToString(file, "UTF-8");
             }
-
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             Map<String, Integer> idMap = ScheduleDAO.updatetoScheduledEmailList(
                     companyId,
                     Integer.parseInt(schedule_id),
@@ -172,7 +188,11 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                     TemplateStatus.template_saved.toString(),
                     requestBodyMap.get("html_body").toString()
             );
-
+            ActivityLogDetails activityLogDetails = new ActivityLogDetails();
+            activityLogDetails.setActivityId(IConstants.ACTIVITY_ADDED_TEMPLATE_ID);
+            activityLogDetails.setScheduledEntityId(Integer.parseInt(schedule_id));
+            activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
+            activityLogService.saveActivityLog(activityLogDetails);
             if (!path.equals("")) {
                 File IframeDelete = new File(path);
                 IframeDelete.delete();

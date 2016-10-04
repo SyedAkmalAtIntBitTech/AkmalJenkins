@@ -395,7 +395,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             return user;
         };
         $scope.changeAssignedTo = function (scheduleId) {
-            var userAssignToId = $("#assignTo1 option:selected").val();
+            var userAssignToId = $("#changeAssignTo option:selected").val();
             var assignToDetails = {"scheduleId": scheduleId, "userAssignToId": userAssignToId};
             yourPlanFactory.changeAssigedToPOST(assignToDetails).then(function (data) {
                 var userName = data.d.message;
@@ -898,6 +898,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.closePopup();
                     $scope.getProgramActions('emailautomation');
                 });
+                    $scope.getActionComments();
 
             }
         };
