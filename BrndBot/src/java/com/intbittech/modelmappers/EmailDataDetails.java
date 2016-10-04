@@ -7,6 +7,7 @@ package com.intbittech.modelmappers;
 
 import com.intbittech.model.UserCompanyIds;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -21,9 +22,10 @@ public class EmailDataDetails extends UserCompanyIds implements Serializable {
     private String fromEmailAddress;
     private String fromName;
     private String iFrameName;
-    //change to enum
-    private String emailCategory;
+    private String emailType;
     private Integer days;
+    private List<String> emailCategoryList;
+    private String preheader;
 
     public String getEmailSubject() {
         return emailSubject;
@@ -81,12 +83,12 @@ public class EmailDataDetails extends UserCompanyIds implements Serializable {
         this.iFrameName = iFrameName;
     }
 
-    public String getEmailCategory() {
-        return emailCategory;
+    public String getEmailType() {
+        return emailType;
     }
 
-    public void setEmailCategory(String emailCategory) {
-        this.emailCategory = emailCategory;
+    public void setEmailType(String emailType) {
+        this.emailType = emailType;
     }
 
     public Integer getDays() {
@@ -96,6 +98,20 @@ public class EmailDataDetails extends UserCompanyIds implements Serializable {
     public void setDays(Integer days) {
         this.days = days;
     }
-    
-    
+
+    public List<String> getEmailCategoryList() {
+        return emailCategoryList;
+    }
+
+    public void setEmailCategoryList(List<String> emailCategoryList) {
+        this.emailCategoryList = emailCategoryList;
+    }   
+
+    public String getPreheader() {
+        return preheader;
+    }
+
+    public void setPreheader(String preheader) {
+        this.preheader = preheader;
+    }
 }

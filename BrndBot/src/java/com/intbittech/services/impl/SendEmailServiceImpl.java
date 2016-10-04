@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.intbittech.AppConstants;
 import com.intbittech.utility.ServletUtil;
 import com.intbittech.dao.impl.EmailHistoryDAO;
-import com.intbittech.enums.EmailCategory;
+import com.intbittech.enums.EmailTypeConstants;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.services.SendEmailService;
 import com.intbittech.model.ContactEmailListLookup;
@@ -45,40 +45,45 @@ import org.springframework.transaction.annotation.Transactional;
 public class SendEmailServiceImpl implements SendEmailService {
 
     private final static Logger logger = Logger.getLogger(SendEmailServiceImpl.class);
-    
+
     @Autowired
     private ContactEmailListLookupService contactEmailListLookupService;
-    
+
     @Autowired
     private UsersService usersService;
-    
+
     @Autowired
     EmailServiceProviderService emailServiceProviderService;
 
     @Override
     public void sendMail(EmailDataDetails emailDataDetails) throws Exception {
         Mail mail = new Mail();
-        List<ContactEmailListLookup>  toEmailIds = new ArrayList<>();
-        if(emailDataDetails.getEmailCategory().equals(EmailCategory.Recurring.name()))
-            toEmailIds = contactEmailListLookupService.getContactsByEmailListNameAndCompanyIdForToday(emailDataDetails.getEmailListName(), emailDataDetails.getCompanyId(),emailDataDetails.getDays());
-        else
+        List<ContactEmailListLookup> toEmailIds = new ArrayList<>();
+        if (emailDataDetails.getEmailType().equals(EmailTypeConstants.Recurring.name())) {
+            toEmailIds = contactEmailListLookupService.getContactsByEmailListNameAndCompanyIdForToday(emailDataDetails.getEmailListName(), emailDataDetails.getCompanyId(), emailDataDetails.getDays());
+        } else {
             toEmailIds = contactEmailListLookupService.getContactsByEmailListNameAndCompanyId(emailDataDetails.getEmailListName(), emailDataDetails.getCompanyId());
+        }
 
-        
         Email emailFrom = new Email(emailDataDetails.getFromEmailAddress(), emailDataDetails.getFromName());
         mail.setFrom(emailFrom);
         Email emailReplyTo = new Email(emailDataDetails.getReplyToEmailAddress());
         mail.setReplyTo(emailReplyTo);
         mail.setSubject(emailDataDetails.getEmailSubject());
-        
+
         Content content = new Content(IConstants.kContentHTML, emailDataDetails.getHtmlData());
         mail.addContent(content);
-        
-        //TODO category
-//        mail.addCategory("category goes here");
+
+        //Adding categories if any exists
+        List<String> emailCategoryList = emailDataDetails.getEmailCategoryList();
+        if (emailCategoryList != null && !emailCategoryList.isEmpty()) {
+            for (String emailCategory : emailDataDetails.getEmailCategoryList()) {
+                mail.addCategory(emailCategory);
+            }
+        }
+
         //TODO preheader
 //        mail.addHeader("preHeader", preheader);
-
         for (ContactEmailListLookup currectContact : toEmailIds) {
             Personalization personalization = new Personalization();
             Users user = new Users();
@@ -86,21 +91,20 @@ public class SendEmailServiceImpl implements SendEmailService {
             user.setLastName(currectContact.getFkContactId().getLastName());
             Email emailToObject = new Email(currectContact.getFkContactId().getEmailAddress(), Utility.combineUserName(user));
             personalization.addTo(emailToObject);
-            
+
             personalization.addSubstitution(IConstants.kEmailClientFirstName, user.getFirstName());
             personalization.addSubstitution(IConstants.kEmailClientFirstName.toLowerCase(), user.getFirstName());
-            
+
             personalization.addSubstitution(IConstants.kEmailClientLastName, user.getLastName());
             personalization.addSubstitution(IConstants.kEmailClientLastName.toLowerCase(), user.getLastName());
-            
+
             personalization.addSubstitution(IConstants.kEmailClientFullName, Utility.combineUserName(user));
             personalization.addSubstitution(IConstants.kEmailClientFullName.toLowerCase(), Utility.combineUserName(user));
-            
+
             mail.addPersonalization(personalization);
         }
         emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_SubUserRegularEmail);
 
-        
         //TODO need to check and change this
         int lastUpdateId = EmailHistoryDAO.addToEmailHistory(emailDataDetails.getCompanyId(),
                 emailDataDetails.getHtmlData(), emailDataDetails.getFromEmailAddress(), emailDataDetails.getEmailListName(),
@@ -126,7 +130,6 @@ public class SendEmailServiceImpl implements SendEmailService {
 //        }
 //        return new Gson().toJson(tagsFromMandrillForUser);
 //    }
-
     @Override
     public String previewEmail(Integer companyId, Map<String, Object> requestBodyMap) {
         try {

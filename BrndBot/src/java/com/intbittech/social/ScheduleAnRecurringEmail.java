@@ -6,7 +6,7 @@
 package com.intbittech.social;
 
 import com.intbittech.component.SpringContextBridge;
-import com.intbittech.enums.EmailCategory;
+import com.intbittech.enums.EmailTypeConstants;
 import com.intbittech.utility.IConstants;
 import com.intbittech.model.ScheduledEmailList;
 import com.intbittech.model.ScheduledEntityList;
@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import com.intbittech.utility.DateTimeUtil;
 import com.intbittech.modelmappers.EmailDataDetails;
 import com.intbittech.services.SendEmailService;
+import com.intbittech.utility.MarketingProgramUtility;
 
 
 /**
@@ -76,7 +77,16 @@ public class ScheduleAnRecurringEmail implements Runnable {
                         emailDataDetails.setFromName(from_name);
                         emailDataDetails.setHtmlData(html_text);
                         emailDataDetails.setReplyToEmailAddress(reply_to_address);
-                        emailDataDetails.setEmailCategory(EmailCategory.Recurring.name());
+                        emailDataDetails.setEmailType(EmailTypeConstants.Recurring.name());
+                        
+                        //For email categories/tags
+                        Integer companyMarketingProgramId = currentScheduledRecurringEmail.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId();
+                        Integer entityId = currentScheduledRecurringEmail.getEntityId();
+                        List<String> emailCategoryList = new ArrayList<>();
+                        emailCategoryList.add(MarketingProgramUtility.getMarketingProgramCategory(companyMarketingProgramId));
+                        emailCategoryList.add(MarketingProgramUtility.getMarketingProgramRecuringActionCategory(entityId));
+                        
+                        emailDataDetails.setEmailCategoryList(emailCategoryList);
                         
                         SendEmailService sendEmailService = SpringContextBridge.services().getSendEmailService();
                         sendEmailService.sendMail(emailDataDetails);

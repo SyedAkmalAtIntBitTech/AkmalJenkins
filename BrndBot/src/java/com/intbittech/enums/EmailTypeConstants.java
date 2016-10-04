@@ -9,6 +9,6 @@ package com.intbittech.enums;
  *
  * @author ilyas
  */
-public enum EmailCategory {
-        General, Recurring;
+public enum EmailTypeConstants {
+    General, Recurring;
 }

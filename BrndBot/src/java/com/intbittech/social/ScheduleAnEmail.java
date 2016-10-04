@@ -6,7 +6,7 @@
 package com.intbittech.social;
 
 import com.intbittech.component.SpringContextBridge;
-import com.intbittech.enums.EmailCategory;
+import com.intbittech.enums.EmailTypeConstants;
 import com.intbittech.utility.IConstants;
 import com.intbittech.model.ScheduledEmailList;
 import com.intbittech.model.ScheduledEntityList;
@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 import com.intbittech.utility.DateTimeUtil;
 import com.intbittech.modelmappers.EmailDataDetails;
 import com.intbittech.services.SendEmailService;
+import com.intbittech.utility.MarketingProgramUtility;
 
 /**
  *
@@ -54,7 +55,7 @@ public class ScheduleAnEmail implements Runnable {
                     if (shouldPostNow) {
                         logger.info("Should post now is true: Sending Mail");
                         ScheduledEmailList sendAnEmail = getSendEmail(currentScheduledEmail);
-
+                        
                         Integer companyId = currentScheduledEmail.getFkCompanyId().getCompanyId();
                         String html_text = sendAnEmail.getBody();
                         String email_subject = sendAnEmail.getSubject();
@@ -73,7 +74,17 @@ public class ScheduleAnEmail implements Runnable {
                         emailDataDetails.setFromName(from_name);
                         emailDataDetails.setHtmlData(html_text);
                         emailDataDetails.setReplyToEmailAddress(reply_to_address);
-                        emailDataDetails.setEmailCategory(EmailCategory.General.name());
+                        emailDataDetails.setEmailType(EmailTypeConstants.General.name());
+                        
+                        //For email categories/tags
+                        Integer companyMarketingProgramId = currentScheduledEmail.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId();
+                        Integer entityId = currentScheduledEmail.getEntityId();
+                        List<String> emailCategoryList = new ArrayList<>();
+                        emailCategoryList.add(MarketingProgramUtility.getMarketingProgramCategory(companyMarketingProgramId));
+                        emailCategoryList.add(MarketingProgramUtility.getMarketingProgramActionCategory(entityId));
+                        
+                        emailDataDetails.setEmailCategoryList(emailCategoryList);
+                        
                         SendEmailService sendEmailService = SpringContextBridge.services().getSendEmailService();
                         sendEmailService.sendMail(emailDataDetails);
 
