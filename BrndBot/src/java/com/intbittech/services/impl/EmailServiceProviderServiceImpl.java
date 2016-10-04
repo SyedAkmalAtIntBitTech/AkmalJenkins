@@ -21,7 +21,6 @@ import com.intbittech.sendgrid.models.SendGridUsers;
 import com.intbittech.sendgrid.models.Subuser;
 import com.intbittech.services.EmailServiceProviderService;
 import com.intbittech.utility.IConstants;
-import com.sendgrid.Content;
 import com.sendgrid.Email;
 import com.sendgrid.Mail;
 import com.sendgrid.MailSettings;
@@ -198,27 +197,17 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             
             mail = formatTo(mail, emailType);
             
-            ObjectMapper mapper = new ObjectMapper();
             OperationStatus operationStatus = new OperationStatus();
-            Email from = new Email("ar@intbittech.com");
-            from.setName("AbdulRaqeeb");
-            String subject = "Hello World from the SendGrid Java Library!";
-            Email to = new Email("ar@brndbot.com");
-            Content content = new Content("text/plain", "Hello, Email!");
             MailSettings mailSettings = new MailSettings();
             mail.setMailSettings(mailSettings);
            
-            List<String> list = new ArrayList<String>();
-            list.add("Category");
-            mail.categories = list;
-//            mail.
-            SendGrid sg = new SendGrid(AppConstants.KSendGridAPIKey);
+            SendGrid sendGrid = new SendGrid(AppConstants.KSendGridAPIKey);
             Request request = new Request();
             request.method = Method.POST;
             request.endpoint = "mail/send";
             request.body = mail.build();
             logRequest(request);
-            Response response = sg.api(request);
+            Response response = sendGrid.api(request);
             logResponse(response);
             OperationStatusType type = SendGridError.parseStatusCode(response.statusCode);
             operationStatus.setStatusCode(type);
