@@ -359,9 +359,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.assignedFirstName = user[0];
                 $scope.assignedLastName = user[1];
                 $scope.assignedToInitialChars = data.d.id;
-//                $scope.closePopup();
-//                window.location = getHost() + "user/yourplan#/marketing";
-//                $scope.closeOverlay();
+                $scope.closePopup();
+                $scope.getCampaigns();
             });
 
         };
@@ -382,8 +381,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.getActionComments = function (scheduleId) {
             yourPlanFactory.actionCommentsGet(scheduleId).then(function (data) {
                 $scope.comments = data.d.details;
-//                alert(JSON.stringify($scope.comments));
-//                console.log(JSON.stringify($scope.comments));
             });
         };
 
