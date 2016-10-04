@@ -14,6 +14,7 @@ import com.intbittech.dao.UsersInviteDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.Invite;
+import com.intbittech.model.SendGridSubUserDetails;
 import com.intbittech.model.UserProfile;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
@@ -25,6 +26,7 @@ import com.intbittech.sendgrid.models.EmailType;
 import com.intbittech.sendgrid.models.SendGridUser;
 import com.intbittech.sendgrid.models.Subuser;
 import com.intbittech.services.EmailServiceProviderService;
+import com.intbittech.services.SendGridSubUserDetailsService;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UserRoleCompanyLookUpService;
 import com.intbittech.services.UsersService;
@@ -62,6 +64,7 @@ public class UsersServiceImpl implements UsersService {
     @Autowired
     private UsersInviteService usersInviteService;
 
+    @Autowired
     private UserRoleCompanyLookUpDao usersRoleLookUpDao;    
     
     @Autowired
@@ -75,6 +78,9 @@ public class UsersServiceImpl implements UsersService {
     
     @Autowired
     private EmailServiceProviderService emailServiceProviderService;
+    
+    @Autowired
+    private SendGridSubUserDetailsService sendGridSubUserDetailsService;
     
     /**
      * {@inheritDoc}
@@ -148,11 +154,18 @@ public class UsersServiceImpl implements UsersService {
             usersRoleLookUpDao.save(usersRoleLookUp);
             
             //Save subuser in sendgrid
-            Subuser subuser = new Subuser();
-            subuser.setEmail(usersDetails.getUserName());
-            subuser.setPassword(encodedPassword);
-            SendGridUser sendGridUser = emailServiceProviderService.addSubuser(subuser);
+//            Subuser subuser = new Subuser();
+//            subuser.setEmail(usersDetails.getUserName());
+//            subuser.setPassword(usersDetails.getUserPassword());
+//            SendGridUser sendGridUser = emailServiceProviderService.addSubuser(subuser);
             //TODO save userID in db
+//            SendGridSubUserDetails sendGridSubUserDetails = new SendGridSubUserDetails();
+//            user = new Users();
+//            user.setUserId(userId);
+//            sendGridSubUserDetails.setFkUserId(user);
+//            sendGridSubUserDetails.setSendGridUserId(sendGridUser.getUserId());
+//            
+//            sendGridSubUserDetailsService.save(sendGridSubUserDetails);
             
             returnUserId = userId;
         } catch (Throwable throwable) {
