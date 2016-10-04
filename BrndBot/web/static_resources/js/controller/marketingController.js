@@ -599,8 +599,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.generalSavedDetails = true;
             $scope.generalNotes = false;
             $scope.generalActions = false;
-            $scope.emailsectionClass = 'emailsectionClass';
-            $scope.fadeClass = 'fadeClass';
             $scope.action_template_status = template_status;
             $scope.generalActionDetailsHeader = "Recurring Email";
             $scope.scheduledTo = 'POST';
@@ -619,6 +617,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 days: days, entities_selected_time: $filter('date')(schedule_time, "HH : mm : a"), entities_subject: "",
                 entities_from_name: "", entities_reply_to_email_address: ""};
             yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data) {
+                $scope.fadeClass = 'fadeClass';
+                $scope.emailsectionClass = 'emailsectionClass';
                 $scope.recurringEntitiesDetails = JSON.parse(data.d.details);
                 $scope.recurringScheduleData.entities_subject = $scope.recurringEntitiesDetails.subject;
                 $scope.recurringScheduleData.entities_list_name = $scope.recurringEntitiesDetails.email_list_name;
@@ -639,6 +639,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.htmlbody = $scope.recurringEntitiesDetails.body.replace(/contenteditable="true" /g, 'contenteditable="false"');
                     iframe.contentDocument.body.innerHTML = $scope.htmlbody;
                 } else {
+                    $scope.redirectToEmailAutomation('emailautomation','template','', schedule_id);
                     $scope.savedEmail = false;
                     $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
                 }

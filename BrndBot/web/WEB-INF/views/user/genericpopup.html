@@ -25,6 +25,9 @@
         </div>
     </div>
     <ul class="sub-nav-tab-wrap with-back-button" ng-show="pushedEmail==false">
+        <li class="sub-nav-tab" ng-if="isEmailHistory">
+             <a id="emailnote1" ng-click="setTab('emailHistory')" ng-class="top_subnav_link_active_emailHistoryDetail_Class" href="">Email History Details</a>
+        </li>
         <li class="sub-nav-tab ">
              <a id="emailaction1" val="{{schedule_id}}" ng-click="setTab('actionDetails');" ng-class="top_subnav_link_active_actionDetail_Class" href="">Action Details</a>
         </li>
