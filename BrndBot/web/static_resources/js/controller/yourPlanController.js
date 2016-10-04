@@ -381,7 +381,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.getActionComments = function (scheduleId) {
             yourPlanFactory.actionCommentsGet(scheduleId).then(function (data) {
                 $scope.comments = data.d.details;
-                alert(JSON.stringify($scope.comments));
             });
         };
 
@@ -1013,12 +1012,13 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     if (type === "remove") {
                         $scope.savedEmail = false;
                         $scope.action_template_status = "No Template";
-                    } else
-                    {
+                    }else{
                         $scope.closePopup();
                     }
-                    $scope.getCampaigns();
+                        $scope.closePopup();
+                        $scope.getCampaigns();
                 });
+                    $scope.getActionComments();
             }
         };
 

@@ -92,7 +92,7 @@ public interface IConstants {
      public static final Integer ACTIVITY_ADDED_TEMPLATE_ID = 4;
      public static final Integer ACTIVITY_UPDATED_TEMPLATE_ID = 5;
      public static final Integer ACTIVITY_REMOVED_TEMPLATE_ID = 6;
-     public static final Integer ACTIVITY_UPDATED_ACTION_DATE_ID = 7;
+     public static final Integer ACTIVITY_UPDATED_ACTION_ID = 7;
      public static final Integer ACTIVITY_APPROVED_ACTION_ID = 8;
      public static final Integer ACTIVITY_DISAPPROVED_ACTION_ID = 9;
      public static final Integer ACTIVITY_DELETED_COMMENT_ACTION_ID = 10;
