@@ -840,6 +840,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //                alert("Action saved succesfully");
                 $scope.closePopup();
                 $scope.getProgramActions();
+                $scope.getActionComments(schedule_id);
             });
 //        }
         };
@@ -860,9 +861,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //                        $scope.scheduleData.email_template_status = 'Template Saved';
                     }
                     $scope.getProgramActions('emailautomation');
-//                    growl(templetestatussaved);
+                    growl(templetestatussaved);
+                    $scope.getActionComments(entity_id);
                 } else {
-//                    growl(savingrecordproblem,"error");
+                    growl(savingrecordproblem,"error");
                 }
             });
 

@@ -906,6 +906,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.closePopup();
                 $scope.getCampaigns();
                 growl("Action Saved");
+                $scope.getActionComments(schedule_id);
             });
 //        }
         };
@@ -953,7 +954,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     }
                     growl(templetestatussaved);
                     $scope.getCampaigns();
-                    $scope.getActionComments();
+                    $scope.getActionComments(entity_id);
                 } else {
                     growl(savingrecordproblem, "error");
                 }
@@ -1018,7 +1019,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                         $scope.closePopup();
                         $scope.getCampaigns();
                 });
-                    $scope.getActionComments();
+                    $scope.getActionComments(schedules_to_delete);
             }
         };
 
