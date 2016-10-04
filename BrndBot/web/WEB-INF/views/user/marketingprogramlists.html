@@ -12,8 +12,8 @@
          </div>
      </div>
     <div class="bb-top-sub-nav"  ng-click="userSettings=false">
-        <div class="bb-top-sub-nav-tab"  ng-click="showCurrentPrograms()" ng-class="currentCampaignClass" id="curmarprog">Current Campaigns</div>
-        <div class="bb-top-sub-nav-tab " ng-click="getUserMarketingProgramsClosed('marketingprogramactions');showPastPrograms()" ng-class="archivedCampaignClass">Archived Campaigns</div>
+        <div class="bb-top-sub-nav-tab"  ng-click="showCurrentPrograms()" ng-class="{'activeCampaign': isActive('currentCampaign')}" id="curmarprog" >Current Campaigns</div>
+        <div class="bb-top-sub-nav-tab " ng-click="getUserMarketingProgramsClosed('marketingprogramactions');showPastPrograms()" ng-class="{'activeCampaign': isActive('archivedCampaign')}">Archived Campaigns</div>
    
         <!--<div class="top-sub-nav">
             <ul class="sub-nav-tab-wrap sub-nav-tab-wrap-hub">

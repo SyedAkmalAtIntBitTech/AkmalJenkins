@@ -72,6 +72,10 @@ public interface IConstants {
     // for external source 
     final static Integer EXTERNAL_SOURCE_NON_MINDBODY = 0;
     final static Integer EXTERNAL_SOURCE_MINDBODY = 1;
+    final static int HTTPSuccessCode = 205;
+    
+    final static String kNoReplyBrndbot = "no_reply@brndbot.com";
+    final static String kContentHTML = "text/html";
     
     // for marketing program 
     final static String MARKETING_PROGRAM_CATEGORY = "MP";

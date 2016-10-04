@@ -1,7 +1,7 @@
 <div id="fade" class="black_overlay" ng-class="fadeClass"></div>
 <div class="overlay-wrap overlay-slide" id="emailsection" ng-class="emailsectionClass">
     <div class="header" id="emailtopnav">
-        <a class="exit-button" ng-click="closePopup();promptHideShow(false);clickedDeleteAction = false;" href="">
+        <a id="closePopupSlider" class="exit-button" ng-click="closePopup();promptHideShow(false);clickedDeleteAction = false;" href="">
         </a>
         <h2> {{generalActionDetailsHeader}} Action Detail</h2>
         <div class="overlay-header-cta-wrap" ng-show="pushedEmail==false">

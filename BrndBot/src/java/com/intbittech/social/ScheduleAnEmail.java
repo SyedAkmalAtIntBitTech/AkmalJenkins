@@ -6,6 +6,7 @@
 package com.intbittech.social;
 
 import com.intbittech.component.SpringContextBridge;
+import com.intbittech.enums.EmailTypeConstants;
 import com.intbittech.utility.IConstants;
 import com.intbittech.model.ScheduledEmailList;
 import com.intbittech.model.ScheduledEntityList;
@@ -13,12 +14,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import com.intbittech.utility.DateTimeUtil;
-import com.intbittech.email.mandrill.SendMail;
-import com.intbittech.services.ContactEmailListLookupService;
-import com.intbittech.services.EmailListService;
+import com.intbittech.modelmappers.EmailDataDetails;
+import com.intbittech.services.SendEmailService;
+import com.intbittech.utility.MarketingProgramUtility;
 
 /**
  *
@@ -55,26 +54,43 @@ public class ScheduleAnEmail implements Runnable {
                     logger.info("Current time:" + new Date());
                     if (shouldPostNow) {
                         logger.info("Should post now is true: Sending Mail");
-                        ContactEmailListLookupService contactEmailListLookupService = SpringContextBridge.services().getContactEmailListLookupService();
                         ScheduledEmailList sendAnEmail = getSendEmail(currentScheduledEmail);
-
+                        
                         Integer companyId = currentScheduledEmail.getFkCompanyId().getCompanyId();
                         String html_text = sendAnEmail.getBody();
                         String email_subject = sendAnEmail.getSubject();
-                        String to_email_addresses = contactEmailListLookupService.getContactsByEmailListNameAndCompanyId(sendAnEmail.getEmailListName(), companyId);
+//                        String to_email_addresses = contactEmailListLookupService.getContactsByEmailListNameAndCompanyId(sendAnEmail.getEmailListName(), companyId);
                         String emaillist_name = sendAnEmail.getEmailListName();
 
                         String reply_to_address = sendAnEmail.getReplyToEmailAddress();
                         String from_email_address = sendAnEmail.getFromAddress();
                         String message = "";
                         String from_name = sendAnEmail.getFromName();
-                        message = SendMail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, companyId, reply_to_address, from_email_address, from_name, "");
+                        EmailDataDetails emailDataDetails = new EmailDataDetails();
+                        emailDataDetails.setCompanyId(companyId);
+                        emailDataDetails.setEmailListName(emaillist_name);
+                        emailDataDetails.setEmailSubject(email_subject);
+                        emailDataDetails.setFromEmailAddress(from_email_address);
+                        emailDataDetails.setFromName(from_name);
+                        emailDataDetails.setHtmlData(html_text);
+                        emailDataDetails.setReplyToEmailAddress(reply_to_address);
+                        emailDataDetails.setEmailType(EmailTypeConstants.General.name());
+                        
+                        //For email categories/tags
+                        Integer companyMarketingProgramId = currentScheduledEmail.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId();
+                        Integer entityId = currentScheduledEmail.getEntityId();
+                        List<String> emailCategoryList = new ArrayList<>();
+                        emailCategoryList.add(MarketingProgramUtility.getMarketingProgramCategory(companyMarketingProgramId));
+                        emailCategoryList.add(MarketingProgramUtility.getMarketingProgramActionCategory(entityId));
+                        
+                        emailDataDetails.setEmailCategoryList(emailCategoryList);
+                        
+                        SendEmailService sendEmailService = SpringContextBridge.services().getSendEmailService();
+                        sendEmailService.sendMail(emailDataDetails);
 
-                        if (message.equalsIgnoreCase("success")) {
-                            updateStatusScheduledEmail(currentScheduledEmail);
-                            logger.info("Should post now is true: Sent the mail");
-                            //Get the next in line
-                        }
+                        updateStatusScheduledEmail(currentScheduledEmail);
+                        logger.info("Should post now is true: Sent the mail");
+                        //Get the next in line
                     }
                 } else {
                     logger.info("Should post now is false: Not sending mail");
