@@ -257,6 +257,23 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                 daoResponseList.add(daoResponse);
 //                }
                 conn.commit();
+                Integer scheduleEntityId = daoResponse.get("schedule_entity_id");
+                ActivityLogDetails activityLogDetails = new ActivityLogDetails();
+                activityLogDetails.setActivityId(IConstants.ACTIVITY_CREATED_ACTION_ID);
+                activityLogDetails.setScheduledEntityId(scheduleEntityId);
+                activityLogDetails.setCreatedBy(createdBy);
+                activityLogService.saveActivityLog(activityLogDetails);
+                ActivityLogDetails activityLogDetailsObject = new ActivityLogDetails();
+                activityLogDetailsObject.setActivityId(IConstants.ACTIVITY_ADDED_TEMPLATE_ID);
+                activityLogDetailsObject.setScheduledEntityId(scheduleEntityId);
+                activityLogDetailsObject.setCreatedBy(createdBy);
+                activityLogService.saveActivityLog(activityLogDetailsObject);
+                ActivityLogDetails activityLog = new ActivityLogDetails();
+                activityLog.setActivityId(IConstants.ACTIVITY_ASSIGNED_TO_ID);
+                activityLog.setScheduledEntityId(scheduleEntityId);
+                activityLog.setCreatedBy(createdBy);
+                activityLog.setAssignedTo(userAssignToId);
+                activityLogService.saveActivityLog(activityLog);
             } catch (SQLException ex) {
                 conn.rollback();
                 throw ex;
