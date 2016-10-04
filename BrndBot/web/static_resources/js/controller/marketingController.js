@@ -395,11 +395,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             return user;
         };
         $scope.changeAssignedTo = function (scheduleId) {
-            var userAssignToId = $("#assignTo option:selected").val();
-
+            var userAssignToId = $("#assignTo1 option:selected").val();
             var assignToDetails = {"scheduleId": scheduleId, "userAssignToId": userAssignToId};
             yourPlanFactory.changeAssigedToPOST(assignToDetails).then(function (data) {
-                var userName = data.d.message
+                var userName = data.d.message;
                 var user = [];
                 user = $scope.getNames(userName);
                 $scope.assignedFirstName = user[0];
@@ -408,6 +407,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
 //                $scope.closeChangeAssignedToPopup(); 
                 $scope.changeUsers = false;
+                $scope.closePopup();
+                $scope.getCampaigns();
+                
 //                $scope.closePopup();$scope.promptHideShow(false);$scope.clickedDeleteAction = false;
             });
         };
@@ -780,6 +782,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     });
                 });
             }
+            $scope.getActionComments(schedule_id);
 
         };
 
