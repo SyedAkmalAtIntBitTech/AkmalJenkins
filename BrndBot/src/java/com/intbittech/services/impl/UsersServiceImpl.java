@@ -11,10 +11,10 @@ import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.UserRoleCompanyLookUpDao;
 import com.intbittech.dao.UsersDao;
 import com.intbittech.dao.UsersInviteDao;
-import com.intbittech.email.mandrill.SendMail;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.Invite;
+import com.intbittech.model.SendGridSubUserDetails;
 import com.intbittech.model.UserProfile;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
@@ -23,7 +23,10 @@ import com.intbittech.modelmappers.InviteDetails;
 import com.intbittech.modelmappers.TaskDetails;
 import com.intbittech.modelmappers.UserDetails;
 import com.intbittech.sendgrid.models.EmailType;
+import com.intbittech.sendgrid.models.SendGridUser;
+import com.intbittech.sendgrid.models.Subuser;
 import com.intbittech.services.EmailServiceProviderService;
+import com.intbittech.services.SendGridSubUserDetailsService;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UserRoleCompanyLookUpService;
 import com.intbittech.services.UsersService;
@@ -62,8 +65,6 @@ public class UsersServiceImpl implements UsersService {
     private UsersInviteService usersInviteService;
 
     @Autowired
-    private UsersInviteDao usersInviteDao;
-
     private UserRoleCompanyLookUpDao usersRoleLookUpDao;    
     
     @Autowired
@@ -78,8 +79,9 @@ public class UsersServiceImpl implements UsersService {
     @Autowired
     private EmailServiceProviderService emailServiceProviderService;
     
-    SendMail send_email = new SendMail();
-
+    @Autowired
+    private SendGridSubUserDetailsService sendGridSubUserDetailsService;
+    
     /**
      * {@inheritDoc}
      */
@@ -132,7 +134,8 @@ public class UsersServiceImpl implements UsersService {
 
             user = new Users();
             user.setUserName(usersDetails.getUserName());
-            user.setUserPassword(passwordEncoder.encode(usersDetails.getUserPassword()));
+            String encodedPassword = passwordEncoder.encode(usersDetails.getUserPassword());
+            user.setUserPassword(encodedPassword);
             user.setFirstName(usersDetails.getFirstName());
             user.setLastName(usersDetails.getLastName());
 
@@ -149,7 +152,21 @@ public class UsersServiceImpl implements UsersService {
             usersRoleLookUp.setRoleId(userRole);
 
             usersRoleLookUpDao.save(usersRoleLookUp);
-
+            
+            //Save subuser in sendgrid
+//            Subuser subuser = new Subuser();
+//            subuser.setEmail(usersDetails.getUserName());
+//            subuser.setPassword(usersDetails.getUserPassword());
+//            SendGridUser sendGridUser = emailServiceProviderService.addSubuser(subuser);
+            //TODO save userID in db
+//            SendGridSubUserDetails sendGridSubUserDetails = new SendGridSubUserDetails();
+//            user = new Users();
+//            user.setUserId(userId);
+//            sendGridSubUserDetails.setFkUserId(user);
+//            sendGridSubUserDetails.setSendGridUserId(sendGridUser.getUserId());
+//            
+//            sendGridSubUserDetailsService.save(sendGridSubUserDetails);
+            
             returnUserId = userId;
         } catch (Throwable throwable) {
             returnMessage = "false";

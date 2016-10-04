@@ -13,7 +13,11 @@ import com.intbittech.model.UnsubscribedEmails;
 import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.EmailListService;
 import com.intbittech.services.UnsubscribedEmailsService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import org.jboss.logging.Logger;
@@ -22,7 +26,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.apache.commons.lang3.StringUtils;
-        
+
 /**
  *
  * @author ajit
@@ -38,7 +42,7 @@ public class ContactEmailListLookupServiceImpl implements ContactEmailListLookup
 
     @Autowired
     private UnsubscribedEmailsService unsubscribedEmailsService;
-    
+
     @Autowired
     private EmailListService emailListService;
 
@@ -63,22 +67,49 @@ public class ContactEmailListLookupServiceImpl implements ContactEmailListLookup
         List<ContactEmailListLookup> contactsList = contactEmailListLookupDao.getContactsByEmailListId(emailListId);
         return contactsList;
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    public String getContactsByEmailListNameAndCompanyId(String emailListName,Integer companyId) throws ProcessFailed {
+    public List<ContactEmailListLookup> getContactsByEmailListNameAndCompanyId(String emailListName, Integer companyId) throws ProcessFailed {
         String contactsForEmailList = "";
         EmailList emailList = emailListService.getEmailListByCompanyIdAndEmailListName(companyId, emailListName);
         List<ContactEmailListLookup> contactsList = new ArrayList<>();
-        if(emailList != null) {
+        if (emailList != null) {
             contactsList = getContactsByEmailListId(emailList.getEmailListId());
         }
-        if(contactsList != null) {
-            contactsForEmailList = StringUtils.join(contactsList, ',');
+
+       return contactsList;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<ContactEmailListLookup> getContactsByEmailListNameAndCompanyIdForToday(String emailListName, Integer companyId, Integer days) throws ProcessFailed, ParseException {
+        EmailList emailList = emailListService.getEmailListByCompanyIdAndEmailListName(companyId, emailListName);
+        List<ContactEmailListLookup> contactsList = new ArrayList<>();
+        List<ContactEmailListLookup> returnContactsList = new ArrayList<>();
+        if (emailList != null) {
+            contactsList = getContactsByEmailListId(emailList.getEmailListId());
         }
-            
-        return contactsForEmailList;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        if (contactsList != null) {
+            for (ContactEmailListLookup contact : contactsList) {
+                String createDate = contact.getAddedDate().toString();
+                Date date = formatter.parse(createDate);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+                cal.add(Calendar.DAY_OF_MONTH, days);
+                String postDate = formatter.format(cal.getTime());
+                Date todayDate = Calendar.getInstance().getTime();
+                String currentDateString = formatter.format(todayDate);
+                if (postDate.equalsIgnoreCase(currentDateString)) {
+                    returnContactsList.add(contact);
+                }
+            }
+        }
+
+       return returnContactsList;
     }
 
     /**

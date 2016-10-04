@@ -348,8 +348,8 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
     private Mail formatTo(Mail mail, EmailType emailType) {
         if (emailType == EmailType.BrndBot_NoReply) {
             String companyName = messageSource.getMessage("companyName",new String[]{}, Locale.US);
-            Email from = new Email(IConstants.kNoReplyBrndbot, companyName);
-            mail.setFrom(from);
+            Email fromObject = new Email(IConstants.kNoReplyBrndbot, companyName);
+            mail.setFrom(fromObject);
         }
         return mail;
     }
