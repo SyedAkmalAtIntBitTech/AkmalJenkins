@@ -41,7 +41,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.changeUsers = false;
         $scope.companyName = "";
         $scope.editSavedEmail = false;
-        $scope.changeUsers=false;
 
         $scope.companyAddressDetails = {};
         $scope.emailListName="";
@@ -662,17 +661,21 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 } else {
                     $scope.hideShowEmailList = true;
                 }
-                var iframe = document.getElementById('iframeForRecurringEmail');
-                if ($scope.recurringEntitiesDetails.body) {
-                    $scope.savedEmail = true;
-                    $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
-                    $scope.deleteScheduleButton = "Remove Saved Email";
-                    $scope.htmlbody = $scope.recurringEntitiesDetails.body.replace(/contenteditable="true" /g, 'contenteditable="false"');
-                    iframe.contentDocument.body.innerHTML = $scope.htmlbody;
-                } else {
-                    $scope.savedEmail = false;
-                    $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
-                }
+                settingsFactory.getAllPreferencesGet().then(function (footerDetails) {
+                    var footerInfo=$scope.getUserFooter(JSON.parse(footerDetails.d.details));
+    //                var iframe = document.getElementById('iframeForRecurringEmail');
+                    if ($scope.recurringEntitiesDetails.body) {
+                        $scope.savedEmail = true;
+                        $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
+                        $scope.deleteScheduleButton = "Remove Saved Email";
+                        $scope.htmlbody = $scope.recurringEntitiesDetails.html_body.replace(/contenteditable="true" /g, 'contenteditable="false"');
+                        $('#recurringEmailHtmlBody').empty().append($scope.htmlbody).append(footerInfo);
+                        //iframe.contentDocument.body.innerHTML = $scope.htmlbody;
+                    } else {
+                        $scope.savedEmail = false;
+                        $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
+                    }
+                });
             });
         };
 
@@ -761,18 +764,25 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.scheduledTo = 'SEND';
                 $scope.savedHeader = getemail();
                 yourPlanFactory.scheduledEmailGet($scope.scheduleData.schedule_id).then(function (data) {
-                    $scope.entitiesdetails = JSON.parse(data.d.details);
-//                    growl(JSON.stringify($scope.entitiesdetails));
-                    var iframe = document.getElementById('iframeForAction');
-                    if (data.d.details != "{}") {
-                        $scope.savedEmail = true;
-                        $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
-                        $scope.deleteScheduleButton = "Remove Saved Email";
-                        iframe.contentDocument.body.innerHTML = $scope.entitiesdetails.body;
-                    } else {
-                        $scope.savedEmail = false;
-                        $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
-                    }
+                    
+                    settingsFactory.getAllPreferencesGet().then(function (footerDetails) {
+                        var footerInfo=$scope.getUserFooter(JSON.parse(footerDetails.d.details));
+                      $scope.entitiesdetails = JSON.parse(data.d.details);
+  //                    growl(JSON.stringify($scope.entitiesdetails));
+//                      var iframe = document.getElementById('iframeForAction');
+
+                      if (data.d.details != "{}") {
+                          $scope.savedEmail = true;
+                          $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
+                          $scope.deleteScheduleButton = "Remove Saved Email";
+                          $scope.html_body = $scope.entitiesdetails.html_body.replace(/contenteditable="true" /g, 'contenteditable="false"');
+                          $('#emailHtmlBody').empty().append($scope.html_body).append(footerInfo);
+//                          iframe.contentDocument.body.innerHTML = $scope.entitiesdetails.body;
+                      } else {
+                          $scope.savedEmail = false;
+                          $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
+                      }
+                    });
                 });
             } else {
                 companyFactory.currentCompanyGet().then(function (companyData) {
@@ -1494,6 +1504,71 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
             return $scope.error;
         };
+        
+        $scope.getUserFooter = function (footerData) {
+            var companyAddress = "";
+            if (footerData.companyAddress)
+            {
+                if (footerData.companyAddress[0].addressLine1) {
+                    companyAddress = footerData.companyAddress[0].addressLine1 + "<br/>";
+                }
+                if (footerData.companyAddress[0].addressLine2) {
+                    companyAddress = companyAddress + footerData.companyAddress[0].addressLine2 + "<br/>";
+                }
+                if (footerData.companyAddress[0].city)
+                {
+                    companyAddress = companyAddress + footerData.companyAddress[0].city;
+                }
+                if (footerData.companyAddress[0].state) {
+                    companyAddress = companyAddress + ", " + footerData.companyAddress[0].state + "\t\t";
+                }
+                if (footerData.companyAddress[0].zipCode) {
+                    companyAddress = companyAddress + footerData.companyAddress[0].zipCode + "<br/>";
+                }
+                if (footerData.companyAddress[0].country) {
+                    companyAddress = companyAddress + footerData.companyAddress[0].country;
+                }
+            }
+            
+            var returnFooter = "";
+            var footer = kGlobalFooterTop;
+            
+            var footerFB = kGlobalFooterFB;
+
+            var footerTwitter = kGlobalFooterTwitter;
+
+            var footerWebsite = kGlobalFooterWebsite;
+
+            var footerInstagram = kGlobalFooterInstagram;
+
+            var footerMiddle = kGlobalFooterMiddle;
+
+            var footerAddress = kGlobalFooterAddress;
+
+            var footerClose = kGlobalFooterBottom;
+
+            
+            returnFooter = footer;
+            if (footerData.userProfile) {
+                if (footerData.userProfile.facebookUrl)
+                    returnFooter += footerFB.replace("$$$footerFB$$$", footerData.userProfile.facebookUrl);
+                if (footerData.userProfile.twitterUrl)
+                    returnFooter += footerTwitter.replace("$$$footerTwitter$$$", footerData.userProfile.twitterUrl);
+                if (footerData.userProfile.instagramUrl)
+                    returnFooter += footerInstagram.replace("$$$footerInstagram$$$", footerData.userProfile.instagramUrl);
+            }
+            returnFooter += footerMiddle;
+            if (footerData.userProfile) {
+                if (footerData.userProfile.websiteUrl)
+                    returnFooter += footerWebsite.replace("$$$footerWebsite$$$", footerData.userProfile.websiteUrl);
+            }
+            returnFooter += footerAddress.replace("$$$footerAddress$$$", companyAddress);
+
+            returnFooter += footerClose;
+            
+            return returnFooter;
+        };
+        
 //        $scope.getUserFooter = function (fb, twitter, website, instagram, address) {
 //            var returnFooter = "";
 //            var footer = "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" height=\"100%\" width=\"100%\" bgcolor=\"#EEEEEE\" style=\"border-collapse:collapse;\"><tr><td valign=\"top\"> <center style=\"width: 100%;\"> <div style=\"max-width: 680px;\"> <!--[if (gte mso 9)|(IE)]> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"680\" align=\"center\"> <tr> <td> <![endif]--> <!-- Atom Body: BEGIN --> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" bgcolor=\"#EEEEEE\" width=\"100%\" style=\"max-width: 680px;\"> <tr> <td style=\"padding-top:15px;\" class=\"mobile-padding\"> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" width=\"100%\" style=\"max-width: 300px; background-color:#inherit\" class=\"mobile-padding\"> <tr>";

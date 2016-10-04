@@ -19,6 +19,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.htmlBlockId = "defaultblock1";
         $scope.firstTemplateForBlock = "";
         $scope.addBlockCount = 0;
+        $scope.ddSelectedUser= '0';
         $scope.draftId = 0;
         $scope.randomIframeFilename = event.timeStamp;
         $scope.htmlTagId = "";
@@ -70,6 +71,19 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         var companiesWithNoEmailList = [];
         var userRoles = {};
 
+        
+        $scope.ddSelectUserOptions = [ {
+                text: 'Select',
+                value: '0'
+            }
+        ];
+        $scope.ddSelectUser = {text: "Select"};
+        
+        
+        $scope.chooseUserOnChange = function (actionValue) {
+            $scope.ddSelectedUser = actionValue.value;
+        };
+        
         $scope.toggleAll = function() {
            var toggleStatus = !$scope.isAllSelected;
            var checked = $("#selectAll:checked").val()
@@ -1209,9 +1223,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     } else if ($scope.emailList !== "Manual")
                     {
                         var emails = "";
-                        alert(JSON.stringify($scope.emailList));
                         emailListFactory.getContactsOfEmailList($scope.emailList).then(function (data){
-                            alert(JSON.stringify(data));
                             var parseData = data.d.details;
                             var i = 0;
                             for (i = 0; i < parseData.length; i++) {
@@ -1713,7 +1725,11 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         };
         $scope.getAllUsersInCompany = function () {
             yourPlanFactory.allUsersInCompanyGet().then(function (data) {
-                $scope.allUsers = data.d.details;
+//                $scope.allUsers = data.d.details;
+                $scope.ddSelectUserOptions = [{text: 'Select',value: '0'}];
+                for (var i = 0; i < data.d.details.length; i++) {
+                    $scope.ddSelectUserOptions.push({"text": data.d.details[i].userName, "value": data.d.details[i].userId});
+                }
             });
             yourPlanFactory.noOfUsersInCompanyGet().then(function (data) {
                 var noOfUsersInCompany = data.d.details;
@@ -1721,6 +1737,10 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     $scope.moreThanOneUser = true;
                 }
             });
+        };
+        
+         $scope.ChangeUserOnChange = function (changedValue){
+            $scope.ddSelectedUser=changedValue.value;
         };
 
         $scope.schedulePostToEmail = function (postData) {
@@ -1792,9 +1812,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 });
             } else {
 
-                var userAssignToId = $("#assignTo option:selected").val();
-                if(!userAssignToId)
-                       userAssignToId = "0";
+               if (!$scope.ddSelectedUser)
+                    $scope.ddSelectedUser = "0";
                 var schedule_title = $("#ActionName").val();
                 var schedule_date = $("#actionDate").val();
 
@@ -1842,7 +1861,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         "schedule_desc": ",,,",
                         "iframeName": $scope.randomIframeFilename.toString(),
                         "html_body": kGlobalEmailObject.htmlBody,
-                        "userAssignedTo": userAssignToId
+                        "userAssignedTo": $scope.ddSelectedUser
                     };
                     scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
                         
