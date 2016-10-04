@@ -1,6 +1,6 @@
 
 <div class="overlay-content" id="emailactionsection" ng-init='hideSaveButton()' ng-show='generalActions' ng-form name="actionDetailsForm">
-    <div ng-show="isProgramArchived || action_template_status == 'Approved'" class="clickProofLayer"></div>
+    <div ng-show="isProgramArchived" class="clickProofLayer"></div>
     <div class="overlay-name-bar" ng-show="isRecurring === false">
         <input size="40" value="Email Action Name" id="email_edit_title" name="email_edit_title" ng-model='scheduleData.schedule_title' ng-change="showSaveButton()" value="{{scheduleData.schedule_title}}"><br/>
         <input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{scheduleData.schedule_id}}' />
@@ -95,7 +95,7 @@
                                         var picker = new Pikaday(
                                                 {
                                                     field: document.getElementById('emaildatetime'),
-                                                    format: 'MMM DD YYYY',
+                                                    format: 'MM DD YYYY',
                                                     firstDay: 1,
                                                     minDate: new Date(2000, 0, 1),
                                                     maxDate: new Date(2050, 12, 31),
@@ -160,7 +160,8 @@
                         <div class="detail-section-item">
                             <label class="detail-section-label">Trigger to send</label>
                             <div class="recurring-email-trigger-sentence-wrap">
-                                <span class="">Send an email</span>
+                                <span class="">Send an email at</span>
+                                <span style="width:100px;padding: 0px 1px;" class="user-data" ng-click="hideShowEditDot(true)">{{recurringScheduleData.entities_selected_time}}</span>
                                 <span class="user-data" ng-click="hideShowEditDot(true)">{{recurringScheduleData.days}}</span>
                                 <span class=""> days after being added to</span>
                                 <span class="user-data unselected" ng-click="hideShowEditDot(true)" ng-hide="hideShowEmailList">Need to Select an Email List</span>

@@ -143,7 +143,7 @@
             <div class="bb-panel-header">
                 <h2 class="">Marketing Campaign Details</h2>
             </div>
-            <div class="bb-panel-full-width bb-panel-styling-content-wrap">
+            <div class="bb-panel-content-wrap">
                 <div class="hub-section">
                     <div class="input-wrap">
                         <label>Marketing Campaign Name</label>
@@ -166,6 +166,7 @@
                                 var picker = new Pikaday(
                                         {
                                             field: document.getElementById('progactdatepicker'),
+                                            format: 'MM DD YYYY',
                                             firstDay: 1,
                                             minDate: new Date(2000, 0, 1),
                                             maxDate: new Date(2050, 12, 31),

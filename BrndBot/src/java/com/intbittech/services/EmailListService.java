@@ -5,19 +5,94 @@
  */
 package com.intbittech.services;
 
+import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.CompanyPreferences;
+import com.intbittech.model.EmailList;
+import com.intbittech.modelmappers.AddEmailListDetails;
+import java.util.List;
 import java.util.Map;
 /**
- * <code>{@link CategoryService}</code> is service layer interface for
+ * <code>{@link EmailListService}</code> is service layer interface for
  * communicating between Controller and DAO classes
  *
  * @author Ajit
  */
 public interface EmailListService {
 
-    public String getEmailList(String queryParameter, Integer companyId, String emailListName) throws Exception;
+    /**
+     * This method pass id as input and get the {@link EmailList} from DAO
+     * layer.
+     *
+     * @param emailListId the emailListId
+     * @return {@link EmailList}
+     * @throws ProcessFailed the process failed
+     */
+    public EmailList getByEmailListId(Integer emailListId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailList} from DAO
+     * layer.
+     *
+     * @param companyId the companyId
+     * @return {@link EmailList}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailList> getEmailListByCompanyId(Integer companyId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailList} from DAO
+     * layer.
+     *
+     * @param companyId the companyId
+     * @return {@link EmailList}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailList> getEmailListByCompanyIdAndType(Integer companyId, Integer typeId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailList} from DAO
+     * layer.
+     *
+     * @param companyId the companyId
+     * @return {@link EmailList}
+     * @throws ProcessFailed the process failed
+     */
+    public Boolean checkUniqueness(Integer companyId, String emailListName) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailList} from DAO
+     * layer.
+     *
+     * @param companyId the companyId
+     * @return {@link EmailList}
+     * @throws ProcessFailed the process failed
+     */
+    public EmailList getEmailListByCompanyIdAndEmailListName(Integer companyId, String emailListName) throws ProcessFailed;
+    
+    /**
+     * This method save {@link EmailList} into the database.
+     *
+     * @param addEmailListDetails the addEmailListDetails
+     * @return the Integer
+     * @throws ProcessFailed the process failed
+     */
+    public Integer save(AddEmailListDetails addEmailListDetails) throws ProcessFailed;
 
-    public Boolean setEmailList(Map<String, Object> requestBodyMap, Integer companyId) throws Exception;
+    /**
+     * This method update {@link EmailList} updates existing data from the
+     * database.
+     *
+     * @param emailList the emailList
+     * @throws ProcessFailed the process failed
+     */
+    public void update(EmailList emailList) throws ProcessFailed;
 
-    public void updateUnsubscribedUserEmailLists(CompanyPreferences companyPreferences);
+    /**
+     * This method delete particular {@link EmailList} based on the
+     * contact from the database.
+     *
+     * @param emailListId the emailListId
+     * @throws ProcessFailed the process failed
+     */
+    public void delete(Integer emailListId) throws ProcessFailed;
 }

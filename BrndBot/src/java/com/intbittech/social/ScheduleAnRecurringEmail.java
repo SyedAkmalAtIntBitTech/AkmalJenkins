@@ -5,17 +5,18 @@
  */
 package com.intbittech.social;
 
+import com.intbittech.component.SpringContextBridge;
+import com.intbittech.enums.EmailTypeConstants;
 import com.intbittech.utility.IConstants;
 import com.intbittech.model.ScheduledEmailList;
 import com.intbittech.model.ScheduledEntityList;
 import java.util.ArrayList;
 import java.util.List;
-import com.intbittech.model.EmailInfo;
 import org.apache.log4j.Logger;
-import org.json.simple.JSONArray;
 import com.intbittech.utility.DateTimeUtil;
-import com.intbittech.utility.Utility;
-import com.intbittech.email.mandrill.SendMail;
+import com.intbittech.modelmappers.EmailDataDetails;
+import com.intbittech.services.SendEmailService;
+import com.intbittech.utility.MarketingProgramUtility;
 
 
 /**
@@ -58,37 +59,39 @@ public class ScheduleAnRecurringEmail implements Runnable {
                             reply_to_address = "";
                         }
                         String from_email_address = "";
-                        if (sendAnEmail.getReplyToEmailAddress() != null) {
+                        if (sendAnEmail.getFromAddress() != null) {
                             from_email_address = sendAnEmail.getFromAddress();
                         } else {
-                            from_email_address = "";
+                            from_email_address = "mail@brndbot.com";
                         }
                         String from_name = sendAnEmail.getFromName();
-                        SendMail anEmail = new SendMail();
+//                        SendMail anEmail = new SendMail();
                         String message = "";
                         Integer days = currentScheduledRecurringEmail.getDays();
-                        JSONArray jsonArray = anEmail.getAllEmailAddressesForEmailList(companyId, days, emaillist_name);
-
-                        for (int i = 0; i < jsonArray.size(); i++) {
-
-                            EmailInfo emailInfo = (EmailInfo) jsonArray.get(i);
-
-                            html_text = html_text.replace(IConstants.kEmailClientFirstName, emailInfo.getFirstName());
-                            html_text = html_text.replace(IConstants.kEmailClientFirstName.toLowerCase(), emailInfo.getFirstName());
-
-                            html_text = html_text.replace(IConstants.kEmailClientLastName, emailInfo.getLastName());
-                            html_text = html_text.replace(IConstants.kEmailClientLastName.toLowerCase(), emailInfo.getLastName());
-
-                            html_text = html_text.replace(IConstants.kEmailClientFullName, Utility.getFullName(emailInfo));
-                            html_text = html_text.replace(IConstants.kEmailClientFullName.toLowerCase(), Utility.getFullName(emailInfo));
-
-                            message = SendMail.sendEmail(html_text, email_subject,
-                                    emailInfo.getEmailAddress(), emaillist_name, companyId, reply_to_address, from_email_address, from_name, Utility.getFullName(emailInfo));
-                        }
-//                      String message = "success";//TODO
-                        if (message.equalsIgnoreCase("success")) {
-                            updateStatusScheduledEmail(currentScheduledRecurringEmail);
-                        }
+                        
+                        EmailDataDetails emailDataDetails = new EmailDataDetails();
+                        emailDataDetails.setCompanyId(companyId);
+                        emailDataDetails.setEmailListName(emaillist_name);
+                        emailDataDetails.setEmailSubject(email_subject);
+                        emailDataDetails.setFromEmailAddress(from_email_address);
+                        emailDataDetails.setFromName(from_name);
+                        emailDataDetails.setHtmlData(html_text);
+                        emailDataDetails.setReplyToEmailAddress(reply_to_address);
+                        emailDataDetails.setEmailType(EmailTypeConstants.Recurring.name());
+                        
+                        //For email categories/tags
+                        Integer companyMarketingProgramId = currentScheduledRecurringEmail.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId();
+                        Integer entityId = currentScheduledRecurringEmail.getEntityId();
+                        List<String> emailCategoryList = new ArrayList<>();
+                        emailCategoryList.add(MarketingProgramUtility.getMarketingProgramCategory(companyMarketingProgramId));
+                        emailCategoryList.add(MarketingProgramUtility.getMarketingProgramRecuringActionCategory(entityId));
+                        
+                        emailDataDetails.setEmailCategoryList(emailCategoryList);
+                        
+                        SendEmailService sendEmailService = SpringContextBridge.services().getSendEmailService();
+                        sendEmailService.sendMail(emailDataDetails);
+                        
+                        updateStatusScheduledEmail(currentScheduledRecurringEmail);
                     }
                 }
             }

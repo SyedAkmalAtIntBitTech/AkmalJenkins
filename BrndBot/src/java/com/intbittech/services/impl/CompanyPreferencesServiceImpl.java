@@ -222,29 +222,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
         } catch (ParseException ex) {
             java.util.logging.Logger.getLogger(CompanyPreferencesServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    @Override
-    public Map<String, String> getUnsubscribedEmailsMap(CompanyPreferences companyPreferences) {
-        Map<String, String> filteredMap = new HashMap<>();
-
-        try {
-            if (companyPreferences.getUnsubscribeEmails() != null) {
-                JSONParser parser = new JSONParser();
-                JSONObject jsonObject = (JSONObject) parser.parse(companyPreferences.getUnsubscribeEmails());
-                JSONArray array = (JSONArray) jsonObject.get(IConstants.kUnsubscribeEmails);
-                if (array != null && array.size() > 0) {
-                    for (Object arrayObject : array) {
-                        String email = (String) arrayObject;
-                        filteredMap.put(email, "true");
-                    }
-                }
-            }
-        } catch (ParseException ex) {
-            java.util.logging.Logger.getLogger(CompanyPreferencesServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return filteredMap;
-    }
+    } 
 
     @Override
     public void setUserProfileColor(UserProfileColorDetails userProfileColorDetails, Company company) {

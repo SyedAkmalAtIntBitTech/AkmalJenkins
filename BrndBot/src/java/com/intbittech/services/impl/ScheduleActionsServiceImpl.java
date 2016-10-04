@@ -13,6 +13,7 @@ import com.intbittech.dao.impl.ScheduleDAO;
 import com.intbittech.dao.impl.ScheduleSocialPostDAO;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.services.ScheduleActionsService;
+import com.intbittech.utility.StringUtility;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -86,8 +87,10 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
             String scheduleDesc = requestBodyMap.containsKey("schedule_desc")
                     ? String.valueOf(requestBodyMap.get("schedule_desc")) : null;
             String marketing_program_id = (String) requestBodyMap.get("program_id");
-            
-             Double TempUserAssignToId = new Double(requestBodyMap.get("userAssignedTo").toString().trim());
+            String userAssignedToString = (String) requestBodyMap.get("userAssignedTo");
+            if(StringUtility.isEmpty(userAssignedToString))
+                userAssignedToString = "0.0";
+             Double TempUserAssignToId = new Double(userAssignedToString.trim());
              Integer userAssignToId = TempUserAssignToId.intValue();
 
             //Added by Syed Ilyas 27 Nov 2015 - email body from iframe

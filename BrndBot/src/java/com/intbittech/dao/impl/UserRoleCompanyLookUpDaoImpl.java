@@ -27,7 +27,7 @@ import org.springframework.stereotype.Repository;
  * @author Syed Muzamil at IntBit Technologies.
  */
 @Repository
-public class UserRoleCompanyLookUpDaoImpl implements UserRoleCompanyLookUpDao{
+public class UserRoleCompanyLookUpDaoImpl implements UserRoleCompanyLookUpDao {
 
     private Logger logger = Logger.getLogger(UsersDaoImpl.class);
 
@@ -37,8 +37,7 @@ public class UserRoleCompanyLookUpDaoImpl implements UserRoleCompanyLookUpDao{
     @Autowired
     private MessageSource messageSource;
 
-    
-/**
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -55,7 +54,8 @@ public class UserRoleCompanyLookUpDaoImpl implements UserRoleCompanyLookUpDao{
             isUserUnique = false;
         }
         return isUserUnique;
-    }    
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -80,7 +80,7 @@ public class UserRoleCompanyLookUpDaoImpl implements UserRoleCompanyLookUpDao{
             throw new ProcessFailed(messageSource.getMessage("error_updating_message", new String[]{}, Locale.US));
         }
     }
-    
+
     @Override
     public void delete(UsersRoleCompanyLookup userRoleLookup) throws ProcessFailed {
         try {
@@ -113,7 +113,7 @@ public class UserRoleCompanyLookUpDaoImpl implements UserRoleCompanyLookUpDao{
         }
         return (UsersRoleCompanyLookup) criteria.list().get(0);
     }
-    
+
     @Override
     public UserRole getUsersRoleByUser(Users user) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
@@ -139,10 +139,10 @@ public class UserRoleCompanyLookUpDaoImpl implements UserRoleCompanyLookUpDao{
             return criteria.list();
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_retreving_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_retreving_message", new String[]{}, Locale.US));
         }
 
-    }        
+    }
 
     @Override
     public UsersRoleCompanyLookup getUsersRoleLookupByUserAndRole(Users user, UserRole role) throws ProcessFailed {
@@ -188,17 +188,50 @@ public class UserRoleCompanyLookUpDaoImpl implements UserRoleCompanyLookUpDao{
      * {@inheritDoc}
      */
     public UsersRoleCompanyLookup getUsersRoleCompanyLookupByUserRoleIdAndCompanyId(String userRoleName, Integer companyId) throws ProcessFailed {
-         Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(UsersRoleCompanyLookup.class)
-                .setFetchMode("companyId.companyId", FetchMode.JOIN)
-                .setFetchMode("userId", FetchMode.JOIN)
-                .setFetchMode("roleId", FetchMode.JOIN)
-                .createAlias("roleId", "rId")
-                .add(Restrictions.eq("rId.roleName", userRoleName))
-                .add(Restrictions.eq("roleId.userRoleId", companyId));
-        if (criteria.list().isEmpty()) {
-            return null;
+        try {
+
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(UsersRoleCompanyLookup.class)
+                    .setFetchMode("companyId.companyId", FetchMode.JOIN)
+                    .setFetchMode("userId", FetchMode.JOIN)
+                    .setFetchMode("roleId", FetchMode.JOIN)
+                    .createAlias("roleId", "rId")
+                    .add(Restrictions.eq("rId.roleName", userRoleName))
+                    .add(Restrictions.eq("roleId.userRoleId", companyId));
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return (UsersRoleCompanyLookup) criteria.list().get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retreving_message", new String[]{}, Locale.US));
         }
-        return (UsersRoleCompanyLookup) criteria.list().get(0);
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<UsersRoleCompanyLookup> getAllUsersRoleCompanyLookupByuserRolesNameAndCompanyId(List<String> userRolesName, List<Integer> companyIds) throws ProcessFailed {
+        try {
+
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(UsersRoleCompanyLookup.class)
+                    .setFetchMode("companyId.companyId", FetchMode.JOIN)
+                    .setFetchMode("userId", FetchMode.JOIN)
+                    .setFetchMode("roleId", FetchMode.JOIN)
+                    .createAlias("roleId", "rId")
+                    .add(Restrictions.in("rId.roleName", userRolesName))
+                    .add(Restrictions.in("companyId.companyId", companyIds));
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return criteria.list();
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retreving_message", new String[]{}, Locale.US));
+        }
+
     }
 }

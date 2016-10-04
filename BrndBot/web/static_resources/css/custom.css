@@ -273,6 +273,7 @@ EDITOR
     margin: 0px 0px 0px -60px;
     border-radius: 3px;
     opacity: 0;
+    visibility: hidden;
 }
 .buttonbg
 {

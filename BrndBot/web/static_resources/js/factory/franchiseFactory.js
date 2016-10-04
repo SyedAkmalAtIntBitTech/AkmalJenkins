@@ -23,11 +23,39 @@ factoryApp.factory('franchiseFactory', function ($q, authenticatedServiceFactory
         var deffered = $q.defer();
         var url = configurationService.getCompaniesForFranchiseIdURL()+"?franchiseId="+franchiseId;
         var data = '';
-        authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
+
+    franchiseFactoryObject.getCompaniesForFranchiseIdAndEmailListTag = function (franchiseId, emailTag) {
+        var deffered = $q.defer();
+        var url = configurationService.getCompaniesForFranchiseIdAndEmailListTagURL()+"?franchiseId="+franchiseId +"&emailListTagId="+emailTag;
+        var data = '';
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    franchiseFactoryObject.getAllPushedEmailsForFranchise = function (franchiseId) {
+        var deffered = $q.defer();
+        var url = configurationService.getAllPushedEmailsForFranchiseURL()+"?franchiseId="+franchiseId;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+
+    franchiseFactoryObject.getAllAssociatedAccountForScheduledEntity = function (scheduledEntityId) {
+        var deffered = $q.defer();
+        var url = configurationService.getAllAssociatedAccountForScheduledEntityURL()+"?scheduledEntityId="+scheduledEntityId;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+
     franchiseFactoryObject.getFranchiseHeadquarter = function (franchiseId) {
         var deffered = $q.defer();
         var url = configurationService.getFranchiseHeadquarterURL()+"?franchiseId="+franchiseId;
@@ -37,6 +65,16 @@ factoryApp.factory('franchiseFactory', function ($q, authenticatedServiceFactory
         });
         return deffered.promise;
     };
+    franchiseFactoryObject.requestToAddCompaniesPost = function (userCompanyDetails) {
+        var deffered = $q.defer();
+        var url = configurationService.requestToAddCompaniesURL();
+        var data = '';
+        authenticatedServiceFactory.makeCall("POST", url, userCompanyDetails, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+
     franchiseFactoryObject.getAllNonSelectedCompanies = function (franchiseId) {
         var deffered = $q.defer();
         var url = configurationService.getAllNonSelectedCompaniesURL()+"?franchiseId="+franchiseId;
@@ -105,5 +143,15 @@ factoryApp.factory('franchiseFactory', function ($q, authenticatedServiceFactory
         });
         return deffered.promise;
     };
+    franchiseFactoryObject.sendReminderEmailToCreateEmailListPost = function (sendReminderEmailDetails) {
+        var deffered = $q.defer();
+        var url = configurationService.sendReminderEmailToCreateEmailListURL();
+        var data = '';
+        authenticatedServiceFactory.makeCall("POST", url, sendReminderEmailDetails, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    
     return franchiseFactoryObject;
 });

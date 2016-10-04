@@ -29,7 +29,30 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                     }
                 };
             });
-
+            appp.directive('toggleClass',function(){
+                    var directiveDefinitionObject = {
+                    restrict: 'A',
+                    template: '<span ng-click=";localFunction()" ng-class="selected"  ng-transclude></span>',
+                    replace: true,
+                    scope: {
+                        model: '='
+                    },
+                    transclude: true,
+                    link: function (scope, element, attrs) {
+                        scope.localFunction = function () {
+                            scope.model.value = scope.$id;
+                        };
+                        scope.$watch('model.value', function () {
+                            if (scope.model.value === scope.$id) {
+                                scope.selected = "bb-email-gallery-image-card active";
+                            } else {
+                                scope.selected = 'bb-email-gallery-image-card';
+                            }
+                        });
+                    }
+                };
+                return directiveDefinitionObject;
+            });
             appp.controller("imgPopupController", function ($scope, $http, $q) {
                 $scope.imageToBeUploaded = '../images/uploadPhoto.svg';
                 $scope.imageSelected = 'gallery-item-wrap-selected-true';
@@ -99,9 +122,6 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
     </head>
     <body ng-app="imgPopup" ng-controller="imgPopupController">
         <input type="hidden" id="imageDiv">
-
-       
-           
                 <div class="bb-email-image-pop-up" ng-init="getAllCompanyImages()">
                    
                         <div class="bb-email-image-pop-up-header">
@@ -116,16 +136,13 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                                 </div>                     
                             </div>
                             <div class="bb-panel-content-wrap gallery-image-content-wrap" ng-show="showUserImages" >
-                                <div class="bb-email-gallery-image-wrap {{images.companyImagesId}}">
-                                    <div class="bb-email-gallery-image-card" ng-repeat="images in datalists"  ng-click="selectImageToPost(images.imageName, 'gallery', companyId,images.companyImagesId)">
+                                <div ng-init="model = { value: 'bb-email-gallery-image-wrap active'}">
+                                    <div toggle-class model="model" ng-repeat="images in (filteredItems = (datalists| orderBy: 'createdDate':true))"  ng-click="selectImageToPost(images.imageName, 'gallery', companyId,images.companyImagesId)">
                                         <div  class="bb-gallery-image" id="{{images.companyImagesId}}"  style="background-image: url('/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}'); background-position:50% 50%; background-repeat:no-repeat; background-size: contain;"/></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                   
                 </div>
-           
-       
     </body>
 </html>

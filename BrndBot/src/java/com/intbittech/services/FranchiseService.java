@@ -57,7 +57,7 @@ public interface FranchiseService {
      * @param category the category
      * @throws ProcessFailed the process failed
      */
-    public void updateFranchise(FranchiseDetails franchiseDetails, Integer franchiseId) throws ProcessFailed;
+    public boolean updateFranchise(FranchiseDetails franchiseDetails, Integer franchiseId) throws ProcessFailed;
 
      /**
      * This method save {@link Category} into the database.
@@ -66,9 +66,45 @@ public interface FranchiseService {
      * @return the Integer
      * @throws ProcessFailed the process failed
      */
-    public void saveFranchise(FranchiseDetails franchiseDetails) throws ProcessFailed;
+    public boolean saveFranchise(FranchiseDetails franchiseDetails) throws ProcessFailed;
 
+    public boolean isFranchiseExist(String FranchiseName)throws ProcessFailed;
+    
     public FranchiseCompanyLookup getFranchiseLookup(Integer companyId, Integer franchiseId)throws ProcessFailed;
     
     public String getFranchiseHeadquarter(Integer franchiseId)throws ProcessFailed;
+    
+    /**
+     * This method delete particular {@link FranchiseCompanyLookup} based on the
+     * organization from the database.
+     *
+     * @param companyId the companyId
+     * @return FranchiseCompanyLookup
+     * @throws ProcessFailed the process failed
+     */
+    public FranchiseCompanyLookup getFranchiseByCompanyId(Integer companyId)throws ProcessFailed;
+     /**
+     * This method delete particular {@link FranchiseCompanyLookup} based on the
+     * organization from the database.
+     *
+     * @param companyId the companyId
+     * @param emailListTagId the emailListTagId
+     * @return Boolean
+     * @throws ProcessFailed the process failed
+     */
+   public Boolean isEmailListTagAssociateToCompany(Integer emailListTagId, Integer companyId )throws ProcessFailed;
+   
+    /**
+     * This method delete particular {@link FranchiseCompanyLookup} based on the
+     * organization from the database.
+     *
+     * @param companiesName the companiesName
+     * @param franchiseName the franchiseName
+     * @param userId the userId
+     * @return Boolean
+     * @throws ProcessFailed the process failed
+     */
+   public Boolean requestToAddCompanies(String companiesName,String franchiseName,Integer userId)throws ProcessFailed;
+
+    
 }
