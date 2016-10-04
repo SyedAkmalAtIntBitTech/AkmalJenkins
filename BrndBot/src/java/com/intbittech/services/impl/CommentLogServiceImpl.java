@@ -30,10 +30,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(rollbackFor = ProcessFailed.class)
 public class CommentLogServiceImpl implements CommentLogService {
-    
+
     private static Logger logger = Logger.getLogger(CommentLogServiceImpl.class);
     @Autowired
-    private CommentLogDao commentLogDao;    
+    private CommentLogDao commentLogDao;
     @Autowired
     private ActivityLogDao activityLogDao;
 
@@ -62,9 +62,7 @@ public class CommentLogServiceImpl implements CommentLogService {
      */
     public List<CommentActivityLogResponse> getAllCommentLogByScheduledEntityListId(Integer scheduledEntityListId, Integer userId) throws ProcessFailed {
         List<CommentLog> CommentLogList = commentLogDao.getAllCommentLogByScheduledEntityListId(scheduledEntityListId);
-        if (CommentLogList == null) {
-            throw new ProcessFailed("No Comment log found.");
-        }
+
         List<ActivityLog> activityLogList = activityLogDao.getAllActivityLogByScheduledEntityListId(scheduledEntityListId);
         List<CommentActivityLogResponse> commentLogResponseList = getAllCommentLogResponse(CommentLogList, activityLogList, userId);
         return commentLogResponseList;
@@ -91,51 +89,54 @@ public class CommentLogServiceImpl implements CommentLogService {
         }
         commentLogDao.delete(CommentLog);
     }
-    
+
     private List<CommentActivityLogResponse> getAllCommentLogResponse(List<CommentLog> commentLogList, List<ActivityLog> activityLogList, Integer userId) {
         List<CommentActivityLogResponse> commentActivityLogResponseList = new ArrayList<>();
-        
-        for (CommentLog commentLog : commentLogList) {
-            CommentActivityLogResponse commentLogResponse = new CommentActivityLogResponse();
-            commentLogResponse.setCommentName(commentLog.getComment());
-            commentLogResponse.setCreatedByByEmailId(commentLog.getCommentedBy().getUserName());
-            commentLogResponse.setCreatedByFirstName(commentLog.getCommentedBy().getFirstName());
-            commentLogResponse.setCreatedByLastName(commentLog.getCommentedBy().getLastName());
-            String initials = Utility.getFirstTwoCharactersOfName(commentLog.getCommentedBy().getFirstName(), commentLog.getCommentedBy().getLastName());
-            commentLogResponse.setInitials(initials);
-            commentLogResponse.setIsActivity(false);
-            commentLogResponse.setScheduledEntityListId(commentLog.getFkScheduledEntityid().getScheduledEntityListId());
-            commentLogResponse.setCreatedAt(commentLog.getCreatedAt());
-            commentLogResponse.setCommentId(commentLog.getCommentLogId());
-            if (commentLog.getCommentedBy().getUserId() == userId) {
-                commentLogResponse.setIsLoginUser(true);
-            } else {
-                commentLogResponse.setIsLoginUser(false);
+        if (commentLogList != null) {
+            for (CommentLog commentLog : commentLogList) {
+                CommentActivityLogResponse commentLogResponse = new CommentActivityLogResponse();
+                commentLogResponse.setCommentName(commentLog.getComment());
+                commentLogResponse.setCreatedByByEmailId(commentLog.getCommentedBy().getUserName());
+                commentLogResponse.setCreatedByFirstName(commentLog.getCommentedBy().getFirstName());
+                commentLogResponse.setCreatedByLastName(commentLog.getCommentedBy().getLastName());
+                String initials = Utility.getFirstTwoCharactersOfName(commentLog.getCommentedBy().getFirstName(), commentLog.getCommentedBy().getLastName());
+                commentLogResponse.setInitials(initials);
+                commentLogResponse.setIsActivity(false);
+                commentLogResponse.setScheduledEntityListId(commentLog.getFkScheduledEntityid().getScheduledEntityListId());
+                commentLogResponse.setCreatedAt(commentLog.getCreatedAt());
+                commentLogResponse.setCommentId(commentLog.getCommentLogId());
+                if (commentLog.getCommentedBy().getUserId() == userId) {
+                    commentLogResponse.setIsLoginUser(true);
+                } else {
+                    commentLogResponse.setIsLoginUser(false);
+                }
+                commentActivityLogResponseList.add(commentLogResponse);
             }
-            commentActivityLogResponseList.add(commentLogResponse);
         }
-        for (ActivityLog activityLog : activityLogList) {
-            CommentActivityLogResponse commentActivityLogResponse = new CommentActivityLogResponse();
-            commentActivityLogResponse.setActivityName(activityLog.getFkActivityId().getActivityName());
-            commentActivityLogResponse.setCreatedByByEmailId(activityLog.getCreatedBy().getUserName());
-            commentActivityLogResponse.setCreatedByFirstName(activityLog.getCreatedBy().getFirstName());
-            commentActivityLogResponse.setCreatedByLastName(activityLog.getCreatedBy().getLastName());
-            commentActivityLogResponse.setScheduledEntityListId(activityLog.getFkScheduledEntityid().getScheduledEntityListId());
-            commentActivityLogResponse.setCreatedAt(activityLog.getCreatedAt());
-            commentActivityLogResponse.setIsActivity(true);
-            commentActivityLogResponse.setAssignedToEmailId(activityLog.getAssignedTo().getUserName());
-            commentActivityLogResponse.setAssignedToFirstName(activityLog.getAssignedTo().getFirstName());
-            commentActivityLogResponse.setAssignedToLastName(activityLog.getAssignedTo().getLastName());
-            commentActivityLogResponse.setCommentId(activityLog.getActivityLogId());
-            if (activityLog.getCreatedBy().getUserId() == userId) {
-                commentActivityLogResponse.setIsLoginUser(true);
-            } else {
-                commentActivityLogResponse.setIsLoginUser(false);
+        if (activityLogList != null) {
+            for (ActivityLog activityLog : activityLogList) {
+                CommentActivityLogResponse commentActivityLogResponse = new CommentActivityLogResponse();
+                commentActivityLogResponse.setActivityName(activityLog.getFkActivityId().getActivityName());
+                commentActivityLogResponse.setCreatedByByEmailId(activityLog.getCreatedBy().getUserName());
+                commentActivityLogResponse.setCreatedByFirstName(activityLog.getCreatedBy().getFirstName());
+                commentActivityLogResponse.setCreatedByLastName(activityLog.getCreatedBy().getLastName());
+                commentActivityLogResponse.setScheduledEntityListId(activityLog.getFkScheduledEntityid().getScheduledEntityListId());
+                commentActivityLogResponse.setCreatedAt(activityLog.getCreatedAt());
+                commentActivityLogResponse.setIsActivity(true);
+                commentActivityLogResponse.setAssignedToEmailId(activityLog.getAssignedTo().getUserName());
+                commentActivityLogResponse.setAssignedToFirstName(activityLog.getAssignedTo().getFirstName());
+                commentActivityLogResponse.setAssignedToLastName(activityLog.getAssignedTo().getLastName());
+                commentActivityLogResponse.setCommentId(activityLog.getActivityLogId());
+                if (activityLog.getCreatedBy().getUserId() == userId) {
+                    commentActivityLogResponse.setIsLoginUser(true);
+                } else {
+                    commentActivityLogResponse.setIsLoginUser(false);
+                }
+                commentActivityLogResponseList.add(commentActivityLogResponse);
             }
-            commentActivityLogResponseList.add(commentActivityLogResponse);
         }
         Collections.sort(commentActivityLogResponseList);
-        
+
         return commentActivityLogResponseList;
     }
 }
