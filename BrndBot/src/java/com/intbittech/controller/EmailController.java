@@ -6,9 +6,11 @@
 package com.intbittech.controller;
 
 import com.intbittech.AppConstants;
+import com.intbittech.enums.EmailTypeConstants;
 import com.intbittech.model.Company;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
+import com.intbittech.modelmappers.EmailDataDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
@@ -18,10 +20,12 @@ import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
+import java.io.File;
 import java.util.Locale;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -49,7 +53,7 @@ public class EmailController {
     private MessageSource messageSource;
     @Autowired
     UsersService usersService;
-     @Autowired
+    @Autowired
     CompanyService companyService;
 
     @RequestMapping(value = "/send", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -62,7 +66,37 @@ public class EmailController {
 
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
 
-            sendEmailService.sendMail(requestBodyMap, userCompanyIds.getCompanyId());
+            String html_text = "";
+            String email_subject = (String) requestBodyMap.get("email_subject");
+            if ((String) requestBodyMap.get("htmldata") != null) {
+                html_text = (String) requestBodyMap.get("htmldata");
+            }
+            String emaillist_name = (String) requestBodyMap.get("email_list");
+            String reply_to_address = (String) requestBodyMap.get("reply_to_email_address");
+            String from_email_address = (String) requestBodyMap.get("from_email_address");
+            String from_name = (String) requestBodyMap.get("from_name");
+            String path = "";
+            if ((String) requestBodyMap.get("iframeName") != null) {
+                String iframeName = (String) requestBodyMap.get("iframeName");
+                path = AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator + iframeName + ".html";
+                File file = new File(path);
+                html_text = FileUtils.readFileToString(file, "UTF-8");
+            }
+            EmailDataDetails emailDataDetails = new EmailDataDetails();
+            emailDataDetails.setCompanyId(userCompanyIds.getCompanyId());
+            emailDataDetails.setEmailListName(emaillist_name);
+            emailDataDetails.setEmailSubject(email_subject);
+            emailDataDetails.setFromEmailAddress(from_email_address);
+            emailDataDetails.setFromName(from_name);
+            emailDataDetails.setHtmlData(html_text);
+            emailDataDetails.setReplyToEmailAddress(reply_to_address);
+            emailDataDetails.setEmailType(EmailTypeConstants.General.name());
+            sendEmailService.sendMail(emailDataDetails);
+            //Added by Syed Ilyas 27 Nov 2015 - changed to NOT
+            if (!path.equals("")) {
+                File IframeDelete = new File(path);
+                IframeDelete.delete();
+            }
             transactionResponse.setMessage("true");
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
@@ -72,15 +106,16 @@ public class EmailController {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
+    //TODO need to refactor tags for sendgrid
     @RequestMapping(value = "/tags", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> get(HttpServletRequest request,
-            HttpServletResponse response,@RequestParam("userId") Integer userId, @RequestParam("companyId") Integer companyId) {
+            HttpServletResponse response, @RequestParam("userId") Integer userId, @RequestParam("companyId") Integer companyId) {
         GenericResponse<String> transactionResponse = new GenericResponse();
         try {
             Company company = companyService.getCompanyById(companyId);
-            String data = sendEmailService.getTags(company.getCompanyId());
-            transactionResponse.addDetail(data);
+//            String data = sendEmailService.getTags(company.getCompanyId());
+            transactionResponse.addDetail("");
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {
@@ -89,7 +124,7 @@ public class EmailController {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/previewServlet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> previewEmail(HttpServletRequest request,
             HttpServletResponse response) {

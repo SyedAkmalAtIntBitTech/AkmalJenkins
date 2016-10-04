@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ContactEmailListLookup;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -54,10 +55,22 @@ public interface ContactEmailListLookupService {
      *
      * @param emailListName the emailListName
      * @param contactId the contactId
-     * @return string of emailadresses
+     * @return string of emailListName
      * @throws ProcessFailed the process failed
      */
-    public String getContactsByEmailListNameAndCompanyId(String emailListName,Integer companyId) throws ProcessFailed;
+    public List<ContactEmailListLookup> getContactsByEmailListNameAndCompanyId(String emailListName,Integer companyId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link ContactEmailListLookup} from DAO
+     * layer.
+     *
+     * @param emailListName the emailListName
+     * @param companyId the companyId
+     * @param days the days
+     * @return string of emailListName
+     * @throws ProcessFailed the process failed
+     */
+    public List<ContactEmailListLookup> getContactsByEmailListNameAndCompanyIdForToday(String emailListName, Integer companyId, Integer days) throws ProcessFailed, ParseException;
     
     /**
      * This method pass id as input and get the {@link ContactEmailListLookup} from DAO

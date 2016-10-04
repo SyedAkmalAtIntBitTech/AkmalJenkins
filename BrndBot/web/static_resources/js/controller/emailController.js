@@ -1177,9 +1177,9 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             $scope.toAddress = "";
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                 if (kGlobalEmailObject.pushedEmail){
-                    $scope.emailList = listName.value;
-                    $scope.emailTag = listName.value;
-                    kGlobalEmailObject.emailTagId = listName.value;
+                    $scope.emailList = listName.text;
+                    $scope.emailTag = listName.text;
+                    kGlobalEmailObject.emailTagId = listName.text;
                     appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {});
                     
                     emailListFactory.getContactsOfEmailTag(listName.value).then(function (data){
@@ -1200,8 +1200,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     });
                 }else {
                     
-                    $scope.emailList = listName.value;
-                    $scope.emailTag = listName.value;
+                    $scope.emailList = listName.text;
+                    $scope.emailTag = listName.text;
                     if ($scope.emailList === "Manual") {
                         emails = "";
                         $scope.emailAddresses = emails;
@@ -1209,7 +1209,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     } else if ($scope.emailList !== "Manual")
                     {
                         var emails = "";
-                        emailListFactory.getContactsOfEmailList($scope.emailList).then(function (data){
+                        emailListFactory.getContactsOfEmailList(listName.value).then(function (data){
                             var parseData = data.d.details;
                             var i = 0;
                             for (i = 0; i < parseData.length; i++) {
@@ -2029,7 +2029,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     email_addresses: postData.toAddress,
                     from_email_address: getDefaultEmailId(),
                     reply_to_email_address: postData.replyAddress,
-                    email_list: $scope.emailList,
+                    email_list: $scope.emailList.toString(),
                     iframeName: $scope.randomIframeFilename.toString()
                 };
                 emailFactory.sendEmail(sendEmailData).then(function (data) {
