@@ -285,6 +285,7 @@ public class MarketingRecurringEmailController {
 
             String subject = (String) requestBodyMap.get("subject");
             String from_name = (String) requestBodyMap.get("from_name");
+            String from_address = (String) requestBodyMap.get("from_address");
             String reply_to_address = (String) requestBodyMap.get("reply_to_address");
             String recurring_email_title = (String) requestBodyMap.get("recurring_email_title");
             String recurring_email_description = (String) requestBodyMap.get("recurring_email_description");
@@ -305,13 +306,14 @@ public class MarketingRecurringEmailController {
             company.setCompanyId(userCompanyIds.getCompanyId());
             schedule_email_list.setFkCompanyId(company);
             schedule_email_list.setEmailListName(emaillist);
-            org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject) getFromAddress(userCompanyIds.getCompanyId());
-
-            if (jsonFromAddress != null) {
-                schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
-            }
+//            org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject) getFromAddress(userCompanyIds.getCompanyId());
+//
+//            if (jsonFromAddress != null) {
+//                schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
+//            }
 
             schedule_email_list.setFromName(from_name);
+            schedule_email_list.setFromAddress(from_address);
             schedule_email_list.setReplyToEmailAddress(reply_to_address);
             schedule_email_list.setSubject(subject);
 
@@ -360,6 +362,7 @@ public class MarketingRecurringEmailController {
 
             String subject = (String) requestBodyMap.get("subject");
             String from_name = (String) requestBodyMap.get("from_name");
+            String from_address = (String) requestBodyMap.get("from_address");
             String reply_to_address = (String) requestBodyMap.get("reply_to_address");
             String recurring_email_title = (String) requestBodyMap.get("recurring_email_title");
             String recurring_email_description = (String) requestBodyMap.get("recurring_email_description");
@@ -380,15 +383,16 @@ public class MarketingRecurringEmailController {
             Company company = companyService.getCompanyById(userCompanyIds.getCompanyId());
             schedule_email_list.setFkCompanyId(company);
             schedule_email_list.setEmailListName(emaillist);
-            org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject) getFromAddress(userCompanyIds.getCompanyId());
-
-            if (jsonFromAddress != null) {
-                schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
-            }
+//            org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject) getFromAddress(userCompanyIds.getCompanyId());
+//
+//            if (jsonFromAddress != null) {
+//                schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
+//            }
 
             schedule_email_list.setFromName(from_name);
             schedule_email_list.setReplyToEmailAddress(reply_to_address);
             schedule_email_list.setSubject(subject);
+            schedule_email_list.setFromAddress(from_address);
 
             schedule_email_list.setFkScheduledEntityListId(null);
 
@@ -438,6 +442,7 @@ public class MarketingRecurringEmailController {
             String emaillist = (String) requestBodyMap.get("emaillist");
             String subject = (String) requestBodyMap.get("subject");
             String from_name = (String) requestBodyMap.get("from_name");
+            String from_address = (String) requestBodyMap.get("from_address");
             Double template_id = (Double) requestBodyMap.get("template_id");
             String html_data = (String) requestBodyMap.get("html_data");
             String html_body = (String) requestBodyMap.get("html_body");
@@ -494,12 +499,13 @@ public class MarketingRecurringEmailController {
             schedule_email_list.setEmailListName(emaillist);
             schedule_email_list.setBody(html_data);
             schedule_email_list.setHtmlBody(html_body);
-            org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject) getFromAddress(userCompanyIds.getCompanyId());
-
-            if (jsonFromAddress != null) {
-                schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
-            }
+//            org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject) getFromAddress(userCompanyIds.getCompanyId());
+//
+//            if (jsonFromAddress != null) {
+//                schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
+//            }
             schedule_email_list.setFromName(from_name);
+            schedule_email_list.setFromAddress(from_address);
             schedule_email_list.setReplyToEmailAddress(reply_to_address);
             schedule_email_list.setSubject(subject);
 

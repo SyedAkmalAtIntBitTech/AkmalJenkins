@@ -36,6 +36,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.subjectValidation = subjectValidation;
         $scope.preHeaderValidation = preHeaderValidation;
         $scope.fromNameValidation = fromNameValidation;
+        $scope.fromAddressValidation = fromAddressValidation;
         $scope.replyToValidation = replyToValidation;
         $scope.actionNameValidation = actionNameValidation;
         $scope.scheduleDateValidation = scheduleDateValidation;
@@ -56,11 +57,11 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.actionDropdown = false;
         $scope.dateLesser = false;
         $scope.validateEmailAddress = false;
-        $scope.validateEmailAddress = false;
+        $scope.validateFromEmailAddress = false;
         $scope.isEmailSaveAction = false;
         $scope.companyName = "";
         $scope.changeStyleAlert = false;
-        $scope.pushedEmail = false;
+        $scope.pushedEmail = false; 
         $scope.emailList = "";
         $scope.emailTag = 0;
         $scope.noEmailList = "";
@@ -1152,6 +1153,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 $scope.email_settings = parseData;
                 $scope.replyAddress = parseData.reply_email_address;
                 $scope.fromName = parseData.from_name;
+                $scope.fromAddress = parseData.from_address;
             });
         };
 
@@ -1414,7 +1416,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     email_subject: kGlobalEmailObject.emailSubject,
                     email_preheader: kGlobalEmailObject.preheader,
                     email_addresses: kGlobalEmailObject.toEmailAddresses,
-                    from_email_address: getDefaultEmailId(),
+                    from_email_address: fromAddress,//getDefaultEmailId(),
                     reply_to_email_address: replyAddress,
                     email_list: $scope.emailList,
                     iframeName: $scope.randomIframeFilename.toString()
@@ -1450,9 +1452,19 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
         $scope.emailListValidation = function (postData) {
             if (postData) {
+                if (!postData.emailSubject) {
+                    $scope.emailSubject = "";
+                    $("#subject").focus();
+                    return false;
+                }
                 if (!postData.fromName) {
                     $scope.fromName = "";
                     $("#name").focus();
+                    return false;
+                }
+                if (!postData.fromAddress) {
+                    $scope.fromAddress = "";
+                    $("#fromAddress").focus();
                     return false;
                 }
                 if (!postData.replyAddress) {
@@ -1465,29 +1477,45 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         };
 
         $scope.replyEmailValidation = function (postData) {
-            var replyAddress = postData.replyAddress;
             var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-            var result = replyAddress.replace(/\s/g, "").split(/,|;/);
-            for (var i = 0; i < result.length; i++) {
-                if (!regex.test(result[i])) {
-                    $("#email").focus();
-                    $scope.validateEmailAddress = "true" + "'" + result[i] + "'";
-                    return false;
+           
+            if(postData.fromAddress){
+                var replyAddress = postData.replyAddress;
+                var result = replyAddress.replace(/\s/g, "").split(/,|;/);
+                for (var i = 0; i < result.length; i++) {
+                    if (!regex.test(result[i])) {
+                        $("#email").focus();
+                        $scope.validateEmailAddress = "true" + "'" + result[i] + "'";
+                        return false;
+                    }
                 }
+                $scope.validateEmailAddress = false;
+                return true;
             }
-            $scope.validateEmailAddress = false;
-            return true;
         };
-
+        $scope.fromAddressEmailValidation  = function (postData){
+            var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+                if (!regex.test(postData.fromAddress)) {
+                    $scope.validateFromEmailAddress = true;
+                    $("#fromAddress").focus();
+                    return false;
+                }  
+                $scope.validateFromEmailAddress = false;
+                return true;
+        };
+        
         $scope.continueEmailDetailsOnClick = function (postData) {
             if ($scope.emailListValidation(postData))
             {
-                if ($scope.replyEmailValidation(postData))
+                if ($scope.fromAddressEmailValidation(postData))
                 {
-                    $scope.schedulePopup = false;
-                    $scope.postTypeSelectionPopUp = true;
-                    $scope.postData = postData;
-                    $scope.postTo = "Send Now";
+                    if ($scope.replyEmailValidation(postData))
+                    {
+                        $scope.schedulePopup = false;
+                        $scope.postTypeSelectionPopUp = true;
+                        $scope.postData = postData;
+                        $scope.postTo = "Send Now";
+                    }
                 }
             }
         };
@@ -1515,7 +1543,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                     email_subject: $scope.postData.emailSubject,
                                     email_preheader: kGlobalEmailObject.preheader,
                                     to_email_addresses: $scope.postData.toAddress,
-                                    from_email_address: getDefaultEmailId(),
+                                    from_email_address: $scope.postData.fromAddress,//getDefaultEmailId(),
                                     reply_to_email_address: $scope.postData.replyAddress,
                                     email_list: $scope.emailList,
                                     email_body: "",
@@ -1552,7 +1580,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                 email_subject: $scope.postData.emailSubject,
                                 email_preheader: kGlobalEmailObject.preheader,
                                 to_email_addresses: $scope.postData.toAddress,
-                                from_email_address: getDefaultEmailId(),
+                                from_email_address: $scope.postData.fromAddress,//getDefaultEmailId(),
                                 reply_to_email_address: $scope.postData.replyAddress,
                                 email_list: $scope.emailList,
                                 email_body: $("#dynamictable").contents().find("html").html(),
@@ -1765,7 +1793,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         email_preheader: kGlobalEmailObject.preheader,
                         to_email_addresses: postData.toAddress,
                         email_addresses: postData.toAddress,
-                        from_email_address: getDefaultEmailId(),
+                        from_email_address: postData.fromAddress,//getDefaultEmailId(),
                         reply_to_email_address: postData.replyAddress,
                         email_list: $scope.emailList,
                         email_body: $("#dynamictable").contents().find("html").html(),
@@ -1851,7 +1879,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         "email_preheader": kGlobalEmailObject.preheader,
                         "to_email_addresses": postData.toAddress,
                         "email_addresses": postData.toAddress,
-                        "from_email_address": getDefaultEmailId(),
+                        "from_email_address": postData.fromAddress,//getDefaultEmailId(),
                         "reply_to_email_address": postData.replyAddress,
                         "email_list": $scope.emailList,
                         program_id: $scope.selectedMarketingProgram.toString(),
@@ -2048,7 +2076,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     from_name: postData.fromName,
                     email_subject: postData.emailSubject,
                     email_addresses: postData.toAddress,
-                    from_email_address: getDefaultEmailId(),
+                    from_email_address:  postData.fromAddress,//getDefaultEmailId(),
                     reply_to_email_address: postData.replyAddress,
                     email_list: $scope.emailList,
                     iframeName: $scope.randomIframeFilename.toString()

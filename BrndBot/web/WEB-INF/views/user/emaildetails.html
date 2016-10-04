@@ -48,6 +48,14 @@
 
                 </div>
                 <div class="input-wrap">
+                    <label> Enter a From Address </label>
+                    <div class="input ">
+                        <input id="fromAddress" class="fluid" placeholder="Enter From Address" ng-class="{'invalid-input': fromAddress === '' || null}" type="text" ng-model="fromAddress"></input>
+                    </div>
+                    <span class="validationAlert" ng-if='fromAddress === "" || null'>{{fromAddressValidation}}</span>
+                    <span class="validationAlert" ng-if="validateFromEmailAddress">{{fromAddressValidation}}</span>
+                </div>
+                <div class="input-wrap">
                     <label> Enter a Reply to Address </label>
                     <div class="input ">
                         <input id="email" class="fluid" placeholder="Enter Reply To Email Address" type="text" ng-model="replyAddress" ng-class="{'invalid-input': replyAddress === '' || null}"></input>
