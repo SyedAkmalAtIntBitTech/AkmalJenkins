@@ -56,7 +56,8 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
         $scope.linkpost = false;
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
-
+        $scope.pushedEmail = false;
+        
         $scope.getCompanyStatus = function() {
             appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
                 $scope.isCurrentCompanyInFranchise = isCurrent;
