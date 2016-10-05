@@ -5052,10 +5052,10 @@ textarea.task-textarea:focus{
 
 .bb-top-nav-title{
     margin-left: 30px;
+    max-height:50px;
 }
 .bb-bar-left-wrap{
     display: inline-flex;
-
     justify-content: left;
 }
 
