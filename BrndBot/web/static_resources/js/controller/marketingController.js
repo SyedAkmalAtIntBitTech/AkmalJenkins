@@ -468,8 +468,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     hours = parseInt(hours) + 12;
                 }
                 var newtime = hours + ":" + mins + ":" + "00";
+                
+                var l = actiondate + " " + newtime;
+                var schedule_time = Date.parse(l);
+                var epoch_time = schedule_time;
 
-                var epoch_time = getEpochMillis(actiondate + " " + newtime + " " + 'UTC');
+//                var epoch_time = getEpochMillis(actiondate + " " + newtime + " " + 'UTC');
 
                 var action = {"title": addTitle, "actiontype": actionType.value,
                     "type": "save", "description": "", "marketingType": $scope.programId,

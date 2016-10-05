@@ -424,9 +424,9 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         {
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
             {
-                var userAssignToId = $("#assignTo option:selected").val();
-                if (!userAssignToId)
-                    userAssignToId = "0";
+//                var userAssignToId = $("#assignTo option:selected").val();
+//                if (!userAssignToId)
+                  var  userAssignToId = "0";
                 $scope.timePickerVal = false;
                 var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
                 var actionDateTime1 = datePicker.toLocaleString() + " " + actionTime1.toLocaleString();
@@ -451,8 +451,12 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     hours = parseInt(hours) + 12;
                 }
                 var newtime = hours + ":" + mins + ":" + "00";
+                
+                var l = actiondate + " " + newtime;
+                var schedule_time = Date.parse(l);
+                var epoch_time = schedule_time;
 
-                var epoch_time = getEpochMillis(actiondate + " " + newtime + " " + 'UTC');
+//                var epoch_time = getEpochMillis(actiondate + " " + newtime + " " + 'UTC');
                 var days = 0;
                 var action = {"title": addTitle, "actiontype": actionType.value, "type": "save",
                     "description": "", "marketingType": 0, "action_date": epoch_time, "days": days, "userAssignToId": userAssignToId};

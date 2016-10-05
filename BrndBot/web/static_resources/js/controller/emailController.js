@@ -1617,7 +1617,12 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 var newtime = hours + ":" + mins + ":" + "00";
 
                 var currDate = moment(schedule_date).format('YYYY-MM-DD');
-                var epoch_time = getEpochMillis(currDate + " " + newtime + " " + 'UTC');
+                
+                var l = currDate + " " + newtime;
+                var schedule_time = Date.parse(l);
+                var epoch_time = schedule_time;
+                
+//                var epoch_time = getEpochMillis(currDate + " " + newtime + " " + 'UTC');
 
                 var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
                 var fromDate = new Date(dateAndTime);
