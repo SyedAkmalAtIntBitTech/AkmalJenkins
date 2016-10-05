@@ -49,9 +49,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.intbittech.social.PostToFacebook;
 import com.intbittech.social.PostToTwitter;
 import com.intbittech.utility.Utility;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.TimeZone;
 //import java.sql.Date;
-
 
 /**
  *
@@ -59,34 +62,34 @@ import java.time.LocalDateTime;
  */
 @Controller
 public class YourPlanController {
-    
+
     private Logger logger = Logger.getLogger(YourPlanController.class);
     private static final ConnectionManager connectionManager = ConnectionManager.getInstance();
-    
+
     @Autowired
     private MessageSource messageSource;
-    
+
     @RequestMapping(value = "/GetScheduledEntities", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> GetScheduledEntities(HttpServletRequest request, HttpServletResponse response) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
-        try{
+        try {
             List<String> messageList = new ArrayList<>();
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
- 
-        List<String> errorMsgs = new ArrayList<>();
-            
-            if ( StringUtils.isEmpty(request.getParameter("from")) ){
+
+            List<String> errorMsgs = new ArrayList<>();
+
+            if (StringUtils.isEmpty(request.getParameter("from"))) {
                 errorMsgs.add("from date parameter is missing");
             }
-            if ( StringUtils.isEmpty(request.getParameter("to")) ){
+            if (StringUtils.isEmpty(request.getParameter("to"))) {
                 errorMsgs.add("to date parameter is missing");
             }
-            
-            if ( !errorMsgs.isEmpty() ){
+
+            if (!errorMsgs.isEmpty()) {
                 Map<String, Object> responseMap = new HashMap<>();
                 responseMap.put("error", errorMsgs);
-                
+
                 throw new ProcessFailed(AppConstants.GSON.toJson(responseMap));
             }
             LocalDate fromDate = null;
@@ -94,20 +97,20 @@ public class YourPlanController {
             //Dates have to follow the format: 2011-12-03
             fromDate = LocalDate.parse(request.getParameter("from"));
             toDate = LocalDate.parse(request.getParameter("to"));
-            Integer companyId= Integer.parseInt(request.getParameter("companyId"));
-            JSONObject scheduledEntities = 
-                     ScheduleDAO.getScheduledEntitiesWithUser(companyId, fromDate, toDate);
+            Integer companyId = Integer.parseInt(request.getParameter("companyId"));
+            JSONObject scheduledEntities
+                    = ScheduleDAO.getScheduledEntitiesWithUser(companyId, fromDate, toDate);
             messageList.add(AppConstants.GSON.toJson(scheduledEntities));
             genericResponse.setDetails(messageList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success",new String[]{}, Locale.US)));
-            }catch(Throwable throwable){
-                logger.error(throwable);
-                genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(AppConstants.GSON.toJson(throwable.getMessage())));
-                
-            }
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(AppConstants.GSON.toJson(throwable.getMessage())));
+
+        }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/ChangeSchedule", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> ChangeSchedule(HttpServletRequest request, HttpServletResponse response) {
         TransactionResponse transactionResponse = new TransactionResponse();
@@ -136,7 +139,7 @@ public class YourPlanController {
                         schedule_desc,
                         AppConstants.GSON.fromJson(metadataString, Map.class)
                 );
-                
+
                 messageStatus = "true";
             } else if (type.equalsIgnoreCase("updateemail")) {
                 String schedule_id = (String) requestBodyMap.get("schedule_id");
@@ -171,13 +174,13 @@ public class YourPlanController {
                 String entity_type = (String) requestBodyMap.get("entity_type");
                 String is_recurring = (String) requestBodyMap.get("isRecurring");
                 ScheduleDAO.deleteSchedule(userCompanyIds.getCompanyId(), schedule_ids.intValue());
-                messageStatus="true";
+                messageStatus = "true";
             } else if (type.equalsIgnoreCase("removetemplate")) {
                 Double schedule_ids = (Double) requestBodyMap.get("schedule_ids");
                 String entity_type = (String) requestBodyMap.get("entity_type");
                 String is_recurring = (String) requestBodyMap.get("isRecurring");
                 ScheduleDAO.removeSavedTemplate(userCompanyIds.getCompanyId(), schedule_ids.intValue());
-                
+
                 messageStatus = "true";
             } else if (type.equalsIgnoreCase(ScheduledEntityType.Reminder.toString())) {
                 String schedule_id = (String) requestBodyMap.get("schedule_id");
@@ -205,144 +208,142 @@ public class YourPlanController {
                 }
             }
             transactionResponse.setMessage(messageStatus);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success",new String[]{}, Locale.US)));
-        }catch(Throwable throwable){
-                logger.error(throwable);
-                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
-        }
-        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
-    }
-    
-    @RequestMapping(value = "/AddAction", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> AddAction(HttpServletRequest request, HttpServletResponse response) {
-        TransactionResponse transactionResponse = new TransactionResponse();
-        try {
-        Map<String, Object> requestBodyMap
-                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-        UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
-        if ( requestBodyMap == null){
-            throw new ProcessFailed(messageSource.getMessage("something_wrong",new String[]{}, Locale.US));
-        }
-        
-        
-        try(Connection conn = ConnectionManager.getInstance().getConnection()){
-            conn.setAutoCommit(false);
-            String type = (String)requestBodyMap.get("type");
-            if (type.equalsIgnoreCase("save")){
-                String templateStatus = TemplateStatus.no_template.toString();
-                if ( ScheduledEntityType.Reminder.toString().equals(requestBodyMap.get("actiontype").toString().toLowerCase())){
-                    templateStatus = TemplateStatus.incomplete.toString();
-                }
-                try{
-                        Double tempmarketingType=new Double(requestBodyMap.get("marketingType").toString().trim());
-                        Double tempDays = new Double(requestBodyMap.get("days").toString().trim());
-                        Integer marketingType=tempmarketingType.intValue();
-                        Integer days = tempDays.intValue();
-                        Double TempUserAssignToId = new Double(requestBodyMap.get("userAssignToId").toString().trim());
-                        Integer userAssignToId = TempUserAssignToId.intValue();
-                        int scheduleId = ScheduleDAO.addToScheduleEntityList(null,
-                            requestBodyMap.get("title").toString(),
-                            marketingType,
-                            requestBodyMap.get("description").toString(),
-                            new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()), 
-                            requestBodyMap.get("actiontype").toString(), 
-                            days.toString().trim(),
-                            templateStatus,
-                            userCompanyIds.getCompanyId(),userCompanyIds.getUserId(),userAssignToId,
-                            conn
-                        );
-                    conn.commit();
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("schedule_entity_id", scheduleId);
-                    transactionResponse.setMessage(AppConstants.GSON.toJson(data));
-                    transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success",new String[]{}, Locale.US)));
-                } catch (SQLException ex) {
-                    logger.error(ex);
-                    conn.rollback();
-                    transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
-                }                
-            }else if (type.equalsIgnoreCase("update")){
-                String scheduleID = (String)requestBodyMap.get("schedule_id");
-                try{
-                    int scheduleId = ScheduleDAO.updateScheduledEntity(Integer.parseInt(scheduleID),
-                        requestBodyMap.get("title").toString(),
-                        requestBodyMap.get("description").toString(),
-                        new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()), 
-                        requestBodyMap.get("actiontype").toString(), 
-                        userCompanyIds.getCompanyId(),
-                        Integer.parseInt(requestBodyMap.get("days").toString()),
-                        conn
-                    );
-                    conn.commit();
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("schedule_entity_id", scheduleId);
-                    transactionResponse.setMessage(AppConstants.GSON.toJson(data));
-                    transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success",new String[]{}, Locale.US)));
-                } catch (SQLException ex) {
-                     logger.error(ex);
-                    conn.rollback();
-                    transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
-                }                
-//                ApplicationContextListener.refreshAllSchedulers();
-//                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, "Log while updating the Actions");
-            }
-            else if (type.equalsIgnoreCase("updatenotesyourplan")){
-                String scheduleID = (String)requestBodyMap.get("schedule_id");
-                try{
-                    int scheduleId = ScheduleDAO.updateDescriptionScheduledEntity(Integer.parseInt(scheduleID),
-                        requestBodyMap.get("description").toString(),
-                        conn
-                    );
-                    conn.commit();
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("schedule_entity_id", scheduleId);
-                    transactionResponse.setMessage(AppConstants.GSON.toJson(data));
-                    transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success",new String[]{}, Locale.US)));
-                } catch (SQLException ex) {
-                    logger.error(ex);
-                    conn.rollback();
-                    transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
-                }                
-//                ApplicationContextListener.refreshAllSchedulers();
-//                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, "Log while updating the Actions");
-            }
-            else if (type.equalsIgnoreCase("updatenotes")){
-                double scheduleID1 = (double)requestBodyMap.get("schedule_id");
-                int scheduleID=(int)scheduleID1;
-                try{
-                    int scheduleId = ScheduleDAO.updateDescriptionScheduledEntity(scheduleID,
-                        requestBodyMap.get("description").toString(),
-                        conn
-                    );
-                    conn.commit();
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("schedule_entity_id", scheduleId);
-                    transactionResponse.setMessage(AppConstants.GSON.toJson(data));
-                    transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success",new String[]{}, Locale.US)));
-                } catch (SQLException ex) {
-                    logger.error(ex);
-                    conn.rollback();
-                    transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
-                }                
-//                ApplicationContextListener.refreshAllSchedulers();
-//                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, "Log while updating the Actions");
-            }
-
-        } catch (Exception ex) {
-            logger.error(ex);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
-        }
-        
-        
-        
-        
-        }catch(Throwable throwable){
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
+    @RequestMapping(value = "/AddAction", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> AddAction(HttpServletRequest request, HttpServletResponse response) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+            if (requestBodyMap == null) {
+                throw new ProcessFailed(messageSource.getMessage("something_wrong", new String[]{}, Locale.US));
+            }
+
+            try (Connection conn = ConnectionManager.getInstance().getConnection()) {
+                conn.setAutoCommit(false);
+                String type = (String) requestBodyMap.get("type");
+                if (type.equalsIgnoreCase("save")) {
+                    String templateStatus = TemplateStatus.no_template.toString();
+                    if (ScheduledEntityType.Reminder.toString().equals(requestBodyMap.get("actiontype").toString().toLowerCase())) {
+                        templateStatus = TemplateStatus.incomplete.toString();
+                    }
+                    try {
+                        Date date = new Date(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue());
+                        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+                        String dateTime = format.format(date);
+                        Double tempmarketingType = new Double(requestBodyMap.get("marketingType").toString().trim());
+                        Double tempDays = new Double(requestBodyMap.get("days").toString().trim());
+                        Integer marketingType = tempmarketingType.intValue();
+                        Integer days = tempDays.intValue();
+                        Double TempUserAssignToId = new Double(requestBodyMap.get("userAssignToId").toString().trim());
+                        Integer userAssignToId = TempUserAssignToId.intValue();
+                        int scheduleId = ScheduleDAO.addToScheduleEntityList(null,
+                                requestBodyMap.get("title").toString(),
+                                marketingType,
+                                requestBodyMap.get("description").toString(),
+                                Timestamp.valueOf(dateTime),
+                                requestBodyMap.get("actiontype").toString(),
+                                days.toString().trim(),
+                                templateStatus,
+                                userCompanyIds.getCompanyId(), userCompanyIds.getUserId(), userAssignToId,
+                                conn
+                        );
+                        conn.commit();
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("schedule_entity_id", scheduleId);
+                        transactionResponse.setMessage(AppConstants.GSON.toJson(data));
+                        transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
+                    } catch (SQLException ex) {
+                        logger.error(ex);
+                        conn.rollback();
+                        transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+                    }
+                } else if (type.equalsIgnoreCase("update")) {
+                    String scheduleID = (String) requestBodyMap.get("schedule_id");
+                    try {
+                        int scheduleId = ScheduleDAO.updateScheduledEntity(Integer.parseInt(scheduleID),
+                                requestBodyMap.get("title").toString(),
+                                requestBodyMap.get("description").toString(),
+                                new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()),
+                                requestBodyMap.get("actiontype").toString(),
+                                userCompanyIds.getCompanyId(),
+                                Integer.parseInt(requestBodyMap.get("days").toString()),
+                                conn
+                        );
+                        conn.commit();
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("schedule_entity_id", scheduleId);
+                        transactionResponse.setMessage(AppConstants.GSON.toJson(data));
+                        transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
+                    } catch (SQLException ex) {
+                        logger.error(ex);
+                        conn.rollback();
+                        transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+                    }
+//                ApplicationContextListener.refreshAllSchedulers();
+//                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, "Log while updating the Actions");
+                } else if (type.equalsIgnoreCase("updatenotesyourplan")) {
+                    String scheduleID = (String) requestBodyMap.get("schedule_id");
+                    try {
+                        int scheduleId = ScheduleDAO.updateDescriptionScheduledEntity(Integer.parseInt(scheduleID),
+                                requestBodyMap.get("description").toString(),
+                                conn
+                        );
+                        conn.commit();
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("schedule_entity_id", scheduleId);
+                        transactionResponse.setMessage(AppConstants.GSON.toJson(data));
+                        transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
+                    } catch (SQLException ex) {
+                        logger.error(ex);
+                        conn.rollback();
+                        transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+                    }
+//                ApplicationContextListener.refreshAllSchedulers();
+//                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, "Log while updating the Actions");
+                } else if (type.equalsIgnoreCase("updatenotes")) {
+                    double scheduleID1 = (double) requestBodyMap.get("schedule_id");
+                    int scheduleID = (int) scheduleID1;
+                    try {
+                        int scheduleId = ScheduleDAO.updateDescriptionScheduledEntity(scheduleID,
+                                requestBodyMap.get("description").toString(),
+                                conn
+                        );
+                        conn.commit();
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("schedule_entity_id", scheduleId);
+                        transactionResponse.setMessage(AppConstants.GSON.toJson(data));
+                        transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
+                    } catch (SQLException ex) {
+                        logger.error(ex);
+                        conn.rollback();
+                        transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+                    }
+//                ApplicationContextListener.refreshAllSchedulers();
+//                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, "Log while updating the Actions");
+                }
+
+            } catch (Exception ex) {
+                logger.error(ex);
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+            }
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+
     @RequestMapping(value = "/GetScheduledEmailDetail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> GetScheduledEmailDetail(HttpServletRequest request, HttpServletResponse response) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
@@ -350,41 +351,40 @@ public class YourPlanController {
             List<String> messageList = new ArrayList<>();
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
- 
-            
-            if ( StringUtils.isEmpty(request.getParameter("schedule_id")) ){
+
+            if (StringUtils.isEmpty(request.getParameter("schedule_id"))) {
                 Map<String, Object> error = new HashMap<>();
                 error.put("error", "Schedule id is missing");
                 throw new ProcessFailed(AppConstants.GSON.toJson(error));
             }
-        
-            try{
+
+            try {
                 Integer scheduleEmailId = Integer.parseInt(request.getParameter("schedule_id"));
-                Integer companyId= Integer.parseInt(request.getParameter("companyId"));
-                Map<String, Object> scheduleEmailDetails = 
-                        ScheduleDAO.getScheduleEmailDetails(companyId, scheduleEmailId);
+                Integer companyId = Integer.parseInt(request.getParameter("companyId"));
+                Map<String, Object> scheduleEmailDetails
+                        = ScheduleDAO.getScheduleEmailDetails(companyId, scheduleEmailId);
                 messageList.add(AppConstants.GSON.toJson(scheduleEmailDetails));
                 genericResponse.setDetails(messageList);
-                genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success",new String[]{}, Locale.US)));
-            }catch (ParseException parse){
+                genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
+            } catch (ParseException parse) {
                 logger.error(parse);
                 genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(parse.getMessage()));
-            }catch(NumberFormatException ex){
+            } catch (NumberFormatException ex) {
                 logger.error(ex);
                 Map<String, Object> error = new HashMap<>();
                 error.put("error", "Schedule id cannot be parsed to integer");
                 throw new ProcessFailed(AppConstants.GSON.toJson(error));
-                } catch (SQLException ex) {
+            } catch (SQLException ex) {
                 logger.error(ex);
                 genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
             }
-        }catch(Throwable throwable){
+        } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
-        return new ResponseEntity<>(new ContainerResponse(genericResponse),HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/GetScheduledSocialPostDetail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> GetScheduledSocialPostDetail(HttpServletRequest request, HttpServletResponse response) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
@@ -392,27 +392,25 @@ public class YourPlanController {
             List<String> messageList = new ArrayList<>();
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
- 
-            
-            
+
             String scheduleId = request.getParameter("schedule_id");
-            if ( StringUtils.isEmpty(scheduleId)){
+            if (StringUtils.isEmpty(scheduleId)) {
                 throw new ProcessFailed("Schedule id is missing");
             }
-            
-            Map<String, Object> schedulePostDetails =
-                    ScheduleSocialPostDAO.getScheduleSocialPostDetails(Integer.parseInt(request.getParameter("companyId")), Integer.parseInt(scheduleId));
-            
+
+            Map<String, Object> schedulePostDetails
+                    = ScheduleSocialPostDAO.getScheduleSocialPostDetails(Integer.parseInt(request.getParameter("companyId")), Integer.parseInt(scheduleId));
+
             messageList.add(AppConstants.GSON.toJson(schedulePostDetails));
             genericResponse.setDetails(messageList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success",new String[]{}, Locale.US)));
-        }catch(Throwable throwable){
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
-        return new ResponseEntity<>(new ContainerResponse(genericResponse),HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/PostToSocial", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> PostToSocial(HttpServletRequest request, HttpServletResponse response) {
         boolean face = false;
@@ -421,7 +419,7 @@ public class YourPlanController {
         try {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
- 
+
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             String htmlString = "";
             String isFacebook = request.getParameter("isFacebook");
@@ -433,11 +431,11 @@ public class YourPlanController {
             String file_image_path = "";
             String returnMessage = "";
             boolean status = true;
-            if (imageType.equals("layout")){
+            if (imageType.equals("layout")) {
 //                file_image_path = com.intbit.AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
-            }else if (imageType.equals("gallery")) {
+            } else if (imageType.equals("gallery")) {
                 file_image_path = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + userCompanyIds.getCompanyId() + File.separator + AppConstants.GALLERY_FOLDERNAME + File.separator + getImageFile;
-            }else if (imageType.equals("url")){
+            } else if (imageType.equals("url")) {
                 file_image_path = getImageFile;
             }
 
@@ -448,56 +446,58 @@ public class YourPlanController {
                 String title = request.getParameter("title");
                 String description = request.getParameter("description");
                 String url1 = request.getParameter("url");
-                returnMessage = PostToFacebook.postStatus(title, 
-                        file_image_path, posttext, imagePostURL, getImageFile, url1, 
+                returnMessage = PostToFacebook.postStatus(title,
+                        file_image_path, posttext, imagePostURL, getImageFile, url1,
                         description, imageType, userCompanyIds.getCompanyId(), htmlString);
-            }if (isTwitter.equalsIgnoreCase("true")) {
+            }
+            if (isTwitter.equalsIgnoreCase("true")) {
 
                 String text = request.getParameter("text");
                 String shortURL = request.getParameter("shorturl");
                 PrintWriter out1 = response.getWriter();
-                returnMessage = PostToTwitter.postStatus( 
+                returnMessage = PostToTwitter.postStatus(
                         imageType, text, shortURL, file_image_path, userCompanyIds.getCompanyId(), htmlString, getImageFile);
                 transactionResponse.setMessage(returnMessage);
             }
-            logger.log(Priority.DEBUG, "message while facebook post:"+returnMessage);
+            logger.log(Priority.DEBUG, "message while facebook post:" + returnMessage);
 
 //            if (returnMessage.equals("success") && imageType.equals("layout")){
 //                file_image_path = com.intbit.AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
 //                File deleteFile = new File(file_image_path);
 //                status = deleteFile.delete();
 //            }
-            logger.log(Priority.DEBUG, "message after social post:"+status);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success",new String[]{}, Locale.US)));
-        }catch(Throwable throwable){
+            logger.log(Priority.DEBUG, "message after social post:" + status);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
-        return new ResponseEntity<>(new ContainerResponse(transactionResponse),HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
+
     @RequestMapping(value = "/getSentEmailDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getSentEmailDetails(HttpServletRequest request, HttpServletResponse response) {
         GenericResponse<SentEmailDetails> genericResponse = new GenericResponse<>();
         try {
-             List<SentEmailDetails> sentEmailDetailsList = new ArrayList<>();
-             SentEmailDetails sentEmailDetails = new SentEmailDetails();
-             sentEmailDetails.setOpenRate(14.5);
-             sentEmailDetails.setClickThroughRate(1.3);
-             sentEmailDetails.setUnSubscribes(6);
-             sentEmailDetails.setSentNumbers(4560);
-             sentEmailDetails.setHardBounces(5);
-             sentEmailDetails.setSentDateTime(1472483064L);
-             sentEmailDetails.setSubjectLine("Subject Line Goes Here..");
-             sentEmailDetails.setFromName("From name goes here...");
-             sentEmailDetails.setReplyToAddress("Andy@brndbot.com");
-             sentEmailDetails.setHtmlData("<h1>HTML BODY</h1>");
-             sentEmailDetailsList.add(sentEmailDetails);
-             genericResponse.setDetails(sentEmailDetailsList);
-            
-        }catch(Throwable throwable){
+            List<SentEmailDetails> sentEmailDetailsList = new ArrayList<>();
+            SentEmailDetails sentEmailDetails = new SentEmailDetails();
+            sentEmailDetails.setOpenRate(14.5);
+            sentEmailDetails.setClickThroughRate(1.3);
+            sentEmailDetails.setUnSubscribes(6);
+            sentEmailDetails.setSentNumbers(4560);
+            sentEmailDetails.setHardBounces(5);
+            sentEmailDetails.setSentDateTime(1472483064L);
+            sentEmailDetails.setSubjectLine("Subject Line Goes Here..");
+            sentEmailDetails.setFromName("From name goes here...");
+            sentEmailDetails.setReplyToAddress("Andy@brndbot.com");
+            sentEmailDetails.setHtmlData("<h1>HTML BODY</h1>");
+            sentEmailDetailsList.add(sentEmailDetails);
+            genericResponse.setDetails(sentEmailDetailsList);
+
+        } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
-        return new ResponseEntity<>(new ContainerResponse(genericResponse),HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 }
