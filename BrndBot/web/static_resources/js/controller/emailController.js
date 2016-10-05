@@ -1842,6 +1842,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         "html_body": kGlobalEmailObject.htmlBody,
                         "userAssignedTo": userAssignToId
                     };
+//                    alert(epoch_time);
                     scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
                         
                         if (data.d.operationStatus.statusCode === "Success") {
