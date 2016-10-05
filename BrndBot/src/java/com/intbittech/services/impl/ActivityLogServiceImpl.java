@@ -6,13 +6,13 @@
 package com.intbittech.services.impl;
 
 import com.intbittech.dao.ActivityLogDao;
+import com.intbittech.dao.UsersDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Activity;
 import com.intbittech.model.ActivityLog;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.ActivityLogDetails;
-import com.intbittech.modelmappers.UserDetails;
 import com.intbittech.responsemappers.ActivityLogResponse;
 import com.intbittech.sendgrid.models.EmailType;
 import com.intbittech.services.ActivityLogService;
@@ -48,7 +48,9 @@ public class ActivityLogServiceImpl implements ActivityLogService {
 
     @Autowired
     private EmailServiceProviderService emailServiceProviderService;
-
+    
+    @Autowired
+    private UsersDao usersDao;
     /**
      * {@inheritDoc}
      */
@@ -125,7 +127,8 @@ public class ActivityLogServiceImpl implements ActivityLogService {
             Users assignedTo = new Users();
             assignedTo.setUserId(activityLogDetails.getAssignedTo());
             activityLog.setAssignedTo(assignedTo);
-//            sendNotificationEmail(assignedTo.getUserName(), Utility.combineUserName(assignedTo));
+            Users sendToUser = usersDao.getUserById(activityLogDetails.getAssignedTo());
+            sendNotificationEmail(sendToUser.getUserName(), Utility.combineUserName(sendToUser));
         }
         Users createdUser = new Users();
         createdUser.setUserId(activityLogDetails.getCreatedBy());
@@ -135,14 +138,14 @@ public class ActivityLogServiceImpl implements ActivityLogService {
         return activityLogDao.save(activityLog);
     }
     
-    public Boolean sendNotificationEmail(String toEmailId, UserDetails usersDetails)throws ProcessFailed {
+    public Boolean sendNotificationEmail(String toEmailId, String userName)throws ProcessFailed {
         try {
             String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
-            String body = messageSource.getMessage("acknowledgement_message", new String[]{}, Locale.US);
+            String body = messageSource.getMessage("notification_message", new String[]{}, Locale.US);
             String formattedBody = String.format(body);
             Content content = new Content(IConstants.kContentHTML, formattedBody);
-            Email emailTo = new Email(toEmailId, Utility.combineUserName(usersDetails));
-            String subject = messageSource.getMessage("acknowledgement_subject", new String[]{}, Locale.US);
+            Email emailTo = new Email(toEmailId, userName);
+            String subject = messageSource.getMessage("notification_subject", new String[]{}, Locale.US);
             String formattedSubject = String.format(subject, companyName);
             Mail mail = new Mail(null, formattedSubject, emailTo, content);
             emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply);
