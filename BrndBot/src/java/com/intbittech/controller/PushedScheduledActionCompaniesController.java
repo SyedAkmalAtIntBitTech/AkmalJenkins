@@ -111,7 +111,7 @@ public class PushedScheduledActionCompaniesController {
     public ResponseEntity<ContainerResponse> sendReminderEmailToCreateEmailList(@RequestBody SendReminderEmailDetails sendReminderEmailDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            pushedScheduledActionCompaniesService.getAllUserDetailsOfCompanyIdForSendEmail(sendReminderEmailDetails.getCompanyIds());
+            pushedScheduledActionCompaniesService.getAllUserDetailsOfCompanyIdForSendEmail(sendReminderEmailDetails);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Pushed scheduled action companies created successfully"));
         } catch (Throwable ex) {
             logger.error(ex);

@@ -1044,10 +1044,12 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 var franchiseId = kGlobalCompanyObject.franchiseId;
                 appSessionFactory.getEmail().then(function(kGlobalEmailObject){
                     var emailTagId = kGlobalEmailObject.emailTagId;
+                    alert(emailTagId);
                     $scope.pushedEmail = kGlobalEmailObject.pushedEmail;
 
                     franchiseFactory.getCompaniesForFranchiseIdAndEmailListTag(franchiseId,emailTagId).then(function (data) {
                         $scope.franchiseCompanies = data.d.details;
+                        alert(JSON.stringify($scope.franchiseCompanies));
                         for (var i=0; i<data.d.details.length; i++){
                             var franchiseCompany = data.d.details[i];
                             if (franchiseCompany.isEmailList == false){
@@ -1178,8 +1180,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                 if (kGlobalEmailObject.pushedEmail){
                     $scope.emailList = listName.text;
-                    $scope.emailTag = listName.text;
-                    kGlobalEmailObject.emailTagId = listName.text;
+                    $scope.emailTag = listName.value;
+                    kGlobalEmailObject.emailTagId = listName.value;
                     appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {});
                     
                     emailListFactory.getContactsOfEmailTag(listName.value).then(function (data){
@@ -1842,7 +1844,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         "html_body": kGlobalEmailObject.htmlBody,
                         "userAssignedTo": userAssignToId
                     };
-//                    alert(epoch_time);
                     scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
                         
                         if (data.d.operationStatus.statusCode === "Success") {
