@@ -303,13 +303,12 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             redirectFactory.redirectFlowTo(forwardone);
             $window.location = getHost() + "user/" + forwardone;
         };
-        $scope.getCategories = function (forwardone)
+        $scope.getCategories = function ()
         { 
             categoryFactory.allCompanyCategoriesGet($scope.emailChannelId).then(function (data) {
                 $scope.pageName = "emailcategory";
                 $scope.header = "Select Category";
-                $scope.forwardone = forwardone;
-                $scope.objectParameter.redirect = forwardone;
+                $scope.forwardone = $scope.objectParameter.redirect;
                 $scope.displayAllCategories = data.d.details;
             });
         };
@@ -423,21 +422,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             $scope.id = 'editor-block-slat';
             $scope.setBlockActive = 'editor-block-slat-selected';
             $scope.activeBlock = id;
-
-//            TODO change to AngularJs, (Complicated code)
-//            $("#blockdiv li").removeClass("block-slat-active");
-//            $("#blockdiv li").addClass("block-slat");
-//            $(".block-button").addClass("hide");
-//            $("#blockdiv li").removeClass("block-slat-active");
-//            $("#blockdiv li").addClass("block-slat");
-//            $("#" + id).removeClass("block-slat");
-//            $("#" + id).addClass("block-slat-active");
-//            $("#div2" + id).removeClass("hide");
-            $("#stylelist").css("display", "none");
-            $("#blklist").css("display", "block");
-            $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
-            $(":button").removeAttr("disabled");
-            $("#styletab").css("background-color", "transparent").css("color", "#19587c");
         };
 
 
@@ -954,12 +938,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
         $scope.showEmailList = function () {
 
-            $scope.ddSelectEmailListOptions = [
-//                {
-//                    text: "Manual",
-//                    value: "1"
-//                }
-            ];
+            $scope.ddSelectEmailListOptions = [];
 //            $scope.redirectBaseURL();       //this function redirects to base if page is refreshed.            
             emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
                 var parseData = JSON.parse(data.d.details);
@@ -1066,10 +1045,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                 emails = eval(JSON.stringify(JSONData[i].emailAddress));
                             } else {
                                 emails = emails + "," + eval(JSON.stringify(JSONData[i].emailAddress));
-                            }
-//                             $("#emailaddresses").val(emails);/
-//                             $("#toaddress").val(emails);
-//                               selectCsvFile();     
+                            }   
                         }
                     }
                     $scope.emailAddresses = emails;
@@ -1123,7 +1099,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
         $scope.validateEmails = function (emailAddresses) {
             var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-//             var re = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
             var result = emailAddresses.replace(/\s/g, "").split(/,|;/);
             for (var i = 0; i < result.length; i++) {
                 if (!regex.test(result[i])) {
@@ -1610,10 +1585,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             $scope.emailPreviewPopup = false;
             $scope.fadeClass = 'unfadeClass';
         };
-
-//        $scope.editFooter = function () {
-//            $scope.emailFooterPopupDetails = true;
-//        };
 
         $scope.hideEmailFooterPopupDetails = function () {
             $scope.emailFooterPopupDetails = false;
