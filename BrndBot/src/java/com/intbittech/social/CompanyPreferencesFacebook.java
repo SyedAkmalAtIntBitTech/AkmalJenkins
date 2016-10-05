@@ -9,7 +9,7 @@ import com.intbittech.utility.IConstants;
 import com.controller.SqlMethods;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intbit.ConnectionManager;
-import com.intbittech.modelmappers.Facebook;
+import com.intbittech.modelmappers.FacebookDataDetails;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -53,7 +53,7 @@ public class CompanyPreferencesFacebook {
             String obj = pgobject.getValue();
 
             json_objectFromTable = (JSONObject) parser.parse(obj);
-            Facebook facebook = new Facebook();
+            FacebookDataDetails facebook = new FacebookDataDetails();
             facebook.setFacebookLoggedIn("true");
             facebook.setFbDefaultPageAccessToken(default_page_access_token);
             facebook.setFbUserProfileName(fb_user_profile_name);

@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "twitter_access_token",
     "twitter_user_name"
 })
-public class Twitter {
+public class TwitterDataDetails {
 
     @JsonProperty("twitter_access_token_secret")
     private String twitterAccessTokenSecret;

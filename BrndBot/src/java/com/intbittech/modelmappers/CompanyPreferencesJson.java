@@ -32,9 +32,9 @@ public class CompanyPreferencesJson {
     @JsonProperty("emailSettings")
     private EmailSettings emailSettings;
     @JsonProperty("Twitter")
-    private Twitter twitter;
+    private TwitterDataDetails twitter;
     @JsonProperty("Facebook")
-    private Facebook facebook;
+    private FacebookDataDetails facebook;
     @JsonProperty("colors")
     private List<String> colors = new ArrayList<String>();
     @JsonProperty("userProfile")
@@ -72,7 +72,7 @@ public class CompanyPreferencesJson {
      *     The twitter
      */
     @JsonProperty("Twitter")
-    public Twitter getTwitter() {
+    public TwitterDataDetails getTwitter() {
         return twitter;
     }
 
@@ -82,7 +82,7 @@ public class CompanyPreferencesJson {
      *     The Twitter
      */
     @JsonProperty("Twitter")
-    public void setTwitter(Twitter twitter) {
+    public void setTwitter(TwitterDataDetails twitter) {
         this.twitter = twitter;
     }
 
@@ -92,7 +92,7 @@ public class CompanyPreferencesJson {
      *     The facebook
      */
     @JsonProperty("Facebook")
-    public Facebook getFacebook() {
+    public FacebookDataDetails getFacebook() {
         return facebook;
     }
 
@@ -102,7 +102,7 @@ public class CompanyPreferencesJson {
      *     The Facebook
      */
     @JsonProperty("Facebook")
-    public void setFacebook(Facebook facebook) {
+    public void setFacebook(FacebookDataDetails facebook) {
         this.facebook = facebook;
     }
 

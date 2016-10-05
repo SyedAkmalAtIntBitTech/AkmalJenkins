@@ -9,7 +9,7 @@ import com.intbittech.utility.IConstants;
 import com.controller.SqlMethods;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intbit.ConnectionManager;
-import com.intbittech.modelmappers.Twitter;
+import com.intbittech.modelmappers.TwitterDataDetails;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -57,7 +57,7 @@ public class CompanyPreferencesTwitter {
             String obj = pgobject.getValue();
 
             json_objectFromTable = (JSONObject) parser.parse(obj);
-            Twitter twitter = new Twitter();
+            TwitterDataDetails twitter = new TwitterDataDetails();
             twitter.setTwitterLoggedIn("true");
             twitter.setTwitterAccessToken(twitter_access_token);
             twitter.setTwitterAccessTokenSecret(twitter_access_token_secret);

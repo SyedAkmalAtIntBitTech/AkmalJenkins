@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "fb_default_page_name",
     "fb_default_page_access_token"
 })
-public class Facebook {
+public class FacebookDataDetails {
 
     @JsonProperty("fb_user_profile_name")
     private String fbUserProfileName;

@@ -10,9 +10,10 @@ import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.modelmappers.EmailSettings;
-import com.intbittech.modelmappers.Facebook;
+import com.intbittech.modelmappers.FacebookDataDetails;
 import com.intbittech.modelmappers.FooterDetails;
-import com.intbittech.modelmappers.Twitter;
+import com.intbittech.modelmappers.Tooltips;
+import com.intbittech.modelmappers.TwitterDataDetails;
 import com.intbittech.modelmappers.UserProfileColorDetails;
 import java.util.List;
 import java.util.Map;
@@ -54,17 +55,21 @@ public interface CompanyPreferencesService {
 
     public Map<String, String> getUnsubscribedEmailsMap(CompanyPreferences companyPreferences);
     
-    public void setTwitterDetails(Twitter twitter,Company company);
+    public void setTwitterDetails(TwitterDataDetails twitter,Company company);
     
-    public Twitter getTwitterDetails(Integer companyId);
+    public TwitterDataDetails getTwitterDetails(Company company);
     
-    public void deleteTwitterDetails(Integer companyId);
+    public void deleteTwitterDetails(Company company);
         
-    public void setFacebookDetails(Facebook facebook,Company company);
+    public void setFacebookDetails(FacebookDataDetails facebook,Company company);
  
-    public Twitter getFacebookDetails(Integer companyId);
+    public FacebookDataDetails getFacebookDetails(Company company);
     
-    public void deleteFacebookDetails(Integer companyId);
+    public void deleteFacebookDetails(Company company);
+    
+    public void setTooltips(Tooltips tooltips,Company company);
+    
+    public Tooltips getTooltips(Company company);
     
     
 }
