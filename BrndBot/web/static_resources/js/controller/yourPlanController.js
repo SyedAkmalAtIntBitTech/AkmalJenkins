@@ -360,10 +360,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.assignedFirstName = user[0];
                 $scope.assignedLastName = user[1];
                 $scope.assignedToInitialChars = data.d.id;
-                $scope.closePopup();
-                $scope.getCampaigns();
+                $scope.getActionComments(scheduleId);
             });
-
         };
 
         $scope.addActionComment = function (scheduleId, comment) {
@@ -488,8 +486,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     $scope.getCampaigns();
                     $scope.closeOverlay();
                 });
-            }
-            ;
+            };
         };
 
         $scope.closePopup = function () {
@@ -828,7 +825,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     });
                 });
             }
-            $scope.getActionComments(schedule_id);
 //            growl($scope.isRecurring);
         };
 
@@ -904,8 +900,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             };
             yourPlanFactory.addActionPost(action).then(function (data) {
                 $scope.dateLesser = false;
-                $scope.closePopup();
-                $scope.getCampaigns();
                 growl("Action Saved");
                 $scope.getActionComments(schedule_id);
             });
@@ -1017,7 +1011,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     }else{
                         $scope.closePopup();
                     }
-                        $scope.closePopup();
+//                        $scope.closePopup();
                         $scope.getCampaigns();
                 });
                     $scope.getActionComments(schedules_to_delete);
