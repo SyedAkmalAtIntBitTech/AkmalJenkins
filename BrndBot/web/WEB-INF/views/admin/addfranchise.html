@@ -7,35 +7,37 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
 <html>
     <head>
 
-      <title>Add Franchise</title>
+        <title>Add Franchise</title>
     </head>
     <body>
-       
-        <div id="addFranchisePopup" class="popUp_background" ng-show="addFranchisePopup==true">
+
+        <div id="addFranchisePopup" class="popUp_background" ng-show="addFranchisePopup == true">
             <div id="addFranchisePopupDiv" class="popUp_backgroundlayer" ></div>
-        <div  class="popUp addPopUp">
-             <div class="content-area_header">
-                <div class="popUp_title fleft"> Create a Franchise</div>
+            <div  class="popUp addPopUp">
+                <div class="content-area_header">
+                    <div class="popUp_title fleft"> Create a Franchise</div>
+                    <a id="addactionClose" ng-click = "closeOverlay()" class="modal-pane-header-exit"></a>
+                </div>
+                <div class="inputSection col1of2">
+                    <div class="input_Label">Name this Franchise?</div>
+                    <input id="franchiseName" class="input_Field" type="text" placeholder="Franchise Name" />
+                    <div id="createOrganization" class="CTA_Button Button--Gray fleft pushUp_30" ng-click="saveFranchise()">Create this Franchise</div>
+                </div>
             </div>
-            <div class="inputSection col1of2">
-                <div class="input_Label">Name this Franchise?</div>
-                <input id="franchiseName" class="input_Field" type="text" placeholder="Franchise Name" />
-                <div id="createOrganization" class="CTA_Button Button--Gray fleft pushUp_30" ng-click="saveFranchise()">Create this Franchise</div>
-            </div>
-        </div>
         </div> 
-        <div id="editFranchisePopup" class="popUp_background" ng-show="editFranchisePopup==true">
+        <div id="editFranchisePopup" class="popUp_background" ng-show="editFranchisePopup == true">
             <div id="editFranchisePopupDiv" class="popUp_backgroundlayer" ></div>
-        <div  class="popUp addPopUp">
-             <div class="content-area_header">
-                <div class="popUp_title fleft"> Change Franchise Name</div>
+            <div  class="popUp addPopUp">
+                <div class="content-area_header">
+                    <div class="popUp_title fleft"> Change Franchise Name</div>
+                    <a id="addactionClose" ng-click = "closeOverlay()" class="modal-pane-header-exit"></a>
+                </div>
+                <div class="inputSection col1of2">
+                    <div class="input_Label">Change Name of the Franchise</div>
+                    <input id="editfranchiseName" class="input_Field" type="text" placeholder="Franchise Name" />
+                    <div id="createOrganization" class="CTA_Button Button--Gray fleft pushUp_30" ng-click="updateFranchise()">Edit Franchise</div>
+                </div>
             </div>
-            <div class="inputSection col1of2">
-                <div class="input_Label">Change Name of the Franchise</div>
-                <input id="editfranchiseName" class="input_Field" type="text" placeholder="Franchise Name" />
-                <div id="createOrganization" class="CTA_Button Button--Gray fleft pushUp_30" ng-click="updateFranchise()">Edit Franchise</div>
-            </div>
-        </div>
         </div> 
 
     </body>

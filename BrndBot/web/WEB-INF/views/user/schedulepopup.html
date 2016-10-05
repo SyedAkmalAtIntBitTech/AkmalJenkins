@@ -1,14 +1,27 @@
-<div class="background-pop-up" ng-init="schedulePopup = false" ng-if="schedulePopup">
-    <div class="modal-pane modal-pane-width-reg" ng-init="getAllMaketingPrograms(selectedSocialmedia)">
-        <div class="modal-pane-header-wrap">
+<div id="schedulePopup" class="background-pop-up" ng-init="schedulePopup = false"  ng-click="hidePopup('schedulePopup');hidePopup('sendOrSchedulePopup')"  ng-if="schedulePopup">
+</div>
+    <div class="bb-panel-default bb-panel-styling sendOrSchedulePopup" ng-init="getAllMaketingPrograms(selectedSocialmedia)"  ng-if="schedulePopup"> 
+        <div class="bb-panel-header" ng-show="pushedEmail==false">
             <h2 class="">Send or Schedule</h2>
+            <a id="schedulePopupClose" class="modal-pane-header-exit" ng-click="hidePopup('schedulePopup')"></a>
+        </div>
+        <div class="bb-panel-header" ng-show="pushedEmail">
+            <h2 class="">Create a pushed action</h2>
             <a class="modal-pane-header-exit" ng-click="hidePopup('schedulePopup')"></a>
         </div>
-        <a class="modal-pane-back-step" ng-click="previousButton()">
+        <a class="modal-pane-back-step" ng-click="previousButton()" ng-show="pushedEmail==false">
             <i></i>
             <span>Go to Previous Step</span>
         </a>
-        <div class="modal-pane-content-wrap secondary-option">
+        <div class="bb-panel-content-wrap" ng-show="pushedEmail">
+            <div class="create-new-action-schedule-wrap">
+                <a class="send-or-schedule-option send-or-schedule-15pad ease-all " ng-show="pushedEmail" ng-class='activeClassNew' ng-click="createNewAction()">
+                    <i class="create-action-icon"></i>
+                    <div>Create a New Action</div>
+                </a>
+            </div>
+        </div>
+        <div class="bb-panel-content-wrap" ng-show="pushedEmail==false">
             <div class="create-new-action-schedule-wrap">
                 <a class="send-or-schedule-option send-or-schedule-15pad ease-all " ng-class='activeClassNew' ng-click="createNewAction()">
                     <i class="create-action-icon"></i>
@@ -20,7 +33,7 @@
                 </a>
             </div>
         </div>
-        <div class="modal-pane-content-wrap create-new-schedule-modal"  ng-if="existingActionPopup">
+        <div class="bb-panel-content-wrap"  ng-if="existingActionPopup">
             <div class="input-wrap">
                 <label>Marketing Campaign Name</label>
                 <div class="fluid" dropdown-select="ddSelectMarketingCampaignName" dropdown-model="ddSelectMarketingCampaign" dropdown-onchange="getActions(selectedSocialmedia, selected)"></div>
@@ -32,24 +45,34 @@
 
             </div>
         </div>
-        <div class="modal-pane-content-wrap create-new-schedule-modal" ng-init="createNewActionPopup = false" ng-if="createNewActionPopup">
+        <div class="bb-panel-content-wrap" ng-init="createNewActionPopup = false" ng-if="createNewActionPopup" >
             <div class="input-wrap">
                 <label>Action Name</label>
                 <div class="input">
-                    <input  size="100" class="fluid" ng-model="actionName" id="ActionName" placeholder="Action Name" />
+                    <input  size="100" class="fluid" ng-model="actionName" id="ActionName" ng-class="{'invalid-input': actionName === '' || null}" placeholder="Action Name" />
                 </div>
-                <span class="validationAlert" ng-if='actionName === "" || null'>{{actionNameValidation}}</span>
+                <span class="validationAlert" ng-if='actionName === "" || null' >{{actionNameValidation}}</span>
 
+            </div>
+            <div ng-init="getAllUsersInCompany()">
+                <label>Assigned To</label>
+                <div>
+                    <select id="assignTo" ng-show="moreThanOneUser">
+                        <option value="no assignee" selected>no assignee</option>
+                        <option ng-repeat="users in allUsers" value="{{users.userId}}">{{users.userName}}</option>
+                    </select>
+                </div>
             </div>
             <div class="date-time-input-wrap">
                 <div class="input-wrap">
                     <label>Action Date</label>
                     <a class="input ">
-                        <input class="fluid" type="text" name="datepicker" ng-model="actionDateVal" id="actionDate" readonly  placeholder="Enter Action Date" />
+                        <input class="fluid" type="text" name="datepicker" ng-model="actionDateVal" id="actionDate" ng-class="{'invalid-input': actionDateVal === '' || null}" readonly  placeholder="Enter Action Date" />
                         <script>
                             var picker = new Pikaday(
                                     {
                                         field: document.getElementById('actionDate'),
+                                        format: 'MM DD YYYY',
                                         firstDay: 1,
                                         minDate: new Date(2000, 0, 1),
                                         maxDate: new Date(2050, 12, 31),
@@ -63,7 +86,7 @@
                 <div class="input-wrap">
                     <label>Action Time</label>
                     <a class="input">
-                        <input  class="fluid" id="actionTime" type="text" ng-model="actionTimeVal" name="actionTime"  size="10"  placeholder="Enter Action Time"  /> 
+                        <input  class="fluid" id="actionTime" type="text" ng-model="actionTimeVal" name="actionTime" ng-class="{'invalid-input': actionTimeVal === '' || null}" size="10"  placeholder="Enter Action Time"  /> 
                         <script src="../js/utilities/timepicki.js" type="text/javascript"></script>
                         <script>
                         $('#actionTime').timepicki({
@@ -86,4 +109,3 @@
             <a class="long-button blue-button">{{scheduleButtonData}}</a>
         </div>
     </div>
-</div>

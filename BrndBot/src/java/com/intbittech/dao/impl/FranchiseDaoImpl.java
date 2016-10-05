@@ -97,4 +97,22 @@ public class FranchiseDaoImpl implements FranchiseDao {
         }
     }
 
+    @Override
+    public Franchise getByFranchiseName(String franchiseName) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(Franchise.class)
+                    .add(Restrictions.eq("franchiseName", franchiseName));
+            List<Franchise> franchises = criteria.list();
+            if (franchises.isEmpty()) {
+                return null;
+            }
+            return (Franchise) criteria.list().get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
+        }
+    }
+
 }

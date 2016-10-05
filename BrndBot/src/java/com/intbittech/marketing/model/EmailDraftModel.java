@@ -18,6 +18,15 @@ public class EmailDraftModel {
     private String emailsubject;
     private String htmlbodystring;
     private String preheader;
+    private Integer blockAddedCount;
+
+    public Integer getBlockAddedCount() {
+        return blockAddedCount;
+    }
+
+    public void setBlockAddedCount(Integer blockAddedCount) {
+        this.blockAddedCount = blockAddedCount;
+    }
 
     public String getPreheader() {
         return preheader;

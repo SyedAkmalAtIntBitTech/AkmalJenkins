@@ -8,20 +8,17 @@ package com.intbittech.services.impl;
 import com.intbittech.AppConstants;
 import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.OrganizationCompanyDao;
-import com.intbittech.dao.UserRoleLookUpDao;
-import com.intbittech.enums.InvitationStatus;
+import com.intbittech.dao.UserRoleCompanyLookUpDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCompanyLookup;
-import com.intbittech.model.UserCompanyLookup;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
-import com.intbittech.model.UsersRoleLookup;
+import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.services.CompanyService;
-import com.intbittech.services.UserCompanyLookupService;
 import com.intbittech.services.UsersService;
 import java.util.Date;
 import java.util.List;
@@ -50,11 +47,8 @@ public class CompanyServiceImpl implements CompanyService{
     private MessageSource messageSource;
     
     @Autowired
-    private UserRoleLookUpDao usersRoleLookUpDao;    
+    private UserRoleCompanyLookUpDao usersRoleLookUpDao;    
 
-    @Autowired
-    private UserCompanyLookupService userCompanyLookUpService;
-    
     @Autowired
     private UsersService usersService;
     /**
@@ -158,8 +152,9 @@ public class CompanyServiceImpl implements CompanyService{
      */
     @Override
     public String saveCompany(CompanyDetails companyDetails) throws ProcessFailed {
-        String returnMessage = "false";UsersRoleLookup usersRoleLookUp = null;
-        UserCompanyLookup userCompanyLookup = null;Company company = null,companyObject = null;
+        String returnMessage = "false";UsersRoleCompanyLookup usersRoleLookUp = null;
+        Company company = null,companyObject = null;
+        Integer companyId = 0;
         try {
             //update company
 
@@ -168,46 +163,43 @@ public class CompanyServiceImpl implements CompanyService{
             company.setCompanyName(companyDetails.getCompanyName());
             company.setCreatedDate(new Date());
             company.setInviteCode(RandomStringUtils.randomAlphanumeric(10));
-            Integer companyId = companyDao.save(company);
-            userCompanyLookup = new UserCompanyLookup();
-
-            companyObject = new Company();
-            companyObject.setCompanyId(companyId);
-
-            userCompanyLookup.setCompanyid(company);
-            userCompanyLookup.setUserid(user);
-            userCompanyLookup.setAccountStatus(AppConstants.Account_Activated);
             
-            userCompanyLookUpService.save(userCompanyLookup);
+            boolean companyExist = companyDao.isCompanyExist(companyDetails.getCompanyName());
+            if (companyExist == false){
+                companyId = companyDao.save(company);
+                if(user == null)
+                {
+                    throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
+                }
+                
+                usersRoleLookUp = usersRoleLookUpDao.getUsersRoleLookupByUser(user);
 
-            if(user == null)
-            {
-                throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
+                UserRole userRole = new UserRole();
+                userRole.setUserRoleId(AppConstants.UserRoleAccountOwnerValue);
+
+                usersRoleLookUp.setUserId(user);
+                usersRoleLookUp.setRoleId(userRole);
+                usersRoleLookUp.setCompanyId(company);
+                usersRoleLookUp.setAccountStatus(AppConstants.Account_Activated);
+                usersRoleLookUpDao.update(usersRoleLookUp);
+
+                //Relate company and organization
+                OrganizationCompanyLookup organizationCompanyLookup = new OrganizationCompanyLookup();
+
+                Organization organization = new Organization();
+                organization.setOrganizationId(companyDetails.getOrganizationId());
+
+                companyObject = new Company();
+                companyObject.setCompanyId(companyId);
+
+                organizationCompanyLookup.setFkOrganizationId(organization);
+                organizationCompanyLookup.setFkCompanyId(companyObject);
+
+                organizationCompanyDao.save(organizationCompanyLookup);
+
+                user.setSignupStatus(AppConstants.SignUpStatuscomplete);
+                usersService.update(user);
             }
-            
-            usersRoleLookUp = usersRoleLookUpDao.getUsersRoleLookupByUser(user);
-
-            UserRole userRole = new UserRole();
-            userRole.setUserRoleId(AppConstants.UserRoleManagerValue);
-
-            usersRoleLookUp.setUserId(user);
-            usersRoleLookUp.setRoleId(userRole);
-            usersRoleLookUp.setCompanyId(company);
-            usersRoleLookUpDao.update(usersRoleLookUp);
-            
-            //Relate company and organization
-            OrganizationCompanyLookup organizationCompanyLookup = new OrganizationCompanyLookup();
-
-            Organization organization = new Organization();
-            organization.setOrganizationId(companyDetails.getOrganizationId());
-            
-            companyObject = new Company();
-            companyObject.setCompanyId(companyId);
-
-            organizationCompanyLookup.setFkOrganizationId(organization);
-            organizationCompanyLookup.setFkCompanyId(companyObject);
-
-            organizationCompanyDao.save(organizationCompanyLookup);
             
             returnMessage = companyId.toString();
         } catch(Throwable throwable) {

@@ -13,6 +13,7 @@ import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.modelmappers.FooterDetails;
+import com.intbittech.modelmappers.UserProfileColorDetails;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.utility.EmailValidator;
 import com.intbittech.utility.StringUtility;
@@ -155,10 +156,10 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
         company.setCompanyId(companyId);
         return getByCompany(company);
     }
-    
+
     @Override
     public void setFooterDetails(FooterDetails footerDetails, Company company) {
-                try {
+        try {
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             if (companyPreferences == null) {
                 companyPreferences = new CompanyPreferences();
@@ -166,10 +167,15 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             }
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = new JSONObject();
+            JSONObject footerDetailsObject = new JSONObject();
             if (!StringUtility.isEmpty(companyPreferences.getCompanyPreferences())) {
                 jsonObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
             }
-            jsonObject.put(IConstants.kFooters, footerDetails);
+            footerDetailsObject.put(IConstants.kFooterDetailsFacebookUrl, footerDetails.getFacebookUrl());
+            footerDetailsObject.put(IConstants.kFooterDetailsTwitterUrl, footerDetails.getTwitterUrl());
+            footerDetailsObject.put(IConstants.kFooterDetailsInstagramUrl, footerDetails.getInstagramUrl());
+            footerDetailsObject.put(IConstants.kFooterDetailsWebsiteUrl, footerDetails.getWebsiteUrl());
+            jsonObject.put(IConstants.kFooters, footerDetailsObject);
             String colorJsonString = AppConstants.GSON.toJson(jsonObject);
             companyPreferences.setCompanyPreferences(colorJsonString);
             updatePreferences(companyPreferences);
@@ -181,7 +187,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
 
     @Override
     public List<CompanyPreferences> getAllForLocationId(String locationId) {
-         return companyPreferencesDao.getByLocationId(locationId);
+        return companyPreferencesDao.getByLocationId(locationId);
     }
 
     @Override
@@ -194,7 +200,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
         try {
             EmailValidator emailValidator = new EmailValidator();
             for (int i = 0; i < emailList.size(); i++) {
-                if(!emailValidator.validate(emailList.get(i))){
+                if (!emailValidator.validate(emailList.get(i))) {
                     emailList.remove(i);
                 }
             }
@@ -206,7 +212,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
                 jsonObject = (JSONObject) parser.parse(companyPreferences.getUnsubscribeEmails());
                 array = (JSONArray) jsonObject.get(IConstants.kUnsubscribeEmails);
             }
-            
+
             array.addAll(emailList);
 
             jsonObject.put(IConstants.kUnsubscribeEmails, array);
@@ -216,28 +222,44 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
         } catch (ParseException ex) {
             java.util.logging.Logger.getLogger(CompanyPreferencesServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
+    } 
+
+    @Override
+    public void setUserProfileColor(UserProfileColorDetails userProfileColorDetails, Company company) {
+        try {
+            CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
+            if (companyPreferences == null) {
+                companyPreferences = new CompanyPreferences();
+                companyPreferences.setFkCompanyId(company);
+            }
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = new JSONObject();
+            if (!StringUtility.isEmpty(companyPreferences.getCompanyPreferences())) {
+                jsonObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
+            }
+            jsonObject.put(IConstants.KUSERPROFILECOLOR, userProfileColorDetails.getUserProfileColor());
+            String colorJsonString = AppConstants.GSON.toJson(jsonObject);
+            companyPreferences.setCompanyPreferences(colorJsonString);
+            updatePreferences(companyPreferences);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
+        }
     }
 
     @Override
-    public Map<String, String> getUnsubscribedEmailsMap(CompanyPreferences companyPreferences) {
-        Map<String, String> filteredMap = new HashMap<>();
-
+    public String getUserProfileColor(Company company) {
+        String userProfileColor="";
         try {
-            if (companyPreferences.getUnsubscribeEmails() != null) {
-                JSONParser parser = new JSONParser();
-                JSONObject jsonObject = (JSONObject) parser.parse(companyPreferences.getUnsubscribeEmails());
-                JSONArray array = (JSONArray) jsonObject.get(IConstants.kUnsubscribeEmails);
-                if (array != null && array.size() > 0) {
-                    for (Object arrayObject : array) {
-                        String email = (String) arrayObject;
-                        filteredMap.put(email, "true");
-                    }
-                }
-            }
-        } catch (ParseException ex) {
-            java.util.logging.Logger.getLogger(CompanyPreferencesServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
+            userProfileColor = (String)jsonObject.get(IConstants.KUSERPROFILECOLOR);
+            
+        } catch (Throwable throwable) {
+            logger.error(throwable);
         }
-        return filteredMap;
-    }   
+        return userProfileColor;
+    }
 
 }

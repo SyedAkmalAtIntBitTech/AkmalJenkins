@@ -1,15 +1,19 @@
-<div ng-include src="'navbar.html'"></div>     
-<div class="" ng-init="getActive(lookupId)">
-<div class="main-content-wrap">
-    <div class="top-nav-wrap">
-        <div class="header">
-            <a class="back-button" href="baseemaileditor#/emailsubcategory"></a>
-            <h2 class="">Create an Email</h2>
-        </div>
+
+<div class="bb-top-nav" ng-init="getActive(lookupId)">
+    <div class="bb-bar-left-wrap bb-one-third-flex-col">
+        <a href="baseemaileditor#/emailsubcategory" class="bb-back-button"></a>
+        <h3 class="bb-top-nav-title">Choose an Email Template</h3>
     </div>
-    <div class="top-nav-bar-offset"></div>
-    <div  class="content-wrap content-wrap-flex">
-        <div class="modal-pane modal-pane-width-full ">
+    <div class="bb-bar-center-wrap bb-one-third-flex-col">
+       
+    </div>
+    <div class="bb-bar-right-wrap bb-one-third-flex-col">
+        <a href="dashboard"><div>Exit</div></a>
+        <div class="bb-help-icon">help icon</div>
+    </div>
+</div>
+<div class="bb-main-content-wrap  bb-center-content">                         
+    <div class="modal-pane modal-pane-width-full ">
             <div class="modal-pane-header-wrap">
                 <h2>Select Content for the Template</h2>
                  <input type="text" placeholder="Search" ng-model="userSearch">
@@ -37,7 +41,10 @@
                     </div>
                 </a>
             </div>
+        <div class="bb-panel-footer">
+             <div class="powered-by-mb-logo"></div>
         </div>
-    </div>
+        </div>
+   
 </div>
-</div>
+

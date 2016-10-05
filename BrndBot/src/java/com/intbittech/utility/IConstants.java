@@ -63,8 +63,29 @@ public interface IConstants {
     final static String kTwitterURLKey = "shorturl";
     final static String kFooters = "userProfile";
     final static String kUnsubscribeEmails = "unsubscribeEMails";
-    
+    final static String kFooterDetailsFacebookUrl = "facebookUrl";
+    final static String kFooterDetailsTwitterUrl = "twitterUrl";
+    final static String kFooterDetailsWebsiteUrl = "websiteUrl";
+    final static String kFooterDetailsInstagramUrl = "instagramUrl";
+    final static String KUSERPROFILECOLOR = "userProfileColor";
+      
     // for external source 
     final static Integer EXTERNAL_SOURCE_NON_MINDBODY = 0;
     final static Integer EXTERNAL_SOURCE_MINDBODY = 1;
+    final static int HTTPSuccessCode = 205;
+    
+    final static String kNoReplyBrndbot = "no_reply@brndbot.com";
+    final static String kContentHTML = "text/html";
+    
+    // for marketing program 
+    final static String MARKETING_PROGRAM_CATEGORY = "MP";
+    final static String MARKETING_PROGRAM__ACTION_CATEGORY = "MPA";
+    final static String MARKETING_PROGRAM__RECURING_ACTION_CATEGORY = "MPRA";
+    
+    // for  pushed scheduled action companies
+    final static String ACTION_COMPANIES_SENT_STATUS = "Sent";
+    final static String ACTION_COMPANIES_READY_TO_GO = "Ready to go";
+     final static String ACTION_COMPANIES_NO_EMAIL_TAG_CONFIGURED = "No email tag configured";
+     // support email id
+     final static String SUPPORT_BRNDBOT_EMAIL_ID = "support@brndbot.com";
 }

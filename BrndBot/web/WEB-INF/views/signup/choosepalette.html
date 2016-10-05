@@ -1,69 +1,108 @@
-<div class="sequence-content-wrap">
-    <div class="top-nav-wrap top-nav-wrap-sequence">
-        <div class="header">
-            <a class="back-button" href="#/signup/uploadlogo"></a>
-            <h2>Create a Profile</h2>
-        </div>
-    </div>
-    <div class="top-nav-bar-offset"></div>
-
-    <div class="content-wrap content-wrap-padding content-wrap-with-continue-bar content-wrap-flex" >
-        <div class="modal-pane modal-pane-full-width color-div">
-            <div class="modal-pane-header-wrap">
-                <h2 class="">Upload your logo</h2>
+<div class="bb-app-frame" >
+    <div class="bb-main-app-wrap"  ng-init="getAllServices()">
+        <div class="bb-main-container-wrap">
+           <div class="bb-top-nav">
+                <div class="bb-bar-left-wrap bb-one-third-flex-col" ng-init="getAllThemes() ; getColorsFromLogo(); getColorFromPicker();">
+                    <a href="#/signup/uploadlogo" class="bb-back-button"></a>
+                    <h3 class="bb-top-nav-title">Create a Profile</h3>
+                </div>
+                <div class="bb-bar-center-wrap bb-one-third-flex-col">
+                    <div class="bb-step completed">Company Details</div>
+                    <div class="bb-step completed">Integrations</div>
+                    <div class="bb-step current">Company Brand</div>
+                </div>
+                <div class="bb-bar-right-wrap bb-one-third-flex-col">
+                    <div class="bb-help-icon">help icon</div>
+                </div>
             </div>
-            <div class="modal-pane-content-wrap" ng-init="getColorFromPicker()">
-                <div class="color-palette-col">
+            <div class="bb-main-content-wrap bb-main-content-wrap-padding bb-center-content">
+        <div class="bb-panel-styling bb-panel-full-width">
+            <div class="bb-panel-header">
+                <h2 class="">Choose Your Color Palette</h2>
+            </div>
+            <div class="bb-flex-row bb-panel-content-wrap-max-height">
+            <div class="bb-panel-content-wrap bb-one-half-flex-col" ng-init="getColorFromPicker()">
                     <div class="onboarding-content-header-wrap">
-                        <h3 class="onboarding-content-header">Would you like to connect your new profile with tools you currently use?</h3>
+                        <h3 class="onboarding-content-header">Click on a color swab below and choose a color from the right hand options</h3>
                     </div>   
                     <div class="color-palette-wrap">
-                        <div class="color-explanation">Explanation Goes Here</div>
+                        <p class="color-explanation">Please arrange from left to right with the colors you use most often</p>
                         <div class="user-palette" ng-init="colorModel = { value: 'color - swab'}">
                             <div id="color1Div" class="color-swab"><div id="color1" ng-model="selectedColor.color1" toggle-class model="colorModel"></div></div>
                             <div id="color2Div" class="color-swab"><div id="color2" ng-model="selectedColor.color2" toggle-class model="colorModel"></div></div>
-                            <div id="color3Div" class="color-swab"><div id="color3" ng-model="selectedColor.color3" toggle-class model="colorModel"></div></div>
+                            <div id="color3Div" class="color-swab"><div id="color3" ng-model="selectedColor.color3" toggle-class model="colorModel"></div></div>    
                             <div id="color4Div" class="color-swab"><div id="color4" ng-model="selectedColor.color4" toggle-class model="colorModel"></div></div>
                         </div>
                         <span class="validationAlert" ng-if="colorsAlert">{{colorValidation}}</span>
                     </div>
 
-                    <div class="CTA_Button Button--Gray clear-colors" ng-click="clearColorPalette()">Clear Colors</div>
-                </div>
-                <div class="color-palette-col">
-                    <div class="color-selection-menu">
-                        <div class="color-selection-option" ng-class="activeColorTheme"  id="themeColors" ng-click="getAllThemes()">Color Themes</div>
-                        <div class="color-selection-option" ng-class="activeColorPicker"  id="customColors" ng-click="getColorFromPicker()">Color Picker</div>
+                    <div class="bb-button bb-default-action-button" ng-click="clearColorPalette()">Clear Colors</div>
+                
+            </div>
+            <div class="bb-color-palette-selection-wrap bb-one-half-flex-col bb-panel-content-wrap">
+               
+                    <!--<div class="color-selection-menu" >
+                        <div class="color-selection-option" ng-class="activeColorTheme"  id="themeColors" ng-click=""></div>
+                        <div class="color-selection-option" ng-class="activeColorPicker"  id="customColors" ng-click="">Color Picker</div>
                         <div class="color-selection-option" ng-class="activeColorLogo"  id="logoColorsDiv" ng-click="getColorsFromLogo()">Logo Colors</div>
-                    </div> 
-                    <div class="color-selection-tool-wrap">
-                        <div ng-show="colorFrom == 'custom'"  class="color-picker-space" id="picker"></div>
-                        <div ng-if="colorFrom == 'theme'" id="themeColorsDiv1" class="palette-theme-global">
-                            <div ng-repeat="color in themeColors" class="palette-wrap-globalColors">
-                                <div id="{{color.globalColorsId}}" class="palette-global clear">
-                                    <div class="palette-colorswab-global fleft" style="background-color:{{color.color1}};" ng-click="getColorID(color.color1)"></div>
-                                    <div class="palette-colorswab-global fleft" style="background-color:{{color.color2}};" ng-click="getColorID(color.color2)"></div>
-                                    <div class="palette-colorswab-global fleft" style="background-color:{{color.color3}};" ng-click="getColorID(color.color3)"></div>
-                                    <div class="palette-colorswab-global fleft" style="background-color:{{color.color4}};" ng-click="getColorID(color.color4)"></div>
-                                    <div class="font--lightGray pointer" style="margin-top: 7px;height: 22px;"
-                                         ng-click="selectTheme(color.color1, color.color2, color.color3, color.color4)">{{color.colorName}}</div>
-                                </div>
+                    </div> -->
+                    
+                        <div class="bb-button bb-secondary-action-button" ng-click="showCustomColorPicker = true" ng-hide="showCustomColorPicker ">Show Custom Color Picker</div>
+                        <div class="bb-button bb-secondary-action-button" ng-click="showCustomColorPicker = false" ng-show="showCustomColorPicker">Hide Custom Color Picker</div>
+                        <div   class="bb-color-picker-space" ng-show="showCustomColorPicker" id="picker">
+                            <div  style="display:inline-flex;">
+                            <div style="width:50%;">
+                            <div class="color-select-optgroup"  ng-repeat="colors in globalColors">
+                                <div class="color-select-option" data-color="{{colors.color}}" style="background-color: {{colors.color}};" ng-click="getColorID(colors.color)"></div>
+                            </div>
+                            </div>
+                            <div style="width:50%;">
+<!--                            <select id="color-select">
+                                <optgroup  class="color-select-optgroup">
+                                        <option value="#277BD5"></option>
+                                </optgroup>
+                            </select>-->
+                            <script language="javascript" type="text/javascript">
+                                    $('#color-select').colorSelect();
+                            </script>
+                            <input type="text" name="togglePaletteOnly" id="togglePaletteOnly" style="display:none !important; visibility: hidden">
                             </div>
                         </div>
-                        <div ng-if="colorFrom === 'logo'" class="palette-wrap" id="logocolor1" >
-                            <div class="palette clear" id="picktheme">
+                        </div>
+                        <h3 class="bb-color-palette-selection-header">Your Logo Colors</h3>
+                        <div   id="logocolor1" >
+                            <div class="bb-palette " id="picktheme">
                                 <div ng-repeat="col in color">
-                                    <div class="logo-palette-colorswab fleft" style="background-color:{{col}};" ng-click="getColorID(col)"></div>
+                                    <div class="bb-color-swab" style="background-color:{{col}};" ng-click="getColorID(col)"></div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                        <h3 class="bb-color-palette-selection-header">Color Themes</h3>
+                        <div id="themeColorsDiv1" class="palette-theme-global">
+                            <div ng-repeat="color in themeColors" class="">
+                                <div id="{{color.globalColorsId}}" class="bb-palette">
+                                    <div class="bb-color-swab" style="background-color:{{color.color1}};" ng-click="getColorID(color.color1)"></div>
+                                    <div class="bb-color-swab" style="background-color:{{color.color2}};" ng-click="getColorID(color.color2)"></div>
+                                    <div class="bb-color-swab" style="background-color:{{color.color3}};" ng-click="getColorID(color.color3)"></div>
+                                    <div class="bb-color-swab" style="background-color:{{color.color4}};" ng-click="getColorID(color.color4)"></div>
+                                    <!--<div class="font--lightGray pointer" style="margin-top: 7px;height: 22px;"
+                                         ng-click="selectTheme(color.color1, color.color2, color.color3, color.color4)">{{color.colorName}}</div>-->
+                                </div>
+                            </div>
+                        </div>
+                        <!--ng-if="colorFrom === 'logo'"-->
+               
             </div>
         </div>     
     </div>
-    <div class="continue-bar-offset"></div>
+            
+        </div>
+            <div class="bb-bottom-cta-bar">
+                <a class="bb-bottom-cta-continue-button bb-ease-all"  ng-click="saveColorPalette()" >
+                    <div class="bb-bottom-cta-continue-button-text">Continue</div>
+                    <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
+                </a>
+            </div>
+    </div>
 </div>
-<div class="continue-bar sequence-continue-bar">
-    <a id="continue-bar-button" ng-click="saveColorPalette()" class="fright">CONTINUE</a>
 </div>

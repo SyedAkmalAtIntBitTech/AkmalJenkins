@@ -1,0 +1,16 @@
+<div class="overlay-content" ng-show='associatedAccounts' style="position: relative">
+    <div class="overlay-details-pane" ng-show="isRecurring === false">
+        <div class="overlay-details-pane-header">Accounts Pushed To</div>
+        <div class="detail-sections-wrap" ng-repeat="company in associatedCompanies">
+            <div class="detail-section half">
+                <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">{{company.companyName}}</span>
+            </div>
+            <div class="detail-section half">
+                <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">{{company.status}}</span>
+            </div>
+            <div class="detail-section half">
+                <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">{{company.updatedDate | date:"MMM d y 'at' HH:mm:ss a"}}</span>
+            </div>
+        </div>
+    </div>
+</div>

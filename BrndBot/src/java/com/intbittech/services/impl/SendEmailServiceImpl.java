@@ -9,23 +9,30 @@ import com.google.gson.Gson;
 import com.intbittech.AppConstants;
 import com.intbittech.utility.ServletUtil;
 import com.intbittech.dao.impl.EmailHistoryDAO;
+import com.intbittech.enums.EmailTypeConstants;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.services.SendEmailService;
-import com.intbittech.email.mandrill.MandrillApiHandler;
-import com.intbittech.email.mandrill.Message;
-import com.intbittech.email.mandrill.MessageResponses;
-import com.intbittech.email.mandrill.Recipient;
-import com.intbittech.email.mandrill.RecipientMetadata;
-import com.intbittech.email.mandrill.SendMail;
-import static com.intbittech.email.mandrill.SendMail.MANDRILL_KEY;
+import com.intbittech.model.ContactEmailListLookup;
+import com.intbittech.model.Users;
+import com.intbittech.modelmappers.EmailDataDetails;
+import com.intbittech.sendgrid.models.EmailType;
+import com.intbittech.services.ContactEmailListLookupService;
+import com.intbittech.services.EmailServiceProviderService;
+import com.intbittech.services.UsersService;
+import com.intbittech.utility.IConstants;
+import com.intbittech.utility.Utility;
+import com.sendgrid.Content;
+import com.sendgrid.Email;
+import com.sendgrid.Mail;
+import com.sendgrid.Personalization;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,96 +46,90 @@ public class SendEmailServiceImpl implements SendEmailService {
 
     private final static Logger logger = Logger.getLogger(SendEmailServiceImpl.class);
 
-    @Override
-    public void sendMail(Map<String, Object> requestBodyMap, Integer companyId) throws Exception {
-        SendMail send_email = new SendMail();
-        String html_text = "";
-        String email_subject = (String) requestBodyMap.get("email_subject");
+    @Autowired
+    private ContactEmailListLookupService contactEmailListLookupService;
 
-        String to_email_addresses = (String) requestBodyMap.get("email_addresses");
-        if ((String) requestBodyMap.get("htmldata") != null) {
-            html_text = (String) requestBodyMap.get("htmldata");
-        }
-        //
-        String emaillist_name = (String) requestBodyMap.get("email_list");
+    @Autowired
+    private UsersService usersService;
 
-        String reply_to_address = (String) requestBodyMap.get("reply_to_email_address");
-        String from_email_address = (String) requestBodyMap.get("from_email_address");
-        String from_name = (String) requestBodyMap.get("from_name");
-        String path = "";
-        if ((String) requestBodyMap.get("iframeName") != null) {
-            String iframeName = (String) requestBodyMap.get("iframeName");
-            path = AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator + iframeName + ".html";
-            File file = new File(path);
-            html_text = FileUtils.readFileToString(file, "UTF-8");
-        }
-        Message message = new Message();
-
-        message.setKey(MANDRILL_KEY);
-
-        message.setHtml(html_text);
-        message.setSubject(email_subject);
-        message.setFrom_email(from_email_address);
-        message.setFrom_name(from_name);
-        message.setAsync(true);
-        message.setReply_to(reply_to_address);
-
-        //For Billing purposes.
-        ArrayList<String> tags = new ArrayList<>();
-        tags.add(SendMail.getTag(email_subject));
-        logger.info("Mandrill Tag: " + SendMail.getTag(email_subject));
-        message.setTags(tags);
-
-        ArrayList<Recipient> messageToList = new ArrayList<>();
-
-        String emailids[] = to_email_addresses.split(",");
-
-        for (int i = 0; i < emailids.length; i++) {
-
-            String email = emailids[i];
-            Recipient rec = new Recipient();
-
-            rec.setEmail(email);
-            rec.setName(email);
-            rec.setType("to");
-            messageToList.add(rec);
-            message.setMessageTo(messageToList);
-            RecipientMetadata recipientMetadata1 = new RecipientMetadata();
-            recipientMetadata1.setRcpt(email);
-        }
-
-        MessageResponses mandrillResponse = send_email.sendMail(message);
-
-        //Added by Syed Ilyas 27 Nov 2015 - changed to NOT
-        if (!path.equals("")) {
-            File IframeDelete = new File(path);
-            IframeDelete.delete();
-        }
-
-        int lastUpdateId = EmailHistoryDAO.addToEmailHistory(companyId,
-                html_text, from_email_address, emaillist_name,
-                to_email_addresses, email_subject, SendMail.getTag(email_subject));
-        if (mandrillResponse != null && lastUpdateId != -1) {
-            EmailHistoryDAO.insertMandrillEmailId(mandrillResponse, lastUpdateId);
-        }
-    }
+    @Autowired
+    EmailServiceProviderService emailServiceProviderService;
 
     @Override
-    public String getTags(Integer userId) throws Exception {
-        List<Map<String, Object>> tagsFromMandrill = MandrillApiHandler.getTags();
-        List<Map<String, Object>> tagsFromMandrillForUser = new ArrayList<>();
+    public void sendMail(EmailDataDetails emailDataDetails) throws Exception {
+        Mail mail = new Mail();
+        List<ContactEmailListLookup> toEmailIds = new ArrayList<>();
+        if (emailDataDetails.getEmailType().equals(EmailTypeConstants.Recurring.name())) {
+            toEmailIds = contactEmailListLookupService.getContactsByEmailListNameAndCompanyIdForToday(emailDataDetails.getEmailListName(), emailDataDetails.getCompanyId(), emailDataDetails.getDays());
+        } else {
+            toEmailIds = contactEmailListLookupService.getContactsByEmailListNameAndCompanyId(emailDataDetails.getEmailListName(), emailDataDetails.getCompanyId());
+        }
 
-        Set<String> tagsForUser = EmailHistoryDAO.getTagsForUser(userId);
-        for (Map<String, Object> mTag : tagsFromMandrill) {
-            if (mTag.get("tag") != null) {
-                if (tagsForUser.contains(mTag.get("tag").toString())) {
-                    tagsFromMandrillForUser.add(mTag);
-                }
+        Email emailFrom = new Email(emailDataDetails.getFromEmailAddress(), emailDataDetails.getFromName());
+        mail.setFrom(emailFrom);
+        Email emailReplyTo = new Email(emailDataDetails.getReplyToEmailAddress());
+        mail.setReplyTo(emailReplyTo);
+        mail.setSubject(emailDataDetails.getEmailSubject());
+
+        Content content = new Content(IConstants.kContentHTML, emailDataDetails.getHtmlData());
+        mail.addContent(content);
+
+        //Adding categories if any exists
+        List<String> emailCategoryList = emailDataDetails.getEmailCategoryList();
+        if (emailCategoryList != null && !emailCategoryList.isEmpty()) {
+            for (String emailCategory : emailDataDetails.getEmailCategoryList()) {
+                mail.addCategory(emailCategory);
             }
         }
-        return new Gson().toJson(tagsFromMandrillForUser);
+
+        //TODO preheader
+//        mail.addHeader("preHeader", preheader);
+        for (ContactEmailListLookup currectContact : toEmailIds) {
+            Personalization personalization = new Personalization();
+            Users user = new Users();
+            user.setFirstName(currectContact.getFkContactId().getFirstName());
+            user.setLastName(currectContact.getFkContactId().getLastName());
+            Email emailToObject = new Email(currectContact.getFkContactId().getEmailAddress(), Utility.combineUserName(user));
+            personalization.addTo(emailToObject);
+
+            personalization.addSubstitution(IConstants.kEmailClientFirstName, user.getFirstName());
+            personalization.addSubstitution(IConstants.kEmailClientFirstName.toLowerCase(), user.getFirstName());
+
+            personalization.addSubstitution(IConstants.kEmailClientLastName, user.getLastName());
+            personalization.addSubstitution(IConstants.kEmailClientLastName.toLowerCase(), user.getLastName());
+
+            personalization.addSubstitution(IConstants.kEmailClientFullName, Utility.combineUserName(user));
+            personalization.addSubstitution(IConstants.kEmailClientFullName.toLowerCase(), Utility.combineUserName(user));
+
+            mail.addPersonalization(personalization);
+        }
+        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_SubUserRegularEmail);
+
+        //TODO need to check and change this
+        int lastUpdateId = EmailHistoryDAO.addToEmailHistory(emailDataDetails.getCompanyId(),
+                emailDataDetails.getHtmlData(), emailDataDetails.getFromEmailAddress(), emailDataDetails.getEmailListName(),
+                "", emailDataDetails.getEmailSubject(), "TODO add tag/category here");
+        //TODO check this and remove insertMandrillEmailId
+//        if (mandrillResponse != null && lastUpdateId != -1) {
+//            EmailHistoryDAO.insertMandrillEmailId(mandrillResponse, lastUpdateId);
+//        }
     }
 
+//    @Override
+//    public String getTags(Integer userId) throws Exception {
+//        List<Map<String, Object>> tagsFromMandrill = MandrillApiHandler.getTags();
+//        List<Map<String, Object>> tagsFromMandrillForUser = new ArrayList<>();
+//
+//        Set<String> tagsForUser = EmailHistoryDAO.getTagsForUser(userId);
+//        for (Map<String, Object> mTag : tagsFromMandrill) {
+//            if (mTag.get("tag") != null) {
+//                if (tagsForUser.contains(mTag.get("tag").toString())) {
+//                    tagsFromMandrillForUser.add(mTag);
+//                }
+//            }
+//        }
+//        return new Gson().toJson(tagsFromMandrillForUser);
+//    }
     @Override
     public String previewEmail(Integer companyId, Map<String, Object> requestBodyMap) {
         try {

@@ -20,7 +20,9 @@ var kGlobalEmailObject = { categoryId : "",
     replyToEmailAddress : "",
     fromAddress : "",
     preheader : "",
-    htmlBody : ""
+    htmlBody : "",
+    pushedEmail : false,
+    emailTagId :""
     };
     
 var kGlobalCompanyObject = {
@@ -33,7 +35,20 @@ var kGlobalCompanyObject = {
   accountStatus: "",
   userEmailId: "",
   userFirstName: "",
-  userLastName: ""
-}
+  userLastName: "",
+  userHashId:"",
+  franchiseId: "",
+  franchiseName: "",
+  isHeadquarter: ""
+};
 
-
+var kGlobalFbPostDataObject = {imgNameToPost: "",
+    accessToken: "",
+    postText: "",
+    title: "",
+    url: "",
+    description: "",
+    imageType: ""
+};
+var kGlobalUserObject ={hasMultipleCompany:false};
+var kGlobalPopupFlagsObject = {emailUnsubscribe:false};

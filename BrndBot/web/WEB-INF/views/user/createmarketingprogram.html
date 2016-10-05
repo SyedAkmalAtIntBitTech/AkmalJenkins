@@ -2,12 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
         <title>BrndBot - Marketing Programs lists</title>
+        <!--<link rel="import" href="header.html">-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-animate.min.js"></script>
         <link rel="stylesheet" href="../css/pikaday.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/custom.css" />
         <script src="../js/utilities/moment.js" type="text/javascript"></script>
         <script src="../js/utilities/pikaday.js"></script>
         <script src="../js/utilities/timepicki.js" type="text/javascript"></script>
@@ -35,6 +38,7 @@
         <script src="../js/factory/companyMarketingFactory.js" type="text/javascript"></script>
         <script src="../js/factory/externalContentFactory.js" type="text/javascript"></script>
         <script src="../js/factory/marketingRecurringEmailController.js" type="text/javascript"></script>
+        <script src="../js/factory/onboardingFactory.js" type="text/javascript"></script>
         <script src="../js/factory/appSessionFactory.js" type="text/javascript"></script>
         <script src="../js/controller/marketingController.js" type="text/javascript"></script> 
         <script src="../js/controller/routing.js" type="text/javascript"></script>
@@ -47,6 +51,8 @@
         <link href="../css/jquerygrowl.css" rel="stylesheet" type="text/css"/>
         <script src="../js/utilities/jquerygrowl.js" type="text/javascript"></script>
         <script src="../js/utilities/models.js" type="text/javascript"></script>
+        <script src="../js/factory/blockModelFactory.js" type="text/javascript"></script>
+        <script src="../js/utilities/utility.js" type="text/javascript"></script>
          <style>
         #pastprogs,#delmarkprog{display: none;}
     </style>
@@ -97,13 +103,16 @@
             <script src="../js/tinymce.min.js" type="text/javascript"></script>
 </head>    
 
-    <body ng-app="marketingFlowApp" class="body-normal" ng-controller="marketingController" id="marketingController">
-   <script type="text/ng-template"></script> 
-    <input type="hidden" ng-model="marketingCategoryId" value="{{marketingCategoryId}}"/>
-    <div ng-include src="'genericpopup.html'"></div>
-    <div ng-include src="'navbar.html'"></div> 
-    <div ng-view></div>  
-    <!--Main Content Wrap-->    
+<body ng-app="marketingFlowApp" class="body-normal" ng-controller="marketingController" id="marketingController">
+    <script type="text/ng-template"></script> 
+    <div class="bb-app-frame">
+      <div class="bb-main-app-wrap" >
+          <input type="hidden" ng-model="marketingCategoryId" value="{{marketingCategoryId}}"/>
+          <div ng-include src="'genericpopup.html'"></div>
+          <div ng-include src="'navbar.html'"></div> 
+          <div ng-view class="bb-main-container-wrap"></div>  
+      </div>
+    </div>
 </body>
     
 

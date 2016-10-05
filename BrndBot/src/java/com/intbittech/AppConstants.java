@@ -32,15 +32,22 @@ public class AppConstants {
     public static final Integer Datedifference = 172800000;
     public static final Integer UserRoleManagerValue = 2;
     public static final Integer UserRoleTempManagerValue = 3;
+    public static final Integer UserRoleAccountOwnerValue = 5;
+    public static final String SignUpStatusIncomplete = "Incomplete";
+    public static final String SignUpStatuscomplete = "complete";
     public static final String Invite_Sent = "Invite Sent";
-    public static final String Invite_Success = "Invite Success";
+    public static final String Invite_Accepted = "Invite Accepted";
     public static final String Account_Activated = "Activated";
     public static final String Account_Deactivated = "Deactivated";
+    public static final String User_Status_New = "New User";
+    public static final String User_Status_Existing = "Existing User";
     
     public static final String BASE_IMAGE_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "images";
     public static final String BASE_IMAGE_COMPANY = BASE_IMAGE_UPLOAD_PATH + File.separator + "companies";
     public static final String twitterString1 = "K7TJ3va8cyAeh6oN3Hia91S2o";
     public static final String twitterString2 = "IWUt2aDVTHgUc8N0qI0cF1Z1dTAEQ7CSgnBymZNr3BPSmtkNHL";
+    public static String KSendGridAPIKey = "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";
+
 //........ BrndBot fb App configuration.....uncomment for production server..../
 /*   
     public static final String facebookString1 = "592852577521569";

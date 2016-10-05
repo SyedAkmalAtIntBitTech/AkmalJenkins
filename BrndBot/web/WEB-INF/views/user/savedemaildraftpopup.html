@@ -1,4 +1,5 @@
-<div id="fade"  class="black_overlay">
+<div id="fade"  class="black_overlay" ng-click="closeSavedEmailDraftPopup()">
+</div>
     <div id="emaildraftpopup" ng-show="savedEmailDraftPopup" class="overlay-wrap">
         <div class="detail-overlay-content">
             <div class="header" id="emailtopnav">
@@ -15,7 +16,7 @@
                         <p>All data will be erased and you will lose any saved emails and posts</p>
                         <div class="cta-wrapper">
                             <a ng-click="clickedDeleteAction = false" href="" class="cancel-button">Cancel</a>
-                            <a ng-click="deleteDrafts('delete',id);" href="" class="delete-button">Delete</a>
+                            <a ng-click="clickedDeleteAction = false;deleteDrafts('delete',id);" href="" class="delete-button">Delete</a>
                         </div>
                     </div>
                 </div>
@@ -45,5 +46,4 @@
             </div>
         </div>
     </div> 
-</div>
 

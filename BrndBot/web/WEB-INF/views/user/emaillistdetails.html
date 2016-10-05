@@ -6,107 +6,106 @@
 </style>
 <div ng-init="checkEmailList()">
 <div class="content-main" ng-if="showEmailListDetails" >
-    <div ng-show="overlayFade" id="fade" class="black_overlay"></div> 
+    <div ng-show="overlayFade" id="fade" class="black_overlay"  ng-click="closeAddContactPopup()"></div> 
     <div ng-include src="'addcontact.html'"></div> 
     <input type="hidden" id="get_list_name" value="{{emailListName}}"/>
     <input type="hidden" id="get_type" value="{{type}}"/>   
     
     <!--Top Nav-->
-    
-    <div class="top-nav-wrap">
-        <div class="header">
-            <a class="back-button" href="basemarketinghub#/emaillist" ></a>
-            <h2>{{emailListName}}</h2>
-            <div class="top-nav-cta-container">
-                <a id="unselect" href="" class="gray-button reg-button pushright fleft" ng-show="deSelectCheckboxButton">
-                    <div class=" md-button" ng-click="deSelectCheckbox()"> Unselect Contacts</div>    
-                </a>
-                <a href="" id="delcontact" class="delete-button reg-button fleft" ng-show="selectCheckboxButton">
-                    <div class=" md-button" ng-click="deleteSelected()"> Delete Contact</div>    
-                </a>
-                <a href="javascript:void(0)" class="fleft">
-                     <div id="addcontact" class="add-button reg-button" ng-click="addContactDetails('add','','','','')"> Add Contact</div>    
-                </a>
-            </div>
-        </div>
-        <div class="top-sub-nav">
-            <ul class="sub-nav-tab-wrap with-back-button">
-                <li class="sub-nav-tab " id="emailListli" ng-click="showUpdateList()">
-                     <a id="emailLists" ng-class="activeEmailListContacts">Email List Contacts</a>
-                </li>
-                <li class="sub-nav-tab" id="importListli" ng-click="showAddContacts()">
-                    <a id="importList" ng-class="activeImportContacts">Import Contacts</a>
-                </li>
-
-            </ul>
-        </div>
+    <div class="bb-top-nav">
+    <div class="bb-bar-left-wrap bb-one-third-flex-col">
+        <a href="basemarketinghub#/emaillist" class="bb-back-button"></a>
+        <h3 class="bb-top-nav-title">{{emailListName}}</h3>
+    </div>       
+   
+    <div class="bb-bar-right-wrap bb-one-third-flex-col">
+        <a id="unselect" href="" class="gray-button reg-button pushright fleft" ng-show="deSelectCheckboxButton">
+            <div class=" md-button" ng-click="deSelectCheckbox()"> Unselect Contacts</div>    
+        </a>
+        <a href="" id="delcontact" class="delete-button reg-button fleft" ng-show="selectCheckboxButton">
+            <div class=" md-button" ng-click="deleteSelected()"> Delete Contact</div>    
+        </a>
+        
     </div>
-    
-    <div class="top-nav-bar-offset"></div>
-    <div class="top-subnav-bar-offset"></div>
-    
+</div>
+
+        <div class="bb-top-sub-nav bb-top-sub-nav-backbutton-offset">
+           <div class="bb-top-sub-nav-tab"  id="emailListli" ng-click="showUpdateList()"><a  ng-class="activeEmailListContacts">Email List Contacts</a></div>
+           <div class="bb-top-sub-nav-tab"  id="importListli" ng-click="showAddContacts()"><a id="importList" ng-class="activeImportContacts">Add Contacts</a></div>
+        </div>
     <!--Main Content--> 
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-show="showEmailListContacts">
-    <div class="hub-pane" ng-init="updateList()">
-            <div class="hub-pane-header-wrap">
+    <div class="bb-main-content-wrap bb-main-content-wrap-emaillist bb-main-content-wrap-padding" ng-show="showEmailListContacts">
+    <div class="bb-panel-full-width bb-panel-styling" ng-init="updateList()">
+            <div class="bb-panel-header">
                 <h2 class="">Email List Contacts</h2>
                 <input type="text" placeholder="Search" ng-model="userSearch">
             </div>
-            <div class="hub-pane-content-wrap">
+            <div class="bb-panel-full-width bb-panel-styling-content-wrap">
                 
                 <!--Empty List-->
-                <div class="hub-empty-wrap" ng-show="email.emailAddress == '' && type == 'user'">No Contacts in List</div>
-                
+                <div class="hub-empty-wrap" ng-show="noContacts">No Contacts in List</div>
+                <div class="external-data-loading-wrap" ng-show="hideGifImage">
+                        <div class="external-data-loading-block">
+                            <div class="loader"></div>
+                            <div class="loader-description">Loading your content</div>
+                        </div>
+                </div>
                
-                <div class="hub-slat-list-wrap" >
+                <div class="bb-slat-list-wrap" >
+                    <div class="external-data-loading-wrap" ng-if="showDataLoader">
+                        <div class="external-data-loading-block">
+                            <div class="loader"></div>
+                            <div class="loader-description">Loading your content</div>
+                        </div>
+                    </div>
                     
                       <!--User Created List-->
-                    <div class="slat" ng-repeat="email in user_emailAddresses | filter:userSearch">
+                    <div class="bb-slat" ng-repeat="email in user_emailAddresses | filter:userSearch">
                         <div class="selection-container col-5p fleft"> 
-                            <div class="selection-icon" id="{{email.id}}" ng-click="selectedEmailListCheckbox(email.id)">
-                                <input type="checkbox" id="emailid{{email.emailAddress}}" value="{{email.emailAddress}}" name="emaillistname" hidden></input>
+                            <div class="selection-icon" id="{{email.contactLookupId}}" ng-click="selectedEmailListCheckbox(email.contactLookupId)">
+                                <input type="checkbox" id="emailid{{email.fkContactId.emailAddress}}" value="{{email.fkContactId.emailAddress}}" name="emaillistname" hidden></input>
                             </div>
                         </div>                 
                         <div class="slat-name-wrap">
-                            <h2>{{email.emailAddress}}</h2>
+                            <h2>{{email.fkContactId.emailAddress}}</h2>
                             <p>Added {{email.addedDate| date:'  M/dd/yyyy'}}</p>
                         </div>
-                         <div class="slat-detail" ng-show="email.firstName != ''">
-                             <h2 class="overflowclass">{{email.firstName}}</h2>
+                         <div class="slat-detail" ng-show="email.fkContactId.firstName != ''">
+                             <h2 class="overflowclass">{{email.fkContactId.firstName}}</h2>
                             <p>First Name</p>
                         </div>
-                         <div class="slat-detail" ng-show="email.lastName != ''">
-                             <h2 class="overflowclass">{{email.lastName}}</h2>
+                         <div class="slat-detail" ng-show="email.fkContactId.lastName != ''">
+                             <h2 class="overflowclass">{{email.fkContactId.lastName}}</h2>
                             <p>Last Name</p>
                         </div>
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">                           
-                                <a href="" class="reg-button slat-detail-button" ng-click="addContactDetails('update',email.emailAddress,email.id,email.firstName,email.lastName)">Edit Contact</a>
+                                <a href="" class="reg-button slat-detail-button" ng-click="addContactDetails('update',email.fkContactId.emailAddress,email.fkContactId.contactId,email.fkContactId.firstName,email.fkContactId.lastName,email.addedDate)">Edit Contact</a>
                             </div>
                         </div>
                     </div>
                     
                     <!--MINDBDOY Connected Email List-->
                     <div class="slat" ng-repeat="email in mindbody_emailAddresses">
-                        <div class="selection-container col-5p fleft" id="hideformindbdy"> 
-                        </div>                 
+<!--                 <div class="selection-container col-5p fleft" id="hideformindbdy"> 
+                        </div>                 -->
                         <div class="slat-name-wrap">
-                            <h2>{{email.emailAddress}}</h2>
+                            <h2>{{email.fkContactId.emailAddress}}</h2>
                             <p>Added {{email.addedDate| date:'  M/dd/yyyy'}}</p>
                         </div>
-                         <div class="slat-detail" ng-show="email.firstName !== ''">
-                            <h2>{{email.firstName}}</h2>
+                         <div class="slat-detail" ng-show="email.fkContactId.firstName !== ''">
+                            <h2>{{email.fkContactId.firstName}}</h2>
                             <p>First Name</p>
                         </div>
-                         <div class="slat-detail" ng-show="email.lastName !== ''">
-                            <h2>{{email.lastName}}</h2>
+                         <div class="slat-detail" ng-show="email.fkContactId.lastName !== ''">
+                            <h2>{{email.fkContactId.lastName}}</h2>
                             <p>Last Name</p>
                         </div>
-                        <div class="slat-detail-wrap">
+<!--                        <div class="slat-detail-wrap">
                             <div class="slat-detail">
-                                <a href="" class="reg-button slat-detail-button" ng-click="addContactDetails('update',email.emailAddress,email.id,email.firstName,email.lastName)">Edit Contact</a>
+                                <a href="" class="reg-button slat-detail-button" ng-click="addContactDetails('update',email.emailAddress,email.contactId,email.firstName,email.lastName)">Edit Contact</a>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -114,12 +113,14 @@
         </div>
     
     <!-- Import Contacts-->   
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" id="tab4" class="hide">
-            <div class="hub-pane">
-            <div class="hub-pane-header-wrap">
+    <div class="bb-panel-full-width bb-panel-styling-content-wrap" id="tab4" class="hide">
+            <div class="bb-panel-full-width bb-panel-styling">
+            <div class="bb-panel-header">
                 <h2 class="">Import Email Addresses into {{emailListName}}</h2>
+                <div id="addcontact" class="bb-button add-button" ng-click="addContactDetails('add','','','','')"> Add Contact</div>
             </div>
-            <div class="hub-pane-content-wrap" >
+            <div class="bb-panel-full-width bb-panel-styling-content-wrap" >
+                
                 <div id="emailsubjectdiv">
            
 

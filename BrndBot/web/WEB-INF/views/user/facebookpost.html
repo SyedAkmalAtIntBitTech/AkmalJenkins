@@ -1,22 +1,27 @@
-<div class="main-content-wrap" ng-init="fbTwitterinit()">
-   
-    <div class="top-nav-wrap" ng-init="checkForCode()">
-        <div class="header">
-            <a class="back-button" href="socialsequence#/socialsequence"></a>
-            <h2 class="">Create a Facebook Post</h2>
-        </div>
+ 
+ <div class="bb-top-nav" ng-init="checkForCode()" ng-init="fbTwitterinit()">
+    <div class="bb-bar-left-wrap bb-one-third-flex-col">
+        <a href="socialsequence#/socialsequence" class="bb-back-button"></a>
+        <h3 class="bb-top-nav-title">Create a Facebook Post</h3>
     </div>
-    <div class="top-nav-bar-offset"></div>
-    <div class="content-wrap content-wrap-padding content-wrap-with-continue-bar">
-        <div class="modal-pane modal-pane-social-sequence">
-            <div class="modal-pane-header-wrap">
+    <div class="bb-bar-center-wrap bb-one-third-flex-col">
+      
+    </div>
+    <div class="bb-bar-right-wrap bb-one-third-flex-col">
+        <div class="bb-help-icon">help icon</div>
+    </div>
+</div>
+   
+    <div class="bb-main-content-wrap bb-main-content-wrap-padding">
+        <div class="bb-panel-styling bb-panel-default bb-center-horiz-panel">
+            <div class="bb-panel-header">
                 <h2>Facebook Post</h2>
             </div>
-            <div class="modal-pane-content-social-sequence">
+            <div class="bb-panel-content-wrap">
                 <div class="input-wrap">
                     <label> What would you like to share? </label>
                     <div class="input ">
-                        <textarea class="fluid facebook-post-textarea" placeholder="Type post here" id="shareText" ng-model="fbPostData.shareText"></textarea>
+                        <textarea class="fluid facebook-post-textarea" placeholder="Type post here" id="shareText" ng-model="fbPostData.shareText" ng-class="{'invalid-input': fbPostData.shareText === '' || null}"></textarea>
                     </div>
                     <span class="validationAlert" ng-if='fbPostData.shareText === "" || null'>{{facebookPostValidation}}</span>
 
@@ -26,7 +31,7 @@
                     <div class="input-wrap">
                         <label> Link Title </label>
                         <div class="input ">
-                            <input placeholder="Type post here" id="linkTitle" ng-model="fbPostData.linkTitle" class="fluid"></input>
+                            <input placeholder="Type post here" id="linkTitle" ng-model="fbPostData.linkTitle" class="fluid" ng-class="{'invalid-input': fbPostData.linkTitle === '' || null}"></input>
                         </div>
                         <span class="validationAlert" ng-if='fbPostData.linkTitle === "" || null'>{{facebookLinkValidation}}</span>
 
@@ -34,7 +39,7 @@
                     <div class="input-wrap">
                         <label> Enter a Link Description </label>
                         <div class="input ">
-                            <textarea placeholder="Type post here" id="linkDescription" ng-model="fbPostData.linkDescription" type="text" class="fluid"></textarea>
+                            <textarea placeholder="Type post here" id="linkDescription" ng-model="fbPostData.linkDescription" type="text" class="fluid"  ng-class="{'invalid-input': fbPostData.linkDescription === '' || null}"></textarea>
                         </div>
                         <span class="validationAlert" ng-if='fbPostData.linkDescription === "" || null'>{{facebookDescriptionValidation}}</span>
 
@@ -42,7 +47,7 @@
                     <div class="input-wrap">
                         <label>Choose a Link</label>
                         <div class="input " id='urlDropDownSpan' ng-init="getUrls()">
-                            <div dropdown-select="ddSelectlinkUrlsOptions" dropdown-model="ddSelectlinkUrls" dropdown-onchange="getSelectedUrl(selected)"></div>
+                            <div dropdown-select="ddSelectlinkUrlsOptions" dropdown-model="ddSelectlinkUrls" dropdown-onchange="getSelectedUrl(selected)"  ng-class="{'invalid-input': ddSelectlinkUrls === '' || null}"></div>
                             <p class="input-label">If you have a custom link write it below</p>
                         </div>
 
@@ -50,7 +55,7 @@
                     <div class="input-wrap">
                         <label>Write a Custom Link</label>
                         <div class="input ">
-                            <input id="facebooklink" class="fluid" placeholder="http://www.brndbot.com" ng-model="fbPostData.url"></input>
+                            <input id="facebooklink" class="fluid" placeholder="http://www.brndbot.com" ng-model="fbPostData.url" ng-class="{'invalid-input': fbPostData.url === '' || null}"></input>
                         </div>
                         <span class="validationAlert" ng-if='fbPostData.url === "" || null'>{{customLinkValidation}}</span>
 
@@ -65,13 +70,13 @@
                 <div class="Add-Image-Button"> Add Image to Post</div>
             </div>
             <div ng-show="twitterImageDivToPost" class="Social-Add-Image-Wrap " >
-                <span class="clickable-area" ng-click="show_hide_ImageGalleryPopup(true)">
-                    <img  src="/BrndBot/images/add-Image.svg" ng-model="twitterShare.img" class="add-image-icon fleft" style="cursor:pointer;">
-                    <div class="Add-Image-Button fleft">
+               
+                   
+                    <div class="bb-button bb-secondary-action-button" ng-click="show_hide_ImageGalleryPopup(true)">
                         Change Image
                     </div>
-                </span>
-                <span class="clickable-area magginLeftAuto" ng-click="openAviaryEditor('selectedImage')"> edit image</span>
+             
+                <div class="bb-button bb-secondary-action-button" ng-click="openAviaryEditor('selectedImage')"> Edit Image</div>
             </div>
             <div ng-show="twitterImageDivToPost" class="Social-Add-Image-Wrap-with-img " id="addImageDivToTwitterPost">
                 <img ng-src="{{displayImage}}" ng-model="fbPostData.img = displayImage" alt="alt_text" border="0" align="center" id="selectedImage" class="imageAdded">
@@ -80,13 +85,14 @@
 
         </div>
     </div>
-        <div class="continue-bar-offset"></div>
-</div>
-<div class="continue-bar">
-    <!--<a id="continue-bar-button" class="fright" ng-click="openPostOrShedulePopup('facebook', fbPostData)">CONTINUE</a>-->
-     <a id="continue-bar-button" class="fright" ng-click="getManagePage('facebook', fbPostData)">CONTINUE</a>
-</div>
- <div ng-include="'facebookmanagepages.html'"></div>
+      
+<div class="bb-bottom-cta-bar">
+        <a class="bb-bottom-cta-continue-button"  ng-class="{'valid' : fbPostData.shareText.length > 0}" ng-click="getManagePage('facebook', fbPostData)" >
+            <div class="bb-bottom-cta-continue-button-text">Continue</div>
+            <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
+        </a>
+    </div>
+
 <div ng-include src="'schedulepopup.html'"></div>
 <div ng-include src="'sendorschedulepopup.html'"></div>
 <div ng-include src="'sociallistselection.html'"></div>

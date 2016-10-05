@@ -5,27 +5,26 @@
  */
 package com.intbittech.dao.impl;
 
-import com.intbittech.dao.CategoryDao;
 import com.intbittech.dao.FranchiseCompanyLookupDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.Category;
 import com.intbittech.model.Company;
 import com.intbittech.model.Franchise;
 import com.intbittech.model.FranchiseCompanyLookup;
-import com.intbittech.model.Users;
 import java.util.List;
+import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
 /**
- * <code> {@link CategoryDaoImpl} </code> is implementation of
- * {@link CategoryDao} and perform the database related operation for managing
- * {@link Category}
+ * <code> {@link FranchiseCompanyLookupDaoImpl} </code> is implementation of
+ * {@link FranchiseCompanyLookupDao} and perform the database related operation for managing
+ * {@link FranchiseCompanyLookup}
  *
  * @author Ajit
  */
@@ -35,6 +34,8 @@ public class FranchiseCompanyLookupDaoImpl implements FranchiseCompanyLookupDao 
     private static Logger logger = Logger.getLogger(FranchiseCompanyLookupDaoImpl.class);
     @Autowired
     private SessionFactory sessionFactory;
+    @Autowired
+    private MessageSource messageSource;
 
     @Override
     public List<Company> getCompanyForFranchiseId(Franchise franchise) throws ProcessFailed {
@@ -138,7 +139,7 @@ public class FranchiseCompanyLookupDaoImpl implements FranchiseCompanyLookupDao 
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(FranchiseCompanyLookup.class)
                     .setFetchMode("fkFranchiseId", FetchMode.JOIN)
-                    .add(Restrictions.eq("isHeadQuarter", true))
+                    .add(Restrictions.eq("isHeadquarter", true))
                     .add(Restrictions.eq("fkFranchiseId.franchiseId", franchiseId));
             if (criteria.list().isEmpty()) {
                 return null;
@@ -148,6 +149,28 @@ public class FranchiseCompanyLookupDaoImpl implements FranchiseCompanyLookupDao 
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed("Database error while retrieving record");
+        }
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public FranchiseCompanyLookup getFranchiseByCompanyId(Integer companyId) throws ProcessFailed {
+         try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(FranchiseCompanyLookup.class)
+                    .setFetchMode("fkFranchiseId", FetchMode.JOIN)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkCompanyId.companyId", companyId));
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return (FranchiseCompanyLookup) criteria.list().get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
 
     }

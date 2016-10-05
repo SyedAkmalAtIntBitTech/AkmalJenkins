@@ -1,23 +1,17 @@
-   <div class="main-content-wrap">
-  
-     
+    <div ng-include src="'genericpopup.html'"></div>
     <div ng-include src="'marketinghubnavigation.html'"></div>
-      <div class="top-nav-bar-offset"></div>
-    <div class="top-subnav-bar-offset"></div>
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav">
-        <div class="hub-pane" ng-init="displayEmailHistory()">
-            <div class="hub-pane-header-wrap">
+    <div class="bb-main-content-wrap bb-main-content-wrap-padding">
+        <div class="bb-panel-full-width bb-panel-styling" ng-init="displayEmailHistory()">
+            <div class="bb-panel-header">
                 <h2 class="">Email History</h2>
                 <input type="text" class="search-bar" placeholder="Search" ng-model="userSearch"  ng-show="email_history.length > 0">
             </div>
-            <div class="hub-pane-content-wrap" ng-show="email_history.length == 0">
-                <div class="hub-empty-wrap">No email history present</div>
+           
+            <div class="bb-panel-empty-state-wrap" ng-hide="email_history.length > 0" >
+                <h2 class="bb-panel-empty-state-text">You have no email history. Try sending your first email!</h2>  
             </div>
-            <div class="hub-pane-content-wrap" ng-show="email_history.length > 0 ">
-                
-                <div class="hub-slat-list-wrap">
-                    <div class="slat" ng-repeat="email in email_history | filter:userSearch">
-                  
+            <div class="bb-panel-content-wrap" ng-show="email_history.length > 0 ">
+                    <div class="bb-slat" ng-repeat="email in email_history | filter:userSearch" ng-click="getHistoryDetails(email)">
                         <div class="slat-name-wrap">
                             <h2>{{email.tag}}</h2>
                         </div>
@@ -43,8 +37,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+      
             </div>
         </div>
     </div>
-</div>
