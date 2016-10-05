@@ -5129,6 +5129,7 @@ textarea.task-textarea:focus{
     flex-basis: auto;
     width: 100%;
     overflow-y: scroll;
+    height: calc(100vh - 100px);
 }
 
 .bb-main-content-wrap-padding{
