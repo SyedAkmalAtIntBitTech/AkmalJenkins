@@ -5168,6 +5168,16 @@ textarea.task-textarea:focus{
     margin: auto;
 }
 
+.sentEmailDetailsPopupClass{
+     display: block;
+     margin-right: 0px !important;
+}
+
+#email_previewdiv {
+    position: fixed;
+    margin-top: 5%;
+    z-index: 99999;
+}
 .bb-panel-email-automation-preview{
     width: 1200px;
     margin: auto;
