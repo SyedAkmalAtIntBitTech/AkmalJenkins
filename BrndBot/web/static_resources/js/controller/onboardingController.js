@@ -123,6 +123,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                     var userId = data.d.message;
                     appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                         kGlobalCompanyObject.userId = userId;
+                        $scope.userId = userId;
                         appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
                             if (data) {
                                 $("#signform").submit();
