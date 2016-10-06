@@ -42,6 +42,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.changeUsers = false;
         $scope.companyName = "";
         $scope.editSavedEmail = false;
+        this.tab = 1;
 
         $scope.companyAddressDetails = {};
         $scope.marketingFlowObject=kEmailFlowObject;
@@ -66,7 +67,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 value: 'Email'
             }
         ];
-
         
         $scope.ddSelectUserOptions = [ {
                 text: 'Select',
@@ -84,7 +84,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.chooseUserOnChange = function (actionValue) {
             $scope.ddSelectedUser = actionValue.value;
         };
-        
         
         $scope.getUserDetails = function () {
             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
@@ -282,17 +281,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.showPastPrograms();
             });
         };
-        $scope.showPastPrograms = function () {
-            $scope.currProgramsDiv = false;
-            $scope.pastProgramsDiv = true;
-            $scope.currentCampaignClass = '';
-            $scope.archivedCampaignClass = 'activeCampaign';
+        
+        this.selectTab = function (setTab){
+            this.tab = setTab;
         };
-        $scope.showCurrentPrograms = function () {
-            $scope.archivedCampaignClass = '';
-            $scope.currentCampaignClass = 'activeCampaign';
-            $scope.currProgramsDiv = true;
-            $scope.pastProgramsDiv = false;
+        this.isSelected = function(checkTab) {
+            return this.tab === checkTab;
         };
         
         $scope.isActive= function (tabName){

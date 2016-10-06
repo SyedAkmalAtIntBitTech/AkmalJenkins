@@ -52,6 +52,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.actionNameListValidation = actionNameListValidation;
         $scope.listValidation = listValidation;
         $scope.emailValidation = emailValidation;
+        $scope.companyAddressValidation = companyAddressValidation;
+        $scope.invalidCompanyAddressValidation = invalidCompanyAddressValidation;
         $scope.addressLine1Validation = addressLine1Validation;
         $scope.addressLine2Validation = addressLine2Validation;
         $scope.cityValidation = cityValidation;
@@ -723,38 +725,65 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.getFooterDetails = function () {
             settingsFactory.getAllPreferencesGet().then(function (data) {
                 $scope.companyAddressDetails = JSON.parse(data.d.details).companyAddress[0];
+                $scope.companyAddressDetails.companyAddress=$scope.companyAddressDetails.addressLine1+" "
+                                        +$scope.companyAddressDetails.addressLine2+", "
+                                        +$scope.companyAddressDetails.city+", "
+                                        +$scope.companyAddressDetails.state+" "
+                                        +$scope.companyAddressDetails.zipCode+", "
+                                        +$scope.companyAddressDetails.country;
                 $scope.footerDetails = JSON.parse(data.d.details).userProfile;
                 $scope.company = $scope.footerDetails;
             });
         };
 
         $scope.validateCompanyAddress = function (companyData) {
-            if (!companyData.addressLine1) {
-                $scope.companyAddressDetails.addressLine1 = "";
-                $("#addressLine1").focus();
+             if (!companyData.companyAddress) {
+                $scope.companyData.companyAddress = "";
+                $("#companyAddress").focus();
                 return false;
-            }
-            else if (!companyData.city) {
-                $scope.companyAddressDetails.city = "";
-                $("#city").focus();
-                return false;
-            } else if (!companyData.state) {
-                $scope.companyAddressDetails.state = "";
-                $("#state").focus();
-                return false;
-            } else if (!companyData.zipCode) {
-                $scope.companyAddressDetails.zipCode = "";
-                $("#zipcode").focus();
-                return false;
-            } else if (!companyData.country) {
-                $scope.companyAddressDetails.country = "";
-                $("#country").focus();
-                return false;
-            }
+                } else if (!companyData.addressline2 || !companyData.city || !companyData.state || !companyData.zipcode || !companyData.country) {
+                    $("#companyAddress").focus();
+                    return false;
+                } 
+//            if (!companyData.addressLine1) {
+//                $scope.companyAddressDetails.addressLine1 = "";
+//                $("#addressLine1").focus();
+//                return false;
+//            }
+//            else if (!companyData.addressLine2) {
+//                $scope.companyAddressDetails.addressLine2 = "";
+//                $("#addressLine2").focus();
+//                return false;
+//            }
+//            else if (!companyData.city) {
+//                $scope.companyAddressDetails.city = "";
+//                $("#city").focus();
+//                return false;
+//            } else if (!companyData.state) {
+//                $scope.companyAddressDetails.state = "";
+//                $("#state").focus();
+//                return false;
+//            } else if (!companyData.zipCode) {
+//                $scope.companyAddressDetails.zipCode = "";
+//                $("#zipcode").focus();
+//                return false;
+//            } else if (!companyData.country) {
+//                $scope.companyAddressDetails.country = "";
+//                $("#country").focus();
+//                return false;
+//            }
             return true;
         };
 
         $scope.changeFooterDetails = function (company) {
+            
+            $scope.address1 = document.getElementById('street_number').value;
+            $scope.address2 = document.getElementById('route').value;
+            $scope.city = document.getElementById('locality').value;
+            $scope.state = document.getElementById('administrative_area_level_1').value;
+            $scope.zipcode = document.getElementById('postal_code').value;
+            $scope.country = document.getElementById('country').value;
+            
             if ($scope.validateCompanyAddress(company)) {
 
                 var footerWebsiteUrl = "";
@@ -775,7 +804,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     $scope.getFooterDetails();
                 });
 
-                var companyAddress = {"addressLine1": company.addressLine1, "addressLine2": company.addressLine2, "city": company.city, "state": company.state, "zipcode": company.zipCode, "country": company.country};
+                var companyAddress = {"addressLine1": $scope.address1, "addressLine2": $scope.address2, "city": $scope.city, "state": $scope.state, "zipcode": $scope.zipcode, "country": $scope.country};
                 onboardingFactory.saveCompanyAddress(companyAddress).then(function (data) {
                     growl(companyAddressSaved);
                 });
@@ -2092,3 +2121,68 @@ emailFlowApp.directive('fileReader', function () {
         }
     };
 });
+ // This example displays an address form, using the autocomplete feature
+      // of the Google Places API to help users fill in the information.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+      var placeSearch, autocomplete;
+      var componentForm = {
+        street_number: 'long_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'long_name',
+        country: 'long_name',
+        postal_code: 'long_name'
+      };
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('companyAddress')),
+            {types: ['geocode']});
+
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
+      }
+
+      function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+        for (var component in componentForm) {
+            document.getElementById(component).value = '';
+            document.getElementById(component).disabled = false;
+        }
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+          var addressType = place.address_components[i].types[0];
+          if (componentForm[addressType]) {
+            var val = place.address_components[i][componentForm[addressType]];
+            document.getElementById(addressType).value = val;
+          }
+        }
+        var inputvalues = $('#country,#postal_code,#administrative_area_level_1,#locality,#route,#street_number');
+        inputvalues.trigger('input');
+      }
+
+      // Bias the autocomplete object to the user's geographical location,
+      // as supplied by the browser's 'navigator.geolocation' object.
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
