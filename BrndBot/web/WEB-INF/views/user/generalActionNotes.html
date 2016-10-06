@@ -14,17 +14,14 @@
 
                     <div class="detail-section half">
                         <label class="detail-section-label">Action Assignment</label>
-                        <a class="overlay-detail-input  ease-all"  ng-click = "changeUsers=true">
+                        <a class="overlay-detail-input  ease-all"  ng-click = "openChangeUserDD(true)">
                             <div class="user-badge" style="height:30px; width:30px; line-height: 30px; text-align: center; margin-right: 15px; border-radius: 30px; background-color:lightblue; font-size: 14px; font-weight: bold; color: white;">{{assignedToInitialChars}}</div>
                             <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">{{assignedFirstName}} {{assignedLastName}}</span>
                         </a>
                     </div>
-                    <div ng-show="changeUsers">
-                        <a id="addactionClose" ng-click = "changeUsers=false" class="modal-pane-header-exit"></a>
-                        <select id="assignTo">
-                            <option ng-repeat="users in allUsers" value="{{users.userId}}">{{users.userName}}</option>
-                        </select><br><br>
-                        <input type="button" id="changeUser" value="change user" ng-click="changeAssignedTo(schedule_id)"/>
+                    <div ng-show="changeUsers" class="detail-section half">
+                        <a id="addactionClose" ng-click = "openChangeUserDD(false)" class="modal-pane-header-exit"></a>  
+                        <div class="invalidDropdown" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="ChangeUserOnChange(selected)"></div>
                     </div>
     <!--
     <div id="facebooknotesection1" ng-show='generalNotes'>

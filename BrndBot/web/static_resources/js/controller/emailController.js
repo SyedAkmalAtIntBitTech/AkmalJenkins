@@ -20,6 +20,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.htmlBlockId = "defaultblock1";
         $scope.firstTemplateForBlock = "";
         $scope.addBlockCount = 0;
+        $scope.ddSelectedUser= '0';
         $scope.draftId = 0;
         $scope.randomIframeFilename = event.timeStamp;
         $scope.htmlTagId = "";
@@ -42,6 +43,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.subjectValidation = subjectValidation;
         $scope.preHeaderValidation = preHeaderValidation;
         $scope.fromNameValidation = fromNameValidation;
+        $scope.fromAddressValidation = fromAddressValidation;
         $scope.replyToValidation = replyToValidation;
         $scope.actionNameValidation = actionNameValidation;
         $scope.scheduleDateValidation = scheduleDateValidation;
@@ -62,11 +64,11 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.actionDropdown = false;
         $scope.dateLesser = false;
         $scope.validateEmailAddress = false;
-        $scope.validateEmailAddress = false;
+        $scope.validateFromEmailAddress = false;
         $scope.isEmailSaveAction = false;
         $scope.companyName = "";
         $scope.changeStyleAlert = false;
-        $scope.pushedEmail = false;
+        $scope.pushedEmail = false; 
         $scope.emailList = "";
         $scope.emailTag = 0;
         $scope.noEmailList = "";
@@ -78,6 +80,19 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         var userRoles = {};
         $scope.moreThanOneUser = false;
 
+        
+        $scope.ddSelectUserOptions = [ {
+                text: 'Select',
+                value: '0'
+            }
+        ];
+        $scope.ddSelectUser = {text: "Select"};
+        
+        
+        $scope.chooseUserOnChange = function (actionValue) {
+            $scope.ddSelectedUser = actionValue.value;
+        };
+        
         $scope.toggleAll = function() {
            var toggleStatus = !$scope.isAllSelected;
            var checked = $("#selectAll:checked").val()
@@ -1108,6 +1123,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         //            $scope.redirectBaseURL();       //this function redirects to base if page is refreshed.            
 
                     appSessionFactory.getCompany().then(function (companyObject){
+                        
                         emailListFactory.getAllEmailListNames(companyObject.companyId).then(function (data){
                             $scope.emailLists = data.d.details;
                             var emailAutomationData = $scope.emailLists;
@@ -1145,6 +1161,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 $scope.email_settings = parseData;
                 $scope.replyAddress = parseData.reply_email_address;
                 $scope.fromName = parseData.from_name;
+                $scope.fromAddress = parseData.from_address;
             });
         };
 
@@ -1393,13 +1410,52 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             $scope.emailPreviewPopup = true;
         };
 
+//        $scope.continueEmailDetailsOnClick = function () {growl($scope.draftId);
+//            $scope.emailSendPopup = true;
+//            $("#fade").show();
+//        };
 
+        $scope.sendEmailOnClick = function (fromName, fromAddress, replyAddress, toAddress) {
+
+            appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
+                var sendEmailData = {
+                    from_name: fromName,
+                    email_subject: kGlobalEmailObject.emailSubject,
+                    email_preheader: kGlobalEmailObject.preheader,
+                    email_addresses: kGlobalEmailObject.toEmailAddresses,
+                    from_email_address: fromAddress,//getDefaultEmailId(),
+                    reply_to_email_address: replyAddress,
+                    email_list: $scope.emailList,
+                    iframeName: $scope.randomIframeFilename.toString()
+                };
+                emailFactory.sendEmail(sendEmailData).then(function (data) {
+                    if (data.d.message === "true") {
+                        emailDraftFactory.deleteEmailDraftPost(kGlobalEmailObject.draftId).then(function () {
+                            if (responseText === "true")
+                            {
+                                window.location = "dashboard";
+                            }
+                        });
+                    }
+                });
+            });
+        };
 
         $scope.emailListValidation = function (postData) {
             if (postData) {
+                if (!postData.emailSubject) {
+                    $scope.emailSubject = "";
+                    $("#subject").focus();
+                    return false;
+                }
                 if (!postData.fromName) {
                     $scope.fromName = "";
                     $("#name").focus();
+                    return false;
+                }
+                if (!postData.fromAddress) {
+                    $scope.fromAddress = "";
+                    $("#fromAddress").focus();
                     return false;
                 }
                 if (!postData.replyAddress) {
@@ -1412,29 +1468,45 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         };
 
         $scope.replyEmailValidation = function (postData) {
-            var replyAddress = postData.replyAddress;
             var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-            var result = replyAddress.replace(/\s/g, "").split(/,|;/);
-            for (var i = 0; i < result.length; i++) {
-                if (!regex.test(result[i])) {
-                    $("#email").focus();
-                    $scope.validateEmailAddress = "true" + "'" + result[i] + "'";
-                    return false;
+           
+            if(postData.fromAddress){
+                var replyAddress = postData.replyAddress;
+                var result = replyAddress.replace(/\s/g, "").split(/,|;/);
+                for (var i = 0; i < result.length; i++) {
+                    if (!regex.test(result[i])) {
+                        $("#email").focus();
+                        $scope.validateEmailAddress = "true" + "'" + result[i] + "'";
+                        return false;
+                    }
                 }
+                $scope.validateEmailAddress = false;
+                return true;
             }
-            $scope.validateEmailAddress = false;
-            return true;
         };
-
+        $scope.fromAddressEmailValidation  = function (postData){
+            var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+                if (!regex.test(postData.fromAddress)) {
+                    $scope.validateFromEmailAddress = true;
+                    $("#fromAddress").focus();
+                    return false;
+                }  
+                $scope.validateFromEmailAddress = false;
+                return true;
+        };
+        
         $scope.continueEmailDetailsOnClick = function (postData) {
             if ($scope.emailListValidation(postData))
             {
-                if ($scope.replyEmailValidation(postData))
+                if ($scope.fromAddressEmailValidation(postData))
                 {
-                    $scope.schedulePopup = false;
-                    $scope.postTypeSelectionPopUp = true;
-                    $scope.postData = postData;
-                    $scope.postTo = "Send Now";
+                    if ($scope.replyEmailValidation(postData))
+                    {
+                        $scope.schedulePopup = false;
+                        $scope.postTypeSelectionPopUp = true;
+                        $scope.postData = postData;
+                        $scope.postTo = "Send Now";
+                    }
                 }
             }
         };
@@ -1462,7 +1534,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                     email_subject: $scope.postData.emailSubject,
                                     email_preheader: kGlobalEmailObject.preheader,
                                     to_email_addresses: $scope.postData.toAddress,
-                                    from_email_address: getDefaultEmailId(),
+                                    from_email_address: $scope.postData.fromAddress,//getDefaultEmailId(),
                                     reply_to_email_address: $scope.postData.replyAddress,
                                     email_list: $scope.emailList,
                                     email_body: "",
@@ -1499,7 +1571,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                 email_subject: $scope.postData.emailSubject,
                                 email_preheader: kGlobalEmailObject.preheader,
                                 to_email_addresses: $scope.postData.toAddress,
-                                from_email_address: getDefaultEmailId(),
+                                from_email_address: $scope.postData.fromAddress,//getDefaultEmailId(),
                                 reply_to_email_address: $scope.postData.replyAddress,
                                 email_list: $scope.emailList,
                                 email_body: $("#dynamictable").contents().find("html").html(),
@@ -1661,7 +1733,11 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         };
         $scope.getAllUsersInCompany = function () {
             yourPlanFactory.allUsersInCompanyGet().then(function (data) {
-                $scope.allUsers = data.d.details;
+//                $scope.allUsers = data.d.details;
+                $scope.ddSelectUserOptions = [{text: 'Select',value: '0'}];
+                for (var i = 0; i < data.d.details.length; i++) {
+                    $scope.ddSelectUserOptions.push({"text": data.d.details[i].userName, "value": data.d.details[i].userId});
+                }
             });
             yourPlanFactory.noOfUsersInCompanyGet().then(function (data) {
                 var noOfUsersInCompany = data.d.details;
@@ -1669,6 +1745,10 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     $scope.moreThanOneUser = true;
                 }
             });
+        };
+        
+         $scope.ChangeUserOnChange = function (changedValue){
+            $scope.ddSelectedUser=changedValue.value;
         };
 
         $scope.schedulePostToEmail = function (postData) {
@@ -1693,7 +1773,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         email_preheader: kGlobalEmailObject.preheader,
                         to_email_addresses: postData.toAddress,
                         email_addresses: postData.toAddress,
-                        from_email_address: getDefaultEmailId(),
+                        from_email_address: postData.fromAddress,//getDefaultEmailId(),
                         reply_to_email_address: postData.replyAddress,
                         email_list: $scope.emailList,
                         email_body: $("#dynamictable").contents().find("html").html(),
@@ -1740,9 +1820,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 });
             } else {
 
-                var userAssignToId = $("#assignTo option:selected").val();
-                if(!userAssignToId)
-                       userAssignToId = "0";
+               if (!$scope.ddSelectedUser)
+                    $scope.ddSelectedUser = "0";
                 var schedule_title = $("#ActionName").val();
                 var schedule_date = $("#actionDate").val();
 
@@ -1780,7 +1859,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         "email_preheader": kGlobalEmailObject.preheader,
                         "to_email_addresses": postData.toAddress,
                         "email_addresses": postData.toAddress,
-                        "from_email_address": getDefaultEmailId(),
+                        "from_email_address": postData.fromAddress,//getDefaultEmailId(),
                         "reply_to_email_address": postData.replyAddress,
                         "email_list": $scope.emailList,
                         program_id: $scope.selectedMarketingProgram.toString(),
@@ -1790,7 +1869,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         "schedule_desc": ",,,",
                         "iframeName": $scope.randomIframeFilename.toString(),
                         "html_body": kGlobalEmailObject.htmlBody,
-                        "userAssignedTo": userAssignToId
+                        "userAssignedTo": $scope.ddSelectedUser
                     };
                     scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
                         
@@ -1955,7 +2034,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     from_name: postData.fromName,
                     email_subject: postData.emailSubject,
                     email_addresses: postData.toAddress,
-                    from_email_address: getDefaultEmailId(),
+                    from_email_address:  postData.fromAddress,//getDefaultEmailId(),
                     reply_to_email_address: postData.replyAddress,
                     email_list: $scope.emailList.toString(),
                     iframeName: $scope.randomIframeFilename.toString()
