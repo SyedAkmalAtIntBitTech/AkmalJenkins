@@ -360,6 +360,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.assignedFirstName = user[0];
                 $scope.assignedLastName = user[1];
                 $scope.assignedToInitialChars = data.d.id;
+                $scope.getCampaigns();
                 $scope.getActionComments(scheduleId);
             });
         };

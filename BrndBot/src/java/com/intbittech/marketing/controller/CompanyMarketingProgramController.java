@@ -523,10 +523,21 @@ public class CompanyMarketingProgramController {
 
             Integer entity_id = Integer.parseInt((String) requestBodyMap.get("entity_id"));
             String template_status = (String) requestBodyMap.get("template_status");
+            String entityType = (String)requestBodyMap.get("entity_type");
+            
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             ScheduledEntityList scheduled_entity_list = scheduledEntityListService.getEntityById(entity_id);
             ActivityLogDetails activityLogDetails = new ActivityLogDetails();
-            if (template_status.equalsIgnoreCase("approved")) {
+            if (entityType.equals("Recurring Email")){
+                if (template_status.equalsIgnoreCase("approved")) {
+                    scheduled_entity_list.setStatus(TemplateStatus.approved.toString());
+                    activityLogDetails.setActivityId(IConstants.ACTIVITY_PAUSE_ACTION_ID);
+            } else if (template_status.equalsIgnoreCase("template_saved")) {
+                scheduled_entity_list.setStatus(TemplateStatus.template_saved.toString());
+                activityLogDetails.setActivityId(IConstants.ACTIVITY_PLAY_ACTION_ID);
+            }
+            }else {
+                if (template_status.equalsIgnoreCase("approved")) {
                 scheduled_entity_list.setStatus(TemplateStatus.approved.toString());
                 activityLogDetails.setActivityId(IConstants.ACTIVITY_APPROVED_ACTION_ID);
             } else if (template_status.equalsIgnoreCase("template_saved")) {
@@ -537,6 +548,8 @@ public class CompanyMarketingProgramController {
                 activityLogDetails.setActivityId(IConstants.ACTIVITY_UPDATED_TEMPLATE_ID);
             } else if (template_status.equalsIgnoreCase("no_template")) {
                 scheduled_entity_list.setStatus(TemplateStatus.no_template.toString());
+            }
+                
             }
             scheduledEntityListService.update(scheduled_entity_list);
             activityLogDetails.setScheduledEntityId(scheduled_entity_list.getScheduledEntityListId());

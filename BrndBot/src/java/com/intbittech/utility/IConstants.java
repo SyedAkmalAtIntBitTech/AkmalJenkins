@@ -100,4 +100,7 @@ public interface IConstants {
      public static final Integer ACTIVITY_APPROVED_ACTION_ID = 8;
      public static final Integer ACTIVITY_DISAPPROVED_ACTION_ID = 9;
      public static final Integer ACTIVITY_DELETED_COMMENT_ACTION_ID = 10;
+     public static final Integer ACTIVITY_PLAY_ACTION_ID = 11;
+     public static final Integer ACTIVITY_PAUSE_ACTION_ID = 12;
+     
 }
