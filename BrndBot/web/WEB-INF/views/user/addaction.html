@@ -1,8 +1,9 @@
         <link href="../css/jquerygrowl.css" rel="stylesheet" type="text/css"/>
         <script src="../js/utilities/jquerygrowl.js" type="text/javascript"></script>
-<div id="fade" ng-class="fadeClass" class="center-pop-ups">
+    <div id="fade" ng-class="fadeClass" class="center-pop-ups" ng-click="closeOverlay()">
+    </div>
     <div class="">
-        <div class="bb-panel-styling bb-panel-default" id="addAction" ng-if="addAction" ng-init="getAllUsersInCompany()">
+        <div class="bb-panel-styling bb-panel-default" id="addAction" ng-if="addAction">
             <div class="bb-panel-header">
                 <h2 class="">Create a New Action</h2>
                 <a id="addactionClose" ng-click = "closeOverlay()" class="modal-pane-header-exit"></a>
@@ -21,7 +22,12 @@
                     <div class="invalidDropdown" dropdown-select="ddSelectActionOptions" dropdown-model="ddSelectAction" dropdown-onchange="chooseActionTypeOnChange(selected)"></div>
                     <span class="validationAlert" ng-if="actionTypeValidation">{{actionDropdownValidation}}</span>
                 </div>
-                <!--<div>
+                <div class="input-wrap" ng-show="moreThanOneUser">
+                    <label>Assigned To</label>
+                    <div class="invalidDropdown" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="chooseUserOnChange(selected)"></div>
+                    <span class="validationAlert" ng-if="actionTypeValidation">{{actionDropdownValidation}}</span>
+                </div>
+<!--                <div>
                     <label>Assigned To:</label>
                     <select id="assignTo" ng-show="moreThanOneUser">
                         <option value="no assignee" selected>no assignee</option>
@@ -42,6 +48,7 @@
                                         {
                                             field: document.getElementById('datepicker'),
                                             firstDay: 1,
+                                            format: 'MM DD YYYY',
                                             minDate: new Date(2000, 0, 1),
                                             maxDate: new Date(2050, 12, 31),
                                             yearRange: [2000, 2050]
@@ -83,4 +90,3 @@
             </div>
         </div>
     </div>
-</div>

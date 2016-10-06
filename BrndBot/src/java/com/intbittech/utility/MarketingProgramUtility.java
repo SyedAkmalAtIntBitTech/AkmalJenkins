@@ -10,38 +10,28 @@ package com.intbittech.utility;
  * @author ajit @ Intbit
  */
 public class MarketingProgramUtility {
-    
-    
+
     public static String getMarketingProgramCategory(Integer marketingProgramId) {
 
-        if (marketingProgramId > 0){
-           
-            String marketingProgramCategory = IConstants.MARKETING_PROGRAM_CATEGORY + marketingProgramId;
-           
-            return  marketingProgramCategory;
-        }
-        return null;
-    }    
-    
-     public static String getMarketingProgramActionCategory(Integer marketingProgramId) {
+        String marketingProgramCategory = IConstants.MARKETING_PROGRAM_CATEGORY + marketingProgramId;
 
-        if (marketingProgramId > 0){
-           
-            String marketingProgramCategory = IConstants.MARKETING_PROGRAM__ACTION_CATEGORY + marketingProgramId;
-           
-            return  marketingProgramCategory;
-        }
-        return null;
-    }    
-     
-      public static String getMarketingProgramRecuringActionCategory(Integer marketingProgramId) {
+        return marketingProgramCategory;
 
-        if (marketingProgramId > 0){
-           
-            String marketingProgramCategory = IConstants.MARKETING_PROGRAM__RECURING_ACTION_CATEGORY + marketingProgramId;
-           
-            return  marketingProgramCategory;
-        }
-        return null;
-    }    
+    }
+
+    public static String getMarketingProgramActionCategory(Integer actionId) {
+
+        String marketingProgramCategory = IConstants.MARKETING_PROGRAM__ACTION_CATEGORY + actionId;
+
+        return marketingProgramCategory;
+
+    }
+
+    public static String getMarketingProgramRecuringActionCategory(Integer actionId) {
+
+        String marketingProgramCategory = IConstants.MARKETING_PROGRAM__RECURING_ACTION_CATEGORY + actionId;
+
+        return marketingProgramCategory;
+
+    }
 }

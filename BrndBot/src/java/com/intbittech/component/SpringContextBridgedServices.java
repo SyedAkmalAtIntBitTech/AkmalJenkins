@@ -9,6 +9,7 @@ import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.ContactsService;
 import com.intbittech.services.EmailListService;
+import com.intbittech.services.SendEmailService;
 import com.intbittech.services.UnsubscribedEmailsService;
 
 /**
@@ -21,4 +22,5 @@ public interface SpringContextBridgedServices {
     ContactsService getContactsService();
     ContactEmailListLookupService getContactEmailListLookupService();
     UnsubscribedEmailsService getUnsubscribedEmailsService();
+    SendEmailService getSendEmailService();
 }

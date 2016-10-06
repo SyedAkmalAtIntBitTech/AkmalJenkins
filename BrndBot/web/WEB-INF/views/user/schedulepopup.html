@@ -1,8 +1,9 @@
-<div class="background-pop-up" ng-init="schedulePopup = false" ng-if="schedulePopup">
-    <div class="bb-panel-default bb-panel-styling" ng-init="getAllMaketingPrograms(selectedSocialmedia)">
+<div id="schedulePopup" class="background-pop-up" ng-init="schedulePopup = false"  ng-click="hidePopup('schedulePopup');hidePopup('sendOrSchedulePopup')"  ng-if="schedulePopup">
+</div>
+    <div class="bb-panel-default bb-panel-styling sendOrSchedulePopup" ng-init="getAllMaketingPrograms(selectedSocialmedia)"  ng-if="schedulePopup"> 
         <div class="bb-panel-header" ng-show="pushedEmail==false">
             <h2 class="">Send or Schedule</h2>
-            <a class="modal-pane-header-exit" ng-click="hidePopup('schedulePopup')"></a>
+            <a id="schedulePopupClose" class="modal-pane-header-exit" ng-click="hidePopup('schedulePopup')"></a>
         </div>
         <div class="bb-panel-header" ng-show="pushedEmail">
             <h2 class="">Create a pushed action</h2>
@@ -53,7 +54,12 @@
                 <span class="validationAlert" ng-if='actionName === "" || null' >{{actionNameValidation}}</span>
 
             </div>
-            <!--<div ng-init="getAllUsersInCompany()">
+            <div class="input-wrap" ng-show="moreThanOneUser" ng-init="getAllUsersInCompany()">
+                <label>Assigned To</label>
+                <div class="invalidDropdown" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="chooseUserOnChange(selected)"></div>
+                <span class="validationAlert" ng-if="actionTypeValidation">{{actionDropdownValidation}}</span>
+            </div>
+<!--            <div ng-init="getAllUsersInCompany()">
                 <label>Assigned To</label>
                 <div>
                     <select id="assignTo" ng-show="moreThanOneUser">
@@ -71,6 +77,7 @@
                             var picker = new Pikaday(
                                     {
                                         field: document.getElementById('actionDate'),
+                                        format: 'MM DD YYYY',
                                         firstDay: 1,
                                         minDate: new Date(2000, 0, 1),
                                         maxDate: new Date(2050, 12, 31),
@@ -107,4 +114,3 @@
             <a class="long-button blue-button">{{scheduleButtonData}}</a>
         </div>
     </div>
-</div>

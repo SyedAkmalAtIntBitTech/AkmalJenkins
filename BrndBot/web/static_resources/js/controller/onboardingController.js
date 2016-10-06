@@ -350,7 +350,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                     var userIdvalue = kGlobalCompanyObject.userId;
                     var companyDetails = {"userId": userIdvalue, "companyName": $scope.companyName, "organizationId": $scope.organizationId};
-                    
+
                     onboardingFactory.saveCompanyPost(companyDetails).then(function (data) {
                         var companyId = data.d.message;alert(companyId);
                         if (parseInt(companyId) == 0) {
@@ -383,7 +383,8 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                             var companyAddressDetails = {"companyId":kGlobalCompanyObject.companyId,"addressLine1":$scope.address1,"addressLine2":$scope.address2,
                                             "city":$scope.city,"state":$scope.state,"zipcode":$scope.zipcode,"country":$scope.country }; 
                                         
-                            onboardingFactory.saveCompanyAddress(companyAddressDetails).then(function (data){alert(JSON.stringify(data));});
+                            onboardingFactory.saveCompanyAddress(companyAddressDetails).then(function (data){//alert(JSON.stringify(data));
+                                });
 //                            appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
                             //TODO Set the companyId in Auth factory file
                             $location.path("/signup/datasource");
@@ -451,7 +452,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         };
 
         $scope.getAccountStatus = function (companyDetails) {
-
+            
             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                 kGlobalCompanyObject.userId = companyDetails.userId;
                 kGlobalCompanyObject.companyId = companyDetails.companyId;
@@ -478,7 +479,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                            $scope.hideDataOverlay = false;
                         });
                     }
-
                 });
 
             });

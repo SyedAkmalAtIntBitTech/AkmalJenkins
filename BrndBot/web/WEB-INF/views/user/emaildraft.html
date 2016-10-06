@@ -8,6 +8,14 @@
              <div class="bb-panel-empty-state-wrap"  ng-show="emaildraftnumber === '0'" >
                 <h2 class="bb-panel-empty-state-text">You have no email drafts.</h2>  
             </div>
+            <div class="bb-panel-empty-state-wrap" ng-if="showDataOverlay">
+                    <div class="external-data-loading-wrap">
+                        <div class="external-data-loading-block">
+                            <div class="loader"></div>
+                            <div class="loader-description">Loading your content</div>
+                        </div>
+                    </div>
+            </div>
             <div class="bb-panel-content-wrap" ng-show="emailDraftDetails">
                 <!--<div class="hub-empty-wrap" ng-show="emaildraftnumber === '0'"><div class="slat" ><div class="selection-container col-5p" id="deleteids"> {{emaildraftsstatus}}</div></div></div>-->
                     <div class="bb-slat" id="li{{drafts.id}}" ng-repeat="drafts in emaildrafts | filter:userSearch" ng-click="showDraftPopup(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.editdate, drafts.subcategoryid, drafts.mindbodyid, drafts.lookupid)">
