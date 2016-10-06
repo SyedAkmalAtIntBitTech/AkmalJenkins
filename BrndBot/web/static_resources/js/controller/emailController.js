@@ -2,16 +2,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         
         
     // default scope variables can't be in model.js
-        $scope.objectParameter = {  redirect: "",
-                                    categoryId: "",
-                                    subCategoryId: "",
-                                    mindbody: "",
-                                    lookupId: "",
-                                    mindbodyId: "",
-                                    draftId: "",
-                                    emailSubject: "",
-                                    preHeader: ""
-                                };
+        $scope.objectParameter = kEmailFlowObject;
         $scope.footerEmailPopup = false;
         $scope.emailChannelId = 3;
         $scope.printChannelId = 2;
@@ -104,7 +95,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     $scope.objectParameter.draftId= kGlobalEmailObject.draftId;
                     $scope.objectParameter.emailSubject= kGlobalEmailObject.emailSubject;
                     $scope.objectParameter.preHeader= kGlobalEmailObject.preheader;
-                    $scope.redirectNew();
+                    $scope.redirect();
                 }
                 if (!kGlobalEmailObject.emailScheduleId) {
                     companyMarketingProgramFactory.getAllUserMarketingProgramsSessionIdGet().then(function (urlList) {
@@ -197,7 +188,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             return true;
         };
         
-        $scope.redirectNew = function () {
+        $scope.redirect = function () {
             
             //preHeader kept hidden so sending empty value
             $scope.objectParameter.preHeader = "";
@@ -885,7 +876,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                         if (responseText != "0") {
                                             $scope.objectParameter.redirect='emaillistselection';
                                             $scope.objectParameter.draftId = responseText;
-                                            $scope.redirectNew();
+                                            $scope.redirect();
                                             //                                document.location.href = "emaillistselection?draftid=" + responseText + "&subject=" + sessionMap["emailSubject"] + "&iframeName=" + $scope.randomIframeFilename + "&categoryId=" + categoryId + "&subCategoryId=" + subCategoryId + "&emailSubject=" + email_subject + "&mindbodyId=" + mindbodydata + "&LookupId=" + LookupId;
                                         } else {
                                             growl("There was a problem while saving the draft! Please try again later.");
@@ -911,7 +902,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                             $scope.objectParameter.redirect='emaillistselection';
                                             $scope.objectParameter.categoryId=kGlobalEmailObject.categoryId;
                                             $scope.objectParameter.draftId=kGlobalEmailObject.draftId;
-                                            $scope.redirectNew();
+                                            $scope.redirect();
                                         } else {
                                             growl("There was a problem while saving the draft! Please try again later.");
                                         }
@@ -922,7 +913,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                 appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {
                                 });
                                 $scope.objectParameter.redirect='emaillistselection';
-                                $scope.redirectNew();
+                                $scope.redirect();
                             }
                         });
                     });

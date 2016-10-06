@@ -9,17 +9,17 @@
                     </div>  
                 </div>
                 <div ng-show="pageName === 'emailcategory'" ng-repeat="category in displayAllCategories">
-                    <div class="bb-clickable-slat" ng-click="redirectNew(objectParameter.categoryId=category.categoryId,objectParameter.mindbody='nonmindbody');">                   
+                    <div class="bb-clickable-slat" ng-click="objectParameter.categoryId=category.categoryId;objectParameter.mindbody='nonmindbody';redirect();">                   
                         <h3>{{category.categoryName}}</h3>                    
                     </div>
                 </div>
                 <div ng-show="pageName === 'emailsubcategory'" ng-repeat="subcategory in displayAllCategories">
-                    <div class="bb-clickable-slat" ng-click="redirectNew(objectParameter.subCategoryId=subcategory.subCategoryId,objectParameter.mindbody=subcategory.externalSourceName,objectParameter.lookupId=subcategory.externalSourceKeywordLookupId);">                  
+                    <div class="bb-clickable-slat" ng-click="objectParameter.subCategoryId=subcategory.subCategoryId;objectParameter.mindbody=subcategory.externalSourceName;objectParameter.lookupId=subcategory.externalSourceKeywordLookupId;redirect();">                  
                         <h3>{{subcategory.subCategoryName}}</h3>                    
                     </div>
                 </div>
                 <div  ng-show="pageName === 'marketingPrograms'" ng-repeat="displayAllMarketingProgram in displayAllMarketingPrograms">
-                    <div class="bb-clickable-slat" id="{{displayAllMarketingProgram.marketingProgramId}}" ng-click="redirectProgram(forward, marketingCategoryId, displayAllMarketingProgram.marketingProgramId, displayAllMarketingProgram.htmlData)">
+                    <div class="bb-clickable-slat" id="{{displayAllMarketingProgram.marketingProgramId}}" ng-click="kEmailFlowObject.marketingCategoryId=marketingCategoryId;kEmailFlowObject.marketingProgramId=displayAllMarketingProgram.marketingProgramId;kEmailFlowObject.htmlData=displayAllMarketingProgram.htmlData;redirectProgram(forward);">
                         <h3>{{displayAllMarketingProgram.marketingProgramName}}</h3>
                     </div>
                 </div> 

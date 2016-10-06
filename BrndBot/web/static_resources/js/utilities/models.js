@@ -3,7 +3,20 @@
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
-
+var kEmailFlowObject ={redirect: "",
+    categoryId: "",
+    subCategoryId: "",
+    mindbody: "",
+    lookupId: "",
+    mindbodyId: "",
+    draftId: "",
+    emailSubject: "",
+    preHeader: "",
+    marketingCategoryId:"",
+    marketingProgramId:"",
+    htmlData:""
+};
+                                
 var kGlobalEmailObject = { categoryId : "",
     subCategoryId : "",
     lookupId : "",

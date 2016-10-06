@@ -113,12 +113,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.marketingCategoryId = marketingCategoryId;
             $location.path("/" + pageName);
         };
-        $scope.redirectProgram = function (pageName, marketingCategoryId, marketingProgramId, htmlData)
+        $scope.redirectProgram = function (pageName)
         {
-            $scope.marketingCategoryId = marketingCategoryId;
-            $scope.marketingProgramId = marketingProgramId;
-//          var htm=$("p").clone().children().remove().end().text();
-            $scope.htmlData = htmlData;
+            $scope.marketingCategoryId = kEmailFlowObject.marketingCategoryId;
+            $scope.marketingProgramId = kEmailFlowObject.marketingProgramId;
+            $scope.htmlData = kEmailFlowObject.htmlData;
             $location.path("/" + pageName);
         };
         $scope.redirectToActions = function (pageName, programId, past, endData)
