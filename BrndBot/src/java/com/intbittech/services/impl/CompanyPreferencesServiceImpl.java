@@ -32,6 +32,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import org.apache.log4j.Logger;
@@ -84,7 +85,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while updating record");
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
 
@@ -98,7 +99,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             return emailSettings;
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record");
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
 
@@ -111,7 +112,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesJson = mapper.readValue(companyPreferencesJsonString, CompanyPreferencesJson.class);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record");
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
         return companyPreferencesJson.getColors();
     }
@@ -136,7 +137,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record");
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
         }
     }
 
@@ -155,7 +156,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             updatePreferences(companyPreferencesObject);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error saving studio id");
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
         }
     }
 
@@ -186,7 +187,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record");
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
         }
     }
 
@@ -266,7 +267,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record");
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
         }
     }
 
@@ -298,7 +299,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record");
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
         }
     }
 
@@ -331,7 +332,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error");
+            throw new ProcessFailed(messageSource.getMessage("error_deleting_message",new String[]{}, Locale.US));
         }
     }
 
@@ -350,7 +351,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record");
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
         }
     }
 
@@ -383,7 +384,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error");
+            throw new ProcessFailed(messageSource.getMessage("error_deleting_message",new String[]{}, Locale.US));
         }
     }
 
@@ -402,7 +403,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record");
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
         }
     }
 
