@@ -6,9 +6,13 @@
 package com.intbittech.controller;
 
 import com.intbittech.AppConstants;
+import com.intbittech.model.Company;
 import com.intbittech.model.UserCompanyIds;
+import com.intbittech.modelmappers.FacebookDataDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.services.CompanyPreferencesService;
+import com.intbittech.services.CompanyService;
 import com.intbittech.social.CompanyPreferencesFacebook;
 import com.intbittech.utility.ErrorHandlingUtil;
 import java.io.BufferedReader;
@@ -42,6 +46,14 @@ public class SocialPostController {
 
     @Autowired
     private MessageSource messageSource;
+    @Autowired
+    private CompanyPreferencesService companyPreferencesService;
+    @Autowired
+    CompanyService companyService;
+    @Autowired
+    PostToTwitter postToTwitter;
+    @Autowired
+    PostToFacebook postToFacebook;
 
     @RequestMapping(value = "/postToFacebook", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> postToFacebook(HttpServletRequest request,
@@ -52,15 +64,10 @@ public class SocialPostController {
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
-
-//          String accessToken = (String) requestBodyMap.get("accessToken");
-//          get access token from BackEnd
+            Company company = companyService.getCompanyById(userCompanyIds.getCompanyId());
             String accessToken = "";
-            CompanyPreferencesFacebook companyPreferencesFacebookService = new CompanyPreferencesFacebook();
-            JSONObject fb_details = companyPreferencesFacebookService.getCompanyPreferenceForAccessToken(userCompanyIds.getCompanyId());
-            if (fb_details.size() != 0) {
-                accessToken = (String) fb_details.get("fb_default_page_access_token");
-            }
+            FacebookDataDetails facebook = companyPreferencesService.getFacebookDetails(company);
+            accessToken = facebook.getFbDefaultPageAccessToken();
             String title = (String) requestBodyMap.get("title");
             String file_image_path = (String) requestBodyMap.get("file_image_path");
             String posttext = (String) requestBodyMap.get("postText");
@@ -71,7 +78,7 @@ public class SocialPostController {
             String imageType = (String) requestBodyMap.get("imageType");
             String htmlString = (String) requestBodyMap.get("htmlString");
             String fileImagePath = getImageTypePrefix(imageType, userCompanyIds.getCompanyId(), getImageFile);
-            String status = PostToFacebook.postStatus(title, fileImagePath, posttext, imagePostURL, getImageFile, url, description, imageType, userCompanyIds.getCompanyId(), htmlString, accessToken);
+            String status = postToFacebook.postStatus(title, fileImagePath, posttext, imagePostURL, getImageFile, url, description, imageType, userCompanyIds.getCompanyId(), htmlString, accessToken);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(status));
             transactionResponse.setMessage(status);
         } catch (Throwable throwable) {
@@ -99,7 +106,7 @@ public class SocialPostController {
             String imageType = (String) requestBodyMap.get("imageType");
             String getImageFile = getImageTypePrefix(imageType, userCompanyIds.getCompanyId(), fileImagePath);
 
-            String status = PostToTwitter.postStatus(imageType, text, shortURL, fileImagePath, userCompanyIds.getCompanyId(), htmlString, getImageFile);
+            String status = postToTwitter.postStatus(imageType, text, shortURL, fileImagePath, userCompanyIds.getCompanyId(), htmlString, getImageFile);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(status));
             transactionResponse.setMessage(status);
         } catch (Throwable throwable) {

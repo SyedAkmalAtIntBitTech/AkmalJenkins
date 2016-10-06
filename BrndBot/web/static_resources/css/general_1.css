@@ -10,7 +10,7 @@
 body{
     display: block;
     background-color: #EFF2F6;
-    font-family: "proxima nova";
+    font-family: "proxima nova", 'open-sans', sans-serif;
     box-sizing: border-box;
     margin: 0px;
     font-weight: 500 !important;
@@ -254,7 +254,7 @@ a {
 }
 
 .login-col header{
-    margin: 0px auto 20px auto;
+    margin: 0px auto 30px auto;
     text-align: center;
 }
 
@@ -2787,8 +2787,8 @@ p.modal-content-header{
 }
 
 .social-channel-icon{
-    width:25px;
-    height: 25px;
+    width:35px;
+    height: 35px;
     margin-right: 20px;
 }
 
@@ -4512,9 +4512,6 @@ textarea.task-textarea:focus{
 }
 
 
-.social-channel-icon{
-    height: 35px;
-}
 
 .facebook-settings-update-container{
     display: inline-flex;
@@ -5132,6 +5129,7 @@ textarea.task-textarea:focus{
     flex-basis: auto;
     width: 100%;
     overflow-y: scroll;
+    height: calc(100vh - 100px);
 }
 
 .bb-main-content-wrap-padding{
@@ -5171,6 +5169,16 @@ textarea.task-textarea:focus{
     margin: auto;
 }
 
+.sentEmailDetailsPopupClass{
+     display: block;
+     margin-right: 0px !important;
+}
+
+#email_previewdiv {
+    position: fixed;
+    margin-top: 5%;
+    z-index: 99999;
+}
 .bb-panel-email-automation-preview{
     width: 1200px;
     margin: auto;
@@ -5190,6 +5198,17 @@ textarea.task-textarea:focus{
     flex-direction: row;
     line-height: 55px;
     border-bottom: 1px #C7D0D9 solid;
+    width: 100%;
+    padding: 0px 30px;
+    align-items: center;
+}
+
+.bb-panel-footer{
+    height: 40px;
+    display: inline-flex;
+    flex-direction: row;
+    line-height: 55px;
+    border-top: 1px #C7D0D9 solid;
     width: 100%;
     padding: 0px 30px;
     align-items: center;
@@ -5448,6 +5467,10 @@ textarea.task-textarea:focus{
     align-content: stretch;
 }
 
+.bb-email-auto-height{
+    height: calc(100vh - 100px);
+}
+
 .bb-clickable-slat{
     width: 100%;
     display: flex;
@@ -5571,6 +5594,16 @@ textarea.task-textarea:focus{
 
 .bb-button:nth-of-type(1){
     margin-right: 20px;
+}
+
+.bb-button-large{
+     border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 15px 25px;
+    display: inline-block;
+    line-height: 100%;
+    cursor: pointer;
 }
 
 
@@ -5776,6 +5809,14 @@ textarea.task-textarea:focus{
     padding: 20px 0px;
 }
 
+.powered-by-mb-logo{
+    background-image: url(/BrndBot/images/poweredbymindbody.png) ;
+    height: 30px;
+    width: 100px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    
+}
 /*------- INPUT -----*/
 
 .input input{
@@ -6176,9 +6217,9 @@ h3{
 }
 
 img#prevfbimg {
-    width: 100%;
-    height: 245px;
-    margin-left: -2px;
+    max-width: 600px;
+    max-height: 300px;
+    
 }
 
 .top-subnav-link-active-detail-Class {

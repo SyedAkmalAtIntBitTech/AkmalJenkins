@@ -562,7 +562,7 @@ div.mce-fullscreen {
 }
 
 .mce-window-head {
-       height: 55px;
+    height: 55px;
     border-bottom: 1px solid #E2E3E7;
     padding: 0px 30px;
     line-height: 55px;
@@ -606,11 +606,11 @@ div.mce-fullscreen {
 }
 
 .mce-window-head .mce-dragh {
-/*    position: absolute;
-    top: 0;
-    left: 0;
-    width: 90%;
-    height: 100%*/
+    /*    position: absolute;
+        top: 0;
+        left: 0;
+        width: 90%;
+        height: 100%*/
 }
 
 .mce-window iframe {
@@ -1940,7 +1940,8 @@ div.mce-menu .mce-menu-item-sep,
     height: 16px;
     visibility: hidden;
     cursor: s-resize;
-    margin: 0
+    margin: 0;
+    display:none;
 }
 
 .mce-container-body .mce-resizehandle-both {
@@ -3075,7 +3076,7 @@ body .mce-abs-layout-item,
     color: #fff;
     text-shadow: 1px 1px none;
     background-color: #2d8ac7;
-    
+
 }
 
 .mce-btn .mce-txt {
@@ -3696,7 +3697,7 @@ i.mce-i-checkbox {
     text-overflow: ellipsis;
     width: 90px;
     color: white;
-        
+
 }
 
 .mce-menubtn.mce-fixed-width.mce-btn-small span {
@@ -3969,7 +3970,8 @@ div.mce-menu .mce-menu-item-sep,
     height: 16px;
     visibility: visible;
     cursor: s-resize;
-    margin: 0
+    margin: 0;
+    display: none;
 }
 
 .mce-container-body .mce-resizehandle-both {
@@ -4301,7 +4303,7 @@ i.mce-i-resize {
 }
 
 .mce-i-table:before {
-    content: "\e01b"
+    content: "url(../images/bgcolor.svg)"
 }
 
 .mce-i-hr:before {

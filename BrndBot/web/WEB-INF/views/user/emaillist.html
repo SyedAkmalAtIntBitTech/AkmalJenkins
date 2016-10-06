@@ -17,7 +17,7 @@
                 
                 </div>
                 <div class="bb-slat-list-wrap" ng-show="emailLists.length > 0" ng-repeat="email in emailLists"> 
-                    <div class="bb-slat" ng-click="viewEmailListDetails(email.emailListName, 'user')">
+                    <div class="bb-slat" ng-click="viewEmailListDetails(email, 'user')">
                        <!-- <div class="selection-container col-5p"> 
                             <div class="selection-icon" id="{{email.emailListID}}" ng-click="selectedEmailCheckbox(email.emailListID)">
                                 <input type="checkbox" id="{{email.emailListID}}" value="{{email.emailListName}}" name="entityname" hidden></input>
@@ -73,7 +73,7 @@
                 
                 </div>
                 <div class="bb-slat-list-wrap" ng-show="emailListsMindbody.length > 0" ng-repeat="email in emailListsMindbody">
-                    <div class="bb-slat" ng-click="viewEmailListDetails(email.emailListName, 'mindbody')">
+                    <div class="bb-slat" ng-click="viewEmailListDetails(email, 'mindbody')">
                         <!--<div class="slat-icon-wrap"></div>-->
                         <div class="slat-name-wrap">
                             <h2>{{email.emailListName}}</h2>
@@ -88,6 +88,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="bb-panel-footer">
+                    <div class="powered-by-mb-logo"></div>
+               </div>
             </div>
 
         </div>
