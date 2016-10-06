@@ -44,11 +44,12 @@ public class EmailDraftDaoImpl implements EmailDraftDao {
      /**
 	 * {@inheritDoc}
      */
-    public List<EmailDraft> getAllEmailDrafts(Integer companyId) throws Throwable {
+    public List<EmailDraft> getAllEmailDrafts(Integer companyId,Boolean isPushed) throws Throwable {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(EmailDraft.class)
-                    .add(Restrictions.eq("fkCompanyId.companyId", companyId));
+                    .add(Restrictions.eq("fkCompanyId.companyId", companyId))
+                    .add(Restrictions.eq("isPushed", isPushed));
                    return criteria.list();
             } catch (Throwable throwable) {
                logger.log(Level.SEVERE, null, throwable);

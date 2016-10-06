@@ -1,5 +1,6 @@
 
     <!--<div class="page-content-container email-list-contact-page" id="emaillistsdiv" ng-controller="EmailListController">-->
+    <div ng-include src="'addaccountpopup.html'"></div> 
     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" >
 
         <!--USER ADDED LISTS-->
@@ -7,36 +8,18 @@
             <div class="bb-panel-full-width bb-panel-styling-header-wrap">
                 <h2 class="">Managed Accounts</h2>
                 <a href="">
-                    <div id="addemlstbtn" class="long-button green-button" ng-click="addEmailList()">Invite an Account</div>
+                    <div id="addemlstbtn" class="long-button green-button" ng-click="showAddUser()">Invite an Account</div>
                 </a>
                 <!--                <a class="long-button green-button">Create Email List</a>-->
             </div>
-            <div class="bb-panel-full-width bb-panel-styling-content-wrap" >
-                <div class="hub-empty-wrap">There are no email lists</div>
+            <div class="bb-panel-full-width bb-panel-styling-content-wrap" ng-init="getAllCompaniesForFranchiseId()" >
+                <div class="hub-empty-wrap">Active Associated Accounts</div>
                 <div class="hub-slat-list-wrap"> 
-                     <div class="slat" >
+                    <div class="slat" ng-repeat="company in franchiseCompanies">
                   
                         <div class="slat-name-wrap">
-                            <h2>Account Name</h2>
-                            <p> Joined on June 16th 2016 at 9:56:05 PM</p>
-                        </div>
-                         <div class="slat-detail-wrap">
-                            <div class="slat-detail">
-                                <h2 >Active</h2>
-                                <p>Status</p>
-                            </div>
-                        </div>
-                         <div class="slat-detail-wrap">
-                            <div class="slat-detail" style="position:relative">
-                              <a class="reg-button gray-button slat-detail-button" ng-click="managedAccountSlatOptions = true" >View Account Details</a>
-                              <!-- This will be a dropdown that pops up to show account details, yet to be styled.-->
-                              <div ng-show="managedAccountSlatOptions" class="slat-options-dropdown">
-                                  <!-- This will be a link to another page yet to be designed-->
-                                  <a>View Account Details</a>
-                                  
-                                  <a>Remove Account</a>
-                              </div>
-                            </div>
+                            <h2>{{company.companyName}}</h2>
+                            <p> Joined on {{company.createdDate | date:"MMM d y 'at' HH:mm:ss a"}}</p>
                         </div>
                     </div>
                 </div>

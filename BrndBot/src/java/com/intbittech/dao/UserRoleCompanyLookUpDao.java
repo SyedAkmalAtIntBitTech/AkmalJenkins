@@ -115,4 +115,14 @@ public interface UserRoleCompanyLookUpDao {
      */
     public List<UsersRoleCompanyLookup> getAllUsersRoleCompanyLookupByCompanyId(Integer companyId) throws ProcessFailed;  
     public UsersRoleCompanyLookup getUsersRoleCompanyLookupByUserRoleIdAndCompanyId(String userRoleName, Integer companyId) throws ProcessFailed;
+    
+   /**
+     * This method pass user as input and get the {@link UsersRoleCompanyLookup} from database
+     *
+     * @param userRolesName the userRolesName
+     * @param companyIds the companyIds
+     * @return {@link UsersRoleCompanyLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public List<UsersRoleCompanyLookup> getAllUsersRoleCompanyLookupByuserRolesNameAndCompanyId(List<String> userRolesName, List<Integer> companyIds) throws ProcessFailed;
 }

@@ -27,6 +27,16 @@ public interface FranchiseDao {
      * @throws ProcessFailed the process failed
      */
     public Franchise getByFranchiseId(Integer franchiseId) throws ProcessFailed;
+
+    /**
+     * This method pass id as input and get the {@link Franchise} from DAO
+     * layer.
+     *
+     * @param franchiseName the franchiseId
+     * @return {@link Franchise}
+     * @throws ProcessFailed the process failed
+     */
+    public Franchise getByFranchiseName(String franchiseName) throws ProcessFailed;
     
     /**
      * This method pass id as input and get the {@link Franchise} from DAO

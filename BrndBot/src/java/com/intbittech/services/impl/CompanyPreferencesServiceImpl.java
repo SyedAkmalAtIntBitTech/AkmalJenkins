@@ -5,6 +5,7 @@
  */
 package com.intbittech.services.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intbittech.utility.IConstants;
 import com.intbittech.AppConstants;
 import com.intbittech.dao.CompanyPreferencesDao;
@@ -12,14 +13,26 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.modelmappers.CompanyColorsDetails;
+import com.intbittech.modelmappers.CompanyPreferencesJson;
+import com.intbittech.modelmappers.CriticalInfoTips;
+import com.intbittech.modelmappers.EmailSettings;
+import com.intbittech.modelmappers.FacebookDataDetails;
 import com.intbittech.modelmappers.FooterDetails;
+import com.intbittech.modelmappers.OrientationTips;
+import com.intbittech.modelmappers.Tooltips;
+import com.intbittech.modelmappers.TutorialTip;
+import com.intbittech.modelmappers.TwitterDataDetails;
+import com.intbittech.modelmappers.UserProfile;
 import com.intbittech.modelmappers.UserProfileColorDetails;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.utility.EmailValidator;
 import com.intbittech.utility.StringUtility;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import org.apache.log4j.Logger;
@@ -44,6 +57,9 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     @Autowired
     private MessageSource messageSource;
 
+    @Autowired
+    private CompanyPreferencesJson companyPreferencesJson;
+
     @Override
     public void updatePreferences(CompanyPreferences companyPreferences) {
         companyPreferencesDao.saveOrUpdate(companyPreferences);
@@ -55,52 +71,50 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     }
 
     @Override
-    public void updateEmailSettings(JSONObject json_object, Company company) throws ProcessFailed {
+    public void updateEmailSettings(EmailSettings emailSettings, Company company) throws ProcessFailed {
         try {
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             if (companyPreferences == null) {
+                companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
             }
-            JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
-            jsonObject.put(IConstants.kEmailSettings, json_object);
-            companyPreferences.setCompanyPreferences(jsonObject.toJSONString());
-            updatePreferences(companyPreferences);
+            companyPreferencesJson.setEmailSettings(emailSettings);
+            ObjectMapper mapper = new ObjectMapper();
+            String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
+            companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
+            companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while updating record");
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
 
     @Override
-    public JSONObject getEmailSettings(Company company) {
+    public EmailSettings getEmailSettings(Company company) {
         try {
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
-            JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
-            return (JSONObject) jsonObject.get(IConstants.kEmailSettings);
+            String companyPreferencesString = companyPreferences.getCompanyPreferences();
+            ObjectMapper mapper = new ObjectMapper();
+            EmailSettings emailSettings = mapper.convertValue(companyPreferencesString, EmailSettings.class);
+            return emailSettings;
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record");
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
 
     @Override
     public List<String> getColors(Company company) {
-        List<String> colorsArray = new ArrayList<>();
         try {
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
-            JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
-            JSONArray array = (JSONArray) jsonObject.get(IConstants.kColors);
-            for (int i = 0; i < array.size(); i++) {
-                colorsArray.add((String) array.get(i));
-            }
+            ObjectMapper mapper = new ObjectMapper();
+            String companyPreferencesJsonString = companyPreferences.getCompanyPreferences();
+            companyPreferencesJson = mapper.readValue(companyPreferencesJsonString, CompanyPreferencesJson.class);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record");
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
-        return colorsArray;
+        return companyPreferencesJson.getColors();
     }
 
     @Override
@@ -111,23 +125,19 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
                 companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
             }
-            JSONParser parser = new JSONParser();
-            JSONObject jsonObject = new JSONObject();
-            if (!StringUtility.isEmpty(companyPreferences.getCompanyPreferences())) {
-                jsonObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
-            }
-            JSONArray colorsArray = new JSONArray();
-            colorsArray.add(companyColorsDetailsList.getColor1());
-            colorsArray.add(companyColorsDetailsList.getColor2());
-            colorsArray.add(companyColorsDetailsList.getColor3());
-            colorsArray.add(companyColorsDetailsList.getColor4());
-            jsonObject.put(IConstants.kColors, colorsArray);
-            String colorJsonString = AppConstants.GSON.toJson(jsonObject);
-            companyPreferences.setCompanyPreferences(colorJsonString);
-            updatePreferences(companyPreferences);
+            List<String> colorList = new ArrayList<>();
+            colorList.add(companyColorsDetailsList.getColor1());
+            colorList.add(companyColorsDetailsList.getColor2());
+            colorList.add(companyColorsDetailsList.getColor3());
+            colorList.add(companyColorsDetailsList.getColor4());
+            companyPreferencesJson.setColors(colorList);
+            ObjectMapper mapper = new ObjectMapper();
+            String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
+            companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
+            companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record");
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
         }
     }
 
@@ -146,7 +156,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             updatePreferences(companyPreferencesObject);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error saving studio id");
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
         }
     }
 
@@ -165,23 +175,19 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
                 companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
             }
-            JSONParser parser = new JSONParser();
-            JSONObject jsonObject = new JSONObject();
-            JSONObject footerDetailsObject = new JSONObject();
-            if (!StringUtility.isEmpty(companyPreferences.getCompanyPreferences())) {
-                jsonObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
-            }
-            footerDetailsObject.put(IConstants.kFooterDetailsFacebookUrl, footerDetails.getFacebookUrl());
-            footerDetailsObject.put(IConstants.kFooterDetailsTwitterUrl, footerDetails.getTwitterUrl());
-            footerDetailsObject.put(IConstants.kFooterDetailsInstagramUrl, footerDetails.getInstagramUrl());
-            footerDetailsObject.put(IConstants.kFooterDetailsWebsiteUrl, footerDetails.getWebsiteUrl());
-            jsonObject.put(IConstants.kFooters, footerDetailsObject);
-            String colorJsonString = AppConstants.GSON.toJson(jsonObject);
-            companyPreferences.setCompanyPreferences(colorJsonString);
-            updatePreferences(companyPreferences);
+            UserProfile userProfile = new UserProfile();
+            userProfile.setFacebookUrl(footerDetails.getFacebookUrl());
+            userProfile.setTwitterUrl(footerDetails.getTwitterUrl());
+            userProfile.setInstagramUrl(footerDetails.getInstagramUrl());
+            userProfile.setWebsiteUrl(footerDetails.getWebsiteUrl());
+            companyPreferencesJson.setUserProfile(userProfile);
+            ObjectMapper mapper = new ObjectMapper();
+            String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
+            companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
+            companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record");
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
         }
     }
 
@@ -222,29 +228,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
         } catch (ParseException ex) {
             java.util.logging.Logger.getLogger(CompanyPreferencesServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    @Override
-    public Map<String, String> getUnsubscribedEmailsMap(CompanyPreferences companyPreferences) {
-        Map<String, String> filteredMap = new HashMap<>();
-
-        try {
-            if (companyPreferences.getUnsubscribeEmails() != null) {
-                JSONParser parser = new JSONParser();
-                JSONObject jsonObject = (JSONObject) parser.parse(companyPreferences.getUnsubscribeEmails());
-                JSONArray array = (JSONArray) jsonObject.get(IConstants.kUnsubscribeEmails);
-                if (array != null && array.size() > 0) {
-                    for (Object arrayObject : array) {
-                        String email = (String) arrayObject;
-                        filteredMap.put(email, "true");
-                    }
-                }
-            }
-        } catch (ParseException ex) {
-            java.util.logging.Logger.getLogger(CompanyPreferencesServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return filteredMap;
-    }
+    } 
 
     @Override
     public void setUserProfileColor(UserProfileColorDetails userProfileColorDetails, Company company) {
@@ -254,34 +238,164 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
                 companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
             }
-            JSONParser parser = new JSONParser();
-            JSONObject jsonObject = new JSONObject();
-            if (!StringUtility.isEmpty(companyPreferences.getCompanyPreferences())) {
-                jsonObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
-            }
-            jsonObject.put(IConstants.KUSERPROFILECOLOR, userProfileColorDetails.getUserProfileColor());
-            String colorJsonString = AppConstants.GSON.toJson(jsonObject);
-            companyPreferences.setCompanyPreferences(colorJsonString);
-            updatePreferences(companyPreferences);
+            companyPreferencesJson.setUserProfileColor(userProfileColorDetails.getUserProfileColor());
+            ObjectMapper mapper = new ObjectMapper();
+            String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
+            companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
+            companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record");
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
         }
     }
 
     @Override
     public String getUserProfileColor(Company company) {
-        String userProfileColor="";
         try {
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
-            JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
-            userProfileColor = (String)jsonObject.get(IConstants.KUSERPROFILECOLOR);
-            
+            String companyPreferencesJsonString = companyPreferences.getCompanyPreferences();
+            ObjectMapper mapper = new ObjectMapper();
+            companyPreferencesJson = mapper.readValue(companyPreferencesJsonString, CompanyPreferencesJson.class);
         } catch (Throwable throwable) {
             logger.error(throwable);
         }
-        return userProfileColor;
+        return companyPreferencesJson.getUserProfileColor();
+    }
+
+    @Override
+    public void setTwitterDetails(TwitterDataDetails twitter, Company company) {
+        try {
+            CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
+            if (companyPreferences == null) {
+                companyPreferences = new CompanyPreferences();
+                companyPreferences.setFkCompanyId(company);
+            }
+            companyPreferencesJson.setTwitter(twitter);
+            ObjectMapper mapper = new ObjectMapper();
+            String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
+            companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
+            companyPreferencesDao.saveOrUpdate(companyPreferences);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
+        }
+    }
+
+    @Override
+    public TwitterDataDetails getTwitterDetails(Company company) {
+        try {
+            CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
+            String companyPreferencesJsonString = companyPreferences.getCompanyPreferences();
+            ObjectMapper mapper = new ObjectMapper();
+            companyPreferencesJson = mapper.readValue(companyPreferencesJsonString, CompanyPreferencesJson.class);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+        }
+        return companyPreferencesJson.getTwitter();
+    }
+
+    @Override
+    public void deleteTwitterDetails(Company company) {
+        try {
+            CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
+            if (companyPreferences == null) {
+                companyPreferences = new CompanyPreferences();
+                companyPreferences.setFkCompanyId(company);
+            }
+            TwitterDataDetails twitterDataDetails = null;
+            companyPreferencesJson.setTwitter(twitterDataDetails);
+            ObjectMapper mapper = new ObjectMapper();
+            String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
+            companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
+            companyPreferencesDao.saveOrUpdate(companyPreferences);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_deleting_message",new String[]{}, Locale.US));
+        }
+    }
+
+    @Override
+    public void setFacebookDetails(FacebookDataDetails facebook, Company company) {
+        try {
+            CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
+            if (companyPreferences == null) {
+                companyPreferences = new CompanyPreferences();
+                companyPreferences.setFkCompanyId(company);
+            }
+            companyPreferencesJson.setFacebook(facebook);
+            ObjectMapper mapper = new ObjectMapper();
+            String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
+            companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
+            companyPreferencesDao.saveOrUpdate(companyPreferences);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
+        }
+    }
+
+    @Override
+    public FacebookDataDetails getFacebookDetails(Company company) {
+        try {
+            CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
+            String companyPreferencesJsonString = companyPreferences.getCompanyPreferences();
+            ObjectMapper mapper = new ObjectMapper();
+            companyPreferencesJson = mapper.readValue(companyPreferencesJsonString, CompanyPreferencesJson.class);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+        }
+        return companyPreferencesJson.getFacebook();
+    }
+
+    @Override
+    public void deleteFacebookDetails(Company company) {
+        try {
+            CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
+            if (companyPreferences == null) {
+                companyPreferences = new CompanyPreferences();
+                companyPreferences.setFkCompanyId(company);
+            }
+            FacebookDataDetails facebook = null;
+            companyPreferencesJson.setFacebook(facebook);
+            ObjectMapper mapper = new ObjectMapper();
+            String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
+            companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
+            companyPreferencesDao.saveOrUpdate(companyPreferences);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_deleting_message",new String[]{}, Locale.US));
+        }
+    }
+
+    @Override
+    public void setTooltips(Tooltips tooltips, Company company) {
+        try {
+            CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
+            if (companyPreferences == null) {
+                companyPreferences = new CompanyPreferences();
+                companyPreferences.setFkCompanyId(company);
+            }
+            companyPreferencesJson.setTooltips(tooltips);
+            ObjectMapper mapper = new ObjectMapper();
+            String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
+            companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
+            companyPreferencesDao.saveOrUpdate(companyPreferences);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
+        }
+    }
+
+    @Override
+    public Tooltips getTooltips(Company company) {
+        try {
+            CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
+            String companyPreferencesJsonString = companyPreferences.getCompanyPreferences();
+            ObjectMapper mapper = new ObjectMapper();
+            companyPreferencesJson = mapper.readValue(companyPreferencesJsonString, CompanyPreferencesJson.class);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+        }
+        return companyPreferencesJson.getTooltips();
     }
 
 }

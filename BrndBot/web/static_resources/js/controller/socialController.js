@@ -175,11 +175,13 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                 var linkUrlData = data;
                 for (var i = 0; i < linkUrlData.length; i++)
                 {
-                    var linkUrlObject = {};
-                    linkUrlObject["text"] = linkUrlData[i].prigram_name + " - " + linkUrlData[i].link_name + " - " + linkUrlData[i].url;
-                    linkUrlObject["value"] = linkUrlData[i].link_name;
-                    linkUrlObject["url"] = linkUrlData[i].url;
-                    $scope.ddSelectlinkUrlsOptions.push(linkUrlObject);
+                    if(linkUrlData[i].link_name || linkUrlData[i].url){
+                        var linkUrlObject = {};
+                        linkUrlObject["text"] = linkUrlData[i].link_name + " - " + linkUrlData[i].url;
+                        linkUrlObject["value"] = linkUrlData[i].link_name;
+                        linkUrlObject["url"] = linkUrlData[i].url;
+                        $scope.ddSelectlinkUrlsOptions.push(linkUrlObject);
+                    }   
                 }
             });
         };
@@ -270,7 +272,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
             $rootScope.FbProfileName = profileName;
             $scope.postData = {};
             $scope.selectedSocialmedia = "facebook";
-            $scope.postTypeSelectionPopUp = true;
+//            $scope.postTypeSelectionPopUp = true;
             $scope.postTo = "Post to Facebook";
         };
         $scope.postToSelectedPage = function () {
@@ -818,6 +820,8 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                 } else {
                     
                     var userAssignToId = $("#assignTo option:selected").val();
+                    if(!userAssignToId)
+                        userAssignToId = "0";
                     var schedule_title = $("#ActionName").val();
                     var schedule_date = $("#actionDate").val();
                     var schedule_time = $("#actionTime").val().replace(/ /g, '');
@@ -921,6 +925,8 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                             });
                         } else {
                             var userAssignToId = $("#assignTo option:selected").val();
+                            if(!userAssignToId)
+                                userAssignToId = "0";
                             var schedule_title = $("#ActionName").val();
                             var schedule_date = $("#actionDate").val();
                             var schedule_time = $("#actionTime").val().replace(/ /g, '');
@@ -1001,6 +1007,8 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                     } else {
                         
                         var userAssignToId = $("#assignTo option:selected").val();
+                        if(!userAssignToId)
+                            userAssignToId = "0";
                         var schedule_title = $("#ActionName").val();
                         var schedule_date = $("#actionDate").val();
                         var schedule_time = $("#actionTime").val().replace(/ /g, '');
@@ -1179,6 +1187,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
             }
 
         };
+        
 
     }]);
 //socialFlowApp.directive('toggleClass', function() {

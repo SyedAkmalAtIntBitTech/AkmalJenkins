@@ -12,7 +12,7 @@
     }
 
     #fade {
-        position: relative;
+        position: fixed;
         top: 0;
         left: 0;
         width: 100vw;
@@ -58,7 +58,7 @@
                 </div>
                 <div class="bb-panel-content-wrap bb-panel-static-height" ng-init="getUserImages()" ng-show="showUserImages" >
                     <div class="bb-gallery-image-wrap {{images.companyImagesId}}">
-                        <div class="bb-gallery-image-card bb-image-gal-pop-up" ng-repeat="images in datalists"  ng-click="selectImageToPost(images.imageName, 'gallery', companyId)">
+                        <div class="bb-gallery-image-card bb-image-gal-pop-up" ng-repeat="images in (filteredItems = (datalists| orderBy: 'createdDate':true))"  ng-click="selectImageToPost(images.imageName, 'gallery', companyId)">
 
                             <div  class="bb-gallery-image" id="{{images.companyImagesId}}"   style="background-image: url('/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}'); background-position:50% 50%; background-repeat:no-repeat; background-size: contain;"/></div>
                         </div>

@@ -7,20 +7,24 @@ package com.intbittech.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
 import com.controller.SqlMethods;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.intbit.util.CustomStyles;
 import com.intbittech.AppConstants;
 import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
-import com.intbittech.model.EmailList;
+import com.intbittech.modelmappers.EmailListDetails;
 import com.intbittech.model.InvitedUsers;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.AddressDetails;
 import com.intbittech.modelmappers.CompanyColorsDetails;
+import com.intbittech.modelmappers.EmailSettings;
+import com.intbittech.modelmappers.FacebookDataDetails;
 import com.intbittech.modelmappers.FooterDetails;
 import com.intbittech.modelmappers.InviteDetails;
+import com.intbittech.modelmappers.TwitterDataDetails;
 import com.intbittech.modelmappers.UserProfileColorDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
@@ -29,8 +33,10 @@ import com.intbittech.schedulers.MindbodyEmailListProcessor;
 import com.intbittech.services.AddressService;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
+import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.EmailListService;
 import com.intbittech.services.ForgotPasswordService;
+import com.intbittech.services.UnsubscribedEmailsService;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UsersService;
 import com.intbittech.social.CompanyPreferencesFacebook;
@@ -106,6 +112,12 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     @Autowired
     AddressService addressService;
 
+    @Autowired
+    UnsubscribedEmailsService unsubscribedEmailsService;
+    
+    @Autowired
+    ContactEmailListLookupService contactEmailListLookupService;
+    
     @Autowired
     private MessageSource messageSource;
 
@@ -306,11 +318,11 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             Company company = companyService.getCompanyById(userCompanyIds.getCompanyId());
             String reply_email_address = (String) requestBodyMap.get("reply_email_address");
             String from_name = (String) requestBodyMap.get("from_name");
-            JSONObject json_object = new JSONObject();
-            json_object.put(IConstants.kEmailFromAddress, from_address);
-            json_object.put(IConstants.kEmailReplyAddress, reply_email_address);
-            json_object.put(IConstants.kFromName, from_name);
-            companyPreferencesService.updateEmailSettings(json_object, company);
+            EmailSettings emailSettings = new EmailSettings();
+            emailSettings.setFromAddress(from_address);
+            emailSettings.setReplyEmailAddress(reply_email_address);
+            emailSettings.setFromName(from_name);
+            companyPreferencesService.updateEmailSettings(emailSettings, company);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {
@@ -325,8 +337,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
             Company company = companyService.getCompanyById(companyId);
-            JSONObject jsonObject = companyPreferencesService.getEmailSettings(company);
-            genericResponse.addDetail(new Gson().toJson(jsonObject));
+            EmailSettings emailSettings = companyPreferencesService.getEmailSettings(company);
+            ObjectMapper mapper = new ObjectMapper();
+            genericResponse.addDetail(mapper.writeValueAsString(emailSettings));
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -488,44 +501,41 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
 
             Integer companyId = userCompanyIds.getCompanyId();
+            Company company = companyService.getCompanyById(companyId);
             String default_access_token = (String) requestBodyMap.get("access_token");
             String method_type = (String) requestBodyMap.get("access_token_method");
             String fb_user_profile_name = (String) requestBodyMap.get("fb_user_profile_name");
             String default_page_name = (String) requestBodyMap.get("default_page_name");
+
+            FacebookDataDetails facebookDataDetails = new FacebookDataDetails();
+
+            String facebookDataDetailsString = "Success";
+
             String settings = (String) requestBodyMap.get("settings");
-            String outputJson = "Success";
-            CompanyPreferencesFacebook companyPreferencesFacebookService = new CompanyPreferencesFacebook();
-
             if (!StringUtility.isEmpty(method_type) && method_type.equals("getAccessToken")) {
-                JSONObject fb_details = companyPreferencesFacebookService.getCompanyPreferenceForAccessToken(companyId);
-
-                if (fb_details.size() != 0) {
-
-                    default_access_token = (String) fb_details.get("fb_default_page_access_token");
-                    fb_user_profile_name = (String) fb_details.get("user_profile_page");
-                    default_page_name = (String) fb_details.get("fb_default_page_name");
-                    if (default_access_token != "") {
-                        default_access_token = "true";
-                    }
-                }
-
+                facebookDataDetails = companyPreferencesService.getFacebookDetails(company);
                 if (!StringUtility.isEmpty(settings)) {
-
-                    if (fb_details.get("FacebookLoggedIn") == null) {
-                        fb_details.put("FacebookLoggedIn", "false");
-                        fb_details.put("user_profile_page", "fb not configured");
+                    if (facebookDataDetails.getFacebookLoggedIn() == null) {
+                        facebookDataDetails.setFacebookLoggedIn("false");
+                        facebookDataDetails.setFbUserProfileName("fb not configured");
                     }
-                    outputJson = new Gson().toJson(fb_details);
+                    ObjectMapper mapper = new ObjectMapper();
+                    facebookDataDetailsString = mapper.writeValueAsString(facebookDataDetails);
+                } else if (facebookDataDetails != null) {
+                    facebookDataDetailsString = facebookDataDetails.getFbDefaultPageAccessToken() + "," + facebookDataDetails.getFbUserProfileName() + "," + facebookDataDetails.getFbDefaultPageName();
                 } else {
-                    outputJson = default_access_token + "," + fb_user_profile_name + "," + default_page_name;
+                    facebookDataDetailsString = default_access_token + "," + fb_user_profile_name + "," + default_page_name;
                 }
-
             } else if (!StringUtility.isEmpty(method_type) && method_type.equals("setAccessToken")) {
-                companyPreferencesFacebookService.updatePreference(companyId, default_access_token, fb_user_profile_name, default_page_name);
+                facebookDataDetails.setFbDefaultPageAccessToken(default_access_token);
+                facebookDataDetails.setFbDefaultPageName(default_page_name);
+                facebookDataDetails.setFbUserProfileName(fb_user_profile_name);
+                facebookDataDetails.setFacebookLoggedIn("true");
+                companyPreferencesService.setFacebookDetails(facebookDataDetails, company);
             } else if (!StringUtility.isEmpty(method_type) && method_type.equals("clearFacebookDetails")) {
-                companyPreferencesFacebookService.deletePreferences(companyId);
+                companyPreferencesService.deleteFacebookDetails(company);
             }
-            transactionResponse.setMessage(outputJson);
+            transactionResponse.setMessage(facebookDataDetailsString);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -537,54 +547,44 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     @RequestMapping(value = "/twitterDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> twitterDetails(HttpServletRequest request,
             HttpServletResponse response) {
-
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
-
+            Company company = companyService.getCompanyById(userCompanyIds.getCompanyId());
             String method_type = (String) requestBodyMap.get("access_token_method");
             String access_token = (String) requestBodyMap.get("twitter_access_tokens");
             String settings = (String) requestBodyMap.get("settings");
             String twitter_data = "";
-            JSONObject json_twitter = new JSONObject();
-            String twitter_access_token = "";
-            String twitter_access_token_secret = "", twitter_user_name = "";
-            String access_token_secret = "";
-            String user_name = "";
-
             String outputJson = "Success";
-
-            if (!StringUtility.isEmpty(access_token)) {
-                String access[] = access_token.split(",");
-                access_token = access[0];
-                access_token_secret = access[1];
-                user_name = access[2];
-            }
-            CompanyPreferencesTwitter companyPreferencesTwitterService = new CompanyPreferencesTwitter();
+            TwitterDataDetails twitterDataDetails = new TwitterDataDetails();
             if (!StringUtility.isEmpty(method_type) && method_type.equalsIgnoreCase("setAccessToken")) {
-                companyPreferencesTwitterService.updatePreference(userCompanyIds.getCompanyId(), access_token, access_token_secret, user_name);
-            } else if (!StringUtility.isEmpty(method_type) && method_type.equalsIgnoreCase("getAccessToken")) {
-                json_twitter = companyPreferencesTwitterService.getCompanyPreferenceForAccessToken(userCompanyIds.getCompanyId());
-                if (json_twitter.size() != 0) {
-                    twitter_access_token = (String) json_twitter.get("twitter_access_token");
-                    twitter_access_token_secret = (String) json_twitter.get("twitter_access_token_secret");
-                    twitter_user_name = (String) json_twitter.get("twitter_user_name");
-                    twitter_data = twitter_access_token + "," + twitter_access_token_secret + "," + twitter_user_name;
+                if (!StringUtility.isEmpty(access_token)) {
+                    String access[] = access_token.split(",");
+                    twitterDataDetails.setTwitterAccessToken(access[0]);
+                    twitterDataDetails.setTwitterAccessTokenSecret(access[1]);
+                    twitterDataDetails.setTwitterUserName(access[2]);
+                    twitterDataDetails.setTwitterLoggedIn("true");
                 }
-
+                companyPreferencesService.setTwitterDetails(twitterDataDetails, company);
+            } else if (!StringUtility.isEmpty(method_type) && method_type.equalsIgnoreCase("getAccessToken")) {
+                twitterDataDetails = companyPreferencesService.getTwitterDetails(company);
+                if (twitterDataDetails != null) {
+                    twitter_data = twitterDataDetails.getTwitterAccessToken() + "," + twitterDataDetails.getTwitterAccessTokenSecret() + "," + twitterDataDetails.getTwitterUserName();
+                }
                 if (!StringUtility.isEmpty(settings)) {
-                    if (json_twitter.get("TwitterLoggedIn") == null) {
-                        json_twitter.put("TwitterLoggedIn", "false");
-                        json_twitter.put("twitter_user_name", "twitter not configured");
+                    if (twitterDataDetails.getTwitterLoggedIn() == null) {
+                        twitterDataDetails.setTwitterLoggedIn("false");
+                        twitterDataDetails.setTwitterUserName("twitter not configured");
                     }
-                    outputJson = new Gson().toJson(json_twitter);
+                    ObjectMapper mapper = new ObjectMapper();
+                    outputJson = mapper.writeValueAsString(twitterDataDetails);
                 } else {
                     outputJson = twitter_data;
                 }
             } else if (!StringUtility.isEmpty(method_type) && method_type.equalsIgnoreCase("clearTwitterDetails")) {
-                companyPreferencesTwitterService.deletePreferences(userCompanyIds.getCompanyId());
+                companyPreferencesService.deleteTwitterDetails(company);
             }
             transactionResponse.setMessage(outputJson);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
@@ -661,7 +661,6 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         try {
             twitter = new TwitterFactory().getInstance();
             twitter.setOAuthConsumer(AppConstants.twitterString1, AppConstants.twitterString2);
-            //twitter.setOAuthConsumer("G6fPQU023izaVT8RtAurlHmUW", "d6jMSiwI9XqVbNDMQ4XJmIzD9XrKwZC5mKjrbujepTOqgrnMEW");
             requestToken = twitter.getOAuthRequestToken();
             genericResponse.addDetail(requestToken.getAuthenticationURL());
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("Success", new String[]{}, Locale.US)));
@@ -687,10 +686,13 @@ public class SettingsController extends BrndBotBaseHttpServlet {
                 accessToken = twitter.getOAuthAccessToken();
             }
             twitter4j.User user = twitter.showUser(twitter.getScreenName());
-            String user_name = user.getName();
-            String access_token = accessToken.getToken();
-            String access_token_secret = accessToken.getTokenSecret();
-            companyPreferencesTwitterService.updatePreference(companyId, access_token, access_token_secret, user_name);
+            Company company = companyService.getCompanyById(companyId);;
+            TwitterDataDetails twitterDataDetails = new TwitterDataDetails();
+            twitterDataDetails.setTwitterUserName(user.getName());
+            twitterDataDetails.setTwitterAccessToken(accessToken.getToken());
+            twitterDataDetails.setTwitterLoggedIn("true");
+            twitterDataDetails.setTwitterAccessTokenSecret(accessToken.getTokenSecret());
+            companyPreferencesService.setTwitterDetails(twitterDataDetails, company);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("Success", new String[]{}, Locale.US)));
         } catch (TwitterException | IllegalStateException | NoSuchMessageException throwable) {
             logger.error(throwable);
@@ -717,7 +719,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     }
 
     @RequestMapping(value = "/unsubscribeEmails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> unsubscribeEmails(HttpServletRequest request, @RequestBody EmailList emailList) {
+    public ResponseEntity<ContainerResponse> unsubscribeEmails(HttpServletRequest request,@RequestBody EmailListDetails emailList) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
 
@@ -762,21 +764,25 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     }
 
     @RequestMapping(value = "/saveUnsubscribeEmails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> saveUnsubscribeEmails(HttpServletRequest request, @RequestBody EmailList emailList) {
+    public ResponseEntity<ContainerResponse> saveUnsubscribeEmails(HttpServletRequest request,@RequestBody EmailListDetails emailList) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+//            Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
-            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
-            companyPreferencesService.saveUnsubscribeEmails(userCompanyIds.getCompanyId(), emailList.getEmailList());
+//            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+//            companyPreferencesService.saveUnsubscribeEmails(userCompanyIds.getCompanyId(), emailList.getEmailList());
+            unsubscribedEmailsService.save(emailList.getCompanyId(), emailList.getEmailList());
             Runnable myRunnable = new Runnable() {
                 public void run() {
                     try {
-                        CompanyPreferences companyPreferences = companyPreferencesService.getByCompanyId(userCompanyIds.getCompanyId());
+                        //Todo ilyas refactor this
+                        CompanyPreferences companyPreferences = companyPreferencesService.getByCompanyId(emailList.getCompanyId());
                         Integer studioId = Integer.parseInt(companyPreferences.getCompanyLocation());
                         MindbodyEmailListProcessor mindbodyEmailListProcessor = new MindbodyEmailListProcessor();
-                        mindbodyEmailListProcessor.processEachRow(userCompanyIds.getCompanyId(), studioId);
-                        emailListService.updateUnsubscribedUserEmailLists(companyPreferences);
+                        mindbodyEmailListProcessor.processEachRow(emailList.getCompanyId(), studioId);
+//                        emailListService.updateUnsubscribedUserEmailLists(companyPreferences);
+                        contactEmailListLookupService.updateUnsubscribedUserEmailLists(emailList.getCompanyId());
+                            
                     } catch (Throwable throwable) {
 
                     }

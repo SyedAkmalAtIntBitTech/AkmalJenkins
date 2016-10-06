@@ -189,6 +189,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
                 onboardingFactory.inviteUserPost(invitation).then(function (data) {
                     growl(data.d.message);
+                    $scope.getInvitedUsers();
                     $scope.closeInviteUsersPopup();
     //                $location.path("/settings/useraccountsettings");
                 });
@@ -231,20 +232,31 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             });
         };
         
-
-        $scope.setTab = function (type, password, confirmPassword, logoImage) {
-            if (type === 'account') {
-                $scope.userAccountSetClass = 'active';
-                $scope.userLogoSetClass = '';
-                $scope.password = password;
-                $scope.confirmPassword = confirmPassword;
-            }
-            if (type === 'logo') {
-                $scope.userAccountSetClass = '';
-                $scope.userLogoSetClass = 'active';
-                $scope.logoImage = logoImage;
-            }
+        $scope.isActive = function (viewLocation) {
+            return viewLocation === $location.path();
         };
+
+//        $scope.setTab = function (type, password, confirmPassword, logoImage) {
+//            if (type === 'account') {
+//                $scope.userLogoSetClass = '';
+//                $scope.userUserSetClass = '';
+//                $scope.userAccountSetClass = 'active';
+//                $scope.password = password;
+//                $scope.confirmPassword = confirmPassword;
+//            }
+//            if (type === 'logo') {
+//                $scope.userAccountSetClass = '';
+//                $scope.userUserSetClass = '';
+//                $scope.userLogoSetClass = 'active';
+//                $scope.logoImage = logoImage;
+//            }
+//            if (type === 'user') {
+//                $scope.userAccountSetClass = '';
+//                $scope.userLogoSetClass = '';
+//                $scope.userUserSetClass = 'active';
+//                $scope.logoImage = logoImage;
+//            }
+//        };
 
         $scope.showAddUser = function ()
         {
@@ -445,5 +457,5 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $scope.stepsModel.push(e.target.result);
             });
         };
-
+        
     }]);

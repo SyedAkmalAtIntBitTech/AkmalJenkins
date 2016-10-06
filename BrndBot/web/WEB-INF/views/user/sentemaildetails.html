@@ -1,0 +1,71 @@
+<div class="overlay-wrap overlay-slide" id="notediv" ng-init='hideReminderSaveButton()' ng-class="sentEmailDetailsPopupClass">
+    <!--MainContent-->
+    <div class="detail-overlay-content">
+        <input type="hidden" id="sentEmailId" value="{{scheduleData.schedule_id}}"/>
+
+        <!--TOP NAV BAR-->
+        <div class="header">
+            <a class="exit-button" ng-click="closePopup();" href="">
+            </a>
+            <h2>Email Action Detail</h2>
+            <div class="overlay-header-cta-wrap">
+            </div>
+        </div>
+
+        <!--Below Nav-->
+        <div class="overlay-content-saved-email-draft">
+
+            <div class="overlay-details-pane">
+                <div class="overlay-details-pane-header">Email History Stats</div>
+                <div class="detail-sections-wrap-task-textarea">
+                    <div class="detail-section-item">
+                        <label class="detail-section-label">{{sentEmailDetails.openRate}}%</label>
+                        <p class="detail-section-data">open rate</p>
+                    </div>
+                    <div>
+                        <label class="detail-section-label">{{sentEmailDetails.clickThroughRate}}%</label>
+                        <p class="detail-section-data">click Through rate</p>
+                    </div>
+                    <div>
+                        <label class="detail-section-label">{{sentEmailDetails.unSubscribes}}</label>
+                        <p class="detail-section-data">Unsubscribes</p>
+                    </div>
+                    <div>
+                        <label class="detail-section-label">{{sentEmailDetails.sentNumbers | number}}</label>
+                        <p class="detail-section-data">Number Sent</p>
+                    </div>
+                    <div>
+                        <label class="detail-section-label">{{sentEmailDetails.hardBounces}}</label>
+                        <p class="detail-section-data">Hard Bounces</p>
+                    </div>
+                </div>
+            </div>
+            <div class="overlay-details-pane">
+                <div class="overlay-details-pane-header">Sent Email Details</div>
+                <div class="detail-sections-wrap">
+                    <div class="detail-section">  
+                        <div class="detail-section-item">
+                            <label class="detail-section-label">SENT DETAILS</label>
+                            <p class="detail-section-data">Sent on {{sentEmailDetails.sentDateTime | date: 'MMM dd'}}th at {{sentEmailDetails.sentDateTime | date: 'hh:mma'}}</p>
+                        </div>
+                        <div class="detail-section-item">
+                            <label class="detail-section-label">Subject LINE</label>
+                            <p class="detail-section-data">{{sentEmailDetails.subjectLine}}</p>
+                        </div>
+                        <div class="detail-section-item">
+                            <label class="detail-section-label">FROM NAME</label>
+                            <p class="detail-section-data">{{sentEmailDetails.fromName}}</p>
+                        </div>
+                        <div class="detail-section-item">
+                            <label class="detail-section-label">REPLY TO ADDRESS</label>
+                            <p class="detail-section-data">{{sentEmailDetails.replyToAddress}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="email-preview-bar">EMAIL SENT</div>
+            <div class="overlay-email-preview"><iframe id="sentEmailIframe" class="email-overlay-iFrame" ></iframe>
+            </div> 
+        </div>
+    </div> 
