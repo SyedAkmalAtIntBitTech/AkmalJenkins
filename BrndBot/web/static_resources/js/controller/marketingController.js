@@ -38,6 +38,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.addBlockCount = 0;
         $scope.changeUsers=false;
         $scope.companyAddressDetails = {};
+        $scope.marketingFlowObject=kEmailFlowObject;
 
         $scope.ddSelectAction = {
             text: "Select"
@@ -108,9 +109,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.rediectToCreateCampaign = function (pageName) {
             $location.path("/" + pageName);
         };
-        $scope.redirect = function (pageName, marketingCategoryId)
+        $scope.redirect = function (pageName)
         {
-            $scope.marketingCategoryId = marketingCategoryId;
+            $scope.marketingCategoryId = $scope.marketingFlowObject.marketingCategoryId;
             $location.path("/" + pageName);
         };
         $scope.redirectProgram = function (pageName)
