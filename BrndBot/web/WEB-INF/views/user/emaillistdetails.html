@@ -14,7 +14,7 @@
     <!--Top Nav-->
     <div class="bb-top-nav">
     <div class="bb-bar-left-wrap bb-one-third-flex-col">
-        <a href="basemarketinghub#/emaillist" class="bb-back-button"></a>
+        <a href="basemarketinghub#/emaillist" class="bb-back-button" ng-click="marketingHubTab.selectTab(3)"></a>
         <h3 class="bb-top-nav-title">{{emailListName}}</h3>
     </div>       
    
@@ -30,11 +30,11 @@
 </div>
 
         <div class="bb-top-sub-nav bb-top-sub-nav-backbutton-offset">
-           <div class="bb-top-sub-nav-tab"  id="emailListli" ng-click="showUpdateList()"><a  ng-class="activeEmailListContacts">Email List Contacts</a></div>
-           <div class="bb-top-sub-nav-tab"  id="importListli" ng-click="showAddContacts()"><a id="importList" ng-class="activeImportContacts">Add Contacts</a></div>
+            <div class="bb-top-sub-nav-tab"  id="emailListli" ng-click="marketingHubTab.selectTab(5);showUpdateList()"><a  ng-class="{activeTab:marketingHubTab.isSelected(5)}">Email List Contacts</a></div>
+           <div class="bb-top-sub-nav-tab"  id="importListli" ng-click="marketingHubTab.selectTab(6);showAddContacts()"><a id="importList" ng-class="{activeTab:marketingHubTab.isSelected(6)}">Add Contacts</a></div>
         </div>
     <!--Main Content--> 
-    <div class="bb-main-content-wrap bb-main-content-wrap-emaillist bb-main-content-wrap-padding" ng-show="showEmailListContacts">
+    <div class="bb-main-content-wrap bb-main-content-wrap-emaillist bb-main-content-wrap-padding" ng-show="marketingHubTab.isSelected(5)">
     <div class="bb-panel-full-width bb-panel-styling" ng-init="updateList()">
             <div class="bb-panel-header">
                 <h2 class="">Email List Contacts</h2>
@@ -113,7 +113,7 @@
         </div>
     
     <!-- Import Contacts-->   
-    <div class="bb-panel-full-width bb-panel-styling-content-wrap" id="tab4" class="hide">
+    <div class="bb-panel-full-width bb-panel-styling-content-wrap" id="tab4" class="hide" >
             <div class="bb-panel-full-width bb-panel-styling">
             <div class="bb-panel-header">
                 <h2 class="">Import Email Addresses into {{emailListName}}</h2>
