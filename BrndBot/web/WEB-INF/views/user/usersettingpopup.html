@@ -39,6 +39,15 @@
                     </div>
                     <div class="user-role-option-wrap">
                         <div class="user-role-check-box-wrap">
+                            <input type="radio" ng-value="5" ng-model="settings.adminRadio" id="coownerRadio"/>
+                        </div>
+                        <div class="user-role-definition-wrap">
+                            <label for="coownerRadio"><h3 class="user-role-title cur">Co-owner</h3></label>
+                            <p class="user-role-description">This role is able to approve actions to be posted or sent but not able to view company account settings.</p>
+                        </div>
+                    </div>
+                    <div class="user-role-option-wrap">
+                        <div class="user-role-check-box-wrap">
                             <input type="radio" ng-value="2" ng-model="settings.adminRadio" id="managerRadio"/>
                         </div>
                         <div class="user-role-definition-wrap">
@@ -87,6 +96,15 @@
                     </div>
                     <div class="user-role-option-wrap">
                         <div class="user-role-check-box-wrap">
+                            <input type="radio" ng-value="5" ng-model="settings.editAdminRadio" id="editCoownerRadio"/>
+                        </div>
+                        <div class="user-role-definition-wrap">
+                            <label for="editCoownerRadio"><h3 class="user-role-title cur">Co-owner</h3></label>
+                            <p class="user-role-description">This role is able to approve actions to be posted or sent but not able to view company account settings.</p>
+                        </div>
+                    </div>
+                    <div class="user-role-option-wrap">
+                        <div class="user-role-check-box-wrap">
                             <!--Need to add ng-click to hide and show active checkbox-->
                             <input type="radio" ng-value="2" ng-model="settings.editAdminRadio" name="adminRadio" id="editManagerRadio">
                         </div>
@@ -116,64 +134,3 @@
             <a class="long-button blue-button" ng-click="editUser(settings)">Edit User</a>
             </div>
         </div>
-
-<!--        <div class="modal-pane modal-pane-width-reg" id="addUserSettings" ng-show="resendUserEmail">
-            <div class="modal-pane-header-wrap">
-                <h2 class="">Invite User </h2>
-                <h2 class="">Update a User</h2>
-                <a id="addactionClose" ng-click = "closeOverlay()" class="modal-pane-header-exit"></a>
-            </div>
-            <div class="modal-pane-content-wrap create-new-schedule-modal">
-                <div class="input-wrap">
-                    <label>User Email Address</label>
-                    <a class="input">
-                        <input type="text" disabled name="editemail" id="editemail" value="{{userEmailId}}" ng-model="settings.email" 
-                               placeholder="Enter User Email Address" class="fluid" />
-                    </a>
-                </div>
-                <div class="user-role-selection-wrap">
-                    <h3 class="user-role-selection-wrap-header">USER PERMISSIONS</h3>
-                    <div class="user-role-option-wrap">
-                        <div class="user-role-check-box-wrap">
-                            Need to add ng-click to hide and show active checkbox
-                            <input type="radio" ng-value="1" ng-model="settings.adminRadio" name="adminRadio" id="adminRadio">
-                        </div>
-                        <div class="user-role-definition-wrap">
-                            <h3 class="user-role-title">Admin</h3>
-                            <p class="user-role-description">This role has no restrictions.</p>
-                        </div>
-                    </div>
-                    <div class="user-role-option-wrap">
-                        <div class="user-role-check-box-wrap">
-                            Need to add ng-click to hide and show active checkbox
-                            <input type="radio" ng-value="2" ng-model="settings.adminRadio" name="adminRadio" id="adminRadio">
-                        </div>
-                        <div class="user-role-definition-wrap">
-                            <h3 class="user-role-title">Manager</h3>
-                            <p class="user-role-description">This role is able to approve actions to be posted or sent but not able to view company account settings.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="user-role-option-wrap">
-                        Need to add ng-click to hide and show active checkbox
-                       <div class="user-role-check-box-wrap">
-                            Need to add ng-click to hide and show active checkbox
-                            <input type="radio" ng-value="4" ng-model="settings.adminRadio" name="adminRadio" id="adminRadio">
-                        </div>
-                        <div class="user-role-definition-wrap">
-                            <h3 class="user-role-title">Creator</h3>
-                            <p class="user-role-description">This role is unable to approve items to be sent. They can only create actions and templates to be scheduled.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-               Need to add ng-hide and show if it is a new user or an old user
-        <div class="modal-cta-container">
-            <a class="long-button blue-button">Unsubscribe Now</a>
-        </div>
-            <div class="modal-cta-container">
-                <a class="long-button blue-button" ng-click="resendUserEmail(settings)">Edit User</a>
-            </div>
-        </div>-->
-    
-
