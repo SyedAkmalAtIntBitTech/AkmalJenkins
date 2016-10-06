@@ -11,30 +11,36 @@
         <div class="overlay-content" id="recurringactiondiv" ng-show="isEmailHistory">
             <!--Email History Overlay content goes within this Div-->
             <div class="overlay-name-bar">
-                <div class="overlay-name-bar-recurring-title" >Test Email History</div>
+                <div class="overlay-name-bar-recurring-title" >HISTORY DETAILS</div>
             </div>
-            <div class="overlay-details-pane">
-                <div class="overlay-details-pane-header">HISTORY DETAILS</div>
+            {{tagsDetails.error}}
+            <div class="overlay-details-pane" ng-show="tagerror">
+                <div class="overlay-details-pane-header">{{tagerror}}</div>
+            </div>  
+            <div class="overlay-details-pane" ng-show="!tagerror" ng-repeat="tag in tagsDetails | filter:userSearch">
+                <div class="overlay-details-pane-header">{{tag.date}}</div>
                 <div class="detail-sections-wrap">
                     <div class="detail-section-item">
-                        <label class="detail-section-label">Email tag 1</label>
+                        <label class="detail-section-label">{{tag.stats[0].name}}</label>
                         <p class="detail-section-data" >Email Tag</p>
                     </div>
                     <div class="detail-section-item">
-                        <label class="detail-section-label">56%</label>
+                        <label class="detail-section-label" ng-show="(tag.stats[0].metrics.unique_opens / tag.stats[0].metrics.delivered) * 100">{{(tag.stats[0].metrics.unique_opens / tag.stats[0].metrics.delivered) * 100 | number : 2}}%</label>
+                        <label class="detail-section-label" ng-show="!(tag.stats[0].metrics.unique_opens / tag.stats[0].metrics.delivered) * 100">--</label>
                         <p class="detail-section-data" >Open Rate</p>
                     </div>
                     <div class="detail-section-item">
-                        <label class="detail-section-label">78%</label>
+                        <label class="detail-section-label" ng-show="(tag.stats[0].metrics.unique_clicks / tag.stats[0].metrics.delivered) * 100">{{(tag.stats[0].metrics.unique_clicks / tag.stats[0].metrics.delivered) * 100 | number : 2}}%</label>
+                        <label class="detail-section-label" ng-show="!(tag.stats[0].metrics.unique_clicks / tag.stats[0].metrics.delivered) * 100">--</label>
                         <p class="detail-section-data" >Click Through Rate</p>
                     </div>
                     <div class="detail-section-item">
-                        <label class="detail-section-label">Empty</label>
+                        <label class="detail-section-label">{{tag.stats[0].metrics.unsubscribes}}</label>
                         <p class="detail-section-data" >Unsubscribes</p>
                     </div>
                 </div>
             </div>
-            <div class="overlay-content-saved-email-draft" >
+<!--            <div class="overlay-content-saved-email-draft" >
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div >EMAIL HISTORY DETAILS</div>
@@ -48,7 +54,7 @@
                         </div>
                     </div>
                 </div>   
-            </div>
+            </div>-->
        </div>
                 <div class="overlay-details-pane" ng-show="isRecurring === false">
                     <div class="overlay-details-pane-header">GENERAL DETAILS</div>

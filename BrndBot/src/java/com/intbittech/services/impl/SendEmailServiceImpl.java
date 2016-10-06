@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -106,9 +107,10 @@ public class SendEmailServiceImpl implements SendEmailService {
         emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_SubUserRegularEmail);
 
         //TODO need to check and change this
+        String categories = StringUtils.join(emailDataDetails.getEmailCategoryList(), ',');
         int lastUpdateId = EmailHistoryDAO.addToEmailHistory(emailDataDetails.getCompanyId(),
                 emailDataDetails.getHtmlData(), emailDataDetails.getFromEmailAddress(), emailDataDetails.getEmailListName(),
-                "", emailDataDetails.getEmailSubject(), "TODO add tag/category here");
+                "", emailDataDetails.getEmailSubject(), categories);
         //TODO check this and remove insertMandrillEmailId
 //        if (mandrillResponse != null && lastUpdateId != -1) {
 //            EmailHistoryDAO.insertMandrillEmailId(mandrillResponse, lastUpdateId);

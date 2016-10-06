@@ -8,19 +8,29 @@ package com.intbittech.controller;
 import com.intbittech.AppConstants;
 import com.intbittech.enums.EmailTypeConstants;
 import com.intbittech.model.Company;
+import com.intbittech.model.EmailSentHistory;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.EmailDataDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.sendgrid.models.SendGridStats;
+import com.intbittech.sendgrid.models.SendGridStatsList;
 import com.intbittech.services.CompanyService;
+import com.intbittech.services.EmailSentHistoryService;
+import com.intbittech.services.EmailServiceProviderService;
 import com.intbittech.services.SendEmailService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
+import com.intbittech.utility.MarketingProgramUtility;
 import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +65,10 @@ public class EmailController {
     UsersService usersService;
     @Autowired
     CompanyService companyService;
+    @Autowired
+    EmailSentHistoryService emailSentHistoryService;
+    @Autowired
+    EmailServiceProviderService emailServiceProviderService;
 
     @RequestMapping(value = "/send", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> sendEMail(HttpServletRequest request,
@@ -91,6 +105,11 @@ public class EmailController {
             emailDataDetails.setHtmlData(html_text);
             emailDataDetails.setReplyToEmailAddress(reply_to_address);
             emailDataDetails.setEmailType(EmailTypeConstants.General.name());
+            
+            List<String> emailCategoryList = new ArrayList<>();
+                        emailCategoryList.add(MarketingProgramUtility.getDirectEmailCategory((String) requestBodyMap.get("iframeName")));
+            emailDataDetails.setEmailCategoryList(emailCategoryList);
+            
             sendEmailService.sendMail(emailDataDetails);
             //Added by Syed Ilyas 27 Nov 2015 - changed to NOT
             if (!path.equals("")) {
@@ -111,18 +130,47 @@ public class EmailController {
     @RequestMapping(value = "/tags", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> get(HttpServletRequest request,
             HttpServletResponse response, @RequestParam("userId") Integer userId, @RequestParam("companyId") Integer companyId) {
-        GenericResponse<String> transactionResponse = new GenericResponse();
+        GenericResponse<EmailSentHistory> genericResponse = new GenericResponse();
         try {
             Company company = companyService.getCompanyById(companyId);
 //            String data = sendEmailService.getTags(company.getCompanyId());
-            transactionResponse.addDetail("");
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
+            List<EmailSentHistory> emailSentHistoryList = emailSentHistoryService.getAllEmailSentHistoryByCompanyId(companyId);
+            genericResponse.setDetails(emailSentHistoryList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {
             logger.error(throwable);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
-        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "/tagsDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> tagsDetails(HttpServletRequest request,
+            HttpServletResponse response, @RequestParam("userId") Integer userId, @RequestParam("companyId") Integer companyId, @RequestParam("sentId") Integer sentId) {
+        GenericResponse<SendGridStatsList> genericResponse = new GenericResponse();
+        try {
+            Company company = companyService.getCompanyById(companyId);
+            EmailSentHistory emailSentHistoryList = emailSentHistoryService.getByEmailSentHistoryId(sentId);
+            List<String> categories = new ArrayList<>();
+            String[] categoriesArray = emailSentHistoryList.getEmailTag().split(",");
+            for(Integer i=0;i<categoriesArray.length;i++) {
+                categories.add(categoriesArray[i].trim());
+            }
+//            String data = sendEmailService.getTags(company.getCompanyId());
+            Date endDate = new Date();
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DATE, -30);
+            Date startDate = cal.getTime();
+            SendGridStatsList sendGridStats = emailServiceProviderService.getStatsByCategory(userId.toString(), categories, startDate, endDate);
+            genericResponse.addDetail(sendGridStats);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "/previewServlet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

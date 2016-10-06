@@ -10,6 +10,7 @@ import com.intbittech.responsemappers.OperationStatus;
 import com.intbittech.sendgrid.models.EmailType;
 import com.intbittech.sendgrid.models.SendGridCNameValidity;
 import com.intbittech.sendgrid.models.SendGridStats;
+import com.intbittech.sendgrid.models.SendGridStatsList;
 import com.intbittech.sendgrid.models.SendGridUser;
 import com.intbittech.sendgrid.models.SendGridUsers;
 import com.intbittech.sendgrid.models.Subuser;
@@ -76,6 +77,6 @@ public interface EmailServiceProviderService {
      * @param categories Category could be max of 9 strings.
      * @throws ProcessFailed 
      */
-    public SendGridStats getStatsByCategory(String userId, List<String> categories, Date startDate, Date endDate) throws ProcessFailed;
+    public SendGridStatsList getStatsByCategory(String userId, List<String> categories, Date startDate, Date endDate) throws ProcessFailed;
 
 }

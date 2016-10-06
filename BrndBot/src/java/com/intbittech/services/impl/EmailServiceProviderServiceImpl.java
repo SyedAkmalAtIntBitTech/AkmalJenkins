@@ -16,6 +16,7 @@ import com.intbittech.sendgrid.models.EmailType;
 import com.intbittech.sendgrid.models.SendGridCNameValidity;
 import com.intbittech.sendgrid.models.SendGridError;
 import com.intbittech.sendgrid.models.SendGridStats;
+import com.intbittech.sendgrid.models.SendGridStatsList;
 import com.intbittech.sendgrid.models.SendGridUser;
 import com.intbittech.sendgrid.models.SendGridUsers;
 import com.intbittech.sendgrid.models.Subuser;
@@ -229,11 +230,11 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
     }
 
     @Override
-    public SendGridStats getStatsByCategory(String userId, List<String> categories, Date startDate, Date endDate) throws ProcessFailed {
+    public SendGridStatsList getStatsByCategory(String userId, List<String> categories, Date startDate, Date endDate) throws ProcessFailed {
         try {
             ObjectMapper mapper = new ObjectMapper();
 
-            SendGridStats sendGridStats = new SendGridStats();
+            SendGridStatsList sendGridStats = new SendGridStatsList();
             SendGrid sg = new SendGrid(AppConstants.KSendGridAPIKey);
 
             startDate = getStartDate(startDate);
@@ -253,10 +254,11 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             queryParams.put("end_date", endDateString);
             logRequest(request);
             Response response = sg.api(request);
+          
             logResponse(response);
             OperationStatusType type = SendGridError.parseStatusCode(response.statusCode);
             if (type == OperationStatusType.Success) {
-                sendGridStats = mapper.convertValue(response.body, SendGridStats.class);
+                sendGridStats = mapper.readValue("{\"sendGridStats\":"+response.body+"}", SendGridStatsList.class);
             } else {
                 sendGridStats.setOperationStatus(mapError(response));
             }

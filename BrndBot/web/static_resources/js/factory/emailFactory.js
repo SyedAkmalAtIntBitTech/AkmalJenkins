@@ -20,6 +20,14 @@ factoryApp.factory('emailFactory', function ($q, authenticatedServiceFactory, co
         });
         return deffered.promise;
     };
+    emailFactoryObject.tagsDetailsGet = function (data) {
+        var deffered = $q.defer();
+        var url = configurationService.tagsDetailsURL()+"?sentId="+data;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
     emailFactoryObject.previewServletPost = function (sendData) {
         var deffered = $q.defer();
         var url = configurationService.previewServletURL();

@@ -137,6 +137,7 @@ var logochangesuccessfully="Logo changed Successfully";
 var logouploadsuccess="Logo uploaded Successfully.";
 var companyNameEmpty="Please enter your Company name.";
 var industryNameEmpty="Please select an Industry.";
+var categoryLoadDelay = "No data avaiable yet, please try again after sometime."
 //var emailsenderror="test";
 //var emailsenderror="test";
 //var emailsenderror="test";
