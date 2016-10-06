@@ -1791,8 +1791,9 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             } else {
 
                 var userAssignToId = $("#assignTo option:selected").val();
-                if(!userAssignToId)
+                if(userAssignToId ==="no assignee"){
                        userAssignToId = "0";
+                }
                 var schedule_title = $("#ActionName").val();
                 var schedule_date = $("#actionDate").val();
 
@@ -1914,7 +1915,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     {
                         field: document.getElementById('schedule_date'),
                         firstDay: 1,
-                        format: 'MM DD YYYY',
+                        format: 'YYYY-MM-DD',
                         minDate: new Date(2000, 0, 1),
                         maxDate: new Date(2050, 12, 31),
                         yearRange: [2000, 2050]

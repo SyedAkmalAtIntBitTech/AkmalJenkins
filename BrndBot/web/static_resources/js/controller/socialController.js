@@ -54,6 +54,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
         var schedule_desc = "";
         $rootScope.CurrentFbAccessToken = "";
         $scope.linkpost = false;
+        $scope.pushedEmail = false;
 
         $scope.getManagePage = function (selectedSocialmedia, postData) {
             appSessionFactory.getFbPostData().then(function (kGlobalFbPostDataObject) {
@@ -253,7 +254,17 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                 });
             }
         };
-
+        $scope.scheduleActionDate = function () {
+            var picker = new Pikaday(
+                    {
+                        field: document.getElementById('schedule_date'),
+                        firstDay: 1,
+                        format: 'YYYY-MM-DD',
+                        minDate: new Date(2000, 0, 1),
+                        maxDate: new Date(2050, 12, 31),
+                        yearRange: [2000, 2050]
+                    });
+        };
         $scope.getUrlParameter = function (sParam) {
             var sPageURL = decodeURIComponent($window.location.search.substring(1)),
                     sURLVariables = sPageURL.split('&'),
