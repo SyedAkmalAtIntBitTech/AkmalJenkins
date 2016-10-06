@@ -8,9 +8,15 @@ package com.intbittech.social;
 import com.controller.SqlMethods;
 import com.intbittech.controller.SignupController;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.Company;
+import com.intbittech.modelmappers.TwitterDataDetails;
+import com.intbittech.services.CompanyPreferencesService;
+import com.intbittech.services.CompanyService;
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
@@ -22,12 +28,17 @@ import twitter4j.conf.ConfigurationBuilder;
  *
  * @author AR
  */
-@Service
+@Component
 public class PostToTwitter {
+
+    @Autowired
+    private CompanyPreferencesService companyPreferencesService;
+    @Autowired
+    CompanyService companyService;
 
     private final static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(SignupController.class);
 
-    public static String postStatus(String image_type, String text, String shortURL, String fileImagePath, Integer companyId, String htmlString, String getImageFile) throws Throwable {
+    public String postStatus(String image_type, String text, String shortURL, String fileImagePath, Integer companyId, String htmlString, String getImageFile) throws Throwable {
         String returnMessage = "";
         try {
             ConfigurationBuilder twitterConfigBuilder = new ConfigurationBuilder();
@@ -40,7 +51,7 @@ public class PostToTwitter {
             Twitter twitter = new TwitterFactory(twitterConfigBuilder.build()).getInstance();
             String statusMessage = text;
             if (shortURL != null) {
-                 statusMessage = statusMessage + " " + shortURL;
+                statusMessage = statusMessage + " " + shortURL;
             }
             StatusUpdate status = new StatusUpdate(statusMessage);
             if (!image_type.isEmpty()) {
@@ -73,27 +84,16 @@ public class PostToTwitter {
         }
         return returnMessage;
     }
-
-    public static HashMap<String, String> getTwitterCompanyPreferences(Integer companyId) throws Throwable {
-        CompanyPreferencesTwitter companyPreferencesTwitter = new CompanyPreferencesTwitter();
-        return companyPreferencesTwitter.getCompanyPreferenceForAccessToken(companyId);
+    public String getTwitterAccessToken(Integer companyId) throws Throwable {
+        Company company = companyService.getCompanyById(companyId);
+        TwitterDataDetails twitterDataDetails = companyPreferencesService.getTwitterDetails(company);
+        return twitterDataDetails.getTwitterAccessToken();
     }
 
-    public static String getTwitterAccessToken(Integer companyId) throws Throwable {
-        HashMap<String, String> hashMap = getTwitterCompanyPreferences(companyId);
-        if (hashMap != null) {
-            return hashMap.get("twitter_access_token");
-        }
-        return "";
-    }
-
-    public static String getTwitterAccessTokenSecret(Integer companyId) throws Throwable {
-        HashMap<String, String> hashMap = getTwitterCompanyPreferences(companyId);
-        if (hashMap != null) {
-            return hashMap.get("twitter_access_token_secret");
-        }
-        return "";
-
+    public String getTwitterAccessTokenSecret(Integer companyId) throws Throwable {
+        Company company = companyService.getCompanyById(companyId);
+        TwitterDataDetails twitterDataDetails =companyPreferencesService.getTwitterDetails(company);
+        return twitterDataDetails.getTwitterAccessTokenSecret();
     }
 
 }

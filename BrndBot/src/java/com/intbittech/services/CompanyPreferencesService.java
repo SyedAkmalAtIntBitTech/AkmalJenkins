@@ -5,10 +5,15 @@
  */
 package com.intbittech.services;
 
+import static com.intbittech.enums.ScheduledEntityType.Twitter;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.modelmappers.CompanyColorsDetails;
+import com.intbittech.modelmappers.EmailSettings;
+import com.intbittech.modelmappers.FacebookDataDetails;
 import com.intbittech.modelmappers.FooterDetails;
+import com.intbittech.modelmappers.Tooltips;
+import com.intbittech.modelmappers.TwitterDataDetails;
 import com.intbittech.modelmappers.UserProfileColorDetails;
 import java.util.List;
 import java.util.Map;
@@ -24,9 +29,9 @@ public interface CompanyPreferencesService {
 
     public CompanyPreferences getByCompany(Company company);
 
-    public void updateEmailSettings(JSONObject json_object, Company company);
+    public void updateEmailSettings(EmailSettings emailSettings, Company company);
 
-    public JSONObject getEmailSettings(Company company);
+    public EmailSettings getEmailSettings(Company company);
 
     public List<String> getColors(Company company);
 
@@ -47,4 +52,21 @@ public interface CompanyPreferencesService {
     public List<CompanyPreferences> getAll();
 
     public void saveUnsubscribeEmails(Integer companyId, List<String> emailList);
+    
+    public void setTwitterDetails(TwitterDataDetails twitter,Company company);
+    
+    public TwitterDataDetails getTwitterDetails(Company company);
+    
+    public void deleteTwitterDetails(Company company);
+        
+    public void setFacebookDetails(FacebookDataDetails facebook,Company company);
+ 
+    public FacebookDataDetails getFacebookDetails(Company company);
+    
+    public void deleteFacebookDetails(Company company);
+    
+    public void setTooltips(Tooltips tooltips,Company company);
+    
+    public Tooltips getTooltips(Company company);
+    
 }
