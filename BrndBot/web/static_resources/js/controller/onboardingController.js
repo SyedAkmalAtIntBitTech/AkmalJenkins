@@ -123,11 +123,10 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                     var userId = data.d.message;
                     appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                         kGlobalCompanyObject.userId = userId;
-                        $scope.userId = userId;
                         appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
                             if (data) {
                                 $("#signform").submit();
-                                $location.path("/signup/company");
+//                                $location.path("/signup/company?userId="+ userId);
                             }
                             appSessionFactory.getCompany().then(function (kGlobalCompanyObject1) {
                             });
@@ -181,7 +180,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $scope.loginForm = true;
 
         };
-        $scope.getUserId = function () {
+        $scope.getUserIdForSignUp = function () {
             checkBrowser();
             $scope.userHashId = $location.search().userid;
             var queryString = (function (a) {
@@ -219,6 +218,10 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             });
         };
 
+        $scope.getUserId = function(){
+            $scope.userId = $location.search().userId;
+        };
+        
         $scope.getLoggedInUserId = function () {
             onboardingFactory.getLoggedInUserId().then(function (data) {
                 appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
@@ -334,14 +337,18 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             {
                 appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                     var userIdvalue = kGlobalCompanyObject.userId;
+                    userIdvalue = $scope.userId;
+                    kGlobalCompanyObject.userId = $scope.userId;
+                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
+
                     var companyDetails = {"userId": userIdvalue, "companyName": $scope.companyName, "organizationId": $scope.organizationId};
                     onboardingFactory.saveCompanyPost(companyDetails).then(function (data) {
                         var companyId = data.d.message;
                         if (parseInt(companyId) == 0) {
                             growl("company name already exist, please give some other company name");
-                        } else {
+                        } else if (companyId != null) {
                             kGlobalCompanyObject.companyId = companyId;
-
+                            kGlobalCompanyObject.userId = userIdvalue;
                             onboardingFactory.getAllUserCompanies(userIdvalue).then(function (data) {
                                 var detail = data.d.details;
                                 if (detail.length === 1) {
@@ -364,7 +371,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                                 }
                             });
 
-//                            appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
+                            appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
                             //TODO Set the companyId in Auth factory file
                             $location.path("/signup/datasource");
                         }
