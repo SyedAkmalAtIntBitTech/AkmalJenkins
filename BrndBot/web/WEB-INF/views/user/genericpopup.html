@@ -1,16 +1,16 @@
 <div id="fade" class="black_overlay" ng-class="fadeClass"></div>
 <div class="overlay-wrap overlay-slide" id="emailsection" ng-class="emailsectionClass">
     <div class="header" id="emailtopnav">
-        <a class="exit-button" ng-click="closePopup();promptHideShow(false);clickedDeleteAction = false;" href="">
+        <a id="closePopupSlider" class="exit-button" ng-click="closePopup();promptHideShow(false);clickedDeleteAction = false;" href="">
         </a>
         <h2> {{generalActionDetailsHeader}} Action Detail</h2>
-        <div class="overlay-header-cta-wrap">
+        <div class="overlay-header-cta-wrap" ng-show="pushedEmail==false">
             <a  class="status-button template-not-approved" ng-show="action_template_status === 'Template Saved' && !isProgramArchived" ng-click="Approval(schedule_id, 'approved', masterActionType)" style="padding: 10px 0px 10px 0px;width: 100px;">
-                <i class=""></i>
+              
                 <label>{{templateApproveButton}}</label>
             </a>
              <a class="status-button template-not-approved" id="marketingemailapprove" ng-show="action_template_status === 'Approved' && !isProgramArchived" ng-click="Approval(schedule_id, 'template_saved', masterActionType)"  style="padding: 10px 0px 10px 0px;width: 105px;">
-                 <i class=""></i>
+               
                 <label>{{templateDisapproveButton}}</label>
             </a>
             <div ng-hide="isProgramArchived" class="action-delete-button" ng-click="clickedDeleteAction = true" ></div>
@@ -24,18 +24,33 @@
             </div>
         </div>
     </div>
-    <ul class="sub-nav-tab-wrap with-back-button">
+    <ul class="sub-nav-tab-wrap with-back-button" ng-show="pushedEmail==false">
+        <li class="sub-nav-tab" ng-if="isEmailHistory">
+             <a id="emailnote1" ng-click="setTab('emailHistory')" ng-class="top_subnav_link_active_emailHistoryDetail_Class" href="">Email History Details</a>
+        </li>
         <li class="sub-nav-tab ">
-             <a id="emailaction1" val="{{schedule_id}}" ng-click="setTab('actionDetails')" ng-class="top_subnav_link_active_actionDetail_Class" href="">Action Details</a>
+             <a id="emailaction1" val="{{schedule_id}}" ng-click="setTab('actionDetails');" ng-class="top_subnav_link_active_actionDetail_Class" href="">Action Details</a>
         </li>
         <li class="sub-nav-tab ">
              <a id="emailpost1" ng-click="setTab('savedDetails')" ng-class="top_subnav_link_active_savedDetail_Class" href="">Saved {{savedHeader}}</a>
         </li>
-        <li class="sub-nav-tab " ng-hide="true">
+        <li class="sub-nav-tab ">
              <a id="emailnote1" ng-click="setTab('notes')" ng-class="top_subnav_link_active_notesDetail_Class" ng-if="isRecurring===false" href="">Collaboration</a>
         </li>
     </ul>
+    <ul class="sub-nav-tab-wrap with-back-button" ng-show="pushedEmail==true">
+        <li class="sub-nav-tab ">
+             <a id="emailpost1" ng-click="setTab('savedDetails')" ng-class="top_subnav_link_active_savedDetail_Class" href="">Saved {{savedHeader}}</a>
+        </li>
+        <li class="sub-nav-tab ">
+             <a id="emailnote1" ng-click="setTab('associatedAcccounts')" ng-class="top_subnav_link_active_notesDetail_Class" href="">Associated Accounts</a>
+        </li>
+    </ul>
+    
     <div ng-include src="'generalActionDetails.html'"></div>
     <div ng-include src="'generalActionNotes.html'"></div>
     <div ng-include src="'generalSavedDetails.html'"></div>
+    <div ng-include src="'pushedactionssaveddetails.html'"></div>
+    <div ng-include src="'pushedactionassociatedaccounts.html'"></div>
+    
 </div>

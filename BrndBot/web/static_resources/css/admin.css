@@ -868,6 +868,20 @@ height: 150px;
     margin-top: 30vh;
     margin-left: 30vh;
 }
+.modal-pane-header-exit{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    margin-left: auto;
+    display: block;
+}
+
+.modal-pane-header-exit{
+    background-image: url(/BrndBot/images/gray-close.svg);
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 
 #addOrganizationPopup,#addOrganizationPopupDiv,#addPrintCategoryPopup,#addImageCategory,#addSubCategoryPopup,#addEmailBlockPopUp,
 #addEmailTemplatePopUp,#relateEmailTemplateAddButton,#relateImageTemplateAddButton,#relatePrintTemplateAddButton,#addRecurringEmailTemplatePopUp,

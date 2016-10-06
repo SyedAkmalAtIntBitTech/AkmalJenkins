@@ -8,10 +8,16 @@ package com.intbittech.schedulers;
 import com.intbit.ConnectionManager;
 import com.intbittech.component.SpringContextBridge;
 import com.intbittech.divtohtml.StringUtil;
+import com.intbittech.enums.EmailListTypeConstants;
 import com.intbittech.mindbody.MindBodyClass;
 import com.intbittech.model.CompanyPreferences;
+import com.intbittech.model.Contacts;
 import com.intbittech.model.EmailInfo;
+import com.intbittech.model.EmailList;
+import com.intbittech.modelmappers.AddEmailListDetails;
+import com.intbittech.modelmappers.ContactDetails;
 import com.intbittech.services.CompanyPreferencesService;
+import com.intbittech.services.ContactsService;
 import com.intbittech.services.EmailListService;
 import com.intbittech.utility.IConstants;
 import com.intbittech.utility.Utility;
@@ -75,106 +81,63 @@ public class MindbodyEmailListProcessor implements Runnable {
         }        
         
     }
-
+    
     public void processEachRow(Integer companyId, Integer companyLocation) throws ParseException {
-        JSONArray json_email_array = new JSONArray();
-
         int[] siteids = new int[]{companyLocation};
         MindBodyClass mind_body_class = new MindBodyClass(siteids);
         HashMap<String, List<Client>> clientIndexesHashmap = new HashMap<String, List<Client>>();
-        CompanyPreferencesService companyPreferencesService = SpringContextBridge.services().getCompanyPreferencesService();
-        CompanyPreferences companyPreferences = companyPreferencesService.getByCompanyId(companyId);
-        Map<String, String> unsubscribedEmailsMap = companyPreferencesService.getUnsubscribedEmailsMap(companyPreferences);
-
         try {
             long startTime = System.currentTimeMillis();
             logger.log(Level.INFO, "Started working on getting email lists for :" + siteids[0] + " - " + companyId);
-            //String key is the Email List Name. And the value is the clients associated with it.
             try {
                 clientIndexesHashmap = mind_body_class.getAllClientIndexes();
             } catch (Exception ex) {
                 logger.log(Level.SEVERE, "Mindbody email list processor", ex);
             }
             logger.log(Level.INFO, "Ended working on getting email lists for :" + siteids[0] + " Processing time:" + ((System.currentTimeMillis() - startTime) / 1000.0) + " Email Indexes Present:" + clientIndexesHashmap.keySet().size());
-                //convert clientIndexesHashmap to JSONObject and update table
-            //Email list name : [clientEmailAddresses].
-            //iterates through every emaillist
+            
             for (String email_list_name : clientIndexesHashmap.keySet()) {
-                JSONObject savedMindBodyEmailList = getMindBodySavedEmailList(email_list_name, companyId);
-                
-                
-                org.json.JSONObject json_email_object = new org.json.JSONObject();
                 List email_client = (List<Client>) clientIndexesHashmap.get(email_list_name);
-                org.json.JSONArray json_array_emailclient = new org.json.JSONArray();
-                //iterates throught every email in emaillist
+                Integer emailListId = 0;
+                try {
+                    EmailListService emailListService = SpringContextBridge.services().getEmailListService();
+                    EmailList emailList = emailListService.getEmailListByCompanyIdAndEmailListName(companyId, MBEmailListName(email_list_name));
+                    
+                    if(emailList == null) {
+                        AddEmailListDetails addEmailListDetails = new AddEmailListDetails();
+                        addEmailListDetails.setCompanyId(companyId);
+                        addEmailListDetails.setEmailListName(MBEmailListName(email_list_name));
+                        addEmailListDetails.setEmailListType(EmailListTypeConstants.Mindbody.name());
+                        emailListId = emailListService.save(addEmailListDetails);
+                    } else {
+                        emailListId = emailList.getEmailListId();
+                    }
+                    
+                    
+                    
+                } catch (Exception ex) {
+                    logger.log(Level.SEVERE, "Mindbody email list processor", ex);
+                }
                 for (int i = 0; i < email_client.size(); i++) {
                     Client client = (Client) email_client.get(i);
                     String email_id = client.getEmail();
-                    EmailInfo email_info = checkIfExistingInSavedEmailList(savedMindBodyEmailList, client);
-
-                    if (!Utility.checkIfUnsubscribed(email_id, unsubscribedEmailsMap)) {
-                        json_array_emailclient.put(email_info.getEmailInfoJSONObject());
-                    }
+                    ContactsService contactsService = SpringContextBridge.services().getContactsService();
+                    ContactDetails contactDetails = new ContactDetails();
+                    contactDetails.setCompanyId(companyId);
+                    contactDetails.setEmailAddress(email_id);
+                    contactDetails.setFirstName(client.getFirstName());
+                    contactDetails.setLastName(client.getLastName());
+                    contactDetails.setEmailListId(emailListId);
+                    contactsService.addContact(contactDetails);
                 }
-
-                json_email_object.put(IConstants.kEmailListNameKey, MBEmailListName(email_list_name));
-                json_email_object.put(IConstants.kEmailAddressesKey, json_array_emailclient);
-                json_email_array.add(json_email_object);
-
             }
-
-            if (json_email_array.size() >= 0) {
-                updateUserPreferencesTable(companyId, json_email_array);
-            }
-
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Mindbody email list processor", e);
         }
-//        }
     }
 
-    private void updateUserPreferencesTable(Integer companyId, JSONArray mindbodyEmails) throws Exception {
-        EmailListService emailListService = SpringContextBridge.services().getEmailListService();
-        Map<String, Object> map = new HashMap<>();
-        map.put("update", "updateAllCompanyMindbodyListForStudioId");
-        map.put(IConstants.kEmailListMindbodyKey, mindbodyEmails);
-        emailListService.setEmailList(map, companyId);
-    }
-    
     private String MBEmailListName(String name) {
         return "Mindbody - " + name;
-    }
-
-    private JSONObject getMindBodySavedEmailList(String email_list_name, Integer companyId) throws Exception {
-        EmailListService emailListService = SpringContextBridge.services().getEmailListService();
-
-        String savedEmailListsString = emailListService.getEmailList("emailsForEmailList", companyId, MBEmailListName(email_list_name));
-        JSONParser jsonParser = new JSONParser();
-        if (!StringUtil.isEmpty(savedEmailListsString)) {
-            JSONObject savedEmailJSONObject = (JSONObject) jsonParser.parse(savedEmailListsString);
-            return savedEmailJSONObject;
-        }
-        return null;
-    }
-
-    private EmailInfo checkIfExistingInSavedEmailList(JSONObject savedMindBodyEmailList, Client client) {
-        JSONArray emailAddressesJSONArray = (JSONArray) savedMindBodyEmailList.get(IConstants.kEmailMindbodyEmailAddresses);
-        if (emailAddressesJSONArray != null && emailAddressesJSONArray.size() > 0) {
-            for (Object emailAddressesObject : emailAddressesJSONArray) {
-                JSONObject emailAddressJSONObject = (JSONObject) emailAddressesObject;
-                EmailInfo savedEmailModel = EmailInfo.fromJSON(emailAddressJSONObject.toString());
-                if (StringUtil.isEqualIgnoreCase(savedEmailModel.getEmailAddress(), client.getEmail())) {
-                    //This is for backward checking
-                    if (StringUtil.isEmpty(savedEmailModel.getAddedDate())) {
-                        savedEmailModel.setAddedDate(dateFormat.format(new Date()));
-                    }
-                    return savedEmailModel;
-                }
-            }
-        }
-
-        EmailInfo emailModel = new EmailInfo(client.getEmail(), client.getFirstName(), client.getLastName(), dateFormat.format(new Date()));
-        return emailModel;
     }
     
 }

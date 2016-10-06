@@ -54,6 +54,8 @@ public class CompanyMarketingProgram implements Serializable {
     @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
     @ManyToOne
     private Company fkCompanyId;
+    @Column(name = "is_pushed")
+    private Boolean isPushed;
 
     public CompanyMarketingProgram() {
     }
@@ -135,4 +137,12 @@ public class CompanyMarketingProgram implements Serializable {
     public void setFkCompanyId(Company fkCompanyId) {
         this.fkCompanyId = fkCompanyId;
     }
+    public Boolean getIsPushed() {
+        return isPushed;
+    }
+
+    public void setIsPushed(Boolean isPushed) {
+        this.isPushed = isPushed;
+    }
+
 }

@@ -1,7 +1,6 @@
 
 <div ng-include src="'addaction.html'"></div>
 <div ng-include src="'usersettingpopup.html'"></div>
-
     <div class="bb-top-nav" ng-init="getUserDetails()">
          <div class="bb-bar-left-wrap bb-one-third-flex-col">
              <h3 class="bb-top-nav-title">Your Plan</h3>
@@ -29,7 +28,7 @@
                     var picker = new Pikaday(
                             {
                                 field: document.getElementById('jumptodatepicker'),
-                                format: 'YYYY-MM-DD',
+                                format: 'MM DD YYYY',
                                 firstDay: 1,
                                 minDate: new Date('2000-01-01'),
                                 maxDate: new Date('2050-12-31'),

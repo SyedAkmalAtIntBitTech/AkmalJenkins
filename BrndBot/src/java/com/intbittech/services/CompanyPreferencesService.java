@@ -52,8 +52,6 @@ public interface CompanyPreferencesService {
     public List<CompanyPreferences> getAll();
 
     public void saveUnsubscribeEmails(Integer companyId, List<String> emailList);
-
-    public Map<String, String> getUnsubscribedEmailsMap(CompanyPreferences companyPreferences);
     
     public void setTwitterDetails(TwitterDataDetails twitter,Company company);
     
@@ -70,6 +68,5 @@ public interface CompanyPreferencesService {
     public void setTooltips(Tooltips tooltips,Company company);
     
     public Tooltips getTooltips(Company company);
-    
     
 }

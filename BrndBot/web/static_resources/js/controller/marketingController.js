@@ -39,8 +39,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.addBlockCount = 0;
         $scope.changeUsers = false;
         $scope.companyName = "";
+        $scope.editSavedEmail = false;
 
         $scope.companyAddressDetails = {};
+        $scope.emailListName="";
 
         $scope.ddSelectAction = {
             text: "Select"
@@ -132,7 +134,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.programId = programId;
             $location.path("/" + pageName);
         };
-        $scope.redirectToEmailAutomation = function (pageName, add, programId, zero)
+        $scope.redirectToEmailAutomation = function (pageName, add, programId, zero, editSavedEmail)
         {
 //            $scope.programId = programId;
             if ($scope.action_template_status !== 'Approved') {
@@ -141,6 +143,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.zero = zero;
                 $scope.entityId = zero;
                 $scope.closePopup();
+                if(editSavedEmail)
+                    $scope.editSavedEmail = true;
+                else
+                    $scope.editSavedEmail = false;
                 $location.path("/" + pageName);
             } else {
                 growl(actionAlreadyScheduled);
@@ -255,6 +261,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.currProgramsDiv = true;
             $scope.pastProgramsDiv = false;
         };
+        
+        $scope.isActive= function (tabName){
+            if($scope.currProgramsDiv)
+                return tabName === 'currentCampaign';
+            else
+                return tabName === 'archivedCampaign';
+        };
+        
         $scope.getProgramActions = function (forward)
         {
             $scope.isOneTimeActionsEmpty = false;
@@ -585,8 +599,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.generalSavedDetails = true;
             $scope.generalNotes = false;
             $scope.generalActions = false;
-            $scope.emailsectionClass = 'emailsectionClass';
-            $scope.fadeClass = 'fadeClass';
             $scope.action_template_status = template_status;
             $scope.generalActionDetailsHeader = "Recurring Email";
             $scope.scheduledTo = 'POST';
@@ -596,6 +608,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.savedDetailsAddTemplateLink = "#/marketingprogramactions";
             $scope.templateApproveButton = "Play";
             $scope.templateDisapproveButton = "Pause";
+            $scope.pushedEmail=false;
             $scope.hideShowEditDot(false);
             $scope.recurringScheduleData = {schedule_title: schedule_title, schedule_desc: schedule_desc,
                 schedule_id: schedule_id, entities_list_name: "",
@@ -604,6 +617,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 days: days, entities_selected_time: $filter('date')(schedule_time, "HH : mm : a"), entities_subject: "",
                 entities_from_name: "", entities_reply_to_email_address: ""};
             yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data) {
+                $scope.fadeClass = 'fadeClass';
+                $scope.emailsectionClass = 'emailsectionClass';
                 $scope.recurringEntitiesDetails = JSON.parse(data.d.details);
                 $scope.recurringScheduleData.entities_subject = $scope.recurringEntitiesDetails.subject;
                 $scope.recurringScheduleData.entities_list_name = $scope.recurringEntitiesDetails.email_list_name;
@@ -624,6 +639,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.htmlbody = $scope.recurringEntitiesDetails.body.replace(/contenteditable="true" /g, 'contenteditable="false"');
                     iframe.contentDocument.body.innerHTML = $scope.htmlbody;
                 } else {
+                    $scope.redirectToEmailAutomation('emailautomation','template','', schedule_id);
                     $scope.savedEmail = false;
                     $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
                 }
@@ -701,6 +717,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.templateDisapproveButton = "Disapprove";
             $scope.savedHeader = 'Post';
             $scope.actionDate = schedule_date;
+            $scope.pushedEmail=false;
             var time = $filter('date')(schedule_time, "hh : mm : a");
             $("#emaildatetime").val($filter('date')(schedule_date, "MMM dd yyyy"));
 
@@ -1026,22 +1043,21 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
 
             var returnFooter = "";
-            var footer = "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\" bgcolor=\"#EEEEEE\" style=\"border-collapse:collapse;\"><tr><td valign=\"top\"> <center style=\"width: 100%;\"> <div style=\"max-width: 680px;\"> <!--[if (gte mso 9)|(IE)]> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"680\" align=\"center\"> <tr> <td> <![endif]--> <!-- Atom Body: BEGIN --> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" bgcolor=\"#EEEEEE\" width=\"100%\" style=\"max-width: 680px;\"> <tr> <td style=\"padding-top:15px;\" class=\"mobile-padding\"> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" width=\"100%\" style=\"max-width: 300px; background-color:#inherit\" class=\"mobile-padding\"> <tr>";
+            var footer = kGlobalFooterTop;
+            
+            var footerFB = kGlobalFooterFB;
 
-            var footerFB = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerFB$$$\"><img src=\"" + getHost() + "images/Facebook_Filled.png" + "\" alt=\"Facebook Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Facebook </td> </tr> </table> </td>";
+            var footerTwitter = kGlobalFooterTwitter;
 
-            var footerTwitter = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerTwitter$$$\"><img src=\"" + getHost() + "images/Twitter_Filled.png" + "\" alt=\"Twitter Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Twitter </td> </tr> </table> </td>";
+            var footerWebsite = kGlobalFooterWebsite;
 
-            var footerWebsite = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerWebsite$$$\"><img src=\"" + getHost() + "images/Website_Filled.png" + "\" alt=\"Website Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Website </td> </tr> </table> </td>";
+            var footerInstagram = kGlobalFooterInstagram;
 
-            var footerInstagram = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerInstagram$$$\"><img src=\"" + getHost() + "images/Insta_Filled.png" + "\" alt=\"Instagram Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Instagram </td> </tr> </table> </td>";
+            var footerMiddle = kGlobalFooterMiddle;
 
-            var footerMiddle = "</tr> </table> </td> </tr>";
+            var footerAddress = kGlobalFooterAddress;
 
-            var footerAddress = "<!--HEADER: BEGIN--> <tr> <td style=\"font-family: sans-serif; font-size: 12px; mso-height-rule: exactly; line-height: 120%; text-align:center; color: #555555; padding: 20px 55px 20px 55px;\" class=\"fluid mobile-padding\"> $$$footerAddress$$$ </td> </tr> <!--HEADER: END-->";
-
-            var footerClose = "</table> <!--[if (gte mso 9)|(IE)]> </td> </tr> </table> <![endif]--> </div> </center> </td></tr></table>";
-
+            var footerClose = kGlobalFooterBottom;
 
             returnFooter = footer;
             if (footerData.userProfile) {
@@ -1049,16 +1065,17 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     returnFooter += footerFB.replace("$$$footerFB$$$", footerData.userProfile.facebookUrl);
                 if (footerData.userProfile.twitterUrl)
                     returnFooter += footerTwitter.replace("$$$footerTwitter$$$", footerData.userProfile.twitterUrl);
-
-                if (footerData.userProfile.websiteUrl)
-                    returnFooter += footerWebsite.replace("$$$footerWebsite$$$", footerData.userProfile.websiteUrl);
-
                 if (footerData.userProfile.instagramUrl)
                     returnFooter += footerInstagram.replace("$$$footerInstagram$$$", footerData.userProfile.instagramUrl);
             }
 
             returnFooter += footerMiddle;
-
+            
+            if (footerData.userProfile) {
+                if (footerData.userProfile.websiteUrl)
+                    returnFooter += footerWebsite.replace("$$$footerWebsite$$$", footerData.userProfile.websiteUrl);
+            }
+            
             returnFooter += footerAddress.replace("$$$footerAddress$$$", companyAddress);
 
             returnFooter += footerClose;
@@ -1131,7 +1148,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $("#emlautomeditorcontainer").show();
             marketingRecurringEmailFactory.allRecurringEmailTemplatesGet().then(function (data) {
                 $scope.recuring_email_templates = JSON.parse(JSON.stringify(data));
-                if (!isTemplateClick)
+                if (!isTemplateClick && !$scope.editSavedEmail)
                     $scope.showHTMLData($scope.recuring_email_templates[0].html_data, $scope.recuring_email_templates[0].template_id);
             });
             $scope.recurringTemplateOnClick(0);
@@ -1147,7 +1164,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $("#defaultblock1").empty().append("<div class=view>" + emailData.htmldata + "</div>");
 
                 } else {
-                    $("#tinymceEditorBody").append("<div id=defaultblock1><div class=view>" + emailData.htmldata + "</div></div");
+                    $("#tinymceEditorBody").append("<div id=defaultblock1 class=module><div class=view>" + emailData.htmldata + "</div></div");
                 }
                 $scope.templateId = id;
                 if ($scope.companyName.indexOf("Dailey") >= 0) {
@@ -1174,6 +1191,19 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 toolbar1: 'undo | bold italic | alignleft aligncenter alignright | link forecolor | fontselect fontsizeselect ',
                 menubar: false
             });
+            $('.innerbg').mouseenter(function (event) {
+                $("#colpic").css({position: "absolute", top: event.pageY, left: "20px"}).css(" z-index", 30000).show();
+                seldiv = $(this).parents('[bb-bgcolor]');
+            });
+            $(document).click(function () {
+                $("#colpic").hide();
+            });
+            $('.view').find('table:first').find('td:first').mouseenter(function () {
+                $(this).find('table:first').addClass('template-border-Active');
+            });
+            $('.view').find('table:first').find('td:first').mouseleave(function () {
+                $(this).find('table:first').removeClass('template-border-Active');
+            });
         };
         $scope.launchTinyMceEditorForOnlyImage = function () {
             tinymce.EditorManager.editors = [];
@@ -1190,6 +1220,19 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 ],
                 toolbar1: 'undo | bold italic |link',
                 menubar: false
+            });
+            $('.innerbg').mouseenter(function (event) {
+                $("#colpic").css({position: "absolute", top: event.pageY, left: "20px"}).css(" z-index", 30000).show();
+                seldiv = $(this).parents('[bb-bgcolor]');
+            });
+            $(document).click(function () {
+                $("#colpic").hide();
+            });
+            $('.view').find('table:first').find('td:first').mouseenter(function () {
+                $(this).find('table:first').addClass('template-border-Active');
+            });
+            $('.view').find('table:first').find('td:first').mouseleave(function () {
+                $(this).find('table:first').removeClass('template-border-Active');
             });
         };
         $scope.getFooterDetails = function () {
@@ -1210,30 +1253,39 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //                    value: "1"
 //                }
             ];
-            emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
-                var parseData = JSON.parse(data.d.details);
-                $scope.emailLists_user = parseData.allEmailListWithNoOfContacts.user;
-                $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
-                //angulardd
-                var emailAutomationData = parseData.allEmailListWithNoOfContacts.user;
+            
+            appSessionFactory.getCompany().then(function (companyObject){
+                
+                emailListFactory.getAllEmailListWithNoOfContactsForUser(companyObject.companyId).then(function (data) {
+                    $scope.emailLists_user = data.d.details;
+                });
+
+                emailListFactory.getAllEmailListWithNoOfContactsForMindBody(companyObject.companyId).then(function (data) {
+    //                alert(JSON.stringify(data));
+                    $scope.emailLists_mindbody = data.d.details;
+                });
+            
+            });
+                var emailAutomationData = $scope.emailLists_user;
+//                        parseData.allEmailListWithNoOfContacts.user;
                 for (var i = 0; i < emailAutomationData.length; i++)
                 {
                     var emailAutomationObject = {};
                     emailAutomationObject["text"] = emailAutomationData[i].emailListName;
-                    emailAutomationObject["value"] = emailAutomationData[i].emailListName;
+                    emailAutomationObject["value"] = emailAutomationData[i].emailListId;
                     $scope.ddSelectEmailListAutomationDataOptions.push(emailAutomationObject);
                 }
 
                 //For mindbody emaillist
-                emailAutomationData = parseData.allEmailListWithNoOfContacts.mindbody;
+                emailAutomationData = $scope.emailLists_mindbody;
+//                        parseData.allEmailListWithNoOfContacts.mindbody;
                 for (var i = 0; i < emailAutomationData.length; i++)
                 {
                     var emailAutomationObject = {};
                     emailAutomationObject["text"] = emailAutomationData[i].emailListName;
-                    emailAutomationObject["value"] = emailAutomationData[i].emailListName;
+                    emailAutomationObject["value"] = emailAutomationData[i].emailListId;
                     $scope.ddSelectEmailListAutomationDataOptions.push(emailAutomationObject);
                 }
-            });
         };
 
         $scope.ddSelectDateAutomationData = {
@@ -1323,6 +1375,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         var daysDropDownSelect = {"text": data.recurring_email_days, "value": data.recurring_email_days};
                         $scope.setDays(daysDropDownSelect);
                     }
+                    console.log(JSON.stringify(data));
 //                    alert(JSON.stringify(data.recurring_email_body));
                     //TODO Sandeep
                     $scope.froalaHtmlData = data.recurring_email_body;
@@ -1347,17 +1400,15 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.emailListOnChange = function (emailListName) {
             $scope.emailAutomationListValidation = false;
             $scope.emailLists = "";
-            emailListFactory.emailListGet(emailListName.value, "emailsForEmailList").then(function (emailListData) {
-                var emailListName = $.parseJSON(emailListData.d.details);
-                for (var i = 0; i < emailListName.user_emailAddresses.length; i++) {
-                    var emails = emailListName.user_emailAddresses[i];
-                    $scope.emailLists = $scope.emailLists + eval(JSON.stringify(emails.emailAddress)) + ",";
+            
+            emailListFactory.getContactsOfEmailList(emailListName.value).then(function (emailListData){
+                var emailListDetails = emailListData.d.details;
+                var emails="";
+                for (var i = 0; i < emailListDetails.length; i++) {
+                    emails = emailListDetails[i].fkContactId.emailAddress;
+                    $scope.emailLists = $scope.emailLists + emails + ",";
                 }
-                for (var i = 0; i < emailListName.mindbody_emailAddresses.length; i++) {
-                    var emails = emailListName.mindbody_emailAddresses[i];
-                    $scope.emailLists = $scope.emailLists + eval(JSON.stringify(emails.emailAddress)) + ",";
-                }
-                $scope.emailListName = emailListName.emailListName;
+                $scope.emailListName = emailListDetails[0].fkEmailListId.emailListName;
                 $scope.automationData.selectedEmailList = $scope.emailListName;
             });
         };
@@ -1647,6 +1698,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 var recurring_action = {
                                     "entity_id": $scope.entityId.toString(),
                                     "template_id": $scope.templateId, "html_data": $scope.froalaHtmlData + footer,
+                                    "html_body": $scope.froalaHtmlData,
                                     "days": days.toString(), "emaillist": emaillist,
                                     "to_email_addresses": to_email_addresses,
                                     "subject": subject, "from_name": from_name,
@@ -1949,7 +2001,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                             }
                         } else
                         {
-                            var BlockHtml = '<div id=' + $scope.htmlTagId + '  class=module onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ',' + mindbodyId + ')>' + emailData.htmldata + '</div>';
+                            var BlockHtml = '<div id=' + $scope.htmlTagId + '  class=module onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ',' + mindbodyId + ')><div class="view">' + emailData.htmldata + '</div></div>';
                             $("#tinymceEditorBody").append(BlockHtml);
                             if ($scope.companyName.indexOf("Dailey") >= 0) {
                                 $scope.launchTinyMceEditorForOnlyImage();
@@ -1982,5 +2034,5 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
             $scope.recurringTemplateOnClick(0);
         };
-
+        
     }]);

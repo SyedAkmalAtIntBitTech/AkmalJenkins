@@ -49,7 +49,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 value: 'Reminder'
             }
         ];
-
+        
         $scope.ddSelectAction = {text: "Select"};
 
         $scope.showCompanyList = function () {
@@ -65,11 +65,21 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             growl(pikaday.toString());
         };
 
+        $scope.showCompanyList = function(){
+            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                    kGlobalCompanyObject.userHashId = "";
+                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                    });
+                });
+         window.location = getHost() + "user/loading";
+        };
+        
         var user_selected_date = '';
         var picker = new Pikaday(
                 {
                     field: document.getElementById('jumptodatepicker'),
                     firstDay: 1,
+                    format: 'MM DD YYYY',
                     minDate: new Date('2000-01-01'),
                     maxDate: new Date('2050-12-31'),
                     yearRange: [2000, 2050],
@@ -421,7 +431,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
-        {
+        {   
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
             {
                 var userAssignToId = $("#assignTo option:selected").val();
@@ -466,6 +476,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.closePopup = function () {
+            $scope.sentEmailDetailsPopupClass = '';
             $scope.reminderSectionClass = '';
             $scope.emailsectionClass = '';
             $scope.fadeClass = '';
@@ -554,6 +565,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.setEmailToThisAction = "Save Email to this Action";
             $scope.savedHeader = 'Post';
             $scope.isRecurring = false;
+            $scope.pushedEmail=false;
             if (entity_type === getnote()) {
                 $scope.reminderSectionClass = 'reminderSectionClass';
                 $scope.savedReminderTab = true;
@@ -1077,7 +1089,15 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 growl(actionAlreadyScheduled);
             }
         };
-
+        
+        $scope.getSentEmailDetails = function (scheduleId){
+            yourPlanFactory.getSentEmailDetails(scheduleId).then(function (sentEmailData){
+                $scope.sentEmailDetails = sentEmailData.d.details[0];
+                var iframe = document.getElementById('sentEmailIframe');
+                iframe.contentDocument.body.innerHTML = sentEmailData.d.details[0].htmlData;
+                $scope.fadeClass = 'fadeClass';
+                $scope.sentEmailDetailsPopupClass = 'sentEmailDetailsPopupClass';
+                $scope.savedReminderTab = true;
+            });
+        };
     }]);
-
-       

@@ -8,7 +8,48 @@
     </div>
     <span class="validationAlert general-action-alert " ng-if='scheduleData.schedule_title === "" || null'>{{actionNameValidation}}</span>
 
-
+        <div class="overlay-content" id="recurringactiondiv" ng-show="isEmailHistory">
+            <!--Email History Overlay content goes within this Div-->
+            <div class="overlay-name-bar">
+                <div class="overlay-name-bar-recurring-title" >Test Email History</div>
+            </div>
+            <div class="overlay-details-pane">
+                <div class="overlay-details-pane-header">HISTORY DETAILS</div>
+                <div class="detail-sections-wrap">
+                    <div class="detail-section-item">
+                        <label class="detail-section-label">Email tag 1</label>
+                        <p class="detail-section-data" >Email Tag</p>
+                    </div>
+                    <div class="detail-section-item">
+                        <label class="detail-section-label">56%</label>
+                        <p class="detail-section-data" >Open Rate</p>
+                    </div>
+                    <div class="detail-section-item">
+                        <label class="detail-section-label">78%</label>
+                        <p class="detail-section-data" >Click Through Rate</p>
+                    </div>
+                    <div class="detail-section-item">
+                        <label class="detail-section-label">Empty</label>
+                        <p class="detail-section-data" >Unsubscribes</p>
+                    </div>
+                </div>
+            </div>
+            <div class="overlay-content-saved-email-draft" >
+                <div class="overlay-details-pane">
+                    <div class="overlay-details-pane-header">
+                        <div >EMAIL HISTORY DETAILS</div>
+                    </div>
+                    <div class="detail-sections-wrap">
+                        <div class="detail-section"> 
+                            <div class="detail-section-item">
+                                <label class="detail-section-label">Total Emails</label>
+                                <p class="detail-section-data">5214</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+       </div>
                 <div class="overlay-details-pane" ng-show="isRecurring === false">
                     <div class="overlay-details-pane-header">GENERAL DETAILS</div>
                     <div class="detail-sections-wrap">
@@ -54,7 +95,7 @@
                                         var picker = new Pikaday(
                                                 {
                                                     field: document.getElementById('emaildatetime'),
-                                                    format: 'MMM DD YYYY',
+                                                    format: 'MM DD YYYY',
                                                     firstDay: 1,
                                                     minDate: new Date(2000, 0, 1),
                                                     maxDate: new Date(2050, 12, 31),
@@ -119,7 +160,8 @@
                         <div class="detail-section-item">
                             <label class="detail-section-label">Trigger to send</label>
                             <div class="recurring-email-trigger-sentence-wrap">
-                                <span class="">Send an email</span>
+                                <span class="">Send an email at</span>
+                                <span style="width:100px;padding: 0px 1px;" class="user-data" ng-click="hideShowEditDot(true)">{{recurringScheduleData.entities_selected_time}}</span>
                                 <span class="user-data" ng-click="hideShowEditDot(true)">{{recurringScheduleData.days}}</span>
                                 <span class=""> days after being added to</span>
                                 <span class="user-data unselected" ng-click="hideShowEditDot(true)" ng-hide="hideShowEmailList">Need to Select an Email List</span>
