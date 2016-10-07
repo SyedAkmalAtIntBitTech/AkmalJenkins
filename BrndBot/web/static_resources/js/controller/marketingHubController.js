@@ -303,6 +303,12 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
 
         $scope.emailSettingsValidation = function (email_settings) {
+            if (!email_settings.from_address) {
+//                $scope.email_settings = {reply_email_address: "", from_address: from_address};
+                $scope.fromAddressCheck = true;
+                $("#from_address").focus();
+                return false;
+            }
             if (!email_settings.reply_email_address) {
 //                $scope.email_settings = {reply_email_address: "", from_address: from_address};
                 $scope.replyToAddress = true;
@@ -336,14 +342,17 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.saveEmailSettings = function (email_settings) {
             if ($scope.emailSettingsValidation(email_settings))
             {
-                var from_address = email_settings.from_address;
-                var reply_email_address = email_settings.reply_email_address;
-                var emailSettingsData = {"from_address": "mail@brndbot.com", "reply_email_address": reply_email_address, "from_name": email_settings.from_name};
-                settingsFactory.saveEmailSettingsPost(emailSettingsData).then(function (data) {
-                    $scope.replyToAddress = false;
-                    $scope.getEmailSettings();
-                    growl("Settings saved successfully");
-                });
+                if ($scope.emailSettingAdressValidation(email_settings.from_address))
+                {
+                    var from_address = email_settings.from_address;
+                    var reply_email_address = email_settings.reply_email_address;
+                    var emailSettingsData = {"from_address": from_address, "reply_email_address": reply_email_address, "from_name": email_settings.from_name};
+                    settingsFactory.saveEmailSettingsPost(emailSettingsData).then(function (data) {
+                        $scope.replyToAddress = false;
+                        $scope.getEmailSettings();
+                        growl("Settings saved successfully");
+                    });
+                }
             }
         };
         $scope.getFooterDetails = function () {
@@ -542,7 +551,19 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             }
             return true;
         };
-
+        
+        $scope.emailSettingAdressValidation = function (email) {
+            var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+            if (!regex.test(email)) {
+                    $("#from_address").focus();
+                    $scope.fromAddressCheck = true;
+                    return false;
+            }
+            $scope.fromAddressCheck = false;
+            return true;
+        };
+        
+        
         $scope.emailAdressValidation = function (email) {
             var deafultFromName = email.deafultFromName;
             var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;

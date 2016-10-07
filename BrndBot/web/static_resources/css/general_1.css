@@ -1822,7 +1822,7 @@ li.sub-nav-tab.active a{
 
 .sendOrSchedulePopup{
     position:  fixed;
-    top: 15vh;
+    top: 5vh;
     left: 45vh;
     z-index:150;
 }

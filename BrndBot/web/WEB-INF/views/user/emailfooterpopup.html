@@ -1,3 +1,8 @@
+<style>
+.pac-container {
+    z-index: 999999 !important;
+}
+</style>
 <div class="emailFooterPopupDiv footerSettingsPopup">
 <div class="popUp_background-dark" id="emailFooterPopup" ng-show="emailFooterPopupDetails">
     <div class="modal-pane modal-pane-width-reg popUp_CenterVert" >
@@ -8,6 +13,23 @@
         <div class="modal-pane-content-wrap" style="overflow-y: scroll;">
             <p class="modal-content-header">Change the settings of the email footer. A company address must be entered. All fields that are left blank will not show up as links in the footer.</p>
             <div class="input-wrap">
+                <label>Company Address</label>
+                <div class="input">
+                    <input onFocus="geolocate()" id="companyAddress" ng-model="companyAddressDetails.companyAddress" placeholder="Company Address" ng-class="{'invalid-input': companyAddressDetails.companyAddress === '' || null}"/>
+                </div>
+                <div class="hide">
+                    <input ng-model="companyAddressDetails.addressline1" id="street_number">
+                    <input ng-model="companyAddressDetails.addressline2" id="route">
+                    <input ng-model="companyAddressDetails.city" id="locality">
+                    <input ng-model="companyAddressDetails.state" id="administrative_area_level_1">
+                    <input ng-model="companyAddressDetails.zipcode" id="postal_code">
+                    <input ng-model="companyAddressDetails.country" id="country">
+                </div>      
+                <span class="validationAlert" ng-if='companyAddressDetails.companyAddress == "" || null' >{{companyAddressValidation}}</span> 
+                <span class="validationAlert" ng-if='companyAddressDetails.addressline2 == "" || companyAddressDetails.zipcode == ""' id="invalidCompanyAddressValidation">{{invalidCompanyAddressValidation}}</span>
+                           
+            </div>
+<!--            <div class="input-wrap">
                 <label>Company Address Line 1</label>
                 <div class="input">
                     <input id="addressLine1" ng-model="companyAddressDetails.addressLine1" />
@@ -19,7 +41,7 @@
                 <div class="input">
                     <input id="addressLine2" ng-model="companyAddressDetails.addressLine2" />
                 </div>
-                <!--<span class="validationAlert" ng-if='companyAddressDetails.addressLine2 == "" || null'  >{{addressLine2Validation}}</span>-->
+                <span class="validationAlert" ng-if='companyAddressDetails.addressLine2 == "" || null'  >{{addressLine2Validation}}</span>
             </div>
             <div class="input-wrap">
                 <label>City</label>
@@ -48,7 +70,7 @@
                     <input id="country" ng-model="companyAddressDetails.country" />
                 </div>
                 <span class="validationAlert" ng-if='companyAddressDetails.country == "" || null' >{{countryValidation}}</span>
-            </div>
+            </div>-->
             <div class="input-wrap">
                 <label> Website URL </label>
                 <div class="input">
@@ -83,4 +105,4 @@
         </div>
     </div>
 </div>
-</div>
+</div><script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-aw9KjncC2ozrBz6glsVjNjW9Fkmy8ME&libraries=places&callback=initAutocomplete"></script>
