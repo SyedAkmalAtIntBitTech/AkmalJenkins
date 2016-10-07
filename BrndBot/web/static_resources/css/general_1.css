@@ -1822,7 +1822,7 @@ li.sub-nav-tab.active a{
 
 .sendOrSchedulePopup{
     position:  fixed;
-    top: 15vh;
+    top: 5vh;
     left: 45vh;
     z-index:150;
 }
@@ -5129,6 +5129,7 @@ textarea.task-textarea:focus{
     flex-basis: auto;
     width: 100%;
     overflow-y: scroll;
+    height: calc(100vh - 100px);
 }
 
 .bb-main-content-wrap-padding{

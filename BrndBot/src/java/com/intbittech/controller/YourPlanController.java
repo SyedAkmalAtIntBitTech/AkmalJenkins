@@ -69,6 +69,12 @@ public class YourPlanController {
     @Autowired
     private MessageSource messageSource;
 
+    @Autowired
+     PostToFacebook postToFacebook;
+
+    @Autowired
+    PostToTwitter postToTwitter;
+    
     @RequestMapping(value = "/GetScheduledEntities", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> GetScheduledEntities(HttpServletRequest request, HttpServletResponse response) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
@@ -448,8 +454,8 @@ public class YourPlanController {
                 String title = request.getParameter("title");
                 String description = request.getParameter("description");
                 String url1 = request.getParameter("url");
-                returnMessage = PostToFacebook.postStatus(title,
-                        file_image_path, posttext, imagePostURL, getImageFile, url1,
+                returnMessage = postToFacebook.postStatus(title, 
+                        file_image_path, posttext, imagePostURL, getImageFile, url1, 
                         description, imageType, userCompanyIds.getCompanyId(), htmlString);
             }
             if (isTwitter.equalsIgnoreCase("true")) {
@@ -457,7 +463,7 @@ public class YourPlanController {
                 String text = request.getParameter("text");
                 String shortURL = request.getParameter("shorturl");
                 PrintWriter out1 = response.getWriter();
-                returnMessage = PostToTwitter.postStatus(
+                returnMessage = postToTwitter.postStatus( 
                         imageType, text, shortURL, file_image_path, userCompanyIds.getCompanyId(), htmlString, getImageFile);
                 transactionResponse.setMessage(returnMessage);
             }

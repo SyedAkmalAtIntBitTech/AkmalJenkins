@@ -9,6 +9,7 @@ import com.intbittech.utility.IConstants;
 import com.intbittech.AppConstants;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.ScheduledSocialpostList;
+import com.intbittech.services.CompanyService;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,19 +18,23 @@ import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import com.intbittech.utility.DateTimeUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author AR
  */
+@Component
 public class ScheduleTwitterPost implements Runnable {
 
 
     private Logger logger = Logger.getLogger(ScheduleTwitterPost.class);
 
-
+    @Autowired
+    PostToTwitter postToTwitter;
     @Override
-    public void run() {
+    public void run() { 
 
         try {
             List<ScheduledEntityList> scheduledTwitterPost = getLatestApprovedTwitterPost();
@@ -58,7 +63,7 @@ public class ScheduleTwitterPost implements Runnable {
                             file_image_path = twitterPost.getImageName();
                         }
                         logger.info(text + " Tweet @" + new Date());
-                        String message = PostToTwitter.postStatus(twitterPost.getImageType(), text, url, file_image_path, companyId, null, file_image_path);
+                        String message = postToTwitter.postStatus(twitterPost.getImageType(), text, url, file_image_path, companyId, null, file_image_path);
                         if (message.equalsIgnoreCase("success")) {
                             updateStatusScheduledTwitter(currentScheduledTwitterPost);
                         }

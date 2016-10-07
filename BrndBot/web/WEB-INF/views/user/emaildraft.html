@@ -16,7 +16,7 @@
                         </div>
                     </div>
             </div>
-            <div class="bb-panel-content-wrap" ng-show="emailDraftDetails">
+            <div class="bb-panel-content-wrap" ng-show="marketingHubTab.isSelected(1) && emaildraftnumber !== '0'">
                 <!--<div class="hub-empty-wrap" ng-show="emaildraftnumber === '0'"><div class="slat" ><div class="selection-container col-5p" id="deleteids"> {{emaildraftsstatus}}</div></div></div>-->
                     <div class="bb-slat" id="li{{drafts.id}}" ng-repeat="drafts in emaildrafts | filter:userSearch" ng-click="showDraftPopup(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.editdate, drafts.subcategoryid, drafts.mindbodyid, drafts.lookupid)">
                         <div class="selection-container col-5p" id="deleteids"> 

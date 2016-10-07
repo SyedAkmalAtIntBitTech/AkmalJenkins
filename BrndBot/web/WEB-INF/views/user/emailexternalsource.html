@@ -1,5 +1,5 @@
 
-<div class="bb-top-nav" ng-init="getActive(lookupId)">
+<div class="bb-top-nav" ng-init="getActive()">
     <div class="bb-bar-left-wrap bb-one-third-flex-col">
         <a href="baseemaileditor#/emailsubcategory" class="bb-back-button"></a>
         <h3 class="bb-top-nav-title">Choose an Email Template</h3>
@@ -25,7 +25,7 @@
                         <div class="loader-description">Loading your content</div>
                     </div>
                 </div>
-                <a ng-repeat="mindbody in mindbodylist | filter:userSearch" ng-click="redirect('emailsubjects','','','mindbody','',mindbody.id)" class="slat external-data">
+                <a ng-repeat="mindbody in mindbodylist | filter:userSearch" ng-click="objectParameter.redirect='emailsubjects';objectParameter.mindbody='mindbody';objectParameter.mindbodyId=mindbody.id;redirect();" class="slat external-data">
                     <div class="slat-name-wrap">
                         <h2>{{mindbody.column1}}</h2>
                     </div>
