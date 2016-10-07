@@ -61,12 +61,12 @@
     <div class="email-editor-right-col">
         <div class="email-editor-tab-wrap">
             <div class="editor-col-tab">
-                <div class="{{blocktab}}" id="blocktab" ng-init="showBlocks()" ng-click="showBlocks()">
+                <div class="emailSideBar-tab" ng-class="{'emailSideBar-tab-active': emailTab.isSelected(1)}" id="blocktab" ng-init="showBlocks()" ng-click="emailTab.selectTab(1);showBlocks()">
                     Add Block
                 </div>
             </div>
             <div class="editor-col-tab">
-                <div class="{{styletab}}" id="styletab" ng-init="showStyles('false')" ng-click="showStyles('true')">
+                <div class="emailSideBar-tab" ng-class="{'emailSideBar-tab-active': emailTab.isSelected(2)}" id="styletab" ng-init="showStyles('false')" ng-click="emailTab.selectTab(2);showStyles('true')">
                     Change Style
                 </div>
             </div> 
@@ -74,13 +74,13 @@
         <div class="r-col-editor-header-wrap" id="blockdivheader" ng-show="blockdivheader">Select a block to add:</div>
         <div class="r-col-editor-header-wrap" id="styledivheader" ng-show="styledivheader">Select a style for this block:</div>
         <div class="block-selection-divider"></div>
-        <ul class="r-col-block-wrap" id="blockdiv" ng-show="blockdivheader">
+        <ul class="r-col-block-wrap" id="blockdiv" ng-show="emailTab.isSelected(1)">
             <li class="bb-clickable-slat" ng-class="{'editor-block-slat-selected': activeBlock === blocks.emailBlockId}" ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="blockOnClick(blocks.emailBlockId)">
                 <div id="blklist----{{blocks.emailBlockId}}" class="block-name">{{blocks.emailBlockName}}</div>                            
                 <div class="editor-add-block-button hideBlockButton" ng-class="{'hideBlockButton': activeBlock !== blocks.emailBlockId}" ng-click="didChooseBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)" >Add Block</div>
             </li>
         </ul>
-        <ul class="r-col-block-wrap"  ng-show="styledivheader">
+        <ul class="r-col-block-wrap"  ng-show="emailTab.isSelected(2)">
             <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="bb-clickable-slat" id="stylelistid{{styles.modelId}}" ng-click="addActive('stylelistid' + styles.modelId)">
                 <img id="{{styles.modelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" ng-click="addHTMLInEmailEditor(styles.modelId)" width="100%" />
             </li>
