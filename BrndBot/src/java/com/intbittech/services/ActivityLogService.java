@@ -58,5 +58,5 @@ public interface ActivityLogService {
      * @return the Integer
      * @throws ProcessFailed the process failed
      */
-    public Integer saveActivityLog(ActivityLogDetails activityLogDetails) throws ProcessFailed;       
+    public void saveActivityLog(ActivityLogDetails activityLogDetails) throws ProcessFailed;       
 }

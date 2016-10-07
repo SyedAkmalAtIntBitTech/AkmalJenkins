@@ -16,8 +16,8 @@
 </head>    -->
 
 <!--need to add fade class-->
-<div id="fadeUserSettings" class="black_overlay center-pop-ups" ng-class="fadeClasses"  ng-click = "closeInviteUsersPopup()">
-</div>
+<div id="fadeUserSettings" class="black_overlay center-pop-ups" ng-class="fadeClasses">
+
         <div class="modal-pane modal-pane-width-reg" id="addUserSettings" ng-show="addUserSettings">
             <div class="modal-pane-header-wrap">
                 <h2 class="">Invite a New User</h2>
@@ -80,7 +80,7 @@
             <div class="modal-pane-header-wrap">
                 <h2 class="">Edit User Role</h2>
                 <!--<h2 class="">Update a User</h2>-->
-                <a id="addactionClose" ng-click = "closeOverlay()" class="modal-pane-header-exit"></a>
+                <a id="addactionClose" ng-click = "closeInviteUsersPopup()" class="modal-pane-header-exit"></a>
             </div>
             <div class="modal-pane-content-wrap create-new-schedule-modal">
                 <div class="input-wrap">
@@ -134,3 +134,4 @@
             <a class="long-button blue-button" ng-click="editUser(settings)">Edit User</a>
             </div>
         </div>
+</div>

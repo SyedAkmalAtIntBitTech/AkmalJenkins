@@ -200,7 +200,8 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
            
             onboardingFactory.resendUserInvitePost(inviteId).then(function (data) {
                 growl(data.d.message);
-                $scope.closeOverlay();
+                $scope.getInvitedUsers();
+                $scope.closeInviteUsersPopup();
                 $location.path("/settings/useraccountsettings");
             });
         };
@@ -213,7 +214,8 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             
             onboardingFactory.editUserRolePost(invitation).then(function (data) {
                 growl(data.d.message);
-                $scope.closeOverlay();
+                $scope.getInvitedUsers();
+                $scope.closeInviteUsersPopup();
                 $location.path("/settings/useraccountsettings");
             });
         };

@@ -115,27 +115,41 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     /**
      * {@inheritDoc}
      */
-    public Integer saveActivityLog(ActivityLogDetails activityLogDetails) throws ProcessFailed {
+    public void saveActivityLog(ActivityLogDetails activityLogDetails) throws ProcessFailed {
+        Runnable task = new Runnable() {
 
-        ActivityLog activityLog = new ActivityLog();
-        ScheduledEntityList scheduledEntityList = new ScheduledEntityList();
-        scheduledEntityList.setScheduledEntityListId(activityLogDetails.getScheduledEntityId());
-        activityLog.setFkScheduledEntityid(scheduledEntityList);
-        Activity activity = new Activity();
-        activity.setActivityId(activityLogDetails.getActivityId());
-        if (activityLogDetails.getAssignedTo() != null) {
-            Users assignedTo = new Users();
-            assignedTo.setUserId(activityLogDetails.getAssignedTo());
-            activityLog.setAssignedTo(assignedTo);
-            Users sendToUser = usersDao.getUserById(activityLogDetails.getAssignedTo());
-            sendNotificationEmail(sendToUser.getUserName(), Utility.combineUserName(sendToUser));
+        @Override 
+        public void run() {
+            try {
+                ActivityLog activityLog = new ActivityLog();
+                ScheduledEntityList scheduledEntityList = new ScheduledEntityList();
+                scheduledEntityList.setScheduledEntityListId(activityLogDetails.getScheduledEntityId());
+                activityLog.setFkScheduledEntityid(scheduledEntityList);
+                Activity activity = new Activity();
+                activity.setActivityId(activityLogDetails.getActivityId());
+                if (activityLogDetails.getAssignedTo() != null) {
+                    Users assignedTo = new Users();
+                    assignedTo.setUserId(activityLogDetails.getAssignedTo());
+                    activityLog.setAssignedTo(assignedTo);
+                    Users sendToUser = usersDao.getUserById(activityLogDetails.getAssignedTo());
+                    sendNotificationEmail(sendToUser.getUserName(), Utility.combineUserName(sendToUser));
+                }
+                Users createdUser = new Users();
+                createdUser.setUserId(activityLogDetails.getCreatedBy());
+                activityLog.setCreatedBy(createdUser);
+                activityLog.setCreatedAt(new Date());
+                activityLog.setFkActivityId(activity);
+                activityLogDao.save(activityLog);
+                
+            } catch (Throwable throwable) {
+                logger.error(throwable);
+                throw new ProcessFailed(messageSource.getMessage("activity_save_problem", new String[]{}, Locale.US));
+            }
         }
-        Users createdUser = new Users();
-        createdUser.setUserId(activityLogDetails.getCreatedBy());
-        activityLog.setCreatedBy(createdUser);
-        activityLog.setCreatedAt(new Date());
-        activityLog.setFkActivityId(activity);
-        return activityLogDao.save(activityLog);
+        };
+        Thread thread = new Thread(task);
+        thread.start();
+
     }
     
     public Boolean sendNotificationEmail(String toEmailId, String userName)throws ProcessFailed {
