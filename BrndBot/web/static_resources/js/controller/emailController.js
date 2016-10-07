@@ -1875,6 +1875,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
                if (!$scope.ddSelectedUser)
                     $scope.ddSelectedUser = "0";
+                
                 var schedule_title = $("#ActionName").val();
                 var schedule_date = $("#actionDate").val();
 
@@ -1891,7 +1892,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 }
                 var newtime = hours + ":" + mins + ":" + "00";
 
-                var currDate = moment(schedule_date).format('YYYY-MM-DD');
+                var currDate = moment(schedule_date).format(kGlobalDateFormat);
                 var epoch_time = getEpochMillis(currDate + " " + newtime + " " + 'UTC');
 
                 var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
@@ -1992,7 +1993,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     {
                         field: document.getElementById('schedule_date'),
                         firstDay: 1,
-                        format: 'MM DD YYYY',
+                        format: kGlobalDateFormat,
                         minDate: new Date(2000, 0, 1),
                         maxDate: new Date(2050, 12, 31),
                         yearRange: [2000, 2050]
