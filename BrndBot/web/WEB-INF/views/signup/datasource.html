@@ -30,7 +30,7 @@
                                 <h3 class="onboarding-content-header">Would you like to connect your new profile with tools you currently use?</h3>
                             </div> 
                                <div class="input-wrap">
-                                <label> Choose from these BrndBot integrations </label>
+                                <label> Choose from these BrandBot integrations </label>
                                 <div class="input">
                                     <div dropdown-select="ddSelectServicesOptions" dropdown-model="ddSelectServices"></div>
                                     <p class="input-wrap-label">If you do not use any services, please select 'none'</p>
@@ -47,8 +47,9 @@
                                     <span class="validationAlert" ng-if='mindbodyActive'>{{inActiveMindbodyValidation}}</span>
                                 </div>
                                 <div class="input-wrap">
-                                    <label> Enter your MINDBODY Studio ID </label>
-                                   <a class="reg-button gray-button input-wrap-button" ng-click="getActivationLink(studioId)" href="">Click Here to Activate in MINDBODY</a>
+                                    <label> Grant Access in MINDBODY</label>
+                                   <a class="bb-button bb-default-action-button" ng-click="getActivationLink(studioId)" href="">Click Here to Activate in MINDBODY</a>
+                                   <p class="input-wrap-label">You will be directed to your MINDBODY account. Please login as an owner. You do not need to take any other action.</p>
                                 </div>
 <!--                                <div class="input-wrap">
                                     <label> Allow BrndBot to access your MINDBODY data </label>
