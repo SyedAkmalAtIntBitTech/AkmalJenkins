@@ -277,7 +277,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.getUserMarketingProgramsOpen = function (forward) {
             companyMarketingProgramFactory.listAllMarketingProgramGet("Open").then(function (data) {
-                $scope.showCurrentPrograms();
                 $scope.currentPrograms = data.programs;
                 $scope.forward = forward;
             });
@@ -287,7 +286,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             companyMarketingProgramFactory.listAllMarketingProgramGet("Closed").then(function (data) {
                 $scope.pastPrograms = data.programs;
                 $scope.forward = forward;
-                $scope.showPastPrograms();
             });
         };
         
