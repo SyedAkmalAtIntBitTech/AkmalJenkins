@@ -28,6 +28,16 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.companyAddressDetails = {};
         $scope.companyDetails = {};
         $scope.userDetails = {};
+        this.tab = 1;
+
+        this.selectTab = function (setTab){
+           this.tab = setTab;  
+        };
+
+        this.isSelected = function(checkTab) {
+            return this.tab === checkTab;
+        };
+         
 
         $scope.getUserDetails = function(){
             

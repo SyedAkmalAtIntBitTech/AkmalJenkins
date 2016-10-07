@@ -28,7 +28,7 @@
                     var picker = new Pikaday(
                             {
                                 field: document.getElementById('jumptodatepicker'),
-                                format: 'MM DD YYYY',
+                                format: kGlobalDateFormat,
                                 firstDay: 1,
                                 minDate: new Date('2000-01-01'),
                                 maxDate: new Date('2050-12-31'),
@@ -63,7 +63,7 @@
                                                        entitydetails.marketingName,
                                                        entitydetails.user_marketing_program_id,
                                                        entitydetails.days,
-                                                       entitydetails.is_today_active, entity.date)" >
+                                                       entitydetails.is_today_active, entity.date);yourplanTab.selectTab(6);" >
                         <div class="bb-your-plan-icon-wrap">
                             <div ng-show="entitydetails.entity_type != master_note">
                                 <div class="your-plan-icon hint--top" ng-show="entitydetails.template_status == 'Template Saved'"  data-hint="Template Saved" > 

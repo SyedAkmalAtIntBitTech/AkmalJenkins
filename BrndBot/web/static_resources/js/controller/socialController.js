@@ -54,6 +54,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
         var schedule_desc = "";
         $rootScope.CurrentFbAccessToken = "";
         $scope.linkpost = false;
+        $scope.pushedEmail = false;
 
         $scope.getManagePage = function (selectedSocialmedia, postData) {
             appSessionFactory.getFbPostData().then(function (kGlobalFbPostDataObject) {
@@ -253,7 +254,17 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                 });
             }
         };
-
+        $scope.scheduleActionDate = function () {
+            var picker = new Pikaday(
+                    {
+                        field: document.getElementById('schedule_date'),
+                        firstDay: 1,
+                        format: kGlobalDateFormat,
+                        minDate: new Date(2000, 0, 1),
+                        maxDate: new Date(2050, 12, 31),
+                        yearRange: [2000, 2050]
+                    });
+        };
         $scope.getUrlParameter = function (sParam) {
             var sPageURL = decodeURIComponent($window.location.search.substring(1)),
                     sURLVariables = sPageURL.split('&'),
@@ -820,8 +831,9 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                 } else {
                     
                     var userAssignToId = $("#assignTo option:selected").val();
-                    if(!userAssignToId)
-                        userAssignToId = "0";
+                    if(userAssignToId === "no assignee"){
+                               userAssignToId = "0";
+                            }
                     var schedule_title = $("#ActionName").val();
                     var schedule_date = $("#actionDate").val();
                     var schedule_time = $("#actionTime").val().replace(/ /g, '');
@@ -844,7 +856,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                         hours = parseInt(hours) + 12;
                     }
                     var newtime = hours + ":" + mins + ":" + "00";
-                    var currDate = moment(schedule_date).format('YYYY-MM-DD');
+                    var currDate = moment(schedule_date).format(kGlobalDateFormat);
 
                     var epoch_time = getEpochMillis(currDate + " " + newtime + " " + 'UTC');
                     
@@ -925,8 +937,9 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                             });
                         } else {
                             var userAssignToId = $("#assignTo option:selected").val();
-                            if(!userAssignToId)
+                            if(userAssignToId === "no assignee"){
                                 userAssignToId = "0";
+                            }
                             var schedule_title = $("#ActionName").val();
                             var schedule_date = $("#actionDate").val();
                             var schedule_time = $("#actionTime").val().replace(/ /g, '');
@@ -949,7 +962,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                                 hours = parseInt(hours) + 12;
                             }
                             var newtime = hours + ":" + mins + ":" + "00";
-                            var currDate = moment(schedule_date).format('YYYY-MM-DD');
+                            var currDate = moment(schedule_date).format(kGlobalDateFormat);
 
                             var epoch_time = getEpochMillis(currDate + " " + newtime + " " + 'UTC');
 
@@ -1007,8 +1020,9 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                     } else {
                         
                         var userAssignToId = $("#assignTo option:selected").val();
-                        if(!userAssignToId)
-                            userAssignToId = "0";
+                        if(userAssignToId === "no assignee"){
+                                userAssignToId = "0";
+                            }
                         var schedule_title = $("#ActionName").val();
                         var schedule_date = $("#actionDate").val();
                         var schedule_time = $("#actionTime").val().replace(/ /g, '');
@@ -1031,7 +1045,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                         }
                         var newtime = hours + ":" + mins + ":" + "00";
 
-                        var currDate = moment(schedule_date).format('YYYY-MM-DD');
+                        var currDate = moment(schedule_date).format(kGlobalDateFormat);
 
                         var epoch_time = getEpochMillis(currDate + " " + newtime + " " + 'UTC');
 
