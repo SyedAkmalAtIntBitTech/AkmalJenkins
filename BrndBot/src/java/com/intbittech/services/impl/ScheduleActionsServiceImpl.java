@@ -223,10 +223,11 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
         try (Connection conn = ConnectionManager.getInstance().getConnection()) {
             conn.setAutoCommit(false);
             try {
-//                for (Map<String, Object> requestBodyMap : requestBodyList) {
                 Double schedule = (Double) requestBodyMap.get("schedule_time");
-
-                Timestamp scheduleTimeStamp = new Timestamp(schedule.longValue());
+                DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                format.setTimeZone(TimeZone.getTimeZone("UTC"));
+                Date date = new Date(Double.valueOf(requestBodyMap.get("schedule_time").toString()).longValue());
+                String dateTime = format.format(date);
                 String metadataString = requestBodyMap.get("metadata").toString();
                 String marketing_program_id = (String) requestBodyMap.get("program_id");
                 //As of now schedule description is not yet mandatory.
@@ -245,12 +246,11 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                         requestBodyMap.get("type").toString(),
                         requestBodyMap.get("schedule_title").toString(),
                         scheduleDesc,
-                        scheduleTimeStamp,
+                        Timestamp.valueOf(dateTime),
                         TemplateStatus.template_saved.toString(),
                         imageType, createdBy, userAssignToId,
                         conn);
                 daoResponseList.add(daoResponse);
-//                }
                 conn.commit();
             } catch (SQLException ex) {
                 conn.rollback();

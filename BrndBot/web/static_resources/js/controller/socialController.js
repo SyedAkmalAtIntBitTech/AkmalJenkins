@@ -831,8 +831,9 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                 } else {
                     
                     var userAssignToId = $("#assignTo option:selected").val();
-                    if(!userAssignToId)
-                        userAssignToId = "0";
+                    if(userAssignToId === "no assignee"){
+                               userAssignToId = "0";
+                            }
                     var schedule_title = $("#ActionName").val();
                     var schedule_date = $("#actionDate").val();
                     var schedule_time = $("#actionTime").val().replace(/ /g, '');
@@ -936,8 +937,9 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                             });
                         } else {
                             var userAssignToId = $("#assignTo option:selected").val();
-                            if(!userAssignToId)
+                            if(userAssignToId === "no assignee"){
                                 userAssignToId = "0";
+                            }
                             var schedule_title = $("#ActionName").val();
                             var schedule_date = $("#actionDate").val();
                             var schedule_time = $("#actionTime").val().replace(/ /g, '');
@@ -1018,8 +1020,9 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                     } else {
                         
                         var userAssignToId = $("#assignTo option:selected").val();
-                        if(!userAssignToId)
-                            userAssignToId = "0";
+                        if(userAssignToId === "no assignee"){
+                                userAssignToId = "0";
+                            }
                         var schedule_title = $("#ActionName").val();
                         var schedule_date = $("#actionDate").val();
                         var schedule_time = $("#actionTime").val().replace(/ /g, '');
