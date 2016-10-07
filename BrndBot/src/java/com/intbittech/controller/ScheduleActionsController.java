@@ -7,8 +7,8 @@ package com.intbittech.controller;
 
 import com.intbittech.AppConstants;
 import com.intbittech.enums.ScheduledEntityType;
-import com.intbittech.exception.ProcessFailed;
 import com.intbittech.marketing.service.ScheduledEntityListService;
+import com.intbittech.model.Company;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
@@ -18,6 +18,7 @@ import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.ActivityLogService;
+import com.intbittech.services.CompanyService;
 import com.intbittech.services.ScheduleActionsService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
@@ -29,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -66,7 +66,9 @@ public class ScheduleActionsController {
     private UsersService usersService;
     @Autowired
     private ActivityLogService activityLogService;
-
+    @Autowired
+    private CompanyService companyService;
+    
     @RequestMapping(value = "/getActions", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getActions(HttpServletRequest request,
             HttpServletResponse response) {
@@ -343,6 +345,10 @@ public class ScheduleActionsController {
             activityLogDetails.setActivityId(IConstants.ACTIVITY_REASSIGNED_TO_ID);
             activityLogDetails.setAssignedTo(updateActionDetails.getUserAssignToId());
             activityLogDetails.setScheduledEntityId(scheduledEntityList.getScheduledEntityListId());
+            activityLogDetails.setActionTitle(scheduledEntityList.getScheduleTitle());
+            
+            Company company = companyService.getCompanyById(updateActionDetails.getCompanyId());
+            activityLogDetails.setCompanyName(company.getCompanyName());
             activityLogDetails.setCreatedBy(updateActionDetails.getUserId());
             activityLogService.saveActivityLog(activityLogDetails);
 

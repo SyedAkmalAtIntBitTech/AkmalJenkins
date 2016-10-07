@@ -195,8 +195,9 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
     public Boolean sendNotificationEmailForNoEmailListPresent(String toEmailId, String userName, String emailTag, String company)throws ProcessFailed {
         try {
             String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
-            String body = messageSource.getMessage("notification_message_no_emaillist_tag", new String[]{}, Locale.US) + emailTag + "in" + company;
-            String formattedBody = String.format(body);
+            String body = messageSource.getMessage("notification_message_no_emaillist_tag", new String[]{}, Locale.US);
+            String HTMLBody = body.replace("%s", emailTag + " in " + company);
+            String formattedBody = String.format(HTMLBody);
             Content content = new Content(IConstants.kContentHTML, formattedBody);
             Email emailTo = new Email(toEmailId, userName);
             String subject = messageSource.getMessage("notification_subject_no_emailList", new String[]{}, Locale.US);

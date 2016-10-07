@@ -217,11 +217,6 @@ public class MarketingRecurringEmailController {
             recurring_email_template.setHtmlData(template_html_data);
 
             recurringEmailTemplateService.update(recurring_email_template);
-//            ActivityLogDetails activityLogDetails = new ActivityLogDetails();
-//            activityLogDetails.setActivityId(IConstants.ACTIVITY_UPDATED_TEMPLATE_ID);
-//            activityLogDetails.setScheduledEntityId(entity_id.intValue());
-//            activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
-//            activityLogService.saveActivityLog(activityLogDetails);
             
             return_response = "true";
         } catch (Throwable throwable) {

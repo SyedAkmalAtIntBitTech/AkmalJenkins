@@ -1044,12 +1044,10 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 var franchiseId = kGlobalCompanyObject.franchiseId;
                 appSessionFactory.getEmail().then(function(kGlobalEmailObject){
                     var emailTagId = kGlobalEmailObject.emailTagId;
-                    alert(emailTagId);
                     $scope.pushedEmail = kGlobalEmailObject.pushedEmail;
 
                     franchiseFactory.getCompaniesForFranchiseIdAndEmailListTag(franchiseId,emailTagId).then(function (data) {
                         $scope.franchiseCompanies = data.d.details;
-                        alert(JSON.stringify($scope.franchiseCompanies));
                         for (var i=0; i<data.d.details.length; i++){
                             var franchiseCompany = data.d.details[i];
                             if (franchiseCompany.isEmailList == false){
