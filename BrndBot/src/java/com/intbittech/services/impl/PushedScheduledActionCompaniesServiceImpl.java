@@ -187,16 +187,15 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
             userDetails.setLastName(usersRoleCompanyLookup.getUserId().getLastName());
             userDetails.setUserName(usersRoleCompanyLookup.getUserId().getUserName()); 
             EmailListTag emailListTag = emailListTagService.getByEmailListTagId(sendReminderEmailDetails.getEmailListTagId());
-            sendNotificationEmailForNoEmailListPresent(usersRoleCompanyLookup.getUserId().getUserName(), Utility.combineUserName(usersRoleCompanyLookup.getUserId()), emailListTag.getTagName());
+            sendNotificationEmailForNoEmailListPresent(usersRoleCompanyLookup.getUserId().getUserName(), 
+                    Utility.combineUserName(usersRoleCompanyLookup.getUserId()), emailListTag.getTagName(), usersRoleCompanyLookup.getCompanyId().getCompanyName());
         }
-       
         return userDetailsList;
-
     }
-    public Boolean sendNotificationEmailForNoEmailListPresent(String toEmailId, String userName, String emailTag)throws ProcessFailed {
+    public Boolean sendNotificationEmailForNoEmailListPresent(String toEmailId, String userName, String emailTag, String company)throws ProcessFailed {
         try {
             String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
-            String body = messageSource.getMessage("notification_message_no_emaillist_tag", new String[]{}, Locale.US) + emailTag;
+            String body = messageSource.getMessage("notification_message_no_emaillist_tag", new String[]{}, Locale.US) + emailTag + "in" + company;
             String formattedBody = String.format(body);
             Content content = new Content(IConstants.kContentHTML, formattedBody);
             Email emailTo = new Email(toEmailId, userName);
