@@ -80,6 +80,16 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         var companies = [];
         var companiesWithNoEmailList = [];
         var userRoles = {};
+        this.tab = 1;
+
+        this.selectTab = function (setTab){
+           this.tab = setTab;  
+        };
+
+        this.isSelected = function(checkTab) {
+            return this.tab === checkTab;
+        };
+         
         $scope.moreThanOneUser = false;
 
         
@@ -464,13 +474,13 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.blocktab = "emailSideBar-tab-active";
         $scope.styletab = "emailSideBar-tab";
         $scope.showStyles = function (isClick) {
-            if (isClick === "true")
-            {
-                $scope.blockdivheader = false;
-                $scope.styledivheader = true;
-                $scope.blocktab = "emailSideBar-tab";
-                $scope.styletab = "emailSideBar-tab-active";
-            }
+//            if (isClick === "true")
+//            {
+//                $scope.blockdivheader = false;
+//                $scope.styledivheader = true;
+//                $scope.blocktab = "emailSideBar-tab";
+//                $scope.styletab = "emailSideBar-tab-active";
+//            }
             if ($scope.isBlockClicked === "true" || $scope.htmlBlockId !== "defaultblock1")
             {
                 blockModelFactory.allEmailBlockModelGet($scope.selectedBlockId, false).then(function (data) {
@@ -487,10 +497,10 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         };
 
         $scope.showBlocks = function () {
-            $scope.blockdivheader = true;
-            $scope.styledivheader = false;
-            $scope.styletab = "emailSideBar-tab";
-            $scope.blocktab = "emailSideBar-tab-active";
+//            $scope.blockdivheader = true;
+//            $scope.styledivheader = false;
+//            $scope.styletab = "emailSideBar-tab";
+//            $scope.blocktab = "emailSideBar-tab-active";
             companyFactory.allBlocksForCompanyGet().then(function (data) {
                 $scope.blockLists = data.d.details;
             });
@@ -501,6 +511,20 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             $scope.id = 'editor-block-slat';
             $scope.setBlockActive = 'editor-block-slat-selected';
             $scope.activeBlock = id;
+//            TODO change to AngularJs, (Complicated code)
+//            $("#blockdiv li").removeClass("block-slat-active");
+//            $("#blockdiv li").addClass("block-slat");
+//            $(".block-button").addClass("hide");
+//            $("#blockdiv li").removeClass("block-slat-active");
+//            $("#blockdiv li").addClass("block-slat");
+//            $("#" + id).removeClass("block-slat");
+//            $("#" + id).addClass("block-slat-active");
+//            $("#div2" + id).removeClass("hide");
+            $("#stylelist").css("display", "none");
+            $("#blklist").css("display", "block");
+//            $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
+            $(":button").removeAttr("disabled");
+//            $("#styletab").css("background-color", "transparent").css("color", "#19587c");
         };
 
 

@@ -44,6 +44,15 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.editSavedEmail = false;
         this.tab = 1;
 
+         this.selectTab = function (setTab){
+            this.tab = setTab;  
+         };
+         
+         this.isSelected = function(checkTab) {
+             return this.tab === checkTab;
+         };
+
+        
         $scope.companyAddressDetails = {};
         $scope.marketingFlowObject=kEmailFlowObject;
         $scope.emailListName="";
@@ -362,6 +371,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.fadeClass = '';
             $scope.addAction = false;
             $scope.chooseActionTypeOnChange({"text": "Select", "value": "0"});
+            $scope.closePopup();
         };
         $scope.formatDate = function (programDate) {
             var dateArray = programDate.split('-');
@@ -531,30 +541,30 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //            $location.path("/marketingprogramactions");
         };
         $scope.setTab = function (tabName) {
-            if (tabName === 'actionDetails') {
-                $scope.top_subnav_link_active_actionDetail_Class = 'top-subnav-link-active-detail-Class';
-                $scope.top_subnav_link_active_notesDetail_Class = '';
-                $scope.top_subnav_link_active_savedDetail_Class = '';
-                $scope.generalActions = true;
-                $scope.generalSavedDetails = false;
-                $scope.generalNotes = false;
-            }
-            if (tabName === 'savedDetails') {
-                $scope.top_subnav_link_active_savedDetail_Class = 'top-subnav-link-active-detail-Class';
-                $scope.top_subnav_link_active_actionDetail_Class = '';
-                $scope.top_subnav_link_active_notesDetail_Class = '';
-                $scope.generalSavedDetails = true;
-                $scope.generalActions = false;
-                $scope.generalNotes = false;
-            }
-            if (tabName === 'notes') {
-                $scope.top_subnav_link_active_notesDetail_Class = 'top-subnav-link-active-detail-Class';
-                $scope.top_subnav_link_active_actionDetail_Class = '';
-                $scope.top_subnav_link_active_savedDetail_Class = '';
-                $scope.generalNotes = true;
-                $scope.generalActions = false;
-                $scope.generalSavedDetails = false;
-            }
+//            if (tabName === 'actionDetails') {
+//                $scope.top_subnav_link_active_actionDetail_Class = 'top-subnav-link-active-detail-Class';
+//                $scope.top_subnav_link_active_notesDetail_Class = '';
+//                $scope.top_subnav_link_active_savedDetail_Class = '';
+//                $scope.generalActions = true;
+//                $scope.generalSavedDetails = false;
+//                $scope.generalNotes = false;
+//            }
+//            if (tabName === 'savedDetails') {
+//                $scope.top_subnav_link_active_savedDetail_Class = 'top-subnav-link-active-detail-Class';
+//                $scope.top_subnav_link_active_actionDetail_Class = '';
+//                $scope.top_subnav_link_active_notesDetail_Class = '';
+//                $scope.generalSavedDetails = true;
+//                $scope.generalActions = false;
+//                $scope.generalNotes = false;
+//            }
+//            if (tabName === 'notes') {
+//                $scope.top_subnav_link_active_notesDetail_Class = 'top-subnav-link-active-detail-Class';
+//                $scope.top_subnav_link_active_actionDetail_Class = '';
+//                $scope.top_subnav_link_active_savedDetail_Class = '';
+//                $scope.generalNotes = true;
+//                $scope.generalActions = false;
+//                $scope.generalSavedDetails = false;
+//            }
             if (tabName === 'reminderDetails') {
                 $scope.top_subnav_link_active_reminderDetail_Class = 'top-subnav-link-active-detail-Class';
                 $scope.top_subnav_link_active_savedReminder_Class = '';

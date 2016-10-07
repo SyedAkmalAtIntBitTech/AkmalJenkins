@@ -31,7 +31,7 @@ and open the template in the editor.
         <link href="../css/jquerygrowl.css" rel="stylesheet" type="text/css"/>
         <script src="../js/utilities/jquerygrowl.js" type="text/javascript"></script>
     </head>
-    <body ng-app="settingFlowApp" ng-controller="controllerUserChanges">         
+    <body ng-app="settingFlowApp" ng-controller="controllerUserChanges as userSettingsTab">         
     <div class="bb-app-frame" >
       <div class="bb-main-app-wrap" ng-init="getUserDetails()">
          <div ng-include src="'navbar.html'"></div>
@@ -51,9 +51,9 @@ and open the template in the editor.
                 </div>
             </div>
              <div class="bb-top-sub-nav">
-                <div class="bb-top-sub-nav-tab"  ng-class="{ active: isActive('/useraccountsettings')}"><a href="#/useraccountsettings">Company Settings</a></div>
-                <div class="bb-top-sub-nav-tab"  ng-class="{ active: isActive('/userusersettings')}"><a href="#/userusersettings" >User Settings</a></div>
-                <div class="bb-top-sub-nav-tab"  ng-class="{ active: isActive('/userlogosettings')}"><a href="#/userlogosettings" >Brand Settings</a></div>
+                 <div class="bb-top-sub-nav-tab" ng-click="userSettingsTab.selectTab(1)"  ng-class="{ active: userSettingsTab.isSelected(1)}"><a href="#/useraccountsettings">Company Settings</a></div>
+                <div class="bb-top-sub-nav-tab"  ng-click="userSettingsTab.selectTab(2)" ng-class="{ active: userSettingsTab.isSelected(2)}"><a href="#/userusersettings" >User Settings</a></div>
+                <div class="bb-top-sub-nav-tab"  ng-click="userSettingsTab.selectTab(3)" ng-class="{ active: userSettingsTab.isSelected(3)}"><a href="#/userlogosettings" >Brand Settings</a></div>
                 <!--<div class="bb-top-sub-nav-tab"  ng-class="userLogoSetClass" ng-click="setTab('logo')"><a href="#/settingsmanagedaccount" >Managed Account Settings</a></div>-->
              </div>
              <div class="bb-main-content-wrap bb-main-content-wrap-padding" ng-view> </div>

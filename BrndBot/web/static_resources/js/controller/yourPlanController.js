@@ -31,6 +31,16 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.clickedRemoveAction = false;
         $scope.addUserSettings = false;
         $scope.moreThanOneUser = false;
+        this.tab = 1;
+
+        this.selectTab = function (setTab){
+           this.tab = setTab;  
+        };
+
+        this.isSelected = function(checkTab) {
+            return this.tab === checkTab;
+        };
+
         $scope.changeUsers=false;
         $scope.footerData = "";
         $scope.ddSelectUserOptions = [ {
@@ -49,7 +59,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.chooseUserOnChange = function (actionValue) {
             $scope.ddSelectedUser = actionValue.value;
         };
-        
         
         $scope.ddSelectActionOptions = [
             {
@@ -512,30 +521,30 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.setTab = function (tabName) {
-            if (tabName === 'actionDetails') {
-                $scope.top_subnav_link_active_actionDetail_Class = 'top-subnav-link-active-detail-Class';
-                $scope.top_subnav_link_active_notesDetail_Class = '';
-                $scope.top_subnav_link_active_savedDetail_Class = '';
-                $scope.generalActions = true;
-                $scope.generalSavedDetails = false;
-                $scope.generalNotes = false;
-            }
-            if (tabName === 'savedDetails') {
-                $scope.top_subnav_link_active_savedDetail_Class = 'top-subnav-link-active-detail-Class';
-                $scope.top_subnav_link_active_actionDetail_Class = '';
-                $scope.top_subnav_link_active_notesDetail_Class = '';
-                $scope.generalSavedDetails = true;
-                $scope.generalActions = false;
-                $scope.generalNotes = false;
-            }
-            if (tabName === 'notes') {
-                $scope.top_subnav_link_active_notesDetail_Class = 'top-subnav-link-active-detail-Class';
-                $scope.top_subnav_link_active_actionDetail_Class = '';
-                $scope.top_subnav_link_active_savedDetail_Class = '';
-                $scope.generalNotes = true;
-                $scope.generalActions = false;
-                $scope.generalSavedDetails = false;
-            }
+//            if (tabName === 'actionDetails') {
+//                $scope.top_subnav_link_active_actionDetail_Class = 'top-subnav-link-active-detail-Class';
+//                $scope.top_subnav_link_active_notesDetail_Class = '';
+//                $scope.top_subnav_link_active_savedDetail_Class = '';
+//                $scope.generalActions = true;
+//                $scope.generalSavedDetails = false;
+//                $scope.generalNotes = false;
+//            }
+//            if (tabName === 'savedDetails') {
+//                $scope.top_subnav_link_active_savedDetail_Class = 'top-subnav-link-active-detail-Class';
+//                $scope.top_subnav_link_active_actionDetail_Class = '';
+//                $scope.top_subnav_link_active_notesDetail_Class = '';
+//                $scope.generalSavedDetails = true;
+//                $scope.generalActions = false;
+//                $scope.generalNotes = false;
+//            }
+//            if (tabName === 'notes') {
+//                $scope.top_subnav_link_active_notesDetail_Class = 'top-subnav-link-active-detail-Class';
+//                $scope.top_subnav_link_active_actionDetail_Class = '';
+//                $scope.top_subnav_link_active_savedDetail_Class = '';
+//                $scope.generalNotes = true;
+//                $scope.generalActions = false;
+//                $scope.generalSavedDetails = false;
+//            }
 //            if (tabName === 'reminderDetails') {
 //                $scope.top_subnav_link_active_reminderDetail_Class = 'top-subnav-link-active-detail-Class';
 //                $scope.top_subnav_link_active_savedReminder_Class = '';
