@@ -195,6 +195,8 @@ var enterFranchiseName="Please enter Franchise Name!";
 //VALIDATION
 
 var companyValidation = "Please enter your Company name";
+var companyAddressValidation= "Please enter and select your Company Address";
+var invalidCompanyAddressValidation = "Please select valid Address";
 var dropdownValidation = "Please select your Organization";
 var colorValidation = "Please choose all four colors";
 var studioIdValidation = "No studio id entered, kindly enter the studio id";

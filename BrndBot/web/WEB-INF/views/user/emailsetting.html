@@ -18,7 +18,8 @@
                     <div class="input-wrap">
                         <label> Default From Email Address </label>
                         <div class="input">
-                            <input id="from_address" class="fluid" type="text" readonly ng-model="email_settings.from_address" name="from_address"  placeholder="Enter default email address"/>
+                            <input id="from_address" class="fluid" type="text" ng-model="email_settings.from_address" name="from_address"  placeholder="Enter default email address"/>
+                            <span class="validationAlert" ng-if='fromAddressCheck'>{{fromAddressValidation}}</span>
                         </div>
                         <p class="input-wrap-label"> Make this something that your clients will recognize</p>
                     </div>

@@ -9,6 +9,10 @@ import com.controller.ApplicationContextListener;
 import com.controller.SqlMethods;
 import com.intbittech.AppConstants;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.Company;
+import com.intbittech.modelmappers.FacebookDataDetails;
+import com.intbittech.services.CompanyPreferencesService;
+import com.intbittech.services.CompanyService;
 import facebook4j.Facebook;
 import facebook4j.FacebookException;
 import facebook4j.FacebookFactory;
@@ -26,6 +30,7 @@ import com.intbittech.utility.Utility;
 import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -35,9 +40,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class PostToFacebook {
 
+    @Autowired
+    private CompanyPreferencesService companyPreferencesService;
+    @Autowired
+    CompanyService companyService;
+
     private final static Logger logger = Logger.getLogger(PostToFacebook.class);
 
-    public static String postStatus(String title, String fileImagePath, String posttext, String imagePostURL, String getImageFile, String url, String description, String imageType, Integer companyID, String htmlString, String accessToken) {
+    public String postStatus(String title, String fileImagePath, String posttext, String imagePostURL, String getImageFile, String url, String description, String imageType, Integer companyID, String htmlString, String accessToken) {
         String returnMessage = "success";
         String status = "";
         try {
@@ -125,7 +135,7 @@ public class PostToFacebook {
         return returnMessage;
     }
 
-    public static String postStatus(String title,
+    public String postStatus(String title,
             String file_image_path, String posttext,
             String imagePostURL, String getImageFile,
             String url, String description, String imageType,
@@ -134,15 +144,11 @@ public class PostToFacebook {
 
     }
 
-    private static HashMap<String, String> getFacebookCompanyPreferences(Integer companyId) throws Throwable {
-        CompanyPreferencesFacebook companyPreferencesFacebook = new CompanyPreferencesFacebook();
-        return companyPreferencesFacebook.getCompanyPreferenceForAccessToken(companyId);
-    }
-
-    private static String getFacebookAccessToken(Integer companyId) throws Throwable {
-        HashMap<String, String> hashMap = getFacebookCompanyPreferences(companyId);
-        if (hashMap != null) {
-            return hashMap.get("fb_default_page_access_token");
+    private String getFacebookAccessToken(Integer companyId) throws Throwable {
+        Company company = companyService.getCompanyById(companyId);
+        FacebookDataDetails facebookDataDetails = companyPreferencesService.getFacebookDetails(company);
+        if (facebookDataDetails.getFbDefaultPageAccessToken() != null) {
+            return facebookDataDetails.getFbDefaultPageAccessToken();
         }
         return "";
     }

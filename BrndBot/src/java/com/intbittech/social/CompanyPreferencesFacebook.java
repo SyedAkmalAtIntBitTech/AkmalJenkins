@@ -7,7 +7,9 @@ package com.intbittech.social;
 
 import com.intbittech.utility.IConstants;
 import com.controller.SqlMethods;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intbit.ConnectionManager;
+import com.intbittech.modelmappers.FacebookDataDetails;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,7 +37,6 @@ public class CompanyPreferencesFacebook {
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             PGobject pgobject = new PGobject();
             JSONObject json_objectFromTable = new JSONObject();
-            JSONObject json_facebook = new JSONObject();
             JSONParser parser = new JSONParser();
 
             String query = "Select company_preferences from company_preferences where fk_company_id=" + companyId + "";
@@ -52,13 +53,14 @@ public class CompanyPreferencesFacebook {
             String obj = pgobject.getValue();
 
             json_objectFromTable = (JSONObject) parser.parse(obj);
-            
-            json_facebook.put("FacebookLoggedIn", "true");
-            json_facebook.put("fb_default_page_access_token", default_page_access_token);
-            json_facebook.put("fb_user_profile_name", fb_user_profile_name);
-            json_facebook.put("fb_default_page_name", default_page_name);
-            
-            json_objectFromTable.put(IConstants.kFacebookKey, json_facebook);
+            FacebookDataDetails facebook = new FacebookDataDetails();
+            facebook.setFacebookLoggedIn("true");
+            facebook.setFbDefaultPageAccessToken(default_page_access_token);
+            facebook.setFbUserProfileName(fb_user_profile_name);
+            facebook.setFbDefaultPageName(default_page_name);
+            ObjectMapper mapper = new ObjectMapper();
+            String facebookDetailsJson = mapper.writeValueAsString(facebook);
+            json_objectFromTable.put(IConstants.kFacebookKey, facebookDetailsJson);
 
             result_set.close();
             prepared_statement.close();

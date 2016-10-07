@@ -12,7 +12,7 @@
     </div>
 </div>
 <div class="bb-main-content-wrap  bb-center-content">                         
-    <div ng-init="getCategories('emailsubcategory')">
+    <div ng-init="objectParameter.redirect='emailsubcategory';getCategories();">
         <div ng-include src="'generictableview.html'"></div>  
     </div>
 </div>
