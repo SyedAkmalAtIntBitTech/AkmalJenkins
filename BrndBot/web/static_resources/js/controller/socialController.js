@@ -259,7 +259,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                     {
                         field: document.getElementById('schedule_date'),
                         firstDay: 1,
-                        format: 'YYYY-MM-DD',
+                        format: kGlobalDateFormat,
                         minDate: new Date(2000, 0, 1),
                         maxDate: new Date(2050, 12, 31),
                         yearRange: [2000, 2050]
@@ -856,7 +856,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                         hours = parseInt(hours) + 12;
                     }
                     var newtime = hours + ":" + mins + ":" + "00";
-                    var currDate = moment(schedule_date).format('YYYY-MM-DD');
+                    var currDate = moment(schedule_date).format(kGlobalDateFormat);
 
                     var epoch_time = getEpochMillis(currDate + " " + newtime + " " + 'UTC');
                     
@@ -962,7 +962,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                                 hours = parseInt(hours) + 12;
                             }
                             var newtime = hours + ":" + mins + ":" + "00";
-                            var currDate = moment(schedule_date).format('YYYY-MM-DD');
+                            var currDate = moment(schedule_date).format(kGlobalDateFormat);
 
                             var epoch_time = getEpochMillis(currDate + " " + newtime + " " + 'UTC');
 
@@ -1045,7 +1045,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                         }
                         var newtime = hours + ":" + mins + ":" + "00";
 
-                        var currDate = moment(schedule_date).format('YYYY-MM-DD');
+                        var currDate = moment(schedule_date).format(kGlobalDateFormat);
 
                         var epoch_time = getEpochMillis(currDate + " " + newtime + " " + 'UTC');
 

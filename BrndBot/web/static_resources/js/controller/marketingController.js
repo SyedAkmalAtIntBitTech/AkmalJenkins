@@ -324,7 +324,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
                     console.log(JSON.stringify(data));
                     var dateEpoch = data.programdetails.dateOfEvent;
-                    $scope.programDate = moment(dateEpoch).format('YYYY-MM-DD');
+                    $scope.programDate = moment(dateEpoch).format(kGlobalDateFormat);
                     $("#progactdatepicker").val($scope.programDate);
                     $scope.template_status = data.emailautomation;
                     $scope.actionType = "Email";
@@ -492,7 +492,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
                 $scope.dateLesser = false;
                 var actiondate = datePicker;
-                var currDate = moment(actiondate).format('YYYY-MM-DD');
+                var currDate = moment(actiondate).format(kGlobalDateFormat);
                 var nDate = $scope.programDate;
                 var start = moment(nDate);
                 var end1 = moment(currDate);
@@ -857,7 +857,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
             var actiondate = "1970-01-01";
             var emaildate = $("#emaildatetime").val();
-            var currDate = moment(emaildate).format('YYYY-MM-DD');
+            var currDate = moment(emaildate).format(kGlobalDateFormat);
             var nDate = $scope.programDate;
             var start = moment(nDate);
             var end = moment(currDate);

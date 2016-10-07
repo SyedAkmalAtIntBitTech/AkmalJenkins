@@ -108,7 +108,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 {
                     field: document.getElementById('jumptodatepicker'),
                     firstDay: 1,
-                    format: 'YYYY-MM-DD',
+                    format: kGlobalDateFormat,
                     minDate: new Date('2000-01-01'),
                     maxDate: new Date('2050-12-31'),
                     yearRange: [2000, 2050],
@@ -191,13 +191,13 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var tomorrowDate = '';
             var new_date = '';
             if (user_selected_date !== "") {
-                curr_date = moment(user_selected_date).format('YYYY-MM-DD');
-                tomorrowDate = moment(addDays(user_selected_date, 1)).format('YYYY-MM-DD');
-                new_date = moment(addDays(user_selected_date, 15)).format('YYYY-MM-DD');
+                curr_date = moment(user_selected_date).format(kGlobalDateFormat);
+                tomorrowDate = moment(addDays(user_selected_date, 1)).format(kGlobalDateFormat);
+                new_date = moment(addDays(user_selected_date, 15)).format(kGlobalDateFormat);
             } else {
-                curr_date = moment(new Date()).format('YYYY-MM-DD');
-                tomorrowDate = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
-                new_date = moment(addDays(new Date(), 15)).format('YYYY-MM-DD');
+                curr_date = moment(new Date()).format(kGlobalDateFormat);
+                tomorrowDate = moment(addDays(new Date(), 1)).format(kGlobalDateFormat);
+                new_date = moment(addDays(new Date(), 15)).format(kGlobalDateFormat);
             }
             latest_date = curr_date;
             var invalid = "Invalid date";
@@ -205,8 +205,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
                 var parseJSON = JSON.parse(data.d.details);
                 $scope.entityS = JSON.parse(JSON.stringify(parseJSON));
-                $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
-                $scope.tomorrow_date = moment($scope.addDays(new Date(), 1)).format('YYYY-MM-DD');
+                $scope.today_date = moment(new Date()).format(kGlobalDateFormat);
+                $scope.tomorrow_date = moment($scope.addDays(new Date(), 1)).format(kGlobalDateFormat);
                 $scope.entitySet = parseJSON.entitydata;
                 $scope.nodata = parseJSON.noactionsmessage;
 
@@ -643,7 +643,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 //        $scope.entities_selected_time =schedule_time;
             var nDate = new Date(action_date + " 10:30 am"); //10:30 am save DST
             $scope.calculatedProgramDate = $scope.addDays(nDate, days);
-            $scope.entities_selected_time = $filter('date')(schedule_time, "YYYY-MM-DD");
+            $scope.entities_selected_time = $filter('date')(schedule_time, kGlobalDateFormat);
             $scope.savedEmail = false;
             $scope.schedule_id = schedule_id;
             $scope.assignedFirstName = assignedFirstName;
@@ -977,8 +977,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 //                        }
                 }
                 var emaildate = $("#emaildatetime").val();
-                var currDate = moment(emaildate).format('YYYY-MM-DD');
-                var nDate = moment($scope.calculatedProgramDate).format('YYYY-MM-DD');
+                var currDate = moment(emaildate).format(kGlobalDateFormat);
+                var nDate = moment($scope.calculatedProgramDate).format(kGlobalDateFormat);
                 var start = moment(nDate);
                 var end = moment(currDate);
                 days = start.diff(end, "days");
