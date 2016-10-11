@@ -59,4 +59,14 @@ public interface ActivityLogService {
      * @throws ProcessFailed the process failed
      */
     public void saveActivityLog(ActivityLogDetails activityLogDetails) throws ProcessFailed;       
+
+      /**
+     * This method save {@link ActivityLog} into the database.
+     *
+     * @param activityLogDetails the activityLogDetails
+     * @return the Integer
+     * @throws ProcessFailed the process failed
+     */
+    public void activityLogSave(ActivityLogDetails activityLogDetails) throws ProcessFailed;
+
 }

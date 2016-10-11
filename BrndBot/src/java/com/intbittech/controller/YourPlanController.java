@@ -273,6 +273,7 @@ public class YourPlanController {
                         activityLogDetails.setScheduledEntityId(scheduleId);
                         activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
                         activityLogService.saveActivityLog(activityLogDetails);
+//                        activityLogService.activityLogSave(activityLogDetails);
 
                         ActivityLogDetails activityLogDetailsObject = new ActivityLogDetails();
 //                        activityLogDetailsObject.setActivityId(IConstants.ACTIVITY_ASSIGNED_TO_ID);
@@ -280,7 +281,7 @@ public class YourPlanController {
                         activityLogDetailsObject.setAssignedTo(userAssignToId);
                         activityLogDetailsObject.setScheduledEntityId(scheduleId);
                         activityLogDetailsObject.setCreatedBy(userCompanyIds.getUserId());
-                        activityLogService.saveActivityLog(activityLogDetailsObject);
+                        activityLogService.activityLogSave(activityLogDetailsObject);
                         transactionResponse.setMessage(AppConstants.GSON.toJson(data));
                         transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
                     } catch (SQLException ex) {
