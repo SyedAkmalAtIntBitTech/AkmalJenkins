@@ -658,7 +658,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.recurringScheduleData.entities_from_name = $scope.recurringEntitiesDetails.from_name;
                 $scope.recurringScheduleData.entities_reply_to_email_address = $scope.recurringEntitiesDetails.reply_to_email_address;
                 $scope.recurringScheduleData.days = days;
-                $scope.recurringScheduleData.entities_selected_time = $filter('date')(schedule_time, "HH:mm a");
+                $scope.recurringScheduleData.entities_selected_time = $filter('date')(schedule_time, "hh:mm a");
                 if ($scope.recurringEntitiesDetails.email_list_name === '0' || $scope.recurringEntitiesDetails.email_list_name == '' || $scope.recurringEntitiesDetails.email_list_name == undefined) {
                     $scope.hideShowEmailList = false;
                 } else {
@@ -1303,45 +1303,27 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         $scope.showEmailList = function () {
-            $scope.ddSelectEmailListAutomationDataOptions = [
-//                {
-//                    text: "Manual",
-//                    value: "1"
-//                }
-            ];
+            $scope.ddSelectEmailListAutomationDataOptions = [];
 
             appSessionFactory.getCompany().then(function (companyObject) {
 
-                emailListFactory.getAllEmailListWithNoOfContactsForUser(companyObject.companyId).then(function (data) {
-                    $scope.emailLists_user = data.d.details;
+                emailListFactory.getAllEmailListNames(companyObject.companyId).then(function (data) {
+                    $scope.emailLists = data.d.details;
+                    
+                    var emailAutomationData = $scope.emailLists;
+//                        parseData.allEmailListWithNoOfContacts.user;
+                    for (var i = 0; i < emailAutomationData.length; i++)
+                    {
+                        var emailAutomationObject = {};
+                        emailAutomationObject["text"] = emailAutomationData[i].emailListName;
+                        emailAutomationObject["value"] = emailAutomationData[i].emailListId;
+                        $scope.ddSelectEmailListAutomationDataOptions.push(emailAutomationObject);
+                    }
                 });
 
-                emailListFactory.getAllEmailListWithNoOfContactsForMindBody(companyObject.companyId).then(function (data) {
-                    //                alert(JSON.stringify(data));
-                    $scope.emailLists_mindbody = data.d.details;
-                });
 
             });
-            var emailAutomationData = $scope.emailLists_user;
-//                        parseData.allEmailListWithNoOfContacts.user;
-            for (var i = 0; i < emailAutomationData.length; i++)
-            {
-                var emailAutomationObject = {};
-                emailAutomationObject["text"] = emailAutomationData[i].emailListName;
-                emailAutomationObject["value"] = emailAutomationData[i].emailListId;
-                $scope.ddSelectEmailListAutomationDataOptions.push(emailAutomationObject);
-            }
-
-            //For mindbody emaillist
-            emailAutomationData = $scope.emailLists_mindbody;
-//                        parseData.allEmailListWithNoOfContacts.mindbody;
-            for (var i = 0; i < emailAutomationData.length; i++)
-            {
-                var emailAutomationObject = {};
-                emailAutomationObject["text"] = emailAutomationData[i].emailListName;
-                emailAutomationObject["value"] = emailAutomationData[i].emailListId;
-                $scope.ddSelectEmailListAutomationDataOptions.push(emailAutomationObject);
-            }
+           
         };
 
         $scope.ddSelectDateAutomationData = {
@@ -1746,7 +1728,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         var recurring_email_title = $scope.automationData.title;
                         var recurring_email_description = $scope.automationData.description;
                         
-                        var till_date = 'Sun Dec 31 2200-12-31';
+                        var till_date = '2200-12-31';
                         var newtime = "00:00:00";
                         var schedule_time = $("#timepicker1").val();
                         var till_date_epoch =  getEpochMillis(till_date + " " + newtime + " " + 'UTC');
