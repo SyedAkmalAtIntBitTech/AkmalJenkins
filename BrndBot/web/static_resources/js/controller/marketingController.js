@@ -382,7 +382,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         $scope.addActionValidation = function (addTitle, datePicker, actionType) {
-            var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
+            var actionTime1 = $("#timepicker1").val();
             if (!addTitle) {
                 $scope.addTitle = "";
                 $("#addactiontitle").focus();
@@ -478,7 +478,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 if (!$scope.ddSelectedUser)
                     $scope.ddSelectedUser = "0";
                 $scope.timePickerVal = false;
-                var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
+                var actionTime1 = $("#timepicker1").val();
                 var actionDateTime1 = datePicker.toLocaleString() + " " + actionTime1.toLocaleString();
                 var endDate = $scope.programDate;
                 var end = new Date(endDate);
@@ -498,15 +498,15 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 var end1 = moment(currDate);
                 var days = start.diff(end1, "days");
                 var actiond = "1970/01/01";
-                var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
+                var actionDateTime = $("#timepicker1").val();
 
                 var timeValues = [];
                 timeValues = actionDateTime.split(":");
                 var hours = timeValues[0];
-                var mins = timeValues[1];
-                var delimiter = timeValues[2];
+                var mins = timeValues[1].replace(" AM", "").replace(" PM", "");
+//                var delimiter = timeValues[2];
 
-                if (delimiter === "PM") {
+                if (actionDateTime.indexOf("PM") >= 0) {
                     hours = parseInt(hours) + 12;
                 }
                 var newtime = hours + ":" + mins + ":" + "00";
@@ -647,7 +647,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 schedule_id: schedule_id, entities_list_name: "",
                 email_template_status: template_status, schedule_type: "Recurring Email",
                 marketing_program_name: "", user_marketing_program_id: $scope.programId,
-                days: days, entities_selected_time: $filter('date')(schedule_time, "HH : mm : a"), entities_subject: "",
+                days: days, entities_selected_time: $filter('date')(schedule_time, "hh:mm a"), entities_subject: "",
                 entities_from_name: "", entities_reply_to_email_address: ""};
             yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data) {
                 $scope.fadeClass = 'fadeClass';
@@ -755,7 +755,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.savedHeader = 'Post';
             $scope.actionDate = schedule_date;
             $scope.pushedEmail = false;
-            var time = $filter('date')(schedule_time, "hh : mm : a");
+            var time = $filter('date')(schedule_time, "hh:mm a");
             $("#emaildatetime").val($filter('date')(schedule_date, "MMM dd yyyy"));
 
             $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: schedule_date,
@@ -763,6 +763,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 email_template_status: template_status, schedule_type: entity_type,
                 marketing_program_name: marketingName, user_marketing_program_id: $scope.programId,
                 days: days, schedule_time: time};
+            $("#timepickertextbox").val(time);
 //            growl(JSON.stringify($scope.scheduleData));
             if (entity_type === getemail()) {
                 $scope.scheduledTo = 'SEND';
@@ -830,7 +831,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var title = scheduleUpdatedData.schedule_title;//$("#email_edit_title").val();
 
             var actiondate = $("#emaildatetime").val();
-            var actionTime1 = $("#timepickertextbox").val().replace(/ /g, '');
+            var actionTime1 = $("#timepickertextbox").val();
             if (!title) {
                 $("#email_edit_title").focus();
                 return false;
@@ -862,15 +863,15 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var start = moment(nDate);
             var end = moment(currDate);
             var days = start.diff(end, "days");
-            var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
+            var actionDateTime = $("#timepickertextbox").val();
 
             var timeValues = [];
             timeValues = actionDateTime.split(":");
             var hours = timeValues[0];
-            var mins = timeValues[1];
-            var delimiter = timeValues[2];
+            var mins = timeValues[1].replace(" AM", "").replace(" PM", "");
+//            var delimiter = timeValues[2];
 
-            if (delimiter === "PM") {
+            if (actionDateTime.indexOf("PM") >= 0) {
                 hours = parseInt(hours) + 12;
             }
             var newtime = hours + ":" + mins + ":" + "00";
@@ -1407,7 +1408,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.automationData.description = data.recurring_email_description;
                     $scope.automationData.selectedDay = data.recurring_email_days;
                     $scope.automationData.selectedEmailList = data.recurring_email_email_list_name;
-                    $scope.automationData.time = $filter('date')(data.recurring_email_time, "HH : mm : a");
+                    $scope.automationData.time = $filter('date')(data.recurring_email_time, "hh:mm a");
                     $scope.automationData.subject = data.recurring_email_subject;
                     $scope.automationData.fromName = data.recurring_email_from_name;
                     $scope.automationData.fromAddress = data.recurring_email_from_address;
@@ -1636,7 +1637,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.recuringActionValidation = function () {
             var recurring_email_title = $scope.automationData.title;
             var recurring_email_description = $scope.automationData.description;
-            var schedule_time = $("#timepicker1").val().replace(/ /g, '');
+            var schedule_time = $("#timepicker1").val();
             var subject = $scope.automationData.subject;
             var from_name = $scope.automationData.fromName;
             var from_address = $scope.automationData.fromAddress;
@@ -1747,7 +1748,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         
                         var till_date = 'Sun Dec 31 2200-12-31';
                         var newtime = "00:00:00";
-                        var schedule_time = $("#timepicker1").val().replace(/ /g, '');
+                        var schedule_time = $("#timepicker1").val();
                         var till_date_epoch =  getEpochMillis(till_date + " " + newtime + " " + 'UTC');
                         $scope.froalaHtmlData = $("#tinymceEditorBody").html();
                         if ($scope.type === 'add') {

@@ -422,7 +422,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.addActionValidation = function (addTitle, datePicker, actionType) {
-            var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
+            var actionTime1 = $("#timepicker1").val();
 
             if (!addTitle) {
                 $scope.addTitle = "";
@@ -474,7 +474,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 if (!$scope.ddSelectedUser)
                     $scope.ddSelectedUser = "0";
                 $scope.timePickerVal = false;
-                var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
+                var actionTime1 = $("#timepicker1").val();
                 var actionDateTime1 = datePicker.toLocaleString() + " " + actionTime1.toLocaleString();
                 var fromDate = new Date(actionDateTime1);
                 var todayDate = new Date();
@@ -486,14 +486,14 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
                 $scope.dateLesser = false;
                 var actiondate = datePicker;
-                var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
+                var actionDateTime = $("#timepicker1").val();
                 var timeValues = [];
                 timeValues = actionDateTime.split(":");
                 var hours = timeValues[0];
-                var mins = timeValues[1];
-                var delimiter = timeValues[2];
+                var mins = timeValues[1].replace(" AM", "").replace(" PM", "");
+//                var delimiter = timeValues[2];
 
-                if (delimiter == "PM") {
+                if (actionDateTime.indexOf("PM") >= 0) {
                     hours = parseInt(hours) + 12;
                 }
                 var newtime = hours + ":" + mins + ":" + "00";
@@ -673,7 +673,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.setTab('savedReminder');
             }
             var date = $scope.entities_selected_time;
-            var time = $filter('date')(schedule_time, "hh : mm : a");
+            var time = $filter('date')(schedule_time, "hh:mm a");
             $("#emaildatetime").val(action_date);
             $("#emaildatetime1").val(action_date);
             $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: date,
@@ -682,6 +682,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 marketing_program_name: marketingName, user_marketing_program_id: programId,
                 days: days, is_today_active: is_today_active, schedule_time: time};
 //                $('#emailcontentiframe').contents().find('html').html(data.body); 
+            $("#timepickertextbox").val(time);
             $scope.globalScheduleData = $scope.scheduleData;
 
             if (entity_type === getemail()) {
@@ -930,7 +931,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var schedule_id = scheduleUpdatedData.schedule_id;//$("#email_scheduleid").val();
             var title = scheduleUpdatedData.schedule_title;//$("#email_edit_title").val();
             var actiondate = "1970/01/01";
-            var actionTime1 = $("#timepickertextbox").val().replace(/ /g, '');
+            var actionTime1 = $("#timepickertextbox").val();
             var days = 0;
             if (scheduleUpdatedData.marketing_program_name === 'General') {
                 actiondate = $("#emaildatetime").val();
@@ -983,14 +984,14 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 var end = moment(currDate);
                 days = start.diff(end, "days");
             }
-            var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
+            var actionDateTime = $("#timepickertextbox").val();
             var timeValues = [];
             timeValues = actionDateTime.split(":");
             var hours = timeValues[0];
-            var mins = timeValues[1];
-            var delimiter = timeValues[2];
+            var mins = timeValues[1].replace(" AM", "").replace(" PM", "");
+//            var delimiter = timeValues[2];
 
-            if (delimiter === "PM") {
+            if (actionDateTime.indexOf("PM") >= 0) {
                 hours = parseInt(hours) + 12;
             }
             var newtime = hours + ":" + mins + ":" + "00";
@@ -1133,11 +1134,22 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var message = "Do you wan't to update the record?";
             var actiondate = $("#emaildatetime1").val();
 //            var actiondate = scheduleData.entities_selected_time;//$("#datepickernote").val();
-            var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
+            var actionDateTime = $("#timepickertextbox").val();
             var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();
-            var schedule_time = Date.parse(l);
-            var myEpoch = schedule_time;
-// 
+//            var schedule_time = Date.parse(l);
+//            var myEpoch = schedule_time;
+            var timeValues = [];
+            timeValues = actionDateTime.split(":");
+            var hours = timeValues[0];
+            var mins = timeValues[1].replace(" AM", "").replace(" PM", "");
+            
+            if (actionDateTime.indexOf("PM") >= 0) {
+                    hours = parseInt(hours) + 12;
+                }
+                var newtime = hours + ":" + mins + ":" + "00";
+
+            var myEpoch = getEpochMillis(actiondate + " " + newtime + " " + 'UTC');
+            
             var schedule_details = {
                 "type": getnote(),
                 "schedule_id": schedule_id.toString(),

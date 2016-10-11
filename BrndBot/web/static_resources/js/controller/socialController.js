@@ -737,7 +737,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
             if ($scope.createNewActionPopup) {
                 var schedule_title = $("#ActionName").val();
                 var schedule_date = $("#actionDate").val();
-                var schedule_time = $("#actionTime").val().replace(/ /g, '');
+                var schedule_time = $("#actionTime").val();
                 var actionName = schedule_title;
                 var actionDateVal = schedule_date;
                 var actionTimeVal = schedule_time;
@@ -836,7 +836,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                             }
                     var schedule_title = $("#ActionName").val();
                     var schedule_date = $("#actionDate").val();
-                    var schedule_time = $("#actionTime").val().replace(/ /g, '');
+                    var schedule_time = $("#actionTime").val();
                     var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
                     var fromDate = new Date(dateAndTime);
                     var todayDate = new Date();
@@ -849,10 +849,10 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                     var timeValues = [];
                     timeValues = schedule_time.split(":");
                     var hours = timeValues[0];
-                    var mins = timeValues[1];
-                    var delimiter = timeValues[2];
+                    var mins = timeValues[1].replace(" AM", "").replace(" PM", "");
+//                    var delimiter = timeValues[2];
 
-                    if (delimiter == "PM") {
+                    if (schedule_time.indexOf("PM") >= 0) {
                         hours = parseInt(hours) + 12;
                     }
                     var newtime = hours + ":" + mins + ":" + "00";
@@ -942,7 +942,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                             }
                             var schedule_title = $("#ActionName").val();
                             var schedule_date = $("#actionDate").val();
-                            var schedule_time = $("#actionTime").val().replace(/ /g, '');
+                            var schedule_time = $("#actionTime").val();
                             var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
                             var fromDate = new Date(dateAndTime);
                             var todayDate = new Date();
@@ -955,10 +955,10 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                             var timeValues = [];
                             timeValues = schedule_time.split(":");
                             var hours = timeValues[0];
-                            var mins = timeValues[1];
-                            var delimiter = timeValues[2];
+                            var mins = timeValues[1].replace(" AM", "").replace(" PM", "");
+//                            var delimiter = timeValues[2];
 
-                            if (delimiter == "PM") {
+                            if (schedule_time.indexOf("PM") >= 0) {
                                 hours = parseInt(hours) + 12;
                             }
                             var newtime = hours + ":" + mins + ":" + "00";
@@ -1025,7 +1025,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                             }
                         var schedule_title = $("#ActionName").val();
                         var schedule_date = $("#actionDate").val();
-                        var schedule_time = $("#actionTime").val().replace(/ /g, '');
+                        var schedule_time = $("#actionTime").val();
                         var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
                         var fromDate = new Date(dateAndTime);
                         var todayDate = new Date();
@@ -1037,10 +1037,10 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                         var timeValues = [];
                         timeValues = schedule_time.split(":");
                         var hours = timeValues[0];
-                        var mins = timeValues[1];
-                        var delimiter = timeValues[2];
+                        var mins = timeValues[1].replace(" AM", "").replace(" PM", "");
+//                        var delimiter = timeValues[2];
 
-                        if (delimiter == "PM") {
+                        if (schedule_time.indexOf("PM") >= 0) {
                             hours = parseInt(hours) + 12;
                         }
                         var newtime = hours + ":" + mins + ":" + "00";
