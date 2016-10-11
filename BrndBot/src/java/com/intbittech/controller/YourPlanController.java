@@ -12,6 +12,7 @@ import com.intbittech.utility.ServletUtil;
 import com.intbittech.dao.impl.ScheduleDAO;
 import com.intbittech.AppConstants;
 import com.intbittech.dao.impl.ScheduleSocialPostDAO;
+import com.intbittech.enums.ActivityStatus;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Activity;
 import com.intbittech.model.ActivityLog;
@@ -187,7 +188,7 @@ public class YourPlanController {
                 String is_recurring = (String) requestBodyMap.get("isRecurring");
                 ScheduleDAO.removeSavedTemplate(userCompanyIds.getCompanyId(), schedule_ids.intValue());
                 activityLogDetails.setScheduledEntityId(schedule_ids.intValue());
-                activityLogDetails.setActivityId(IConstants.ACTIVITY_REMOVED_TEMPLATE_ID);
+                activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_REMOVED_TEMPLATE_ID").getDisplayName());
                 messageStatus = "true";
             } else if (type.equalsIgnoreCase(ScheduledEntityType.Reminder.toString())) {
                 String schedule_id = (String) requestBodyMap.get("schedule_id");
@@ -267,13 +268,15 @@ public class YourPlanController {
                         data.put("schedule_entity_id", scheduleId);
 
                         ActivityLogDetails activityLogDetails = new ActivityLogDetails();
-                        activityLogDetails.setActivityId(IConstants.ACTIVITY_CREATED_ACTION_ID);
+//                        activityLogDetails.setActivityId(IConstants.ACTIVITY_CREATED_ACTION_ID);
+                        activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_CREATED_ACTION_ID").getDisplayName());
                         activityLogDetails.setScheduledEntityId(scheduleId);
                         activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
                         activityLogService.saveActivityLog(activityLogDetails);
 
                         ActivityLogDetails activityLogDetailsObject = new ActivityLogDetails();
-                        activityLogDetailsObject.setActivityId(IConstants.ACTIVITY_ASSIGNED_TO_ID);
+//                        activityLogDetailsObject.setActivityId(IConstants.ACTIVITY_ASSIGNED_TO_ID);
+                        activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_ASSIGNED_TO_ID").getDisplayName());
                         activityLogDetailsObject.setAssignedTo(userAssignToId);
                         activityLogDetailsObject.setScheduledEntityId(scheduleId);
                         activityLogDetailsObject.setCreatedBy(userCompanyIds.getUserId());
@@ -301,7 +304,8 @@ public class YourPlanController {
                         Map<String, Object> data = new HashMap<>();
                         data.put("schedule_entity_id", scheduleId);
                         ActivityLogDetails activityLogDetailsObject = new ActivityLogDetails();
-                        activityLogDetailsObject.setActivityId(IConstants.ACTIVITY_UPDATED_ACTION_ID);
+//                        activityLogDetailsObject.setActivityId(IConstants.ACTIVITY_UPDATED_ACTION_ID);
+                        activityLogDetailsObject.setActivityId(ActivityStatus.valueOf("ACTIVITY_UPDATED_ACTION_ID").getDisplayName());
                         activityLogDetailsObject.setScheduledEntityId(scheduleId);
                         activityLogDetailsObject.setCreatedBy(userCompanyIds.getUserId());
                         activityLogService.saveActivityLog(activityLogDetailsObject);

@@ -6,6 +6,7 @@
 package com.controller;
 
 import com.intbittech.schedulers.MindbodyEmailListScheduler;
+import com.intbittech.schedulers.SocialPostScheduler;
 import com.intbittech.utility.EmailListDBUtility;
 import java.util.logging.Level;
 import java.util.logging.Logger;

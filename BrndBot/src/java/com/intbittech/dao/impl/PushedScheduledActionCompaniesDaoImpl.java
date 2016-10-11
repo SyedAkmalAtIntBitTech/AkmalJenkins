@@ -172,4 +172,29 @@ public class PushedScheduledActionCompaniesDaoImpl implements PushedScheduledAct
         }
     }
 
+    @Override
+    public List<PushedScheduledActionCompanies> getPushedScheduledActionCompaniesByScheduledEntityListIdAndStatus(Integer ScheduledEntityListId, String Status) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(PushedScheduledActionCompanies.class)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .setFetchMode("fkPushedScheduledActionEntityListId", FetchMode.JOIN)
+                    .setFetchMode("fkPushedScheduledActionEntityListId.fkScheduledEntityListId", FetchMode.JOIN)
+                    .createAlias("fkPushedScheduledActionEntityListId.fkScheduledEntityListId", "scheduledEntityList")
+                    .add(Restrictions.eq("status", Status))
+                    .add(Restrictions.eq("scheduledEntityList.scheduledEntityListId", ScheduledEntityListId));
+          List<PushedScheduledActionCompanies> pushedScheduledActionCompanies = criteria.list();
+
+            if (pushedScheduledActionCompanies.isEmpty()) {
+              
+                return null;
+            }
+            return  criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retreving_message",new String[]{}, Locale.US));
+        }
+    }
+
 }

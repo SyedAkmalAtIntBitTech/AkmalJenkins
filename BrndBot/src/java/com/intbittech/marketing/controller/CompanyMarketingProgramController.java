@@ -7,6 +7,7 @@ package com.intbittech.marketing.controller;
 
 import com.intbittech.utility.IConstants;
 import com.intbittech.AppConstants;
+import com.intbittech.enums.ActivityStatus;
 import com.intbittech.enums.TemplateStatus;
 import com.intbittech.marketing.service.CompanyMarketingProgramService;
 import com.intbittech.marketing.service.ScheduledEntityListService;
@@ -531,21 +532,21 @@ public class CompanyMarketingProgramController {
             if (entityType.equals("Recurring Email")){
                 if (template_status.equalsIgnoreCase("approved")) {
                     scheduled_entity_list.setStatus(TemplateStatus.approved.toString());
-                    activityLogDetails.setActivityId(IConstants.ACTIVITY_PAUSE_ACTION_ID);
+                    activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_PAUSE_ACTION_ID").getDisplayName());
             } else if (template_status.equalsIgnoreCase("template_saved")) {
                 scheduled_entity_list.setStatus(TemplateStatus.template_saved.toString());
-                activityLogDetails.setActivityId(IConstants.ACTIVITY_PLAY_ACTION_ID);
+                activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_PLAY_ACTION_ID").getDisplayName());
             }
             }else {
                 if (template_status.equalsIgnoreCase("approved")) {
                 scheduled_entity_list.setStatus(TemplateStatus.approved.toString());
-                activityLogDetails.setActivityId(IConstants.ACTIVITY_APPROVED_ACTION_ID);
+                activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_APPROVED_ACTION_ID").getDisplayName());
             } else if (template_status.equalsIgnoreCase("template_saved")) {
                 scheduled_entity_list.setStatus(TemplateStatus.template_saved.toString());
-                activityLogDetails.setActivityId(IConstants.ACTIVITY_DISAPPROVED_ACTION_ID);
+                activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_DISAPPROVED_ACTION_ID").getDisplayName());
             } else if (template_status.equalsIgnoreCase("complete")) {
                 scheduled_entity_list.setStatus(TemplateStatus.complete.toString());
-                activityLogDetails.setActivityId(IConstants.ACTIVITY_UPDATED_TEMPLATE_ID);
+                activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_UPDATED_TEMPLATE_ID").getDisplayName());
             } else if (template_status.equalsIgnoreCase("no_template")) {
                 scheduled_entity_list.setStatus(TemplateStatus.no_template.toString());
             }

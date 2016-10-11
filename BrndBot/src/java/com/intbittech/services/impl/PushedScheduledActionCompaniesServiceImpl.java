@@ -210,5 +210,14 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
             throw new ProcessFailed(messageSource.getMessage("mail_send_problem", new String[]{}, Locale.US));
         }
     }
+
+    @Override
+    public List<PushedScheduledActionCompanies> getPushedScheduledActionCompaniesByScheduledEntityListIdAndStatus(Integer ScheduledEntityListId, String Status) throws ProcessFailed {
+        List<PushedScheduledActionCompanies> pushedScheduledActionCompaniesList = pushedScheduledActionCompaniesDao.getPushedScheduledActionCompaniesByScheduledEntityListIdAndStatus(ScheduledEntityListId, Status);
+        if (pushedScheduledActionCompaniesList == null) {
+            throw new ProcessFailed(messageSource.getMessage("no_pushed_scheduled_action_company_found", new String[]{}, Locale.US));
+        }
+        return pushedScheduledActionCompaniesList;
+    }
     
 }

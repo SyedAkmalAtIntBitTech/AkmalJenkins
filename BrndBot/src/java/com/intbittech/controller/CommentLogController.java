@@ -5,6 +5,7 @@
  */
 package com.intbittech.controller;
 
+import com.intbittech.enums.ActivityStatus;
 import com.intbittech.model.CommentLog;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.Users;
@@ -105,7 +106,7 @@ public class CommentLogController {
             CommentLog commentLog = commentLogService.getCommentLogByCommentLogId(commentId);
             commentLogService.delete(commentId);
             ActivityLogDetails activityLogDetails = new ActivityLogDetails();
-            activityLogDetails.setActivityId(IConstants.ACTIVITY_DELETED_COMMENT_ACTION_ID);
+            activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_DELETED_COMMENT_ACTION_ID").getDisplayName());
             activityLogDetails.setScheduledEntityId(commentLog.getFkScheduledEntityid().getScheduledEntityListId());
             activityLogDetails.setCreatedBy(userId);
             activityLogService.saveActivityLog(activityLogDetails);

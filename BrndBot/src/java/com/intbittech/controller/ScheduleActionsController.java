@@ -6,6 +6,7 @@
 package com.intbittech.controller;
 
 import com.intbittech.AppConstants;
+import com.intbittech.enums.ActivityStatus;
 import com.intbittech.enums.ScheduledEntityType;
 import com.intbittech.marketing.service.ScheduledEntityListService;
 import com.intbittech.model.Company;
@@ -342,7 +343,7 @@ public class ScheduleActionsController {
             scheduledEntityListService.update(scheduledEntityList);
 
             ActivityLogDetails activityLogDetails = new ActivityLogDetails();
-            activityLogDetails.setActivityId(IConstants.ACTIVITY_REASSIGNED_TO_ID);
+            activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_REASSIGNED_TO_ID").getDisplayName());
             activityLogDetails.setAssignedTo(updateActionDetails.getUserAssignToId());
             activityLogDetails.setScheduledEntityId(scheduledEntityList.getScheduledEntityListId());
             activityLogDetails.setActionTitle(scheduledEntityList.getScheduleTitle());

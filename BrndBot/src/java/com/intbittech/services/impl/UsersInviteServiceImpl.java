@@ -155,17 +155,13 @@ public class UsersInviteServiceImpl implements UsersInviteService {
                 Company company = companyDao.getCompanyById(companyId);
                 List<UsersRoleCompanyLookup> usersRoleCompanyLookupList = userRoleCompanyLookUpService.getAllUserRolesByUser(companyInvite.getInviteSentTo());
                 List<Invite> inviteList = usersInviteDao.getAllInvitedUsersByuserTo(companyInvite.getInviteSentTo());
-                if (usersRoleCompanyLookupList.size() == 1 && inviteList.size() == 1) {
-
-                    usersDao.delete(companyInvite.getInviteSentTo());
-                    returnMessage = true;
-                } else {
                     UsersRoleCompanyLookup usersRoleCompanyLookup = userRoleCompanyLookUpService.getUsersRoleLookupByUserAndCompany(companyInvite.getInviteSentTo(), company);
 
-                    userRoleCompanyLookUpService.delete(usersRoleCompanyLookup.getId());
+                    usersRoleCompanyLookup.setAccountStatus(AppConstants.Account_Deactivated);
+                    userRoleCompanyLookUpService.update(usersRoleCompanyLookup);
+                    
                     delete(inviteId);
                     returnMessage = true;
-                }
             } else {
                 delete(inviteId);
                 returnMessage = true;

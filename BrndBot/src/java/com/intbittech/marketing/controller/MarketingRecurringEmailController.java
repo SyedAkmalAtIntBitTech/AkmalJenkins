@@ -9,6 +9,7 @@ import com.intbittech.utility.IConstants;
 import com.controller.SqlMethods;
 import com.intbittech.AppConstants;
 import com.intbittech.dao.UsersDao;
+import com.intbittech.enums.ActivityStatus;
 import com.intbittech.enums.ScheduledEntityType;
 import com.intbittech.enums.TemplateStatus;
 import com.intbittech.marketing.service.ScheduledEmailListService;
@@ -273,7 +274,7 @@ public class MarketingRecurringEmailController {
             scheduledEntityListService.update(scheduled_entity_list);
             
             ActivityLogDetails activityLogDetails = new ActivityLogDetails();
-            activityLogDetails.setActivityId(IConstants.ACTIVITY_UPDATED_TEMPLATE_ID);
+            activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_UPDATED_TEMPLATE_ID").getDisplayName());
             activityLogDetails.setScheduledEntityId(entity_id.intValue());
             activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
             activityLogService.saveActivityLog(activityLogDetails);
@@ -357,13 +358,13 @@ public class MarketingRecurringEmailController {
 
             Integer schedule_entity_list_id = scheduledEntityListService.save(schedule_entity_list);
             ActivityLogDetails activityLogDetails = new ActivityLogDetails();
-            activityLogDetails.setActivityId(IConstants.ACTIVITY_CREATED_ACTION_ID);
+            activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_CREATED_ACTION_ID").getDisplayName());
             activityLogDetails.setScheduledEntityId(schedule_entity_list_id);
             activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
             activityLogService.saveActivityLog(activityLogDetails);
 
             ActivityLogDetails activityLogDetails1 = new ActivityLogDetails();
-            activityLogDetails1.setActivityId(IConstants.ACTIVITY_ASSIGNED_TO_ID);
+            activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_ASSIGNED_TO_ID").getDisplayName());
             activityLogDetails1.setAssignedTo(userAssignToId);
             activityLogDetails1.setScheduledEntityId(schedule_entity_list_id);
             activityLogDetails1.setCreatedBy(userCompanyIds.getUserId());
@@ -447,13 +448,13 @@ public class MarketingRecurringEmailController {
 
             scheduledEntityListService.update(schedule_entity_list);
             ActivityLogDetails activityLogDetails = new ActivityLogDetails();
-            activityLogDetails.setActivityId(IConstants.ACTIVITY_ADDED_TEMPLATE_ID);
+            activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_ADDED_TEMPLATE_ID").getDisplayName());
             activityLogDetails.setScheduledEntityId(Integer.parseInt(entity_id));
             activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
             activityLogService.saveActivityLog(activityLogDetails);
 
             ActivityLogDetails activityLogDetails1 = new ActivityLogDetails();
-            activityLogDetails1.setActivityId(IConstants.ACTIVITY_UPDATED_ACTION_ID);
+            activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_UPDATED_ACTION_ID").getDisplayName());
             activityLogDetails1.setScheduledEntityId(Integer.parseInt(entity_id));
             activityLogDetails1.setCreatedBy(userCompanyIds.getUserId());
             activityLogService.saveActivityLog(activityLogDetails1);
@@ -555,6 +556,7 @@ public class MarketingRecurringEmailController {
 
             ActivityLogDetails activityLogDetails = new ActivityLogDetails();
             activityLogDetails.setActivityId(IConstants.ACTIVITY_UPDATED_ACTION_ID);
+            activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_UPDATED_ACTION_ID").getDisplayName());
             activityLogDetails.setScheduledEntityId(Integer.parseInt(entity_id));
             activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
             activityLogService.saveActivityLog(activityLogDetails);
