@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div  ng-show="pageName === 'marketingPrograms'" ng-repeat="displayAllMarketingProgram in displayAllMarketingPrograms">
-                    <div class="bb-clickable-slat" id="{{displayAllMarketingProgram.marketingProgramId}}" ng-click="kEmailFlowObject.marketingCategoryId=marketingCategoryId;kEmailFlowObject.marketingProgramId=displayAllMarketingProgram.marketingProgramId;kEmailFlowObject.htmlData=displayAllMarketingProgram.htmlData;redirectProgram(forward);">
+                    <div class="bb-clickable-slat" id="{{displayAllMarketingProgram.marketingProgramId}}" ng-click="marketingFlowObject.marketingCategoryId=marketingCategoryId;marketingFlowObject.marketingProgramId=displayAllMarketingProgram.marketingProgramId;marketingFlowObject.htmlData=displayAllMarketingProgram.htmlData;redirectProgram(forward);">
                         <h3>{{displayAllMarketingProgram.marketingProgramName}}</h3>
                     </div>
                 </div> 
