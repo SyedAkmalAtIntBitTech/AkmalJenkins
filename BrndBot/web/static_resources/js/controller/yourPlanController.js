@@ -447,9 +447,9 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             return true;
         };
         var getEpochMillis = function (dateStr) {
-            var r = /^\s*(\d\d) (\d\d) (\d{4})\s+(\d\d):(\d\d):(\d\d)\s+UTC\s*$/
-                    , m = ("" + dateStr).match(r);
-            return (m) ? Date.UTC(m[3], m[2] - 1, m[1], m[4], m[5], m[6]) : undefined;
+            var r = /^\s*(\d{4})-(\d\d)-(\d\d)\s+(\d\d):(\d\d):(\d\d)\s+UTC\s*$/
+            , m = ("" + dateStr).match(r);
+            return (m) ? Date.UTC(m[1], m[2] - 1, m[3], m[4], m[5], m[6]) : undefined;
         };
 
         $scope.getAllUsersInCompany = function () {
