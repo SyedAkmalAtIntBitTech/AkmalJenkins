@@ -167,14 +167,14 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                     activityLog.setCreatedAt(new Date());
                     activityLog.setFkActivityId(activity);
                     activityLogDao.save(activityLog);
-//                    if (activityLogDetails.getAssignedTo() != null) {
-//                        Users assignedTo = new Users();
-//                        assignedTo.setUserId(activityLogDetails.getAssignedTo());
-//                        activityLog.setAssignedTo(assignedTo);
-//                        Users sendToUser = usersService.getUserById(activityLogDetails.getAssignedTo());
-//                        sendNotificationEmail(activityLogDetails.getActivityId(),sendToUser.getUserName(), Utility.combineUserName(sendToUser),
-//                                company.getCompanyName(), activityLogDetails.getActionTitle(), createdBy.getUserName());
-//                    }
+                    if (activityLogDetails.getAssignedTo() != null) {
+                        Users assignedTo = new Users();
+                        assignedTo.setUserId(activityLogDetails.getAssignedTo());
+                        activityLog.setAssignedTo(assignedTo);
+                        Users sendToUser = usersService.getUserById(activityLogDetails.getAssignedTo());
+                        sendNotificationEmail(activityLogDetails.getActivityId(),sendToUser.getUserName(), Utility.combineUserName(sendToUser),
+                                company.getCompanyName(), activityLogDetails.getActionTitle(), createdBy.getUserName());
+                    }
                     break;
                 case 3:
 //                        ACTIVITY_REASSIGNED_TO_ID
@@ -183,14 +183,14 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                     activityLog.setCreatedAt(new Date());
                     activityLog.setFkActivityId(activity);
                     activityLogDao.save(activityLog);
-//                    if (activityLogDetails.getAssignedTo() != null) {
-//                        Users assignedTo = new Users();
-//                        assignedTo.setUserId(activityLogDetails.getAssignedTo());
-//                        activityLog.setAssignedTo(assignedTo);
-//                        Users sendToUser = usersService.getUserById(activityLogDetails.getAssignedTo());
-//                        sendNotificationEmail(activityLogDetails.getAssignedTo(),sendToUser.getUserName(), Utility.combineUserName(sendToUser),
-//                                company.getCompanyName(), activityLogDetails.getActionTitle(), createdBy.getUserName());
-//                    }
+                    if (activityLogDetails.getAssignedTo() != null) {
+                        Users assignedTo = new Users();
+                        assignedTo.setUserId(activityLogDetails.getAssignedTo());
+                        activityLog.setAssignedTo(assignedTo);
+                        Users sendToUser = usersService.getUserById(activityLogDetails.getAssignedTo());
+                        sendNotificationEmail(activityLogDetails.getAssignedTo(),sendToUser.getUserName(), Utility.combineUserName(sendToUser),
+                                company.getCompanyName(), activityLogDetails.getActionTitle(), createdBy.getUserName());
+                    }
                     break;
                 case 4:break;
 //                        ACTIVITY_ADDED_TEMPLATE_ID

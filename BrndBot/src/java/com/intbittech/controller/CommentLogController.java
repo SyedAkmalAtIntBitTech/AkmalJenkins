@@ -106,7 +106,7 @@ public class CommentLogController {
             CommentLog commentLog = commentLogService.getCommentLogByCommentLogId(commentId);
             commentLogService.delete(commentId);
             ActivityLogDetails activityLogDetails = new ActivityLogDetails();
-            activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_DELETED_COMMENT_ACTION_ID").getDisplayName());
+            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_DELETED_COMMENT_ACTION_ID.getId());
             activityLogDetails.setScheduledEntityId(commentLog.getFkScheduledEntityid().getScheduledEntityListId());
             activityLogDetails.setCreatedBy(userId);
             activityLogService.saveActivityLog(activityLogDetails);

@@ -343,7 +343,7 @@ public class ScheduleActionsController {
             scheduledEntityListService.update(scheduledEntityList);
 
             ActivityLogDetails activityLogDetails = new ActivityLogDetails();
-            activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_REASSIGNED_TO_ID").getDisplayName());
+            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_REASSIGNED_TO_ID.getId());
             activityLogDetails.setAssignedTo(updateActionDetails.getUserAssignToId());
             activityLogDetails.setScheduledEntityId(scheduledEntityList.getScheduledEntityListId());
             activityLogDetails.setActionTitle(scheduledEntityList.getScheduleTitle());

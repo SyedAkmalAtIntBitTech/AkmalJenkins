@@ -17,14 +17,14 @@ public enum ActivityStatus {
     ACTIVITY_DISAPPROVED_ACTION_ID(9), ACTIVITY_DELETED_COMMENT_ACTION_ID(10),
     ACTIVITY_PLAY_ACTION_ID(11), ACTIVITY_PAUSE_ACTION_ID(12);
     
-    private ActivityStatus(Integer displayName) {
-        this.displayName = displayName;
+    private ActivityStatus(Integer id) {
+        this.id = id;
     }
     
-    private Integer displayName;
+    private Integer id;
     
-    public Integer getDisplayName(){
-        return this.displayName;
+    public Integer getId(){
+        return this.id;
     }
 
 }
