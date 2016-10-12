@@ -8,6 +8,7 @@ package com.intbittech.services;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.PushedScheduledActionCompanies;
 import com.intbittech.modelmappers.PushedScheduledActionCompaniesDetails;
+import com.intbittech.modelmappers.SendReminderEmailDetails;
 import com.intbittech.modelmappers.UserDetails;
 import java.util.List;
 
@@ -63,6 +64,15 @@ public interface PushedScheduledActionCompaniesService {
      * @throws ProcessFailed the process failed
      */
     public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByScheduledEntityListId(Integer ScheduledEntityListId) throws ProcessFailed;
+
+     /**
+     * This method pass id as input and get the {@link PushedScheduledActionCompanies} from DAO
+     * layer.
+     * @param ScheduledEntityListId the ScheduledEntityListId
+     * @return {@link PushedScheduledActionCompanies}
+     * @throws ProcessFailed the process failed
+     */
+    public List<PushedScheduledActionCompanies> getPushedScheduledActionCompaniesByScheduledEntityListIdAndStatus(Integer ScheduledEntityListId, String Status) throws ProcessFailed;
     
      /**
      * This method pass id as input and get the {@link PushedScheduledActionCompanies} from DAO
@@ -97,5 +107,5 @@ public interface PushedScheduledActionCompaniesService {
      * @return {@link SendGridSubUserDetails}
      * @throws ProcessFailed the process failed
      */
-    public List<UserDetails> getAllUserDetailsOfCompanyIdForSendEmail(List<Integer> companyIds) throws ProcessFailed;
+    public List<UserDetails> getAllUserDetailsOfCompanyIdForSendEmail(SendReminderEmailDetails sendReminderEmailDetails) throws ProcessFailed;
 }

@@ -62,6 +62,15 @@ public interface PushedScheduledActionCompaniesDao {
      * @throws ProcessFailed the process failed
      */
     public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByScheduledEntityListId(Integer ScheduledEntityListId) throws ProcessFailed;
+
+     /**
+     * This method pass id as input and get the {@link PushedScheduledActionCompanies} from DAO
+     * layer.
+     * @param ScheduledEntityListId the ScheduledEntityListId
+     * @return {@link PushedScheduledActionCompanies}
+     * @throws ProcessFailed the process failed
+     */
+    public List<PushedScheduledActionCompanies> getPushedScheduledActionCompaniesByScheduledEntityListIdAndStatus(Integer ScheduledEntityListId, String Status) throws ProcessFailed;
     
      /**
      * This method pass id as input and get the {@link PushedScheduledActionCompanies} from DAO

@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ActivityLog;
+import com.intbittech.modelmappers.ActivityLogDetails;
 import com.intbittech.responsemappers.ActivityLogResponse;
 import java.util.List;
 
@@ -49,4 +50,26 @@ public interface ActivityLogService {
      * @throws ProcessFailed the process failed
      */
     public ActivityLog getActivityLogByActivityLogId(Integer activityLogId ) throws ProcessFailed;
+    
+      /**
+     * This method save {@link ActivityLog} into the database.
+     *
+     * @param activityLogDetails the activityLogDetails
+     * @return the Integer
+     * @throws ProcessFailed the process failed
+     */
+    public void saveActivityLog(ActivityLogDetails activityLogDetails) throws ProcessFailed;       
+
+      /**
+     * This method save {@link ActivityLog} into the database.
+     *
+     * @param activityLogDetails the activityLogDetails
+     * @return the Integer
+     * @throws ProcessFailed the process failed
+     */
+    public void activityLogSave(ActivityLogDetails activityLogDetails) throws ProcessFailed;
+
+    public Boolean sendNotificationEmail(Integer activityId, String toEmailId, String userName, 
+                                         String company, String actionTitle, String createdBy)throws ProcessFailed;
+
 }

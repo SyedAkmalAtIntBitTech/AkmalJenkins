@@ -21,7 +21,6 @@ import com.intbittech.sendgrid.models.SendGridUsers;
 import com.intbittech.sendgrid.models.Subuser;
 import com.intbittech.services.EmailServiceProviderService;
 import com.intbittech.utility.IConstants;
-import com.sendgrid.Content;
 import com.sendgrid.Email;
 import com.sendgrid.Mail;
 import com.sendgrid.MailSettings;

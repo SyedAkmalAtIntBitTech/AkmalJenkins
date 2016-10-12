@@ -42,7 +42,22 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.changeUsers = false;
         $scope.companyName = "";
         $scope.editSavedEmail = false;
+<<<<<<< HEAD
+        $scope.isCurrentCompanyInFranchise = false;
+        $scope.isCurrentCompanyAFranchiseHeadquarter = false;
+
+        $scope.getCompanyStatus = function() {
+            appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
+                $scope.isCurrentCompanyInFranchise = isCurrent;
+            });
+            appSessionFactory.isCurrentCompanyAFranchiseHeadquarter().then(function (isHead){
+                $scope.isCurrentCompanyAFranchiseHeadquarter = isHead;
+            });
+        };
+
+=======
         this.tab = 1;
+>>>>>>> development
 
          this.selectTab = function (setTab){
             this.tab = setTab;  
@@ -426,25 +441,30 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             return user;
         };
         $scope.changeAssignedTo = function (scheduleId) {
+<<<<<<< HEAD
+            var userAssignToId = $("#changeAssignTo option:selected").val();
+            var assignToDetails = {"scheduleId": scheduleId, "userAssignToId": userAssignToId};
+=======
             
             var assignToDetails = {"scheduleId": scheduleId, "userAssignToId": $scope.ddSelectedUser};
+>>>>>>> development
             yourPlanFactory.changeAssigedToPOST(assignToDetails).then(function (data) {
-                var userName = data.d.message
+                var userName = data.d.message;
                 var user = [];
                 user = $scope.getNames(userName);
                 $scope.assignedFirstName = user[0];
                 $scope.assignedLastName = user[1];
                 $scope.assignedToInitialChars = data.d.id;
 
-//                $scope.closeChangeAssignedToPopup(); 
                 $scope.changeUsers = false;
-//                $scope.closePopup();$scope.promptHideShow(false);$scope.clickedDeleteAction = false;
+                $scope.getProgramActions('emailautomation');
+                $scope.getActionComments(scheduleId);
             });
         };
 
         $scope.addActionComment = function (scheduleId, comment) {
             if (!comment) {
-                alert("comment not added, please add the comment");
+                growl("comment not added, please add the comment");
                 $("#comment").focus();
             } else {
                 var commentDetails = {"scheduleId": scheduleId, "comment": comment};
@@ -624,7 +644,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.editAutomationHint = flag;
         };
 
-        $scope.getRecurringScheduleDetails = function (schedule_id, template_status, till_date, schedule_time, entity_type, schedule_title, schedule_desc, date_status, days)
+        $scope.getRecurringScheduleDetails = function (schedule_id, template_status, till_date, schedule_time, entity_type, schedule_title, schedule_desc, date_status,assignedFirstName, assignedLastName,assignedToInitialChars, days)
         {
             $scope.isRecurring = true;
             $scope.savedEmail = false;
@@ -632,6 +652,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.generalSavedDetails = true;
             $scope.generalNotes = false;
             $scope.generalActions = false;
+<<<<<<< HEAD
+            $scope.assignedFirstName = assignedFirstName;
+            $scope.assignedLastName = assignedLastName;
+            $scope.assignedToInitialChars = assignedToInitialChars;
+            $scope.emailsectionClass = 'emailsectionClass';
+            $scope.fadeClass = 'fadeClass';
+=======
+>>>>>>> development
             $scope.action_template_status = template_status;
             $scope.generalActionDetailsHeader = "Recurring Email";
             $scope.scheduledTo = 'POST';
@@ -664,6 +692,20 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 } else {
                     $scope.hideShowEmailList = true;
                 }
+<<<<<<< HEAD
+                var iframe = document.getElementById('iframeForRecurringEmail');
+                if ($scope.recurringEntitiesDetails.body) {
+                    $scope.savedEmail = true;
+                    $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
+                    $scope.deleteScheduleButton = "Remove Saved Email";
+                    $scope.htmlbody = $scope.recurringEntitiesDetails.body.replace(/contenteditable="true" /g, 'contenteditable="false"');
+                    iframe.contentDocument.body.innerHTML = $scope.htmlbody;
+                } else {
+                    $scope.savedEmail = false;
+                    $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
+                }
+            });$scope.getActionComments(schedule_id);
+=======
                 settingsFactory.getAllPreferencesGet().then(function (footerDetails) {
                     var footerInfo=$scope.getUserFooter(JSON.parse(footerDetails.d.details));
     //                var iframe = document.getElementById('iframeForRecurringEmail');
@@ -681,6 +723,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     }
                 });
             });
+>>>>>>> development
         };
 
 //    $scope.getRecurringScheduleDetails = function (schedule_id, template_status, till_date, schedule_time, entity_type, schedule_title, schedule_desc, date_status,days)
@@ -822,6 +865,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     });
                 });
             }
+            $scope.getActionComments(schedule_id);
 
         };
 
@@ -887,15 +931,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             };
             yourPlanFactory.addActionPost(action).then(function (data) {
                 $scope.dateLesser = false;
-//                alert("Action saved succesfully");
                 $scope.closePopup();
                 $scope.getProgramActions();
+                $scope.getActionComments(schedule_id);
             });
 //        }
         };
 
         $scope.Approval = function (entity_id, template_status, entity_type) {
-
             var approval_type = {"entity_id": entity_id.toString(),
                 "template_status": template_status,
                 "entity_type": entity_type};
@@ -910,9 +953,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //                        $scope.scheduleData.email_template_status = 'Template Saved';
                     }
                     $scope.getProgramActions('emailautomation');
-//                    growl(templetestatussaved);
+                    growl(templetestatussaved);
+                    $scope.getActionComments(entity_id);
                 } else {
-//                    growl(savingrecordproblem,"error");
+                    growl(savingrecordproblem,"error");
                 }
             });
 
@@ -947,6 +991,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 yourPlanFactory.changeSchedulePost(requestBody).then(function (data) {
                     $scope.closePopup();
                     $scope.getProgramActions('emailautomation');
+                    $scope.getActionComments(schedules_to_delete);
                 });
 
             }
@@ -1305,12 +1350,21 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.showEmailList = function () {
             $scope.ddSelectEmailListAutomationDataOptions = [];
 
+<<<<<<< HEAD
+                emailListFactory.getAllEmailListWithNoOfContactsForMindBody(companyObject.companyId).then(function (data) {
+                    $scope.emailLists_mindbody = data.d.details;
+                });
+            
+            });
+                var emailAutomationData = $scope.emailLists_user;
+=======
             appSessionFactory.getCompany().then(function (companyObject) {
 
                 emailListFactory.getAllEmailListNames(companyObject.companyId).then(function (data) {
                     $scope.emailLists = data.d.details;
                     
                     var emailAutomationData = $scope.emailLists;
+>>>>>>> development
 //                        parseData.allEmailListWithNoOfContacts.user;
                     for (var i = 0; i < emailAutomationData.length; i++)
                     {
@@ -1331,8 +1385,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
         $scope.getEntityDetails = function () {
             $scope.showEmailList();
-            $scope.ddSelectDateAutomationDataOptions = [
-            ];
+            $scope.ddSelectDateAutomationDataOptions = [];
             $scope.automationData = {};
             var days = [];
             for (var i = 1; i <= 31; i++) {
@@ -1357,8 +1410,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.ddSelectDateAutomationData = {
                     text: "Select"
                 };
-            } else
-            {
+            } else{
                 marketingRecurringEmailFactory.getRecurringEntityPost(entity_details).then(function (data) {
                     $scope.recurringEmailValidation(data);
                     if ($scope.type === "template")
@@ -1368,7 +1420,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                             $scope.automationEditor = true;
                             $scope.emailPreviewPopup = false;
                             $scope.entityNoEmailTemplate = false;
+                            $scope.templateId = data.recurring_email_template_id;
                         } else {
+                            $scope.templateId = data.recurring_email_template_id;
                             $scope.automationEditor = false;
                             $scope.emailPreviewPopup = false;
                             $scope.entityNoEmailTemplate = true;
@@ -1415,7 +1469,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         $scope.setDays(daysDropDownSelect);
                     }
                     console.log(JSON.stringify(data));
-//                    alert(JSON.stringify(data.recurring_email_body));
                     //TODO Sandeep
                     $scope.froalaHtmlData = data.recurring_email_body;
 //                    $('#edit').froalaEditor('html.set', '' + $scope.froalaHtmlData + '');
@@ -1427,7 +1480,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     }
 
                 });
-
             }
         };
 
@@ -1629,38 +1681,45 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.automationTime = false;
                 $scope.automationData = {title: "", description: recurring_email_description, time: schedule_time, subject: subject, fromName: from_name, replyAddress: reply_to_address};
                 $("#recuring_email_title").focus();
+                growl("email title not entered");
                 return false;
             }
             if (!recurring_email_description) {
                 $scope.automationTime = false;
                 $scope.automationData = {title: recurring_email_title, description: "", time: schedule_time, subject: subject, fromName: from_name, replyAddress: reply_to_address};
                 $("#recuring_description").focus();
+                growl("email description not entered");
                 return false;
             }
             if (!$scope.selectedDay) {
                 $scope.automationTime = false;
                 $scope.emailAutomationDayValidation = true;
+                growl("selected day not entered");
                 return false;
             }
             if (!$scope.emailListName) {
                 $scope.automationTime = false;
                 $scope.emailAutomationListValidation = true;
+                growl("emailListName not entered");
                 return false;
             }
             if (!schedule_time) {
 //                $scope.automationData = {title: recurring_email_title, description: recurring_email_description, time: "", subject: subject};
                 $scope.automationTime = true;
+                growl("schedule_time not entered");
                 return false;
             }
             if (!subject) {
                 $scope.automationTime = false;
                 $scope.automationData = {title: recurring_email_title, description: recurring_email_description, time: schedule_time, subject: "", fromName: from_name, replyAddress: reply_to_address};
+                growl("subject not entered");
                 $("#recuring_email_subject").focus();
                 return false;
             }
             if (!from_name) {
                 $scope.automationTime = false;
                 $scope.automationData = {title: recurring_email_title, description: recurring_email_description, time: schedule_time, subject: subject, fromName: "", replyAddress: reply_to_address};
+                growl("from name not entered");
                 $("#recurring_from_name").focus();
                 return false;
             }
@@ -1673,6 +1732,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             if (!reply_to_address) {
                 $scope.automationTime = false;
                 $scope.automationData = {title: recurring_email_title, description: recurring_email_description, time: schedule_time, subject: subject, fromName: from_name, replyAddress: ""};
+                growl("reply to address not entered");
                 $("#reply_address").focus();
                 return false;
             }
@@ -1711,6 +1771,155 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.addUpdateRecuringAction = function () {
             $("#tinymceEditorBody").find("p").removeAttr("style").css("margin", "0px");
+<<<<<<< HEAD
+                if ($scope.replyAddressValidation())
+                {
+//                    var days = $scope.automationData.selectedDay;
+                    var userAssignToId = $("#assignTo option:selected").val();
+                    if (!userAssignToId)
+                        userAssignToId = "0";
+                    var days = $scope.selectedDay;
+                    var emaillist = $scope.automationData.selectedEmailList;
+                    var to_email_addresses = $scope.emailLists.split(',');
+                    var subject = $scope.automationData.subject;
+                    var from_name = $scope.automationData.fromName;
+                    var reply_to_address = $scope.automationData.replyAddress;
+                    var recurring_email_title = $scope.automationData.title;
+                    var recurring_email_description = $scope.automationData.description;
+
+                    var till_date = 'Sun Dec 31 2200';
+//                program_end_date = $("#program_end_date").val();
+                    var schedule_time = $("#timepicker1").val().replace(/ /g, '');
+                    var till_date_epoch = Date.parse(till_date);
+//                var schedule_time_epoch = Date.parse(schedule_time);
+                    $scope.froalaHtmlData = $("#tinymceEditorBody").html();
+//                var html_data ="";
+
+                    if ($scope.type === 'add') {
+                        var recurring_action = {
+                            "days": $scope.selectedDay.toString(),
+                            "emaillist": $scope.emailListName.toString(),
+                            "to_email_addresses": to_email_addresses,
+                            "subject": subject,
+                            "from_name": from_name,
+                            "reply_to_address": reply_to_address,
+                            "recurring_email_title": recurring_email_title,
+                            "recurring_email_description": recurring_email_description,
+                            "till_date_epoch": till_date_epoch,
+                            "schedule_time_epoch": schedule_time,
+                            "program_id": $scope.programId.toString(),"userAssignToId": userAssignToId
+                        };
+
+
+                        marketingRecurringEmailFactory.addRecurringActionPost(recurring_action).then(function (data) {
+                            if (data === true) {
+                                growl("Details saved succesfully.");
+                            } else {
+                                growl("Problem saving the record!");
+                            }
+                            $location.path("/marketingprogramactions");
+                            $scope.getProgramActions('emailautomation');
+                        });
+                    } else if (($scope.type === 'template') && ($scope.entityNoEmailTemplate === true)) {
+                        $(".page-content-container").css('width', '100%');
+                        var recurring_action = {
+                            "entity_id": $scope.entityId.toString(),
+                            "days": days.toString(), "emaillist": emaillist,
+                            "to_email_addresses": to_email_addresses,
+                            "subject": subject, "from_name": from_name,
+                            "reply_to_address": reply_to_address,
+                            "recurring_email_title": recurring_email_title,
+                            "recurring_email_description": recurring_email_description,
+                            "till_date_epoch": till_date_epoch,
+                            "schedule_time_epoch": schedule_time,
+                            "program_id": $scope.programId.toString(),"userAssignToId": userAssignToId
+                        };
+
+                        marketingRecurringEmailFactory.addupdateRecurringActionPost(recurring_action).then(function (data) {
+
+                            if ((data === true) && ($scope.entityNoEmailTemplate === true)) {
+                                growl("Details saved succesfully.");
+                                $scope.automationEditor = true;
+                                $scope.entityNoEmailTemplate = false;
+//                            $("#emailautomationcontent").hide();
+//                            $scope.showEmailAutomation = true;
+//                            $scope.emailEditorContainer = true;
+//                            $scope.emailRecurringPreviewTemplate = true;
+//                            $scope.entityNoEmailTemplate = "false";
+                            } else {
+                                growl("Problem saving the record!");
+                            }
+                        });
+                    } else if (($scope.type === 'edit') && ($scope.entityNoEmailTemplate === true)) {
+                        $(".page-content-container").css('width', '90%');
+                        var recurring_action = {
+                            "entity_id": $scope.entityId.toString(),
+                            "days": days.toString(), "emaillist": emaillist,
+                            "to_email_addresses": to_email_addresses,
+                            "subject": subject, "from_name": from_name,
+                            "reply_to_address": reply_to_address,
+                            "recurring_email_title": recurring_email_title,
+                            "recurring_email_description": recurring_email_description,
+                            "till_date_epoch": till_date_epoch,
+                            "schedule_time_epoch": schedule_time,
+                            "program_id": $scope.programId.toString(),"userAssignToId": userAssignToId
+                        };
+
+                        marketingRecurringEmailFactory.addupdateRecurringActionPost(recurring_action).then(function (data) {
+                            if ((data === true)) {
+                                growl("Details saved succesfully.");
+                                $location.path("/marketingprogramactions");
+                                $scope.getProgramActions('emailautomation');
+//                            window.open(getHost() + 'user/marketingprogramactions?program_id=' + program_id + '&past=0&program_date=' + program_end_date, "_self");
+                            } else {
+                                growl("Problem saving the record!");
+                            }
+                        });
+
+                    } else if ((($scope.type === 'template') && ($scope.entityNoEmailTemplate === false)) || (($scope.type = 'edit') && ($scope.entityNoEmailTemplate === false))) {
+                        $(".page-content-container").css('width', '90%');
+
+                        settingsFactory.getAllPreferencesGet().then(function (data) {
+                            var footerData = JSON.parse(data.d.details);
+
+                            if (!footerData.companyAddress) {
+                                $scope.editFooter();
+                                return false;
+                            } else
+                            {
+                                var footer = $scope.userFooter(footerData);
+
+                                var recurring_action = {
+                                    "entity_id": $scope.entityId.toString(),
+                                    "template_id": $scope.templateId, "html_data": $scope.froalaHtmlData + footer,
+                                    "html_body": $scope.froalaHtmlData,
+                                    "days": days.toString(), "emaillist": emaillist,
+                                    "to_email_addresses": to_email_addresses,
+                                    "subject": subject, "from_name": from_name,
+                                    "reply_to_address": reply_to_address,
+                                    "recurring_email_title": recurring_email_title,
+                                    "recurring_email_description": recurring_email_description,
+                                    "till_date_epoch": till_date_epoch,
+                                    "schedule_time_epoch": schedule_time,
+                                    "program_id": $scope.programId.toString(),"userAssignToId": userAssignToId
+                                };
+
+                                marketingRecurringEmailFactory.updateRecurringActionPost(recurring_action).then(function (data) {
+                                    if ((data === true)) {
+                                        growl("Details saved succesfully.");
+                                        $location.path("/marketingprogramactions");
+                                        $scope.getProgramActions('emailautomation');
+//                                        window.open(getHost() + 'user/marketingprogramactions?program_id=' + program_id + '&past=0&program_date=' + program_end_date, "_self");
+                                    } else {
+                                        growl("Problem saving the record!","error");
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+            
+=======
             if ($scope.recuringActionValidation())
             {
                 if ($scope.fromAddressEmailValidation())
@@ -1861,6 +2070,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     }
             }
         }
+>>>>>>> development
 //                $scope.showHTMLData = function(html_data, id){
 //                var $iframe = $('.fr-iframe');
 ////                         $(".fr-iframe").empty();

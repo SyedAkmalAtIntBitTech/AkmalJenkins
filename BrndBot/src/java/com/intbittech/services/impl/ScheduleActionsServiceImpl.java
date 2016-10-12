@@ -11,9 +11,14 @@ import com.intbittech.enums.ScheduledEntityType;
 import com.intbittech.enums.TemplateStatus;
 import com.intbittech.dao.impl.ScheduleDAO;
 import com.intbittech.dao.impl.ScheduleSocialPostDAO;
+import com.intbittech.enums.ActivityStatus;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.UserCompanyIds;
+import com.intbittech.modelmappers.ActivityLogDetails;
+import com.intbittech.services.ActivityLogService;
 import com.intbittech.services.ScheduleActionsService;
 import com.intbittech.utility.StringUtility;
+import com.intbittech.utility.Utility;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -41,6 +46,8 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
 
     @Autowired
     private MessageSource messageSource;
+    @Autowired
+    private ActivityLogService activityLogService;
 
     @Override
     public String getActions(Map<String, Object> requestBodyMap, Integer companyId) throws Exception {
@@ -128,7 +135,30 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                     TemplateStatus.template_saved.toString(),
                     requestBodyMap.get("html_body").toString(), createdBy, userAssignToId
             );
-
+            Integer scheduleEntityId = idMap.get("schedule_entity_id");
+                ActivityLogDetails activityLogDetails = new ActivityLogDetails();
+                activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_CREATED_ACTION_ID.getId());
+                activityLogDetails.setScheduledEntityId(scheduleEntityId);
+                activityLogDetails.setCreatedBy(createdBy);
+                activityLogDetails.setCompanyId(companyId);
+                activityLogDetails.setActionTitle(requestBodyMap.get("schedule_title").toString());
+                
+                activityLogService.saveActivityLog(activityLogDetails);
+                ActivityLogDetails activityLogDetailsObject = new ActivityLogDetails();
+                activityLogDetailsObject.setActivityId(ActivityStatus.ACTIVITY_ADDED_TEMPLATE_ID.getId());
+                activityLogDetailsObject.setScheduledEntityId(scheduleEntityId);
+                activityLogDetailsObject.setCreatedBy(createdBy);
+                activityLogDetailsObject.setCompanyId(companyId);
+                activityLogDetailsObject.setActionTitle(requestBodyMap.get("schedule_title").toString());
+                activityLogService.saveActivityLog(activityLogDetailsObject);
+                ActivityLogDetails activityLog = new ActivityLogDetails();
+                activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_ASSIGNED_TO_ID.getId());
+                activityLog.setScheduledEntityId(scheduleEntityId);
+                activityLog.setCreatedBy(createdBy);
+                activityLog.setCompanyId(companyId);
+                activityLog.setActionTitle(requestBodyMap.get("schedule_title").toString());
+                activityLog.setAssignedTo(userAssignToId);
+                activityLogService.saveActivityLog(activityLog);
             if (!path.equals("")) {
                 File IframeDelete = new File(path);
                 IframeDelete.delete();
@@ -157,7 +187,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                 File file = new File(path);
                 html_text = FileUtils.readFileToString(file, "UTF-8");
             }
-
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             Map<String, Integer> idMap = ScheduleDAO.updatetoScheduledEmailList(
                     companyId,
                     Integer.parseInt(schedule_id),
@@ -172,7 +202,13 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                     TemplateStatus.template_saved.toString(),
                     requestBodyMap.get("html_body").toString()
             );
-
+            ActivityLogDetails activityLogDetails = new ActivityLogDetails();
+            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_ADDED_TEMPLATE_ID.getId());
+            activityLogDetails.setScheduledEntityId(Integer.parseInt(schedule_id));
+            activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
+            activityLogDetails.setActionTitle(requestBodyMap.get("schedule_title").toString());
+            activityLogDetails.setCompanyId(companyId);
+            activityLogService.saveActivityLog(activityLogDetails);
             if (!path.equals("")) {
                 File IframeDelete = new File(path);
                 IframeDelete.delete();
@@ -190,7 +226,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
         try (Connection conn = ConnectionManager.getInstance().getConnection()) {
             conn.setAutoCommit(false);
             try {
-
+                UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
                 String metadataString = requestBodyMap.get("metadata").toString();
                 String schedule_id = (String) requestBodyMap.get("schedule_id");
                 String image_type = (String) requestBodyMap.get("image_type");
@@ -206,6 +242,12 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                 daoResponseList.add(daoResponse);
 
                 conn.commit();
+                ActivityLogDetails activityLogDetails = new ActivityLogDetails();
+                activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_ADDED_TEMPLATE_ID.getId());
+                activityLogDetails.setScheduledEntityId(Integer.parseInt(schedule_id));
+                activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
+                activityLogDetails.setActionTitle(requestBodyMap.get("schedule_title").toString());
+                activityLogService.saveActivityLog(activityLogDetails);
             } catch (SQLException ex) {
                 conn.rollback();
                 throw ex;
@@ -223,6 +265,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
         try (Connection conn = ConnectionManager.getInstance().getConnection()) {
             conn.setAutoCommit(false);
             try {
+
                 Double schedule = (Double) requestBodyMap.get("schedule_time");
                 DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 format.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -252,6 +295,29 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                         conn);
                 daoResponseList.add(daoResponse);
                 conn.commit();
+                Integer scheduleEntityId = daoResponse.get("schedule_entity_id");
+                ActivityLogDetails activityLogDetails = new ActivityLogDetails();
+                activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_CREATED_ACTION_ID.getId());
+                activityLogDetails.setScheduledEntityId(scheduleEntityId);
+                activityLogDetails.setCreatedBy(createdBy);
+                activityLogDetails.setCompanyId(companyId);
+                activityLogDetails.setActionTitle(requestBodyMap.get("schedule_title").toString());
+                activityLogService.saveActivityLog(activityLogDetails);
+                ActivityLogDetails activityLogDetailsObject = new ActivityLogDetails();
+                activityLogDetailsObject.setActivityId(ActivityStatus.ACTIVITY_ADDED_TEMPLATE_ID.getId());
+                activityLogDetailsObject.setScheduledEntityId(scheduleEntityId);
+                activityLogDetailsObject.setCreatedBy(createdBy);
+                activityLogDetailsObject.setCompanyId(companyId);
+                activityLogDetailsObject.setActionTitle(requestBodyMap.get("schedule_title").toString());
+                activityLogService.saveActivityLog(activityLogDetailsObject);
+                ActivityLogDetails activityLog = new ActivityLogDetails();
+                activityLog.setActivityId(ActivityStatus.ACTIVITY_ASSIGNED_TO_ID.getId());
+                activityLog.setScheduledEntityId(scheduleEntityId);
+                activityLog.setCreatedBy(createdBy);
+                activityLog.setAssignedTo(userAssignToId);
+                activityLog.setCompanyId(companyId);
+                activityLog.setActionTitle(requestBodyMap.get("schedule_title").toString());
+                activityLogService.saveActivityLog(activityLog);
             } catch (SQLException ex) {
                 conn.rollback();
                 throw ex;

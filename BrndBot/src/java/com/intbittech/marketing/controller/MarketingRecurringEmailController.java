@@ -8,7 +8,8 @@ package com.intbittech.marketing.controller;
 import com.intbittech.utility.IConstants;
 import com.controller.SqlMethods;
 import com.intbittech.AppConstants;
-import com.intbittech.dao.CompanyDao;
+import com.intbittech.dao.UsersDao;
+import com.intbittech.enums.ActivityStatus;
 import com.intbittech.enums.ScheduledEntityType;
 import com.intbittech.enums.TemplateStatus;
 import com.intbittech.marketing.service.ScheduledEmailListService;
@@ -22,6 +23,9 @@ import com.intbittech.model.RecurringEmailTemplate;
 import com.intbittech.model.ScheduledEmailList;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
+import com.intbittech.model.Users;
+import com.intbittech.modelmappers.ActivityLogDetails;
+import com.intbittech.services.ActivityLogService;
 import com.intbittech.model.UserProfile;
 import com.intbittech.modelmappers.EmailSettings;
 import com.intbittech.services.CompanyPreferencesService;
@@ -29,7 +33,7 @@ import com.intbittech.services.CompanyService;
 import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.EmailListService;
 import com.intbittech.services.RecurringEmailTemplateService;
-import com.intbittech.utility.UserSessionUtil;
+import com.intbittech.services.UsersService;
 import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,7 +48,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -75,6 +78,13 @@ public class MarketingRecurringEmailController {
     private EmailListService emailListService;
     @Autowired
     private ContactEmailListLookupService contactEmailListLookupService;
+    @Autowired
+    private ActivityLogService activityLogService;
+
+    @Autowired
+    private UsersDao usersDao;
+    @Autowired
+    private UsersService usersService;
     String return_response = "false";
 
     /*
@@ -210,6 +220,7 @@ public class MarketingRecurringEmailController {
             recurring_email_template.setHtmlData(template_html_data);
 
             recurringEmailTemplateService.update(recurring_email_template);
+            
             return_response = "true";
         } catch (Throwable throwable) {
             logger.log(Level.SEVERE, "Exception while deleting the recurring email template:", throwable);
@@ -263,6 +274,15 @@ public class MarketingRecurringEmailController {
             recurringEmailTemplate.setRecurringEmailTemplateId(template_id.intValue());
             scheduled_entity_list.setFkRecurringEmailId(recurringEmailTemplate);
             scheduledEntityListService.update(scheduled_entity_list);
+            
+            ActivityLogDetails activityLogDetails = new ActivityLogDetails();
+            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_UPDATED_TEMPLATE_ID.getId());
+            activityLogDetails.setScheduledEntityId(entity_id.intValue());
+            activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
+            activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
+//            activityLogDetails.setActionTitle(recurring_email_title);
+            activityLogService.saveActivityLog(activityLogDetails);
+            
             return "true";
 
         } catch (Throwable throwable) {
@@ -291,6 +311,8 @@ public class MarketingRecurringEmailController {
             String recurring_email_title = (String) requestBodyMap.get("recurring_email_title");
             String recurring_email_description = (String) requestBodyMap.get("recurring_email_description");
             Double till_date_epoch = (Double) requestBodyMap.get("till_date_epoch");
+            Double TempUserAssignToId = new Double(requestBodyMap.get("userAssignToId").toString().trim());
+            Integer userAssignToId = TempUserAssignToId.intValue();
 
             Date till_date = new Date(till_date_epoch.longValue());
 
@@ -338,9 +360,27 @@ public class MarketingRecurringEmailController {
             schedule_entity_list.setFkCompanyMarketingProgramId(companyMarketingProgram);
             schedule_entity_list.setDays(Integer.parseInt(days));
             schedule_entity_list.setTillDate(till_date);
+            Users user = usersService.getUserById(userAssignToId);
+            schedule_entity_list.setAssignedTo(user);
             schedule_entity_list.setFkCompanyId(company);
 
-            scheduledEntityListService.save(schedule_entity_list);
+            Integer schedule_entity_list_id = scheduledEntityListService.save(schedule_entity_list);
+            ActivityLogDetails activityLogDetails = new ActivityLogDetails();
+            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_CREATED_ACTION_ID.getId());
+            activityLogDetails.setScheduledEntityId(schedule_entity_list_id);
+            activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
+            activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
+            activityLogDetails.setActionTitle(recurring_email_title);
+            activityLogService.saveActivityLog(activityLogDetails);
+
+            ActivityLogDetails activityLogDetails1 = new ActivityLogDetails();
+            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_ASSIGNED_TO_ID.getId());
+            activityLogDetails1.setAssignedTo(userAssignToId);
+            activityLogDetails1.setScheduledEntityId(schedule_entity_list_id);
+            activityLogDetails1.setCreatedBy(userCompanyIds.getUserId());
+            activityLogDetails1.setCompanyId(userCompanyIds.getCompanyId());
+            activityLogDetails1.setActionTitle(recurring_email_title);
+            activityLogService.saveActivityLog(activityLogDetails1);
 
             return "true";
         } catch (Throwable throwable) {
@@ -423,6 +463,22 @@ public class MarketingRecurringEmailController {
             schedule_entity_list.setFkCompanyId(company);
 
             scheduledEntityListService.update(schedule_entity_list);
+            ActivityLogDetails activityLogDetails = new ActivityLogDetails();
+            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_ADDED_TEMPLATE_ID.getId());
+            activityLogDetails.setScheduledEntityId(Integer.parseInt(entity_id));
+            activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
+            activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
+            activityLogDetails.setActionTitle(recurring_email_title);
+            activityLogService.saveActivityLog(activityLogDetails);
+
+            ActivityLogDetails activityLogDetails1 = new ActivityLogDetails();
+            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_UPDATED_ACTION_ID.getId());
+            activityLogDetails1.setScheduledEntityId(Integer.parseInt(entity_id));
+            activityLogDetails1.setCreatedBy(userCompanyIds.getUserId());
+            activityLogDetails1.setCompanyId(userCompanyIds.getCompanyId());
+            activityLogDetails1.setActionTitle(recurring_email_title);
+            activityLogService.saveActivityLog(activityLogDetails1);
+            
             return "true";
 
         } catch (Throwable throwable) {
@@ -522,6 +578,15 @@ public class MarketingRecurringEmailController {
 
             scheduledEntityListService.update(schedule_entity_list);
 
+            ActivityLogDetails activityLogDetails = new ActivityLogDetails();
+            activityLogDetails.setActivityId(IConstants.ACTIVITY_UPDATED_ACTION_ID);
+            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_UPDATED_ACTION_ID.getId());
+            activityLogDetails.setScheduledEntityId(Integer.parseInt(entity_id));
+            activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
+            activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
+            activityLogDetails.setActionTitle(recurring_email_title);
+            activityLogService.saveActivityLog(activityLogDetails);
+            
             return "true";
         } catch (Throwable throwable) {
             logger.log(Level.SEVERE, "Exception while saving the email action in the table:", throwable);
@@ -542,8 +607,7 @@ public class MarketingRecurringEmailController {
     }
     @RequestMapping(value = "/getRecurringEntity", method = RequestMethod.POST)
     public @ResponseBody
-    String getRecurringEntity(HttpServletRequest request,
-            HttpServletResponse response) throws IOException {
+    String getRecurringEntity(HttpServletRequest request,HttpServletResponse response) throws IOException {
         try {
 
             Map<String, Object> requestBodyMap

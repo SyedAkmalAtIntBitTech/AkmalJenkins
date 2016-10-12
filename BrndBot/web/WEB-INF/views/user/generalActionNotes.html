@@ -7,7 +7,7 @@
         
 <div class="overlay-content" ng-show='marketingTab.isSelected(7) || yourplanTab.isSelected(7);' style="position: relative">
     <div ng-show="moreThanOneUser">
-        <div class="overlay-details-pane" ng-show="isRecurring === false">
+        <div class="overlay-details-pane">
                 <div class="overlay-details-pane-header">GENERAL DETAILS</div>
                 <div class="detail-sections-wrap">
                     <input type="hidden" class="textbox" id="emaildays" name="emaildays" value="0"/>
@@ -21,9 +21,18 @@
                          <div class="invalidDropdown bb-dropdown-padding" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="ChangeUserOnChange(selected)"></div>
                           <a id="addactionClose" ng-click = "openChangeUserDD(false)" class="modal-pane-header-exit"></a>  
                     </div>
+<<<<<<< HEAD
+                    <div ng-show="changeUsers">
+                        <a id="addactionClose" ng-click = "changeUsers=false" class="modal-pane-header-exit"></a>
+                        <select id="changeAssignTo">
+                            <option ng-repeat="users in allUsers" value="{{users.userId}}">{{users.userName}}</option>
+                        </select><br><br>
+                        <input type="button" id="changeUser" value="change user" ng-click="changeAssignedTo(schedule_id)"/>
+=======
                     <div ng-show="changeUsers" class="detail-section half">
                        
                         <div class="invalidDropdown" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="ChangeUserOnChange(selected)"></div>
+>>>>>>> development
                     </div>
     <!--
     <div id="facebooknotesection1" ng-show='generalNotes'>
@@ -38,6 +47,15 @@
 
         </div>
         <div class="email-preview-bar" ng-init="getActionComments(schedule_id)">ACTION COMMENTS</div>
+<<<<<<< HEAD
+        <div class="action-comments-wrap" style="height:calc(95vh - 450px); background-color: #f2f2f4; width: 100%; padding:0px 60px; overflow-y: scroll;" >
+            <div class="action" style="padding:0px 30px;  border-radius: 3px;  "ng-repeat="comment in comments">
+                <div style="background-color:white;">
+                <div style="display: inline-flex;" ng-show="comment.isActivity==false">
+                    <div style="height:30px; width:30px; line-height: 30px; text-align: center; margin-right: 10px; border-radius: 30px; background-color:lightblue; font-size: 14px; font-weight: bold; color: white;">{{comment.initials}}
+                    </div>
+                    <span style="margin: 0px 5px; line-height: 30px; font-size: 16px; color:#3f3f42;">{{comment.createdByFirstName}} {{comment.createdByLastName}}</span>
+=======
         <div class="action-comments-wrap" style="height:calc(100vh - 450px); background-color: #f2f2f4; width: 100%; padding:30px 60px; overflow-y: scroll;" >
             <div class="action" style="background-color:white; padding:20px 30px 30px 20px;  border-radius: 3px;  " ng-repeat="comment in comments">
                 <a id="addactionClose" ng-show="comment.isLoginUser==true" ng-click = "removeActionComment(schedule_id,comment.commentId)" class="modal-pane-header-exit" alt="remove comment"></a>
@@ -45,13 +63,25 @@
                     <!--<div style="height:30px; width:30px; line-height: 30px; text-align: center; margin-right: 10px; border-radius: 30px; background-color:lightblue; font-size: 14px; font-weight: bold; color: white;">{{comment.initials}}
                     </div>-->
                     <span style="margin: 0px 0px; line-height: 30px; font-size: 16px; color:#3f3f42;">{{comment.commentByFirstName}} {{comment.commentByLastName}}</span>
+>>>>>>> development
                     <span style=" font-size: 14px; color: #7c7d82; line-height: 30px; margin-left: 10px; ">{{comment.createdAt | date:"MMMM d, y 'at' h:mma"}}</span>
+                    <a id="addactionClose" ng-show="comment.isLoginUser==true" ng-click = "removeActionComment(schedule_id,comment.commentId)" class="modal-pane-header-exit" alt="remove comment"></a>
                 </div>
                 <div style=" margin-top: 5px;">
                     <div>{{comment.commentName}} </div>
                 </div>
+                </div>
+                <div style="display: inline-flex;" ng-show="comment.isActivity==true">
+<!--                    <div style="height:30px; width:30px; line-height: 30px; text-align: center; margin-right: 10px; border-radius: 30px; background-color:lightblue; font-size: 14px; font-weight: bold; color: white;">{{comment.initials}}
+                    </div>-->
+                    <span style="margin: 0px 5px; line-height: 10px; font-size: 12px; color:#3f3f42;"><b>{{comment.createdByFirstName}} {{comment.createdByLastName}}</b></span>
+                    <span style="margin: 0px 5px; line-height: 10px; font-size: 12px; color:#3f3f42;">{{comment.activityName}} </span>
+                    <span style="margin: 0px 5px; line-height: 10px; font-size: 12px; color:#3f3f42;">{{comment.assignedToFirstName}} {{comment.assignedToLastName}}</span>
+                    <span style=" font-size: 12px; color: #7c7d82; line-height: 10px; margin-left: 10px; ">{{comment.createdAt | date:"MMMM d, y 'at' h:mma"}}</span>
+                </div>
+
             </div>
-        </div>        
+        </div>
     </div>
     <div ng-show="moreThanOneUser==false">
         <br>
@@ -60,8 +90,14 @@
     </div>
     <div class="action-comment-input-wrap" style="position: absolute; bottom:0px; width:100%; padding: 15px 60px; background-color:white; ">
         <div class="input">
+<<<<<<< HEAD
+            <textarea size="40" class="fluid" id="comment" placeholder="comment here" ng-model="comment"></textarea>
+            <input type="button" value="comment" ng-click="addActionComment(schedule_id, comment)"/>
+            <input type="button" value="refresh" ng-click="getActionComments(schedule_id)"/>
+=======
             <input size="40" class="fluid" id="comment"  placeholder="Add a comment to this action" ng-model="comment" contenteditable="true" style="max-width:780px;">
             <input type="button" class="bb-button bb-primary-action-button bb-comment-button" value="comment" ng-click="addActionComment(schedule_id, comment)"/>
+>>>>>>> development
         </div>
     </div>
 </div>

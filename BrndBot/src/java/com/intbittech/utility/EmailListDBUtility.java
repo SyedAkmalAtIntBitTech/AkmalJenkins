@@ -5,8 +5,8 @@
  */
 package com.intbittech.utility;
 
-import com.controller.SocialPostScheduler;
-import static com.controller.SocialPostScheduler.logger;
+import com.intbittech.schedulers.SocialPostScheduler;
+import static com.intbittech.schedulers.SocialPostScheduler.logger;
 import com.controller.SqlMethods;
 import com.intbittech.component.SpringContextBridge;
 import com.intbittech.divtohtml.StringUtil;

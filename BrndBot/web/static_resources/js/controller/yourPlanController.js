@@ -1,5 +1,5 @@
 
-yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'appSessionFactory', 'onboardingFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, appSessionFactory, onboardingFactory) {
+yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'appSessionFactory', 'onboardingFactory', 'activityFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, appSessionFactory, onboardingFactory, activityFactory) {
 
 //$scope.iframeLoad = function (){
 //    growl($('iframe').contents().find('body').height());
@@ -31,6 +31,17 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.clickedRemoveAction = false;
         $scope.addUserSettings = false;
         $scope.moreThanOneUser = false;
+        $scope.isCurrentCompanyInFranchise = false;
+        $scope.isCurrentCompanyAFranchiseHeadquarter = false;
+
+        $scope.getCompanyStatus = function() {
+            appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
+                $scope.isCurrentCompanyInFranchise = isCurrent;
+            });
+            appSessionFactory.isCurrentCompanyAFranchiseHeadquarter().then(function (isHead){
+                $scope.isCurrentCompanyAFranchiseHeadquarter = isHead;
+            });
+        };
         this.tab = 1;
 
         this.selectTab = function (setTab){
@@ -369,6 +380,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             return user;
         };
         $scope.changeAssignedTo = function (scheduleId) {
+
             var assignToDetails = {"scheduleId": scheduleId, "userAssignToId": $scope.ddSelectedUser};
             yourPlanFactory.changeAssigedToPOST(assignToDetails).then(function (data) {
                 var userName = data.d.message;
@@ -377,8 +389,9 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.assignedFirstName = user[0];
                 $scope.assignedLastName = user[1];
                 $scope.assignedToInitialChars = data.d.id;
+                $scope.getCampaigns();
+                $scope.getActionComments(scheduleId);
             });
-
         };
         
         $scope.ChangeUserOnChange = function (changedValue){
@@ -466,7 +479,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 }
             });
         };
-
+        $scope.getActivityLog = function(){
+            activityFactory.activitiesGet().then(function (data){
+               $scope.activityLog = data.d.details; 
+            });
+        };
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
         {
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
@@ -507,8 +524,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     $scope.getCampaigns();
                     $scope.closeOverlay();
                 });
-            }
-            ;
+            };
         };
 
         $scope.closePopup = function () {
@@ -921,7 +937,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     });
                 });
             }
-            $scope.getActionComments(schedule_id);
 //            growl($scope.isRecurring);
         };
 
@@ -1007,9 +1022,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             };
             yourPlanFactory.addActionPost(action).then(function (data) {
                 $scope.dateLesser = false;
-                $scope.closePopup();
-                $scope.getCampaigns();
                 growl("Action Saved");
+                $scope.getActionComments(schedule_id);
             });
 //        }
         };
@@ -1057,6 +1071,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     }
                     growl(templetestatussaved);
                     $scope.getCampaigns();
+                    $scope.getActionComments(entity_id);
                 } else {
                     growl(savingrecordproblem, "error");
                 }
@@ -1115,12 +1130,13 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     if (type === "remove") {
                         $scope.savedEmail = false;
                         $scope.action_template_status = "No Template";
-                    } else
-                    {
+                    }else{
                         $scope.closePopup();
                     }
-                    $scope.getCampaigns();
+//                        $scope.closePopup();
+                        $scope.getCampaigns();
                 });
+                    $scope.getActionComments(schedules_to_delete);
             }
         };
 

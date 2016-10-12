@@ -199,9 +199,11 @@ public class CompanyServiceImpl implements CompanyService{
 
                 user.setSignupStatus(AppConstants.SignUpStatuscomplete);
                 usersService.update(user);
+                returnMessage = companyId.toString();
+            }else {
+                returnMessage = companyId.toString();
             }
             
-            returnMessage = companyId.toString();
         } catch(Throwable throwable) {
             returnMessage = "false";
             throw new ProcessFailed(messageSource.getMessage("company_save_error", new String[]{}, Locale.US));

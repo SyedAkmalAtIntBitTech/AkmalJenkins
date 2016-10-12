@@ -180,10 +180,10 @@ public class Utility {
 
         return userRoleList;
     }
-    
     public static String getFirstTwoCharactersOfName(String firstName, String lastName) {
 
         String name = String.valueOf(firstName.charAt(0)) + String.valueOf(lastName.charAt(0));
         return name;
     }
+
 }

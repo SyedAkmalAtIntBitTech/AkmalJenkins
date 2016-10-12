@@ -12,12 +12,19 @@ import com.intbittech.utility.ServletUtil;
 import com.intbittech.dao.impl.ScheduleDAO;
 import com.intbittech.AppConstants;
 import com.intbittech.dao.impl.ScheduleSocialPostDAO;
+import com.intbittech.enums.ActivityStatus;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.Activity;
+import com.intbittech.model.ActivityLog;
+import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
+import com.intbittech.model.Users;
+import com.intbittech.modelmappers.ActivityLogDetails;
 import com.intbittech.modelmappers.SentEmailDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.services.ActivityLogService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import java.io.BufferedReader;
 import java.io.File;
@@ -48,6 +55,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.intbittech.social.PostToFacebook;
 import com.intbittech.social.PostToTwitter;
+import com.intbittech.utility.IConstants;
 import com.intbittech.utility.Utility;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -68,13 +76,14 @@ public class YourPlanController {
 
     @Autowired
     private MessageSource messageSource;
+    @Autowired
+    private ActivityLogService activityLogService;
 
     @Autowired
      PostToFacebook postToFacebook;
 
     @Autowired
     PostToTwitter postToTwitter;
-    
     @RequestMapping(value = "/GetScheduledEntities", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> GetScheduledEntities(HttpServletRequest request, HttpServletResponse response) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
@@ -86,10 +95,10 @@ public class YourPlanController {
             List<String> errorMsgs = new ArrayList<>();
 
             if (StringUtils.isEmpty(request.getParameter("from"))) {
-                errorMsgs.add("from date parameter is missing");
+                errorMsgs.add(messageSource.getMessage("no_from_date", new String[]{}, Locale.US));
             }
             if (StringUtils.isEmpty(request.getParameter("to"))) {
-                errorMsgs.add("to date parameter is missing");
+                errorMsgs.add(messageSource.getMessage("no_to_date", new String[]{}, Locale.US));
             }
 
             if (!errorMsgs.isEmpty()) {
@@ -126,6 +135,7 @@ public class YourPlanController {
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             String type = (String) requestBodyMap.get("type");
             String messageStatus = "";
+            ActivityLogDetails activityLogDetails = new ActivityLogDetails();
             if (type.equalsIgnoreCase("updatesocial")) {
                 String schedule_id = (String) requestBodyMap.get("schedule_id");
                 String entity_id = (String) requestBodyMap.get("entity_id");
@@ -186,7 +196,8 @@ public class YourPlanController {
                 String entity_type = (String) requestBodyMap.get("entity_type");
                 String is_recurring = (String) requestBodyMap.get("isRecurring");
                 ScheduleDAO.removeSavedTemplate(userCompanyIds.getCompanyId(), schedule_ids.intValue());
-
+                activityLogDetails.setScheduledEntityId(schedule_ids.intValue());
+                activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_REMOVED_TEMPLATE_ID.getId());
                 messageStatus = "true";
             } else if (type.equalsIgnoreCase(ScheduledEntityType.Reminder.toString())) {
                 String schedule_id = (String) requestBodyMap.get("schedule_id");
@@ -213,6 +224,10 @@ public class YourPlanController {
                     transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(e.getMessage()));
                 }
             }
+            activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
+            activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
+            activityLogDetails.setActionTitle(requestBodyMap.get("schedule_title").toString());
+            activityLogService.saveActivityLog(activityLogDetails);
             transactionResponse.setMessage(messageStatus);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
@@ -266,6 +281,23 @@ public class YourPlanController {
                         conn.commit();
                         Map<String, Object> data = new HashMap<>();
                         data.put("schedule_entity_id", scheduleId);
+
+                        ActivityLogDetails activityLogDetails = new ActivityLogDetails();
+                        activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_CREATED_ACTION_ID.getId());
+                        activityLogDetails.setScheduledEntityId(scheduleId);
+                        activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
+                        activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
+                        activityLogDetails.setActionTitle(requestBodyMap.get("title").toString());
+                        activityLogService.saveActivityLog(activityLogDetails);
+
+                        ActivityLogDetails activityLogDetailsObject = new ActivityLogDetails();
+                        activityLogDetailsObject.setActivityId(ActivityStatus.ACTIVITY_ASSIGNED_TO_ID.getId());
+                        activityLogDetailsObject.setAssignedTo(userAssignToId);
+                        activityLogDetailsObject.setScheduledEntityId(scheduleId);
+                        activityLogDetailsObject.setCreatedBy(userCompanyIds.getUserId());
+                        activityLogDetailsObject.setCompanyId(userCompanyIds.getCompanyId());
+                        activityLogDetailsObject.setActionTitle(requestBodyMap.get("title").toString());
+                        activityLogService.saveActivityLog(activityLogDetailsObject);
                         transactionResponse.setMessage(AppConstants.GSON.toJson(data));
                         transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
                     } catch (SQLException ex) {
@@ -276,12 +308,10 @@ public class YourPlanController {
                 } else if (type.equalsIgnoreCase("update")) {
                     String scheduleID = (String) requestBodyMap.get("schedule_id");
                     try {
-                        Date date = new Date(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue());
-                        String dateTime = format.format(date);
                         int scheduleId = ScheduleDAO.updateScheduledEntity(Integer.parseInt(scheduleID),
                                 requestBodyMap.get("title").toString(),
                                 requestBodyMap.get("description").toString(),
-                                Timestamp.valueOf(dateTime),
+                                new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()),
                                 requestBodyMap.get("actiontype").toString(),
                                 userCompanyIds.getCompanyId(),
                                 Integer.parseInt(requestBodyMap.get("days").toString()),
@@ -290,6 +320,13 @@ public class YourPlanController {
                         conn.commit();
                         Map<String, Object> data = new HashMap<>();
                         data.put("schedule_entity_id", scheduleId);
+                        ActivityLogDetails activityLogDetailsObject = new ActivityLogDetails();
+                        activityLogDetailsObject.setActivityId(ActivityStatus.ACTIVITY_UPDATED_ACTION_ID.getId());
+                        activityLogDetailsObject.setScheduledEntityId(scheduleId);
+                        activityLogDetailsObject.setCreatedBy(userCompanyIds.getUserId());
+                        activityLogDetailsObject.setCompanyId(userCompanyIds.getCompanyId());
+                        activityLogDetailsObject.setActionTitle(requestBodyMap.get("title").toString());
+                        activityLogService.saveActivityLog(activityLogDetailsObject);
                         transactionResponse.setMessage(AppConstants.GSON.toJson(data));
                         transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
                     } catch (SQLException ex) {

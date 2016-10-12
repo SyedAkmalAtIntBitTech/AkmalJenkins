@@ -1258,8 +1258,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                 if (kGlobalEmailObject.pushedEmail){
                     $scope.emailList = listName.text;
-                    $scope.emailTag = listName.text;
-                    kGlobalEmailObject.emailTagId = listName.text;
+                    $scope.emailTag = listName.value;
+                    kGlobalEmailObject.emailTagId = listName.value;
                     appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {});
                     
                     emailListFactory.getContactsOfEmailTag(listName.value).then(function (data){
@@ -1819,6 +1819,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
         $scope.getScheduleData = function (selectedMarketingProgramId, postData) {
             var email_scheduling = "";
+            var schedule_title = $("#ActionName").val();
+
             if (!$scope.createNewActionPopup) {
                 appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                     email_scheduling = {
@@ -1832,6 +1834,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         from_email_address: postData.fromAddress,//getDefaultEmailId(),
                         reply_to_email_address: postData.replyAddress,
                         email_list: $scope.emailList,
+                        schedule_title: schedule_title,
                         email_body: $("#dynamictable").contents().find("html").html(),
                         schedule_desc: ",,,",
                         iframeName: $scope.randomIframeFilename.toString(),
@@ -1876,10 +1879,16 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 });
             } else {
 
+<<<<<<< HEAD
+                var userAssignToId = $("#assignTo option:selected").val();
+                if(!userAssignToId)
+                       userAssignToId = "0";
+=======
                if (!$scope.ddSelectedUser)
                     $scope.ddSelectedUser = "0";
                 
                 var schedule_title = $("#ActionName").val();
+>>>>>>> development
                 var schedule_date = $("#actionDate").val();
 
                 var schedule_time = $("#actionTime").val();

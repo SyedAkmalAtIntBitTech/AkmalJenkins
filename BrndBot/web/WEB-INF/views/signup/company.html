@@ -7,10 +7,15 @@
     <!--Main Content Wrap-->
     
 <body>
+<<<<<<< HEAD
+    <div class="bb-app-frame">
+        <div class="bb-main-app-wrap"  ng-init="getOrganizations();getUserId();">
+=======
     <div class="bb-app-frame" ng-init="getUserId()">
         <div class="bb-main-app-wrap"  ng-init="getOrganizations()">
+>>>>>>> development
             <div class="bb-main-container-wrap">
-               <div class="bb-top-nav">
+                <div class="bb-top-nav">
                     <div class="bb-bar-left-wrap bb-one-third-flex-col">
                         <h3 class="bb-top-nav-title">Create a Profile</h3>
                     </div>
@@ -64,7 +69,7 @@
                         </div>
 
                     </div>
-                 </div>
+                </div>
                 <div class="bb-bottom-cta-bar">
                     <a class="bb-bottom-cta-continue-button" ng-class="{'bb-valid' : companyData.companyName.length > 0 && companyData.ddSelectOrganization.value !== '0' && companyData.ddSelectOrganization.value !== undefined && companyData.addressline2.length > 0 && companyData.zipcode.length > 0}" ng-click="saveCompany(companyData)">
                         <div class="bb-bottom-cta-continue-button-text">Continue</div>

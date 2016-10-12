@@ -28,6 +28,18 @@
                 </div>
             </div>
         </div>
+        <div class="hub-section" ng-init="getAllUsersInCompany()">
+            <div class="section-header">
+                <h3>Assignment details</h3>
+            </div>
+            <div class="input-wrap">
+                <label>Assigned To:</label>
+                <select id="assignTo" ng-show="moreThanOneUser">
+                    <option value="no assignee" selected>no assignee</option>
+                    <option ng-repeat="users in allUsers" value="{{users.userId}}">{{users.userName}}</option>
+                </select>
+            </div>
+        </div>        
         <div class="hub-section">
             <div class="section-header">
                 <h3>Trigger Details</h3>
