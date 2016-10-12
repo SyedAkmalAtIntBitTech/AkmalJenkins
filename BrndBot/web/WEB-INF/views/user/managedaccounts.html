@@ -1,18 +1,18 @@
 
     <!--<div class="page-content-container email-list-contact-page" id="emaillistsdiv" ng-controller="EmailListController">-->
     <div ng-include src="'addaccountpopup.html'"></div> 
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" >
+    <div class="bb-main-content-wrap bb-main-content-wrap-padding" >
 
         <!--USER ADDED LISTS-->
         <div class="bb-panel-full-width bb-panel-styling">
-            <div class="bb-panel-full-width bb-panel-styling-header-wrap">
+            <div class="bb-panel-header">
                 <h2 class="">Managed Accounts</h2>
                 <a href="">
-                    <div id="addemlstbtn" class="long-button green-button" ng-click="showAddUser()">Invite an Account</div>
+                    <div id="addemlstbtn" class="bb-button bb-primary-action-button" ng-click="showAddUser()">Invite an Account</div>
                 </a>
                 <!--                <a class="long-button green-button">Create Email List</a>-->
             </div>
-            <div class="bb-panel-full-width bb-panel-styling-content-wrap" ng-init="getAllCompaniesForFranchiseId()" >
+            <div class="bb-panel-content-wrap" ng-init="getAllCompaniesForFranchiseId()" >
                 <div class="hub-empty-wrap">Active Associated Accounts</div>
                 <div class="hub-slat-list-wrap"> 
                     <div class="slat" ng-repeat="company in franchiseCompanies">

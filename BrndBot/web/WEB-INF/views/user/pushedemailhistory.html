@@ -1,21 +1,19 @@
     <div ng-include src="'genericpopup.html'"></div>
 
-     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav">
+     <div class="bb-main-content-wrap bb-main-content-wrap-padding">
         <div class="bb-panel-full-width bb-panel-styling" >
-            <div class="bb-panel-full-width bb-panel-styling-header-wrap">
+            <div class="bb-panel-header">
                 <h2 class="">Pushed Emails</h2>
                 <input type="text" class="search-bar" placeholder="Search" ng-model="userSearch"  ng-show="email_history.length > 0">
             </div>
-            <div class="bb-panel-full-width bb-panel-styling-content-wrap" ng-show="email_history.length == 0">
+            <div class="bb-panel-content-wrap" ng-show="email_history.length == 0">
                 <div class="hub-empty-wrap">No Pushed Emails</div>
             </div>
-            <div class="bb-panel-full-width bb-panel-styling-content-wrap">
-               
-            </div>
-            <div class="bb-panel-full-width bb-panel-styling-content-wrap" ng-show="noPushedEmails">
+         
+            <div class="bb-panel-content-wrap" ng-show="noPushedEmails">
                 <div class="hub-empty-wrap">No Pushed Emails</div>
             </div>
-            <div class="bb-panel-full-width bb-panel-styling-content-wrap" ng-init="getAllPushedEmailsForFranchise()">
+            <div class="bb-panel-content-wrap" ng-init="getAllPushedEmailsForFranchise()">
                 
                 <div class="hub-slat-list-wrap" ng-repeat="pushedEmail in allPushedEmails">
                     <div class="slat" >

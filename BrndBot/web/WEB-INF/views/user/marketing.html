@@ -67,26 +67,26 @@
                         <div class="bb-your-plan-icon-wrap">
                             <div ng-show="entitydetails.entity_type != master_note">
                                 <div class="your-plan-icon hint--top" ng-show="entitydetails.template_status == 'Template Saved'"  data-hint="Template Saved" > 
-                                    <img src="/BrndBot/images/template-saved.svg" />
+                                    <img class="bb-your-plan-icon-svg" src="/BrndBot/images/template-saved.svg" />
                                 </div>
                                 <div class="your-plan-icon hint--top" ng-show="entitydetails.template_status == 'No Template'"  data-hint="No Template" >
-                                    <img src="/BrndBot/images/no-template.svg"/>
+                                    <img class="bb-your-plan-icon-svg" src="/BrndBot/images/no-template.svg"/>
                                 </div>
                                 <div class="your-plan-icon hint--top" ng-show="entitydetails.template_status == 'Complete'"  data-hint="Complete" > 
-                                    <img src="/BrndBot/images/template-complete.svg"/>
+                                    <img class="bb-your-plan-icon-svg" src="/BrndBot/images/template-complete.svg"/>
                                 </div>
                                 <div class="your-plan-icon hint--top" ng-show="entitydetails.template_status == 'Approved'"  data-hint="Approved" > 
-                                    <img src="/BrndBot/images/template-approved.svg"/>
+                                    <img class="bb-your-plan-icon-svg" src="/BrndBot/images/template-approved.svg"/>
                                 </div>
                             </div>
                             <div ng-show="entitydetails.entity_type == master_note">
                                 <!--Need an ng-show if reminder is incomplete-->
                                 <div class="your-plan-icon hint--top" data-hint="Reminder" ng-show="entitydetails.template_status == 'No Template'" > 
-                                    <img src="/BrndBot/images/task-status_task.svg"/>
+                                    <img class="bb-your-plan-icon-svg" src="/BrndBot/images/task-status_task.svg"/>
                                 </div>
                                 <!--Need an ng-show if reminder is complete-->
                                 <div class="your-plan-icon hint--top" data-hint="Reminder" ng-show="entitydetails.template_status == 'Complete'"> 
-                                    <img src="/BrndBot/images/task-status_completed-task.svg"/>
+                                    <img class="bb-your-plan-icon-svg" src="/BrndBot/images/task-status_completed-task.svg"/>
                                 </div>
                             </div>
                         </div>
@@ -108,12 +108,12 @@
                         </div>
 
 
-                        <!--<div class="slat-detail-wrap">
+                        <div class="slat-detail-wrap slat-detail-wrap-your-plan">
                             <div class="slat-detail">
-                                <a class="reg-button slat-detail-button" 
-                                   >Action Details</a>
+                                <h2>{{entitydetails.assignedFirstName}}&nbsp;{{entitydetails.assignedLastName}}</h2>
+                                <p>Assigned To</p>
                             </div>
-                        </div>-->
+                        </div>
 
                     </div>
 
