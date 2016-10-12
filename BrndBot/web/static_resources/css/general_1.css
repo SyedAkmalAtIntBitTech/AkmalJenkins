@@ -3021,14 +3021,13 @@ p.modal-content-header{
 }
 
 .email-preview-bar{
-    border-top: 1px solid lightgray;
-    border-bottom: 1px solid lightgray;
+    border-top: 1px solid #DCE2E8; 
+   border-bottom: 1px solid #DCE2E8;
     background-color: #fafafa;
     font-size: 12px;
-
     margin-top: 30px;
     padding: 15px 60px;
-    color: #AFB0B4;
+    color: #7d97ad;
 }
 
 
@@ -5132,6 +5131,21 @@ textarea.task-textarea:focus{
     flex: 0 0 50%;
 }
 
+.bb-overlay-button-wrap{
+    margin-left: 60px;
+    margin-top: 30px;
+}
+
+.bb-rotate-element-180{
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+.bb-dropdown-padding{
+    margin-top: 10px;
+}
 .bb-main-content-wrap{
     flex: auto;
     flex-basis: auto;
@@ -5147,7 +5161,9 @@ textarea.task-textarea:focus{
 .bb-main-content-wrap-emaillist{
         height: 75vh;
 }
-
+.bb-comment-button{
+    margin-top: 10px;
+}
 .bb-panel-styling{
     border: 1px #C7D0D9 solid;
     border-radius: 3px;
@@ -5584,6 +5600,10 @@ textarea.task-textarea:focus{
 
 }
 
+.bb-your-plan-icon-svg{
+    width: 40px;
+}
+
 .bb-dash-panel-cta-wrap{
     display: flex;
     flex-direction: row;
@@ -5795,6 +5815,7 @@ textarea.task-textarea:focus{
 
 .bb-panel-content-wrap-max-height{
     max-height: 350px;
+    overflow-y: scroll;
 }
 
 .bb-palette{
@@ -6231,9 +6252,9 @@ img#prevfbimg {
 }
 
 .top-subnav-link-active-detail-Class {
-    border-bottom: 3px #0F76A6 solid;
+    box-shadow: inset 0 -3px #0F76A6;
     color: #0F76A6;
-    font-size: 14px;
+    font-size: 16px;
 }
 /*....popup.css and style_detail_overlay_6.css Ends.....*/
 

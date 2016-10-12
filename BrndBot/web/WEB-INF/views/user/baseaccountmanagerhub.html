@@ -61,13 +61,19 @@
     <body ng-app="franchiseHubApp" ng-controller="franchiseController">
         
     <div ng-include src="'header.html'"></div>
-    <div ng-include src="'navbar.html'"></div>
 
-    <div class="main-content-wrap">
-        <div ng-include src="'accountmanagernavigation.html'"></div>
-        <div class="top-nav-bar-offset"></div>
-        <div class="top-subnav-bar-offset"></div>
-        <div ng-view></div>
+
+   
+    
+    <div class="bb-app-frame">
+      <div class="bb-main-app-wrap" >
+        <div ng-include src="'navbar.html'"></div>
+        
+        <div class="bb-main-container-wrap">
+            <div ng-include src="'accountmanagernavigation.html'"></div>
+            <div ng-view ></div>
+        </div> 
+      </div>
     </div>
         
     </body>
