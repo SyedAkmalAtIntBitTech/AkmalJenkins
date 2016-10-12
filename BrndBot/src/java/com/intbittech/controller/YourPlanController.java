@@ -86,10 +86,10 @@ public class YourPlanController {
             List<String> errorMsgs = new ArrayList<>();
 
             if (StringUtils.isEmpty(request.getParameter("from"))) {
-                errorMsgs.add("from date parameter is missing");
+                errorMsgs.add(messageSource.getMessage("no_from_date", new String[]{}, Locale.US));
             }
             if (StringUtils.isEmpty(request.getParameter("to"))) {
-                errorMsgs.add("to date parameter is missing");
+                errorMsgs.add(messageSource.getMessage("no_to_date", new String[]{}, Locale.US));
             }
 
             if (!errorMsgs.isEmpty()) {
