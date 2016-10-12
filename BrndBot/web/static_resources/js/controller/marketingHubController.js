@@ -50,7 +50,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.deafultFromName = "";
         $scope.replyEmailValidation = false;
         $scope.replyToAddress = false;
-<<<<<<< HEAD
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
 
@@ -65,8 +64,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         
         $scope.showHideUserSettings = function (flag){
             $scope.userSettings=flag;
-
-=======
+        }
         this.tab = 1;
 
         this.selectTab = function (setTab){
@@ -80,7 +78,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
          
         $scope.showHideUserSettings = function (flag) {
             $scope.userSettings = flag;
->>>>>>> development
         };
 
         var generalEmailList = "General";

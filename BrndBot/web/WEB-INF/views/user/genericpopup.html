@@ -24,19 +24,7 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-    <ul class="sub-nav-tab-wrap with-back-button" ng-show="pushedEmail==false">
-        <li class="sub-nav-tab ">
-             <a id="emailaction1" val="{{schedule_id}}" ng-click="setTab('actionDetails');" ng-class="top_subnav_link_active_actionDetail_Class" href="">Action Details</a>
-        </li>
-        <li class="sub-nav-tab ">
-             <a id="emailpost1" ng-click="setTab('savedDetails')" ng-class="top_subnav_link_active_savedDetail_Class" href="">Saved {{savedHeader}}</a>
-        </li>
-        <li class="sub-nav-tab ">
-             <a id="emailnote1" ng-click="setTab('notes');getActionComments(schedule_id);" ng-class="top_subnav_link_active_notesDetail_Class" href="">Collaboration</a>
-        </li>
-    </ul>
-=======
+
     <div class="bb-top-sub-nav bb-top-sub-nav-backbutton-offset" ng-show="pushedEmail==false">
         <div class="bb-top-sub-nav-tab" ng-if="isEmailHistory">
             <a id="emailnote1" ng-click="setTab('emailHistory')" ng-class="top_subnav_link_active_emailHistoryDetail_Class" href="">Email History Details</a>
@@ -48,10 +36,9 @@
              <a id="emailpost1" ng-click="marketingTab.selectTab(6);yourplanTab.selectTab(6);" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(6) || yourplanTab.isSelected(6)}" href="">Saved {{savedHeader}}</a>
         </div>
         <div class="bb-top-sub-nav-tab ">
-             <a id="emailnote1" ng-click="marketingTab.selectTab(7);yourplanTab.selectTab(7);" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(7) || yourplanTab.isSelected(7)}" ng-if="isRecurring===false" href="">Collaboration</a>
+             <a id="emailnote1" ng-click="marketingTab.selectTab(7);yourplanTab.selectTab(7);getActionComments(schedule_id);" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(7) || yourplanTab.isSelected(7)}" ng-if="isRecurring===false" href="">Collaboration</a>
         </div>
     </div>
->>>>>>> development
     <ul class="sub-nav-tab-wrap with-back-button" ng-show="pushedEmail==true">
         <li class="sub-nav-tab ">
              <a id="emailpost1" ng-click="setTab('savedDetails')" ng-class="top_subnav_link_active_savedDetail_Class" href="">Saved {{savedHeader}}</a>
