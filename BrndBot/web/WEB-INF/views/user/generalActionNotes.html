@@ -74,6 +74,7 @@
         <div class="input">
             <textarea size="40" class="fluid" id="comment" placeholder="comment here" ng-model="comment"></textarea>
             <input type="button" value="comment" ng-click="addActionComment(schedule_id, comment)"/>
+            <input type="button" value="refresh" ng-click="getActionComments(schedule_id)"/>
         </div>
     </div>
 </div>
