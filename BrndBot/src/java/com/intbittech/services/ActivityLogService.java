@@ -69,4 +69,7 @@ public interface ActivityLogService {
      */
     public void activityLogSave(ActivityLogDetails activityLogDetails) throws ProcessFailed;
 
+    public Boolean sendNotificationEmail(Integer activityId, String toEmailId, String userName, 
+                                         String company, String actionTitle, String createdBy)throws ProcessFailed;
+
 }

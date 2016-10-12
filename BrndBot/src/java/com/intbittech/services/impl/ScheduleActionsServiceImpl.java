@@ -17,7 +17,6 @@ import com.intbittech.model.UserCompanyIds;
 import com.intbittech.modelmappers.ActivityLogDetails;
 import com.intbittech.services.ActivityLogService;
 import com.intbittech.services.ScheduleActionsService;
-import com.intbittech.utility.IConstants;
 import com.intbittech.utility.StringUtility;
 import com.intbittech.utility.Utility;
 import java.io.File;
@@ -134,16 +133,23 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                 activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_CREATED_ACTION_ID").getDisplayName());
                 activityLogDetails.setScheduledEntityId(scheduleEntityId);
                 activityLogDetails.setCreatedBy(createdBy);
+                activityLogDetails.setCompanyId(companyId);
+                activityLogDetails.setActionTitle(requestBodyMap.get("schedule_title").toString());
+                
                 activityLogService.saveActivityLog(activityLogDetails);
                 ActivityLogDetails activityLogDetailsObject = new ActivityLogDetails();
                 activityLogDetailsObject.setActivityId(ActivityStatus.valueOf("ACTIVITY_ADDED_TEMPLATE_ID").getDisplayName());
                 activityLogDetailsObject.setScheduledEntityId(scheduleEntityId);
                 activityLogDetailsObject.setCreatedBy(createdBy);
+                activityLogDetailsObject.setCompanyId(companyId);
+                activityLogDetailsObject.setActionTitle(requestBodyMap.get("schedule_title").toString());
                 activityLogService.saveActivityLog(activityLogDetailsObject);
                 ActivityLogDetails activityLog = new ActivityLogDetails();
                 activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_ASSIGNED_TO_ID").getDisplayName());
                 activityLog.setScheduledEntityId(scheduleEntityId);
                 activityLog.setCreatedBy(createdBy);
+                activityLog.setCompanyId(companyId);
+                activityLog.setActionTitle(requestBodyMap.get("schedule_title").toString());
                 activityLog.setAssignedTo(userAssignToId);
                 activityLogService.saveActivityLog(activityLog);
             if (!path.equals("")) {
@@ -193,6 +199,8 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
             activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_ADDED_TEMPLATE_ID").getDisplayName());
             activityLogDetails.setScheduledEntityId(Integer.parseInt(schedule_id));
             activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
+            activityLogDetails.setActionTitle(requestBodyMap.get("schedule_title").toString());
+            activityLogDetails.setCompanyId(companyId);
             activityLogService.saveActivityLog(activityLogDetails);
             if (!path.equals("")) {
                 File IframeDelete = new File(path);
@@ -231,6 +239,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                 activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_ADDED_TEMPLATE_ID").getDisplayName());
                 activityLogDetails.setScheduledEntityId(Integer.parseInt(schedule_id));
                 activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
+                activityLogDetails.setActionTitle(requestBodyMap.get("schedule_title").toString());
                 activityLogService.saveActivityLog(activityLogDetails);
             } catch (SQLException ex) {
                 conn.rollback();
@@ -283,17 +292,23 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                 activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_CREATED_ACTION_ID").getDisplayName());
                 activityLogDetails.setScheduledEntityId(scheduleEntityId);
                 activityLogDetails.setCreatedBy(createdBy);
+                activityLogDetails.setCompanyId(companyId);
+                activityLogDetails.setActionTitle(requestBodyMap.get("schedule_title").toString());
                 activityLogService.saveActivityLog(activityLogDetails);
                 ActivityLogDetails activityLogDetailsObject = new ActivityLogDetails();
-                activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_ADDED_TEMPLATE_ID").getDisplayName());
+                activityLogDetailsObject.setActivityId(ActivityStatus.valueOf("ACTIVITY_ADDED_TEMPLATE_ID").getDisplayName());
                 activityLogDetailsObject.setScheduledEntityId(scheduleEntityId);
                 activityLogDetailsObject.setCreatedBy(createdBy);
+                activityLogDetailsObject.setCompanyId(companyId);
+                activityLogDetailsObject.setActionTitle(requestBodyMap.get("schedule_title").toString());
                 activityLogService.saveActivityLog(activityLogDetailsObject);
                 ActivityLogDetails activityLog = new ActivityLogDetails();
-                activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_ASSIGNED_TO_ID").getDisplayName());
+                activityLog.setActivityId(ActivityStatus.valueOf("ACTIVITY_ASSIGNED_TO_ID").getDisplayName());
                 activityLog.setScheduledEntityId(scheduleEntityId);
                 activityLog.setCreatedBy(createdBy);
                 activityLog.setAssignedTo(userAssignToId);
+                activityLog.setCompanyId(companyId);
+                activityLog.setActionTitle(requestBodyMap.get("schedule_title").toString());
                 activityLogService.saveActivityLog(activityLog);
             } catch (SQLException ex) {
                 conn.rollback();

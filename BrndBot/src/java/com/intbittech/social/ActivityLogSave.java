@@ -27,20 +27,15 @@ import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.stereotype.Component;
 /**
  *
  * @author Syed Muzamil at IntBit Technologies.
  */
 @Service
 @Transactional(rollbackFor = ProcessFailed.class)
-//@Configuration
-//@EnableAsync
 public class ActivityLogSave {
 
     private static Logger logger = Logger.getLogger(ActivityLogServiceImpl.class);

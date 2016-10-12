@@ -1733,6 +1733,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
         $scope.getScheduleData = function (selectedMarketingProgramId, postData) {
             var email_scheduling = "";
+            var schedule_title = $("#ActionName").val();
+
             if (!$scope.createNewActionPopup) {
                 appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                     email_scheduling = {
@@ -1746,6 +1748,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         from_email_address: getDefaultEmailId(),
                         reply_to_email_address: postData.replyAddress,
                         email_list: $scope.emailList,
+                        schedule_title: schedule_title,
                         email_body: $("#dynamictable").contents().find("html").html(),
                         schedule_desc: ",,,",
                         iframeName: $scope.randomIframeFilename.toString(),
@@ -1793,7 +1796,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 var userAssignToId = $("#assignTo option:selected").val();
                 if(!userAssignToId)
                        userAssignToId = "0";
-                var schedule_title = $("#ActionName").val();
                 var schedule_date = $("#actionDate").val();
 
                 var schedule_time = $("#actionTime").val().replace(/ /g, '');

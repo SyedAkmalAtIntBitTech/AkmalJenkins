@@ -18,7 +18,16 @@ public class ActivityLogDetails {
     private Integer createdBy;
     private String actionTitle;
     private String companyName;
+    private Integer companyId;
 
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
+    
     public String getActionTitle() {
         return actionTitle;
     }

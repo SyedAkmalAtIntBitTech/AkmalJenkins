@@ -814,6 +814,8 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                 var linkTitle = kGlobalFbPostDataObject.title;
                 var shareUrl = kGlobalFbPostDataObject.url;
                 var linkDescription = kGlobalFbPostDataObject.description;
+                var schedule_title = $("#ActionName").val();
+                
                 //            if (selectedMarketingProgrmaId !== 0) {
                 if ($scope.existingActionPopup) {
                     sendData = {
@@ -821,6 +823,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                         image_name: kGlobalFbPostDataObject.imgNameToPost,
                         program_id: $scope.selectedMarketingProgram.toString(),
                         schedule_id: $scope.socialAction.toString(),
+                        schedule_title: schedule_title,
                         image_type: kGlobalFbPostDataObject.imageType,
                         metadata: {
                             description: '"' + linkDescription + '"',
@@ -835,7 +838,6 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                     var userAssignToId = $("#assignTo option:selected").val();
                     if(!userAssignToId)
                         userAssignToId = "0";
-                    var schedule_title = $("#ActionName").val();
                     var schedule_date = $("#actionDate").val();
                     var schedule_time = $("#actionTime").val().replace(/ /g, '');
                     var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();

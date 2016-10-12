@@ -216,6 +216,8 @@ public class YourPlanController {
                 }
             }
             activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
+            activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
+            activityLogDetails.setActionTitle(requestBodyMap.get("schedule_title").toString());
             activityLogService.saveActivityLog(activityLogDetails);
             transactionResponse.setMessage(messageStatus);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
@@ -268,20 +270,21 @@ public class YourPlanController {
                         data.put("schedule_entity_id", scheduleId);
 
                         ActivityLogDetails activityLogDetails = new ActivityLogDetails();
-//                        activityLogDetails.setActivityId(IConstants.ACTIVITY_CREATED_ACTION_ID);
                         activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_CREATED_ACTION_ID").getDisplayName());
                         activityLogDetails.setScheduledEntityId(scheduleId);
                         activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
+                        activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
+                        activityLogDetails.setActionTitle(requestBodyMap.get("title").toString());
                         activityLogService.saveActivityLog(activityLogDetails);
-//                        activityLogService.activityLogSave(activityLogDetails);
 
                         ActivityLogDetails activityLogDetailsObject = new ActivityLogDetails();
-//                        activityLogDetailsObject.setActivityId(IConstants.ACTIVITY_ASSIGNED_TO_ID);
-                        activityLogDetails.setActivityId(ActivityStatus.valueOf("ACTIVITY_ASSIGNED_TO_ID").getDisplayName());
+                        activityLogDetailsObject.setActivityId(ActivityStatus.valueOf("ACTIVITY_ASSIGNED_TO_ID").getDisplayName());
                         activityLogDetailsObject.setAssignedTo(userAssignToId);
                         activityLogDetailsObject.setScheduledEntityId(scheduleId);
                         activityLogDetailsObject.setCreatedBy(userCompanyIds.getUserId());
-                        activityLogService.activityLogSave(activityLogDetailsObject);
+                        activityLogDetailsObject.setCompanyId(userCompanyIds.getCompanyId());
+                        activityLogDetailsObject.setActionTitle(requestBodyMap.get("title").toString());
+                        activityLogService.saveActivityLog(activityLogDetailsObject);
                         transactionResponse.setMessage(AppConstants.GSON.toJson(data));
                         transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
                     } catch (SQLException ex) {
@@ -305,10 +308,11 @@ public class YourPlanController {
                         Map<String, Object> data = new HashMap<>();
                         data.put("schedule_entity_id", scheduleId);
                         ActivityLogDetails activityLogDetailsObject = new ActivityLogDetails();
-//                        activityLogDetailsObject.setActivityId(IConstants.ACTIVITY_UPDATED_ACTION_ID);
                         activityLogDetailsObject.setActivityId(ActivityStatus.valueOf("ACTIVITY_UPDATED_ACTION_ID").getDisplayName());
                         activityLogDetailsObject.setScheduledEntityId(scheduleId);
                         activityLogDetailsObject.setCreatedBy(userCompanyIds.getUserId());
+                        activityLogDetailsObject.setCompanyId(userCompanyIds.getCompanyId());
+                        activityLogDetailsObject.setActionTitle(requestBodyMap.get("title").toString());
                         activityLogService.saveActivityLog(activityLogDetailsObject);
                         transactionResponse.setMessage(AppConstants.GSON.toJson(data));
                         transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
