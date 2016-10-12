@@ -128,11 +128,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                         appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
                             if (data) {
                                 $("#signform").submit();
-<<<<<<< HEAD
-//                                $location.path("/signup/company?userId="+ userId);
-=======
-//                                $location.path("/signup/company");
->>>>>>> development
                             }
                             appSessionFactory.getCompany().then(function (kGlobalCompanyObject1) {
                             });
@@ -363,11 +358,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                     userIdvalue = $scope.userId;
                     kGlobalCompanyObject.userId = $scope.userId;
                     appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
-<<<<<<< HEAD
-
-=======
-                    
->>>>>>> development
                     var companyDetails = {"userId": userIdvalue, "companyName": $scope.companyName, "organizationId": $scope.organizationId};
 
                     onboardingFactory.saveCompanyPost(companyDetails).then(function (data) {
@@ -398,17 +388,12 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                                     $scope.companies = data.d.details;
                                 }
                             });
-<<<<<<< HEAD
-
-                            appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
-=======
                             appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
                             appSessionFactory.getCompany().then(function (kGlobalCompanyObject){
                             var companyAddressDetails = {"companyId":kGlobalCompanyObject.companyId,"addressLine1":$scope.address1,"addressLine2":$scope.address2,
                                             "city":$scope.city,"state":$scope.state,"zipcode":$scope.zipcode,"country":$scope.country }; 
                             onboardingFactory.saveCompanyAddress(companyAddressDetails).then(function (data){//alert(JSON.stringify(data));
                             });
->>>>>>> development
                             //TODO Set the companyId in Auth factory file
                             $location.path("/signup/datasource");
                             });
