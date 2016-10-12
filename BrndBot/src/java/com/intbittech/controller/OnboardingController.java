@@ -15,6 +15,7 @@ import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.modelmappers.CompanyLogoDetails;
+import com.intbittech.modelmappers.OnBoarding;
 import com.intbittech.modelmappers.UserDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
@@ -54,7 +55,7 @@ public class OnboardingController {
 
     @Autowired
     private UsersService usersService;
-    
+
     @Autowired
     private CompanyService companyService;
 
@@ -99,34 +100,35 @@ public class OnboardingController {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
 
-            /** 
-             * This method checks the validity and proceed further to save, 
-             * if the validity is expired the it return false. From this part of 
+            /**
+             * This method checks the validity and proceed further to save, if
+             * the validity is expired the it return false. From this part of
              * the program we will show right messages to the user 
-             **/
+             *
+             */
             Integer returnValue = usersService.saveUser(usersDetails);
-            if (returnValue != 0){
+            if (returnValue != 0) {
                 transactionResponse.setMessage(messageSource.getMessage("user_save", new String[]{}, Locale.US));
                 transactionResponse.setId(returnValue.toString());
-            }else {
+            } else {
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation("something_wrong"));
-            }            
+            }
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/onboarding/saveStudioId", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> saveStudioId(@RequestParam("studioId") String studioId,HttpServletRequest request) {
+    public ResponseEntity<ContainerResponse> saveStudioId(@RequestParam("studioId") String studioId, HttpServletRequest request) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
 
             //save studioId
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
- 
+
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             Company company = new Company();
             company.setCompanyId(userCompanyIds.getCompanyId());
@@ -178,6 +180,12 @@ public class OnboardingController {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             String returnMessage = companyService.saveCompany(companyDetails);
+            if (returnMessage != null) {
+                OnBoarding onBording = new OnBoarding();
+                onBording.setCompanyName(companyDetails.getCompanyName());
+                Company company = companyService.getCompanyById(Integer.parseInt(returnMessage));
+                companyPreferencesService.setOnBoarding(onBording, company);
+            }
             transactionResponse.setMessage(returnMessage);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("company_save", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {

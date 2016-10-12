@@ -1,4 +1,3 @@
-
 package com.intbittech.modelmappers;
 
 import java.util.ArrayList;
@@ -24,7 +23,8 @@ import org.springframework.stereotype.Component;
     "colors",
     "userProfile",
     "userProfileColor",
-    "tooltips"
+    "tooltips",
+    "onBoarding"
 })
 @Component
 public class CompanyPreferencesJson {
@@ -43,13 +43,14 @@ public class CompanyPreferencesJson {
     private String userProfileColor;
     @JsonProperty("tooltips")
     private Tooltips tooltips;
+    @JsonProperty("onBoarding")
+    private OnBoarding onBoarding;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     * 
-     * @return
-     *     The emailSettings
+     *
+     * @return The emailSettings
      */
     @JsonProperty("emailSettings")
     public EmailSettings getEmailSettings() {
@@ -57,9 +58,8 @@ public class CompanyPreferencesJson {
     }
 
     /**
-     * 
-     * @param emailSettings
-     *     The emailSettings
+     *
+     * @param emailSettings The emailSettings
      */
     @JsonProperty("emailSettings")
     public void setEmailSettings(EmailSettings emailSettings) {
@@ -67,9 +67,8 @@ public class CompanyPreferencesJson {
     }
 
     /**
-     * 
-     * @return
-     *     The twitter
+     *
+     * @return The twitter
      */
     @JsonProperty("Twitter")
     public TwitterDataDetails getTwitter() {
@@ -77,9 +76,8 @@ public class CompanyPreferencesJson {
     }
 
     /**
-     * 
-     * @param twitter
-     *     The Twitter
+     *
+     * @param twitter The Twitter
      */
     @JsonProperty("Twitter")
     public void setTwitter(TwitterDataDetails twitter) {
@@ -87,9 +85,8 @@ public class CompanyPreferencesJson {
     }
 
     /**
-     * 
-     * @return
-     *     The facebook
+     *
+     * @return The facebook
      */
     @JsonProperty("Facebook")
     public FacebookDataDetails getFacebook() {
@@ -97,9 +94,8 @@ public class CompanyPreferencesJson {
     }
 
     /**
-     * 
-     * @param facebook
-     *     The Facebook
+     *
+     * @param facebook The Facebook
      */
     @JsonProperty("Facebook")
     public void setFacebook(FacebookDataDetails facebook) {
@@ -107,9 +103,8 @@ public class CompanyPreferencesJson {
     }
 
     /**
-     * 
-     * @return
-     *     The colors
+     *
+     * @return The colors
      */
     @JsonProperty("colors")
     public List<String> getColors() {
@@ -117,9 +112,8 @@ public class CompanyPreferencesJson {
     }
 
     /**
-     * 
-     * @param colors
-     *     The colors
+     *
+     * @param colors The colors
      */
     @JsonProperty("colors")
     public void setColors(List<String> colors) {
@@ -127,9 +121,8 @@ public class CompanyPreferencesJson {
     }
 
     /**
-     * 
-     * @return
-     *     The userProfile
+     *
+     * @return The userProfile
      */
     @JsonProperty("userProfile")
     public UserProfile getUserProfile() {
@@ -137,9 +130,8 @@ public class CompanyPreferencesJson {
     }
 
     /**
-     * 
-     * @param userProfile
-     *     The userProfile
+     *
+     * @param userProfile The userProfile
      */
     @JsonProperty("userProfile")
     public void setUserProfile(UserProfile userProfile) {
@@ -147,9 +139,8 @@ public class CompanyPreferencesJson {
     }
 
     /**
-     * 
-     * @return
-     *     The userProfileColor
+     *
+     * @return The userProfileColor
      */
     @JsonProperty("userProfileColor")
     public String getUserProfileColor() {
@@ -157,9 +148,8 @@ public class CompanyPreferencesJson {
     }
 
     /**
-     * 
-     * @param userProfileColor
-     *     The userProfileColor
+     *
+     * @param userProfileColor The userProfileColor
      */
     @JsonProperty("userProfileColor")
     public void setUserProfileColor(String userProfileColor) {
@@ -167,9 +157,8 @@ public class CompanyPreferencesJson {
     }
 
     /**
-     * 
-     * @return
-     *     The tooltips
+     *
+     * @return The tooltips
      */
     @JsonProperty("tooltips")
     public Tooltips getTooltips() {
@@ -177,15 +166,34 @@ public class CompanyPreferencesJson {
     }
 
     /**
-     * 
-     * @param tooltips
-     *     The tooltips
+     *
+     * @param tooltips The tooltips
      */
     @JsonProperty("tooltips")
     public void setTooltips(Tooltips tooltips) {
         this.tooltips = tooltips;
     }
+    
+    /**
+     * 
+     * @return
+     *     The onBoarding
+     */
+    @JsonProperty("onBoarding")
+    public OnBoarding getOnBoarding() {
+        return onBoarding;
+    }
 
+    /**
+     * 
+     * @param onBoarding
+     *     The onBoarding
+     */
+    @JsonProperty("onBoarding")
+    public void setOnBoarding(OnBoarding onBoarding) {
+        this.onBoarding = onBoarding;
+    }
+    
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;

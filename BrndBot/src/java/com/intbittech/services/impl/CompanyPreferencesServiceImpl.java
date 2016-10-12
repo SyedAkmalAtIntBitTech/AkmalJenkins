@@ -18,6 +18,7 @@ import com.intbittech.modelmappers.CriticalInfoTips;
 import com.intbittech.modelmappers.EmailSettings;
 import com.intbittech.modelmappers.FacebookDataDetails;
 import com.intbittech.modelmappers.FooterDetails;
+import com.intbittech.modelmappers.OnBoarding;
 import com.intbittech.modelmappers.OrientationTips;
 import com.intbittech.modelmappers.Tooltips;
 import com.intbittech.modelmappers.TutorialTip;
@@ -85,7 +86,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message", new String[]{}, Locale.US));
         }
     }
 
@@ -99,7 +100,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             return emailSettings;
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message", new String[]{}, Locale.US));
         }
     }
 
@@ -112,7 +113,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesJson = mapper.readValue(companyPreferencesJsonString, CompanyPreferencesJson.class);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message", new String[]{}, Locale.US));
         }
         return companyPreferencesJson.getColors();
     }
@@ -137,7 +138,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message", new String[]{}, Locale.US));
         }
     }
 
@@ -156,7 +157,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             updatePreferences(companyPreferencesObject);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message", new String[]{}, Locale.US));
         }
     }
 
@@ -187,7 +188,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message", new String[]{}, Locale.US));
         }
     }
 
@@ -228,7 +229,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
         } catch (ParseException ex) {
             java.util.logging.Logger.getLogger(CompanyPreferencesServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-    } 
+    }
 
     @Override
     public void setUserProfileColor(UserProfileColorDetails userProfileColorDetails, Company company) {
@@ -245,7 +246,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message", new String[]{}, Locale.US));
         }
     }
 
@@ -277,7 +278,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message", new String[]{}, Locale.US));
         }
     }
 
@@ -310,7 +311,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_deleting_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_deleting_message", new String[]{}, Locale.US));
         }
     }
 
@@ -329,7 +330,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message", new String[]{}, Locale.US));
         }
     }
 
@@ -362,7 +363,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_deleting_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_deleting_message", new String[]{}, Locale.US));
         }
     }
 
@@ -381,7 +382,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message", new String[]{}, Locale.US));
         }
     }
 
@@ -396,6 +397,38 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             logger.error(throwable);
         }
         return companyPreferencesJson.getTooltips();
+    }
+
+    @Override
+    public void setOnBoarding(OnBoarding onBoarding, Company company) {
+        try {
+            CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
+            if (companyPreferences == null) {
+                companyPreferences = new CompanyPreferences();
+                companyPreferences.setFkCompanyId(company);
+            }
+            companyPreferencesJson.setOnBoarding(onBoarding);
+            ObjectMapper mapper = new ObjectMapper();
+            String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
+            companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
+            companyPreferencesDao.saveOrUpdate(companyPreferences);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message", new String[]{}, Locale.US));
+        }
+    }
+
+    @Override
+    public OnBoarding getOnBoarding(Company company) {
+        try {
+            CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
+            String companyPreferencesJsonString = companyPreferences.getCompanyPreferences();
+            ObjectMapper mapper = new ObjectMapper();
+            companyPreferencesJson = mapper.readValue(companyPreferencesJsonString, CompanyPreferencesJson.class);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+        }
+        return companyPreferencesJson.getOnBoarding();
     }
 
 }

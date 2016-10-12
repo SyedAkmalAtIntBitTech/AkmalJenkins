@@ -12,6 +12,7 @@ import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.modelmappers.EmailSettings;
 import com.intbittech.modelmappers.FacebookDataDetails;
 import com.intbittech.modelmappers.FooterDetails;
+import com.intbittech.modelmappers.OnBoarding;
 import com.intbittech.modelmappers.Tooltips;
 import com.intbittech.modelmappers.TwitterDataDetails;
 import com.intbittech.modelmappers.UserProfileColorDetails;
@@ -68,5 +69,9 @@ public interface CompanyPreferencesService {
     public void setTooltips(Tooltips tooltips,Company company);
     
     public Tooltips getTooltips(Company company);
+    
+    public void setOnBoarding(OnBoarding onBoarding, Company company);
+    
+    public OnBoarding getOnBoarding(Company company);
     
 }
