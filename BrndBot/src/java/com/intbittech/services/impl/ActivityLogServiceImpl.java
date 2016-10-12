@@ -221,6 +221,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     /**
      * {@inheritDoc}
      */
+    /* Alternate asynchronous method using runnable */
     @Async
     public void activityLogSave(ActivityLogDetails activityLogDetails) throws ProcessFailed {
         try{
