@@ -114,6 +114,16 @@
                 </div>
             </div>
             <div class="input-wrap">
+                <label> Enter a from Address</label>
+                <div class="input">
+                    <input id="recurring_from_address" class="fluid" type="text" ng-model="automationData.fromAddress"  ng-class="{'invalid-input': automationData.fromAddress === '' || null || entity_details.recurring_email_from_address === '' || null }" required  placeholder="Enter from Address" 
+                           value="{{entity_details.recurring_email_from_address}}"/>
+                    <span class="validationAlert" ng-if='automationData.fromAddress === "" || null'>{{fromAddressValidation}}</span>
+                    <span class="validationAlert" ng-if="validateFromEmailAddress">{{fromAddressValidation}}</span>
+                    <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
+                </div>
+            </div>
+            <div class="input-wrap">
                 <label> Enter a Reply to Address</label>
                 <div class="input">
                     <input id="reply_address" class="fluid" ng-model="automationData.replyAddress" ng-class="{'invalid-input': automationData.replyAddress === '' || null}" type="text" 

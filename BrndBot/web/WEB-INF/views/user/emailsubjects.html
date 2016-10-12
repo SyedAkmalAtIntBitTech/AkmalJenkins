@@ -30,6 +30,7 @@
                 <span class="validationAlert" ng-show="isEmailSubEmpty">{{subjectValidation}}</span>
 
             </div>
+            <p class="input-wrap-label"> This is the subject line your clients will see in their inbox.</p>
              <div class="input-wrap hide">
                 <label> Enter Preheader Text</label>
                 <div class="input ">
@@ -41,7 +42,7 @@
     </div>    
 </div>
 <div class="bb-bottom-cta-bar">
-    <a class="bb-bottom-cta-continue-button bb-ease-all" ng-class="{'bb-valid': $parent.emailsubject.length>0}" ng-click="redirect('emaileditor','','','','','','',emailsubject,preheader)" >
+    <a class="bb-bottom-cta-continue-button bb-ease-all" ng-class="{'bb-valid': $parent.emailsubject.length>0}" ng-click="objectParameter.redirect='emaileditor';objectParameter.emailSubject=emailsubject;redirect();" >
         <div class="bb-bottom-cta-continue-button-text">Continue</div>
         <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
     </a>

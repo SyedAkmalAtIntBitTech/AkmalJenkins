@@ -8,7 +8,7 @@
 				if(settings.show_meridian){
 					return tim + " : " + mini + " : " + meri;
 				}else{
-					return tim + " : " + mini;
+					return tim + ":" + mini;
 				}
 			},
 			increase_direction: 'down',

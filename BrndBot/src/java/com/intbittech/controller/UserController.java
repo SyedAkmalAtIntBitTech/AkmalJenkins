@@ -95,7 +95,7 @@ public class UserController {
                     userCompanyDetails.setFranchiseId(franchiseCompanyLookup.getFkFranchiseId().getFranchiseId());
                     userCompanyDetails.setFranchiseName(franchiseCompanyLookup.getFkFranchiseId().getFranchiseName());
                     userCompanyDetails.setIsHeadquarter(franchiseCompanyLookup.getIsHeadQuarter());
-                 }
+                 }                 
                 userCompanyDetails.setUserId(userId);
                 userCompanyDetails.setCompanyId(usersRoleCompanyLookup.getCompanyId().getCompanyId());
                 userCompanyDetails.setCompanyName(usersRoleCompanyLookup.getCompanyId().getCompanyName());

@@ -1,9 +1,9 @@
 <div ng-include src="'addaction.html'"></div>
 
-         <div class="bb-main-container-wrap" ng-init="getProgramActions('emailautomation')">
+         <div class="bb-main-container-wrap" ng-init="getProgramActions('emailautomation');marketingTab.selectTab(4);">
                <div class="bb-top-nav" >
                 <div class="bb-bar-left-wrap bb-one-third-flex-col">
-                    <a class="bb-back-button" ng-click="backToPreviousPage('marketingprogramlists')" ></a>
+                    <a class="bb-back-button" ng-click="backToPreviousPage('marketingprogramlists');marketingTab.selectTab(1)" ></a>
                     <h3 class="bb-top-nav-title">{{programs.programdetails.programName}}</h3>
                     <input type="hidden" name="program_name2" id="program_name2" value="{{programs.programdetails.programName}}">
                 </div>
@@ -13,8 +13,8 @@
                 </div>
             </div>
              <div class="bb-top-sub-nav bb-top-sub-nav-backbutton-offset ">
-                <div class="bb-top-sub-nav-tab "  id="ovrviewli" ng-hide="checkProgramStatus()" ng-click="displayCampaignDetails()"><a ng-class="campaignDetailsClass">Campaign Details</a></div>
-                <div class="bb-top-sub-nav-tab"  id="actionsli" ng-click="displayCampaignActions();"><a ng-class="campaignActionsClass">Campaign Actions</a></div>
+                <div class="bb-top-sub-nav-tab "  id="ovrviewli" ng-hide="checkProgramStatus()" ng-click="marketingTab.selectTab(3)"><a ng-class="{activeCampaign:marketingTab.isSelected(3)}">Campaign Details</a></div>
+                <div class="bb-top-sub-nav-tab"  id="actionsli" ng-click="marketingTab.selectTab(4)"><a ng-class="{activeCampaign:marketingTab.isSelected(4)}">Campaign Actions</a></div>
                 
              </div>
              
@@ -22,7 +22,7 @@
 
 
 
-    <div class="bb-main-content-wrap bb-main-content-wrap-padding" id="" ng-show="showCampaignActions==true" ng-init='getAllUsersInCompany()'>
+    <div class="bb-main-content-wrap bb-main-content-wrap-padding" id="" ng-show="marketingTab.isSelected(4)" ng-init='getAllUsersInCompany()'>
         
              <div class="bb-panel-full-width bb-panel-styling">
                 <div class="bb-panel-header">
@@ -41,10 +41,14 @@
                                                 emailautomation.programTemplateName,
                                                 emailautomation.description,
                                                 emailautomation.postDateStatus,
+<<<<<<< HEAD
                                                 emailautomation.assignedFirstName,
                                                 emailautomation.assignedLastName,
                                                 emailautomation.assignedToInitialChars,
                                                 emailautomation.days)" ng-repeat="emailautomation in programs.emailautomation">
+=======
+                                                emailautomation.days);marketingTab.selectTab(6);" ng-repeat="emailautomation in programs.emailautomation">
+>>>>>>> development
                         <div class="bb-your-plan-icon-wrap">
                                      <div class="your-plan-icon" ng-show="emailautomation.status == 'Template Saved'"> 
                                          <img src="/BrndBot/images/email-auto/email-auto-icons_Pause-gray.svg">
@@ -100,7 +104,7 @@
                                             programaction.assignedToInitialChars,
                                             programaction.postDateStatus,
                                             programaction.days,
-                                            programs.programdetails.programName)">
+                                            programs.programdetails.programName);marketingTab.selectTab(6);">
                     <div class="bb-your-plan-icon-wrap no-template-icon">
                         <div class="your-plan-icon hint--top" ng-show="programaction.status == 'Template Saved'"  data-hint="Template Saved" > 
                         <img src="/BrndBot/images/template-saved.svg" />
@@ -140,7 +144,7 @@
 
             </div>
         </div>
-    <div class="bb-main-content-wrap bb-main-content-wrap-padding"  id="" ng-show="showCampaignDetails == true">
+    <div class="bb-main-content-wrap bb-main-content-wrap-padding"  id="" ng-show="marketingTab.isSelected(3)">
         <div ng-show="isProgramArchived" class="clickProofLayer"></div>
         <div class="bb-panel-styling bb-panel-full-width" >
             <div class="bb-panel-header">
@@ -169,7 +173,7 @@
                                 var picker = new Pikaday(
                                         {
                                             field: document.getElementById('progactdatepicker'),
-                                            format: 'MM DD YYYY',
+                                            format: kGlobalDateFormat,
                                             firstDay: 1,
                                             minDate: new Date(2000, 0, 1),
                                             maxDate: new Date(2050, 12, 31),

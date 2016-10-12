@@ -20,6 +20,7 @@ import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.ActivityLogDetails;
+import com.intbittech.modelmappers.SentEmailDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
@@ -56,8 +57,11 @@ import com.intbittech.social.PostToFacebook;
 import com.intbittech.social.PostToTwitter;
 import com.intbittech.utility.IConstants;
 import com.intbittech.utility.Utility;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.TimeZone;
 //import java.sql.Date;
 
 /**
@@ -75,6 +79,11 @@ public class YourPlanController {
     @Autowired
     private ActivityLogService activityLogService;
 
+    @Autowired
+     PostToFacebook postToFacebook;
+
+    @Autowired
+    PostToTwitter postToTwitter;
     @RequestMapping(value = "/GetScheduledEntities", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> GetScheduledEntities(HttpServletRequest request, HttpServletResponse response) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
@@ -242,12 +251,16 @@ public class YourPlanController {
             try (Connection conn = ConnectionManager.getInstance().getConnection()) {
                 conn.setAutoCommit(false);
                 String type = (String) requestBodyMap.get("type");
+                DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                format.setTimeZone(TimeZone.getTimeZone("UTC"));
                 if (type.equalsIgnoreCase("save")) {
                     String templateStatus = TemplateStatus.no_template.toString();
                     if (ScheduledEntityType.Reminder.toString().equals(requestBodyMap.get("actiontype").toString().toLowerCase())) {
                         templateStatus = TemplateStatus.incomplete.toString();
                     }
                     try {
+                        Date date = new Date(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue());
+                        String dateTime = format.format(date);
                         Double tempmarketingType = new Double(requestBodyMap.get("marketingType").toString().trim());
                         Double tempDays = new Double(requestBodyMap.get("days").toString().trim());
                         Integer marketingType = tempmarketingType.intValue();
@@ -258,7 +271,7 @@ public class YourPlanController {
                                 requestBodyMap.get("title").toString(),
                                 marketingType,
                                 requestBodyMap.get("description").toString(),
-                                new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()),
+                                Timestamp.valueOf(dateTime),
                                 requestBodyMap.get("actiontype").toString(),
                                 days.toString().trim(),
                                 templateStatus,
@@ -478,8 +491,8 @@ public class YourPlanController {
                 String title = request.getParameter("title");
                 String description = request.getParameter("description");
                 String url1 = request.getParameter("url");
-                returnMessage = PostToFacebook.postStatus(title,
-                        file_image_path, posttext, imagePostURL, getImageFile, url1,
+                returnMessage = postToFacebook.postStatus(title, 
+                        file_image_path, posttext, imagePostURL, getImageFile, url1, 
                         description, imageType, userCompanyIds.getCompanyId(), htmlString);
             }
             if (isTwitter.equalsIgnoreCase("true")) {
@@ -487,7 +500,7 @@ public class YourPlanController {
                 String text = request.getParameter("text");
                 String shortURL = request.getParameter("shorturl");
                 PrintWriter out1 = response.getWriter();
-                returnMessage = PostToTwitter.postStatus(
+                returnMessage = postToTwitter.postStatus( 
                         imageType, text, shortURL, file_image_path, userCompanyIds.getCompanyId(), htmlString, getImageFile);
                 transactionResponse.setMessage(returnMessage);
             }
@@ -505,5 +518,31 @@ public class YourPlanController {
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "/getSentEmailDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getSentEmailDetails(HttpServletRequest request, HttpServletResponse response) {
+        GenericResponse<SentEmailDetails> genericResponse = new GenericResponse<>();
+        try {
+            List<SentEmailDetails> sentEmailDetailsList = new ArrayList<>();
+            SentEmailDetails sentEmailDetails = new SentEmailDetails();
+            sentEmailDetails.setOpenRate(14.5);
+            sentEmailDetails.setClickThroughRate(1.3);
+            sentEmailDetails.setUnSubscribes(6);
+            sentEmailDetails.setSentNumbers(4560);
+            sentEmailDetails.setHardBounces(5);
+            sentEmailDetails.setSentDateTime(1472483064L);
+            sentEmailDetails.setSubjectLine("Subject Line Goes Here..");
+            sentEmailDetails.setFromName("From name goes here...");
+            sentEmailDetails.setReplyToAddress("Andy@brndbot.com");
+            sentEmailDetails.setHtmlData("<h1>HTML BODY</h1>");
+            sentEmailDetailsList.add(sentEmailDetails);
+            genericResponse.setDetails(sentEmailDetailsList);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 }

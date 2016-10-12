@@ -216,7 +216,7 @@ public class FranchiseServiceImpl implements FranchiseService {
     public FranchiseCompanyLookup getFranchiseByCompanyId(Integer companyId) throws ProcessFailed {
         FranchiseCompanyLookup franchiseCompanyLookup = franchiseCompanyLookupDao.getFranchiseByCompanyId(companyId);
 //        if (franchiseCompanyLookup == null) {
-////            throw new ProcessFailed("No Franchise with company id" + companyId + ".");
+//            throw new ProcessFailed("No Franchise with company id" + companyId + ".");
 //        }
         return franchiseCompanyLookup;
     }

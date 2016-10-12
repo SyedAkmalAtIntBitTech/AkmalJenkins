@@ -23,9 +23,13 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
@@ -89,7 +93,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
 
         try {
 
-            Double schedule = (Double) requestBodyMap.get("schedule_time");
+//            Double schedule = (Double) requestBodyMap.get("schedule_time");
             //As of now schedule description is not yet mandatory.
             String scheduleDesc = requestBodyMap.containsKey("schedule_desc")
                     ? String.valueOf(requestBodyMap.get("schedule_desc")) : null;
@@ -110,7 +114,10 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                 File file = new File(path);
                 html_text = FileUtils.readFileToString(file, "UTF-8");
             }
-
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            format.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date date = new Date(Double.valueOf(requestBodyMap.get("schedule_time").toString()).longValue());
+            String dateTime = format.format(date);
             Map<String, Integer> idMap = ScheduleDAO.addToScheduledEmailList(
                     companyId,
                     requestBodyMap.get("email_subject").toString(),
@@ -124,7 +131,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                     //                    requestBodyMap.get("to_email_addresses").toString().split(","),
                     requestBodyMap.get("schedule_title").toString(),
                     scheduleDesc,
-                    new Timestamp(schedule.longValue()),
+                    Timestamp.valueOf(dateTime),
                     TemplateStatus.template_saved.toString(),
                     requestBodyMap.get("html_body").toString(), createdBy, userAssignToId
             );
@@ -258,10 +265,12 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
         try (Connection conn = ConnectionManager.getInstance().getConnection()) {
             conn.setAutoCommit(false);
             try {
-//                for (Map<String, Object> requestBodyMap : requestBodyList) {
-                Double schedule = (Double) requestBodyMap.get("schedule_time");
 
-                Timestamp scheduleTimeStamp = new Timestamp(schedule.longValue());
+                Double schedule = (Double) requestBodyMap.get("schedule_time");
+                DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                format.setTimeZone(TimeZone.getTimeZone("UTC"));
+                Date date = new Date(Double.valueOf(requestBodyMap.get("schedule_time").toString()).longValue());
+                String dateTime = format.format(date);
                 String metadataString = requestBodyMap.get("metadata").toString();
                 String marketing_program_id = (String) requestBodyMap.get("program_id");
                 //As of now schedule description is not yet mandatory.
@@ -280,12 +289,11 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                         requestBodyMap.get("type").toString(),
                         requestBodyMap.get("schedule_title").toString(),
                         scheduleDesc,
-                        scheduleTimeStamp,
+                        Timestamp.valueOf(dateTime),
                         TemplateStatus.template_saved.toString(),
                         imageType, createdBy, userAssignToId,
                         conn);
                 daoResponseList.add(daoResponse);
-//                }
                 conn.commit();
                 Integer scheduleEntityId = daoResponse.get("schedule_entity_id");
                 ActivityLogDetails activityLogDetails = new ActivityLogDetails();

@@ -10,7 +10,7 @@
 body{
     display: block;
     background-color: #EFF2F6;
-    font-family: "proxima nova";
+    font-family: "proxima nova", 'open-sans', sans-serif;
     box-sizing: border-box;
     margin: 0px;
     font-weight: 500 !important;
@@ -254,7 +254,7 @@ a {
 }
 
 .login-col header{
-    margin: 0px auto 20px auto;
+    margin: 0px auto 30px auto;
     text-align: center;
 }
 
@@ -1822,7 +1822,7 @@ li.sub-nav-tab.active a{
 
 .sendOrSchedulePopup{
     position:  fixed;
-    top: 15vh;
+    top: 5vh;
     left: 45vh;
     z-index:150;
 }
@@ -2787,8 +2787,8 @@ p.modal-content-header{
 }
 
 .social-channel-icon{
-    width:25px;
-    height: 25px;
+    width:35px;
+    height: 35px;
     margin-right: 20px;
 }
 
@@ -3021,14 +3021,13 @@ p.modal-content-header{
 }
 
 .email-preview-bar{
-    border-top: 1px solid lightgray;
-    border-bottom: 1px solid lightgray;
+    border-top: 1px solid #DCE2E8; 
+   border-bottom: 1px solid #DCE2E8;
     background-color: #fafafa;
     font-size: 12px;
-
     margin-top: 30px;
     padding: 15px 60px;
-    color: #AFB0B4;
+    color: #7d97ad;
 }
 
 
@@ -4512,9 +4511,6 @@ textarea.task-textarea:focus{
 }
 
 
-.social-channel-icon{
-    height: 35px;
-}
 
 .facebook-settings-update-container{
     display: inline-flex;
@@ -5099,11 +5095,19 @@ textarea.task-textarea:focus{
 
 .bb-top-nav-title{
     margin-left: 30px;
+    max-height: 50px;
 }
 .bb-bar-left-wrap{
     display: inline-flex;
 
     justify-content: left;
+}
+
+.bb-label-optional-text{
+    margin-left: 7px;
+    font-size: 12px;
+    color: #AAA;
+    letter-spacing: .3px;
 }
 
 .bb-bar-center-wrap{
@@ -5127,11 +5131,27 @@ textarea.task-textarea:focus{
     flex: 0 0 50%;
 }
 
+.bb-overlay-button-wrap{
+    margin-left: 60px;
+    margin-top: 30px;
+}
+
+.bb-rotate-element-180{
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+.bb-dropdown-padding{
+    margin-top: 10px;
+}
 .bb-main-content-wrap{
     flex: auto;
     flex-basis: auto;
     width: 100%;
     overflow-y: scroll;
+    height: calc(100vh - 100px);
 }
 
 .bb-main-content-wrap-padding{
@@ -5141,7 +5161,9 @@ textarea.task-textarea:focus{
 .bb-main-content-wrap-emaillist{
         height: 75vh;
 }
-
+.bb-comment-button{
+    margin-top: 10px;
+}
 .bb-panel-styling{
     border: 1px #C7D0D9 solid;
     border-radius: 3px;
@@ -5171,6 +5193,16 @@ textarea.task-textarea:focus{
     margin: auto;
 }
 
+.sentEmailDetailsPopupClass{
+     display: block;
+     margin-right: 0px !important;
+}
+
+#email_previewdiv {
+    position: fixed;
+    margin-top: 5%;
+    z-index: 99999;
+}
 .bb-panel-email-automation-preview{
     width: 1200px;
     margin: auto;
@@ -5190,6 +5222,17 @@ textarea.task-textarea:focus{
     flex-direction: row;
     line-height: 55px;
     border-bottom: 1px #C7D0D9 solid;
+    width: 100%;
+    padding: 0px 30px;
+    align-items: center;
+}
+
+.bb-panel-footer{
+    height: 40px;
+    display: inline-flex;
+    flex-direction: row;
+    line-height: 55px;
+    border-top: 1px #C7D0D9 solid;
     width: 100%;
     padding: 0px 30px;
     align-items: center;
@@ -5448,6 +5491,10 @@ textarea.task-textarea:focus{
     align-content: stretch;
 }
 
+.bb-email-auto-height{
+    height: calc(100vh - 100px);
+}
+
 .bb-clickable-slat{
     width: 100%;
     display: flex;
@@ -5553,6 +5600,10 @@ textarea.task-textarea:focus{
 
 }
 
+.bb-your-plan-icon-svg{
+    width: 40px;
+}
+
 .bb-dash-panel-cta-wrap{
     display: flex;
     flex-direction: row;
@@ -5571,6 +5622,16 @@ textarea.task-textarea:focus{
 
 .bb-button:nth-of-type(1){
     margin-right: 20px;
+}
+
+.bb-button-large{
+     border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 15px 25px;
+    display: inline-block;
+    line-height: 100%;
+    cursor: pointer;
 }
 
 
@@ -5754,6 +5815,7 @@ textarea.task-textarea:focus{
 
 .bb-panel-content-wrap-max-height{
     max-height: 350px;
+    overflow-y: scroll;
 }
 
 .bb-palette{
@@ -5776,6 +5838,14 @@ textarea.task-textarea:focus{
     padding: 20px 0px;
 }
 
+.powered-by-mb-logo{
+    background-image: url(/BrndBot/images/poweredbymindbody.png) ;
+    height: 30px;
+    width: 100px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    
+}
 /*------- INPUT -----*/
 
 .input input{
@@ -6176,15 +6246,15 @@ h3{
 }
 
 img#prevfbimg {
-    width: 100%;
-    height: 245px;
-    margin-left: -2px;
+    max-width: 600px;
+    max-height: 300px;
+    
 }
 
 .top-subnav-link-active-detail-Class {
-    border-bottom: 3px #0F76A6 solid;
+    box-shadow: inset 0 -3px #0F76A6;
     color: #0F76A6;
-    font-size: 14px;
+    font-size: 16px;
 }
 /*....popup.css and style_detail_overlay_6.css Ends.....*/
 

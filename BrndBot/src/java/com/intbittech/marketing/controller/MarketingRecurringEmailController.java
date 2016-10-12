@@ -26,6 +26,8 @@ import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.ActivityLogDetails;
 import com.intbittech.services.ActivityLogService;
+import com.intbittech.model.UserProfile;
+import com.intbittech.modelmappers.EmailSettings;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.ContactEmailListLookupService;
@@ -238,7 +240,7 @@ public class MarketingRecurringEmailController {
             SqlMethods sql_methods = new SqlMethods();
 
             Company company = new Company(userCompanyIds.getCompanyId());
-            org.json.simple.JSONObject json_object_email_settings = companyPreferencesService.getEmailSettings(company);
+            EmailSettings emailSettings = companyPreferencesService.getEmailSettings(company);
 
             Double entity_id = (Double) requestBodyMap.get("entity_id");
             String days = (String) requestBodyMap.get("days");
@@ -255,7 +257,7 @@ public class MarketingRecurringEmailController {
             scheduled_email_list.setFkCompanyId(company);
             scheduled_email_list.setSubject(subject);
             scheduled_email_list.setBody(html_data);
-            String from_address = (String) json_object_email_settings.get(IConstants.kEmailFromAddress);
+            String from_address = emailSettings.getFromAddress();
             scheduled_email_list.setFromAddress(from_address);
             scheduled_email_list.setEmailListName(emaillist);
             scheduled_email_list.setFromName(from_name);
@@ -304,6 +306,7 @@ public class MarketingRecurringEmailController {
 
             String subject = (String) requestBodyMap.get("subject");
             String from_name = (String) requestBodyMap.get("from_name");
+            String from_address = (String) requestBodyMap.get("from_address");
             String reply_to_address = (String) requestBodyMap.get("reply_to_address");
             String recurring_email_title = (String) requestBodyMap.get("recurring_email_title");
             String recurring_email_description = (String) requestBodyMap.get("recurring_email_description");
@@ -314,7 +317,7 @@ public class MarketingRecurringEmailController {
             Date till_date = new Date(till_date_epoch.longValue());
 
             String schedule_time = (String) requestBodyMap.get("schedule_time_epoch");
-            SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm:a");
+            SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm a");
             Date time = formatterTime.parse(schedule_time);
 
             String program_id = (String) requestBodyMap.get("program_id");
@@ -326,13 +329,16 @@ public class MarketingRecurringEmailController {
             company.setCompanyId(userCompanyIds.getCompanyId());
             schedule_email_list.setFkCompanyId(company);
             schedule_email_list.setEmailListName(emaillist);
-            org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject) getFromAddress(userCompanyIds.getCompanyId());
+//            org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject) getFromAddress(userCompanyIds.getCompanyId());
+//
+//            if (jsonFromAddress != null) {
+//                schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
+//            }
 
-            if (jsonFromAddress != null) {
-                schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
-            }
-
+//            String fromAddress = getFromAddress(userCompanyIds.getCompanyId());
+//            schedule_email_list.setFromAddress(fromAddress);
             schedule_email_list.setFromName(from_name);
+            schedule_email_list.setFromAddress(from_address);
             schedule_email_list.setReplyToEmailAddress(reply_to_address);
             schedule_email_list.setSubject(subject);
 
@@ -399,6 +405,7 @@ public class MarketingRecurringEmailController {
 
             String subject = (String) requestBodyMap.get("subject");
             String from_name = (String) requestBodyMap.get("from_name");
+            String from_address = (String) requestBodyMap.get("from_address");
             String reply_to_address = (String) requestBodyMap.get("reply_to_address");
             String recurring_email_title = (String) requestBodyMap.get("recurring_email_title");
             String recurring_email_description = (String) requestBodyMap.get("recurring_email_description");
@@ -407,7 +414,7 @@ public class MarketingRecurringEmailController {
             Date till_date = new Date(till_date_epoch.longValue());
 
             String schedule_time = (String) requestBodyMap.get("schedule_time_epoch");
-            SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm:a");
+            SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm a");
             Date time = formatterTime.parse(schedule_time);
 
             String program_id = (String) requestBodyMap.get("program_id");
@@ -419,15 +426,18 @@ public class MarketingRecurringEmailController {
             Company company = companyService.getCompanyById(userCompanyIds.getCompanyId());
             schedule_email_list.setFkCompanyId(company);
             schedule_email_list.setEmailListName(emaillist);
-            org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject) getFromAddress(userCompanyIds.getCompanyId());
+//            org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject) getFromAddress(userCompanyIds.getCompanyId());
+//
+//            if (jsonFromAddress != null) {
+//                schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
+//            }
 
-            if (jsonFromAddress != null) {
-                schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
-            }
-
+//            String fromAddress = getFromAddress(userCompanyIds.getCompanyId());
+//            schedule_email_list.setFromAddress(fromAddress);
             schedule_email_list.setFromName(from_name);
             schedule_email_list.setReplyToEmailAddress(reply_to_address);
             schedule_email_list.setSubject(subject);
+            schedule_email_list.setFromAddress(from_address);
 
             schedule_email_list.setFkScheduledEntityListId(null);
 
@@ -493,6 +503,7 @@ public class MarketingRecurringEmailController {
             String emaillist = (String) requestBodyMap.get("emaillist");
             String subject = (String) requestBodyMap.get("subject");
             String from_name = (String) requestBodyMap.get("from_name");
+            String from_address = (String) requestBodyMap.get("from_address");
             Double template_id = (Double) requestBodyMap.get("template_id");
             String html_data = (String) requestBodyMap.get("html_data");
             String html_body = (String) requestBodyMap.get("html_body");
@@ -510,7 +521,7 @@ public class MarketingRecurringEmailController {
             Date till_date = new Date(till_date_epoch.longValue());
 
             String schedule_time = (String) requestBodyMap.get("schedule_time_epoch");
-            SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm:a");
+            SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm a");
             Date time = formatterTime.parse(schedule_time);
 
             String program_id = (String) requestBodyMap.get("program_id");
@@ -548,13 +559,16 @@ public class MarketingRecurringEmailController {
 
             schedule_email_list.setEmailListName(emaillist);
             schedule_email_list.setBody(html_data);
+            String fromAddress = getFromAddress(userCompanyIds.getCompanyId());
+            schedule_email_list.setFromAddress(fromAddress);
             schedule_email_list.setHtmlBody(html_body);
-            org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject) getFromAddress(userCompanyIds.getCompanyId());
-
-            if (jsonFromAddress != null) {
-                schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
-            }
+//            org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject) getFromAddress(userCompanyIds.getCompanyId());
+//
+//            if (jsonFromAddress != null) {
+//                schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
+//            }
             schedule_email_list.setFromName(from_name);
+            schedule_email_list.setFromAddress(from_address);
             schedule_email_list.setReplyToEmailAddress(reply_to_address);
             schedule_email_list.setSubject(subject);
 
@@ -580,33 +594,17 @@ public class MarketingRecurringEmailController {
         return "true";
     }
 
-    public org.json.simple.JSONObject getFromAddress(Integer companyId) {
+    public String getFromAddress(Integer companyId) {
         try {
             Company company = new Company(companyId);
-            org.json.simple.JSONObject json_object_email_settings = companyPreferencesService.getEmailSettings(company);
-
-            String from_address = (String) json_object_email_settings.get(IConstants.kEmailFromAddress);
-
-            return json_object_email_settings;
+            EmailSettings emailSettings = companyPreferencesService.getEmailSettings(company);
+            String from_address = emailSettings.getFromAddress();
+            return from_address;
         } catch (Throwable throwable) {
             logger.log(Level.SEVERE, "Exception while getting the from address:", throwable);
         }
         return null;
     }
-
-    @RequestMapping(value = "/getUserPreferences", method = RequestMethod.GET)
-    public @ResponseBody
-    String getUserPreferences(HttpServletRequest request,
-            HttpServletResponse response, @RequestParam("companyId") Integer companyId) throws IOException {
-
-        SqlMethods sql_methods = new SqlMethods();
-
-        org.json.simple.JSONObject from_address = (org.json.simple.JSONObject) getFromAddress(companyId);
-
-        return from_address.toString();
-
-    }
-
     @RequestMapping(value = "/getRecurringEntity", method = RequestMethod.POST)
     public @ResponseBody
     String getRecurringEntity(HttpServletRequest request,HttpServletResponse response) throws IOException {

@@ -3,31 +3,23 @@
                 <h2>{{header}}</h2>
             </div>
             <div class="bb-panel-content-wrap-clickable-slats">
-                <div ng-show="pageName === 'email'" ng-repeat="category in displayAllCategories | filter:userSearch">
-                    <div class="bb-clickable-slat" ng-click="redirect(forward, category.categoryId)">                   
-                        <h3 >{{category.categoryName}}</h3>  
-                        <a id="categoryId" href="#/emailsubcategory" ng-click="setCategoryID(1)">
-                            <div class="cat-slat-title">Category 1</div>
-                        </a>
-                    </div>
-                </div>
                 <div  ng-show="pageName === 'marketing'"  ng-repeat="marketingCategory in marketingCategories">
-                    <div class="bb-clickable-slat" <h3 ng-click="redirect(forward, marketingCategory.marketingCategoryId, 'nonmindbody', '', '','','','','')">
+                    <div class="bb-clickable-slat" ng-click="marketingFlowObject.marketingCategoryId=marketingCategory.marketingCategoryId;marketingFlowObject.mindbody='nonmindbody';redirect(forward);">
                         <h3>{{marketingCategory.marketingCategoryName}} </h3>
                     </div>  
                 </div>
                 <div ng-show="pageName === 'emailcategory'" ng-repeat="category in displayAllCategories">
-                    <div class="bb-clickable-slat" ng-click="redirect(forwardone, category.categoryId, '' ,'nonmindbody', '','', '', '', '')">                   
+                    <div class="bb-clickable-slat" ng-click="objectParameter.categoryId=category.categoryId;objectParameter.mindbody='nonmindbody';redirect();">                   
                         <h3>{{category.categoryName}}</h3>                    
                     </div>
                 </div>
                 <div ng-show="pageName === 'emailsubcategory'" ng-repeat="subcategory in displayAllCategories">
-                    <div class="bb-clickable-slat" ng-click="redirect(forwardone, '', subcategory.subCategoryId, subcategory.externalSourceName, subcategory.externalSourceKeywordLookupId)">                  
+                    <div class="bb-clickable-slat" ng-click="objectParameter.subCategoryId=subcategory.subCategoryId;objectParameter.mindbody=subcategory.externalSourceName;objectParameter.lookupId=subcategory.externalSourceKeywordLookupId;redirect();">                  
                         <h3>{{subcategory.subCategoryName}}</h3>                    
                     </div>
                 </div>
                 <div  ng-show="pageName === 'marketingPrograms'" ng-repeat="displayAllMarketingProgram in displayAllMarketingPrograms">
-                    <div class="bb-clickable-slat" id="{{displayAllMarketingProgram.marketingProgramId}}" ng-click="redirectProgram(forward, marketingCategoryId, displayAllMarketingProgram.marketingProgramId, displayAllMarketingProgram.htmlData)">
+                    <div class="bb-clickable-slat" id="{{displayAllMarketingProgram.marketingProgramId}}" ng-click="marketingFlowObject.marketingCategoryId=marketingCategoryId;marketingFlowObject.marketingProgramId=displayAllMarketingProgram.marketingProgramId;marketingFlowObject.htmlData=displayAllMarketingProgram.htmlData;redirectProgram(forward);">
                         <h3>{{displayAllMarketingProgram.marketingProgramName}}</h3>
                     </div>
                 </div> 

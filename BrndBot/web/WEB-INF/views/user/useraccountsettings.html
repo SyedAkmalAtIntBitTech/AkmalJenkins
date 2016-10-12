@@ -12,7 +12,23 @@
                          <h3>Update your company Address</h3>
                         <!--<p>These are the default email settings, they can be overridden when you send out an email.</p>-->
                      </div>
-                    <div class="input-wrap">
+                        <div class="input-wrap">
+                    <label>Enter Company Address</label>
+                    <div class="input">
+                        <input onFocus="geolocate()" class="fluid" id="companyAddress" ng-model="companyDetails.companyAddress" placeholder="Company Address" ng-class="{'invalid-input': companyData.companyAddress === '' || null}"></input>
+                    </div>
+                    <div class="hide">
+                        <input ng-model="companyDetails.addressline1" id="street_number">
+                        <input ng-model="companyDetails.addressline2" id="route">
+                        <input ng-model="companyDetails.city" id="locality">
+                        <input ng-model="companyDetails.state" id="administrative_area_level_1">
+                        <input ng-model="companyDetails.zipcode" id="postal_code">
+                        <input ng-model="companyDetails.country" id="country">
+                    </div> 
+                    <span class="validationAlert" ng-if='companyDetails.companyAddress == "" || null' >{{companyAddressValidation}}</span>
+                    <span class="validationAlert" ng-if='companyDetails.addressline2 == "" || companyDetails.zipcode == ""' id="invalidCompanyAddressValidation">{{invalidCompanyAddressValidation}}</span>
+                    </div>
+<!--                    <div class="input-wrap">
                     <label>Company Address Line 1</label>
                     <div class="input">
                         <input class="fluid" id="addressLine1" ng-model="companyAddressDetails.addressLine1" ng-class="{'invalid-input': companyAddressDetails.addressLine1 === '' || null}" placeholder="Address Line 1"/>
@@ -24,7 +40,7 @@
                         <div class="input">
                             <input class="fluid" id="addressLine2" ng-model="companyAddressDetails.addressLine2" ng-class="{'invalid-input': companyAddressDetails.addressLine2 === '' || null}" placeholder="Address Line 2"/>
                         </div>
-                        <!--<span class="validationAlert" ng-if='companyAddressDetails.addressLine2 == "" || null'  >{{addressLine2Validation}}</span>-->
+                        <span class="validationAlert" ng-if='companyAddressDetails.addressLine2 == "" || null'  >{{addressLine2Validation}}</span>
                     </div>
                     <div class="input-wrap">
                         <label>City</label>
@@ -53,9 +69,9 @@
                             <input class="fluid" id="country" ng-model="companyAddressDetails.country"  ng-class="{'invalid-input': companyAddressDetails.country === '' || null}" placeholder="Country"/>
                         </div>
                         <span class="validationAlert" ng-if='companyAddressDetails.country == "" || null' >{{countryValidation}}</span>
-                    </div>
+                    </div>-->
                     <div class="update-container">
-                        <a class="long-button gray-button" ng-click="updateCompanyAddress(companyAddressDetails)">Update Company Address</a>
+                        <a class="long-button gray-button" ng-click="updateCompanyAddress(companyDetails)">Update Company Address</a>
                     </div>
                 </div>
                  
@@ -72,7 +88,7 @@
                 <div class="hub-section">
                      <div class="section-header">
                          <h3>List of Users</h3>
-                        <p>These are the default email settings, they can be overridden when you send out an email.</p>
+                        <p>Add all of your team members and give them different permissions.</p>
                      </div>
                     <div class="user-slat" ng-repeat="users in invitedUsers">
                         <div class="user-email-address">{{users.emailID}}</div>
@@ -93,3 +109,4 @@
      
     
     </div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-aw9KjncC2ozrBz6glsVjNjW9Fkmy8ME&libraries=places&callback=initAutocomplete" async defer></script>
