@@ -998,7 +998,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 var end = moment(currDate);
                 days = start.diff(end, "days");
             }
-            var actionDateTime = $("#timepickertextbox").val();
+            var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
             var timeValues = [];
             timeValues = actionDateTime.split(":");
             var hours = timeValues[0];
