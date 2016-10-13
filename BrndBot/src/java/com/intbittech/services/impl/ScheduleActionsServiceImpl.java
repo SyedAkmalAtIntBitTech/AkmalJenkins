@@ -98,7 +98,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
             String scheduleDesc = requestBodyMap.containsKey("schedule_desc")
                     ? String.valueOf(requestBodyMap.get("schedule_desc")) : null;
             String marketing_program_id = (String) requestBodyMap.get("program_id");
-            String userAssignedToString = (String) requestBodyMap.get("userAssignedTo");
+            String userAssignedToString = requestBodyMap.get("userAssignedTo").toString();
             if (StringUtility.isEmpty(userAssignedToString)) {
                 userAssignedToString = "0.0";
             }
@@ -152,7 +152,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                 activityLogDetailsObject.setActionTitle(requestBodyMap.get("schedule_title").toString());
                 activityLogService.saveActivityLog(activityLogDetailsObject);
                 ActivityLogDetails activityLog = new ActivityLogDetails();
-                activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_ASSIGNED_TO_ID.getId());
+                activityLog.setActivityId(ActivityStatus.ACTIVITY_ASSIGNED_TO_ID.getId());
                 activityLog.setScheduledEntityId(scheduleEntityId);
                 activityLog.setCreatedBy(createdBy);
                 activityLog.setCompanyId(companyId);

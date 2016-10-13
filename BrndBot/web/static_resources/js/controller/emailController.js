@@ -1374,11 +1374,14 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 if (pushedEmail){
                     $location.path("/franchisecompanies");
                     settingsFactory.getEmailSettingsGet().then(function (data) {
-                        var parseData = JSON.parse(data.d.details);
-                        if (parseData){
-                            $scope.email_settings = parseData;
-                            $scope.postData.replyAddress = parseData.reply_email_address;
-                            $scope.postData.fromName = parseData.from_name;
+                        console.log(JSON.stringify(data.d.details[0]));
+                        var parseData = JSON.parse(data.d.details[0]);
+                        var emailSettingsData = parseData.emailSettings;
+                        if (emailSettingsData){
+                            $scope.email_settings = emailSettingsData;
+                            $scope.postData.replyAddress = emailSettingsData.reply_email_address;
+                            $scope.postData.fromName = emailSettingsData.from_name;
+                            $scope.postData.fromAddress = emailSettingsData.from_address;
                             $scope.postData.emailSubject = kGlobalEmailObject.emailSubject;
                             $scope.postData.toAddress = "intbit@intbittech.com";
                         }else {
