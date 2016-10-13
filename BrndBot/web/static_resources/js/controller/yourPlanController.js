@@ -1023,6 +1023,9 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.dateLesser = false;
                 growl("Action Saved");
                 $scope.getActionComments(schedule_id);
+                $scope.closePopup();
+                $scope.getCampaigns();
+                growl("Action Saved");
             });
 //        }
         };
