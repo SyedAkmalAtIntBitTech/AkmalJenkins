@@ -80,10 +80,11 @@ public class YourPlanController {
     private ActivityLogService activityLogService;
 
     @Autowired
-     PostToFacebook postToFacebook;
+    PostToFacebook postToFacebook;
 
     @Autowired
     PostToTwitter postToTwitter;
+
     @RequestMapping(value = "/GetScheduledEntities", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> GetScheduledEntities(HttpServletRequest request, HttpServletResponse response) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
@@ -308,10 +309,12 @@ public class YourPlanController {
                 } else if (type.equalsIgnoreCase("update")) {
                     String scheduleID = (String) requestBodyMap.get("schedule_id");
                     try {
+                        Date date = new Date(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue());
+                        String dateTime = format.format(date);
                         int scheduleId = ScheduleDAO.updateScheduledEntity(Integer.parseInt(scheduleID),
                                 requestBodyMap.get("title").toString(),
                                 requestBodyMap.get("description").toString(),
-                                new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()),
+                                Timestamp.valueOf(dateTime),
                                 requestBodyMap.get("actiontype").toString(),
                                 userCompanyIds.getCompanyId(),
                                 Integer.parseInt(requestBodyMap.get("days").toString()),
@@ -491,8 +494,8 @@ public class YourPlanController {
                 String title = request.getParameter("title");
                 String description = request.getParameter("description");
                 String url1 = request.getParameter("url");
-                returnMessage = postToFacebook.postStatus(title, 
-                        file_image_path, posttext, imagePostURL, getImageFile, url1, 
+                returnMessage = postToFacebook.postStatus(title,
+                        file_image_path, posttext, imagePostURL, getImageFile, url1,
                         description, imageType, userCompanyIds.getCompanyId(), htmlString);
             }
             if (isTwitter.equalsIgnoreCase("true")) {
@@ -500,7 +503,7 @@ public class YourPlanController {
                 String text = request.getParameter("text");
                 String shortURL = request.getParameter("shorturl");
                 PrintWriter out1 = response.getWriter();
-                returnMessage = postToTwitter.postStatus( 
+                returnMessage = postToTwitter.postStatus(
                         imageType, text, shortURL, file_image_path, userCompanyIds.getCompanyId(), htmlString, getImageFile);
                 transactionResponse.setMessage(returnMessage);
             }

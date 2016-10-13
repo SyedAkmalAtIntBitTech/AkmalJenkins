@@ -998,7 +998,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 var end = moment(currDate);
                 days = start.diff(end, "days");
             }
-            var actionDateTime = $("#timepickertextbox").val();
+            var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
             var timeValues = [];
             timeValues = actionDateTime.split(":");
             var hours = timeValues[0];
@@ -1023,6 +1023,9 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.dateLesser = false;
                 growl("Action Saved");
                 $scope.getActionComments(schedule_id);
+                $scope.closePopup();
+                $scope.getCampaigns();
+                growl("Action Saved");
             });
 //        }
         };
