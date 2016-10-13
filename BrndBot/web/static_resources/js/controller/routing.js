@@ -257,6 +257,10 @@ franchiseHubApp.config(function ($routeProvider) {
                 title: 'BrndBot - Pushed Emails',
                 templateUrl: 'pushedemaildrafts.html'
             })
+            .when('/emailtags', {
+                title: 'BrndBot - Email Tags',
+                templateUrl: 'emailtags.html'
+            })
             .when('/pushedemaildetailbase', {
                 title: 'BrndBot - Pushed Emails',
                 templateUrl: 'pushedemaildetailbase.html'

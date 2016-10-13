@@ -6,8 +6,10 @@
 package com.intbittech.controller;
 
 import com.intbittech.model.EmailListTag;
+import com.intbittech.modelmappers.EmailListTagDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
+import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.EmailListTagService;
 import com.intbittech.services.FranchiseEmailListTagLookupService;
 import com.intbittech.utility.ErrorHandlingUtil;
@@ -18,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,7 +55,20 @@ public class EmailListTagController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
     
-     @RequestMapping(value = "/getAllEmailListTagForFranchise", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/saveEmailListTag", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveEmailListTag(@RequestBody EmailListTag emailListTag){
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try{
+            Integer emailListTagId = emailListTagService.save(emailListTag);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email list tag created successfully"));
+        }catch (Throwable throwable){
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "/getAllEmailListTagForFranchise", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllEmailListTagForFranchise(@RequestParam("franchiseId")Integer franchiseId) {
          GenericResponse<EmailListTag> genericResponse = new GenericResponse();
         try {
