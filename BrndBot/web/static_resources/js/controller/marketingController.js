@@ -509,7 +509,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 var end1 = moment(currDate);
                 var days = start.diff(end1, "days");
                 var actiond = "1970/01/01";
-                var actionDateTime = $("#timepicker1").val();
+                var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
 
                 var timeValues = [];
                 timeValues = actionDateTime.split(":");
@@ -881,7 +881,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var start = moment(nDate);
             var end = moment(currDate);
             var days = start.diff(end, "days");
-            var actionDateTime = $("#timepickertextbox").val();
+            var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
 
             var timeValues = [];
             timeValues = actionDateTime.split(":");
