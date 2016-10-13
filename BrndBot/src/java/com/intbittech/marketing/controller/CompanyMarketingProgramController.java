@@ -552,6 +552,7 @@ public class CompanyMarketingProgramController {
             scheduledEntityListService.update(scheduled_entity_list);
             activityLogDetails.setScheduledEntityId(scheduled_entity_list.getScheduledEntityListId());
             activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
+            activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
             activityLogService.saveActivityLog(activityLogDetails);
 
             return "true";

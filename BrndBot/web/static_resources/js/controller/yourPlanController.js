@@ -503,18 +503,17 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
                 $scope.dateLesser = false;
                 var actiondate = datePicker;
-                var actionDateTime = $("#timepicker1").val();
+                var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
                 var timeValues = [];
                 timeValues = actionDateTime.split(":");
                 var hours = timeValues[0];
                 var mins = timeValues[1].replace(" AM", "").replace(" PM", "");
-//                var delimiter = timeValues[2];
+                var delimiter = timeValues[2];
 
                 if (actionDateTime.indexOf("PM") >= 0) {
                     hours = parseInt(hours) + 12;
                 }
                 var newtime = hours + ":" + mins + ":" + "00";
-
                 var epoch_time = getEpochMillis(actiondate + " " + newtime + " " + 'UTC');
                 var days = 0;
                 var action = {"title": addTitle, "actiontype": actionType.value, "type": "save",

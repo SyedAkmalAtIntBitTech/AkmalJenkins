@@ -1885,7 +1885,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 var schedule_title = $("#ActionName").val();
                 var schedule_date = $("#actionDate").val();
 
-                var schedule_time = $("#actionTime").val();
+                var schedule_time = $("#actionTime").val().replace(/ /g, '');
 
                 var timeValues = [];
                 timeValues = schedule_time.split(":");

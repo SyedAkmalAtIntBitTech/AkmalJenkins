@@ -851,7 +851,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                         userAssignToId = "0";
                     var schedule_title = $("#ActionName").val();
                     var schedule_date = $("#actionDate").val();
-                    var schedule_time = $("#actionTime").val();
+                    var schedule_time = $("#actionTime").val().replace(/ /g, '');
                     var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
                     var fromDate = new Date(dateAndTime);
                     var todayDate = new Date();

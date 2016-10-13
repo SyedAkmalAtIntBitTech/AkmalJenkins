@@ -350,6 +350,7 @@ public class ScheduleActionsController {
             
             Company company = companyService.getCompanyById(updateActionDetails.getCompanyId());
             activityLogDetails.setCompanyName(company.getCompanyName());
+            activityLogDetails.setCompanyId(company.getCompanyId());
             activityLogDetails.setCreatedBy(updateActionDetails.getUserId());
             activityLogService.saveActivityLog(activityLogDetails);
 

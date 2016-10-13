@@ -99,7 +99,7 @@ public class CommentLogController {
     }
 
     @RequestMapping(value = "/deleteActionComment", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> deleteActionComment(@RequestParam("commentId") Integer commentId, @RequestParam("userId") Integer userId) {
+    public ResponseEntity<ContainerResponse> deleteActionComment(@RequestParam("commentId") Integer commentId, @RequestParam("userId") Integer userId, @RequestParam("companyId") Integer companyId) {
 
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
@@ -109,6 +109,7 @@ public class CommentLogController {
             activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_DELETED_COMMENT_ACTION_ID.getId());
             activityLogDetails.setScheduledEntityId(commentLog.getFkScheduledEntityid().getScheduledEntityListId());
             activityLogDetails.setCreatedBy(userId);
+            activityLogDetails.setCompanyId(companyId);
             activityLogService.saveActivityLog(activityLogDetails);
 
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Comment deleted successfully"));

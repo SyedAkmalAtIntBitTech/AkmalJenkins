@@ -146,14 +146,14 @@ public class ActivityLogServiceImpl implements ActivityLogService {
             Users createdBy = usersDao.getUserById(createdById);
             Company company = companyDao.getCompanyById(activityLogDetails.getCompanyId());
             Users createdUser = new Users();
+            createdUser.setUserId(activityLogDetails.getCreatedBy());
+            activityLog.setCreatedBy(createdUser);
+            activityLog.setCreatedAt(new Date());
+            activityLog.setFkActivityId(activity);
+            activityLogDao.save(activityLog);
             switch (activityLogDetails.getActivityId()){
                 case 1:
 //                        ACTIVITY_CREATED_ACTION_ID
-                    createdUser.setUserId(activityLogDetails.getCreatedBy());
-                    activityLog.setCreatedBy(createdUser);
-                    activityLog.setCreatedAt(new Date());
-                    activityLog.setFkActivityId(activity);
-                    activityLogDao.save(activityLog);
 
                     if (activityLogDetails.getAssignedTo() != null) {
                         sendNotificationEmail(activityLogDetails.getActivityId(),createdBy.getUserName(), Utility.combineUserName(createdBy),
@@ -162,11 +162,6 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                     break;
                 case 2:
 //                        ACTIVITY_ASSIGNED_TO_ID
-                    createdUser.setUserId(activityLogDetails.getCreatedBy());
-                    activityLog.setCreatedBy(createdUser);
-                    activityLog.setCreatedAt(new Date());
-                    activityLog.setFkActivityId(activity);
-                    activityLogDao.save(activityLog);
                     if (activityLogDetails.getAssignedTo() != null) {
                         Users assignedTo = new Users();
                         assignedTo.setUserId(activityLogDetails.getAssignedTo());
@@ -178,17 +173,12 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                     break;
                 case 3:
 //                        ACTIVITY_REASSIGNED_TO_ID
-                    createdUser.setUserId(activityLogDetails.getCreatedBy());
-                    activityLog.setCreatedBy(createdUser);
-                    activityLog.setCreatedAt(new Date());
-                    activityLog.setFkActivityId(activity);
-                    activityLogDao.save(activityLog);
                     if (activityLogDetails.getAssignedTo() != null) {
                         Users assignedTo = new Users();
                         assignedTo.setUserId(activityLogDetails.getAssignedTo());
                         activityLog.setAssignedTo(assignedTo);
                         Users sendToUser = usersService.getUserById(activityLogDetails.getAssignedTo());
-                        sendNotificationEmail(activityLogDetails.getAssignedTo(),sendToUser.getUserName(), Utility.combineUserName(sendToUser),
+                        sendNotificationEmail(activityLogDetails.getActivityId(),sendToUser.getUserName(), Utility.combineUserName(sendToUser),
                                 company.getCompanyName(), activityLogDetails.getActionTitle(), createdBy.getUserName());
                     }
                     break;
