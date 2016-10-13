@@ -57,6 +57,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
         $scope.pushedEmail = false;
+         $scope.ddSelectedUser= '0';
         $scope.ddSelectUserOptions = [{
                 text: 'Select',
                 value: '0'
