@@ -254,11 +254,11 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             $scope.addEmailListTag = true;
         };
         
-        $scope.saveEmailListTag = function(emailTag){
-            alert(JSON.stringify(emailTag));
+        $scope.saveEmailListTag = function(EmailListTagDetails){
+            alert(JSON.stringify(EmailListTagDetails));
             appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
                 var franchiseId = kGlobalCompanyObject.franchiseId;
-                emailListTagFactory.saveEmailListTag(emailTag).then(function (data){
+                emailListTagFactory.saveEmailListTag(EmailListTagDetails).then(function (data){
                     alert(JSON.stringify(data));
                     $scope.emailListTags = data.d.details;
                 });
@@ -368,7 +368,7 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             
             appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
                 var franchiseId = kGlobalCompanyObject.franchiseId;
-                emailListTagFactory.getAllEmailListTagsForFranchise(franchiseId).then(function (data){
+                emailListTagFactory.getAllEmailListTags(franchiseId).then(function (data){
                     alert(JSON.stringify(data));
                     $scope.emailListTags = data.d.details;
                 });

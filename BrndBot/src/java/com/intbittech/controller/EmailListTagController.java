@@ -56,9 +56,13 @@ public class EmailListTagController {
     }
     
     @RequestMapping(value = "/saveEmailListTag", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> saveEmailListTag(@RequestBody EmailListTag emailListTag){
+    public ResponseEntity<ContainerResponse> saveEmailListTag(@RequestBody EmailListTagDetails emailListTagDetails){
         TransactionResponse transactionResponse = new TransactionResponse();
         try{
+            EmailListTag emailListTag = new EmailListTag();
+            emailListTag.setTagName(emailListTagDetails.getEmailListTagName());
+            emailListTag.setTagDescription(emailListTagDetails.getEmailListTagDescription());
+            
             Integer emailListTagId = emailListTagService.save(emailListTag);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email list tag created successfully"));
         }catch (Throwable throwable){

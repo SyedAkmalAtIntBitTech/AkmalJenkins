@@ -28,7 +28,7 @@
             <div class="input-wrap">
                 <label>Tag name</label>
                 <a class="input">
-                    <input type="text" name="tagname" id="tagname" ng-model="emailTag.tagName" placeholder="Enter the tag name" class="fluid" />
+                    <input type="text" name="tagname" id="tagname" ng-model="EmailListTagDetails.emailListTagName" placeholder="Enter the tag name" class="fluid" />
                 </a>
             </div>
         </div>
@@ -36,7 +36,7 @@
             <div class="input-wrap">
                 <label>Description</label>
                 <a class="input">
-                    <input type="text" name="description" id="description" ng-model="emailTag.tagDescription" placeholder="Enter the description" class="fluid" />
+                    <input type="text" name="description" id="description" ng-model="EmailListTagDetails.emailListTagDescription" placeholder="Enter the description" class="fluid" />
                 </a>
             </div>
         </div>
@@ -46,7 +46,7 @@
         <a class="long-button blue-button">Unsubscribe Now</a>
     </div>-->
     <div class="modal-cta-container">
-        <a class="long-button blue-button" ng-click="saveEmailListTag(emailTag)">Save Tag</a>
+        <a class="long-button blue-button" ng-click="saveEmailListTag(EmailListTagDetails)">Save Tag</a>
     </div>
     </div>
 </div>
