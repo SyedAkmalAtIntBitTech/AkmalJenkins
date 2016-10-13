@@ -30,7 +30,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.userDetails = {};
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
-        
+        $scope.settings = {};
         this.tab = 1;
 
         this.selectTab = function (setTab){
@@ -314,11 +314,12 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 //                $scope.logoImage = logoImage;
 //            }
 //        };
-
         $scope.showAddUser = function ()
         {
             $scope.fadeClasses = 'fadeClasses';
             $scope.addUserSettings = true;
+            $scope.settings.email = null;
+            $scope.settings.adminRadio = null;
             $scope.editUserSettings = false;
         };
 
