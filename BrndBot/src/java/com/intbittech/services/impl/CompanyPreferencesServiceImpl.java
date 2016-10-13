@@ -95,7 +95,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             String companyPreferencesString = companyPreferences.getCompanyPreferences();
             ObjectMapper mapper = new ObjectMapper();
-            EmailSettings emailSettings = mapper.convertValue(companyPreferencesString, EmailSettings.class);
+            EmailSettings emailSettings = mapper.readValue(companyPreferencesString, EmailSettings.class);
             return emailSettings;
         } catch (Throwable throwable) {
             logger.error(throwable);
