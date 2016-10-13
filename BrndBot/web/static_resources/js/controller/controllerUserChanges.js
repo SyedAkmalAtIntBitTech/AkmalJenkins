@@ -28,6 +28,9 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.companyAddressDetails = {};
         $scope.companyDetails = {};
         $scope.userDetails = {};
+        $scope.isCurrentCompanyInFranchise = false;
+        $scope.isCurrentCompanyAFranchiseHeadquarter = false;
+        
         this.tab = 1;
 
         this.selectTab = function (setTab){
@@ -38,6 +41,14 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             return this.tab === checkTab;
         };
          
+        $scope.getCompanyStatus = function() {
+            appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
+                $scope.isCurrentCompanyInFranchise = isCurrent;
+            });
+            appSessionFactory.isCurrentCompanyAFranchiseHeadquarter().then(function (isHead){
+                $scope.isCurrentCompanyAFranchiseHeadquarter = isHead;
+            });
+        };
 
         $scope.getUserDetails = function(){
             
