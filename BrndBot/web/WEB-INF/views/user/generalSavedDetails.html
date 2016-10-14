@@ -185,7 +185,7 @@
                     <p>{{actionTypeNoTemplateMessage}}</p>
                     <!--need to have a bunch of button state management. We should have a factory -->
                     <a class="reg-button blue-button empty-wrap-button" href="{{savedDetailsAddTemplateLink}}" ng-if="isRecurring === false && masterActionType!='Email'">{{savedDetailsAddTemplateButton}}</a>
-                    <a class="reg-button blue-button empty-wrap-button" href="" ng-click="saveEmailByActionId(schedule_id)" ng-if="isRecurring === false && masterActionType=='Email'">{{setEmailToThisAction}}</a>
+                    <a class="reg-button blue-button empty-wrap-button" href="" ng-click="saveEmailByActionId(scheduleData)" ng-if="isRecurring === false && masterActionType=='Email'">{{setEmailToThisAction}}</a>
                     <a class="reg-button blue-button empty-wrap-button" ng-click="redirectToEmailAutomation('emailautomation','template','', schedule_id)" ng-if="isRecurring === true">{{savedDetailsAddTemplateButton}}</a>
                 </div>
             </div>
