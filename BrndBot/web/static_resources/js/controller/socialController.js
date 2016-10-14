@@ -154,7 +154,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
 //                $scope.allUsers = data.d.details;
                 $scope.ddSelectUserOptions = [{text: 'Select', value: '0'}];
                 for (var i = 0; i < data.d.details.length; i++) {
-                    $scope.ddSelectUserOptions.push({"text": data.d.details[i].userName, "value": data.d.details[i].userId});
+                    $scope.ddSelectUserOptions.push({"text": data.d.details[i].firstName +" "+data.d.details[i].lastName, "value": data.d.details[i].userId});
                 }
             });
             yourPlanFactory.noOfUsersInCompanyGet().then(function (data) {
@@ -205,7 +205,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                 {
                     if (linkUrlData[i].link_name || linkUrlData[i].url) {
                         var linkUrlObject = {};
-                        linkUrlObject["text"] = linkUrlData[i].link_name + " - " + linkUrlData[i].url;
+                        linkUrlObject["text"] = linkUrlData[i].link_name; //+ " - " + linkUrlData[i].url;
                         linkUrlObject["value"] = linkUrlData[i].link_name;
                         linkUrlObject["url"] = linkUrlData[i].url;
                         $scope.ddSelectlinkUrlsOptions.push(linkUrlObject);
@@ -840,7 +840,9 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                 var shareUrl = kGlobalFbPostDataObject.url;
                 var linkDescription = kGlobalFbPostDataObject.description;
                 var schedule_title = $("#ActionName").val();
-
+                if(!schedule_title){
+                    schedule_title='';
+                }
                 //            if (selectedMarketingProgrmaId !== 0) {
                 if ($scope.existingActionPopup) {
                     sendData = {
