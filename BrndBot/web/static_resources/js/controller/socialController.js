@@ -840,7 +840,9 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                 var shareUrl = kGlobalFbPostDataObject.url;
                 var linkDescription = kGlobalFbPostDataObject.description;
                 var schedule_title = $("#ActionName").val();
-
+                if(!schedule_title){
+                    schedule_title='';
+                }
                 //            if (selectedMarketingProgrmaId !== 0) {
                 if ($scope.existingActionPopup) {
                     sendData = {
