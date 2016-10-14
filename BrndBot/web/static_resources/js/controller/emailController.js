@@ -1825,6 +1825,9 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.getScheduleData = function (selectedMarketingProgramId, postData) {
             var email_scheduling = "";
             var schedule_title = $("#ActionName").val();
+            if(!schedule_title){
+                schedule_title='';
+            }
 
             if (!$scope.createNewActionPopup) {
                 appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
