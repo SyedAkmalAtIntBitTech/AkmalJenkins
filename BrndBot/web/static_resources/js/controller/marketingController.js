@@ -692,7 +692,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         $('#recurringEmailHtmlBody').empty().append($scope.htmlbody).append(footerInfo);
                         //iframe.contentDocument.body.innerHTML = $scope.htmlbody;
                     } else {
-                        $scope.redirectToEmailAutomation('emailautomation','template','', schedule_id);
+//                        $scope.redirectToEmailAutomation('emailautomation','template','', schedule_id);
                         $scope.savedEmail = false;
                         $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
                     }
