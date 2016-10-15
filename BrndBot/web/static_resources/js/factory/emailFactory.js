@@ -28,6 +28,14 @@ factoryApp.factory('emailFactory', function ($q, authenticatedServiceFactory, co
         });
         return deffered.promise;
     };
+    emailFactoryObject.emailHistoryStatsGet = function (data) {
+        var deffered = $q.defer();
+        var url = configurationService.emailHistoryStatsURL()+"?actionId="+data.actionId+"&programId="+data.programId;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
     emailFactoryObject.previewServletPost = function (sendData) {
         var deffered = $q.defer();
         var url = configurationService.previewServletURL();

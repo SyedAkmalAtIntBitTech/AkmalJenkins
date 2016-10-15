@@ -197,6 +197,10 @@ factoryApp.service('configurationService', function () {
     this.tagsDetailsURL = function () {
         return getHost() + "email/tagsDetails";
     };
+    
+    this.emailHistoryStatsURL = function () {
+        return getHost() + "email/emailHistoryStats";
+    };
 
     this.previewServletURL = function () {
         return getHost() + "email/previewServlet";

@@ -1,5 +1,5 @@
 
-yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'appSessionFactory', 'onboardingFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, appSessionFactory, onboardingFactory) {
+yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'appSessionFactory', 'onboardingFactory', 'emailFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, appSessionFactory, onboardingFactory,emailFactory) {
 
 //$scope.iframeLoad = function (){
 //    growl($('iframe').contents().find('body').height());
@@ -438,7 +438,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 if (!userAssignToId)
                     userAssignToId = "0";
                 $scope.timePickerVal = false;
-                var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
+                var actionTime1 = $("#timepicker1").val().replace(" ", '').replace(" ", '');
                 var actionDateTime1 = datePicker.toLocaleString() + " " + actionTime1.toLocaleString();
                 var fromDate = new Date(actionDateTime1);
                 var todayDate = new Date();
@@ -461,8 +461,10 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     hours = parseInt(hours) + 12;
                 }
                 var newtime = hours + ":" + mins + ":" + "00";
+                
+                
 
-                var epoch_time = getEpochMillis(actiondate + " " + newtime + " " + 'UTC');
+                var epoch_time = Date.parse(actionDateTime1);//getEpochMillis(actiondate + " " + newtime + " " + 'UTC');
                 var days = 0;
                 var action = {"title": addTitle, "actiontype": actionType.value, "type": "save",
                     "description": "", "marketingType": 0, "action_date": epoch_time, "days": days, "userAssignToId": userAssignToId};
@@ -537,6 +539,12 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.globalScheduleData = {};
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, assignedFirstName, assignedLastName, assignedToInitialChars, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
         {
+            alert(template_status);
+            var statsData = {"programId" : programId, "actionId" : schedule_id};
+            
+            emailFactory.emailHistoryStatsGet(statsData).then(function (stats) {
+                alert(JSON.stringify(stats));
+            });
             $scope.dateLesser = false;
 //        $scope.entities_selected_time =schedule_time;
             var nDate = new Date(action_date + " 10:30 am"); //10:30 am save DST

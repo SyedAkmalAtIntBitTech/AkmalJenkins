@@ -37,6 +37,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -105,11 +106,11 @@ public class EmailController {
             emailDataDetails.setHtmlData(html_text);
             emailDataDetails.setReplyToEmailAddress(reply_to_address);
             emailDataDetails.setEmailType(EmailTypeConstants.General.name());
-            
+
             List<String> emailCategoryList = new ArrayList<>();
-                        emailCategoryList.add(MarketingProgramUtility.getDirectEmailCategory((String) requestBodyMap.get("iframeName")));
+            emailCategoryList.add(MarketingProgramUtility.getDirectEmailCategory((String) requestBodyMap.get("iframeName")));
             emailDataDetails.setEmailCategoryList(emailCategoryList);
-            
+
             sendEmailService.sendMail(emailDataDetails);
             //Added by Syed Ilyas 27 Nov 2015 - changed to NOT
             if (!path.equals("")) {
@@ -144,7 +145,7 @@ public class EmailController {
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/tagsDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> tagsDetails(HttpServletRequest request,
             HttpServletResponse response, @RequestParam("userId") Integer userId, @RequestParam("companyId") Integer companyId, @RequestParam("sentId") Integer sentId) {
@@ -154,13 +155,44 @@ public class EmailController {
             EmailSentHistory emailSentHistoryList = emailSentHistoryService.getByEmailSentHistoryId(sentId);
             List<String> categories = new ArrayList<>();
             String[] categoriesArray = emailSentHistoryList.getEmailTag().split(",");
-            for(Integer i=0;i<categoriesArray.length;i++) {
+            for (Integer i = 0; i < categoriesArray.length; i++) {
                 categories.add(categoriesArray[i].trim());
             }
 //            String data = sendEmailService.getTags(company.getCompanyId());
             Date endDate = new Date();
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DATE, -30);
+            Date startDate = cal.getTime();
+            SendGridStatsList sendGridStats = emailServiceProviderService.getStatsByCategory(userId.toString(), categories, startDate, endDate);
+            genericResponse.addDetail(sendGridStats);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "/emailHistoryStats", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> emailHistoryStats(HttpServletRequest request,
+            HttpServletResponse response, @RequestParam("userId") Integer userId, @RequestParam("companyId") Integer companyId, @RequestParam("actionId") Integer actionId, @RequestParam("programId") Integer programId) {
+        GenericResponse<SendGridStatsList> genericResponse = new GenericResponse();
+        try {
+//            Company company = companyService.getCompanyById(companyId);
+//            EmailSentHistory emailSentHistoryList = emailSentHistoryService.getByEmailSentHistoryId(sentId);
+//            List<String> categories = new ArrayList<>();
+//            String[] categoriesArray = emailSentHistoryList.getEmailTag().split(",");
+//            for (Integer i = 0; i < categoriesArray.length; i++) {
+//                categories.add(categoriesArray[i].trim());
+//            }
+//            String data = sendEmailService.getTags(company.getCompanyId());
+            List<String> categories = new ArrayList<>();
+            categories.add(MarketingProgramUtility.getMarketingProgramCategory(programId));
+            categories.add(MarketingProgramUtility.getMarketingProgramActionCategory(actionId));
+            Date endDate = new Date();
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DATE, -90);
             Date startDate = cal.getTime();
             SendGridStatsList sendGridStats = emailServiceProviderService.getStatsByCategory(userId.toString(), categories, startDate, endDate);
             genericResponse.addDetail(sendGridStats);

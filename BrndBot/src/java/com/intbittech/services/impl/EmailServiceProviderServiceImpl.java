@@ -54,7 +54,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class EmailServiceProviderServiceImpl implements EmailServiceProviderService {
 
 
-    private static SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-dd-MM");
+    private static SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
     private static Logger logger = Logger.getLogger(EmailServiceProviderServiceImpl.class);
 
