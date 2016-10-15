@@ -34,10 +34,11 @@
             </div>
             <div class="input-wrap">
                 <label>Assigned To:</label>
-                <select id="assignTo" ng-show="moreThanOneUser">
+                <div class="invalidDropdown bb-dropdown-padding" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="ChangeUserOnChange(selected)"></div>
+<!--                <select id="assignTo" ng-show="moreThanOneUser">
                     <option value="no assignee" selected>no assignee</option>
                     <option ng-repeat="users in allUsers" value="{{users.userId}}">{{users.userName}}</option>
-                </select>
+                </select>-->
             </div>
         </div>        
         <div class="hub-section">
