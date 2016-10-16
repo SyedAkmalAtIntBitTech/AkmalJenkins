@@ -8,7 +8,11 @@ package com.intbittech.services.impl;
 import com.intbittech.dao.EmailListTagDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailListTag;
+import com.intbittech.model.Franchise;
+import com.intbittech.model.FranchiseEmailListTagLookup;
+import com.intbittech.modelmappers.EmailListTagDetails;
 import com.intbittech.services.EmailListTagService;
+import com.intbittech.services.FranchiseEmailListTagLookupService;
 import java.util.List;
 import java.util.Locale;
 import org.jboss.logging.Logger;
@@ -29,6 +33,9 @@ public class EmailListTagServiceImpl implements EmailListTagService{
     
     @Autowired
     private EmailListTagDao emailListTagDao;
+    
+    @Autowired
+    private FranchiseEmailListTagLookupService franchiseEmailListTagLookupService;
     
     @Autowired
     private MessageSource messageSource;
@@ -57,6 +64,28 @@ public class EmailListTagServiceImpl implements EmailListTagService{
      */
     public Integer save(EmailListTag emailListTag) throws ProcessFailed {
         return emailListTagDao.save(emailListTag);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public void saveEmailListTag(EmailListTagDetails emailListTagDetails) throws ProcessFailed {
+        EmailListTag emailListTag = emailListTagDao.getByTagName(emailListTagDetails.getEmailListTagName());
+        if(emailListTag == null) {
+            emailListTag = new EmailListTag();
+            emailListTag.setTagName(emailListTagDetails.getEmailListTagName());
+            emailListTag.setTagDescription(emailListTagDetails.getEmailListTagDescription());
+            Integer emailListTagId = save(emailListTag);
+        }
+        FranchiseEmailListTagLookup franchiseEmailListTagLookup = new FranchiseEmailListTagLookup();
+        franchiseEmailListTagLookup.setFkEmailListTagId(emailListTag);
+        
+        Franchise franchise = new Franchise();
+        franchise.setFranchiseId(emailListTagDetails.getFranchiseId());
+        franchiseEmailListTagLookup.setFkFranchiseId(franchise);
+        
+        franchiseEmailListTagLookupService.save(franchiseEmailListTagLookup);
+        
     }
 
     /**

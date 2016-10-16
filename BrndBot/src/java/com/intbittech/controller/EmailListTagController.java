@@ -59,11 +59,7 @@ public class EmailListTagController {
     public ResponseEntity<ContainerResponse> saveEmailListTag(@RequestBody EmailListTagDetails emailListTagDetails){
         TransactionResponse transactionResponse = new TransactionResponse();
         try{
-            EmailListTag emailListTag = new EmailListTag();
-            emailListTag.setTagName(emailListTagDetails.getEmailListTagName());
-            emailListTag.setTagDescription(emailListTagDetails.getEmailListTagDescription());
-            
-            Integer emailListTagId = emailListTagService.save(emailListTag);
+            emailListTagService.saveEmailListTag(emailListTagDetails);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email list tag created successfully"));
         }catch (Throwable throwable){
             logger.error(throwable);
@@ -73,7 +69,7 @@ public class EmailListTagController {
     }
 
     @RequestMapping(value = "/getAllEmailListTagForFranchise", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getAllEmailListTagForFranchise(@RequestParam("franchiseId")Integer franchiseId) {
+    public ResponseEntity<ContainerResponse> getAllEmailListTagForFranchise(@RequestParam("franchiseId") Integer franchiseId) {
          GenericResponse<EmailListTag> genericResponse = new GenericResponse();
         try {
            List<EmailListTag> emailListTagList = franchiseEmailListTagLookupService.getAllEmailListTagForFranchise(franchiseId);

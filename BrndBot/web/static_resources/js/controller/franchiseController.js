@@ -255,12 +255,14 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
         };
         
         $scope.saveEmailListTag = function(EmailListTagDetails){
-            alert(JSON.stringify(EmailListTagDetails));
             appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
                 var franchiseId = kGlobalCompanyObject.franchiseId;
+                EmailListTagDetails.franchiseId = franchiseId;
                 emailListTagFactory.saveEmailListTag(EmailListTagDetails).then(function (data){
                     alert(JSON.stringify(data));
-                    $scope.emailListTags = data.d.details;
+                    growl(emailTagSaveSuccess);
+                    $scope.closeOverlay();
+                    $scope.getAllEmailTags();
                 });
             });
         };
@@ -368,9 +370,11 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             
             appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
                 var franchiseId = kGlobalCompanyObject.franchiseId;
-                emailListTagFactory.getAllEmailListTags(franchiseId).then(function (data){
-                    alert(JSON.stringify(data));
-                    $scope.emailListTags = data.d.details;
+                emailListTagFactory.getAllEmailListTagsForFranchise(franchiseId).then(function (data){
+                    if(data.d.operationStatus.statusCode === "DataError")
+                        $scope.emailListTagsError = data.d.operationStatus.messages[0];
+                    else
+                        $scope.emailListTags = data.d.details;
                 });
             });
         };

@@ -1,30 +1,38 @@
 <div class="bb-main-content-wrap bb-main-content-wrap-padding">
-        <div class="bb-panel-full-width bb-panel-styling" >
-            <div class="bb-panel-header">
-                <h2 class="">Email Tags</h2>
-                <input type="text" class="search-bar" placeholder="Search" ng-model="userSearch"  ng-show="email_history.length > 0">
-            </div>
-            <div class="bb-panel-content-wrap" ng-show="email_history.length == 0">
-                <div class="hub-empty-wrap">No Pushed Emails</div>
-            </div>
-            <div class="bb-panel-content-wrap" ng-init="getAllEmailTags()">
-                
-                <div class="hub-slat-list-wrap" ng-repeat="emailListTag in emailListTags | filter:userSearch">
-                    <div class="slat" >
-                  
-                        <div class="slat-name-wrap">
-                            <h2>{{emailListTag.tagName}}</h2>
-                            <!--<p>Last edited on {{drafts.editdate| date: "MMM dd yyyy "}}at{{drafts.editdate| date: " h:mm a"}} Created on June 16th 2016 at 9:56:05 PM</p>-->
-                        </div>
-                        <div class="slat-detail-wrap">
-                            <div class="slat-detail">
-                              <a class="reg-button gray-button slat-detail-button" ng-click="showEmailListTagPopup()">Add Email Tag</a>
-                            </div>
+    <div class="bb-panel-full-width bb-panel-styling" >
+        <div class="bb-panel-header">
+            <h2 class="">Email Tags</h2>
+            <input type="text" class="search-bar" placeholder="Search" ng-model="userSearch"  ng-show="email_history.length > 0">
+        </div>
+        <div class="bb-panel-content-wrap" ng-show="email_history.length == 0">
+            <div class="hub-empty-wrap">No Pushed Emails</div>
+        </div>
+        <div class="bb-panel-content-wrap" ng-init="getAllEmailTags()">
+
+            <div class="hub-slat-list-wrap">
+                <div class="slat" >
+                    <div class="slat-detail-wrap">
+                        <div class="slat-detail">
+                            <a class="reg-button gray-button slat-detail-button" ng-click="showEmailListTagPopup()">Add Email Tag</a>
                         </div>
                     </div>
                 </div>
+                <div class="slat" >
+                    <div class="slat-name-wrap" ng-show="emailListTagsError">
+                        <h2>{{emailListTagsError}}</h2>
+                        <!--<p>Last edited on {{drafts.editdate| date: "MMM dd yyyy "}}at{{drafts.editdate| date: " h:mm a"}} Created on June 16th 2016 at 9:56:05 PM</p>-->
+                    </div>
+                </div>
+                <div class="slat" ng-repeat="emailListTag in emailListTags| filter:userSearch">
+                    <div class="slat-name-wrap">
+                        <h2>{{emailListTag.tagName}}</h2>
+                        <!--<p>Last edited on {{drafts.editdate| date: "MMM dd yyyy "}}at{{drafts.editdate| date: " h:mm a"}} Created on June 16th 2016 at 9:56:05 PM</p>-->
+                    </div>
+
+                </div>
             </div>
         </div>
+    </div>
 </div>
 <div ng-include="'savedemaildraftpopup.html'"></div>
 <div ng-include="'addemaillisttagpopup.html'"></div>

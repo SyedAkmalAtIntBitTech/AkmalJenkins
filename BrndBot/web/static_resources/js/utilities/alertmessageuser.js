@@ -255,3 +255,5 @@ var noEmail = "email not entered please enter the email";
 var noRole = "role not selected, please select the role";
 
 var actionAlreadyScheduled = "This action is already scheduled, please Pause or Disapprove this action first.";
+
+var emailTagSaveSuccess = "Email tag created successfully."

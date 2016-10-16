@@ -14,6 +14,7 @@ import com.intbittech.model.UserCompanyIds;
 public class EmailListTagDetails extends UserCompanyIds{
     private String emailListTagName;
     private String emailListTagDescription;
+    private Integer franchiseId;
 
     public String getEmailListTagName() {
         return emailListTagName;
@@ -30,6 +31,13 @@ public class EmailListTagDetails extends UserCompanyIds{
     public void setEmailListTagDescription(String emailListTagDescription) {
         this.emailListTagDescription = emailListTagDescription;
     }
-    
+
+    public Integer getFranchiseId() {
+        return franchiseId;
+    }
+
+    public void setFranchiseId(Integer franchiseId) {
+        this.franchiseId = franchiseId;
+    }
     
 }
