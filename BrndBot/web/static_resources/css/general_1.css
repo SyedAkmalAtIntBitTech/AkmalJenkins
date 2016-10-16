@@ -145,7 +145,7 @@ a {
 }
 
 #addcontact{
-    margin-left: 50%;
+    margin-left: auto;
 }
 .long-button{
     padding: 9px 30px;
@@ -1145,7 +1145,7 @@ li.sub-nav-tab.active a{
 /**/
 
 
-.overlay-header-cta-wrap .action-delete-button{
+.action-delete-button{
     height: 35px;
     width: 35px;
     border: 2px #D5D9DD  solid;
@@ -1155,30 +1155,30 @@ li.sub-nav-tab.active a{
     cursor:pointer;
 }
 
-.overlay-header-cta-wrap .action-delete-button:hover{
+.action-delete-button:hover{
     border: 2px #F15252   solid;
     background-color: #F15252; 
     cursor:pointer;
 }
 
-.overlay-header-cta-wrap .action-delete-button.active{
+.action-delete-button.active{
     border: 2px #F15252   solid;
     background-color: #F15252; 
     cursor:pointer;
 }
 
-.overlay-header-cta-wrap .action-delete-button{
+ .action-delete-button{
     background-image: url(/BrndBot/images/overlay-trash-icon.svg);
     background-position: 4px 4px;
     background-repeat: no-repeat;
     background-size: 75%;
 }
 
-.overlay-header-cta-wrap .action-delete-button:hover{
+ .action-delete-button:hover{
     background-image: url(/BrndBot/images/overlay-trash-icon-white.svg);
 }
 
-.overlay-header-cta-wrap .action-delete-button.active{
+ .action-delete-button.active{
     background-image: url(/BrndBot/images/overlay-trash-icon-white.svg);
     background-position: center;
     background-repeat: no-repeat;

@@ -181,7 +181,7 @@ public class EmailListController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "getContactsOfEmailList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/getContactsOfEmailList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getContactsOfEmailList(@RequestParam Integer emailListId) {
         GenericResponse<ContactEmailListLookup> genericResponse = new GenericResponse<ContactEmailListLookup>();
         try {
@@ -196,7 +196,7 @@ public class EmailListController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "getAllEmailListNames", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/getAllEmailListNames", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllEmailListNames(@RequestParam Integer companyId) {
         GenericResponse<AddEmailListDetails> genericResponse = new GenericResponse<AddEmailListDetails>();
         try {
@@ -217,7 +217,7 @@ public class EmailListController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "getAllEmailListWithNoOfContactsForUser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/getAllEmailListWithNoOfContactsForUser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllEmailListWithNoOfContacts(@RequestParam Integer companyId) {
         GenericResponse<AddEmailListDetails> genericResponse = new GenericResponse<AddEmailListDetails>();
         try {
@@ -257,7 +257,7 @@ public class EmailListController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "getAllEmailListWithNoOfContactsForMindBody", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/getAllEmailListWithNoOfContactsForMindBody", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllEmailListWithNoOfContactsForMindBody(@RequestParam Integer companyId) {
         GenericResponse<AddEmailListDetails> genericResponse = new GenericResponse<AddEmailListDetails>();
         try {

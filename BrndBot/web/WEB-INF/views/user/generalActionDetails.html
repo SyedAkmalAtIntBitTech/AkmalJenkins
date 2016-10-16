@@ -127,7 +127,12 @@
                     </div>
                     <span class="validationAlert" ng-if='dateLesser'>{{lesserDateValidation}}</span>
             </div>
-    
+                <div class="overlay-details-pane" ng-show="isRecurring === false">
+                    <div class="overlay-details-pane-header">ACTION ACTIVITY</div>
+                    <div class="detail-sections-wrap">
+                        <!--PUT ACTIVITY HERE-->
+                    </div>
+                </div>
     
             <div class="bottom-cta-button-container-overlay"  ng-show="showUpdateBtn && !isProgramArchived">
                 <a class="reg-button success-button" id="updateAction1" ng-click="updateAction(scheduleData);marketingTab.selectTab(4)" ng-show="isRecurring === false" >Save Action</a>

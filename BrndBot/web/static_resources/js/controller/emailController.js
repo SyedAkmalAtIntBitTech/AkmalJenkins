@@ -1590,6 +1590,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                 var email_scheduling = {
                                     from_name: $scope.postData.fromName,
                                     schedule_id: kGlobalEmailObject.entityScheduleId.toString(),
+                                    schedule_title:kGlobalEmailObject.entityScheduleTitle,
                                     email_subject: $scope.postData.emailSubject,
                                     email_preheader: kGlobalEmailObject.preheader,
                                     to_email_addresses: $scope.postData.toAddress,
@@ -1627,6 +1628,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                             var email_scheduling = {
                                 from_name: $scope.postData.fromName,
                                 schedule_id: kGlobalEmailObject.entityScheduleId.toString(),
+                                schedule_title:kGlobalEmailObject.entityScheduleTitle,
                                 email_subject: $scope.postData.emailSubject,
                                 email_preheader: kGlobalEmailObject.preheader,
                                 to_email_addresses: $scope.postData.toAddress,
@@ -1795,7 +1797,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 //                $scope.allUsers = data.d.details;
                 $scope.ddSelectUserOptions = [{text: 'Select',value: '0'}];
                 for (var i = 0; i < data.d.details.length; i++) {
-                    $scope.ddSelectUserOptions.push({"text": data.d.details[i].userName, "value": data.d.details[i].userId});
+                    $scope.ddSelectUserOptions.push({"text": data.d.details[i].firstName +" "+data.d.details[i].lastName, "value": data.d.details[i].userId});
                 }
             });
             yourPlanFactory.noOfUsersInCompanyGet().then(function (data) {
@@ -1823,6 +1825,9 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.getScheduleData = function (selectedMarketingProgramId, postData) {
             var email_scheduling = "";
             var schedule_title = $("#ActionName").val();
+            if(!schedule_title){
+                schedule_title='';
+            }
 
             if (!$scope.createNewActionPopup) {
                 appSessionFactory.getEmail().then(function (kGlobalEmailObject) {

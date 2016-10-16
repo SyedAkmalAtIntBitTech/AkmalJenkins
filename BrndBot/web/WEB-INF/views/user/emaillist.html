@@ -16,8 +16,8 @@
                     <h2 class="bb-panel-empty-state-text">You have no email lists.</h2>  
                 
                 </div>
-                <div class="bb-slat-list-wrap" ng-show="emailLists.length > 0" ng-repeat="email in emailLists"> 
-                    <div class="bb-slat" ng-click="viewEmailListDetails(email, 'user');marketingHubTab.selectTab(5);">
+                <div class="bb-slat-list-wrap" ng-show="emailLists.length > 0" > 
+                    <div class="bb-slat" ng-click="viewEmailListDetails(email, 'user');marketingHubTab.selectTab(5);" ng-repeat="email in emailLists">
                        <!-- <div class="selection-container col-5p"> 
                             <div class="selection-icon" id="{{email.emailListID}}" ng-click="selectedEmailCheckbox(email.emailListID)">
                                 <input type="checkbox" id="{{email.emailListID}}" value="{{email.emailListName}}" name="entityname" hidden></input>

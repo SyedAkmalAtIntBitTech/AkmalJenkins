@@ -199,7 +199,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.ddSelectUserOptions = [{text: 'Select',value: '0'}];
                 
                 for (var i = 0; i < data.d.details.length; i++) {
-                    $scope.ddSelectUserOptions.push({"text": data.d.details[i].userName, "value": data.d.details[i].userId});
+                    $scope.ddSelectUserOptions.push({"text": data.d.details[i].firstName +" "+data.d.details[i].lastName, "value": data.d.details[i].userId});
                 }
             });
             yourPlanFactory.noOfUsersInCompanyGet().then(function (data) {
@@ -509,7 +509,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 var end1 = moment(currDate);
                 var days = start.diff(end1, "days");
                 var actiond = "1970/01/01";
-                var actionDateTime = $("#timepicker1").val();
+                var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
 
                 var timeValues = [];
                 timeValues = actionDateTime.split(":");
@@ -692,7 +692,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         $('#recurringEmailHtmlBody').empty().append($scope.htmlbody).append(footerInfo);
                         //iframe.contentDocument.body.innerHTML = $scope.htmlbody;
                     } else {
-                        $scope.redirectToEmailAutomation('emailautomation','template','', schedule_id);
+//                        $scope.redirectToEmailAutomation('emailautomation','template','', schedule_id);
                         $scope.savedEmail = false;
                         $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
                     }
@@ -881,7 +881,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var start = moment(nDate);
             var end = moment(currDate);
             var days = start.diff(end, "days");
-            var actionDateTime = $("#timepickertextbox").val();
+            var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
 
             var timeValues = [];
             timeValues = actionDateTime.split(":");
@@ -2163,11 +2163,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.clickedRemoveAction = flag;
         };
 
-        $scope.saveEmailByActionId = function (id) {
+        $scope.saveEmailByActionId = function (scheduleData) {
 //            localStorage.setItem("email_Schedule_Id",id);
             appSessionFactory.clearEmail().then(function (checkCleared) {
                 appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
-                    kGlobalEmailObject.entityScheduleId = id;
+                kGlobalEmailObject.entityScheduleId = scheduleData.schedule_id;
+                kGlobalEmailObject.entityScheduleTitle = scheduleData.schedule_title;
                     appSessionFactory.setEmail(kGlobalEmailObject).then(function (data) {
                         if (data === true)
                             window.open(getHost() + 'user/baseemaileditor#/emailcategory', "_self");
