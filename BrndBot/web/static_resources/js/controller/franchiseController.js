@@ -259,7 +259,6 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
                 var franchiseId = kGlobalCompanyObject.franchiseId;
                 EmailListTagDetails.franchiseId = franchiseId;
                 emailListTagFactory.saveEmailListTag(EmailListTagDetails).then(function (data){
-                    alert(JSON.stringify(data));
                     growl(emailTagSaveSuccess);
                     $scope.closeOverlay();
                     $scope.getAllEmailTags();
