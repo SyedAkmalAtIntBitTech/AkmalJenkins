@@ -45,6 +45,14 @@ public interface EmailListTagLookupService {
      * @throws ProcessFailed the process failed
      */
     public Integer save(EmailListTagLookup emailListTagLookup) throws ProcessFailed;
+    
+    /**
+     * This method save {@link EmailListTagLookup} into the database.
+     *
+     * @param emailListTagLookup the emailListTagLookup
+     * @throws ProcessFailed the process failed
+     */
+    public void saveOrUpdate(EmailListTagLookup emailListTagLookup) throws ProcessFailed;
 
     /**
      * This method update {@link EmailListTagLookup} updates existing data from the

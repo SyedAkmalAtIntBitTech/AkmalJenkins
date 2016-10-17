@@ -553,8 +553,16 @@ factoryApp.service('configurationService', function () {
         return getHost() + "emailListTag/getAllEmailListTagForFranchise";
     };
     
+    this.getAllEmailListsAndTagsForFranchiseURL = function(){
+        return getHost() + "emailListTag/getAllEmailListsAndTagsForFranchise";
+    };
+    
     this.saveEmailListTagURL = function(){
         return getHost() + "emailListTag/saveEmailListTag";
+    };
+    
+    this.saveOrUpdateTagAndEmailListURL = function(){
+        return getHost() + "emailListTag/saveOrUpdateTagAndEmailList";
     };
     //************** pushedActionsFactory ********************//
     

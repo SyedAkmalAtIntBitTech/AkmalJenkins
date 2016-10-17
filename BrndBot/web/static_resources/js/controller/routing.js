@@ -136,6 +136,9 @@ settingFlowApp.config(function ($routeProvider) {
             .when('/userpalettesettings', {
                 templateUrl: 'userpalettesettings.html'
             })
+            .when('/settingsmanagedaccount', {
+                templateUrl: 'settingsmanagedaccount.html'
+            })
             .otherwise({redirectTo: '/useraccountsettings'});
 });
 
