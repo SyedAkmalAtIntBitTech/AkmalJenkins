@@ -661,7 +661,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     'insertdatetime media table contextmenu paste',
                     'template paste textcolor colorpicker textpattern imagetools'
                 ],
-                toolbar1: 'undo | bold italic |  link forecolor | fontselect fontsizeselect custombutton',
+                toolbar1: 'undo | bold italic |  link forecolor | alignleft aligncenter alignright alignjustify | fontselect fontsizeselect custombutton',
                 menubar: false
             });
             $('.innerbg').mouseenter(function (event) {

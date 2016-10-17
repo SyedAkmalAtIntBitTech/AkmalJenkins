@@ -1263,7 +1263,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     'insertdatetime media table contextmenu paste',
                     'template paste textcolor colorpicker textpattern imagetools'
                 ],
-                toolbar1: 'undo | bold italic | alignleft aligncenter alignright | link forecolor | fontselect fontsizeselect ',
+                toolbar1: 'undo | bold italic | alignleft aligncenter alignright | link forecolor | alignleft aligncenter alignright alignjustify | fontselect fontsizeselect ',
                 menubar: false
             });
             $('.innerbg').mouseenter(function (event) {
