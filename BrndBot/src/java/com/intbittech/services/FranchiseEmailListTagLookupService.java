@@ -72,7 +72,7 @@ public interface FranchiseEmailListTagLookupService {
      * @return {@link FranchiseEmailListTagLookup}
      * @throws ProcessFailed the process failed
      */
-    public List<EmailListTag> getAllEmailListTagForFranchise(Integer franchiseId) throws ProcessFailed;
+    public List<FranchiseEmailListTagLookup> getAllEmailListTagForFranchise(Integer franchiseId) throws ProcessFailed;
     
     /**
      * This method retrieves the list of {@link TagAndEmailListDetails} from DAO layer.

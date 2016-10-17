@@ -20,15 +20,17 @@
                 <div class="slat" >
                     <div class="slat-name-wrap" ng-show="emailListTagsError">
                         <h2>{{emailListTagsError}}</h2>
-                        <!--<p>Last edited on {{drafts.editdate| date: "MMM dd yyyy "}}at{{drafts.editdate| date: " h:mm a"}} Created on June 16th 2016 at 9:56:05 PM</p>-->
                     </div>
                 </div>
                 <div class="slat" ng-repeat="emailListTag in emailListTags| filter:userSearch">
                     <div class="slat-name-wrap">
-                        <h2>{{emailListTag.tagName}}</h2>
-                        <!--<p>Last edited on {{drafts.editdate| date: "MMM dd yyyy "}}at{{drafts.editdate| date: " h:mm a"}} Created on June 16th 2016 at 9:56:05 PM</p>-->
+                        <h2>{{emailListTag.fkEmailListTagId.tagName}}</h2>
                     </div>
-
+                    <div class="slat-name-wrap">
+                         <div class="slat-detail">
+                            <a class="reg-button gray-button slat-detail-button" ng-click="deleteEmailListTag(emailListTag)">Delete Email Tag</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

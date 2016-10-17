@@ -553,6 +553,10 @@ factoryApp.service('configurationService', function () {
         return getHost() + "emailListTag/getAllEmailListTagForFranchise";
     };
     
+    this.deleteEmailListTagsForFranchiseURL = function(){
+        return getHost() + "emailListTag/deleteEmailListTagsForFranchise";
+    };
+    
     this.getAllEmailListsAndTagsForFranchiseURL = function(){
         return getHost() + "emailListTag/getAllEmailListsAndTagsForFranchise";
     };

@@ -256,4 +256,5 @@ var noRole = "role not selected, please select the role";
 
 var actionAlreadyScheduled = "This action is already scheduled, please Pause or Disapprove this action first.";
 
-var emailTagSaveSuccess = "Email tag created successfully."
+var emailTagSaveSuccess = "Email tag created successfully.";
+var emailTagDeleteSuccess = "Email tag deleted successfully.";

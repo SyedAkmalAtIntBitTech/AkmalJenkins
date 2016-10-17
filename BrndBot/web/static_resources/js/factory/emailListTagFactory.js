@@ -23,6 +23,15 @@ factoryApp.factory('emailListTagFactory', function ($q, authenticatedServiceFact
         return deffered.promise;
     };
     
+    emailListTagFactoryObject.deleteEmailListTagsForFranchise = function (deleteData) {
+        var deffered = $q.defer();
+        var url = configurationService.deleteEmailListTagsForFranchiseURL()+"?franchiseEmailListTagLookupId="+deleteData.franchiseEmailListTagLookupId;
+        authenticatedServiceFactory.makeCall("POST", url, "", "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    
     emailListTagFactoryObject.getAllEmailListsAndTagsForFranchise = function (franchiseId) {
         var deffered = $q.defer();
         var url = configurationService.getAllEmailListsAndTagsForFranchiseURL()+"?franchiseId=" + franchiseId;

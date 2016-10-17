@@ -121,7 +121,7 @@ public class FranchiseEmailListTagLookupServiceImpl implements FranchiseEmailLis
     /**
      * {@inheritDoc}
      */
-    public List<EmailListTag> getAllEmailListTagForFranchise(Integer franchiseId) throws ProcessFailed {
+    public List<FranchiseEmailListTagLookup> getAllEmailListTagForFranchise(Integer franchiseId) throws ProcessFailed {
         List<FranchiseEmailListTagLookup> franchiseEmailListTagLookupList = franchiseEmailListTagLookupDao.getAllFranchiseEmailListTagLookup(franchiseId);
         if (franchiseEmailListTagLookupList == null) {
             throw new ProcessFailed(messageSource.getMessage("email_list_tag_not_found", new String[]{}, Locale.US));
@@ -134,7 +134,7 @@ public class FranchiseEmailListTagLookupServiceImpl implements FranchiseEmailLis
             emailListTag.setTagDescription(franchiseEmailListTagLookup.getFkEmailListTagId().getTagDescription());
             emailListTagList.add(emailListTag);
         }
-        return emailListTagList;
+        return franchiseEmailListTagLookupList;
     }
 
 }

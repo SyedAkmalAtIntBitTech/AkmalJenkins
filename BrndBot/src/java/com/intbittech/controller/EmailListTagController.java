@@ -8,6 +8,7 @@ package com.intbittech.controller;
 import com.intbittech.model.EmailList;
 import com.intbittech.model.EmailListTag;
 import com.intbittech.model.EmailListTagLookup;
+import com.intbittech.model.FranchiseEmailListTagLookup;
 import com.intbittech.modelmappers.EmailListTagDetails;
 import com.intbittech.modelmappers.TagAndEmailListDetails;
 import com.intbittech.responsemappers.ContainerResponse;
@@ -98,12 +99,25 @@ public class EmailListTagController {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
+    
+    @RequestMapping(value = "/deleteEmailListTagsForFranchise", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteEmailListTagsForFranchise(@RequestParam("franchiseEmailListTagLookupId") Integer franchiseEmailListTagLookupId){
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try{
+            franchiseEmailListTagLookupService.delete(franchiseEmailListTagLookupId);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email list tag deleted successfully"));
+        }catch (Throwable throwable){
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
 
     @RequestMapping(value = "/getAllEmailListTagForFranchise", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllEmailListTagForFranchise(@RequestParam("franchiseId") Integer franchiseId) {
-         GenericResponse<EmailListTag> genericResponse = new GenericResponse();
+         GenericResponse<FranchiseEmailListTagLookup> genericResponse = new GenericResponse();
         try {
-           List<EmailListTag> emailListTagList = franchiseEmailListTagLookupService.getAllEmailListTagForFranchise(franchiseId);
+           List<FranchiseEmailListTagLookup> emailListTagList = franchiseEmailListTagLookupService.getAllEmailListTagForFranchise(franchiseId);
             genericResponse.setDetails(emailListTagList);
             
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email list tag for franchise retrieved successfully"));

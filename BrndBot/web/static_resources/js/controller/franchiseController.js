@@ -254,6 +254,14 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             $scope.addEmailListTag = true;
         };
         
+        $scope.deleteEmailListTag = function(emailListTag){
+            var deleteData = { "franchiseEmailListTagLookupId" : emailListTag.franchiseEmailListTagLookupId };
+            emailListTagFactory.deleteEmailListTagsForFranchise(deleteData).then(function (data){
+                growl(emailTagDeleteSuccess);
+                $scope.getAllEmailTags();
+            })
+        };
+        
         $scope.saveEmailListTag = function(EmailListTagDetails){
             appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
                 var franchiseId = kGlobalCompanyObject.franchiseId;
