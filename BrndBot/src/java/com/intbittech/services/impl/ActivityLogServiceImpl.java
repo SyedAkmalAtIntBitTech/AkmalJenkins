@@ -155,14 +155,14 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                 case 1:
 //                        ACTIVITY_CREATED_ACTION_ID
 
-                    if (activityLogDetails.getAssignedTo() != null) {
+                    if (activityLogDetails.getAssignedTo() != null && activityLogDetails.getAssignedTo() != 0) {
                         sendNotificationEmail(activityLogDetails.getActivityId(),createdBy.getUserName(), Utility.combineUserName(createdBy),
                                 company.getCompanyName(), activityLogDetails.getActionTitle(), createdBy.getUserName());
                     }
                     break;
                 case 2:
 //                        ACTIVITY_ASSIGNED_TO_ID
-                    if (activityLogDetails.getAssignedTo() != null) {
+                    if (activityLogDetails.getAssignedTo() != null && activityLogDetails.getAssignedTo() != 0) {
                         Users assignedTo = new Users();
                         assignedTo.setUserId(activityLogDetails.getAssignedTo());
                         activityLog.setAssignedTo(assignedTo);
@@ -173,7 +173,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                     break;
                 case 3:
 //                        ACTIVITY_REASSIGNED_TO_ID
-                    if (activityLogDetails.getAssignedTo() != null) {
+                    if (activityLogDetails.getAssignedTo() != null && activityLogDetails.getAssignedTo() != 0) {
                         Users assignedTo = new Users();
                         assignedTo.setUserId(activityLogDetails.getAssignedTo());
                         activityLog.setAssignedTo(assignedTo);
