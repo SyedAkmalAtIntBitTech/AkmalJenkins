@@ -247,7 +247,7 @@ public class FranchiseServiceImpl implements FranchiseService {
             Content content = new Content(IConstants.kContentHTML, formattedBody);
             String subject = "Request to add Company";
             Users  user = usersService.getUserByEmailId(fromEmailId);
-            Email emailTo = new Email(sendTo, Utility.combineUserName(user));
+            Email emailTo = new Email(sendTo);
             Email emailFrom = new Email(fromEmailId, Utility.combineUserName(user));
             Mail mail = new Mail(null, subject, emailTo, content);
             mail.setFrom(emailFrom);
