@@ -114,10 +114,6 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                 File file = new File(path);
                 html_text = FileUtils.readFileToString(file, "UTF-8");
             }
-            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            format.setTimeZone(TimeZone.getTimeZone("UTC"));
-            Date date = new Date(Double.valueOf(requestBodyMap.get("schedule_time").toString()).longValue());
-            String dateTime = format.format(date);
             Map<String, Integer> idMap = ScheduleDAO.addToScheduledEmailList(
                     companyId,
                     requestBodyMap.get("email_subject").toString(),
@@ -131,7 +127,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                     //                    requestBodyMap.get("to_email_addresses").toString().split(","),
                     requestBodyMap.get("schedule_title").toString(),
                     scheduleDesc,
-                    Timestamp.valueOf(dateTime),
+                    new Timestamp(Double.valueOf(requestBodyMap.get("schedule_time").toString()).longValue()),
                     TemplateStatus.template_saved.toString(),
                     requestBodyMap.get("html_body").toString(), createdBy, userAssignToId
             );
@@ -267,10 +263,6 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
             try {
 
                 Double schedule = (Double) requestBodyMap.get("schedule_time");
-                DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                format.setTimeZone(TimeZone.getTimeZone("UTC"));
-                Date date = new Date(Double.valueOf(requestBodyMap.get("schedule_time").toString()).longValue());
-                String dateTime = format.format(date);
                 String metadataString = requestBodyMap.get("metadata").toString();
                 String marketing_program_id = (String) requestBodyMap.get("program_id");
                 //As of now schedule description is not yet mandatory.
@@ -289,7 +281,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                         requestBodyMap.get("type").toString(),
                         requestBodyMap.get("schedule_title").toString(),
                         scheduleDesc,
-                        Timestamp.valueOf(dateTime),
+                         new Timestamp(Double.valueOf(requestBodyMap.get("schedule_time").toString()).longValue()),
                         TemplateStatus.template_saved.toString(),
                         imageType, createdBy, userAssignToId,
                         conn);

@@ -260,8 +260,6 @@ public class YourPlanController {
                         templateStatus = TemplateStatus.incomplete.toString();
                     }
                     try {
-                        Date date = new Date(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue());
-                        String dateTime = format.format(date);
                         Double tempmarketingType = new Double(requestBodyMap.get("marketingType").toString().trim());
                         Double tempDays = new Double(requestBodyMap.get("days").toString().trim());
                         Integer marketingType = tempmarketingType.intValue();
@@ -272,7 +270,7 @@ public class YourPlanController {
                                 requestBodyMap.get("title").toString(),
                                 marketingType,
                                 requestBodyMap.get("description").toString(),
-                                Timestamp.valueOf(dateTime),
+                                new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()),
                                 requestBodyMap.get("actiontype").toString(),
                                 days.toString().trim(),
                                 templateStatus,
@@ -309,12 +307,10 @@ public class YourPlanController {
                 } else if (type.equalsIgnoreCase("update")) {
                     String scheduleID = (String) requestBodyMap.get("schedule_id");
                     try {
-                        Date date = new Date(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue());
-                        String dateTime = format.format(date);
                         int scheduleId = ScheduleDAO.updateScheduledEntity(Integer.parseInt(scheduleID),
                                 requestBodyMap.get("title").toString(),
                                 requestBodyMap.get("description").toString(),
-                                Timestamp.valueOf(dateTime),
+                                new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()),
                                 requestBodyMap.get("actiontype").toString(),
                                 userCompanyIds.getCompanyId(),
                                 Integer.parseInt(requestBodyMap.get("days").toString()),

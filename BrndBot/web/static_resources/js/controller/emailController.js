@@ -1,5 +1,5 @@
-emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$location', 'blockModelFactory', 'companyFactory', 'categoryFactory', 'emailDraftFactory', 'subCategoryFactory', 'externalContentFactory', 'redirectFactory', 'SharedService', 'settingsFactory', 'companyMarketingProgramFactory', 'emailFactory', 'modelFactory', 'emailListFactory', 'scheduleActionsFactory', 'appSessionFactory', 'yourPlanFactory', 'rulesEngineFactory', 'onboardingFactory','franchiseFactory','pushedActionsFactory', 
-    function ($scope, $filter, $window, $location, blockModelFactory, companyFactory, categoryFactory, emailDraftFactory, subCategoryFactory, externalContentFactory, redirectFactory, SharedService, settingsFactory, companyMarketingProgramFactory, emailFactory, modelFactory, emailListFactory, scheduleActionsFactory, appSessionFactory, yourPlanFactory, rulesEngineFactory, onboardingFactory, franchiseFactory, pushedActionsFactory) {
+emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$location', 'blockModelFactory', 'companyFactory', 'categoryFactory', 'emailDraftFactory', 'subCategoryFactory', 'externalContentFactory', 'redirectFactory', 'SharedService', 'settingsFactory', 'companyMarketingProgramFactory', 'emailFactory', 'modelFactory', 'emailListFactory', 'scheduleActionsFactory', 'appSessionFactory', 'yourPlanFactory', 'rulesEngineFactory', 'onboardingFactory','franchiseFactory','pushedActionsFactory', 'utilFactory',
+    function ($scope, $filter, $window, $location, blockModelFactory, companyFactory, categoryFactory, emailDraftFactory, subCategoryFactory, externalContentFactory, redirectFactory, SharedService, settingsFactory, companyMarketingProgramFactory, emailFactory, modelFactory, emailListFactory, scheduleActionsFactory, appSessionFactory, yourPlanFactory, rulesEngineFactory, onboardingFactory, franchiseFactory, pushedActionsFactory, utilFactory) {
 
         $scope.objectParameter = kEmailFlowObject;
         $scope.footerEmailPopup = false;
@@ -1814,12 +1814,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             $scope.postedTo = getemail();
             $scope.getScheduleData($scope.selectedMarketingProgram, postData);
         };
-        var getEpochMillis = function (dateStr) {
-            var r = /^\s*(\d{4})-(\d\d)-(\d\d)\s+(\d\d):(\d\d):(\d\d)\s+UTC\s*$/
-                    , m = ("" + dateStr).match(r);
-            return (m) ? Date.UTC(m[1], m[2] - 1, m[3], m[4], m[5], m[6]) : undefined;
-        };
-
         $scope.getScheduleData = function (selectedMarketingProgramId, postData) {
             var email_scheduling = "";
             var schedule_title = $("#ActionName").val();
@@ -1889,22 +1883,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 var schedule_date = $("#actionDate").val();
 
                 var schedule_time = $("#actionTime").val().replace(/ /g, '');
-
-                var timeValues = [];
-                timeValues = schedule_time.split(":");
-                var hours = timeValues[0];
-                var mins = timeValues[1].replace(" AM", "").replace(" PM", "");
-//                var delimiter = timeValues[2];
-
-                if (schedule_time.indexOf("PM") >= 0) {
-                    hours = parseInt(hours) + 12;
-                }
-                var newtime = hours + ":" + mins + ":" + "00";
-
-                var currDate = moment(schedule_date).format(kGlobalDateFormat);
-                var epoch_time = getEpochMillis(currDate + " " + newtime + " " + 'UTC');
-
-                var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
+                
+                var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();    
                 var fromDate = new Date(dateAndTime);
                 var todayDate = new Date();
                 if (fromDate < todayDate) {
@@ -1912,9 +1892,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     return false;
                 }
                 $scope.dateLesser = false;
-
-//                var myEpoch = Date.parse(dateAndTime);
-//                console.log("Epoch: " + myEpoch);
+                utilFactory.getEpoch(schedule_date, schedule_time).then(function (dateTimeEpoch) {
                 appSessionFactory.getEmail().then(function (kGlobalEmailObject) {
                     email_scheduling = {
                         "from_name": postData.fromName,
@@ -1925,9 +1903,9 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         "from_email_address": postData.fromAddress,//getDefaultEmailId(),
                         "reply_to_email_address": postData.replyAddress,
                         "email_list": $scope.emailList,
-                        program_id: $scope.selectedMarketingProgram.toString(),
+                        "program_id": $scope.selectedMarketingProgram.toString(),
                         "schedule_title": schedule_title,
-                        "schedule_time": epoch_time,
+                        "schedule_time": dateTimeEpoch,
                         "email_body": $("#dynamictable").contents().find("html").html(),
                         "schedule_desc": ",,,",
                         "iframeName": $scope.randomIframeFilename.toString(),
@@ -1974,6 +1952,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
 
                 });
+            });
             }
             return email_scheduling;
         };
