@@ -1230,7 +1230,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     'insertdatetime media table contextmenu paste',
                     'template paste textcolor colorpicker textpattern imagetools'
                 ],
-                toolbar1: 'undo | bold italic | alignleft aligncenter alignright | link forecolor | fontselect fontsizeselect ',
+                toolbar1: 'undo | bold italic | alignleft aligncenter alignright | link forecolor | alignleft aligncenter alignright alignjustify | fontselect fontsizeselect ',
                 menubar: false
             });
             $('.innerbg').mouseenter(function (event) {
@@ -1710,10 +1710,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     if ($scope.replyAddressValidation())
                     {
     //                    var days = $scope.automationData.selectedDay;
-                        var userAssignToId = $("#assignTo option:selected").val();
-                        if (!userAssignToId)
-                            userAssignToId = "0";
-    
+                        if (!$scope.ddSelectedUser)
+                        {
+                           $scope.ddSelectedUser = "0";
+                        }
+//                        var userAssignToId = $("#assignTo option:selected").val();
+//                        if (!userAssignToId)
+//                            userAssignToId = "0";
+//    
                         var days = $scope.selectedDay;
                         var emaillist = $scope.automationData.selectedEmailList;
                         var to_email_addresses = $scope.emailLists.split(',');
@@ -1742,7 +1746,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 "recurring_email_description": recurring_email_description,
                                 "till_date_epoch": till_date_epoch,
                                 "schedule_time_epoch": schedule_time,
-                                "program_id": $scope.programId.toString(),"userAssignToId": userAssignToId
+                                "program_id": $scope.programId.toString(),"userAssignToId": $scope.ddSelectedUser
                             };
                             
                             marketingRecurringEmailFactory.addRecurringActionPost(recurring_action).then(function (data) {
@@ -1767,7 +1771,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 "recurring_email_description": recurring_email_description,
                                 "till_date_epoch": till_date_epoch,
                                 "schedule_time_epoch": schedule_time,
-                                "program_id": $scope.programId.toString(),"userAssignToId": userAssignToId
+                                "program_id": $scope.programId.toString(),"userAssignToId": $scope.ddSelectedUser
                             };
 
                             marketingRecurringEmailFactory.addupdateRecurringActionPost(recurring_action).then(function (data) {
@@ -1798,7 +1802,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 "recurring_email_description": recurring_email_description,
                                 "till_date_epoch": till_date_epoch,
                                 "schedule_time_epoch": schedule_time,
-                                "program_id": $scope.programId.toString(),"userAssignToId": userAssignToId
+                                "program_id": $scope.programId.toString(),"userAssignToId": $scope.ddSelectedUser
                             };
 
                             marketingRecurringEmailFactory.addupdateRecurringActionPost(recurring_action).then(function (data) {
@@ -1838,7 +1842,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                         "recurring_email_description": recurring_email_description,
                                         "till_date_epoch": till_date_epoch,
                                         "schedule_time_epoch": schedule_time,
-                                        "program_id": $scope.programId.toString(),"userAssignToId": userAssignToId
+                                        "program_id": $scope.programId.toString(),"userAssignToId": $scope.ddSelectedUser
                                     };
 
                                     marketingRecurringEmailFactory.updateRecurringActionPost(recurring_action).then(function (data) {

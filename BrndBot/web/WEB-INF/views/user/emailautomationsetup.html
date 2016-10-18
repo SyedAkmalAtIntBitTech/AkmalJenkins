@@ -34,10 +34,11 @@
             </div>
             <div class="input-wrap">
                 <label>Assigned To:</label>
-                <select id="assignTo" ng-show="moreThanOneUser">
+                <div class="invalidDropdown bb-dropdown-padding" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="ChangeUserOnChange(selected)"></div>
+<!--                <select id="assignTo" ng-show="moreThanOneUser">
                     <option value="no assignee" selected>no assignee</option>
                     <option ng-repeat="users in allUsers" value="{{users.userId}}">{{users.userName}}</option>
-                </select>
+                </select>-->
             </div>
         </div>        
         <div class="hub-section">
@@ -76,6 +77,7 @@
                     <script src="../js/utilities/timepicki.js" type="text/javascript"></script>
                     <script>
                                $('#timepicker1').timepicki({
+                                   format_output:  function(tim, mini, meri) {return tim + ":" + mini + " " + meri;},
                                    show_meridian: true,
                                    min_hour_value: 0,
                                    max_hour_value: 12,
