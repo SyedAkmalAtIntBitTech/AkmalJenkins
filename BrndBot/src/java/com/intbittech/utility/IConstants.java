@@ -87,7 +87,7 @@ public interface IConstants {
     final static String ACTION_COMPANIES_READY_TO_GO = "Ready to go";
      final static String ACTION_COMPANIES_NO_EMAIL_TAG_CONFIGURED = "No email tag configured";
      // support email id
-     final static String SUPPORT_BRNDBOT_EMAIL_ID = "support@brndbot.com";
+     final static String SUPPORT_BRNDBOT_EMAIL_ID = "requests@brandbot.com";
      
      // Activity name
      public static final Integer ACTIVITY_CREATED_ACTION_ID = 1;
