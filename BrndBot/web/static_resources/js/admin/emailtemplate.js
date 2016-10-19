@@ -33,7 +33,7 @@ $(document).ready(function () {
 
     }
 });
-var app = angular.module('uploadImage', ['ngAnimate']); 
+var app = angular.module('uploadImage', []); 
  
        (function (module) {
      

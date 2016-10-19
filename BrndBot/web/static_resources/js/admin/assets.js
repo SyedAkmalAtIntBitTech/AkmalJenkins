@@ -7,7 +7,7 @@
 
     
                
-        var app = angular.module('colors', ['ngAnimate']);
+        var app = angular.module('colors', []);
 
 app.controller('globalColors', function($scope,$http) {
     

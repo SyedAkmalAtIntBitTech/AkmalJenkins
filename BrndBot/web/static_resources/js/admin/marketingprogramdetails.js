@@ -4,7 +4,7 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 
-angular.module('marketingprogramota',['ngAnimate']).controller('marketingProgramsController',function($scope,$http)
+angular.module('marketingprogramota',[]).controller('marketingProgramsController',function($scope,$http)
 {
     var globalMarketingActionId="";                      
     $scope.indexvalue ="";       

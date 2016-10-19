@@ -4,7 +4,7 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 
-var factoryApp =  angular.module('factorys', ['ngAnimate']);
+var factoryApp =  angular.module('factorys', []);
 var brndBotSignupApp = angular.module('signupApp', ['factorys','ngRoute','ngDropdowns','ngAnimate']);
 var socialFlowApp = angular.module('socialFlowApp', ['factorys','ngRoute','ngDropdowns','ngAnimate']);
 var emailFlowApp = angular.module('emailFlowApp', ['factorys','ngRoute','sharedService','ngDropdowns','ngAnimate']);
@@ -15,9 +15,9 @@ var settingFlowApp = angular.module('settingFlowApp', ['factorys','ngRoute','ngD
 var userGalleryApp = angular.module('userGalleryApp', ['factorys','ngRoute','ngAnimate']);
 var marketinghubFlowApp = angular.module('marketinghubFlowApp', ['factorys','ngRoute','ngAnimate']);
 var socialhubFlowApp = angular.module('socialhubFlowApp', ['factorys','ngRoute','ngAnimate']);
-var sharedServiceApp = angular.module('sharedService',['ngAnimate']);
+var sharedServiceApp = angular.module('sharedService',[]);
 var imagesFlowApp = angular.module('imagesFlowApp', ['factorys','ngRoute','ngAnimate']);
-var franchiseHubApp = angular.module('franchiseHubApp', ['factorys','ngAnimate']);
+var franchiseHubApp = angular.module('franchiseHubApp', ['factorys']);
 
 factoryApp.directive('fileModel', ['$parse', function ($parse) {
         return {
