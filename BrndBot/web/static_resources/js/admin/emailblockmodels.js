@@ -3,7 +3,7 @@
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
-var app = angular.module('uploadImage', []); 
+var app = angular.module('uploadImage', ['ngAnimate']); 
  
        (function (module) {
      

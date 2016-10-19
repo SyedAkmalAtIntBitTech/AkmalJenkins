@@ -6,7 +6,7 @@
 
 /* global angular */
 
-var app = angular.module('uploadImage', []); 
+var app = angular.module('uploadImage', ['ngAnimate']); 
  
        (function (module) {
      
