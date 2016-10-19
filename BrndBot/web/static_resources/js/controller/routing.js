@@ -136,6 +136,9 @@ settingFlowApp.config(function ($routeProvider) {
             .when('/userpalettesettings', {
                 templateUrl: 'userpalettesettings.html'
             })
+            .when('/settingsmanagedaccount', {
+                templateUrl: 'settingsmanagedaccount.html'
+            })
             .otherwise({redirectTo: '/useraccountsettings'});
 });
 
@@ -256,6 +259,10 @@ franchiseHubApp.config(function ($routeProvider) {
             .when('/pushedemaildrafts', {
                 title: 'BrndBot - Pushed Emails',
                 templateUrl: 'pushedemaildrafts.html'
+            })
+            .when('/emailtags', {
+                title: 'BrndBot - Email Tags',
+                templateUrl: 'emailtags.html'
             })
             .when('/pushedemaildetailbase', {
                 title: 'BrndBot - Pushed Emails',

@@ -11,11 +11,11 @@ var emailFlowApp = angular.module('emailFlowApp', ['factorys','ngRoute','sharedS
 var marketingFlowApp = angular.module('marketingFlowApp', ['factorys','ngRoute','ngDropdowns','ngAnimate']);
 var yourPlanFlowApp = angular.module('yourPlanFlowApp', ['factorys','ngRoute','ngDropdowns','ngAnimate']);
 var dashboardFlowApp = angular.module('dashboardFlowApp', ['factorys','ngRoute','sharedService','ngAnimate']);
-var settingFlowApp = angular.module('settingFlowApp', ['factorys','ngRoute','ngAnimate']);
+var settingFlowApp = angular.module('settingFlowApp', ['factorys','ngRoute','ngDropdowns','ngAnimate']);
 var userGalleryApp = angular.module('userGalleryApp', ['factorys','ngRoute','ngAnimate']);
 var marketinghubFlowApp = angular.module('marketinghubFlowApp', ['factorys','ngRoute','ngAnimate']);
 var socialhubFlowApp = angular.module('socialhubFlowApp', ['factorys','ngRoute','ngAnimate']);
-var sharedServiceApp = angular.module('sharedService', []);
+var sharedServiceApp = angular.module('sharedService',['ngAnimate']);
 var imagesFlowApp = angular.module('imagesFlowApp', ['factorys','ngRoute','ngAnimate']);
 var franchiseHubApp = angular.module('franchiseHubApp', ['factorys','ngAnimate']);
 
