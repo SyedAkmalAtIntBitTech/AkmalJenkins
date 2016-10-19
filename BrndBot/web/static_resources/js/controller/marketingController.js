@@ -1260,7 +1260,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     'media table',
                     'imagetools'
                 ],
-                toolbar1: 'undo | bold italic |link',
+                toolbar1: 'undo | bold italic | link',
                 menubar: false
             });
             $('.innerbg').mouseenter(function (event) {
