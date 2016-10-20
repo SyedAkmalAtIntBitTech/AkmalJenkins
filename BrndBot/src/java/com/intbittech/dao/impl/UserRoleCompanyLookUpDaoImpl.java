@@ -107,7 +107,10 @@ public class UserRoleCompanyLookUpDaoImpl implements UserRoleCompanyLookUpDao {
     public UsersRoleCompanyLookup getUsersRoleLookupByUser(Users user) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(UsersRoleCompanyLookup.class)
-                .add(Restrictions.eq("userId", user));
+                .setFetchMode("companyId", FetchMode.JOIN)
+                .setFetchMode("roleId", FetchMode.JOIN)
+                .setFetchMode("userId", FetchMode.JOIN)
+                .add(Restrictions.eq("userId.userId", user.getUserId()));
         if (criteria.list().isEmpty()) {
             return null;
         }

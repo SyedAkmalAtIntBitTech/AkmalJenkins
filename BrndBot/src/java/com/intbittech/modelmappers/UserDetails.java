@@ -23,6 +23,15 @@ public class UserDetails extends UserCompanyIds implements Serializable {
     private String firstName;
     private String lastName;
     private String invitationCode;
+    private String userColor;
+
+    public String getUserColor() {
+        return userColor;
+    }
+
+    public void setUserColor(String userColor) {
+        this.userColor = userColor;
+    }
 
     public String getInvitationCode() {
         return invitationCode;

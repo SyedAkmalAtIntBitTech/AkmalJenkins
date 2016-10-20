@@ -24,8 +24,8 @@ import com.intbittech.modelmappers.EmailSettings;
 import com.intbittech.modelmappers.FacebookDataDetails;
 import com.intbittech.modelmappers.FooterDetails;
 import com.intbittech.modelmappers.InviteDetails;
+import com.intbittech.modelmappers.OnBoarding;
 import com.intbittech.modelmappers.TwitterDataDetails;
-import com.intbittech.modelmappers.UserProfileColorDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
@@ -37,6 +37,7 @@ import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.EmailListService;
 import com.intbittech.services.ForgotPasswordService;
 import com.intbittech.services.UnsubscribedEmailsService;
+import com.intbittech.services.UserPreferencesService;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UsersService;
 import com.intbittech.social.CompanyPreferencesFacebook;
@@ -120,7 +121,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     
     @Autowired
     private MessageSource messageSource;
-
+    
+@Autowired
+private UserPreferencesService userPreferencesService;
     private Twitter twitter;
     private RequestToken requestToken;
     private Facebook facebook;
@@ -249,21 +252,10 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         try {
             Company company = companyService.getCompanyById(companyColorsDetails.getCompanyId());
             companyPreferencesService.setColors(companyColorsDetails, company);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyCategories_color_update", new String[]{}, Locale.US)));
-        } catch (Throwable throwable) {
-            logger.error(throwable);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
-        }
-
-        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
-    }
-
-    @RequestMapping(value = "/setUserProfileColor", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> setUserProfileColor(@RequestBody UserProfileColorDetails userProfileColorDetails) {
-        TransactionResponse transactionResponse = new TransactionResponse();
-        try {
-            Company company = companyService.getCompanyById(userProfileColorDetails.getCompanyId());
-            companyPreferencesService.setUserProfileColor(userProfileColorDetails, company);
+            OnBoarding onBoarding = companyPreferencesService.getOnBoarding(company);
+            onBoarding.setColorPallete("true");
+            onBoarding.setTotal("true");
+            companyPreferencesService.setOnBoarding(onBoarding, company);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyCategories_color_update", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -275,13 +267,11 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
     @RequestMapping(value = "/getUserProfileColor", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getUserProfileColor(HttpServletRequest request,
-            HttpServletResponse response, @RequestParam("companyId") Integer companyId) {
+            HttpServletResponse response, @RequestParam("userId") Integer userId) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
-
         try {
-            Company company = companyService.getCompanyById(companyId);
-            String colorArray = companyPreferencesService.getUserProfileColor(company);
-            genericResponse.addDetail(colorArray);
+            String userColor = userPreferencesService.getUserProfileColor(userId);
+            genericResponse.addDetail(userColor);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
         } catch (Throwable throwable) {
             logger.error(throwable);

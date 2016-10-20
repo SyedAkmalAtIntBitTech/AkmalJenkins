@@ -16,6 +16,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 
 
 /**
@@ -24,6 +27,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "users")
+@TypeDefs({
+    @TypeDef(name = "StringJsonObject", typeClass = StringJsonUserType.class)})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,6 +50,17 @@ public class Users implements Serializable {
     private String lastName;
     @Column(name = "signup_status")
     private String signupStatus;
+    @Column(name = "user_preferences")
+    @Type(type = "StringJsonObject")
+    private String userPreferences;
+
+    public String getUserPreferences() {
+        return userPreferences;
+    }
+
+    public void setUserPreferences(String userPreferences) {
+        this.userPreferences = userPreferences;
+    }
 
     public String getSignupStatus() {
         return signupStatus;
