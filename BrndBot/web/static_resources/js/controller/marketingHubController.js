@@ -455,13 +455,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.isEmailHistory = true;
             var categories = {"categories": details.emailTag};
             emailFactory.tagsDetailsGet(details.emailSentHistoryId).then(function (data) {
-                alert(JSON.stringify(data));
                 if (data.d.operationStatus.statusCode !== "DataError") {
-                    console.log(JSON.stringify(data.d.details[0].sendGridStats));
                     $scope.tagsDetails = data.d.details[0].sendGridStats;
                 } else {
                     $scope.tagerror = categoryLoadDelay;
-                    alert($scope.tagerror);
                 }
                 
             });

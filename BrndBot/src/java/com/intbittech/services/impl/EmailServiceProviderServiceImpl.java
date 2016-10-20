@@ -193,6 +193,7 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
         }
     }
 
+//    getAPIKey(typeKey = email stats, emailtype = )
     @Override
     public OperationStatus sendEmail(Mail mail, EmailType emailType) throws ProcessFailed {
         try {

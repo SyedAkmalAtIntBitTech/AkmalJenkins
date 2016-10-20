@@ -46,7 +46,7 @@ public class AppConstants {
     public static final String BASE_IMAGE_COMPANY = BASE_IMAGE_UPLOAD_PATH + File.separator + "companies";
     public static final String twitterString1 = "K7TJ3va8cyAeh6oN3Hia91S2o";
     public static final String twitterString2 = "IWUt2aDVTHgUc8N0qI0cF1Z1dTAEQ7CSgnBymZNr3BPSmtkNHL";
-    public static String KSendGridAPIKey = "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";
+    public static String KSendGridAPIKey = "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";
 
 //........ BrndBot fb App configuration.....uncomment for production server..../
 /*   

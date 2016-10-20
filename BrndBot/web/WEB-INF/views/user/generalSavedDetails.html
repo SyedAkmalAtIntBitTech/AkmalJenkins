@@ -136,11 +136,16 @@
 
 
         <div class="overlay-content" ng-show="masterActionType == 'Email'">
-            <div class="overlay-details-pane">
+            <div class="overlay-details-pane" ng-show="action_template_status == 'Complete'">
                 <div class="overlay-details-pane-header">
                     <div >EMAIL HISTORY STATS</div>
                 </div>
-                <div class="detail-sections-wrap" ng-repeat="tag in tagsDetails| filter:userSearch">
+                <div class="detail-sections-wrap" ng-if="tagerror">
+                    <div class="detail-section">
+                        <div class="detail-section-item">{{tagerror}}</div>
+                    </div>
+                </div> 
+                <div class="detail-sections-wrap" ng-if="!tagerror" ng-repeat="tag in tagsDetails| filter:userSearch">
                     <div class="detail-section"> 
                         <div class="detail-section-item">
                             <label class="detail-section-label" ng-show="(tag.stats[0].metrics.unique_opens / tag.stats[0].metrics.delivered) * 100">{{(tag.stats[0].metrics.unique_opens / tag.stats[0].metrics.delivered) * 100 | number : 2}}%</label>

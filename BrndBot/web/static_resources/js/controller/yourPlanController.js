@@ -454,11 +454,24 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 var timeValues = [];
                 timeValues = actionDateTime.split(":");
                 var hours = timeValues[0];
-                var mins = timeValues[1];
-                var delimiter = timeValues[2];
+                var mins = timeValues[1].replace("PM","").replace("AM","");
+//                var delimiter = timeValues[2];
 
-                if (delimiter == "PM") {
-                    hours = parseInt(hours) + 12;
+                if (actionDateTime.indexOf("PM") >= 0) {
+                    if (parseInt(hours) !== 12) {
+                        hours = parseInt(hours) + 12;
+                    }
+                    if (hours >= 24) {
+                        hours = 00;
+                    }
+                }
+                if (actionDateTime.indexOf("AM") >= 0) {
+                    if (parseInt(hours) === 12) {
+                        hours = parseInt(hours) + 12;
+                    }
+                    if (hours >= 24) {
+                        hours = 00;
+                    }
                 }
                 var newtime = hours + ":" + mins + ":" + "00";
                 
@@ -539,11 +552,19 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.globalScheduleData = {};
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, assignedFirstName, assignedLastName, assignedToInitialChars, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
         {
-            alert(template_status);
             var statsData = {"programId" : programId, "actionId" : schedule_id};
             
             emailFactory.emailHistoryStatsGet(statsData).then(function (stats) {
                 alert(JSON.stringify(stats));
+                 if (stats.d.operationStatus.statusCode !== "DataError") {
+                     alert("1");
+                    $scope.tagsDetails = stats.d.details[0].sendGridStats;
+                    alert(JSON.stringify($scope.tagsDetails));
+                } else {
+                    alert("2");
+                    $scope.tagerror = categoryLoadDelay;
+                    alert($scope.tagerror);
+                }
             });
             $scope.dateLesser = false;
 //        $scope.entities_selected_time =schedule_time;
