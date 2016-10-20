@@ -1309,7 +1309,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
 
             });
-           
+            
         };
 
         $scope.ddSelectDateAutomationData = {
@@ -1629,7 +1629,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 growl("selected day not entered");
                 return false;
             }
-            if (!$scope.emailListName) {
+            if (!$scope.automationData.selectedEmailList) {
                 $scope.automationTime = false;
                 $scope.emailAutomationListValidation = true;
                 growl("emailListName not entered");
