@@ -1161,8 +1161,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                             for (var i=0; i< parseData.length; i++){
                                 var Tag = parseData[i];
                                 var emailTag = {};
-                                emailTag["text"] = Tag.tagName;
-                                emailTag["value"] = Tag.tagId;
+                                emailTag["text"] = Tag.fkEmailListTagId.tagName;
+                                emailTag["value"] = Tag.fkEmailListTagId.tagId;
                                 $scope.ddSelectEmailListOptions.push(emailTag);
                             }
                             $scope.noEmailList = false;
