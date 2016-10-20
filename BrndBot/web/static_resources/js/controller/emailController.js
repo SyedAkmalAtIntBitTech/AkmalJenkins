@@ -1159,7 +1159,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         emailListFactory.emailListTagsForFranchiseGet(franchiseId).then(function (data){
                             var parseData = data.d.details;
                             for (var i=0; i< parseData.length; i++){
-                                var Tag = parseData[i];
+                                var Tag = parseData[i].fkEmailListTagId;
                                 var emailTag = {};
                                 emailTag["text"] = Tag.tagName;
                                 emailTag["value"] = Tag.tagId;
