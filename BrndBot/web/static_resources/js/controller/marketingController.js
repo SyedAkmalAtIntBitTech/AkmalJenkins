@@ -85,6 +85,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }, {
                 text: 'Email',
                 value: 'Email'
+            }, {
+                text: 'Task',
+                value: 'Reminder'
             }
         ];
         
@@ -363,6 +366,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 }, {
                     text: 'Email',
                     value: 'Email'
+                }, {
+                    text: 'Task',
+                    value: 'Reminder'
                 }
             ];
         };
@@ -524,10 +530,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         $scope.closePopup = function () {
+            $scope.hideSaveButton();
+            $scope.hideReminderSaveButton();
             $scope.reminderSectionClass = '';
             $scope.emailsectionClass = '';
             $scope.fadeClass = '';
-            $scope.hideSaveButton();
 //            $location.path("/marketingprogramactions");
         };
         $scope.setTab = function (tabName) {
@@ -728,6 +735,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //            }
 //        });
 //    };
+        $scope.showReminderSaveButton = function () {
+            $scope.showReminderUpdateBtn = true;
+        };
+        
+        $scope.hideReminderSaveButton = function () {
+            $scope.showReminderUpdateBtn = false;
+        };
+
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, assignedFirstName, assignedLastName, assignedToInitialChars, action_status, days, marketingName)
         {
             $scope.isRecurring = false;
@@ -755,6 +770,13 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.pushedEmail = false;
             var time = $filter('date')(schedule_time, "hh:mm a");
             $("#emaildatetime").val($filter('date')(schedule_date, "MMM dd yyyy"));
+            $("#emaildatetime1").val($filter('date')(schedule_date, "MMM dd yyyy"));
+            
+            if (entity_type === getnote()) {
+                $scope.reminderSectionClass = 'reminderSectionClass';
+                $scope.savedReminderTab = true;
+                $scope.setTab('savedReminder');
+            }
 
             $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: schedule_date,
                 schedule_id: schedule_id, schedule_desc: schedule_desc,
@@ -864,7 +886,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var days = start.diff(end, "days");
 //            var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
              utilFactory.getEpoch(actiondate, actionTime1).then(function (dateTimeEpoch) {
-                var description = "";
+                var description = scheduleUpdatedData.schedule_desc;
                 var action = {
                     "schedule_id": schedule_id.toString(), "type": "update",
                     "title": title, "actiontype": actiontype,
@@ -889,6 +911,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     if ($scope.action_template_status == "Template Saved") {
                         $scope.action_template_status = "Approved";
 //                        $scope.scheduleData.email_template_status = 'Approved';
+                    } else if ($scope.action_template_status == "Complete") {
+                       $scope.action_template_status = "No Template";
+                    } else if ($scope.action_template_status == "No Template") {
+                        $scope.action_template_status = "Complete";
                     } else {
                         $scope.action_template_status = "Template Saved";
 //                        $scope.scheduleData.email_template_status = 'Template Saved';
