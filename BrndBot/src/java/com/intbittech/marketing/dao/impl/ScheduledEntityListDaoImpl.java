@@ -243,7 +243,8 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
                     .add(Restrictions.eq("fkCompanyMarketingProgramId.companyMarketingProgramId", companyMarketingProgramId));
             Criterion rest1 = Restrictions.and(Restrictions.eq("entityType", "Twitter"));
             Criterion rest2 = Restrictions.and(Restrictions.eq("entityType", "Facebook"));
-            criteria.add(Restrictions.or(rest1, rest2));
+            Criterion rest3 = Restrictions.and(Restrictions.eq("entityType", "Reminder"));
+            criteria.add(Restrictions.or(rest1, rest2, rest3));
             return criteria.list();
         } catch (ProcessFailed throwable) {
             logger.log(Level.SEVERE, null, throwable);

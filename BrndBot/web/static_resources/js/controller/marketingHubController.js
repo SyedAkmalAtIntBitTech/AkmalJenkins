@@ -115,6 +115,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             emailDraftFactory.displayAllEmailDraftsGet(isPushed).then(function (data) {
                 if (data.nodrafts === "yes") {
                     $scope.emailDraftDetails = false;
+                    $scope.showDataOverlay=false;
                     $scope.emaildraftnumber = '0';
                     $scope.emaildraftsstatus = "No email drafts present";
                 } else {

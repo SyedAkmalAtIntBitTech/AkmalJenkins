@@ -1159,7 +1159,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         emailListFactory.emailListTagsForFranchiseGet(franchiseId).then(function (data){
                             var parseData = data.d.details;
                             for (var i=0; i< parseData.length; i++){
-                                var Tag = parseData[i];
+                                var Tag = parseData[i].fkEmailListTagId;
                                 var emailTag = {};
                                 emailTag["text"] = Tag.fkEmailListTagId.tagName;
                                 emailTag["value"] = Tag.fkEmailListTagId.tagId;
@@ -1887,7 +1887,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 var schedule_title = $("#ActionName").val();
                 var schedule_date = $("#actionDate").val();
 
-                var schedule_time = $("#actionTime").val().replace(/ /g, '');
+                var schedule_time = $("#actionTime").val();
                 
                 var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();    
                 var fromDate = new Date(dateAndTime);

@@ -14,7 +14,7 @@ factoryApp.factory('utilFactory', function ($q) {
     UtilFactoryObject.getEpoch = function (date, time) {
         var deffered = $q.defer();
         var timeArray = time.split(":");
-        var hours = timeArray[0];
+        var hours = timeArray[0].replace(/ /g, '');
         var mins = timeArray[1].replace(" AM", "").replace(" PM", "");
         if (timeArray.indexOf("PM") >= 0) {
             if (parseInt(hours) !== 12) {
