@@ -72,12 +72,11 @@
                         <object type="image/svg+xml" data="/BrndBot/images/time-gray.svg" style="cursor:pointer;"> </object>
                     </div>
                     <input id="timepicker1" readonly type="text" name="timepicker1" ng-model="automationData.time" class="time-date-select"  ng-class="{'invalid-input': automationData.time === '' || null}"
-                           value="{{entity_details.recurring_email_time| date: 'hh : mm : a'}}" /> 
+                           value="{{entity_details.recurring_email_time| date: 'hh:mm a'}}" /> 
 
                     <script src="../js/utilities/timepicki.js" type="text/javascript"></script>
                     <script>
                                $('#timepicker1').timepicki({
-                                   format_output:  function(tim, mini, meri) {return tim + ":" + mini + " " + meri;},
                                    show_meridian: true,
                                    min_hour_value: 0,
                                    max_hour_value: 12,

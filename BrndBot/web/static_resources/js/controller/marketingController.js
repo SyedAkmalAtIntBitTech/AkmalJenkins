@@ -502,8 +502,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 var start = moment(nDate);
                 var end1 = moment(currDate);
                 var days = start.diff(end1, "days");
-                var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
-              utilFactory.getEpoch(actiondate, actionDateTime).then(function (dateTimeEpoch) {
+//                var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
+              utilFactory.getEpoch(actiondate, actionTime1).then(function (dateTimeEpoch) {
                     var action = {"title": addTitle, "actiontype": actionType.value,
                         "type": "save", "description": "", "marketingType": $scope.programId,
                         "action_date": dateTimeEpoch, "days": days, "userAssignToId": $scope.ddSelectedUser};
@@ -862,8 +862,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var start = moment(nDate);
             var end = moment(currDate);
             var days = start.diff(end, "days");
-            var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
-             utilFactory.getEpoch(actiondate, actionDateTime).then(function (dateTimeEpoch) {
+//            var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
+             utilFactory.getEpoch(actiondate, actionTime1).then(function (dateTimeEpoch) {
                 var description = "";
                 var action = {
                     "schedule_id": schedule_id.toString(), "type": "update",
