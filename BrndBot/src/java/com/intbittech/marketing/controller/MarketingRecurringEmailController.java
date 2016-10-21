@@ -373,14 +373,14 @@ public class MarketingRecurringEmailController {
             activityLogDetails.setActionTitle(recurring_email_title);
             activityLogService.saveActivityLog(activityLogDetails);
 
-            ActivityLogDetails activityLogDetails1 = new ActivityLogDetails();
-            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_ASSIGNED_TO_ID.getId());
-            activityLogDetails1.setAssignedTo(userAssignToId);
-            activityLogDetails1.setScheduledEntityId(schedule_entity_list_id);
-            activityLogDetails1.setCreatedBy(userCompanyIds.getUserId());
-            activityLogDetails1.setCompanyId(userCompanyIds.getCompanyId());
-            activityLogDetails1.setActionTitle(recurring_email_title);
-            activityLogService.saveActivityLog(activityLogDetails1);
+            ActivityLogDetails activityLogDetailObject = new ActivityLogDetails();
+            activityLogDetailObject.setActivityId(ActivityStatus.ACTIVITY_ASSIGNED_TO_ID.getId());
+            activityLogDetailObject.setAssignedTo(userAssignToId);
+            activityLogDetailObject.setScheduledEntityId(schedule_entity_list_id);
+            activityLogDetailObject.setCreatedBy(userCompanyIds.getUserId());
+            activityLogDetailObject.setCompanyId(userCompanyIds.getCompanyId());
+            activityLogDetailObject.setActionTitle(recurring_email_title);
+            activityLogService.saveActivityLog(activityLogDetailObject);
 
             return "true";
         } catch (Throwable throwable) {

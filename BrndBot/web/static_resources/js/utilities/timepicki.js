@@ -4,13 +4,13 @@
             
 
 		var defaults = {
-			format_output: function(tim, mini, meri) {
-				if(settings.show_meridian){
-					return tim + " : " + mini + " : " + meri;
-				}else{
-					return tim + ":" + mini;
-				}
-			},
+                                format_output: function(tim, mini, meri) {
+                                        if(settings.show_meridian){
+                                                return tim + ":" + mini + " " + meri;
+                                        }else{
+                                                return tim + ":" + mini;
+                                        }
+                                },
 			increase_direction: 'down',
 			custom_classes: '',
 			min_hour_value: 1,

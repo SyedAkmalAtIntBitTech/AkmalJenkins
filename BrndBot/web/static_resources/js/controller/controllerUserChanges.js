@@ -1,4 +1,4 @@
-settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$location', 'signupFactory', 'settingsFactory', 'assetsFactory', 'onboardingFactory', 'appSessionFactory', function ($scope, $window, $location, signupFactory, settingsFactory, assetsFactory, onboardingFactory, appSessionFactory) {
+settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$location', 'signupFactory', 'settingsFactory', 'assetsFactory', 'onboardingFactory', 'appSessionFactory', 'emailListTagFactory', 'emailListFactory', function ($scope, $window, $location, signupFactory, settingsFactory, assetsFactory, onboardingFactory, appSessionFactory, emailListTagFactory, emailListFactory) {
 
         $scope.inputType = 'password';
         $scope.colorFrom = "custom";
@@ -14,8 +14,8 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.stateValidation = stateValidation;
         $scope.zipcodeValidation = zipcodeValidation;
         $scope.countryValidation = countryValidation;
-        $scope.showPaletteChangePopUp="";
-        $scope.addUserSettings = false;                   
+        $scope.showPaletteChangePopUp = "";
+        $scope.addUserSettings = false;
         $scope.userRoleLookUpId = "";
         $scope.inviteId = "";
         $scope.passwordText = "";
@@ -33,46 +33,45 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.settings = {};
         this.tab = 1;
 
-        this.selectTab = function (setTab){
-           this.tab = setTab;  
+        this.selectTab = function (setTab) {
+            this.tab = setTab;
         };
 
-        this.isSelected = function(checkTab) {
+        this.isSelected = function (checkTab) {
             return this.tab === checkTab;
         };
-         
-        $scope.getCompanyStatus = function() {
-            appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
+
+        $scope.getCompanyStatus = function () {
+            appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent) {
                 $scope.isCurrentCompanyInFranchise = isCurrent;
             });
-            appSessionFactory.isCurrentCompanyAFranchiseHeadquarter().then(function (isHead){
+            appSessionFactory.isCurrentCompanyAFranchiseHeadquarter().then(function (isHead) {
                 $scope.isCurrentCompanyAFranchiseHeadquarter = isHead;
             });
         };
 
-        $scope.getUserDetails = function(){
-            
-            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+        $scope.getUserDetails = function () {
+
+            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                 $scope.companyName = kGlobalCompanyObject.companyName;
                 $scope.userFirstName = kGlobalCompanyObject.userFirstName;
                 $scope.userLastName = kGlobalCompanyObject.userLastName;
-                $scope.userRole = kGlobalCompanyObject.roleName; 
+                $scope.userRole = kGlobalCompanyObject.roleName;
                 $scope.logourl = kGlobalCompanyObject.logourl;
-                $scope.userDetails.userFirstName=$scope.userFirstName;
-                $scope.userDetails.userLastName=$scope.userLastName;                
+                $scope.userDetails.userFirstName = $scope.userFirstName;
+                $scope.userDetails.userLastName = $scope.userLastName;
             });
         };
-        
+
         $scope.validateCompanyAddress = function (companyAddressData) {
             if (!companyAddressData.companyAddress) {
                 $scope.companyDetails.companyAddress = "";
                 $("#companyAddress").focus();
                 return false;
-            } 
-            else if (!companyAddressData.addressline2 || !companyAddressData.city || !companyAddressData.state || !companyAddressData.zipcode || !companyAddressData.country) {
+            } else if (!companyAddressData.addressline2 || !companyAddressData.city || !companyAddressData.state || !companyAddressData.zipcode || !companyAddressData.country) {
                 $("#companyAddress").focus();
                 return false;
-            } 
+            }
 //            if (!companyAddressData.addressLine1) {
 //                $scope.companyAddressDetails.addressLine1 = "";
 //                $("#addressLine1").focus();
@@ -100,35 +99,35 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 //            }
             return true;
         };
-        
-        $scope.getCompanyAddress = function (){
+
+        $scope.getCompanyAddress = function () {
             settingsFactory.getAllPreferencesGet().then(function (data) {
-                $scope.companyAddressDetails=JSON.parse(data.d.details).companyAddress[0];
-                $scope.companyDetails.companyAddress=$scope.companyAddressDetails.addressLine1+" "
-                                        +$scope.companyAddressDetails.addressLine2+", "
-                                        +$scope.companyAddressDetails.city+", "
-                                        +$scope.companyAddressDetails.state+" "
-                                        +$scope.companyAddressDetails.zipCode+", "
-                                        +$scope.companyAddressDetails.country;
-            });            
+                $scope.companyAddressDetails = JSON.parse(data.d.details).companyAddress[0];
+                $scope.companyDetails.companyAddress = $scope.companyAddressDetails.addressLine1 + " "
+                        + $scope.companyAddressDetails.addressLine2 + ", "
+                        + $scope.companyAddressDetails.city + ", "
+                        + $scope.companyAddressDetails.state + " "
+                        + $scope.companyAddressDetails.zipCode + ", "
+                        + $scope.companyAddressDetails.country;
+            });
         };
-        
-        
-        $scope.updateCompanyAddress = function (company){
+
+
+        $scope.updateCompanyAddress = function (company) {
             $scope.address1 = document.getElementById('street_number').value;
             $scope.address2 = document.getElementById('route').value;
             $scope.city = document.getElementById('locality').value;
             $scope.state = document.getElementById('administrative_area_level_1').value;
             $scope.zipcode = document.getElementById('postal_code').value;
             $scope.country = document.getElementById('country').value;
-            if($scope.validateCompanyAddress(company)){
-            var companyAddress = {"addressLine1":$scope.address1,"addressLine2":$scope.address2,"city":$scope.city,"state":$scope.state,"zipcode":$scope.zipcode,"country":$scope.country};
-            onboardingFactory.saveCompanyAddress(companyAddress).then(function (data){
-                growl(companyAddressSaved);
-            });  
+            if ($scope.validateCompanyAddress(company)) {
+                var companyAddress = {"addressLine1": $scope.address1, "addressLine2": $scope.address2, "city": $scope.city, "state": $scope.state, "zipcode": $scope.zipcode, "country": $scope.country};
+                onboardingFactory.saveCompanyAddress(companyAddress).then(function (data) {
+                    growl(companyAddressSaved);
+                });
             }
         };
-        
+
         // Hide & show password function
         $scope.hideShowPassword = function () {
             if ($scope.inputType == 'password')
@@ -148,10 +147,10 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $("#confirmpassword").focus();
                 return false;
             }
-            if($scope.isConfirmPasswordSame(confirmPassword))
-            return true;
+            if ($scope.isConfirmPasswordSame(confirmPassword))
+                return true;
         };
-        
+
         $scope.userAccountSettingsValidation = function (fname, lname) {
             if (!fname) {
                 $scope.userDetails.userFirstName = "";
@@ -165,24 +164,24 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             }
             return true;
         };
-        
-        $scope.setPassword = function (password){
+
+        $scope.setPassword = function (password) {
             $scope.passwordText = password;
         };
-        
-        $scope.isConfirmPasswordSame = function (cPassword){
-            if(cPassword === ""){
+
+        $scope.isConfirmPasswordSame = function (cPassword) {
+            if (cPassword === "") {
                 $scope.isConfirmPasswordSamePassword = true;
                 return false;
-            }else if($scope.passwordText === cPassword){
+            } else if ($scope.passwordText === cPassword) {
                 $scope.isConfirmPasswordSamePassword = false;
                 return true;
-            }else{
+            } else {
                 $scope.isConfirmPasswordSamePassword = true;
                 return false;
             }
         };
-        
+
         $scope.changePassword = function (userDetails) {
             if ($scope.accountSettingsValidation(userDetails.password, userDetails.confirmPassword))
             {
@@ -193,66 +192,66 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 });
             }
         };
-        
-        $scope.changeUserName = function (userDetails){
-            if($scope.userAccountSettingsValidation(userDetails.userFirstName, userDetails.userLastName))
-            {   
-                var userName = {"firstName":userDetails.userFirstName,"lastName":userDetails.userLastName};
-                signupFactory.updateUser(userName).then(function (data) { 
-                    appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
-                    kGlobalCompanyObject.userFirstName = userDetails.userFirstName;
-                    kGlobalCompanyObject.userLastName = userDetails.userLastName;                   
-                    
-                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function(){
-                        appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
-                            $scope.companyName = kGlobalCompanyObject.companyName;
-                            $scope.userFirstName = kGlobalCompanyObject.userFirstName;
-                            $scope.userLastName = kGlobalCompanyObject.userLastName;
-                            $scope.userRole = kGlobalCompanyObject.roleName; 
-                            $scope.logourl = kGlobalCompanyObject.logourl;
-                            $scope.userDetails.userFirstName=$scope.userFirstName;
-                            $scope.userDetails.userLastName=$scope.userLastName;    
+
+        $scope.changeUserName = function (userDetails) {
+            if ($scope.userAccountSettingsValidation(userDetails.userFirstName, userDetails.userLastName))
+            {
+                var userName = {"firstName": userDetails.userFirstName, "lastName": userDetails.userLastName};
+                signupFactory.updateUser(userName).then(function (data) {
+                    appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                        kGlobalCompanyObject.userFirstName = userDetails.userFirstName;
+                        kGlobalCompanyObject.userLastName = userDetails.userLastName;
+
+                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function () {
+                            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                                $scope.companyName = kGlobalCompanyObject.companyName;
+                                $scope.userFirstName = kGlobalCompanyObject.userFirstName;
+                                $scope.userLastName = kGlobalCompanyObject.userLastName;
+                                $scope.userRole = kGlobalCompanyObject.roleName;
+                                $scope.logourl = kGlobalCompanyObject.logourl;
+                                $scope.userDetails.userFirstName = $scope.userFirstName;
+                                $scope.userDetails.userLastName = $scope.userLastName;
+                            });
                         });
                     });
-                    });
-                  growl(eval(JSON.stringify(data.d.operationStatus.messages)));  
+                    growl(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });
             }
         };
-        
+
         $scope.emailAdressValidation = function (email) {
             var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-                if (regex.test(email)) {
-                    return false;
-                }
+            if (regex.test(email)) {
+                return false;
+            }
             return true;
         };
-        
+
         $scope.inviteUser = function (userDetails) {
-            if (!userDetails){
+            if (!userDetails) {
                 growl(noEmailAndRole);
-            }else if (!userDetails.email) {
+            } else if (!userDetails.email) {
                 growl(noEmail);
-            }else if ($scope.emailAdressValidation(userDetails.email)) {
+            } else if ($scope.emailAdressValidation(userDetails.email)) {
                 growl(emailValidation);
-            }else if (!userDetails.adminRadio){
+            } else if (!userDetails.adminRadio) {
                 growl(noRole);
-            }else {
+            } else {
                 var roles = [];
                 roles.push(userDetails.adminRadio);
-                var invitation = {"userRoleLookUpId":"", "emailaddress": userDetails.email, "roles": roles, "task": 'invitation'};
+                var invitation = {"userRoleLookUpId": "", "emailaddress": userDetails.email, "roles": roles, "task": 'invitation'};
 
                 onboardingFactory.inviteUserPost(invitation).then(function (data) {
                     growl(data.d.message);
                     $scope.getInvitedUsers();
                     $scope.closeInviteUsersPopup();
-    //                $location.path("/settings/useraccountsettings");
+                    //                $location.path("/settings/useraccountsettings");
                 });
             }
         };
 
         $scope.resendUserInvite = function (inviteId) {
-           
+
             onboardingFactory.resendUserInvitePost(inviteId).then(function (data) {
                 growl(data.d.message);
                 $scope.getInvitedUsers();
@@ -265,8 +264,8 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             var roles = [];
             roles.push(userDetails.editAdminRadio);
             //TODO change with the latest after merge Muzamil
-            var invitation = {"inviteId":$scope.inviteId, "userRoleLookUpId":$scope.userRoleLookUpId.toString(), "emailaddress": $scope.userEmailId, "roles": roles, "task": 'invitation'};
-            
+            var invitation = {"inviteId": $scope.inviteId, "userRoleLookUpId": $scope.userRoleLookUpId.toString(), "emailaddress": $scope.userEmailId, "roles": roles, "task": 'invitation'};
+
             onboardingFactory.editUserRolePost(invitation).then(function (data) {
                 growl(data.d.message);
                 $scope.getInvitedUsers();
@@ -276,7 +275,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         };
 
         $scope.removeUser = function (inviteId) {
-            
+
             onboardingFactory.removeUserPost(inviteId).then(function (data) {
                 growl(data.d.message);
                 $location.path("/settings/useraccountsettings");
@@ -288,7 +287,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $scope.invitedUsers = data.d.details;
             });
         };
-        
+
         $scope.isActive = function (viewLocation) {
             return viewLocation === $location.path();
         };
@@ -323,7 +322,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             $scope.editUserSettings = false;
         };
 
-        $scope.showEditUser = function (inviteId,userRoleLookUpId,userEmailId)
+        $scope.showEditUser = function (inviteId, userRoleLookUpId, userEmailId)
         {
             $scope.fadeClasses = 'fadeClasses';
             $scope.userRoleLookUpId = userRoleLookUpId;
@@ -334,7 +333,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             $scope.editUserSettings = true;
         };
 
-        $scope.showResendEmailToUser = function (userRoleLookUpId,userEmailId)
+        $scope.showResendEmailToUser = function (userRoleLookUpId, userEmailId)
         {
             $scope.fadeClasses = 'fadeClasses';
             $scope.userRoleLookUpId = userRoleLookUpId;
@@ -349,7 +348,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             $scope.fadeClasses = '';
             $scope.addUserSettings = false;
         };
-        
+
         $scope.userLogoValidation = function (logoImage) {
             if (!logoImage) {
                 $scope.logoImage = "";
@@ -385,7 +384,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             $scope.activeColorPicker = '';
             $scope.activeColorLogo = '';
             $scope.colorFrom = "theme";
-           
+
             assetsFactory.allColorThemesGet().then(function (data) {
                 $scope.curPage = 0;
                 $scope.pageSize = 10;
@@ -452,15 +451,15 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 //                growl(JSON.stringify(data.d.operationStatus.messages));
             });
         };
-        
-        $scope.showPaletteChangePopUp = function() {
+
+        $scope.showPaletteChangePopUp = function () {
             $scope.paletteChangePopUp = true;
         };
-        
+
         $scope.closePaletteChangePopUp = function () {
             $scope.paletteChangePopUp = false;
         };
-        
+
         $scope.clearColorPalette = function () {
             var bgColor = "background-color";
             $("#color1").css(bgColor, "");
@@ -515,71 +514,146 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $scope.stepsModel.push(e.target.result);
             });
         };
-        
+
+        $scope.getAllEmailTags = function () {
+
+            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                var franchiseId = kGlobalCompanyObject.franchiseId;
+                emailListTagFactory.getAllEmailListsAndTagsForFranchise(franchiseId).then(function (data) {
+                    if (data.d.operationStatus.statusCode === "DataError")
+                        $scope.emailListTagsError = data.d.operationStatus.messages[0];
+                    else
+                        $scope.emailListTags = data.d.details;
+                });
+            });
+        };
+
+        $scope.ddSelectEmailList = {
+            text: "Please select an email list"
+        };
+
+        $scope.showEmailList = function () {
+            $scope.ddSelectEmailListOptions = [];
+
+            appSessionFactory.getCompany().then(function (companyObject) {
+
+                emailListFactory.getAllEmailListNames(companyObject.companyId).then(function (data) {
+                    $scope.emailLists = data.d.details;
+                    var emailAutomationData = $scope.emailLists;
+                    for (var i = 0; i < emailAutomationData.length; i++)
+                    {
+                        var emailObject = {};
+                        emailObject["text"] = emailAutomationData[i].emailListName;
+                        emailObject["value"] = emailAutomationData[i].emailListId;
+                        $scope.ddSelectEmailListOptions.push(emailObject);
+                    }
+                    $scope.ddSelectEmailList.text = "testList";
+                });
+
+            });
+
+
+
+        };
+        $scope.showTagAndEmailListPopup = function (emailListTag) {
+            $scope.fadeClass = 'fadeClass';
+            $scope.addTagAndEmailList = true;
+            $scope.tagAndEmailList = emailListTag;
+            if (emailListTag.emailListName) {
+                $scope.ddSelectEmailList.text = emailListTag.emailListName;
+                $scope.ddSelectEmailList.value = emailListTag.emailListId
+            } else
+            {
+                $scope.ddSelectEmailList = {
+                    text: "Please select an email list"
+                };
+            }
+        };
+
+        $scope.closeOverlay = function () {
+            $scope.fadeClass = '';
+            $scope.addTagAndEmailList = true;
+        };
+
+        $scope.saveTagAndEmailList = function (ddSelectEmailList) {
+            if (ddSelectEmailList.value) {
+                var tagAndEmailList = {"emailListTagId": $scope.tagAndEmailList.emailListTagId, "emailListId": ddSelectEmailList.value, "tagId": $scope.tagAndEmailList.tagId};
+                emailListTagFactory.saveOrUpdateTagAndEmailList(tagAndEmailList).then(function (data) {
+                    $scope.closeOverlay();
+                    growl("Tag and email list associated successfully.");
+                    $scope.getAllEmailTags();
+                });
+            } else {
+                growl("Please select email list before saving.")
+            }
+
+
+        };
+
     }]);
 
-      // This example displays an address form, using the autocomplete feature
-      // of the Google Places API to help users fill in the information.
+// This example displays an address form, using the autocomplete feature
+// of the Google Places API to help users fill in the information.
 
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-      var placeSearch, autocomplete;
-      var componentForm = {
-        street_number: 'long_name',
-        route: 'long_name',
-        locality: 'long_name',
-        administrative_area_level_1: 'long_name',
-        country: 'long_name',
-        postal_code: 'long_name'
-      };
+// This example requires the Places library. Include the libraries=places
+// parameter when you first load the API. For example:
+// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+var placeSearch, autocomplete;
+var componentForm = {
+    street_number: 'long_name',
+    route: 'long_name',
+    locality: 'long_name',
+    administrative_area_level_1: 'long_name',
+    country: 'long_name',
+    postal_code: 'long_name'
+};
 
-      function initAutocomplete() {
-        // Create the autocomplete object, restricting the search to geographical
-        // location types.
-        autocomplete = new google.maps.places.Autocomplete(
+function initAutocomplete() {
+    // Create the autocomplete object, restricting the search to geographical
+    // location types.
+    autocomplete = new google.maps.places.Autocomplete(
             /** @type {!HTMLInputElement} */(document.getElementById('companyAddress')),
             {types: ['geocode']});
 
-        // When the user selects an address from the dropdown, populate the address
-        // fields in the form.
-        autocomplete.addListener('place_changed', fillInAddress);
-      }
+    // When the user selects an address from the dropdown, populate the address
+    // fields in the form.
+    autocomplete.addListener('place_changed', fillInAddress);
+}
 
-      function fillInAddress() {
-        // Get the place details from the autocomplete object.
-        var place = autocomplete.getPlace();
-        for (var component in componentForm) {
-            document.getElementById(component).value = '';
-            document.getElementById(component).disabled = false;
-        }
-        // Get each component of the address from the place details
-        // and fill the corresponding field on the form.
-        for (var i = 0; i < place.address_components.length; i++) {
-          var addressType = place.address_components[i].types[0];
-          if (componentForm[addressType]) {
+function fillInAddress() {
+    // Get the place details from the autocomplete object.
+    var place = autocomplete.getPlace();
+    for (var component in componentForm) {
+        document.getElementById(component).value = '';
+        document.getElementById(component).disabled = false;
+    }
+    // Get each component of the address from the place details
+    // and fill the corresponding field on the form.
+    for (var i = 0; i < place.address_components.length; i++) {
+        var addressType = place.address_components[i].types[0];
+        if (componentForm[addressType]) {
             var val = place.address_components[i][componentForm[addressType]];
             document.getElementById(addressType).value = val;
-          }
         }
-        var inputvalues = $('#country,#postal_code,#administrative_area_level_1,#locality,#route,#street_number');
-        inputvalues.trigger('input');
-      }
+    }
+    var inputvalues = $('#country,#postal_code,#administrative_area_level_1,#locality,#route,#street_number');
+    inputvalues.trigger('input');
+}
 
-      // Bias the autocomplete object to the user's geographical location,
-      // as supplied by the browser's 'navigator.geolocation' object.
-      function geolocate() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
+// Bias the autocomplete object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
             var geolocation = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
             };
             var circle = new google.maps.Circle({
-              center: geolocation,
-              radius: position.coords.accuracy
+                center: geolocation,
+                radius: position.coords.accuracy
             });
             autocomplete.setBounds(circle.getBounds());
-          });
-        }
-      }
+        });
+    }
+}

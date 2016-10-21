@@ -35,6 +35,16 @@ public interface EmailListTagLookupDao {
     public List<EmailListTagLookup> getByEmailListTagLookupByEmailListId(Integer emailListId) throws ProcessFailed;
     
     /**
+     * This method pass id as input and get the {@link EmailListTagLookup} from DAO
+     * layer.
+     *
+     * @param companyId the companyId
+     * @return {@link EmailListTagLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailListTagLookup> getEmailListTagLookupByCompanyId(Integer companyId) throws ProcessFailed;
+    
+    /**
      * This method save {@link EmailListTagLookup} into the database.
      *
      * @param emailListTagLookup the emailListTagLookup
@@ -42,6 +52,14 @@ public interface EmailListTagLookupDao {
      * @throws ProcessFailed the process failed
      */
     public Integer save(EmailListTagLookup emailListTagLookup) throws ProcessFailed;
+    
+    /**
+     * This method save {@link EmailListTagLookup} into the database.
+     *
+     * @param emailListTagLookup the emailListTagLookup
+     * @throws ProcessFailed the process failed
+     */
+    public void saveOrUpdate(EmailListTagLookup emailListTagLookup) throws ProcessFailed;
 
     /**
      * This method update {@link EmailListTagLookup} updates existing data from the

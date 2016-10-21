@@ -543,6 +543,31 @@ factoryApp.service('configurationService', function () {
         return getHost() + "emaillist/getAllEmailListWithNoOfContactsForUser";
     };
 
+    //************** emailListTagsFactory ********************//
+    
+    this.getAllEmailListTagsURL = function (){
+        return getHost() + "emailListTag/getAllEmailListTag";
+    };
+    
+    this.getAllEmailListTagsForFranchiseURL = function(){
+        return getHost() + "emailListTag/getAllEmailListTagForFranchise";
+    };
+    
+    this.deleteEmailListTagsForFranchiseURL = function(){
+        return getHost() + "emailListTag/deleteEmailListTagsForFranchise";
+    };
+    
+    this.getAllEmailListsAndTagsForFranchiseURL = function(){
+        return getHost() + "emailListTag/getAllEmailListsAndTagsForFranchise";
+    };
+    
+    this.saveEmailListTagURL = function(){
+        return getHost() + "emailListTag/saveEmailListTag";
+    };
+    
+    this.saveOrUpdateTagAndEmailListURL = function(){
+        return getHost() + "emailListTag/saveOrUpdateTagAndEmailList";
+    };
     //************** pushedActionsFactory ********************//
 
     this.saveSchedulePushedActionsCompaniesURL = function () {

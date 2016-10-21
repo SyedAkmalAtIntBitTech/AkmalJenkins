@@ -661,7 +661,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     'insertdatetime media table contextmenu paste',
                     'template paste textcolor colorpicker textpattern imagetools'
                 ],
-                toolbar1: 'undo | bold italic |  link forecolor | fontselect fontsizeselect custombutton',
+                toolbar1: 'undo | bold italic |  link forecolor | alignleft aligncenter alignright alignjustify | fontselect fontsizeselect custombutton',
                 menubar: false
             });
             $('.innerbg').mouseenter(function (event) {
@@ -1159,10 +1159,10 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         emailListFactory.emailListTagsForFranchiseGet(franchiseId).then(function (data){
                             var parseData = data.d.details;
                             for (var i=0; i< parseData.length; i++){
-                                var Tag = parseData[i];
+                                var Tag = parseData[i].fkEmailListTagId;
                                 var emailTag = {};
-                                emailTag["text"] = Tag.tagName;
-                                emailTag["value"] = Tag.tagId;
+                                emailTag["text"] = Tag.fkEmailListTagId.tagName;
+                                emailTag["value"] = Tag.fkEmailListTagId.tagId;
                                 $scope.ddSelectEmailListOptions.push(emailTag);
                             }
                             $scope.noEmailList = false;
@@ -1887,7 +1887,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 var schedule_title = $("#ActionName").val();
                 var schedule_date = $("#actionDate").val();
 
-                var schedule_time = $("#actionTime").val().replace(/ /g, '');
+                var schedule_time = $("#actionTime").val();
                 
                 var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();    
                 var fromDate = new Date(dateAndTime);

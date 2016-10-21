@@ -497,8 +497,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
                 $scope.dateLesser = false;
                 var actiondate = datePicker;
-                var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
-                utilFactory.getEpoch(actiondate, actionDateTime).then(function (dateTimeEpoch) {
+//                var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
+                utilFactory.getEpoch(actiondate, actionTime1).then(function (dateTimeEpoch) {
                     var days = 0;
                     var action = {"title": addTitle, "actiontype": actionType.value, "type": "save",
                         "description": "", "marketingType": 0, "action_date": dateTimeEpoch, "days": days, "userAssignToId": $scope.ddSelectedUser};
@@ -984,8 +984,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 var end = moment(currDate);
                 days = start.diff(end, "days");
             }
-            var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
-            utilFactory.getEpoch(actiondate, actionDateTime).then(function (dateTimeEpoch) {
+//            var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
+            utilFactory.getEpoch(actiondate, actionTime1).then(function (dateTimeEpoch) {
                 var description = scheduleUpdatedData.schedule_desc;
 //        if (!validateemailaction()) {
                 var action = {

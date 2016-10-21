@@ -63,6 +63,13 @@ public class EmailListTagLookupServiceImpl implements EmailListTagLookupService{
     public Integer save(EmailListTagLookup emailListTagLookup) throws ProcessFailed {
         return emailListTagLookupDao.save(emailListTagLookup);
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public void saveOrUpdate(EmailListTagLookup emailListTagLookup) throws ProcessFailed {
+        emailListTagLookupDao.saveOrUpdate(emailListTagLookup);
+    }
 
     /**
      * {@inheritDoc}
