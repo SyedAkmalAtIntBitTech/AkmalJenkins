@@ -3,7 +3,7 @@
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
-brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'externalContentFactory', 'settingsFactory', 'assetsFactory', 'signupFactory', 'appSessionFactory', function ($scope, $location, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, externalContentFactory, settingsFactory, assetsFactory, signupFactory, appSessionFactory) {
+brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'externalContentFactory', 'settingsFactory', 'assetsFactory', 'signupFactory', 'appSessionFactory', 'yourPlanFactory', function ($scope, $location, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, externalContentFactory, settingsFactory, assetsFactory, signupFactory, appSessionFactory, yourPlanFactory) {
         $scope.imageSrc = "images/uploadPhoto.svg";
         $scope.colorFrom = "custom";
         $scope.organizationValidation = false;
@@ -259,7 +259,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             settingsFactory.getRendomColor().then(function (rendomColor) {
                 var user = {"userName": userDetails.userName, "firstName": userDetails.firstName,
                     "lastName": userDetails.lastName, "userPassword": userDetails.userPassword,
-                    "invitationCode": $scope.userHashId,"userColor":rendomColor};
+                    "invitationCode": $scope.userHashId, "userColor": rendomColor};
                 onboardingFactory.saveInvitedUserPost(user).then(function (data) {
                     var message = data.d.message;
                     var userId = data.d.id;
@@ -472,33 +472,39 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 kGlobalCompanyObject.franchiseName = companyDetails.franchiseName;
                 kGlobalCompanyObject.isHeadquarter = companyDetails.isHeadquarter;
                 appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
-                    if (data) {
-                        onboardingFactory.getAccountStatus(companyDetails).then(function (data) {
-                            $scope.message = data.d.message;
-                            if (data.d.message === 'Activated') {
-                                onboardingFactory.getUserSignupSatus().then(function (response) {
-                                    if (response.d.details[0].userRole === "ROLE_ACCOUNT_OWNER") {
-                                        if (response.d.details[0].Total === "true") {
-                                            window.location = getHost() + "user/dashboard";
-                                        } else if (response.d.details[0].ExternalSources !== "true") {
-                                            window.location = getHost() + "#/signup/datasource";
-                                        } else if (response.d.details[0].Logo !== "true") {
-                                            window.location = getHost() + "#/signup/uploadlogo";
-                                        } else if (response.d.details[0].ColorPallete !== "true") {
-                                            window.location = getHost() + "#/signup/choosepalette";
-                                        }
-                                    } else {
-                                        window.location = getHost() + "user/dashboard";
-                                    }
-                                });
+                    yourPlanFactory.allUsersInCompanyGet().then(function (allUsersInCompanyResponse) {
+                        appSessionFactory.getAllUsersUnderCompany().then(function (KGlobalAllUserUnderCompanyObject) {
+                            KGlobalAllUserUnderCompanyObject.userList = allUsersInCompanyResponse.d.details;
+                            appSessionFactory.setAllUsersUnderCompany(KGlobalAllUserUnderCompanyObject).then(function (){});
+                            if (data) {
+                                onboardingFactory.getAccountStatus(companyDetails).then(function (data) {
+                                    $scope.message = data.d.message;
+                                    if (data.d.message === 'Activated') {
+                                        onboardingFactory.getUserSignupSatus().then(function (response) {
+                                            if (response.d.details[0].userRole === "ROLE_ACCOUNT_OWNER") {
+                                                if (response.d.details[0].Total === "true") {
+                                                    window.location = getHost() + "user/dashboard";
+                                                } else if (response.d.details[0].ExternalSources !== "true") {
+                                                    window.location = getHost() + "#/signup/datasource";
+                                                } else if (response.d.details[0].Logo !== "true") {
+                                                    window.location = getHost() + "#/signup/uploadlogo";
+                                                } else if (response.d.details[0].ColorPallete !== "true") {
+                                                    window.location = getHost() + "#/signup/choosepalette";
+                                                }
+                                            } else {
+                                                window.location = getHost() + "user/dashboard";
+                                            }
+                                        });
 
-                            } else if (data.d.message == 'Deactivated') {
-                                growl("your account has been deactivated, please contact system admin");
-                                window.location = getHost() + "login";
+                                    } else if (data.d.message == 'Deactivated') {
+                                        growl("your account has been deactivated, please contact system admin");
+                                        window.location = getHost() + "login";
+                                    }
+                                    $scope.hideDataOverlay = false;
+                                });
                             }
-                            $scope.hideDataOverlay = false;
                         });
-                    }
+                    });
                 });
 
             });
@@ -658,7 +664,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             } else {
                 $scope.colorsAlert = false;
                 settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
-                            window.location = getHost() + "user/dashboard";
+                    window.location = getHost() + "user/dashboard";
                 });
             }
         };

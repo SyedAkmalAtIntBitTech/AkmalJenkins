@@ -5,6 +5,7 @@
  */
 package com.intbittech.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intbittech.model.Channel;
 import com.intbittech.model.Company;
 import com.intbittech.model.EmailBlockExternalSource;
@@ -25,6 +26,7 @@ import com.intbittech.modelmappers.EmailBlockDetails;
 import com.intbittech.modelmappers.MarketingCategoryDetails;
 import com.intbittech.modelmappers.OrganizationCompanyDetails;
 import com.intbittech.modelmappers.OrganizationDetails;
+import com.intbittech.modelmappers.UserPreferencesJson;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
@@ -88,13 +90,15 @@ public class CompanyController {
     private MessageSource messageSource;
     @Autowired
     private UserRoleCompanyLookUpService userRoleCompanyLookUpService;
-    
-    @RequestMapping(value = "getCurrentCompany",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    @Autowired
+    private UserPreferencesJson userPreferencesJson;
+
+    @RequestMapping(value = "getCurrentCompany", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getCurrentCompany(@RequestParam("companyId") Integer companyId) {
         GenericResponse<String> genericResponse = new GenericResponse<String>();
         try {
             List<String> currentCompany = new ArrayList<>();
-            
+
             currentCompany.add(companyId.toString());
             genericResponse.setDetails(currentCompany);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("company_get_all", new String[]{}, Locale.US)));
@@ -272,8 +276,8 @@ public class CompanyController {
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-    
-    @RequestMapping(value = "getAllBlocksForCompany",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @RequestMapping(value = "getAllBlocksForCompany", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllBlocksForCompany(@RequestParam("companyId") Integer companyId) {
         GenericResponse<EmailBlockDetails> genericResponse = new GenericResponse<EmailBlockDetails>();
         try {
@@ -409,7 +413,7 @@ public class CompanyController {
             for (OrganizationEmailBlockLookup organizationEmailBlockObject : organizationEmailBlockList) {
                 try {
                     List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupService.getAllEmailBlockModel(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId(), Boolean.TRUE);
-                    if(emailBlockModelLookupList!= null) {
+                    if (emailBlockModelLookupList != null) {
                         EmailBlockDetails emailBlockDetails = new EmailBlockDetails();
                         emailBlockDetails.setEmailBlockId(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId());
                         emailBlockDetails.setEmailBlockName(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockName());
@@ -437,13 +441,14 @@ public class CompanyController {
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-    @RequestMapping(value = "getNumberOfUsersInCompany",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @RequestMapping(value = "getNumberOfUsersInCompany", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getNumberOfUsersInCompany(@RequestParam("companyId") Integer companyId) {
         GenericResponse<Integer> genericResponse = new GenericResponse<Integer>();
         try {
             List<Integer> noOfUsersInCompany = new ArrayList<>();
             List<UsersRoleCompanyLookup> UsersRoleCompanyLookupList = userRoleCompanyLookUpService.getAllUsersRoleCompanyLookupByCompanyId(companyId);
-            
+
             noOfUsersInCompany.add(UsersRoleCompanyLookupList.size());
             genericResponse.setDetails(noOfUsersInCompany);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("number_of_user_company_get_all", new String[]{}, Locale.US)));
@@ -454,19 +459,25 @@ public class CompanyController {
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-    
-    @RequestMapping(value = "getAllUsersOfCompany",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @RequestMapping(value = "getAllUsersOfCompany", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllUsersOfCompany(@RequestParam("companyId") Integer companyId) {
         GenericResponse<UsersDetailsResponse> genericResponse = new GenericResponse<UsersDetailsResponse>();
         try {
-             List<UsersDetailsResponse> usersDetailsResponseList = new ArrayList<>();
+            List<UsersDetailsResponse> usersDetailsResponseList = new ArrayList<>();
             List<UsersRoleCompanyLookup> UsersRoleCompanyLookupList = userRoleCompanyLookUpService.getAllUsersRoleCompanyLookupByCompanyId(companyId);
             for (UsersRoleCompanyLookup usersRoleCompanyLookup : UsersRoleCompanyLookupList) {
-                UsersDetailsResponse  usersDetailsResponse = new UsersDetailsResponse();
+                UsersDetailsResponse usersDetailsResponse = new UsersDetailsResponse();
+                String userPreferencesJsonString = usersRoleCompanyLookup.getUserId().getUserPreferences();
+                ObjectMapper mapper = new ObjectMapper();
+                userPreferencesJson = mapper.readValue(userPreferencesJsonString, UserPreferencesJson.class);
+  
                 usersDetailsResponse.setUserId(usersRoleCompanyLookup.getUserId().getUserId());
                 usersDetailsResponse.setFirstName(usersRoleCompanyLookup.getUserId().getFirstName());
                 usersDetailsResponse.setLastName(usersRoleCompanyLookup.getUserId().getLastName());
                 usersDetailsResponse.setUserName(usersRoleCompanyLookup.getUserId().getUserName());
+                usersDetailsResponse.setUserColor(userPreferencesJson.getProfileColor());
+              
                 usersDetailsResponseList.add(usersDetailsResponse);
             }
             genericResponse.setDetails(usersDetailsResponseList);
