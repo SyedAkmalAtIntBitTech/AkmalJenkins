@@ -1,4 +1,3 @@
-
 package com.intbittech.modelmappers;
 
 import java.util.HashMap;
@@ -20,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "twitterUrl",
     "instagramUrl"
 })
-public class UserProfile {
+public class CompanyProfile {
 
     @JsonProperty("facebookUrl")
     private String facebookUrl;
@@ -36,9 +35,8 @@ public class UserProfile {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     * 
-     * @return
-     *     The facebookUrl
+     *
+     * @return The facebookUrl
      */
     @JsonProperty("facebookUrl")
     public String getFacebookUrl() {
@@ -46,9 +44,8 @@ public class UserProfile {
     }
 
     /**
-     * 
-     * @param facebookUrl
-     *     The facebookUrl
+     *
+     * @param facebookUrl The facebookUrl
      */
     @JsonProperty("facebookUrl")
     public void setFacebookUrl(String facebookUrl) {
@@ -56,9 +53,8 @@ public class UserProfile {
     }
 
     /**
-     * 
-     * @return
-     *     The address
+     *
+     * @return The address
      */
     @JsonProperty("address")
     public String getAddress() {
@@ -66,9 +62,8 @@ public class UserProfile {
     }
 
     /**
-     * 
-     * @param address
-     *     The address
+     *
+     * @param address The address
      */
     @JsonProperty("address")
     public void setAddress(String address) {
@@ -76,9 +71,8 @@ public class UserProfile {
     }
 
     /**
-     * 
-     * @return
-     *     The websiteUrl
+     *
+     * @return The websiteUrl
      */
     @JsonProperty("websiteUrl")
     public String getWebsiteUrl() {
@@ -86,9 +80,8 @@ public class UserProfile {
     }
 
     /**
-     * 
-     * @param websiteUrl
-     *     The websiteUrl
+     *
+     * @param websiteUrl The websiteUrl
      */
     @JsonProperty("websiteUrl")
     public void setWebsiteUrl(String websiteUrl) {
@@ -96,9 +89,8 @@ public class UserProfile {
     }
 
     /**
-     * 
-     * @return
-     *     The twitterUrl
+     *
+     * @return The twitterUrl
      */
     @JsonProperty("twitterUrl")
     public String getTwitterUrl() {
@@ -106,9 +98,8 @@ public class UserProfile {
     }
 
     /**
-     * 
-     * @param twitterUrl
-     *     The twitterUrl
+     *
+     * @param twitterUrl The twitterUrl
      */
     @JsonProperty("twitterUrl")
     public void setTwitterUrl(String twitterUrl) {
@@ -116,9 +107,8 @@ public class UserProfile {
     }
 
     /**
-     * 
-     * @return
-     *     The instagramUrl
+     *
+     * @return The instagramUrl
      */
     @JsonProperty("instagramUrl")
     public String getInstagramUrl() {
@@ -126,9 +116,8 @@ public class UserProfile {
     }
 
     /**
-     * 
-     * @param instagramUrl
-     *     The instagramUrl
+     *
+     * @param instagramUrl The instagramUrl
      */
     @JsonProperty("instagramUrl")
     public void setInstagramUrl(String instagramUrl) {

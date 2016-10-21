@@ -3,7 +3,7 @@
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
-brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'externalContentFactory', 'settingsFactory', 'assetsFactory', 'signupFactory', 'appSessionFactory', function ($scope, $location, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, externalContentFactory, settingsFactory, assetsFactory, signupFactory, appSessionFactory) {
+brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'externalContentFactory', 'settingsFactory', 'assetsFactory', 'signupFactory', 'appSessionFactory', 'yourPlanFactory', function ($scope, $location, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, externalContentFactory, settingsFactory, assetsFactory, signupFactory, appSessionFactory, yourPlanFactory) {
         $scope.imageSrc = "images/uploadPhoto.svg";
         $scope.colorFrom = "custom";
         $scope.organizationValidation = false;
@@ -66,8 +66,9 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 return false;
             }
             return true;
-        };
-        
+        }
+        ;
+
         $scope.signupValidation = function (userDetails) {
             if (!userDetails.userName) {
                 $scope.uniqueUser = false;
@@ -119,23 +120,23 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 
         $scope.saveUser = function (userDetails) {
             $scope.uniqueUser = false;
-            if ($scope.signupValidation(userDetails))
-            {
-                onboardingFactory.saveUserPost(userDetails).then(function (data) {
-                    var userId = data.d.message;
-                    appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
-                        kGlobalCompanyObject.userId = userId;
-                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
-                            if (data) {
-                                $("#signform").submit();
-                            }
-                            appSessionFactory.getCompany().then(function (kGlobalCompanyObject1) {
+            settingsFactory.getRendomColor().then(function (rendomColor) {
+                userDetails.userColor = rendomColor;
+                if ($scope.signupValidation(userDetails))
+                {
+                    onboardingFactory.saveUserPost(userDetails).then(function (data) {
+                        var userId = data.d.message;
+                        appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                            kGlobalCompanyObject.userId = userId;
+                            appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                                if (data) {
+                                    $("#signform").submit();
+                                }
                             });
-
                         });
                     });
-                });
-            }
+                }
+            });
         };
 
         function checkBrowser() {
@@ -143,39 +144,35 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             {
                 $scope.browserCompatibilityPopup = true;
                 $scope.browserCompatibilityPopupDiv = true;
-            }
-            else if (navigator.userAgent.indexOf("Chrome") != -1)
+            } else if (navigator.userAgent.indexOf("Chrome") != -1)
             {
                 $scope.loginForm = true;
                 $scope.browserCompatibilityPopup = false;
                 $scope.browserCompatibilityPopupDiv = false;
-            }
-            else if (navigator.userAgent.indexOf("Safari") != -1)
+            } else if (navigator.userAgent.indexOf("Safari") != -1)
             {
                 $scope.loginForm = true;
                 $scope.browserCompatibilityPopup = false;
                 $scope.browserCompatibilityPopupDiv = false;
-            }
-            else if (navigator.userAgent.indexOf("Firefox") != -1)
+            } else if (navigator.userAgent.indexOf("Firefox") != -1)
+            {
+                $scope.browserCompatibilityPopup = true;
+                $scope.browserCompatibilityPopupDiv = true;
+                $scope.loginForm = false;
+            } else if ((navigator.userAgent.indexOf("MSIE") != -1) || (!!document.documentMode == true)) //IF IE > 10
+            {
+                $scope.browserCompatibilityPopup = true;
+                $scope.browserCompatibilityPopupDiv = true;
+                $scope.loginForm = false;
+            } else
             {
                 $scope.browserCompatibilityPopup = true;
                 $scope.browserCompatibilityPopupDiv = true;
                 $scope.loginForm = false;
             }
-            else if ((navigator.userAgent.indexOf("MSIE") != -1) || (!!document.documentMode == true)) //IF IE > 10
-            {
-                $scope.browserCompatibilityPopup = true;
-                $scope.browserCompatibilityPopupDiv = true;
-                $scope.loginForm = false;
-            }
-            else
-            {
-                $scope.browserCompatibilityPopup = true;
-                $scope.browserCompatibilityPopupDiv = true;
-                $scope.loginForm = false;
-            }
-        };
-        $scope.closeOverlay = function(){
+        }
+        ;
+        $scope.closeOverlay = function () {
             $scope.browserCompatibilityPopup = false;
             $scope.browserCompatibilityPopupDiv = false;
             $scope.loginForm = true;
@@ -202,30 +199,30 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             if (queryString["accessdenied"] !== undefined) {
                 growl("user does not exist, please check the user name and password");
             }
-            appSessionFactory.clearAllSessions().then(function () {
-                if ($location.search().userid) {
-                    appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
-                        kGlobalCompanyObject.userHashId = $location.search().userid;
-                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
-                        });
+//            appSessionFactory.clearAllSessions().then(function () {
+            if ($location.search().userid) {
+                appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                    kGlobalCompanyObject.userHashId = $location.search().userid;
+                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
                     });
-                } else {
-                    appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
-                        kGlobalCompanyObject.userHashId = "";
-                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
-                        });
+                });
+            } else {
+                appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                    kGlobalCompanyObject.userHashId = "";
+                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
                     });
-                }
-            });
+                });
+            }
+//            });
         };
-        $scope.getUserId = function(){
+        $scope.getUserId = function () {
             $scope.userId = $location.search().userId;
         };
 
-        $scope.getUserId = function(){
+        $scope.getUserId = function () {
             $scope.userId = $location.search().userId;
         };
-        
+
         $scope.getLoggedInUserId = function () {
             onboardingFactory.getLoggedInUserId().then(function (data) {
                 appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
@@ -259,20 +256,21 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         };
 
         $scope.saveInvitedUser = function (userDetails) {
+            settingsFactory.getRendomColor().then(function (rendomColor) {
+                var user = {"userName": userDetails.userName, "firstName": userDetails.firstName,
+                    "lastName": userDetails.lastName, "userPassword": userDetails.userPassword,
+                    "invitationCode": $scope.userHashId, "userColor": rendomColor};
+                onboardingFactory.saveInvitedUserPost(user).then(function (data) {
+                    var message = data.d.message;
+                    var userId = data.d.id;
+                    appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                        kGlobalCompanyObject.userId = data.d.id;
+                        appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
 
-            var user = {"userName": userDetails.userName, "firstName": userDetails.firstName,
-                "lastName": userDetails.lastName, "userPassword": userDetails.userPassword,
-                "invitationCode": $scope.userHashId}
-            onboardingFactory.saveInvitedUserPost(user).then(function (data) {
-                var message = data.d.message;
-                var userId = data.d.id;
-                appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
-                    kGlobalCompanyObject.userId = data.d.id;
-                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function () {
-                        data
+                        });
+                        growl(message);
+                        window.location = getHost() + "login";
                     });
-                    growl(message);
-                    window.location = getHost() + "login";
                 });
             });
         };
@@ -350,14 +348,14 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $scope.state = document.getElementById('administrative_area_level_1').value;
             $scope.zipcode = document.getElementById('postal_code').value;
             $scope.country = document.getElementById('country').value;
-                                      
+
             if ($scope.validationCode(companyData))
             {
                 appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                     var userIdvalue = kGlobalCompanyObject.userId;
                     userIdvalue = $scope.userId;
                     kGlobalCompanyObject.userId = $scope.userId;
-                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
+                    appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {});
                     var companyDetails = {"userId": userIdvalue, "companyName": $scope.companyName, "organizationId": $scope.organizationId};
 
                     onboardingFactory.saveCompanyPost(companyDetails).then(function (data) {
@@ -388,14 +386,14 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                                     $scope.companies = data.d.details;
                                 }
                             });
-                            appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
-                            appSessionFactory.getCompany().then(function (kGlobalCompanyObject){
-                            var companyAddressDetails = {"companyId":kGlobalCompanyObject.companyId,"addressLine1":$scope.address1,"addressLine2":$scope.address2,
-                                            "city":$scope.city,"state":$scope.state,"zipcode":$scope.zipcode,"country":$scope.country }; 
-                            onboardingFactory.saveCompanyAddress(companyAddressDetails).then(function (data){//alert(JSON.stringify(data));
-                            });
-                            //TODO Set the companyId in Auth factory file
-                            $location.path("/signup/datasource");
+                            appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {});
+                            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                                var companyAddressDetails = {"companyId": kGlobalCompanyObject.companyId, "addressLine1": $scope.address1, "addressLine2": $scope.address2,
+                                    "city": $scope.city, "state": $scope.state, "zipcode": $scope.zipcode, "country": $scope.country};
+                                onboardingFactory.saveCompanyAddress(companyAddressDetails).then(function (data) {//alert(JSON.stringify(data));
+                                });
+                                //TODO Set the companyId in Auth factory file
+                                $location.path("/signup/datasource");
                             });
                         }
                     });
@@ -453,14 +451,13 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                         $scope.companies = data.d.details;
                     }
                     appSessionFactory.setUser(kGlobalUserObject).then(function (data) {
-                    $scope.hideDataOverlay = false;
+                        $scope.hideDataOverlay = false;
                     });
                 });
             });
         };
 
         $scope.getAccountStatus = function (companyDetails) {
-            
             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                 kGlobalCompanyObject.userId = companyDetails.userId;
                 kGlobalCompanyObject.companyId = companyDetails.companyId;
@@ -469,24 +466,45 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 kGlobalCompanyObject.roleId = companyDetails.roleId;
                 kGlobalCompanyObject.accountStatus = companyDetails.accountStatus;
                 kGlobalCompanyObject.userEmailId = companyDetails.userEmailId;
-                kGlobalCompanyObject.userFirstName= companyDetails.userFirstName;
-                kGlobalCompanyObject.userLastName= companyDetails.userLastName;
-                kGlobalCompanyObject.franchiseId= companyDetails.franchiseId;
-                kGlobalCompanyObject.franchiseName= companyDetails.franchiseName;
-                kGlobalCompanyObject.isHeadquarter= companyDetails.isHeadquarter;
-                appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){
-                    if (data){
-                        onboardingFactory.getAccountStatus(companyDetails).then(function(data){
-                           $scope.message = data.d.message; 
-                           if (data.d.message == 'Activated'){
-                               window.location = getHost() + "user/dashboard";
-                           }else if (data.d.message == 'Deactivated'){
-                               growl("your account has been deactivated, please contact system admin");
-                               window.location = getHost() + "login";
-                           }
-                           $scope.hideDataOverlay = false;
+                kGlobalCompanyObject.userFirstName = companyDetails.userFirstName;
+                kGlobalCompanyObject.userLastName = companyDetails.userLastName;
+                kGlobalCompanyObject.franchiseId = companyDetails.franchiseId;
+                kGlobalCompanyObject.franchiseName = companyDetails.franchiseName;
+                kGlobalCompanyObject.isHeadquarter = companyDetails.isHeadquarter;
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                    yourPlanFactory.allUsersInCompanyGet().then(function (allUsersInCompanyResponse) {
+                        appSessionFactory.getAllUsersUnderCompany().then(function (KGlobalAllUserUnderCompanyObject) {
+                            KGlobalAllUserUnderCompanyObject.userList = allUsersInCompanyResponse.d.details;
+                            appSessionFactory.setAllUsersUnderCompany(KGlobalAllUserUnderCompanyObject).then(function (){});
+                            if (data) {
+                                onboardingFactory.getAccountStatus(companyDetails).then(function (data) {
+                                    $scope.message = data.d.message;
+                                    if (data.d.message === 'Activated') {
+                                        onboardingFactory.getUserSignupSatus().then(function (response) {
+                                            if (response.d.details[0].userRole === "ROLE_ACCOUNT_OWNER") {
+                                                if (response.d.details[0].Total === "true") {
+                                                    window.location = getHost() + "user/dashboard";
+                                                } else if (response.d.details[0].ExternalSources !== "true") {
+                                                    window.location = getHost() + "#/signup/datasource";
+                                                } else if (response.d.details[0].Logo !== "true") {
+                                                    window.location = getHost() + "#/signup/uploadlogo";
+                                                } else if (response.d.details[0].ColorPallete !== "true") {
+                                                    window.location = getHost() + "#/signup/choosepalette";
+                                                }
+                                            } else {
+                                                window.location = getHost() + "user/dashboard";
+                                            }
+                                        });
+
+                                    } else if (data.d.message == 'Deactivated') {
+                                        growl("your account has been deactivated, please contact system admin");
+                                        window.location = getHost() + "login";
+                                    }
+                                    $scope.hideDataOverlay = false;
+                                });
+                            }
                         });
-                    }
+                    });
                 });
 
             });
@@ -591,12 +609,12 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $scope.activeColorTheme = '';
             $scope.activeColorLogo = '';
             $scope.colorFrom = "custom";
-            $scope.defaultColors=[];
-            for(var i=0,j=1;i<defaultFroalaColors.length;i=(i+2),j++){
-                var colors="#"+defaultFroalaColors[i];
-                $scope.defaultColors.push({"color":colors});
+            $scope.defaultColors = [];
+            for (var i = 0, j = 1; i < defaultFroalaColors.length; i = (i + 2), j++) {
+                var colors = "#" + defaultFroalaColors[i];
+                $scope.defaultColors.push({"color": colors});
             }
-            $scope.globalColors=$scope.defaultColors;
+            $scope.globalColors = $scope.defaultColors;
 
             $("#togglePaletteOnly").spectrum({
                 showPaletteOnly: true,
@@ -646,13 +664,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             } else {
                 $scope.colorsAlert = false;
                 settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
-                    settingsFactory.getRendomColor().then(function (rendomColor){
-                        var profileColor={userProfileColor:rendomColor}; 
-                        settingsFactory.setUserProfileColor(profileColor).then(function (data){
-                             window.location = getHost() + "user/dashboard";
-                        });
-                    });
-                   
+                    window.location = getHost() + "user/dashboard";
                 });
             }
         };
@@ -712,68 +724,68 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         };
     }]);
 
-      // This example displays an address form, using the autocomplete feature
-      // of the Google Places API to help users fill in the information.
+// This example displays an address form, using the autocomplete feature
+// of the Google Places API to help users fill in the information.
 
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-      var placeSearch, autocomplete;
-      var componentForm = {
-        street_number: 'long_name',
-        route: 'long_name',
-        locality: 'long_name',
-        administrative_area_level_1: 'long_name',
-        country: 'long_name',
-        postal_code: 'long_name'
-      };
+// This example requires the Places library. Include the libraries=places
+// parameter when you first load the API. For example:
+// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+var placeSearch, autocomplete;
+var componentForm = {
+    street_number: 'long_name',
+    route: 'long_name',
+    locality: 'long_name',
+    administrative_area_level_1: 'long_name',
+    country: 'long_name',
+    postal_code: 'long_name'
+};
 
-      function initAutocomplete() {
-        // Create the autocomplete object, restricting the search to geographical
-        // location types.
-        autocomplete = new google.maps.places.Autocomplete(
+function initAutocomplete() {
+    // Create the autocomplete object, restricting the search to geographical
+    // location types.
+    autocomplete = new google.maps.places.Autocomplete(
             /** @type {!HTMLInputElement} */(document.getElementById('companyAddress')),
             {types: ['geocode']});
 
-        // When the user selects an address from the dropdown, populate the address
-        // fields in the form.
-        autocomplete.addListener('place_changed', fillInAddress);
-      }
+    // When the user selects an address from the dropdown, populate the address
+    // fields in the form.
+    autocomplete.addListener('place_changed', fillInAddress);
+}
 
-      function fillInAddress() {
-        // Get the place details from the autocomplete object.
-        var place = autocomplete.getPlace();
-        for (var component in componentForm) {
-            document.getElementById(component).value = '';
-            document.getElementById(component).disabled = false;
-        }
-        // Get each component of the address from the place details
-        // and fill the corresponding field on the form.
-        for (var i = 0; i < place.address_components.length; i++) {
-          var addressType = place.address_components[i].types[0];
-          if (componentForm[addressType]) {
+function fillInAddress() {
+    // Get the place details from the autocomplete object.
+    var place = autocomplete.getPlace();
+    for (var component in componentForm) {
+        document.getElementById(component).value = '';
+        document.getElementById(component).disabled = false;
+    }
+    // Get each component of the address from the place details
+    // and fill the corresponding field on the form.
+    for (var i = 0; i < place.address_components.length; i++) {
+        var addressType = place.address_components[i].types[0];
+        if (componentForm[addressType]) {
             var val = place.address_components[i][componentForm[addressType]];
             document.getElementById(addressType).value = val;
-          }
         }
-        var inputvalues = $('#country,#postal_code,#administrative_area_level_1,#locality,#route,#street_number');
-        inputvalues.trigger('input');
-      }
+    }
+    var inputvalues = $('#country,#postal_code,#administrative_area_level_1,#locality,#route,#street_number');
+    inputvalues.trigger('input');
+}
 
-      // Bias the autocomplete object to the user's geographical location,
-      // as supplied by the browser's 'navigator.geolocation' object.
-      function geolocate() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
+// Bias the autocomplete object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
             var geolocation = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
             };
             var circle = new google.maps.Circle({
-              center: geolocation,
-              radius: position.coords.accuracy
+                center: geolocation,
+                radius: position.coords.accuracy
             });
             autocomplete.setBounds(circle.getBounds());
-          });
-        }
-      }
+        });
+    }
+}

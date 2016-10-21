@@ -15,6 +15,15 @@ public class UsersDetailsResponse {
     private String firstName;
     private String lastName;
     private String userName;
+    private String userColor;
+
+    public String getUserColor() {
+        return userColor;
+    }
+
+    public void setUserColor(String userColor) {
+        this.userColor = userColor;
+    }
 
     public Integer getUserId() {
         return userId;

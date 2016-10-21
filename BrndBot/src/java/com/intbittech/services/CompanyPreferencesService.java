@@ -12,9 +12,9 @@ import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.modelmappers.EmailSettings;
 import com.intbittech.modelmappers.FacebookDataDetails;
 import com.intbittech.modelmappers.FooterDetails;
+import com.intbittech.modelmappers.OnBoarding;
 import com.intbittech.modelmappers.Tooltips;
 import com.intbittech.modelmappers.TwitterDataDetails;
-import com.intbittech.modelmappers.UserProfileColorDetails;
 import java.util.List;
 import java.util.Map;
 import org.json.simple.JSONObject;
@@ -36,10 +36,6 @@ public interface CompanyPreferencesService {
     public List<String> getColors(Company company);
 
     public void setColors(CompanyColorsDetails companyColorsDetails, Company company);
-
-    public void setUserProfileColor(UserProfileColorDetails userProfileColorDetails, Company company);
-
-    public String getUserProfileColor(Company company);
 
     public void setStudioId(CompanyPreferences companyPreferences);
 
@@ -65,8 +61,8 @@ public interface CompanyPreferencesService {
     
     public void deleteFacebookDetails(Company company);
     
-    public void setTooltips(Tooltips tooltips,Company company);
+    public void setOnBoarding(OnBoarding onBoarding, Company company);
     
-    public Tooltips getTooltips(Company company);
+    public OnBoarding getOnBoarding(Company company);
     
 }
