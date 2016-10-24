@@ -39,6 +39,7 @@ import com.intbittech.utility.Utility;
 import com.sendgrid.Content;
 import com.sendgrid.Email;
 import com.sendgrid.Mail;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -158,6 +159,10 @@ public class UsersServiceImpl implements UsersService {
             Subuser subuser = new Subuser();
             subuser.setEmail(usersDetails.getUserName());
             subuser.setPassword(usersDetails.getUserPassword());
+            //TODO change this ips
+            List<String> ips = new ArrayList<String>();
+            ips.add("198.37.159.5");
+            subuser.setIps(ips);
             SendGridUser sendGridUser = emailServiceProviderService.addSubuser(subuser);
             
             //Create Sub User API Key

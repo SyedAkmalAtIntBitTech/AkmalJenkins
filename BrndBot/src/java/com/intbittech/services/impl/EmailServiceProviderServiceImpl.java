@@ -315,7 +315,7 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             logResponse(response);
             OperationStatusType type = SendGridError.parseStatusCode(response.statusCode);
             if (type == OperationStatusType.Success) {
-                sendGridUser = mapper.convertValue(response.body, SendGridUser.class);
+                sendGridUser = mapper.readValue(response.body, SendGridUser.class);
             } else {
                 sendGridUser.setOperationStatus(mapError(response));
             }
