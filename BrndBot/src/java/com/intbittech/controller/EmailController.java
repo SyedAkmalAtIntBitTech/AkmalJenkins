@@ -163,7 +163,7 @@ public class EmailController {
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DATE, -30);
             Date startDate = cal.getTime();
-            SendGridStatsList sendGridStats = emailServiceProviderService.getStatsByCategory(userId.toString(), categories, startDate, endDate);
+            SendGridStatsList sendGridStats = emailServiceProviderService.getStatsByCategory(userId.toString(), categories, startDate, endDate, companyId);
             genericResponse.addDetail(sendGridStats);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
@@ -194,7 +194,7 @@ public class EmailController {
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DATE, -90);
             Date startDate = cal.getTime();
-            SendGridStatsList sendGridStats = emailServiceProviderService.getStatsByCategory(userId.toString(), categories, startDate, endDate);
+            SendGridStatsList sendGridStats = emailServiceProviderService.getStatsByCategory(userId.toString(), categories, startDate, endDate,companyId);
             genericResponse.addDetail(sendGridStats);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 

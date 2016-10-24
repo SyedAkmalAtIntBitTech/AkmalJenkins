@@ -90,7 +90,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
         Mail mail = new Mail(null, formattedSubject, emailTo, content);
         String preHeader = "something";
         
-        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply);
+        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, 0);
     }
 
     @Override

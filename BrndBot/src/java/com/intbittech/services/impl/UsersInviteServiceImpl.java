@@ -353,6 +353,6 @@ public class UsersInviteServiceImpl implements UsersInviteService {
         String subject = messageSource.getMessage("userInviteSubject", new String[]{}, Locale.US);
         String formattedSubject = String.format(subject, companyName);
         Mail mail = new Mail(null, formattedSubject, emailTo, content);
-        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply);
+        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, 0);
     }
 }

@@ -78,7 +78,7 @@ public interface EmailServiceProviderService {
      * @return OperationStatus
      * @throws ProcessFailed 
      */
-    public OperationStatus sendEmail(Mail mail, EmailType emailType) throws ProcessFailed;
+    public OperationStatus sendEmail(Mail mail, EmailType emailType, Integer companyId) throws ProcessFailed;
     
     /**
      * Get all statistics based off the category. 
@@ -87,6 +87,6 @@ public interface EmailServiceProviderService {
      * @return SendGridStatsList
      * @throws ProcessFailed 
      */
-    public SendGridStatsList getStatsByCategory(String userId, List<String> categories, Date startDate, Date endDate) throws ProcessFailed;
+    public SendGridStatsList getStatsByCategory(String userId, List<String> categories, Date startDate, Date endDate, Integer companyId) throws ProcessFailed;
 
 }

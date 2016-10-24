@@ -167,14 +167,13 @@ public class UsersServiceImpl implements UsersService {
             sendGridAPIDetails.setApiKeyId(subUserAPIKey.getApiKeyId());
             sendGridAPIDetails.setName(subUserAPIKey.getName());
             
-            //TODO save userID in db
+            //Save userID in db
             SendGridSubUserDetails sendGridSubUserDetails = new SendGridSubUserDetails();
             user = new Users();
             user.setUserId(userId);
             sendGridSubUserDetails.setFkUserId(user);
             sendGridSubUserDetails.setSendGridUserId(usersDetails.getUserName());
             sendGridSubUserDetails.setEmailAPIKey(sendGridAPIDetails.build());
-//            
             sendGridSubUserDetailsService.save(sendGridSubUserDetails);
             
             returnUserId = userId;
@@ -472,7 +471,7 @@ public class UsersServiceImpl implements UsersService {
             String subject = messageSource.getMessage("acknowledgement_subject", new String[]{}, Locale.US);
             String formattedSubject = String.format(subject, companyName);
             Mail mail = new Mail(null, formattedSubject, emailTo, content);
-            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply);
+            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, 0);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("mail_send_problem", new String[]{}, Locale.US));

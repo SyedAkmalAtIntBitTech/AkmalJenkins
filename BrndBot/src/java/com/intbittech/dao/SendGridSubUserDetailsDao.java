@@ -27,6 +27,24 @@ public interface SendGridSubUserDetailsDao {
     public SendGridSubUserDetails getBySendGridSubUserDetailsId(Integer sendGridSubUserDetailsId) throws ProcessFailed;
     
     /**
+     * This method pass id as input and get the {@link SendGridSubUserDetails} from database
+     *
+     * @param userId
+     * @return {@link SendGridSubUserDetails}
+     * @throws ProcessFailed the process failed
+     */
+    public SendGridSubUserDetails getByUserId(Integer userId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link SendGridSubUserDetails} from database
+     *
+     * @param companyId
+     * @return {@link SendGridSubUserDetails}
+     * @throws ProcessFailed the process failed
+     */
+    public SendGridSubUserDetails getByCompanyId(Integer companyId) throws ProcessFailed;
+    
+    /**
      * This method save {@link SendGridSubUserDetails} into the database.
      *
      * @param sendGridSubUserDetails the SendGridSubUserDetails

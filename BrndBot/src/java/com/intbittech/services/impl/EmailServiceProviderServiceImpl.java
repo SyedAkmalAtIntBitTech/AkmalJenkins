@@ -11,11 +11,13 @@ import com.intbittech.AppConstants;
 import com.intbittech.divtohtml.StringUtil;
 import com.intbittech.enums.APIKeyType;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.SendGridSubUserDetails;
 import com.intbittech.responsemappers.OperationStatus;
 import com.intbittech.responsemappers.OperationStatusType;
 import com.intbittech.sendgrid.models.APIKey;
 import com.intbittech.sendgrid.models.EmailType;
 import com.intbittech.sendgrid.models.Scopes;
+import com.intbittech.sendgrid.models.SendGridAPIDetails;
 import com.intbittech.sendgrid.models.SendGridCNameValidity;
 import com.intbittech.sendgrid.models.SendGridError;
 import com.intbittech.sendgrid.models.SendGridStats;
@@ -25,6 +27,7 @@ import com.intbittech.sendgrid.models.SendGridUsers;
 import com.intbittech.sendgrid.models.SubUserAPIKey;
 import com.intbittech.sendgrid.models.Subuser;
 import com.intbittech.services.EmailServiceProviderService;
+import com.intbittech.services.SendGridSubUserDetailsService;
 import com.intbittech.utility.IConstants;
 import com.sendgrid.Content;
 import com.sendgrid.Email;
@@ -63,6 +66,9 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
 
     @Autowired
     private MessageSource messageSource;
+    
+    @Autowired
+    private SendGridSubUserDetailsService sendGridSubUserDetailsService;
 
     private Map<String, String> generateQueryParams(String key,
             List<String> categories) {
@@ -196,15 +202,15 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
         }
     }
 
-    public SendGrid getSendGridWithAPI(APIKeyType apiKeyType) {
+    public SendGrid getSendGridWithAPI(APIKeyType apiKeyType, Integer companyId) {
         SendGrid sendGrid = null;
         if (apiKeyType.equals(APIKeyType.Main)) {
             sendGrid = new SendGrid(AppConstants.KSendGridAPIKey);
         }
         if (apiKeyType.equals(APIKeyType.SubUser)) {
-            //TODO get API key from db for current company and replace key below
-            sendGrid = new SendGrid(AppConstants.KSendGridAPIKey);
-//            sendGrid.addRequestHeader("on-behalf-of", subUserId);
+            //Get API key from db for current company
+            SendGridAPIDetails sendGridAPIDetails = sendGridSubUserDetailsService.getSendGridAPIDetailsByCompanyId(companyId);
+            sendGrid = new SendGrid(sendGridAPIDetails.getApiKey());
         }
 
         return sendGrid;
@@ -212,7 +218,7 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
 
 //    getAPIKey(typeKey = email stats, emailtype = )
     @Override
-    public OperationStatus sendEmail(Mail mail, EmailType emailType) throws ProcessFailed {
+    public OperationStatus sendEmail(Mail mail, EmailType emailType, Integer companyId) throws ProcessFailed {
         try {
             mail = formatTo(mail, emailType);
 
@@ -221,9 +227,9 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             mail.setMailSettings(mailSettings);
             SendGrid sendGrid = null;
             if(emailType.equals(EmailType.BrndBot_NoReply))
-                sendGrid = getSendGridWithAPI(APIKeyType.Main);
+                sendGrid = getSendGridWithAPI(APIKeyType.Main, companyId);
             else
-                sendGrid = getSendGridWithAPI(APIKeyType.SubUser);
+                sendGrid = getSendGridWithAPI(APIKeyType.SubUser, companyId);
             Request request = new Request();
             request.method = Method.POST;
             request.endpoint = "mail/send";
@@ -250,12 +256,13 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
     }
 
     @Override
-    public SendGridStatsList getStatsByCategory(String userId, List<String> categories, Date startDate, Date endDate) throws ProcessFailed {
+    public SendGridStatsList getStatsByCategory(String userId, List<String> categories, Date startDate, Date endDate, Integer companyId) throws ProcessFailed {
         try {
             ObjectMapper mapper = new ObjectMapper();
 
             SendGridStatsList sendGridStats = new SendGridStatsList();
-            SendGrid sg = getSendGridWithAPI(APIKeyType.SubUser);
+            
+            SendGrid sg = getSendGridWithAPI(APIKeyType.SubUser, companyId);
 
             startDate = getStartDate(startDate);
             if (endDate == null) {
@@ -298,7 +305,7 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             SendGridUser sendGridUser = new SendGridUser();
             ObjectMapper mapper = new ObjectMapper();
 
-            SendGrid sg = getSendGridWithAPI(APIKeyType.Main);
+            SendGrid sg = getSendGridWithAPI(APIKeyType.Main,0);
             Request request = new Request();
             request.method = Method.POST;
             request.endpoint = "subusers";
@@ -361,7 +368,7 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             SubUserAPIKey subUserAPIKey = new SubUserAPIKey();
             ObjectMapper mapper = new ObjectMapper();
 
-            SendGrid sg = getSendGridWithAPI(APIKeyType.Main);
+            SendGrid sg = getSendGridWithAPI(APIKeyType.Main,0);
             sg.addRequestHeader("on-behalf-of", subUserId);
             Request request = new Request();
             request.method = Method.POST;

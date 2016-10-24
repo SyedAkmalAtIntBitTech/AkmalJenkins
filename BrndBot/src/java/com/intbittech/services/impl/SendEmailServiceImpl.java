@@ -104,7 +104,7 @@ public class SendEmailServiceImpl implements SendEmailService {
 
             mail.addPersonalization(personalization);
         }
-        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_SubUserRegularEmail);
+        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_SubUserRegularEmail, emailDataDetails.getCompanyId());
 
         //TODO need to check and change this
         String categories = StringUtils.join(emailDataDetails.getEmailCategoryList(), ',');
