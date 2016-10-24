@@ -129,7 +129,6 @@ public class UsersServiceImpl implements UsersService {
      */
     @Override
     public Integer save(UserDetails usersDetails) throws ProcessFailed {
-        String returnMessage = "false";
         Integer returnUserId = 0;
         Users user = null;UsersRoleCompanyLookup usersRoleLookUp = null;
         try {
@@ -180,7 +179,6 @@ public class UsersServiceImpl implements UsersService {
             
             returnUserId = userId;
         } catch (Throwable throwable) {
-            returnMessage = "false";
             throw new ProcessFailed(messageSource.getMessage("something_wrong", new String[]{}, Locale.US));
         } 
         return returnUserId;
