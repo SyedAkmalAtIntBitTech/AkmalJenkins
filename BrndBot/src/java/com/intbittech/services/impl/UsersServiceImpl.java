@@ -23,7 +23,9 @@ import com.intbittech.modelmappers.InviteDetails;
 import com.intbittech.modelmappers.TaskDetails;
 import com.intbittech.modelmappers.UserDetails;
 import com.intbittech.sendgrid.models.EmailType;
+import com.intbittech.sendgrid.models.SendGridAPIDetails;
 import com.intbittech.sendgrid.models.SendGridUser;
+import com.intbittech.sendgrid.models.SubUserAPIKey;
 import com.intbittech.sendgrid.models.Subuser;
 import com.intbittech.services.EmailServiceProviderService;
 import com.intbittech.services.SendGridSubUserDetailsService;
@@ -154,18 +156,27 @@ public class UsersServiceImpl implements UsersService {
             usersRoleLookUpDao.save(usersRoleLookUp);
             
             //Save subuser in sendgrid
-//            Subuser subuser = new Subuser();
-//            subuser.setEmail(usersDetails.getUserName());
-//            subuser.setPassword(usersDetails.getUserPassword());
-//            SendGridUser sendGridUser = emailServiceProviderService.addSubuser(subuser);
+            Subuser subuser = new Subuser();
+            subuser.setEmail(usersDetails.getUserName());
+            subuser.setPassword(usersDetails.getUserPassword());
+            SendGridUser sendGridUser = emailServiceProviderService.addSubuser(subuser);
+            
+            //Create Sub User API Key
+            SubUserAPIKey subUserAPIKey = emailServiceProviderService.createSubUserAPIKey(usersDetails.getUserName());
+            SendGridAPIDetails sendGridAPIDetails = new SendGridAPIDetails();
+            sendGridAPIDetails.setApiKey(subUserAPIKey.getApiKey());
+            sendGridAPIDetails.setApiKeyId(subUserAPIKey.getApiKeyId());
+            sendGridAPIDetails.setName(subUserAPIKey.getName());
+            
             //TODO save userID in db
-//            SendGridSubUserDetails sendGridSubUserDetails = new SendGridSubUserDetails();
-//            user = new Users();
-//            user.setUserId(userId);
-//            sendGridSubUserDetails.setFkUserId(user);
-//            sendGridSubUserDetails.setSendGridUserId(sendGridUser.getUserId());
+            SendGridSubUserDetails sendGridSubUserDetails = new SendGridSubUserDetails();
+            user = new Users();
+            user.setUserId(userId);
+            sendGridSubUserDetails.setFkUserId(user);
+            sendGridSubUserDetails.setSendGridUserId(usersDetails.getUserName());
+            sendGridSubUserDetails.setEmailAPIKey(sendGridAPIDetails.build());
 //            
-//            sendGridSubUserDetailsService.save(sendGridSubUserDetails);
+            sendGridSubUserDetailsService.save(sendGridSubUserDetails);
             
             returnUserId = userId;
         } catch (Throwable throwable) {

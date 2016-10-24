@@ -59,4 +59,6 @@ public class AppConstants {
     public static final String facebookPermissions = "publish_actions, publish_pages,manage_pages";
     
     public static final String TMP_FOLDER = BASE_UPLOAD_PATH + File.separator + "/tmp";
+    
+    public static final String EMAIL_API_KEY_NAME = " email api key";
 }
