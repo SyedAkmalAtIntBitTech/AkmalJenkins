@@ -63,6 +63,7 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
     private EmailServiceProviderService emailServiceProviderService;
     @Autowired
     private EmailListTagService emailListTagService;
+
     /**
      * {@inheritDoc}
      */
@@ -160,13 +161,12 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
             pushedScheduledEntityList.setPushedScheduledEntityListId(pushedScheduledEntityListId);
             pushedScheduledActionCompanies.setFkPushedScheduledActionEntityListId(pushedScheduledEntityList);
             pushedScheduledActionCompanies.setUpdatedAt(new Date());
-            if(franchiseService.isEmailListTagAssociateToCompany(pushedScheduledActionCompaniesDetails.getPushedScheduledEntityDetails().getEmailListTagId(), actionCompaniesDetails.getCompanyId())){
-                 pushedScheduledActionCompanies.setStatus(IConstants.ACTION_COMPANIES_READY_TO_GO);
+            if (franchiseService.isEmailListTagAssociateToCompany(pushedScheduledActionCompaniesDetails.getPushedScheduledEntityDetails().getEmailListTagId(), actionCompaniesDetails.getCompanyId())) {
+                pushedScheduledActionCompanies.setStatus(IConstants.ACTION_COMPANIES_READY_TO_GO);
+            } else {
+                pushedScheduledActionCompanies.setStatus(IConstants.ACTION_COMPANIES_NO_EMAIL_TAG_CONFIGURED);
             }
-            else{
-                 pushedScheduledActionCompanies.setStatus(IConstants.ACTION_COMPANIES_NO_EMAIL_TAG_CONFIGURED);
-            }
-           
+
             pushedScheduledActionCompaniesDao.save(pushedScheduledActionCompanies);
         }
     }
@@ -179,20 +179,21 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
         if (roleCompanyLookupList == null) {
             throw new ProcessFailed("No user found");
         }
-        List<UserDetails>  userDetailsList = new ArrayList<>();
+        List<UserDetails> userDetailsList = new ArrayList<>();
         for (UsersRoleCompanyLookup usersRoleCompanyLookup : roleCompanyLookupList) {
-           UserDetails userDetails = new UserDetails();
+            UserDetails userDetails = new UserDetails();
             userDetails.setUserId(usersRoleCompanyLookup.getUserId().getUserId());
             userDetails.setFirstName(usersRoleCompanyLookup.getUserId().getFirstName());
             userDetails.setLastName(usersRoleCompanyLookup.getUserId().getLastName());
-            userDetails.setUserName(usersRoleCompanyLookup.getUserId().getUserName()); 
+            userDetails.setUserName(usersRoleCompanyLookup.getUserId().getUserName());
             EmailListTag emailListTag = emailListTagService.getByEmailListTagId(sendReminderEmailDetails.getEmailListTagId());
-            sendNotificationEmailForNoEmailListPresent(usersRoleCompanyLookup.getUserId().getUserName(), 
+            sendNotificationEmailForNoEmailListPresent(usersRoleCompanyLookup.getUserId().getUserName(),
                     Utility.combineUserName(usersRoleCompanyLookup.getUserId()), emailListTag.getTagName(), usersRoleCompanyLookup.getCompanyId().getCompanyName());
         }
         return userDetailsList;
     }
-    public Boolean sendNotificationEmailForNoEmailListPresent(String toEmailId, String userName, String emailTag, String company)throws ProcessFailed {
+
+    public Boolean sendNotificationEmailForNoEmailListPresent(String toEmailId, String userName, String emailTag, String company) throws ProcessFailed {
         try {
             String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
             String body = messageSource.getMessage("notification_message_no_emaillist_tag", new String[]{}, Locale.US);
@@ -203,7 +204,7 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
             String subject = messageSource.getMessage("notification_subject_no_emailList", new String[]{}, Locale.US);
             String formattedSubject = String.format(subject, companyName);
             Mail mail = new Mail(null, formattedSubject, emailTo, content);
-            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply);
+            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, 0);
             return true;
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -219,5 +220,5 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
         }
         return pushedScheduledActionCompaniesList;
     }
-    
+
 }
