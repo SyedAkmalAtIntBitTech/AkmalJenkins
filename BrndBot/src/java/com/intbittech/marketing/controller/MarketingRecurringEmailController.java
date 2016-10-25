@@ -26,7 +26,6 @@ import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.ActivityLogDetails;
 import com.intbittech.services.ActivityLogService;
-import com.intbittech.model.UserProfile;
 import com.intbittech.modelmappers.EmailSettings;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
@@ -75,14 +74,8 @@ public class MarketingRecurringEmailController {
     @Autowired
     private CompanyService companyService;
     @Autowired
-    private EmailListService emailListService;
-    @Autowired
-    private ContactEmailListLookupService contactEmailListLookupService;
-    @Autowired
     private ActivityLogService activityLogService;
 
-    @Autowired
-    private UsersDao usersDao;
     @Autowired
     private UsersService usersService;
     String return_response = "false";
@@ -342,8 +335,6 @@ public class MarketingRecurringEmailController {
             schedule_email_list.setReplyToEmailAddress(reply_to_address);
             schedule_email_list.setSubject(subject);
 
-            schedule_email_list.setFkScheduledEntityListId(null);
-
             Integer email_list_id = schedule_email_list_service.save(schedule_email_list);
 
             ScheduledEntityList schedule_entity_list = new ScheduledEntityList();
@@ -438,8 +429,6 @@ public class MarketingRecurringEmailController {
             schedule_email_list.setReplyToEmailAddress(reply_to_address);
             schedule_email_list.setSubject(subject);
             schedule_email_list.setFromAddress(from_address);
-
-            schedule_email_list.setFkScheduledEntityListId(null);
 
             Integer email_list_id = schedule_email_list_service.save(schedule_email_list);
 
@@ -571,8 +560,6 @@ public class MarketingRecurringEmailController {
             schedule_email_list.setFromAddress(from_address);
             schedule_email_list.setReplyToEmailAddress(reply_to_address);
             schedule_email_list.setSubject(subject);
-
-            schedule_email_list.setFkScheduledEntityListId(null);
 
             schedule_email_list_service.update(schedule_email_list);
 
