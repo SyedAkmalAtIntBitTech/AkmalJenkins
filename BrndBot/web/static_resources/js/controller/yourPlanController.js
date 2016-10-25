@@ -1,5 +1,5 @@
 
-yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'appSessionFactory', 'onboardingFactory', 'activityFactory', 'emailFactory', 'utilFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, appSessionFactory, onboardingFactory, activityFactory, utilFactory, emailFactory) {
+yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'appSessionFactory', 'onboardingFactory', 'activityFactory', 'utilFactory', 'emailFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, appSessionFactory, onboardingFactory, activityFactory, utilFactory, emailFactory) {
 
 //$scope.iframeLoad = function (){
 //    growl($('iframe').contents().find('body').height());
@@ -641,15 +641,10 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var statsData = {"programId" : programId, "actionId" : schedule_id};
             
             emailFactory.emailHistoryStatsGet(statsData).then(function (stats) {
-                alert(JSON.stringify(stats));
                  if (stats.d.operationStatus.statusCode !== "DataError") {
-                     alert("1");
                     $scope.tagsDetails = stats.d.details[0].sendGridStats;
-                    alert(JSON.stringify($scope.tagsDetails));
                 } else {
-                    alert("2");
                     $scope.tagerror = categoryLoadDelay;
-                    alert($scope.tagerror);
                 }
             });
             $scope.dateLesser = false;
