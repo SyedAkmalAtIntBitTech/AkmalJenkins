@@ -765,17 +765,17 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     public ResponseEntity<ContainerResponse> saveUnsubscribeEmails(HttpServletRequest request, @RequestBody EmailList emailList) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+//            Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
-            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
-            companyPreferencesService.saveUnsubscribeEmails(userCompanyIds.getCompanyId(), emailList.getEmailList());
+//            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
+            companyPreferencesService.saveUnsubscribeEmails(emailList.getCompanyId(), emailList.getEmailList());
             Runnable myRunnable = new Runnable() {
                 public void run() {
                     try {
-                        CompanyPreferences companyPreferences = companyPreferencesService.getByCompanyId(userCompanyIds.getCompanyId());
+                        CompanyPreferences companyPreferences = companyPreferencesService.getByCompanyId(emailList.getCompanyId());
                         Integer studioId = Integer.parseInt(companyPreferences.getCompanyLocation());
                         MindbodyEmailListProcessor mindbodyEmailListProcessor = new MindbodyEmailListProcessor();
-                        mindbodyEmailListProcessor.processEachRow(userCompanyIds.getCompanyId(), studioId);
+                        mindbodyEmailListProcessor.processEachRow(emailList.getCompanyId(), studioId);
                         emailListService.updateUnsubscribedUserEmailLists(companyPreferences);
                     } catch (Throwable throwable) {
 
