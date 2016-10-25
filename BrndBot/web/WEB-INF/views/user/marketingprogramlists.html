@@ -1,4 +1,4 @@
-     <div class="bb-top-nav" ng-init="getUserDetails()">
+     <div class="bb-top-nav" ng-init="getUserDetails();marketingTab.selectTab(1);">
          <div class="bb-bar-left-wrap bb-one-third-flex-col">
              <h3 class="bb-top-nav-title">Marketing Campaigns</h3>
          </div>
@@ -12,8 +12,8 @@
          </div>
      </div>
     <div class="bb-top-sub-nav"  ng-click="userSettings=false">
-        <div class="bb-top-sub-nav-tab"  ng-click="showCurrentPrograms()" ng-class="{'activeCampaign': isActive('currentCampaign')}" id="curmarprog" >Current Campaigns</div>
-        <div class="bb-top-sub-nav-tab " ng-click="getUserMarketingProgramsClosed('marketingprogramactions');showPastPrograms()" ng-class="{'activeCampaign': isActive('archivedCampaign')}">Archived Campaigns</div>
+        <div class="bb-top-sub-nav-tab"  ng-click="marketingTab.selectTab(1)" ng-class="{activeCampaign:marketingTab.isSelected(1)}" id="curmarprog">Current Campaigns</div>
+        <div class="bb-top-sub-nav-tab " ng-click="getUserMarketingProgramsClosed('marketingprogramactions');marketingTab.selectTab(2)" ng-class="{activeCampaign:marketingTab.isSelected(2)}">Archived Campaigns</div>
    
         <!--<div class="top-sub-nav">
             <ul class="sub-nav-tab-wrap sub-nav-tab-wrap-hub">
@@ -25,7 +25,7 @@
     </div>
   
 
-    <div class="bb-main-content-wrap bb-main-content-wrap-padding" id="currprogs" ng-show="currProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')"  ng-click="userSettings=false">
+    <div class="bb-main-content-wrap bb-main-content-wrap-padding" id="currprogs" ng-show="marketingTab.isSelected(1)" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')"  ng-click="userSettings=false">
         <div class="bb-panel-full-width bb-panel-styling">
             <div class="bb-panel-header">
                 <h2 class="">Current Marketing Campaigns</h2>
@@ -39,7 +39,7 @@
             <!--Content Present-->
             
                 <div class="bb-slat-list-wrap" id="currprogs" ng-hide="currentPrograms == ''" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
-                    <div class="bb-slat" ng-repeat="program in currentPrograms | orderBy:'start_date':true" ng-click="redirectToActions(forward, program.id, past = 0, program.end_date)">
+                    <div class="bb-slat" ng-repeat="program in currentPrograms | orderBy:'start_date':true" ng-click="redirectToActions(forward, program.id, past = 0, program.end_date);marketingTab.selectTab(4)">
                         <div class="slat-name-wrap">
                             <h2>{{program.program_name}}</h2>
                             <p>Added on {{program.start_date| date: 'MMM dd yyyy'}}</p>
@@ -54,7 +54,7 @@
             
         </div>
     </div>
-    <div class="bb-main-content-wrap bb-main-content-wrap-padding" ng-show="pastProgramsDiv"   ng-click="userSettings=false">
+    <div class="bb-main-content-wrap bb-main-content-wrap-padding" ng-show="marketingTab.isSelected(2)"   ng-click="userSettings=false">
         <div class="bb-panel-full-width bb-panel-styling" >
             <div class="bb-panel-header">
                 <h2 class="">Archived Marketing Campaigns</h2>
@@ -68,9 +68,9 @@
                     
                     </div>
                     </div>
-                <div class="bb-slat-list-wrap" id="currprogs" ng-show="pastProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
+                <div class="bb-slat-list-wrap" id="currprogs" ng-show="pastPrograms !== ''" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
                     <div class="bb-slat" ng-repeat="program in pastPrograms  | orderBy:'start_date':true" ng-click="redirectToActions(forward, program.id, past = 0, program.end_date);
-                                        disableArchive();">
+                                        disableArchive();marketingTab.selectTab(4)">
                         <div class="slat-name-wrap">
                             <h2>{{program.program_name}}</h2>
                             <p>Added on {{program.start_date| date: 'MMM dd yyyy'}}</p>

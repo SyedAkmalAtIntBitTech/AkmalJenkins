@@ -11,11 +11,11 @@
         <div ng-include src="'usersettingsDropDown.html'" class="bb-user-settings-dropdown-target"></div>
     </div>
 </div>
-<div class="bb-top-sub-nav" ng-click="userSettings=false">
-   <div class="bb-top-sub-nav-tab"  id="emldrftab" ng-click="displayAllEmailDrafts()"><a href="#/emaildraft" ng-class="activeEmailDrafts">Email Drafts</a></div>
-   <div class="bb-top-sub-nav-tab"  id="emlhistab" ng-click="displayEmailHistory()"><a href="#/emailhistory" ng-class="activeEmailHistory">Email History</a></div>
-   <div class="bb-top-sub-nav-tab"  id="emllistab" ng-click="emailListGet()"><a href="#/emaillist" ng-class="activeEmailList">Email Lists</a></div>
-   <div class="bb-top-sub-nav-tab"  id="emlsettab" ng-click="getEmailSettings()"><a href="#/emailsetting" ng-class="activeEmailSettings">Email Settings</a></div>
+<div class="bb-top-sub-nav" ng-click="userSettings=false" >
+   <div class="bb-top-sub-nav-tab"  id="emldrftab" ng-click="marketingHubTab.selectTab(1);displayAllEmailDrafts()"><a href="#/emaildraft" ng-class="{activeTab:marketingHubTab.isSelected(1)}">Email Drafts</a></div>
+   <div class="bb-top-sub-nav-tab"  id="emlhistab" ng-click="marketingHubTab.selectTab(2);displayEmailHistory()"><a href="#/emailhistory" ng-class="{activeTab:marketingHubTab.isSelected(2)}">Email History</a></div>
+   <div class="bb-top-sub-nav-tab"  id="emllistab" ng-click="marketingHubTab.selectTab(3);emailListGet()"><a href="#/emaillist" ng-class="{activeTab:marketingHubTab.isSelected(3)}">Email Lists</a></div>
+   <div class="bb-top-sub-nav-tab"  id="emlsettab" ng-click="marketingHubTab.selectTab(4);getEmailSettings()"><a href="#/emailsetting" ng-class="{activeTab:marketingHubTab.isSelected(4)}">Email Settings</a></div>
 </div>
 
 

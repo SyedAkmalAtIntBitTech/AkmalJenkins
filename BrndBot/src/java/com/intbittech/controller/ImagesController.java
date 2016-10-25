@@ -6,17 +6,22 @@
 package com.intbittech.controller;
 
 import com.intbittech.AppConstants;
+import com.intbittech.dao.CompanyPreferencesDao;
 import com.intbittech.utility.FileUploadUtil;
 import com.intbittech.utility.ServletUtil;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyImages;
+import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.GlobalImages;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.UserProfile;
+import com.intbittech.modelmappers.OnBoarding;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.CompanyImagesService;
+import com.intbittech.services.CompanyPreferencesService;
+import com.intbittech.services.CompanyService;
 import com.intbittech.services.GlobalImagesService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.UserSessionUtil;
@@ -59,7 +64,13 @@ public class ImagesController {
     private GlobalImagesService globalImagesService;
     @Autowired
     private CompanyImagesService companyImagesService;
-    
+    @Autowired
+    private CompanyService companyService;
+    @Autowired
+    private CompanyPreferencesService companyPreferencesService;
+    @Autowired
+    private CompanyPreferencesDao companyPreferencesDao;
+
     @RequestMapping(value = "/get/{imageId}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<ContainerResponse> getImageById(HttpServletRequest request, HttpServletResponse response, @RequestParam("companyId") Integer companyId) {
         GenericResponse<CompanyImages> genericResponse = new GenericResponse<>();
@@ -118,8 +129,8 @@ public class ImagesController {
     }
 
     @RequestMapping(value = "/uploadLogo", method = RequestMethod.POST)
-    public ResponseEntity<ContainerResponse> uploadLogo(HttpServletRequest request, 
-            HttpServletResponse response,@RequestParam("companyId") Integer companyId) {
+    public ResponseEntity<ContainerResponse> uploadLogo(HttpServletRequest request,
+            HttpServletResponse response, @RequestParam("companyId") Integer companyId) {
         TransactionResponse transactionResponse = new TransactionResponse();
 
         try {
@@ -128,10 +139,15 @@ public class ImagesController {
             String fileName = "";
             String link = "";
             String imageURL = ServletUtil.getServerName(request.getServletContext());
-            
+
             pathSuffix = pathSuffix + File.separator + companyId + File.separator + AppConstants.LOGO_FOLDERNAME;
-            
+
             fileName = FileUploadUtil.uploadLogo(pathSuffix, request);
+            Company company = companyService.getCompanyById(companyId);
+            OnBoarding onBoarding = companyPreferencesService.getOnBoarding(company);
+            onBoarding.setLogo("true");
+            onBoarding.setTotal("false");
+            companyPreferencesService.setOnBoarding(onBoarding, company);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_save", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);

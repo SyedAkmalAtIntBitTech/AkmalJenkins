@@ -199,7 +199,8 @@ var cityValidation = "Please enter your City";
 var stateValidation = "Please enter your State";
 var zipcodeValidation = "Please enter your zipcode";
 var countryValidation = "Please enter your Country";
-var companyAddressValidation= "Please enter your Company Address";
+var companyAddressValidation= "Please enter and select your Company Address";
+var invalidCompanyAddressValidation = "Please select valid Address";
 var dropdownValidation = "Please select your Organization";
 var newPasswordValidation = "Password not entered! Please enter the password";
 var newFirstNameValidation = "Please enter First name";
@@ -255,3 +256,6 @@ var noEmail = "email not entered please enter the email";
 var noRole = "role not selected, please select the role";
 
 var actionAlreadyScheduled = "This action is already scheduled, please Pause or Disapprove this action first.";
+
+var emailTagSaveSuccess = "Email tag created successfully.";
+var emailTagDeleteSuccess = "Email tag deleted successfully.";

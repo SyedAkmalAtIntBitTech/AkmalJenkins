@@ -88,5 +88,20 @@ public interface IConstants {
     final static String ACTION_COMPANIES_READY_TO_GO = "Ready to go";
      final static String ACTION_COMPANIES_NO_EMAIL_TAG_CONFIGURED = "No email tag configured";
      // support email id
-     final static String SUPPORT_BRNDBOT_EMAIL_ID = "support@brndbot.com";
+     final static String SUPPORT_BRNDBOT_EMAIL_ID = "requests@brandbot.com";
+     
+     // Activity name
+     public static final Integer ACTIVITY_CREATED_ACTION_ID = 1;
+     public static final Integer ACTIVITY_ASSIGNED_TO_ID = 2;
+     public static final Integer ACTIVITY_REASSIGNED_TO_ID = 3;
+     public static final Integer ACTIVITY_ADDED_TEMPLATE_ID = 4;
+     public static final Integer ACTIVITY_UPDATED_TEMPLATE_ID = 5;
+     public static final Integer ACTIVITY_REMOVED_TEMPLATE_ID = 6;
+     public static final Integer ACTIVITY_UPDATED_ACTION_ID = 7;
+     public static final Integer ACTIVITY_APPROVED_ACTION_ID = 8;
+     public static final Integer ACTIVITY_DISAPPROVED_ACTION_ID = 9;
+     public static final Integer ACTIVITY_DELETED_COMMENT_ACTION_ID = 10;
+     public static final Integer ACTIVITY_PLAY_ACTION_ID = 11;
+     public static final Integer ACTIVITY_PAUSE_ACTION_ID = 12;
+     
 }

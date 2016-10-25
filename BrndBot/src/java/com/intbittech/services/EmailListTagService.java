@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailListTag;
+import com.intbittech.modelmappers.EmailListTagDetails;
 import java.util.List;
 
 /**
@@ -45,6 +46,14 @@ public interface EmailListTagService {
      * @throws ProcessFailed the process failed
      */
     public Integer save(EmailListTag emailListTag) throws ProcessFailed;
+    
+    /**
+     * This method save {@link EmailListTag} into the database.
+     *
+     * @param emailListTagDetails the emailListTagDetails
+     * @throws ProcessFailed the process failed
+     */
+    public void saveEmailListTag(EmailListTagDetails emailListTagDetails) throws ProcessFailed;
 
     /**
      * This method update {@link EmailListTag} updates existing data from the

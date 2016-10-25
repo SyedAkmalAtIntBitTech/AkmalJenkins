@@ -6,6 +6,7 @@
 package com.intbittech.services.impl;
 
 import com.controller.ApplicationContextListener;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intbittech.AppConstants;
 import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.UserRoleCompanyLookUpDao;
@@ -22,6 +23,7 @@ import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.modelmappers.InviteDetails;
 import com.intbittech.modelmappers.TaskDetails;
 import com.intbittech.modelmappers.UserDetails;
+import com.intbittech.modelmappers.UserPreferencesJson;
 import com.intbittech.sendgrid.models.EmailType;
 import com.intbittech.sendgrid.models.SendGridAPIDetails;
 import com.intbittech.sendgrid.models.SendGridUser;
@@ -68,8 +70,8 @@ public class UsersServiceImpl implements UsersService {
     private UsersInviteService usersInviteService;
 
     @Autowired
-    private UserRoleCompanyLookUpDao usersRoleLookUpDao;    
-    
+    private UserRoleCompanyLookUpDao usersRoleLookUpDao;
+
     @Autowired
     private MessageSource messageSource;
 
@@ -78,13 +80,16 @@ public class UsersServiceImpl implements UsersService {
 
     @Autowired
     private UserRoleCompanyLookUpService usersRoleCompanyLookUpService;
-    
+
     @Autowired
     private EmailServiceProviderService emailServiceProviderService;
-    
+
     @Autowired
     private SendGridSubUserDetailsService sendGridSubUserDetailsService;
-    
+
+    @Autowired
+    private UserPreferencesJson userPreferencesJson;
+
     /**
      * {@inheritDoc}
      */
@@ -131,7 +136,8 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public Integer save(UserDetails usersDetails) throws ProcessFailed {
         Integer returnUserId = 0;
-        Users user = null;UsersRoleCompanyLookup usersRoleLookUp = null;
+        Users user = null;
+        UsersRoleCompanyLookup usersRoleLookUp = null;
         try {
 
             user = new Users();
@@ -143,6 +149,10 @@ public class UsersServiceImpl implements UsersService {
 
             user.setCreatedDate(new Date());
             user.setSignupStatus(AppConstants.SignUpStatusIncomplete);
+            userPreferencesJson.setProfileColor(usersDetails.getUserColor());
+            ObjectMapper mapper = new ObjectMapper();
+            String userPreferencesJsonToString = mapper.writeValueAsString(userPreferencesJson);
+            user.setUserPreferences(userPreferencesJsonToString);
             Integer userId = usersDao.save(user);
 
             usersRoleLookUp = new UsersRoleCompanyLookup();
@@ -154,7 +164,7 @@ public class UsersServiceImpl implements UsersService {
             usersRoleLookUp.setRoleId(userRole);
 
             usersRoleLookUpDao.save(usersRoleLookUp);
-            
+
             //Save subuser in sendgrid
             Subuser subuser = new Subuser();
             subuser.setEmail(usersDetails.getUserName());
@@ -180,11 +190,10 @@ public class UsersServiceImpl implements UsersService {
             sendGridSubUserDetails.setSendGridUserId(usersDetails.getUserName());
             sendGridSubUserDetails.setEmailAPIKey(sendGridAPIDetails.build());
             sendGridSubUserDetailsService.save(sendGridSubUserDetails);
-            
             returnUserId = userId;
         } catch (Throwable throwable) {
             throw new ProcessFailed(messageSource.getMessage("something_wrong", new String[]{}, Locale.US));
-        } 
+        }
         return returnUserId;
     }
 
@@ -192,43 +201,52 @@ public class UsersServiceImpl implements UsersService {
      * {@inheritDoc}
      */
     @Override
-    public Invite processCode(String inviteCode)throws ProcessFailed{
+    public Invite processCode(String inviteCode) throws ProcessFailed {
         Invite companyInvite = null;
         companyInvite = usersInviteService.getInvitedUserByInviteCode(inviteCode);
         return companyInvite;
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public Integer saveUser(UserDetails usersDetails) throws ProcessFailed {
         Integer returnMessage = 0;
-        Invite companyInvite = null;TaskDetails taskdetails = null;
-        List roles = null;UsersRoleCompanyLookup usersRoleCompanyLookUp = null, usersRoleCompanyLookUp1 = null;
+        Invite companyInvite = null;
+        TaskDetails taskdetails = null;
+        List roles = null;
+        UsersRoleCompanyLookup usersRoleCompanyLookUp = null, usersRoleCompanyLookUp1 = null;
         Users existingUser = null;
-        Integer userId =0;
+        Integer userId = 0;
         try {
             companyInvite = processCode(usersDetails.getInvitationCode());
-        /** this step checks the validity of the invitation code **/
+            /**
+             * this step checks the validity of the invitation code *
+             */
             boolean validity = isInviteCodeValid(usersDetails.getInvitationCode());
             if (validity) {
 
                 Users user = new Users();
                 String UserName = usersDetails.getUserName();
-                
-                if (UserName != null){
+
+                if (UserName != null) {
                     user.setUserName(usersDetails.getUserName());
                     user.setUserPassword(passwordEncoder.encode(usersDetails.getUserPassword()));
                     user.setFirstName(usersDetails.getFirstName());
                     user.setLastName(usersDetails.getLastName());
                     user.setCreatedDate(new Date());
+                    userPreferencesJson.setProfileColor(usersDetails.getUserColor());
+                    ObjectMapper mapper = new ObjectMapper();
+                    String userPreferencesJsonToString = mapper.writeValueAsString(userPreferencesJson);
+                    user.setUserPreferences(userPreferencesJsonToString);
                     user.setSignupStatus(AppConstants.SignUpStatuscomplete);
-                    if ((usersDao.checkUniqueUser(user))){
+                    if ((usersDao.checkUniqueUser(user))) {
                         userId = usersDao.save(user);
-                    }else {
+                    } else {
                         user = usersDao.getUserByEmailId(usersDetails.getUserName());
                     }
-                }else {
+                } else {
                     user = usersDao.getUserById(usersDetails.getUserId());
                 }
                 Users inviteSentByUser = companyInvite.getInviteSentBy();
@@ -251,9 +269,9 @@ public class UsersServiceImpl implements UsersService {
                     usersRoleCompanyLookUp.setCompanyId(company);
                     usersRoleCompanyLookUp.setAccountStatus(AppConstants.Account_Activated);
                     boolean isRole = usersRoleCompanyLookUpService.isRoleExist(usersRoleCompanyLookUp);
-                    if (isRole){
+                    if (isRole) {
                         usersRoleLookUpDao.save(usersRoleCompanyLookUp);
-                        if (userId != 0){
+                        if (userId != 0) {
                             returnMessage = userId;
                         } else {
                             returnMessage = user.getUserId();
@@ -272,9 +290,12 @@ public class UsersServiceImpl implements UsersService {
             returnMessage = 0;
             logger.log(Priority.ERROR, throwable);
             throw new ProcessFailed(messageSource.getMessage("something_wrong", new String[]{}, Locale.US));
-        }finally {
-            companyInvite = null;taskdetails = null;roles = null;usersRoleCompanyLookUp = null;
-        }  
+        } finally {
+            companyInvite = null;
+            taskdetails = null;
+            roles = null;
+            usersRoleCompanyLookUp = null;
+        }
         return returnMessage;
     }
 
@@ -284,8 +305,9 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public boolean saveNonExistingUser(InviteDetails inviteDetails) throws ProcessFailed {
         boolean returnMessage = false;
-        boolean userExist = false;UsersRoleCompanyLookup usersRoleCompanyLookUp = null;
-        try{
+        boolean userExist = false;
+        UsersRoleCompanyLookup usersRoleCompanyLookUp = null;
+        try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             String fromEmailId = userProfile.getUser().getUserName();
 
@@ -297,10 +319,10 @@ public class UsersServiceImpl implements UsersService {
             String contextRealPath = servletContext.getRealPath("");
 
             String contextPath = Utility.getServerName(contextRealPath);
-            if (user != null){
+            if (user != null) {
                 usersInviteService.sendMail(fromEmailId, contextPath, inviteDetails, AppConstants.User_Status_Existing);
                 returnMessage = true;
-            }else {
+            } else {
                 usersInviteService.sendMail(fromEmailId, contextPath, inviteDetails, AppConstants.User_Status_New);
                 returnMessage = true;
             }
@@ -322,7 +344,7 @@ public class UsersServiceImpl implements UsersService {
 //                usersInviteService.sendMail(fromEmailId, contextPath, inviteDetails);
 //                returnMessage = true;
 //            }
-        }catch (Throwable throwable){
+        } catch (Throwable throwable) {
             throw new ProcessFailed(messageSource.getMessage("user_exist", new String[]{}, Locale.US));
         }
         return returnMessage;
@@ -334,30 +356,31 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public void setRole(InviteDetails inviteDetails) throws ProcessFailed {
         TaskDetails taskdetails = null;
-        List<Integer> roles = null;UsersRoleCompanyLookup usersRoleLookUp = null;
+        List<Integer> roles = null;
+        UsersRoleCompanyLookup usersRoleLookUp = null;
         Users user = null;
         try {
 
             taskdetails = new TaskDetails(inviteDetails.getTask(), inviteDetails.getRoles());
 
             user = findByUserName(inviteDetails.getEmailaddress());
-                roles = taskdetails.getRoles();
-                for (int i = 0; i< roles.size(); i++){
-                    
-                    usersRoleLookUp = new UsersRoleCompanyLookup();
-                    Company company = companyDao.getCompanyById(inviteDetails.getCompanyId());
-                    UserRole userRole = new UserRole();
-                    userRole.setUserRoleId((Integer)roles.get(i));
+            roles = taskdetails.getRoles();
+            for (int i = 0; i < roles.size(); i++) {
 
-                    usersRoleLookUp.setUserId(user);
-                    usersRoleLookUp.setRoleId(userRole);
-                    usersRoleLookUp.setCompanyId(company);
-                    usersRoleLookUp.setAccountStatus(AppConstants.Account_Activated);
-                   usersRoleCompanyLookUpService.save(usersRoleLookUp);
-                    
-                }
-            
-        }catch (Exception exception){
+                usersRoleLookUp = new UsersRoleCompanyLookup();
+                Company company = companyDao.getCompanyById(inviteDetails.getCompanyId());
+                UserRole userRole = new UserRole();
+                userRole.setUserRoleId((Integer) roles.get(i));
+
+                usersRoleLookUp.setUserId(user);
+                usersRoleLookUp.setRoleId(userRole);
+                usersRoleLookUp.setCompanyId(company);
+                usersRoleLookUp.setAccountStatus(AppConstants.Account_Activated);
+                usersRoleCompanyLookUpService.save(usersRoleLookUp);
+
+            }
+
+        } catch (Exception exception) {
             logger.error(exception);
             throw new ProcessFailed(messageSource.getMessage("something_wrong", new String[]{}, Locale.US));
         } finally {
@@ -374,31 +397,33 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public boolean updateRole(InviteDetails inviteDetails) throws ProcessFailed {
         TaskDetails taskDetails = null, taskDetailsToSave = null;
-        List<Integer> roles = null;UsersRoleCompanyLookup usersRoleLookUp = null;
-        boolean flag = false;Users user = null;
-        try{
-            
-            taskDetails = new TaskDetails(inviteDetails.getTask(),inviteDetails.getRoles());
-            
-            user = findByUserName(inviteDetails.getEmailaddress());
-                roles = taskDetails.getRoles();
-                String UserRoleLookUpIds[] = inviteDetails.getUserRoleLookUpId().split(",");
-                for (int i = 0; i< roles.size(); i++){
-                    
-                    usersRoleLookUp = new UsersRoleCompanyLookup();
+        List<Integer> roles = null;
+        UsersRoleCompanyLookup usersRoleLookUp = null;
+        boolean flag = false;
+        Users user = null;
+        try {
 
-                    UserRole userRole = new UserRole();
-                    Company company = companyDao.getCompanyById(inviteDetails.getCompanyId());
-                    userRole.setUserRoleId((Integer)roles.get(i));
-                    
-                    usersRoleLookUp.setId(Integer.parseInt(UserRoleLookUpIds[i]));
-                    usersRoleLookUp.setUserId(user);
-                    usersRoleLookUp.setRoleId(userRole);
-                    usersRoleLookUp.setCompanyId(company);
-                    usersRoleLookUp.setAccountStatus(AppConstants.Account_Activated);
-                    usersRoleCompanyLookUpService.update(usersRoleLookUp);
-                    
-                }
+            taskDetails = new TaskDetails(inviteDetails.getTask(), inviteDetails.getRoles());
+
+            user = findByUserName(inviteDetails.getEmailaddress());
+            roles = taskDetails.getRoles();
+            String UserRoleLookUpIds[] = inviteDetails.getUserRoleLookUpId().split(",");
+            for (int i = 0; i < roles.size(); i++) {
+
+                usersRoleLookUp = new UsersRoleCompanyLookup();
+
+                UserRole userRole = new UserRole();
+                Company company = companyDao.getCompanyById(inviteDetails.getCompanyId());
+                userRole.setUserRoleId((Integer) roles.get(i));
+
+                usersRoleLookUp.setId(Integer.parseInt(UserRoleLookUpIds[i]));
+                usersRoleLookUp.setUserId(user);
+                usersRoleLookUp.setRoleId(userRole);
+                usersRoleLookUp.setCompanyId(company);
+                usersRoleLookUp.setAccountStatus(AppConstants.Account_Activated);
+                usersRoleCompanyLookUpService.update(usersRoleLookUp);
+
+            }
             Users userTo = findByUserName(inviteDetails.emailaddress);
             Invite invite = usersInviteService.getInvitedUserById(inviteDetails.getInviteId());
 

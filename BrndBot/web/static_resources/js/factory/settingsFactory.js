@@ -151,14 +151,6 @@ factoryApp.factory('settingsFactory', function ($q, authenticatedServiceFactory,
         deffered.resolve(color);
         return deffered.promise;
     };
-    settingsFactoryObject.setUserProfileColor = function (userProfileColor) {
-        var deffered = $q.defer();
-        var url = configurationService.setUserProfileColor();
-        authenticatedServiceFactory.makeCall("POST", url, userProfileColor, "").then(function (data) {
-            deffered.resolve(data);
-        });
-        return deffered.promise;
-    };
     settingsFactoryObject.getUserProfileColor = function () {
         var deffered = $q.defer();
         var url = configurationService.getUserProfileColor();

@@ -209,9 +209,11 @@ public class CompanyServiceImpl implements CompanyService{
                 SendGridSubUserDetails sendGridSubUserDetails = sendGridSubUserDetailsService.getByUserId(companyDetails.getUserId());
                 sendGridSubUserDetails.setFkCompanyId(company);
                 sendGridSubUserDetailsService.update(sendGridSubUserDetails);
+                returnMessage = companyId.toString();
+            }else {
+                returnMessage = companyId.toString();
             }
             
-            returnMessage = companyId.toString();
         } catch(Throwable throwable) {
             returnMessage = "false";
             throw new ProcessFailed(messageSource.getMessage("company_save_error", new String[]{}, Locale.US));

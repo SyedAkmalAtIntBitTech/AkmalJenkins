@@ -1,5 +1,5 @@
 
-franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$location', '$filter','franchiseFactory','redirectFactory','appSessionFactory','yourPlanFactory','emailDraftFactory', function ($scope, $window, $location, $filter, franchiseFactory, redirectFactory, appSessionFactory, yourPlanFactory, emailDraftFactory) {
+franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$location', '$filter','franchiseFactory','redirectFactory','appSessionFactory','yourPlanFactory','emailDraftFactory','emailListTagFactory', function ($scope, $window, $location, $filter, franchiseFactory, redirectFactory, appSessionFactory, yourPlanFactory, emailDraftFactory, emailListTagFactory) {
        
         $scope.tab = 1;
         $scope.addFranchisePopup = false;
@@ -14,6 +14,17 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
         $scope.noPushedEmails = false;
         $scope.selectedEmail = "";
         $scope.clickedDeleteAction = false;
+        $scope.isCurrentCompanyInFranchise = false;
+        $scope.isCurrentCompanyAFranchiseHeadquarter = false;
+
+        $scope.getCompanyStatus = function() {
+            appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
+                $scope.isCurrentCompanyInFranchise = isCurrent;
+            });
+            appSessionFactory.isCurrentCompanyAFranchiseHeadquarter().then(function (isHead){
+                $scope.isCurrentCompanyAFranchiseHeadquarter = isHead;
+            });
+        };
         
         $scope.redirectToEmailFlow = function (forwardone)
         {
@@ -219,6 +230,7 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
         $scope.closeOverlay = function(){
             $scope.fadeClass = '';
             $scope.addAccount = false;
+            $scope.addEmailListTag = true;
         };
         
         $scope.requestToAddCompanies = function (companyNames) {
@@ -237,7 +249,30 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             $scope.addAccount = true;
             $scope.editUserSettings = false;
         };
-
+        $scope.showEmailListTagPopup = function(){
+            $scope.fadeClass = 'fadeClass';
+            $scope.addEmailListTag = true;
+        };
+        
+        $scope.deleteEmailListTag = function(emailListTag){
+            var deleteData = { "franchiseEmailListTagLookupId" : emailListTag.franchiseEmailListTagLookupId };
+            emailListTagFactory.deleteEmailListTagsForFranchise(deleteData).then(function (data){
+                growl(emailTagDeleteSuccess);
+                $scope.getAllEmailTags();
+            })
+        };
+        
+        $scope.saveEmailListTag = function(EmailListTagDetails){
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                var franchiseId = kGlobalCompanyObject.franchiseId;
+                EmailListTagDetails.franchiseId = franchiseId;
+                emailListTagFactory.saveEmailListTag(EmailListTagDetails).then(function (data){
+                    growl(emailTagSaveSuccess);
+                    $scope.closeOverlay();
+                    $scope.getAllEmailTags();
+                });
+            });
+        };
         $scope.associateCompanyToFranchise = function () {
             var franchiseId = $scope.franchiseId;
             var franchiseName = $scope.franchiseName;
@@ -335,6 +370,19 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
                     $scope.emaildrafts = data.emaildrafts;
                     $scope.emailDraftDetails = true;
                 }
+            });
+        };
+        
+        $scope.getAllEmailTags = function(){
+            
+            appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+                var franchiseId = kGlobalCompanyObject.franchiseId;
+                emailListTagFactory.getAllEmailListTagsForFranchise(franchiseId).then(function (data){
+                    if(data.d.operationStatus.statusCode === "DataError")
+                        $scope.emailListTagsError = data.d.operationStatus.messages[0];
+                    else
+                        $scope.emailListTags = data.d.details;
+                });
             });
         };
         $scope.showDraftPopup = function (Id, categoryId, emailSubject, editdate, subCategoryId, mindbodyId, lookupId)

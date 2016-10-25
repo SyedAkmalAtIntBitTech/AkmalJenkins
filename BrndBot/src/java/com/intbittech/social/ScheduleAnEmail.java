@@ -7,6 +7,9 @@ package com.intbittech.social;
 
 import com.intbittech.component.SpringContextBridge;
 import com.intbittech.enums.EmailTypeConstants;
+import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.PushedScheduledActionCompanies;
+import com.intbittech.model.PushedScheduledEntityList;
 import com.intbittech.utility.IConstants;
 import com.intbittech.model.ScheduledEmailList;
 import com.intbittech.model.ScheduledEntityList;
@@ -16,17 +19,29 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import com.intbittech.utility.DateTimeUtil;
 import com.intbittech.modelmappers.EmailDataDetails;
+import com.intbittech.services.PushedScheduledActionCompaniesService;
+import com.intbittech.services.PushedScheduledEntityListService;
 import com.intbittech.services.SendEmailService;
 import com.intbittech.utility.MarketingProgramUtility;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Ajit
  */
+@Service
+@Transactional(rollbackFor = ProcessFailed.class)
 public class ScheduleAnEmail implements Runnable {
 
     private Logger logger = Logger.getLogger(ScheduleAnRecurringEmail.class);
 
+    @Autowired
+    PushedScheduledEntityListService pushedScheduleEntityListService;
+
+    @Autowired
+    PushedScheduledActionCompaniesService pushedScheduledActionCompaniesService;
     public void terminateThread() {
         try {
             Thread.currentThread().interrupt();
@@ -89,6 +104,7 @@ public class ScheduleAnEmail implements Runnable {
                         sendEmailService.sendMail(emailDataDetails);
 
                         updateStatusScheduledEmail(currentScheduledEmail);
+                        updateStatusForPushedEmail(currentScheduledEmail);
                         logger.info("Should post now is true: Sent the mail");
                         //Get the next in line
                     }
@@ -112,6 +128,20 @@ public class ScheduleAnEmail implements Runnable {
 //        ApplicationContextListener.refreshEmailScheduler();
     }
 
+    private void updateStatusForPushedEmail(ScheduledEntityList scheduledEmail)throws Throwable {
+        List<PushedScheduledEntityList> pushedScheduledEntityList = pushedScheduleEntityListService.getAllPushedScheduledEntityListIdByScheduledEntityListId(scheduledEmail.getEntityId());
+        
+        if (pushedScheduledEntityList != null){
+            List<PushedScheduledActionCompanies> pushedScheduledActionCompaniesList = pushedScheduledActionCompaniesService.getPushedScheduledActionCompaniesByScheduledEntityListIdAndStatus(pushedScheduledEntityList.get(0).getPushedScheduledEntityListId(), IConstants.ACTION_COMPANIES_READY_TO_GO);
+                for (int i = 0; i< pushedScheduledActionCompaniesList.size(); i++){
+                    PushedScheduledActionCompanies pushedScheduledActionCompanies = pushedScheduledActionCompaniesList.get(i);
+                    
+                    pushedScheduledActionCompanies.setStatus(IConstants.ACTION_COMPANIES_SENT_STATUS);
+                    pushedScheduledActionCompaniesService.update(pushedScheduledActionCompanies);
+                }
+        }
+    }
+    
     private ScheduledEmailList getSendEmail(ScheduledEntityList scheduledAnEmail) throws Throwable {
         ScheduledEmailList scheduledEmailList = SchedulerUtilityMethods.getEmailEntityById(scheduledAnEmail.getEntityId());
         return scheduledEmailList;

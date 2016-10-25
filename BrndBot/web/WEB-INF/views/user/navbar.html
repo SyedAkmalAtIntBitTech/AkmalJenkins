@@ -19,7 +19,7 @@
                  }
                  /*#loadoverlaydiv{display: none}*/
              </style>
-<div class="bb-sidenavbar">
+<div class="bb-sidenavbar" ng-init="getCompanyStatus()">
     <ul class="side-nav-tabs">
         <li class="nav-logo">
              <a href="/BrndBot/user/dashboard#/dashboard"  class="side-nav-logo"></a>
@@ -40,7 +40,7 @@
         <!--<li class="main-nav ">
             <a href="settings" class="user"></a>
         </li>-->
-        <li class="main-nav ">
+        <li class="main-nav" ng-show="isCurrentCompanyAFranchiseHeadquarter">
 
             <a href="/BrndBot/user/baseaccountmanagerhub#/" class="account-mgr"></a>
         </li>

@@ -1,4 +1,15 @@
 socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$location', 'settingsFactory', 'socialPostFactory', 'appSessionFactory', function ($scope, $rootScope, $location, settingsFactory, socialPostFactory, appSessionFactory) {
+        $scope.isCurrentCompanyInFranchise = false;
+        $scope.isCurrentCompanyAFranchiseHeadquarter = false;
+
+        $scope.getCompanyStatus = function() {
+            appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
+                $scope.isCurrentCompanyInFranchise = isCurrent;
+            });
+            appSessionFactory.isCurrentCompanyAFranchiseHeadquarter().then(function (isHead){
+                $scope.isCurrentCompanyAFranchiseHeadquarter = isHead;
+            });
+        };
     
         $scope.getFacebookDetails = function () {
             var fbdata = {access_token_method: "getAccessToken"};

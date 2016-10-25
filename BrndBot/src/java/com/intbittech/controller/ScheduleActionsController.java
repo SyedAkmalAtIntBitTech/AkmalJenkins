@@ -6,18 +6,24 @@
 package com.intbittech.controller;
 
 import com.intbittech.AppConstants;
+import com.intbittech.enums.ActivityStatus;
 import com.intbittech.enums.ScheduledEntityType;
 import com.intbittech.marketing.service.ScheduledEntityListService;
+import com.intbittech.model.Company;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
+import com.intbittech.modelmappers.ActivityLogDetails;
 import com.intbittech.modelmappers.UpdateActionDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.services.ActivityLogService;
+import com.intbittech.services.CompanyService;
 import com.intbittech.services.ScheduleActionsService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
+import com.intbittech.utility.IConstants;
 import com.intbittech.utility.MapUtility;
 import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
@@ -59,7 +65,11 @@ public class ScheduleActionsController {
     private ScheduledEntityListService scheduledEntityListService;
     @Autowired
     private UsersService usersService;
-
+    @Autowired
+    private ActivityLogService activityLogService;
+    @Autowired
+    private CompanyService companyService;
+    
     @RequestMapping(value = "/getActions", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getActions(HttpServletRequest request,
             HttpServletResponse response) {
@@ -90,7 +100,7 @@ public class ScheduleActionsController {
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             List<String> errors = validateScheduleEmailRequestBody(requestBodyMap);
             if (errors.isEmpty()) {
-                Map<String, Integer> data = actionsService.scheduleEmail(requestBodyMap, userCompanyIds.getCompanyId(),userCompanyIds.getUserId());
+                Map<String, Integer> data = actionsService.scheduleEmail(requestBodyMap, userCompanyIds.getCompanyId(), userCompanyIds.getUserId());
                 transactionResponse.addDetail(AppConstants.GSON.toJson(data));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
             } else {
@@ -174,7 +184,7 @@ public class ScheduleActionsController {
             errors.addAll(validateMetadata(metadataString, type));
 
             if (errors.isEmpty()) {
-                List<Map<String, Integer>> responseData = actionsService.scheduleSocialPost(requestBodyMap, userCompanyIds.getCompanyId(),userCompanyIds.getUserId());
+                List<Map<String, Integer>> responseData = actionsService.scheduleSocialPost(requestBodyMap, userCompanyIds.getCompanyId(), userCompanyIds.getUserId());
                 transactionResponse.addDetail(AppConstants.GSON.toJson(responseData));
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
             } else {
@@ -279,7 +289,6 @@ public class ScheduleActionsController {
 //        if (!MapUtility.mapContainsKey(requestBody, "token_data")) {
 //            errorMsgs.add("token_data JSON is missing");
 //        }
-
         if (!MapUtility.mapContainsKey(requestBody, "metadata")) {
             errorMsgs.add("metadata JSON is missing");
         }
@@ -321,20 +330,33 @@ public class ScheduleActionsController {
 
         return errorMsgs;
     }
-    
-     @RequestMapping(value = "/updateActionAssignedTo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @RequestMapping(value = "/updateActionAssignedTo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> updateActionAssignedTo(@RequestBody UpdateActionDetails updateActionDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-           ScheduledEntityList scheduledEntityList = scheduledEntityListService.getById(updateActionDetails.getScheduleId());
+            ScheduledEntityList scheduledEntityList = scheduledEntityListService.getById(updateActionDetails.getScheduleId());
             Users users = usersService.getUserById(updateActionDetails.getUserAssignToId());
             users.setUserId(updateActionDetails.getUserAssignToId());
             scheduledEntityList.setAssignedTo(users);
             scheduledEntityList.setUpdatedAt(new Date());
             scheduledEntityListService.update(scheduledEntityList);
+
+            ActivityLogDetails activityLogDetails = new ActivityLogDetails();
+            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_REASSIGNED_TO_ID.getId());
+            activityLogDetails.setAssignedTo(updateActionDetails.getUserAssignToId());
+            activityLogDetails.setScheduledEntityId(scheduledEntityList.getScheduledEntityListId());
+            activityLogDetails.setActionTitle(scheduledEntityList.getScheduleTitle());
+            
+            Company company = companyService.getCompanyById(updateActionDetails.getCompanyId());
+            activityLogDetails.setCompanyName(company.getCompanyName());
+            activityLogDetails.setCompanyId(company.getCompanyId());
+            activityLogDetails.setCreatedBy(updateActionDetails.getUserId());
+            activityLogService.saveActivityLog(activityLogDetails);
+
             transactionResponse.setId(Utility.getFirstTwoCharactersOfName(scheduledEntityList.getAssignedTo().getFirstName(), scheduledEntityList.getAssignedTo().getLastName()));
             transactionResponse.setMessage(scheduledEntityList.getAssignedTo().getFirstName() + " " + scheduledEntityList.getAssignedTo().getLastName());
-            
+
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Action updated successfully"));
         } catch (Throwable ex) {
             logger.error(ex);

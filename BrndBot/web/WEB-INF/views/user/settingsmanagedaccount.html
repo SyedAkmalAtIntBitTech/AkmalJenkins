@@ -33,8 +33,31 @@
                         <a class="long-button gray-button" ng-click="changePassword(password,confirmPassword)">Save Default Push Through List</a>
                     </div>
                 </div>
+                <div class="hub-section" ng-init="getAllEmailTags();showEmailList();">
+                     <div class="section-header">
+                         <h3>Managed Account Email List Tags</h3>
+                        <p>Associate tags with email lists</p>
+                     </div>
+                    <div class="user-slat" ng-repeat="emailListTag in emailListTags">
+                        <div>{{emailListTag.tagName}}</div> ------ 
+                        <div ng-show="emailListTag.emailListName">
+                           {{emailListTag.emailListName}}
+                        </div>
+                        <div ng-show="!emailListTag.emailListName">
+                           None
+                        </div>------
+                        <div ng-click="showTagAndEmailListPopup(emailListTag)">
+                            Edit
+                        </div>
+                    </div>
+                     
+                </div>
             </div>
+    
+            
+    
+    
         </div>
 
-
+<div ng-include="'addtagandemaillistpopup.html'"></div>
 

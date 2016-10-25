@@ -7,6 +7,7 @@ package com.intbittech.marketing.controller;
 
 import com.intbittech.utility.IConstants;
 import com.intbittech.AppConstants;
+import com.intbittech.enums.ActivityStatus;
 import com.intbittech.enums.TemplateStatus;
 import com.intbittech.marketing.service.CompanyMarketingProgramService;
 import com.intbittech.marketing.service.ScheduledEntityListService;
@@ -17,7 +18,9 @@ import com.intbittech.model.MarketingProgram;
 import com.intbittech.model.RecurringEmailTemplate;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
+import com.intbittech.modelmappers.ActivityLogDetails;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.services.ActivityLogService;
 import com.intbittech.services.MarketingActionService;
 import com.intbittech.services.RecurringEmailTemplateService;
 import com.intbittech.utility.ErrorHandlingUtil;
@@ -60,6 +63,8 @@ public class CompanyMarketingProgramController {
     private MarketingActionService marketingActionService;
     @Autowired
     private RecurringEmailTemplateService recurringEmailTemplateService;
+    @Autowired
+    private ActivityLogService activityLogService;
 
     @RequestMapping(value = "/setMarketingProgram", method = RequestMethod.POST)
     public @ResponseBody
@@ -225,7 +230,7 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("postDateStatus", postDateStatus);
                 jSONObject.put("status", TemplateStatus.valueOf(scheduledEntityListObject.getStatus()).getDisplayName());
                 if (scheduledEntityListObject.getAssignedTo() != null) {
-                                        if (scheduledEntityListObject.getAssignedTo().getUserId() != null) {
+                    if (scheduledEntityListObject.getAssignedTo().getUserId() != null) {
                         jSONObject.put("assignedToId", scheduledEntityListObject.getAssignedTo().getUserId());
                     }
                     if (scheduledEntityListObject.getAssignedTo().getFirstName() != null) {
@@ -516,19 +521,39 @@ public class CompanyMarketingProgramController {
 
             Integer entity_id = Integer.parseInt((String) requestBodyMap.get("entity_id"));
             String template_status = (String) requestBodyMap.get("template_status");
-
+            String entityType = (String)requestBodyMap.get("entity_type");
+            
+            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             ScheduledEntityList scheduled_entity_list = scheduledEntityListService.getEntityById(entity_id);
-
-            if (template_status.equalsIgnoreCase("approved")) {
-                scheduled_entity_list.setStatus(TemplateStatus.approved.toString());
+            ActivityLogDetails activityLogDetails = new ActivityLogDetails();
+            if (entityType.equals("Recurring Email")){
+                if (template_status.equalsIgnoreCase("approved")) {
+                    scheduled_entity_list.setStatus(TemplateStatus.approved.toString());
+                    activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_PAUSE_ACTION_ID.getId());
             } else if (template_status.equalsIgnoreCase("template_saved")) {
                 scheduled_entity_list.setStatus(TemplateStatus.template_saved.toString());
+                activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_PLAY_ACTION_ID.getId());
+            }
+            }else {
+                if (template_status.equalsIgnoreCase("approved")) {
+                scheduled_entity_list.setStatus(TemplateStatus.approved.toString());
+                activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_APPROVED_ACTION_ID.getId());
+            } else if (template_status.equalsIgnoreCase("template_saved")) {
+                scheduled_entity_list.setStatus(TemplateStatus.template_saved.toString());
+                activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_DISAPPROVED_ACTION_ID.getId());
             } else if (template_status.equalsIgnoreCase("complete")) {
                 scheduled_entity_list.setStatus(TemplateStatus.complete.toString());
+                activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_UPDATED_TEMPLATE_ID.getId());
             } else if (template_status.equalsIgnoreCase("no_template")) {
                 scheduled_entity_list.setStatus(TemplateStatus.no_template.toString());
             }
+                
+            }
             scheduledEntityListService.update(scheduled_entity_list);
+            activityLogDetails.setScheduledEntityId(scheduled_entity_list.getScheduledEntityListId());
+            activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
+            activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
+            activityLogService.saveActivityLog(activityLogDetails);
 
             return "true";
         } catch (Throwable throwable) {

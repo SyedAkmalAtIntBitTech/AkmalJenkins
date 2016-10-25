@@ -7,9 +7,6 @@ package com.intbittech.utility;
 
 import com.intbittech.divtohtml.StringUtil;
 import com.intbittech.enums.AdminStatus;
-import java.nio.charset.StandardCharsets;
-import com.intbittech.model.EmailInfo;
-import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.UserDetails;
 import java.nio.charset.StandardCharsets;
@@ -180,10 +177,10 @@ public class Utility {
 
         return userRoleList;
     }
-    
     public static String getFirstTwoCharactersOfName(String firstName, String lastName) {
 
         String name = String.valueOf(firstName.charAt(0)) + String.valueOf(lastName.charAt(0));
         return name;
     }
+
 }

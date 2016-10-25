@@ -1,16 +1,35 @@
-<div class="top-nav-wrap"> 
+<!--<div class="top-nav-wrap"> 
     <div class="header">
         <h2>Account Manager Hub</h2>
     </div>
     <div class="top-sub-nav">
         <ul class="sub-nav-tab-wrap no-back-button">
-            <li class="sub-nav-tab"  ng-class="{ active: isActive('/managedaccountdash')}"> <a href="#/managedaccountdash">Dashboard</a></li>
+            <li class="sub-nav-tab"  > <a >Dashboard</a></li>
             <li class="sub-nav-tab" ng-class="{ active: isActive('/managedaccounts')}"> <a href="#/managedaccounts" >Managed Accounts</a></li>
             <li class="sub-nav-tab" ng-class="{ active: isActive('/pushedemailhistory')}" > <a href="#/pushedemailhistory" >Pushed Emails</a></li>
             <li class="sub-nav-tab" ng-class="{ active: isActive('/pushedemaildrafts')}" > <a href="#/pushedemaildrafts" >Pushed Email Drafts</a></li>
         </ul>
     </div>
+</div>-->
+
+<div class="bb-top-nav" ng-init="getUserDetails()">
+    <div class="bb-bar-left-wrap bb-one-third-flex-col">
+        <h3 class="bb-top-nav-title">Account Manager Hub</h3>
+    </div>
+    <div class="bb-bar-right-wrap bb-one-third-flex-col">
+        <div class="bb-help-icon">help icon</div>
+        <div class="bb-user-profile-dropdown-wrap" ng-init="getUserDetails()" ng-click="userSettings=true">
+            <div class="bb-user-profile-user-name">{{userFirstName}} {{userLastName}}</div>
+            <img type="image/svg+xml" src="/BrndBot/images/dropdown.svg" class="hub-dropdown-icon" style="cursor:pointer;"/>
+        </div>
+        <div ng-include src="'usersettingsDropDown.html'" class="bb-user-settings-dropdown-target"></div>
+    </div>
 </div>
-
-
+<div class="bb-top-sub-nav" ng-click="userSettings=false" >
+   <div class="bb-top-sub-nav-tab"   ng-class="{ active: isActive('/managedaccountdash')}"><a href="#/managedaccountdash" >Managed Account Dashboard</a></div>
+   <div class="bb-top-sub-nav-tab"   ng-class="{ active: isActive('/managedaccounts')}"><a href="#/managedaccounts">Managed Accounts</a></div>
+   <div class="bb-top-sub-nav-tab"   ng-class="{ active: isActive('/pushedemailhistory')}"><a href="#/pushedemailhistory">Pushed Emails</a></div>
+   <div class="bb-top-sub-nav-tab"   ng-class="{ active: isActive('/pushedemaildrafts')}"><a href="#/pushedemaildrafts">Pushed Email Drafts</a></div>
+   <div class="bb-top-sub-nav-tab"   ng-class="{ active: isActive('/emailtags')}"><a href="#/emailtags">Email Tagging</a></div>
+</div>
 

@@ -64,7 +64,7 @@ public class BrndbotUserLoginSuccessHandler extends SimpleUrlAuthenticationSucce
        } else if ((isAccountOwner(roles) && status.equalsIgnoreCase(AppConstants.SignUpStatuscomplete))) {
            url = "/user/loading";
        } else if ((isAccountOwner(roles) && status.equalsIgnoreCase(AppConstants.SignUpStatusIncomplete))) {
-           url = "/#/signup/company";
+           url = "/#/signup/company?userId="+user.getUserId();
        } else if (isCreator(roles)) {
            url = "/user/loading";
        } else if (isManager(roles)) {

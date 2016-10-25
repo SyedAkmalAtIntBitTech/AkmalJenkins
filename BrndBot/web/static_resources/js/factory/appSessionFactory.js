@@ -10,7 +10,7 @@ factoryApp.factory('appSessionFactory', function ($q) {
     var dashboardMessageVarName = "dashboardMessage";
     var userObjectName = "user";
     var popupObjectName = "popupFlags";
-
+    var usersUnderCompanyObjectName = "usersUnderCompany";
     AppSessionFactoryObject.setEmail = function (emailObject) {
         var deffered = $q.defer();
         var data = false;
@@ -88,6 +88,40 @@ factoryApp.factory('appSessionFactory', function ($q) {
         }
 
         deffered.resolve(requestedValue);
+        return deffered.promise;
+    };
+
+    AppSessionFactoryObject.isCurrentCompanyInFranchise = function () {
+        var deffered = $q.defer();
+        var requestValue = false;
+        var franchiseId = 0;
+
+        var companyLocalObject = JSON.parse(localStorage.getItem(companyObjectName));
+        franchiseId = companyLocalObject.franchiseId;
+
+        if (franchiseId == null) {
+            requestValue = false;
+        } else {
+            requestValue = true;
+        }
+        deffered.resolve(requestValue);
+        return deffered.promise;
+    };
+
+    AppSessionFactoryObject.isCurrentCompanyAFranchiseHeadquarter = function () {
+        var deffered = $q.defer();
+        var requestValue = false;
+        var isHeadquarter = 0;
+
+        var companyLocalObject = JSON.parse(localStorage.getItem(companyObjectName));
+        isHeadquarter = companyLocalObject.isHeadquarter;
+
+        if (isHeadquarter) {
+            requestValue = true;
+        } else {
+            requestValue = false;
+        }
+        deffered.resolve(requestValue);
         return deffered.promise;
     };
 
@@ -177,6 +211,29 @@ factoryApp.factory('appSessionFactory', function ($q) {
         deffered.resolve(requestedValue);
         return deffered.promise;
     };
+    AppSessionFactoryObject.getAllUsersUnderCompany = function () {
+        var deffered = $q.defer();
+        var requestedValue = KGlobalAllUserUnderCompanyObject;
+
+        var usersUnderCompanyLocalObject = JSON.parse(localStorage.getItem(usersUnderCompanyObjectName));
+        if (usersUnderCompanyLocalObject) {
+            requestedValue = usersUnderCompanyLocalObject;
+        }
+
+        deffered.resolve(requestedValue);
+        return deffered.promise;
+    };
+    AppSessionFactoryObject.setAllUsersUnderCompany = function (usersUnderCompanyObject) {
+        var deffered = $q.defer();
+        var data = false;
+        if (usersUnderCompanyObject)
+        {
+            localStorage.setItem(usersUnderCompanyObjectName, JSON.stringify(usersUnderCompanyObject));
+            data = true;
+        }
+        deffered.resolve(data);
+        return deffered.promise;
+    };
 
     AppSessionFactoryObject.clearAllSessions = function () {
         var deffered = $q.defer();
@@ -186,6 +243,7 @@ factoryApp.factory('appSessionFactory', function ($q) {
         localStorage.removeItem(companyObjectName);
         localStorage.removeItem(dashboardMessageVarName);
         localStorage.removeItem(userObjectName);
+        localStorage.removeItem(usersUnderCompanyObjectName);
         deffered.resolve(data);
         return deffered.promise;
     };

@@ -28,6 +28,19 @@
                 </div>
             </div>
         </div>
+        <div class="hub-section" ng-init="getAllUsersInCompany()">
+            <div class="section-header">
+                <h3>Assignment details</h3>
+            </div>
+            <div class="input-wrap">
+                <label>Assigned To:</label>
+                <div class="invalidDropdown bb-dropdown-padding" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="ChangeUserOnChange(selected)"></div>
+<!--                <select id="assignTo" ng-show="moreThanOneUser">
+                    <option value="no assignee" selected>no assignee</option>
+                    <option ng-repeat="users in allUsers" value="{{users.userId}}">{{users.userName}}</option>
+                </select>-->
+            </div>
+        </div>        
         <div class="hub-section">
             <div class="section-header">
                 <h3>Trigger Details</h3>
@@ -59,7 +72,7 @@
                         <object type="image/svg+xml" data="/BrndBot/images/time-gray.svg" style="cursor:pointer;"> </object>
                     </div>
                     <input id="timepicker1" readonly type="text" name="timepicker1" ng-model="automationData.time" class="time-date-select"  ng-class="{'invalid-input': automationData.time === '' || null}"
-                           value="{{entity_details.recurring_email_time| date: 'hh : mm : a'}}" /> 
+                           value="{{entity_details.recurring_email_time| date: 'hh:mm a'}}" /> 
 
                     <script src="../js/utilities/timepicki.js" type="text/javascript"></script>
                     <script>
@@ -98,6 +111,16 @@
                            value="{{entity_details.recurring_email_from_name}}"/>
                     <span class="validationAlert" ng-if='automationData.fromName === "" || null'>{{fromNameValidation}}</span>
 
+                    <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
+                </div>
+            </div>
+            <div class="input-wrap">
+                <label> Enter a from Address</label>
+                <div class="input">
+                    <input id="recurring_from_address" class="fluid" type="text" ng-model="automationData.fromAddress"  ng-class="{'invalid-input': automationData.fromAddress === '' || null || entity_details.recurring_email_from_address === '' || null }" required  placeholder="Enter from Address" 
+                           value="{{entity_details.recurring_email_from_address}}"/>
+                    <span class="validationAlert" ng-if='automationData.fromAddress === "" || null'>{{fromAddressValidation}}</span>
+                    <span class="validationAlert" ng-if="validateFromEmailAddress">{{fromAddressValidation}}</span>
                     <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
                 </div>
             </div>

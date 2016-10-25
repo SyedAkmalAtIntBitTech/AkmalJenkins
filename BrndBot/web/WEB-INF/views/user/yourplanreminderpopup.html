@@ -5,7 +5,7 @@
         
         <!--TOP NAV BAR-->
         <div class="header">
-            <a class="exit-button" ng-click="closePopup();clickedDeleteAction=false;" href="">
+            <a class="exit-button" ng-click="closePopup();clickedDeleteAction=false;;marketingTab.selectTab(4);" href="">
             </a>
             <h2> Task Detail</h2>
             <div class="overlay-header-cta-wrap">
@@ -21,7 +21,7 @@
                     <p>All data will be erased and you will lose any saved emails and posts</p>
                     <div class="cta-wrapper">
                         <a ng-click="clickedDeleteAction = false" href="" class="cancel-button">Cancel</a>
-                        <a ng-click="deleteSchedule(scheduleData.schedule_id, 'delete', getnote())" href="" class="delete-button">Delete</a>
+                        <a ng-click="deleteSchedule(scheduleData.schedule_id, 'delete', getnote());marketingTab.selectTab(4);" href="" class="delete-button">Delete</a>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                                         var picker = new Pikaday(
                                                 {
                                                     field: document.getElementById('emaildatetime1'),
-                                                    format: 'MM DD YYYY',
+                                                    format: kGlobalDateFormat,
                                                     firstDay: 1,
                                                     minDate: new Date(2000, 0, 1),
                                                     maxDate: new Date(2050, 12, 31),
@@ -96,6 +96,6 @@
         </div>
     </div>   
     <div  id="reminderactionsave" class="bottom-cta-button-container-overlay"  ng-show="showReminderUpdateBtn">
-        <a class="reg-button success-button" id="updateAction" ng-click="updateAction(scheduleData)" ng-show="isRecurring === false" >Save Reminder</a>
+        <a class="reg-button success-button" id="updateAction" ng-click="updateAction(scheduleData);marketingTab.selectTab(4);" ng-show="isRecurring === false" >Save Reminder</a>
     </div>    
    </div>

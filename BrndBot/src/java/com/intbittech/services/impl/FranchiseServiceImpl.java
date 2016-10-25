@@ -215,9 +215,9 @@ public class FranchiseServiceImpl implements FranchiseService {
     @Override
     public FranchiseCompanyLookup getFranchiseByCompanyId(Integer companyId) throws ProcessFailed {
         FranchiseCompanyLookup franchiseCompanyLookup = franchiseCompanyLookupDao.getFranchiseByCompanyId(companyId);
-        if (franchiseCompanyLookup == null) {
-            throw new ProcessFailed("No Franchise with company id" + companyId + ".");
-        }
+//        if (franchiseCompanyLookup == null) {
+//            throw new ProcessFailed("No Franchise with company id" + companyId + ".");
+//        }
         return franchiseCompanyLookup;
     }
 
@@ -242,13 +242,12 @@ public class FranchiseServiceImpl implements FranchiseService {
     public Boolean sendRequestToAddCompaniesEmail(String fromEmailId, String fromName, String sendTo, String companyName, String franchiseName) throws ProcessFailed {
         try {
 
-            Users user = usersService.getUserByEmailId(sendTo);
             String htmlBody = messageSource.getMessage("requestToAddCompany", new String[]{}, Locale.US);
             String formattedBody = String.format(htmlBody, companyName, franchiseName);
             Content content = new Content(IConstants.kContentHTML, formattedBody);
             String subject = "Request to add Company";
-            Email emailTo = new Email(sendTo, Utility.combineUserName(user));
-            user = usersService.getUserByEmailId(fromEmailId);
+            Users  user = usersService.getUserByEmailId(fromEmailId);
+            Email emailTo = new Email(sendTo);
             Email emailFrom = new Email(fromEmailId, Utility.combineUserName(user));
             Mail mail = new Mail(null, subject, emailTo, content);
             mail.setFrom(emailFrom);

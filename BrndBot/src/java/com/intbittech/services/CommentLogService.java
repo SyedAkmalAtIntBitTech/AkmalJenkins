@@ -7,7 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.CommentLog;
-import com.intbittech.responsemappers.CommentLogResponse;
+import com.intbittech.responsemappers.CommentActivityLogResponse;
 import java.util.List;
 
 /**
@@ -33,7 +33,7 @@ public interface CommentLogService {
      * @return {@link CommentLog}
      * @throws ProcessFailed the process failed
      */
-    public List<CommentLogResponse> getAllCommentLog() throws ProcessFailed;
+    public List<CommentActivityLogResponse> getAllCommentLog() throws ProcessFailed;
     
      /**
      * This method retrieves the list of {@link CommentLog} from DAO layer.
@@ -42,7 +42,7 @@ public interface CommentLogService {
      * @return {@link CommentLog}
      * @throws ProcessFailed the process failed
      */
-    public List<CommentLogResponse> getAllCommentLogByScheduledEntityListId(Integer scheduledEntityListId ,Integer userId) throws ProcessFailed;
+    public List<CommentActivityLogResponse> getAllCommentLogByScheduledEntityListId(Integer scheduledEntityListId ,Integer userId) throws ProcessFailed;
     
     /**
      * This method retrieves the list of {@link CommentLog} from DAO layer.

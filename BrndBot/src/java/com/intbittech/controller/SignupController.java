@@ -112,13 +112,13 @@ public class SignupController {
         try {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
 
             String type = (String) requestBodyMap.get("type");
             String password = (String) requestBodyMap.get("password");
             String hashURL = (String) requestBodyMap.get("hashURL");
             String hashPassword = passwordEncoder.encode(password);
             if (type.equalsIgnoreCase("update")) {
+                UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
                 forgotPasswordService.updatePassword(userCompanyIds.getUserId(), hashPassword);
             } else if (type.equalsIgnoreCase("change")) {
                 ForgotPassword forgotPassword = forgotPasswordService.getByRandomHash(hashURL);

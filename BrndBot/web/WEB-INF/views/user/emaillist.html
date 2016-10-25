@@ -1,4 +1,4 @@
-    <div ng-include src="'marketinghubnavigation.html'"></div>
+    <div ng-init="marketingHubTab.selectTab(3)" ng-include src="'marketinghubnavigation.html'"></div>
     <div ng-include src="'createemailList.html'"></div>
     
     <div class="bb-main-content-wrap bb-main-content-wrap-padding" id="emaillistsdiv" ng-show="emallistdetails" ng-click="showHideUserSettings(false)">
@@ -16,8 +16,8 @@
                     <h2 class="bb-panel-empty-state-text">You have no email lists.</h2>  
                 
                 </div>
-                <div class="bb-slat-list-wrap" ng-show="emailLists.length > 0" ng-repeat="email in emailLists"> 
-                    <div class="bb-slat" ng-click="viewEmailListDetails(email, 'user')">
+                <div class="bb-slat-list-wrap" ng-show="emailLists.length > 0" > 
+                    <div class="bb-slat" ng-click="viewEmailListDetails(email, 'user');marketingHubTab.selectTab(5);" ng-repeat="email in emailLists">
                        <!-- <div class="selection-container col-5p"> 
                             <div class="selection-icon" id="{{email.emailListID}}" ng-click="selectedEmailCheckbox(email.emailListID)">
                                 <input type="checkbox" id="{{email.emailListID}}" value="{{email.emailListName}}" name="entityname" hidden></input>
@@ -72,8 +72,8 @@
                     <h2 class="bb-panel-empty-state-text">There are no MINDBODY Index Lists.</h2>  
                 
                 </div>
-                <div class="bb-slat-list-wrap" ng-show="emailListsMindbody.length > 0" ng-repeat="email in emailListsMindbody">
-                    <div class="bb-slat" ng-click="viewEmailListDetails(email, 'mindbody')">
+                <div class="bb-slat-list-wrap" ng-show="marketingHubTab.isSelected(3) && emailListsMindbody.length > 0" ng-repeat="email in emailListsMindbody">
+                    <div class="bb-slat" ng-click="viewEmailListDetails(email, 'mindbody');marketingHubTab.selectTab(5);">
                         <!--<div class="slat-icon-wrap"></div>-->
                         <div class="slat-name-wrap">
                             <h2>{{email.emailListName}}</h2>

@@ -8,9 +8,9 @@ package com.intbittech.services.impl;
 import com.intbittech.dao.PushedScheduledActionCompaniesDao;
 import com.intbittech.dao.PushedScheduledEntityListDao;
 import com.intbittech.dao.UserRoleCompanyLookUpDao;
-import com.intbittech.enums.AdminStatus;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
+import com.intbittech.model.EmailListTag;
 import com.intbittech.model.Franchise;
 import com.intbittech.model.PushedScheduledActionCompanies;
 import com.intbittech.model.PushedScheduledEntityList;
@@ -18,11 +18,18 @@ import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.modelmappers.ActionCompaniesDetails;
 import com.intbittech.modelmappers.PushedScheduledActionCompaniesDetails;
+import com.intbittech.modelmappers.SendReminderEmailDetails;
 import com.intbittech.modelmappers.UserDetails;
+import com.intbittech.sendgrid.models.EmailType;
+import com.intbittech.services.EmailListTagService;
+import com.intbittech.services.EmailServiceProviderService;
 import com.intbittech.services.FranchiseService;
 import com.intbittech.services.PushedScheduledActionCompaniesService;
 import com.intbittech.utility.IConstants;
 import com.intbittech.utility.Utility;
+import com.sendgrid.Content;
+import com.sendgrid.Email;
+import com.sendgrid.Mail;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,7 +59,10 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
     private UserRoleCompanyLookUpDao roleCompanyLookUpDao;
     @Autowired
     private FranchiseService franchiseService;
-
+    @Autowired
+    private EmailServiceProviderService emailServiceProviderService;
+    @Autowired
+    private EmailListTagService emailListTagService;
     /**
      * {@inheritDoc}
      */
@@ -164,22 +174,50 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
     /**
      * {@inheritDoc}
      */
-    public List<UserDetails> getAllUserDetailsOfCompanyIdForSendEmail(List<Integer> companyIds) throws ProcessFailed {
-        List<UsersRoleCompanyLookup> roleCompanyLookupList = roleCompanyLookUpDao.getAllUsersRoleCompanyLookupByuserRolesNameAndCompanyId(Utility.getAllUserRoleOfCompanyForNoTagEmailList(), companyIds);
+    public List<UserDetails> getAllUserDetailsOfCompanyIdForSendEmail(SendReminderEmailDetails sendReminderEmailDetails) throws ProcessFailed {
+        List<UsersRoleCompanyLookup> roleCompanyLookupList = roleCompanyLookUpDao.getAllUsersRoleCompanyLookupByuserRolesNameAndCompanyId(Utility.getAllUserRoleOfCompanyForNoTagEmailList(), sendReminderEmailDetails.getCompanyIds());
         if (roleCompanyLookupList == null) {
             throw new ProcessFailed("No user found");
         }
         List<UserDetails>  userDetailsList = new ArrayList<>();
         for (UsersRoleCompanyLookup usersRoleCompanyLookup : roleCompanyLookupList) {
            UserDetails userDetails = new UserDetails();
-        userDetails.setUserId(usersRoleCompanyLookup.getUserId().getUserId());
-        userDetails.setFirstName(usersRoleCompanyLookup.getUserId().getFirstName());
-        userDetails.setLastName(usersRoleCompanyLookup.getUserId().getLastName());
-        userDetails.setUserName(usersRoleCompanyLookup.getUserId().getUserName()); 
-        
+            userDetails.setUserId(usersRoleCompanyLookup.getUserId().getUserId());
+            userDetails.setFirstName(usersRoleCompanyLookup.getUserId().getFirstName());
+            userDetails.setLastName(usersRoleCompanyLookup.getUserId().getLastName());
+            userDetails.setUserName(usersRoleCompanyLookup.getUserId().getUserName()); 
+            EmailListTag emailListTag = emailListTagService.getByEmailListTagId(sendReminderEmailDetails.getEmailListTagId());
+            sendNotificationEmailForNoEmailListPresent(usersRoleCompanyLookup.getUserId().getUserName(), 
+                    Utility.combineUserName(usersRoleCompanyLookup.getUserId()), emailListTag.getTagName(), usersRoleCompanyLookup.getCompanyId().getCompanyName());
         }
-       
         return userDetailsList;
-
     }
+    public Boolean sendNotificationEmailForNoEmailListPresent(String toEmailId, String userName, String emailTag, String company)throws ProcessFailed {
+        try {
+            String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
+            String body = messageSource.getMessage("notification_message_no_emaillist_tag", new String[]{}, Locale.US);
+            String HTMLBody = body.replace("%s", emailTag + " in " + company);
+            String formattedBody = String.format(HTMLBody);
+            Content content = new Content(IConstants.kContentHTML, formattedBody);
+            Email emailTo = new Email(toEmailId, userName);
+            String subject = messageSource.getMessage("notification_subject_no_emailList", new String[]{}, Locale.US);
+            String formattedSubject = String.format(subject, companyName);
+            Mail mail = new Mail(null, formattedSubject, emailTo, content);
+            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply);
+            return true;
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("mail_send_problem", new String[]{}, Locale.US));
+        }
+    }
+
+    @Override
+    public List<PushedScheduledActionCompanies> getPushedScheduledActionCompaniesByScheduledEntityListIdAndStatus(Integer ScheduledEntityListId, String Status) throws ProcessFailed {
+        List<PushedScheduledActionCompanies> pushedScheduledActionCompaniesList = pushedScheduledActionCompaniesDao.getPushedScheduledActionCompaniesByScheduledEntityListIdAndStatus(ScheduledEntityListId, Status);
+        if (pushedScheduledActionCompaniesList == null) {
+            throw new ProcessFailed(messageSource.getMessage("no_pushed_scheduled_action_company_found", new String[]{}, Locale.US));
+        }
+        return pushedScheduledActionCompaniesList;
+    }
+    
 }

@@ -15,7 +15,35 @@ public class ActivityLogDetails {
     private Integer activityId;
     private Integer scheduledEntityId;
     private Integer assignedTo;
+    private Integer createdBy;
+    private String actionTitle;
+    private String companyName;
+    private Integer companyId;
 
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
+    
+    public String getActionTitle() {
+        return actionTitle;
+    }
+
+    public void setActionTitle(String actionTitle) {
+        this.actionTitle = actionTitle;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+    
     public Integer getActivityLogId() {
         return activityLogId;
     }
@@ -47,7 +75,13 @@ public class ActivityLogDetails {
     public void setAssignedTo(Integer assignedTo) {
         this.assignedTo = assignedTo;
     }
-    
-    
+
+    public Integer getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Integer createdBy) {
+        this.createdBy = createdBy;
+    }
     
 }

@@ -13,16 +13,23 @@ import java.util.Date;
  *
  * @author ilyas
  */
-public class UserDetails   extends UserCompanyIds implements Serializable {
+public class UserDetails extends UserCompanyIds implements Serializable {
     
-    private Integer userId;
     private String userName;
     private String userPassword;
     private Date createdDate;
-    private Integer companyId;
     private String firstName;
     private String lastName;
     private String invitationCode;
+    private String userColor;
+
+    public String getUserColor() {
+        return userColor;
+    }
+
+    public void setUserColor(String userColor) {
+        this.userColor = userColor;
+    }
 
     public String getInvitationCode() {
         return invitationCode;
@@ -48,14 +55,6 @@ public class UserDetails   extends UserCompanyIds implements Serializable {
         this.lastName = lastName;
     }
     
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
     public String getUserName() {
         return userName;
     }
@@ -80,14 +79,4 @@ public class UserDetails   extends UserCompanyIds implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public Integer getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
-    }
-    
-    
-    
 }

@@ -1,4 +1,4 @@
-<div  ng-show='generalSavedDetails'>
+<div  ng-show='marketingTab.isSelected(6) || yourplanTab.isSelected(6);'>
 
     <div class="overlay-content" ng-show="savedEmail">
         <div ng-if="isRecurring === true">
@@ -14,7 +14,7 @@
 
                         <div class="cta-wrapper">
                             <a ng-click="promptHideShow(false);" href="" class="cancel-button">Cancel</a>
-                            <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader, '')" href="" class="delete-button">Remove</a>
+                            <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader, '');marketingTab.selectTab(4);" href="" class="delete-button">Remove</a>
                         </div>
                     </div>
                     <div class="detail-sections-wrap">
@@ -36,7 +36,8 @@
                 </div>
 
                 <div class="email-preview-bar">EMAIL PREVIEW</div>
-                <div class="overlay-email-preview"><iframe id="iframeForRecurringEmail" class="email-overlay-iFrame"></iframe>
+                <div class="overlay-email-preview"><div id="recurringEmailHtmlBody"></div>
+                    <!--<iframe id="iframeForRecurringEmail" class="email-overlay-iFrame"></iframe>-->
                     <!--iframe goes here-->
                 </div>
             </div>
@@ -54,7 +55,7 @@
 
                         <div class="cta-wrapper">
                             <a ng-click="promptHideShow(false);" href="" class="cancel-button">Cancel</a>
-                            <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader, '')" href="" class="delete-button">Remove</a>
+                            <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader, '');marketingTab.selectTab(4);" href="" class="delete-button">Remove</a>
                         </div>
                     </div>
                     <div class="detail-sections-wrap">
@@ -91,7 +92,7 @@
 
                         <div class="cta-wrapper">
                             <a ng-click="promptHideShow(false);" href="" class="cancel-button">Cancel</a>
-                            <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader, '')" href="" class="delete-button">Remove</a>
+                            <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader, '');marketingTab.selectTab(4);" href="" class="delete-button">Remove</a>
                         </div>
                     </div>
                     <div class="detail-sections-wrap">
@@ -136,6 +137,7 @@
 
 
         <div class="overlay-content" ng-show="masterActionType == 'Email'">
+
             <div class="overlay-details-pane" ng-show="action_template_status == 'Complete'">
                 <div class="overlay-details-pane-header">
                     <div >EMAIL HISTORY STATS</div>
@@ -168,34 +170,39 @@
             <div class="overlay-details-pane">
                 <div class="overlay-details-pane-header">
                     <div >SAVED EMAIL DETAILS</div>
-                    <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="editSavedEmail(schedule_id, entitiesdetails);"> Edit Saved Email</a>
-                    <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);"> Remove Saved Email</a>
+
                 </div>
                 <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all ease-all">
                     <strong>Are you sure you want to remove this saved email?</strong>
 
                     <div class="cta-wrapper">
                         <a ng-click="promptHideShow(false);" href="" class="cancel-button">Cancel</a>
-                        <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader, '')" href="" class="delete-button">Remove</a>
+                        <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader, '');marketingTab.selectTab(4);" href="" class="delete-button">Remove</a>
                     </div>
                 </div>
                 <div class="detail-sections-wrap">
                     <div class="detail-section">  
                         <div class="detail-section-item">
-                            <label class="detail-section-label">subject line</label>
+                            <label class="detail-section-label">Subject Line</label>
                             <p class="detail-section-data">{{entitiesdetails.subject}}</p>
                             <p hidden="">{{entitiesdetails.preheader}}{{entitiesdetails.html_body}}</p>
                         </div>
                         <div class="detail-section-item">
-                            <label class="detail-section-label">send to list</label>
+                            <label class="detail-section-label">Send to List</label>
                             <p class="detail-section-data">{{entitiesdetails.email_list_name}}</p>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <div class="bb-overlay-button-wrap">
+                <a ng-hide="isProgramArchived" class="bb-secondary-action-button bb-button" ng-click="editSavedEmail(schedule_id, entitiesdetails);"> Edit Saved Email</a>
+                <a ng-hide="isProgramArchived"  class="bb-secondary-action-button bb-button" ng-click="promptHideShow(true);"> Remove Saved Email</a>
+            </div>
+
             <div class="email-preview-bar">EMAIL PREVIEW </div>
-            <div class="overlay-email-preview"><iframe id="iframeForAction" class="email-overlay-iFrame"></iframe>
+            <div class="overlay-email-preview"><div id="emailHtmlBody"></div>
+                <!--<iframe id="iframeForAction" class="email-overlay-iFrame"></iframe>-->
                 <!--iframe goes here-->
             </div>
         </div>
@@ -208,7 +215,7 @@
                     <p>{{actionTypeNoTemplateMessage}}</p>
                     <!--need to have a bunch of button state management. We should have a factory -->
                     <a class="reg-button blue-button empty-wrap-button" href="{{savedDetailsAddTemplateLink}}" ng-if="isRecurring === false && masterActionType != 'Email'">{{savedDetailsAddTemplateButton}}</a>
-                    <a class="reg-button blue-button empty-wrap-button" href="" ng-click="saveEmailByActionId(schedule_id)" ng-if="isRecurring === false && masterActionType == 'Email'">{{setEmailToThisAction}}</a>
+                    <a class="reg-button blue-button empty-wrap-button" href="" ng-click="saveEmailByActionId(scheduleData)" ng-if="isRecurring === false && masterActionType == 'Email'">{{setEmailToThisAction}}</a>
                     <a class="reg-button blue-button empty-wrap-button" ng-click="redirectToEmailAutomation('emailautomation', 'template', '', schedule_id)" ng-if="isRecurring === true">{{savedDetailsAddTemplateButton}}</a>
                 </div>
             </div>

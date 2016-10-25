@@ -10,15 +10,20 @@ import com.intbittech.model.Company;
 import com.intbittech.model.FranchiseCompanyLookup;
 import com.intbittech.model.UserCompanyDetails;
 import com.intbittech.model.UserProfile;
+import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
 import com.intbittech.model.UsersRoleCompanyLookup;
+import com.intbittech.modelmappers.OnBoarding;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.responsemappers.UserSignupStatus;
+import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.ForgotPasswordService;
 import com.intbittech.services.FranchiseService;
 import com.intbittech.services.UserRoleCompanyLookUpService;
+import com.intbittech.services.UserRoleService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.UserSessionUtil;
@@ -59,38 +64,49 @@ public class UserController {
     private CompanyService companyService;
     @Autowired
     private FranchiseService franchiseService;
-    
+    @Autowired
+    private CompanyPreferencesService companyPreferencesService;
+    @Autowired
+    private UserRoleService userRoleService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String userWelcomePage(ModelMap model) {
         UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
         model.addAttribute("user", userProfile.getUsername());
         return "user/loading";
     }
-    
+
     @RequestMapping(value = "/getLoggedInUserId", method = RequestMethod.GET)
-    public ResponseEntity<ContainerResponse> getLoggedInUserId(){
+    public ResponseEntity<ContainerResponse> getLoggedInUserId() {
         GenericResponse<Integer> genericResponse = new GenericResponse<>();
         UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
         genericResponse.addDetail(userProfile.getUser().getUserId());
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
-    };
+    }
+
+    ;
     
     @RequestMapping(value = "/getAllUserCompanyDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllUserCompanyDetails(@RequestParam("userId") Integer userId) {
         GenericResponse<UserCompanyDetails> genericResponse = new GenericResponse<>();
-        try{
+        try {
             Users user = usersService.getUserById(userId);
             List<UserCompanyDetails> listUserCompanyDetails = new ArrayList<UserCompanyDetails>();
 
             List<UsersRoleCompanyLookup> listUsersRoleCompanyLookup = userRoleCompanyLookUpService.getAllUserRolesByUser(user);
 
-            for (int i = 0; i< listUsersRoleCompanyLookup.size(); i++){
+            for (int i = 0; i < listUsersRoleCompanyLookup.size(); i++) {
 
                 UsersRoleCompanyLookup usersRoleCompanyLookup = listUsersRoleCompanyLookup.get(i);
-                
+
                 UserCompanyDetails userCompanyDetails = new UserCompanyDetails();
-                 FranchiseCompanyLookup franchiseCompanyLookup = franchiseService.getFranchiseByCompanyId(usersRoleCompanyLookup.getCompanyId().getCompanyId());
-                
+                FranchiseCompanyLookup franchiseCompanyLookup = franchiseService.getFranchiseByCompanyId(usersRoleCompanyLookup.getCompanyId().getCompanyId());
+
+                if (franchiseCompanyLookup != null) {
+                    userCompanyDetails.setFranchiseId(franchiseCompanyLookup.getFkFranchiseId().getFranchiseId());
+                    userCompanyDetails.setFranchiseName(franchiseCompanyLookup.getFkFranchiseId().getFranchiseName());
+                    userCompanyDetails.setIsHeadquarter(franchiseCompanyLookup.getIsHeadQuarter());
+                }
                 userCompanyDetails.setUserId(userId);
                 userCompanyDetails.setCompanyId(usersRoleCompanyLookup.getCompanyId().getCompanyId());
                 userCompanyDetails.setCompanyName(usersRoleCompanyLookup.getCompanyId().getCompanyName());
@@ -100,71 +116,68 @@ public class UserController {
                 userCompanyDetails.setUserEmailId(user.getUserName());
                 userCompanyDetails.setUserFirstName(user.getFirstName());
                 userCompanyDetails.setUserLastName(user.getLastName());
-                userCompanyDetails.setFranchiseId(franchiseCompanyLookup.getFkFranchiseId().getFranchiseId());
-                userCompanyDetails.setFranchiseName(franchiseCompanyLookup.getFkFranchiseId().getFranchiseName());
-                userCompanyDetails.setIsHeadquarter(franchiseCompanyLookup.getIsHeadQuarter());
                 listUserCompanyDetails.add(userCompanyDetails);
             }
             genericResponse.setDetails(listUserCompanyDetails);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
-            
-        }catch (Throwable throwable){
+
+        } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
-            
+
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "/getUserCompanyDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getUserCompanyDetails(@RequestParam("userId") Integer userId,@RequestParam("companyId") Integer companyId) {
+    public ResponseEntity<ContainerResponse> getUserCompanyDetails(@RequestParam("userId") Integer userId, @RequestParam("companyId") Integer companyId) {
         GenericResponse<UserCompanyDetails> genericResponse = new GenericResponse<>();
-        try{
+        try {
             Users user = usersService.getUserById(userId);
             Company company = companyService.getCompanyById(companyId);
             List<UserCompanyDetails> listUserCompanyDetails = new ArrayList<UserCompanyDetails>();
 
-                UsersRoleCompanyLookup userRoleLookUp = userRoleCompanyLookUpService.getUsersRoleLookupByUserAndCompany(user, company);
-               
-                UserCompanyDetails userCompanyDetails = new UserCompanyDetails();
+            UsersRoleCompanyLookup userRoleLookUp = userRoleCompanyLookUpService.getUsersRoleLookupByUserAndCompany(user, company);
 
-                userCompanyDetails.setCompanyId(userRoleLookUp.getCompanyId().getCompanyId());
-                userCompanyDetails.setCompanyName(userRoleLookUp.getCompanyId().getCompanyName());
-                userCompanyDetails.setRoleId(userRoleLookUp.getRoleId().getUserRoleId());
-                userCompanyDetails.setRoleName(AdminStatus.valueOf(userRoleLookUp.getRoleId().getRoleName()).getDisplayName());
-                userCompanyDetails.setAccountStatus(userRoleLookUp.getAccountStatus());
-                userCompanyDetails.setUserEmailId(user.getUserName());
-                userCompanyDetails.setUserFirstName(user.getFirstName());
-                userCompanyDetails.setUserLastName(user.getLastName());
-                
-                listUserCompanyDetails.add(userCompanyDetails);
-            
+            UserCompanyDetails userCompanyDetails = new UserCompanyDetails();
+
+            userCompanyDetails.setCompanyId(userRoleLookUp.getCompanyId().getCompanyId());
+            userCompanyDetails.setCompanyName(userRoleLookUp.getCompanyId().getCompanyName());
+            userCompanyDetails.setRoleId(userRoleLookUp.getRoleId().getUserRoleId());
+            userCompanyDetails.setRoleName(AdminStatus.valueOf(userRoleLookUp.getRoleId().getRoleName()).getDisplayName());
+            userCompanyDetails.setAccountStatus(userRoleLookUp.getAccountStatus());
+            userCompanyDetails.setUserEmailId(user.getUserName());
+            userCompanyDetails.setUserFirstName(user.getFirstName());
+            userCompanyDetails.setUserLastName(user.getLastName());
+
+            listUserCompanyDetails.add(userCompanyDetails);
+
             genericResponse.setDetails(listUserCompanyDetails);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
-            
-        }catch (Throwable throwable){
+
+        } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
-            
+
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/checkUserCompanyActivation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> checkUserCompanyActivation(@RequestBody UserCompanyDetails userCompanyDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
-        try{
+        try {
             String accountStatus = userRoleCompanyLookUpService.getStatus(userCompanyDetails);
 
             transactionResponse.setMessage(accountStatus);
-            
-        }catch (Throwable throwable){
+
+        } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/{htmlFileName}", method = RequestMethod.GET)
     public String UserJspPages(ModelMap model, @PathVariable(value = "htmlFileName") String htmlFileName) {
         UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
@@ -172,5 +185,33 @@ public class UserController {
 //            todochange it with companyid
 //        model.addAttribute("companyId", companyId);
         return "user/" + htmlFileName;
-    }    
+    }
+
+    @RequestMapping(value = "/getUserSignupStatus", method = RequestMethod.GET)
+    public ResponseEntity<ContainerResponse> getUserSignupStatus(@RequestParam("userId") Integer userId, @RequestParam("companyId") Integer companyId) {
+        GenericResponse<UserSignupStatus> genericResponse = new GenericResponse<>();
+        try {
+            Users user = usersService.getUserById(userId);
+            Company company = companyService.getCompanyById(companyId);
+            List<UserSignupStatus> list = new ArrayList<UserSignupStatus>();
+            UsersRoleCompanyLookup usersRoleCompanyLookup = userRoleCompanyLookUpService.getUsersRoleLookupByUser(user);
+            UserRole userRole = usersRoleCompanyLookup.getRoleId();
+            UserSignupStatus userSignupStatus = new UserSignupStatus();
+            OnBoarding onBoarding = companyPreferencesService.getOnBoarding(company);
+            userSignupStatus.setColorPallete(onBoarding.getColorPallete());
+            userSignupStatus.setCompanyName(onBoarding.getCompanyName());
+            userSignupStatus.setExternalSources(onBoarding.getExternalSources());
+            userSignupStatus.setLogo(onBoarding.getLogo());
+            userSignupStatus.setTotal(onBoarding.getTotal());
+            userSignupStatus.setUserRole(userRole.getRoleName());
+            list.add(userSignupStatus);
+            genericResponse.setDetails(list);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
 }

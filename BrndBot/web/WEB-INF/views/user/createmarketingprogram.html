@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-animate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-animate.min.js"></script>
         <link rel="stylesheet" href="../css/pikaday.css"/>
         <link rel="stylesheet" type="text/css" href="../css/custom.css" />
         <script src="../js/utilities/moment.js" type="text/javascript"></script>
@@ -40,6 +40,7 @@
         <script src="../js/factory/marketingRecurringEmailController.js" type="text/javascript"></script>
         <script src="../js/factory/onboardingFactory.js" type="text/javascript"></script>
         <script src="../js/factory/appSessionFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/util.js" type="text/javascript"></script>
         <script src="../js/controller/marketingController.js" type="text/javascript"></script> 
         <script src="../js/controller/routing.js" type="text/javascript"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css"> 
@@ -103,13 +104,14 @@
             <script src="../js/tinymce.min.js" type="text/javascript"></script>
 </head>    
 
-<body ng-app="marketingFlowApp" class="body-normal" ng-controller="marketingController" id="marketingController">
+<body ng-app="marketingFlowApp" class="body-normal" ng-controller="marketingController as marketingTab" id="marketingController">
     <script type="text/ng-template"></script> 
     <div class="bb-app-frame">
       <div class="bb-main-app-wrap" >
           <input type="hidden" ng-model="marketingCategoryId" value="{{marketingCategoryId}}"/>
           <div ng-include src="'genericpopup.html'"></div>
           <div ng-include src="'navbar.html'"></div> 
+          <div ng-include src="'yourplanreminderpopup.html'"></div>
           <div ng-view class="bb-main-container-wrap"></div>  
       </div>
     </div>

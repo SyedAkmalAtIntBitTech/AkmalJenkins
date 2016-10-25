@@ -79,6 +79,29 @@ public class EmailListTagLookupDaoImpl implements EmailListTagLookupDao{
             throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
+    
+     /**
+     * {@inheritDoc}
+     */
+    public List<EmailListTagLookup> getEmailListTagLookupByCompanyId(Integer companyId) throws ProcessFailed {
+       try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(EmailListTagLookup.class)
+                    .setFetchMode("fkEmailListId", FetchMode.JOIN)
+                    .setFetchMode("fkEmailListTagId", FetchMode.JOIN)
+                    .createAlias("fkEmailListId.fkCompanyId", "company")
+                    .add(Restrictions.eq("company.companyId", companyId));
+            List<EmailListTagLookup> contactEmailListLookup = criteria.list();
+            if (contactEmailListLookup.isEmpty()) {
+                return null;
+            }
+            return contactEmailListLookup;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+        }
+    }
 
      /**
      * {@inheritDoc}
@@ -86,6 +109,18 @@ public class EmailListTagLookupDaoImpl implements EmailListTagLookupDao{
     public Integer save(EmailListTagLookup emailListTagLookup) throws ProcessFailed {
           try {
             return ((Integer) sessionFactory.getCurrentSession().save(emailListTagLookup));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
+        }
+    }
+    
+     /**
+     * {@inheritDoc}
+     */
+    public void saveOrUpdate(EmailListTagLookup emailListTagLookup) throws ProcessFailed {
+          try {
+            sessionFactory.getCurrentSession().saveOrUpdate(emailListTagLookup);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
