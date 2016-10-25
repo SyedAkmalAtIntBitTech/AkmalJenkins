@@ -765,9 +765,6 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     public ResponseEntity<ContainerResponse> saveUnsubscribeEmails(HttpServletRequest request, @RequestBody EmailList emailList) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-//            Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-
-//            UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
             companyPreferencesService.saveUnsubscribeEmails(emailList.getCompanyId(), emailList.getEmailList());
             Runnable myRunnable = new Runnable() {
                 public void run() {
