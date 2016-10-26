@@ -484,6 +484,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             emailFactory.tagsDetailsGet(details.emailSentHistoryId).then(function (data) {
                 if (data.d.operationStatus.statusCode !== "DataError") {
                     $scope.tagsDetails = data.d.details[0].sendGridStats;
+                    $scope.tagerror = "";
                 } else {
                     $scope.tagerror = categoryLoadDelay;
                 }

@@ -30,7 +30,7 @@ factoryApp.factory('emailFactory', function ($q, authenticatedServiceFactory, co
     };
     emailFactoryObject.emailHistoryStatsGet = function (data) {
         var deffered = $q.defer();
-        var url = configurationService.emailHistoryStatsURL()+"?actionId="+data.actionId+"&programId="+data.programId;
+        var url = configurationService.emailHistoryStatsURL()+"?actionId="+data.actionId+"&programId="+data.programId+"&scheduleDateTime="+data.scheduleDateTime;
         authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });

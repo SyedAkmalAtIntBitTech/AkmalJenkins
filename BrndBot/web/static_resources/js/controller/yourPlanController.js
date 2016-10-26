@@ -463,8 +463,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.getAllUsersInCompany = function () {
             yourPlanFactory.allUsersInCompanyGet().then(function (data) {
 //                $scope.allUsers = data.d.details;
-                for(var i=0;i<data.d.details.length;i++){
-                    $scope.ddSelectUserOptions.push({"text": data.d.details[i].firstName +" "+data.d.details[i].lastName , "value": data.d.details[i].userId});
+                for (var i = 0; i < data.d.details.length; i++) {
+                    $scope.ddSelectUserOptions.push({"text": data.d.details[i].firstName + " " + data.d.details[i].lastName, "value": data.d.details[i].userId});
                 }
             });
             yourPlanFactory.noOfUsersInCompanyGet().then(function (data) {
@@ -638,13 +638,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.globalScheduleData = {};
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, assignedFirstName, assignedLastName, assignedToInitialChars, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
         {
-            var statsData = {"programId" : programId, "actionId" : schedule_id};
-            
+            var statsData = {"programId": programId, "actionId": schedule_id, "scheduleDateTime": schedule_time};
             emailFactory.emailHistoryStatsGet(statsData).then(function (stats) {
-                 if (stats.d.operationStatus.statusCode !== "DataError") {
+                if (stats.d.operationStatus.statusCode !== "DataError") {
                     $scope.tagsDetails = stats.d.details[0].sendGridStats;
                     $scope.tagerror = "";
-                    alert();
                 } else {
                     $scope.tagerror = categoryLoadDelay;
                 }

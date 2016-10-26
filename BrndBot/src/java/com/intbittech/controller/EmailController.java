@@ -176,24 +176,14 @@ public class EmailController {
 
     @RequestMapping(value = "/emailHistoryStats", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> emailHistoryStats(HttpServletRequest request,
-            HttpServletResponse response, @RequestParam("userId") Integer userId, @RequestParam("companyId") Integer companyId, @RequestParam("actionId") Integer actionId, @RequestParam("programId") Integer programId) {
+            HttpServletResponse response, @RequestParam("userId") Integer userId, @RequestParam("companyId") Integer companyId, @RequestParam("actionId") Integer actionId, @RequestParam("programId") Integer programId, @RequestParam("scheduleDateTime") Long scheduleDateTime) {
         GenericResponse<SendGridStatsList> genericResponse = new GenericResponse();
         try {
-//            Company company = companyService.getCompanyById(companyId);
-//            EmailSentHistory emailSentHistoryList = emailSentHistoryService.getByEmailSentHistoryId(sentId);
-//            List<String> categories = new ArrayList<>();
-//            String[] categoriesArray = emailSentHistoryList.getEmailTag().split(",");
-//            for (Integer i = 0; i < categoriesArray.length; i++) {
-//                categories.add(categoriesArray[i].trim());
-//            }
-//            String data = sendEmailService.getTags(company.getCompanyId());
             List<String> categories = new ArrayList<>();
             categories.add(MarketingProgramUtility.getMarketingProgramCategory(programId));
             categories.add(MarketingProgramUtility.getMarketingProgramActionCategory(actionId));
-            Date endDate = new Date();
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DATE, -90);
-            Date startDate = cal.getTime();
+            Date endDate = new Date(scheduleDateTime);
+            Date startDate = new Date(scheduleDateTime);
             SendGridStatsList sendGridStats = emailServiceProviderService.getStatsByCategory(userId.toString(), categories, startDate, endDate, companyId);
             genericResponse.addDetail(sendGridStats);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
