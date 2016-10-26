@@ -745,6 +745,18 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, assignedFirstName, assignedLastName, assignedToInitialChars, action_status, days, marketingName)
         {
+            alert(schedule_id);
+            alert(schedule_time);
+            alert($scope.programId);
+            var statsData = {"programId": $scope.programId, "actionId": schedule_id, "scheduleDateTime": schedule_date};
+            emailFactory.emailHistoryStatsGet(statsData).then(function (stats) {
+                if (stats.d.operationStatus.statusCode !== "DataError") {
+                    $scope.tagsDetails = stats.d.details[0].sendGridStats;
+                    $scope.tagerror = "";
+                } else {
+                    $scope.tagerror = categoryLoadDelay;
+                }
+            });
             $scope.isRecurring = false;
             $scope.savedEmail = false;
             $scope.schedule_id = schedule_id;
