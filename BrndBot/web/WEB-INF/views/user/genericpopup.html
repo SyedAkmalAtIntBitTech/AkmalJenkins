@@ -30,7 +30,7 @@
             <a id="emailnote1" ng-click="setTab('emailHistory')" ng-class="top_subnav_link_active_emailHistoryDetail_Class" href="">Email History Details</a>
         </div>
         <div class="bb-top-sub-nav-tab">
-            <a id="emailaction1" val="{{schedule_id}}" ng-click="marketingTab.selectTab(5);yourplanTab.selectTab(5);" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(5) || yourplanTab.isSelected(5)}" href="">Action Details</a>
+            <a id="emailaction1" val="{{schedule_id}}" ng-click="marketingTab.selectTab(5);yourplanTab.selectTab(5);getActionComments(schedule_id);" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(5) || yourplanTab.isSelected(5)}" href="">Action Details</a>
         </div>
         <div class="bb-top-sub-nav-tab">
              <a id="emailpost1" ng-click="marketingTab.selectTab(6);yourplanTab.selectTab(6);" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(6) || yourplanTab.isSelected(6)}" href="">Saved {{savedHeader}}</a>
