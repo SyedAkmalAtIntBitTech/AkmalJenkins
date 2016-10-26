@@ -638,6 +638,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.globalScheduleData = {};
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, assignedFirstName, assignedLastName, assignedToInitialChars, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
         {
+            
             var statsData = {"programId": programId, "actionId": schedule_id, "scheduleDateTime": schedule_time};
             emailFactory.emailHistoryStatsGet(statsData).then(function (stats) {
                 if (stats.d.operationStatus.statusCode !== "DataError") {
@@ -647,6 +648,10 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     $scope.tagerror = categoryLoadDelay;
                 }
             });
+            if (template_status === "Complete" && entity_type === getemail())
+                $scope.savedPreheader = 'Sent';
+            else
+                $scope.savedPreheader = 'Saved';
             $scope.dateLesser = false;
 //        $scope.entities_selected_time =schedule_time;
             var nDate = new Date(action_date + " 10:30 am"); //10:30 am save DST
