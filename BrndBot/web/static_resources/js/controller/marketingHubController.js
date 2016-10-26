@@ -834,7 +834,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
             for (var i = 0; i < emailListData.length; i++) {
-                var emailID = emailListData[i];
+                var emailID = $.trim(emailListData[i]);
                 if (regex.test(emailID)) {
                     emailLists.push(emailID);
                 } else

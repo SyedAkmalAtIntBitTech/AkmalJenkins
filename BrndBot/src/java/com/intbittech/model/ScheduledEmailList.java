@@ -45,18 +45,16 @@ public class ScheduledEmailList implements Serializable {
     private String emailListName;
     @Column(name = "from_name")
     private String fromName;
-  
+
     @Column(name = "reply_to_email_address")
     private String replyToEmailAddress;
     @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
     @ManyToOne
     private Company fkCompanyId;
-    @JoinColumn(name = "fk_scheduled_entity_list_id", referencedColumnName = "scheduled_entity_list_id")
-    @ManyToOne
-    private ScheduledEntityList fkScheduledEntityListId;
+
     @Column(name = "html_body")
     private String htmlBody;
-      @Column(name = "preheader")
+    @Column(name = "preheader")
     private String preheader;
 
     public ScheduledEmailList() {
@@ -114,7 +112,7 @@ public class ScheduledEmailList implements Serializable {
         this.fromName = fromName;
     }
 
-      public String getReplyToEmailAddress() {
+    public String getReplyToEmailAddress() {
         return replyToEmailAddress;
     }
 
@@ -128,14 +126,6 @@ public class ScheduledEmailList implements Serializable {
 
     public void setFkCompanyId(Company fkCompanyId) {
         this.fkCompanyId = fkCompanyId;
-    }
-
-    public ScheduledEntityList getFkScheduledEntityListId() {
-        return fkScheduledEntityListId;
-    }
-
-    public void setFkScheduledEntityListId(ScheduledEntityList fkScheduledEntityListId) {
-        this.fkScheduledEntityListId = fkScheduledEntityListId;
     }
 
     public String getHtmlBody() {
@@ -153,6 +143,5 @@ public class ScheduledEmailList implements Serializable {
     public void setPreheader(String preheader) {
         this.preheader = preheader;
     }
-    
 
 }

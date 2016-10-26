@@ -176,7 +176,6 @@ public class SchedulerUtilityMethods {
                     result.setImageName(resultSet.getString("image_name"));
                     result.setMetaData(resultSet.getString("meta_data"));
                     result.setType(resultSet.getString("type"));
-                    result.setFkScheduledEntityListId(new ScheduledEntityList(resultSet.getInt("fk_scheduled_entity_list_id")));
                     result.setFkCompanyId(new Company(resultSet.getInt("fk_company_id")));
                     result.setImageType(resultSet.getString("image_type"));
                 }
@@ -205,7 +204,6 @@ public class SchedulerUtilityMethods {
                     // To-do Ajit delete after AR/Ilyas review 
                     //result.setToEmailAddresses(resultSet.getString("to_email_addresses"));
                     result.setReplyToEmailAddress(resultSet.getString("reply_to_email_address"));
-                    result.setFkScheduledEntityListId(new ScheduledEntityList(resultSet.getInt("fk_scheduled_entity_list_id")));
                     result.setFkCompanyId(new Company(resultSet.getInt("fk_company_id")));
                  
                 }

@@ -49,9 +49,6 @@ public class ScheduledSocialpostList implements Serializable {
     @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
     @ManyToOne
     private Company fkCompanyId;
-    @JoinColumn(name = "fk_scheduled_entity_list_id", referencedColumnName = "scheduled_entity_list_id")
-    @ManyToOne
-    private ScheduledEntityList fkScheduledEntityListId;
 
     public ScheduledSocialpostList() {
     }
@@ -106,14 +103,6 @@ public class ScheduledSocialpostList implements Serializable {
 
     public void setFkCompanyId(Company fkCompanyId) {
         this.fkCompanyId = fkCompanyId;
-    }
-
-    public ScheduledEntityList getFkScheduledEntityListId() {
-        return fkScheduledEntityListId;
-    }
-
-    public void setFkScheduledEntityListId(ScheduledEntityList fkScheduledEntityListId) {
-        this.fkScheduledEntityListId = fkScheduledEntityListId;
     }
 
 }
