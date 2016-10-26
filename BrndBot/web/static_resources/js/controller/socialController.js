@@ -4,7 +4,7 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 
-socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope', '$location', '$window', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'companyMarketingProgramFactory', 'companyImagesFactory', 'companyFactory', 'imageFactory', 'socialPostFactory', 'scheduleActionsFactory', 'appSessionFactory','yourPlanFactory', function ($scope, $filter, $rootScope, $location, $window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, companyMarketingProgramFactory, companyImagesFactory, companyFactory, imageFactory, socialPostFactory, scheduleActionsFactory, appSessionFactory,yourPlanFactory) {
+socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope', '$location', '$window', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'companyMarketingProgramFactory', 'companyImagesFactory', 'companyFactory', 'imageFactory', 'socialPostFactory', 'scheduleActionsFactory', 'appSessionFactory', 'yourPlanFactory', function ($scope, $filter, $rootScope, $location, $window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, companyMarketingProgramFactory, companyImagesFactory, companyFactory, imageFactory, socialPostFactory, scheduleActionsFactory, appSessionFactory, yourPlanFactory) {
 
         $scope.getTwitterActionsData = "";
         $scope.marketingProgramsList = "";
@@ -816,9 +816,9 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                         }
                     };
                 } else {
-                    
+
                     var userAssignToId = $("#assignTo option:selected").val();
-                    if(!userAssignToId)
+                    if (!userAssignToId)
                         userAssignToId = "0";
                     var schedule_title = $("#ActionName").val();
                     var schedule_date = $("#actionDate").val();
@@ -831,7 +831,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                         return false;
                     }
                     $scope.dateLesser = false;
-                    
+
                     var timeValues = [];
                     timeValues = schedule_time.split(":");
                     var hours = timeValues[0];
@@ -839,17 +839,30 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                     var delimiter = timeValues[2];
 
                     if (delimiter == "PM") {
-                        hours = parseInt(hours) + 12;
+                        if (parseInt(hours) !== 12) {
+                            hours = parseInt(hours) + 12;
+                        }
+                        if (hours >= 24) {
+                            hours = 00;
+                        }
+                    }
+                    if (delimiter == "AM") {
+                        if (parseInt(hours) === 12) {
+                            hours = parseInt(hours) + 12;
+                        }
+                        if (hours >= 24) {
+                            hours = 00;
+                        }
                     }
                     var newtime = hours + ":" + mins + ":" + "00";
                     var currDate = moment(schedule_date).format('YYYY-MM-DD');
-                    
+
                     var l = currDate + " " + newtime;
                     var schedule_time = Date.parse(l);
                     var epoch_time = schedule_time;
 
 //                    var epoch_time = getEpochMillis(currDate + " " + newtime + " " + 'UTC');
-                    
+
 //                    var myEpoch = Date.parse(dateAndTime);
 
                     sendData = {
@@ -864,7 +877,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                         "url": shareUrl,
                         "description": linkDescription,
                         "image_type": kGlobalFbPostDataObject.imageType,
-                        "userAssignedTo":userAssignToId,
+                        "userAssignedTo": userAssignToId,
                         metadata: {
                             description: '"' + linkDescription + '"',
                             post_text: '"' + shareText + '"',
@@ -927,7 +940,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                             });
                         } else {
                             var userAssignToId = $("#assignTo option:selected").val();
-                            if(!userAssignToId)
+                            if (!userAssignToId)
                                 userAssignToId = "0";
                             var schedule_title = $("#ActionName").val();
                             var schedule_date = $("#actionDate").val();
@@ -948,7 +961,20 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                             var delimiter = timeValues[2];
 
                             if (delimiter == "PM") {
-                                hours = parseInt(hours) + 12;
+                                if (parseInt(hours) !== 12) {
+                                    hours = parseInt(hours) + 12;
+                                }
+                                if (hours >= 24) {
+                                    hours = 00;
+                                }
+                            }
+                            if (delimiter == "AM") {
+                                if (parseInt(hours) === 12) {
+                                    hours = parseInt(hours) + 12;
+                                }
+                                if (hours >= 24) {
+                                    hours = 00;
+                                }
                             }
                             var newtime = hours + ":" + mins + ":" + "00";
                             var currDate = moment(schedule_date).format('YYYY-MM-DD');
@@ -971,7 +997,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                                 schedule_desc: schedule_desc,
                                 schedule_id: $scope.socialAction.toString(),
                                 image_type: $scope.selectImageType,
-                                userAssignedTo:userAssignToId,
+                                userAssignedTo: userAssignToId,
                                 token_data: {
                                     "access_token": '"' + accessToken + '"',
                                     "token_secret": '"' + tokenSecret + '"'
@@ -1011,9 +1037,9 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
 //                            window.location = "dashboard";
                         });
                     } else {
-                        
+
                         var userAssignToId = $("#assignTo option:selected").val();
-                        if(!userAssignToId)
+                        if (!userAssignToId)
                             userAssignToId = "0";
                         var schedule_title = $("#ActionName").val();
                         var schedule_date = $("#actionDate").val();
@@ -1033,7 +1059,20 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                         var delimiter = timeValues[2];
 
                         if (delimiter == "PM") {
-                            hours = parseInt(hours) + 12;
+                            if (parseInt(hours) !== 12) {
+                                hours = parseInt(hours) + 12;
+                            }
+                            if (hours >= 24) {
+                                hours = 00;
+                            }
+                        }
+                        if (delimiter == "AM") {
+                            if (parseInt(hours) === 12) {
+                                hours = parseInt(hours) + 12;
+                            }
+                            if (hours >= 24) {
+                                hours = 00;
+                            }
                         }
                         var newtime = hours + ":" + mins + ":" + "00";
 
@@ -1055,7 +1094,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                             schedule_desc: schedule_desc,
                             schedule_id: $scope.socialAction.toString(),
                             image_type: $scope.selectImageType,
-                            userAssignedTo:userAssignToId,
+                            userAssignedTo: userAssignToId,
                             token_data: {
                                 "access_token": '"' + accessToken + '"',
                                 "token_secret": '"' + tokenSecret + '"'

@@ -426,7 +426,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             {
 //                var userAssignToId = $("#assignTo option:selected").val();
 //                if (!userAssignToId)
-                  var  userAssignToId = "0";
+                var userAssignToId = "0";
                 $scope.timePickerVal = false;
                 var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
                 var actionDateTime1 = datePicker.toLocaleString() + " " + actionTime1.toLocaleString();
@@ -448,10 +448,23 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 var delimiter = timeValues[2];
 
                 if (delimiter == "PM") {
-                    hours = parseInt(hours) + 12;
+                    if (parseInt(hours) !== 12) {
+                        hours = parseInt(hours) + 12;
+                    }
+                    if (hours >= 24) {
+                        hours = 00;
+                    }
+                }
+                if (delimiter == "AM") {
+                    if (parseInt(hours) === 12) {
+                        hours = parseInt(hours) + 12;
+                    }
+                    if (hours >= 24) {
+                        hours = 00;
+                    }
                 }
                 var newtime = hours + ":" + mins + ":" + "00";
-                
+
                 var l = actiondate + " " + newtime;
                 var schedule_time = Date.parse(l);
                 var epoch_time = schedule_time;

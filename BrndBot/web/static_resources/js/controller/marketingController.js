@@ -465,7 +465,20 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 var delimiter = timeValues[2];
 
                 if (delimiter == "PM") {
-                    hours = parseInt(hours) + 12;
+                    if (parseInt(hours) !== 12) {
+                        hours = parseInt(hours) + 12;
+                    }
+                    if (hours >= 24) {
+                        hours = 00;
+                    }
+                }
+                if (delimiter == "AM") {
+                    if (parseInt(hours) === 12) {
+                        hours = parseInt(hours) + 12;
+                    }
+                    if (hours >= 24) {
+                        hours = 00;
+                    }
                 }
                 var newtime = hours + ":" + mins + ":" + "00";
                 
