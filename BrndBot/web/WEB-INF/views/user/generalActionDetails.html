@@ -1,5 +1,5 @@
 
-<div class="overlay-content" id="emailactionsection" ng-init='hideSaveButton()' ng-show='marketingTab.isSelected(5) || yourplanTab.isSelected(5);' ng-form name="actionDetailsForm">
+<div class="overlay-content" id="emailactionsection" ng-init='hideSaveButton()' ng-show='marketingHubTab.isSelected(5) || marketingTab.isSelected(5) || yourplanTab.isSelected(5);' ng-form name="actionDetailsForm">
     <div ng-show="isProgramArchived" class="clickProofLayer"></div>
     <div class="overlay-name-bar" ng-show="isRecurring === false">
         <input size="40" value="Email Action Name" id="email_edit_title" name="email_edit_title" ng-model='scheduleData.schedule_title' ng-change="showSaveButton()" value="{{scheduleData.schedule_title}}"><br/>
@@ -11,18 +11,14 @@
         <div class="overlay-content" id="recurringactiondiv" ng-show="isEmailHistory">
             <!--Email History Overlay content goes within this Div-->
             <div class="overlay-name-bar">
-                <div class="overlay-name-bar-recurring-title" >HISTORY DETAILS</div>
+                <div class="overlay-name-bar-recurring-title" >HISTORY DETAILS{{tagerror}}</div>
             </div>
             <div class="overlay-details-pane" ng-show="tagerror">
                 <div class="overlay-details-pane-header">{{tagerror}}</div>
             </div>  
             <div class="overlay-details-pane" ng-show="!tagerror" ng-repeat="tag in tagsDetails | filter:userSearch">
-                <div class="overlay-details-pane-header">{{tag.date}}</div>
+<!--                <div class="overlay-details-pane-header">{{tag.date}}</div>-->
                 <div class="detail-sections-wrap">
-                    <div class="detail-section-item">
-                        <label class="detail-section-label">{{tag.stats[0].name}}</label>
-                        <p class="detail-section-data" >Email Tag</p>
-                    </div>
                     <div class="detail-section-item">
                         <label class="detail-section-label" ng-show="(tag.stats[0].metrics.unique_opens / tag.stats[0].metrics.delivered) * 100">{{(tag.stats[0].metrics.unique_opens / tag.stats[0].metrics.delivered) * 100 | number : 2}}%</label>
                         <label class="detail-section-label" ng-show="!(tag.stats[0].metrics.unique_opens / tag.stats[0].metrics.delivered) * 100">--</label>

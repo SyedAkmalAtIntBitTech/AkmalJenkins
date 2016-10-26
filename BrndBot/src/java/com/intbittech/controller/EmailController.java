@@ -108,7 +108,10 @@ public class EmailController {
             emailDataDetails.setEmailType(EmailTypeConstants.General.name());
 
             List<String> emailCategoryList = new ArrayList<>();
-            emailCategoryList.add(MarketingProgramUtility.getDirectEmailCategory((String) requestBodyMap.get("iframeName")));
+            if ((String) requestBodyMap.get("iframeName") != null) {
+                String iframeName = (String) requestBodyMap.get("iframeName");
+                emailCategoryList.add(MarketingProgramUtility.getDirectEmailCategory(iframeName.replace(".", "")));
+            }
             emailDataDetails.setEmailCategoryList(emailCategoryList);
 
             sendEmailService.sendMail(emailDataDetails);
@@ -158,11 +161,8 @@ public class EmailController {
             for (Integer i = 0; i < categoriesArray.length; i++) {
                 categories.add(categoriesArray[i].trim());
             }
-//            String data = sendEmailService.getTags(company.getCompanyId());
-            Date endDate = new Date();
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DATE, -30);
-            Date startDate = cal.getTime();
+            Date endDate = emailSentHistoryList.getTimeSent();
+            Date startDate = emailSentHistoryList.getTimeSent();
             SendGridStatsList sendGridStats = emailServiceProviderService.getStatsByCategory(userId.toString(), categories, startDate, endDate, companyId);
             genericResponse.addDetail(sendGridStats);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
@@ -173,7 +173,7 @@ public class EmailController {
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/emailHistoryStats", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> emailHistoryStats(HttpServletRequest request,
             HttpServletResponse response, @RequestParam("userId") Integer userId, @RequestParam("companyId") Integer companyId, @RequestParam("actionId") Integer actionId, @RequestParam("programId") Integer programId) {
@@ -194,7 +194,7 @@ public class EmailController {
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DATE, -90);
             Date startDate = cal.getTime();
-            SendGridStatsList sendGridStats = emailServiceProviderService.getStatsByCategory(userId.toString(), categories, startDate, endDate,companyId);
+            SendGridStatsList sendGridStats = emailServiceProviderService.getStatsByCategory(userId.toString(), categories, startDate, endDate, companyId);
             genericResponse.addDetail(sendGridStats);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 

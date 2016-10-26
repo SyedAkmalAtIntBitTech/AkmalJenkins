@@ -12,6 +12,7 @@ import com.intbittech.divtohtml.StringUtil;
 import com.intbittech.enums.APIKeyType;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.SendGridSubUserDetails;
+import com.intbittech.model.Users;
 import com.intbittech.responsemappers.OperationStatus;
 import com.intbittech.responsemappers.OperationStatusType;
 import com.intbittech.sendgrid.models.APIKey;
@@ -28,6 +29,7 @@ import com.intbittech.sendgrid.models.SubUserAPIKey;
 import com.intbittech.sendgrid.models.Subuser;
 import com.intbittech.services.EmailServiceProviderService;
 import com.intbittech.services.SendGridSubUserDetailsService;
+import com.intbittech.services.UsersService;
 import com.intbittech.utility.IConstants;
 import com.sendgrid.Email;
 import com.sendgrid.Mail;
@@ -68,6 +70,9 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
     
     @Autowired
     private SendGridSubUserDetailsService sendGridSubUserDetailsService;
+    
+    @Autowired
+    private UsersService usersService;
 
     private Map<String, String> generateQueryParams(String key,
             List<String> categories) {
@@ -261,8 +266,10 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
 
             SendGridStatsList sendGridStats = new SendGridStatsList();
             
-            SendGrid sg = getSendGridWithAPI(APIKeyType.SubUser, companyId);
-
+            SendGrid sg = getSendGridWithAPI(APIKeyType.Main, 0);
+            SendGridSubUserDetails sendGridSubUserDetails = sendGridSubUserDetailsService.getByCompanyId(companyId);
+            sg.addRequestHeader("on-behalf-of", sendGridSubUserDetails.getSendGridUserId());
+            
             startDate = getStartDate(startDate);
             if (endDate == null) {
                 endDate = new Date();

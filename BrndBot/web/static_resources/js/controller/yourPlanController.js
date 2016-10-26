@@ -643,6 +643,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             emailFactory.emailHistoryStatsGet(statsData).then(function (stats) {
                  if (stats.d.operationStatus.statusCode !== "DataError") {
                     $scope.tagsDetails = stats.d.details[0].sendGridStats;
+                    $scope.tagerror = "";
+                    alert();
                 } else {
                     $scope.tagerror = categoryLoadDelay;
                 }
