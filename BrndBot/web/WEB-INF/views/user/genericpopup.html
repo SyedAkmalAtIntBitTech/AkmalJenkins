@@ -38,6 +38,9 @@
         <div class="bb-top-sub-nav-tab ">
              <a id="emailnote1" ng-click="marketingTab.selectTab(7);yourplanTab.selectTab(7);getActionComments(schedule_id);" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(7) || yourplanTab.isSelected(7)}"  href="">Collaboration</a>
         </div>
+        <div class="bb-top-sub-nav-tab" ng-if="isRecurring">
+             <a id="emailAnalytics" ng-click="marketingTab.selectTab(8);yourplanTab.selectTab(8);" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(8) || yourplanTab.isSelected(8)}"  href="">Analytics</a>
+        </div>
     </div>
     <ul class="sub-nav-tab-wrap with-back-button" ng-show="pushedEmail==true">
         <li class="sub-nav-tab ">
@@ -49,6 +52,7 @@
     </ul>
     
     <div ng-include src="'generalActionDetails.html'"></div>
+    <div ng-include src="'generalActionAnalytics.html'"></div>
     <div ng-include src="'generalActionNotes.html'"></div>
     <div ng-include src="'generalSavedDetails.html'"></div>
     <div ng-include src="'pushedactionssaveddetails.html'"></div>
