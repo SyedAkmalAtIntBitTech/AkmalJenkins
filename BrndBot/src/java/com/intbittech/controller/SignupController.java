@@ -7,13 +7,19 @@ package com.intbittech.controller;
 
 import com.controller.ApplicationContextListener;
 import com.intbittech.AppConstants;
+import com.intbittech.enums.AdminStatus;
+import com.intbittech.model.Company;
 import com.intbittech.model.ForgotPassword;
+import com.intbittech.model.SendGridSubUserDetails;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.model.Users;
+import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.modelmappers.UserDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.ForgotPasswordService;
+import com.intbittech.services.SendGridSubUserDetailsService;
+import com.intbittech.services.UserRoleCompanyLookUpService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.Utility;
@@ -51,12 +57,14 @@ public class SignupController {
     ForgotPasswordService forgotPasswordService;
     @Autowired
     private MessageSource messageSource;
-     @Autowired
+    @Autowired
     private PasswordEncoder passwordEncoder;
-     @Autowired
+    @Autowired
     UsersService usersService;
-
-   
+    @Autowired
+    SendGridSubUserDetailsService sendGridSubUserDetailsService;
+    @Autowired
+    UserRoleCompanyLookUpService userRoleCompanyLookUpService;
 
     @RequestMapping(value = "/{jspFileName}", method = RequestMethod.GET)
     public String signUpJspPages(ModelMap model, @PathVariable(value = "jspFileName") String jspFileName) {
@@ -87,7 +95,7 @@ public class SignupController {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> updateUser(@RequestBody UserDetails usersDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
@@ -104,7 +112,6 @@ public class SignupController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
-
     @RequestMapping(value = "/resetPassword", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> resetPassword(HttpServletRequest request,
             HttpServletResponse response) {
@@ -120,6 +127,19 @@ public class SignupController {
             if (type.equalsIgnoreCase("update")) {
                 UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
                 forgotPasswordService.updatePassword(userCompanyIds.getUserId(), hashPassword);
+                try {
+                    sendGridSubUserDetailsService.getByCompanyId(userCompanyIds.getCompanyId());
+                } catch  (Throwable throwable) {
+                    Users user = new Users();
+                    user.setUserId(userCompanyIds.getUserId());
+                    Company company = new Company();
+                    company.setCompanyId(userCompanyIds.getCompanyId());
+                    UsersRoleCompanyLookup usersRoleCompanyLookup = userRoleCompanyLookUpService.getUsersRoleLookupByUserAndCompany(user, company);
+                    if(usersRoleCompanyLookup.getRoleId().getRoleName().equals(AdminStatus.ROLE_ACCOUNT_OWNER)) {
+                        //create subuser
+                        
+                    }
+                }
             } else if (type.equalsIgnoreCase("change")) {
                 ForgotPassword forgotPassword = forgotPasswordService.getByRandomHash(hashURL);
                 forgotPasswordService.updatePassword(forgotPassword.getFkUserId().getUserId(), hashPassword);
