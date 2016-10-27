@@ -194,6 +194,29 @@ public class EmailController {
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
+    
+    @RequestMapping(value = "/recurringEmailHistoryStats", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> recurringEmailHistoryStats(HttpServletRequest request,
+            HttpServletResponse response, @RequestParam("userId") Integer userId, @RequestParam("companyId") Integer companyId, @RequestParam("actionId") Integer actionId, @RequestParam("programId") Integer programId) {
+        GenericResponse<SendGridStatsList> genericResponse = new GenericResponse();
+        try {
+            List<String> categories = new ArrayList<>();
+            categories.add(MarketingProgramUtility.getMarketingProgramCategory(programId));
+            categories.add(MarketingProgramUtility.getMarketingProgramRecuringActionCategory(actionId));
+            Date endDate = new Date();
+            Calendar cal = Calendar.getInstance();		
+            cal.add(Calendar.DATE, -30);		
+            Date startDate = cal.getTime();
+            SendGridStatsList sendGridStats = emailServiceProviderService.getStatsByCategory(userId.toString(), categories, startDate, endDate, companyId);
+            genericResponse.addDetail(sendGridStats);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
 
     @RequestMapping(value = "/previewServlet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> previewEmail(HttpServletRequest request,

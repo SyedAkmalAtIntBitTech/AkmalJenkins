@@ -85,7 +85,7 @@ public class ScheduleAnRecurringEmail implements Runnable {
                         Integer entityId = currentScheduledRecurringEmail.getEntityId();
                         List<String> emailCategoryList = new ArrayList<>();
                         emailCategoryList.add(MarketingProgramUtility.getMarketingProgramCategory(companyMarketingProgramId));
-                        emailCategoryList.add(MarketingProgramUtility.getMarketingProgramRecuringActionCategory(entityId));
+                        emailCategoryList.add(MarketingProgramUtility.getMarketingProgramRecuringActionCategory(currentScheduledRecurringEmail.getScheduledEntityListId()));
                         
                         emailDataDetails.setEmailCategoryList(emailCategoryList);
                         
