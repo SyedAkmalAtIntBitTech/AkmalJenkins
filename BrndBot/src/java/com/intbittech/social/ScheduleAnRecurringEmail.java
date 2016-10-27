@@ -78,6 +78,7 @@ public class ScheduleAnRecurringEmail implements Runnable {
                         emailDataDetails.setHtmlData(html_text);
                         emailDataDetails.setReplyToEmailAddress(reply_to_address);
                         emailDataDetails.setEmailType(EmailTypeConstants.Recurring.name());
+                        emailDataDetails.setDays(days);
                         
                         //For email categories/tags
                         Integer companyMarketingProgramId = currentScheduledRecurringEmail.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId();
