@@ -57,6 +57,15 @@ public interface UsersService {
      * This method pass user as input and get the {@link Integer} from DAO layer.
      *
      * @param usersDetails
+     * @param userId
+     * @throws ProcessFailed the process failed
+     */
+    public void saveSubUser(UserDetails usersDetails, Integer userId) throws ProcessFailed;
+    
+    /**
+     * This method pass user as input and get the {@link Integer} from DAO layer.
+     *
+     * @param usersDetails
      * @return {@link Integer}
      * @throws ProcessFailed the process failed
      */

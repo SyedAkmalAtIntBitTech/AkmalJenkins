@@ -203,6 +203,7 @@ var companyAddressValidation= "Please enter and select your Company Address";
 var invalidCompanyAddressValidation = "Please select valid Address";
 var dropdownValidation = "Please select your Organization";
 var newPasswordValidation = "Password not entered! Please enter the password";
+var newPassword8CharValidation = "Password needs to be atleast 8 characters long";
 var newFirstNameValidation = "Please enter First name";
 var newLastNameValidation = "Please enter Last name";
 var confirmPasswordValidation = "Confirm password not entered! Please enter the confirm password";

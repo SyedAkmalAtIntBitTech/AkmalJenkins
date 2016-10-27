@@ -3,6 +3,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.inputType = 'password';
         $scope.colorFrom = "custom";
         $scope.newPasswordValidation = newPasswordValidation;
+        $scope.newPassword8CharValidation = newPassword8CharValidation
         $scope.confirmPasswordValidation = confirmPasswordValidation;
         $scope.confirmPasswordMissmatch = confirmPasswordMissmatch;
         $scope.logoValidation = logoValidation;
@@ -147,7 +148,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $("#confirmpassword").focus();
                 return false;
             }
-            if ($scope.isConfirmPasswordSame(confirmPassword))
+            if ($scope.isConfirmPasswordSame(password,confirmPassword))
                 return true;
         };
 
@@ -169,11 +170,11 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             $scope.passwordText = password;
         };
 
-        $scope.isConfirmPasswordSame = function (cPassword) {
+        $scope.isConfirmPasswordSame = function (password,cPassword) {
             if (cPassword === "") {
                 $scope.isConfirmPasswordSamePassword = true;
                 return false;
-            } else if ($scope.passwordText === cPassword) {
+            } else if (password === cPassword) {
                 $scope.isConfirmPasswordSamePassword = false;
                 return true;
             } else {
@@ -186,10 +187,10 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             if ($scope.accountSettingsValidation(userDetails.password, userDetails.confirmPassword))
             {
                 var password_object = {"password": userDetails.password, "confirmpassword": userDetails.confirmPassword, "type": "update"};
-                signupFactory.resetPasswordPost(password_object).then(function (data) {
-                    growl("Password changed successfully");
-                    $scope.status = data;
-                });
+//                signupFactory.resetPasswordPost(password_object).then(function (data) {
+//                    growl("Password changed successfully");
+//                    $scope.status = data;
+//                });
             }
         };
 

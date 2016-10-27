@@ -127,19 +127,30 @@ public class SignupController {
             if (type.equalsIgnoreCase("update")) {
                 UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
                 forgotPasswordService.updatePassword(userCompanyIds.getUserId(), hashPassword);
+                SendGridSubUserDetails sendGridSubUserDetails = null;
                 try {
-                    sendGridSubUserDetailsService.getByCompanyId(userCompanyIds.getCompanyId());
-                } catch  (Throwable throwable) {
+                    sendGridSubUserDetails = sendGridSubUserDetailsService.getByCompanyId(userCompanyIds.getCompanyId());
+                } catch (Throwable throwable) {
                     Users user = new Users();
                     user.setUserId(userCompanyIds.getUserId());
                     Company company = new Company();
                     company.setCompanyId(userCompanyIds.getCompanyId());
                     UsersRoleCompanyLookup usersRoleCompanyLookup = userRoleCompanyLookUpService.getUsersRoleLookupByUserAndCompany(user, company);
-                    if(usersRoleCompanyLookup.getRoleId().getRoleName().equals(AdminStatus.ROLE_ACCOUNT_OWNER)) {
+                    if (usersRoleCompanyLookup.getRoleId().getRoleName().equals(AdminStatus.ROLE_ACCOUNT_OWNER)) {
                         //create subuser
-                        
+
+                        Users userObject = usersService.getUserById(userCompanyIds.getUserId());
+                        UserDetails userDetails = new UserDetails();
+                        userDetails.setUserName(userObject.getUserName());
+                        userDetails.setUserPassword(password);
+
+                        usersService.saveSubUser(userDetails, userCompanyIds.getUserId());
                     }
                 }
+                if(sendGridSubUserDetails != null) {
+                    //TODO Reset subUser password in sendGrid
+                }
+                
             } else if (type.equalsIgnoreCase("change")) {
                 ForgotPassword forgotPassword = forgotPasswordService.getByRandomHash(hashURL);
                 forgotPasswordService.updatePassword(forgotPassword.getFkUserId().getUserId(), hashPassword);

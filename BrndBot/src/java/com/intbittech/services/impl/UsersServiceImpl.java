@@ -6,6 +6,7 @@
 package com.intbittech.services.impl;
 
 import com.controller.ApplicationContextListener;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intbittech.AppConstants;
 import com.intbittech.dao.CompanyDao;
@@ -45,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
 import javax.servlet.ServletContext;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
@@ -130,6 +132,41 @@ public class UsersServiceImpl implements UsersService {
         return usersDao.isUserExistInCompany(inviteDetails, company);
     }
 
+    @Override
+    public void saveSubUser(UserDetails usersDetails, Integer userId) throws ProcessFailed {
+        try {
+            //Save subuser in sendgrid
+            Subuser subuser = new Subuser();
+            subuser.setEmail(usersDetails.getUserName());
+            subuser.setPassword(usersDetails.getUserPassword());
+            //TODO change this ips
+            List<String> ips = new ArrayList<String>();
+            ips.add("198.37.159.5");
+            subuser.setIps(ips);
+            SendGridUser sendGridUser = emailServiceProviderService.addSubuser(subuser);
+
+            //Create Sub User API Key
+            SubUserAPIKey subUserAPIKey = emailServiceProviderService.createSubUserAPIKey(usersDetails.getUserName());
+            SendGridAPIDetails sendGridAPIDetails = new SendGridAPIDetails();
+            sendGridAPIDetails.setApiKey(subUserAPIKey.getApiKey());
+            sendGridAPIDetails.setApiKeyId(subUserAPIKey.getApiKeyId());
+            sendGridAPIDetails.setName(subUserAPIKey.getName());
+
+            //Save userID in db
+            SendGridSubUserDetails sendGridSubUserDetails = new SendGridSubUserDetails();
+            Users user = new Users();
+            user.setUserId(userId);
+            sendGridSubUserDetails.setFkUserId(user);
+            sendGridSubUserDetails.setSendGridUserId(usersDetails.getUserName());
+
+            sendGridSubUserDetails.setEmailAPIKey(sendGridAPIDetails.build());
+
+            sendGridSubUserDetailsService.save(sendGridSubUserDetails);
+        } catch (Throwable throwable) {
+            throw new ProcessFailed(messageSource.getMessage("something_wrong", new String[]{}, Locale.US));
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -165,31 +202,8 @@ public class UsersServiceImpl implements UsersService {
 
             usersRoleLookUpDao.save(usersRoleLookUp);
 
-            //Save subuser in sendgrid
-            Subuser subuser = new Subuser();
-            subuser.setEmail(usersDetails.getUserName());
-            subuser.setPassword(usersDetails.getUserPassword());
-            //TODO change this ips
-            List<String> ips = new ArrayList<String>();
-            ips.add("198.37.159.5");
-            subuser.setIps(ips);
-            SendGridUser sendGridUser = emailServiceProviderService.addSubuser(subuser);
-            
-            //Create Sub User API Key
-            SubUserAPIKey subUserAPIKey = emailServiceProviderService.createSubUserAPIKey(usersDetails.getUserName());
-            SendGridAPIDetails sendGridAPIDetails = new SendGridAPIDetails();
-            sendGridAPIDetails.setApiKey(subUserAPIKey.getApiKey());
-            sendGridAPIDetails.setApiKeyId(subUserAPIKey.getApiKeyId());
-            sendGridAPIDetails.setName(subUserAPIKey.getName());
-            
-            //Save userID in db
-            SendGridSubUserDetails sendGridSubUserDetails = new SendGridSubUserDetails();
-            user = new Users();
-            user.setUserId(userId);
-            sendGridSubUserDetails.setFkUserId(user);
-            sendGridSubUserDetails.setSendGridUserId(usersDetails.getUserName());
-            sendGridSubUserDetails.setEmailAPIKey(sendGridAPIDetails.build());
-            sendGridSubUserDetailsService.save(sendGridSubUserDetails);
+            saveSubUser(usersDetails, userId);
+
             returnUserId = userId;
         } catch (Throwable throwable) {
             throw new ProcessFailed(messageSource.getMessage("something_wrong", new String[]{}, Locale.US));
