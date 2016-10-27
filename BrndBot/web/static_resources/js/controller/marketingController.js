@@ -775,6 +775,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             if (entity_type === getnote()) {
                 $scope.reminderSectionClass = 'reminderSectionClass';
                 $scope.savedReminderTab = true;
+                $scope.isTask = true;
                 $scope.setTab('savedReminder');
             }
 
@@ -1746,6 +1747,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //    
                         var days = $scope.selectedDay;
                         var emaillist = $scope.automationData.selectedEmailList;
+                        alert(emaillist);
                         var to_email_addresses = $scope.emailLists.split(',');
                         var subject = $scope.automationData.subject;
                         var from_name = $scope.automationData.fromName;

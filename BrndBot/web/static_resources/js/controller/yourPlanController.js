@@ -674,6 +674,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.savedReminderTab = true;
                 $scope.isTask = true;
                 $scope.setTab('savedReminder');
+                $scope.getActionComments(schedule_id)
             }
             var date = $scope.entities_selected_time;
             var time = $filter('date')(schedule_time, "hh:mm a");
