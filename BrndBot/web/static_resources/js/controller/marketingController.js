@@ -24,7 +24,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.emailValidation = emailValidation;
         $scope.linkNameValidation = linkNameValidation;
         $scope.linkUrlValidation = linkUrlValidation;
-
+        $scope.isRecurring = false;
         $scope.programDate = "";
         $scope.randomIframeFilename = event.timeStamp;
         $scope.showCampaignDetails = false;

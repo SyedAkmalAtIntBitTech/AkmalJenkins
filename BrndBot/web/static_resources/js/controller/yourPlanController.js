@@ -31,6 +31,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.clickedRemoveAction = false;
         $scope.addUserSettings = false;
         $scope.moreThanOneUser = false;
+        $scope.isTask = true;
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
 
@@ -671,6 +672,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             if (entity_type === getnote()) {
                 $scope.reminderSectionClass = 'reminderSectionClass';
                 $scope.savedReminderTab = true;
+                $scope.isTask = true;
                 $scope.setTab('savedReminder');
             }
             var date = $scope.entities_selected_time;

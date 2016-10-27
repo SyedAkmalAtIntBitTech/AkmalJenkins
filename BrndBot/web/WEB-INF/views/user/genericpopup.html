@@ -36,7 +36,7 @@
              <a id="emailpost1" ng-click="marketingTab.selectTab(6);yourplanTab.selectTab(6);clickedDeleteAction = false;promptHideShow(false)" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(6) || yourplanTab.isSelected(6)}" href="">Saved {{savedHeader}}</a>
         </div>
         <div class="bb-top-sub-nav-tab ">
-             <a id="emailnote1" ng-click="marketingTab.selectTab(7);yourplanTab.selectTab(7);getActionComments(schedule_id);clickedDeleteAction = false;promptHideShow(false)" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(7) || yourplanTab.isSelected(7)}"  href="">Collaboration</a>
+            <a id="emailnote1" ng-click="marketingTab.selectTab(7);yourplanTab.selectTab(7);getActionComments(schedule_id);clickedDeleteAction = false;promptHideShow(false);" ng-show="isRecurring == false;" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(7) || yourplanTab.isSelected(7)}"  href="">Collaboration</a>
         </div>
     </div>
     <ul class="sub-nav-tab-wrap with-back-button" ng-show="pushedEmail==true">
