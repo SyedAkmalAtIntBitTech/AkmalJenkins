@@ -8,7 +8,6 @@ package com.intbittech.marketing.controller;
 import com.intbittech.utility.IConstants;
 import com.controller.SqlMethods;
 import com.intbittech.AppConstants;
-import com.intbittech.dao.UsersDao;
 import com.intbittech.enums.ActivityStatus;
 import com.intbittech.enums.ScheduledEntityType;
 import com.intbittech.enums.TemplateStatus;
@@ -31,8 +30,6 @@ import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
-import com.intbittech.services.ContactEmailListLookupService;
-import com.intbittech.services.EmailListService;
 import com.intbittech.services.RecurringEmailTemplateService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
@@ -361,8 +358,8 @@ public class MarketingRecurringEmailController {
             schedule_entity_list.setFkCompanyMarketingProgramId(companyMarketingProgram);
             schedule_entity_list.setDays(Integer.parseInt(days));
             schedule_entity_list.setTillDate(till_date);
-            Users user = usersService.getUserById(userAssignToId);
-            schedule_entity_list.setAssignedTo(user);
+
+            schedule_entity_list.setAssignedTo(null);
             schedule_entity_list.setFkCompanyId(company);
 
             Integer schedule_entity_list_id = scheduledEntityListService.save(schedule_entity_list);

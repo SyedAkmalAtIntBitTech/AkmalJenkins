@@ -755,7 +755,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                         +$scope.companyAddressDetails.state+" "
                                         +$scope.companyAddressDetails.zipCode+", "
                                         +$scope.companyAddressDetails.country;
-                $scope.footerDetails = JSON.parse(data.d.details).userProfile;
+                $scope.footerDetails = JSON.parse(data.d.details).companyProfile;
                 $scope.company = $scope.footerDetails;
             });
         };
@@ -881,18 +881,18 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
 
             returnFooter = footer;
-            if (footerData.userProfile) {
-                if (footerData.userProfile.facebookUrl)
-                    returnFooter += footerFB.replace("$$$footerFB$$$", footerData.userProfile.facebookUrl);
-                if (footerData.userProfile.twitterUrl)
-                    returnFooter += footerTwitter.replace("$$$footerTwitter$$$", footerData.userProfile.twitterUrl);
-                if (footerData.userProfile.instagramUrl)
-                    returnFooter += footerInstagram.replace("$$$footerInstagram$$$", footerData.userProfile.instagramUrl);
+            if (footerData.companyProfile) {
+                if (footerData.companyProfile.facebookUrl)
+                    returnFooter += footerFB.replace("$$$footerFB$$$", footerData.companyProfile.facebookUrl);
+                if (footerData.companyProfile.twitterUrl)
+                    returnFooter += footerTwitter.replace("$$$footerTwitter$$$", footerData.companyProfile.twitterUrl);
+                if (footerData.companyProfile.instagramUrl)
+                    returnFooter += footerInstagram.replace("$$$footerInstagram$$$", footerData.companyProfile.instagramUrl);
             }
             returnFooter += footerMiddle;
-            if (footerData.userProfile) {
-                if (footerData.userProfile.websiteUrl)
-                    returnFooter += footerWebsite.replace("$$$footerWebsite$$$", footerData.userProfile.websiteUrl);
+            if (footerData.companyProfile) {
+                if (footerData.companyProfile.websiteUrl)
+                    returnFooter += footerWebsite.replace("$$$footerWebsite$$$", footerData.companyProfile.websiteUrl);
             }
             returnFooter += footerAddress.replace("$$$footerAddress$$$", companyAddress);
 

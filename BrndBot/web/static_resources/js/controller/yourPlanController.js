@@ -31,6 +31,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.clickedRemoveAction = false;
         $scope.addUserSettings = false;
         $scope.moreThanOneUser = false;
+        $scope.isTask = true;
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
 
@@ -617,18 +618,18 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
 
             returnFooter = footer;
-            if (footerData.userProfile) {
-                if (footerData.userProfile.facebookUrl)
-                    returnFooter += footerFB.replace("$$$footerFB$$$", footerData.userProfile.facebookUrl);
-                if (footerData.userProfile.twitterUrl)
-                    returnFooter += footerTwitter.replace("$$$footerTwitter$$$", footerData.userProfile.twitterUrl);
-                if (footerData.userProfile.instagramUrl)
-                    returnFooter += footerInstagram.replace("$$$footerInstagram$$$", footerData.userProfile.instagramUrl);
+            if (footerData.companyProfile) {
+                if (footerData.companyProfile.facebookUrl)
+                    returnFooter += footerFB.replace("$$$footerFB$$$", footerData.companyProfile.facebookUrl);
+                if (footerData.companyProfile.twitterUrl)
+                    returnFooter += footerTwitter.replace("$$$footerTwitter$$$", footerData.companyProfile.twitterUrl);
+                if (footerData.companyProfile.instagramUrl)
+                    returnFooter += footerInstagram.replace("$$$footerInstagram$$$", footerData.companyProfile.instagramUrl);
             }
             returnFooter += footerMiddle;
-            if (footerData.userProfile) {
-                if (footerData.userProfile.websiteUrl)
-                    returnFooter += footerWebsite.replace("$$$footerWebsite$$$", footerData.userProfile.websiteUrl);
+            if (footerData.companyProfile) {
+                if (footerData.companyProfile.websiteUrl)
+                    returnFooter += footerWebsite.replace("$$$footerWebsite$$$", footerData.companyProfile.websiteUrl);
             }
             returnFooter += footerAddress.replace("$$$footerAddress$$$", companyAddress);
 
@@ -671,7 +672,9 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             if (entity_type === getnote()) {
                 $scope.reminderSectionClass = 'reminderSectionClass';
                 $scope.savedReminderTab = true;
+                $scope.isTask = true;
                 $scope.setTab('savedReminder');
+                $scope.getActionComments(schedule_id)
             }
             var date = $scope.entities_selected_time;
             var time = $filter('date')(schedule_time, "hh:mm a");

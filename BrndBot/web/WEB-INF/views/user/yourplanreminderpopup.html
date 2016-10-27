@@ -27,8 +27,20 @@
             </div>
         </div>
         
+        <div class="bb-top-sub-nav bb-top-sub-nav-backbutton-offset" ng-show="pushedEmail==false">
+            <div class="bb-top-sub-nav-tab" ng-if="isEmailHistory">
+                <a id="emailnote1" ng-click="setTab('emailHistory')" ng-class="top_subnav_link_active_emailHistoryDetail_Class" href="">Email History Details</a>
+            </div>
+            <div class="bb-top-sub-nav-tab">
+                <a id="emailaction1" val="{{schedule_id}}" ng-click="marketingTab.selectTab(5);yourplanTab.selectTab(5);getActionComments(schedule_id);clickedDeleteAction = false;promptHideShow(false); isTask=true;" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(5) || yourplanTab.isSelected(5)}" href="">Action Details</a>
+            </div>
+            <div class="bb-top-sub-nav-tab ">
+                 <a id="emailnote1" ng-click="marketingTab.selectTab(7);yourplanTab.selectTab(7);getActionComments(schedule_id);clickedDeleteAction = false;promptHideShow(false);isTask=false" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(7) || yourplanTab.isSelected(7)}"  href="">Collaboration</a>
+            </div>
+        </div>
+        
         <!--Below Nav-->
-        <div class="overlay-content-saved-email-draft">
+        <div class="overlay-content-saved-email-draft" ng-show="isTask == true">
             <div hidden="" id="note_desc" class="instruction-text">{{scheduleData.schedule_desc}}</div>
             <div class="overlay-name-bar">
                 <input  size="40" type="text" id="edit_note_title" ng-change="showReminderSaveButton()" ng-model="scheduleData.schedule_title"  name="edit_note_title" value="{{scheduleData.schedule_title}}" />
@@ -92,10 +104,34 @@
                     </div>
                     <span class="validationAlert" ng-if='dateLesser'>{{lesserDateValidation}}</span>
             </div>
-             
-        </div>
+            <!--<div ng-include src="'generalActionDetails.html'"></div>-->
+            <div ng-init="getActionComments(schedule_id)">
+            <div class="overlay-details-pane" ng-show="isRecurring === false">
+                    <div class="overlay-details-pane-header">ACTION ACTIVITY</div>
+                    <div class="detail-sections-wrap">
+                        <!--PUT ACTIVITY HERE-->
+                    <div class="action" style="padding:0px 30px;  border-radius: 3px;  "ng-repeat="comment in comments">
+                        <div style="background-color:white;">
+                        <div style="display: inline-flex;" ng-show="comment.isActivity==true">
+        <!--                    <div style="height:30px; width:30px; line-height: 30px; text-align: center; margin-right: 10px; border-radius: 30px; background-color:lightblue; font-size: 14px; font-weight: bold; color: white;">{{comment.initials}}
+                            </div>-->
+                            <span style="margin: 0px 5px; line-height: 10px; font-size: 12px; color:#3f3f42;"><b>{{comment.createdByFirstName}} {{comment.createdByLastName}}</b></span>
+                            <span style="margin: 0px 5px; line-height: 10px; font-size: 12px; color:#3f3f42;">{{comment.activityName}} </span>
+                            <span style="margin: 0px 5px; line-height: 10px; font-size: 12px; color:#3f3f42;">{{comment.assignedToFirstName}} {{comment.assignedToLastName}}</span>
+                            <span style=" font-size: 12px; color: #7c7d82; line-height: 10px; margin-left: 10px; ">{{comment.createdAt | date:"MMMM d, y 'at' h:mma"}}</span>
+                        </div>
+                        </div>
+
+                    </div>                        
+                    </div>
+                </div>
+            </div>
+            
+    </div>
+            <div ng-include src="'generalActionNotes.html'"></div>
+        
     </div>   
     <div  id="reminderactionsave" class="bottom-cta-button-container-overlay"  ng-show="showReminderUpdateBtn">
         <a class="reg-button success-button" id="updateAction" ng-click="updateAction(scheduleData);marketingTab.selectTab(4);" ng-show="isRecurring === false" >Save Reminder</a>
     </div>    
-   </div>
+</div>
