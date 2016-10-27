@@ -7,7 +7,7 @@
                     <div class="overlay-details-pane-header">
                         <div >SAVED EMAIL DETAILS</div>
                         <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="redirectToEmailAutomation('emailautomation','template','', schedule_id, 'edit saved email')"> Edit Saved Email</a>
-                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);"> Remove Saved Email</a>
+                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);clickedDeleteAction = false"> Remove Saved Email</a>
                     </div>
                     <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all ease-all">
                         <strong>Are you sure you want to remove this saved email?</strong>
@@ -48,7 +48,7 @@
                  <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div>Saved Post Details</div>
-                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);"> Remove Saved Post</a>
+                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);clickedDeleteAction = false"> Remove Saved Post</a>
                     </div>
                     <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-action-template-pop-up ease-all">
                         <strong>Are you sure you want to remove this post?</strong>
@@ -85,7 +85,7 @@
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div>Saved Post Details</div>
-                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);"> Remove Saved Post</a>
+                        <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);clickedDeleteAction = false"> Remove Saved Post</a>
                     </div>
                     <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all">
                         <strong>Are you sure you want to remove this saved post?</strong>
@@ -167,7 +167,7 @@
              
              <div class="bb-overlay-button-wrap">
                  <a ng-hide="isProgramArchived" class="bb-secondary-action-button bb-button" ng-click="editSavedEmail(schedule_id,entitiesdetails);"> Edit Saved Email</a>
-                <a ng-hide="isProgramArchived"  class="bb-secondary-action-button bb-button" ng-click="promptHideShow(true);"> Remove Saved Email</a>
+                <a ng-hide="isProgramArchived"  class="bb-secondary-action-button bb-button" ng-click="promptHideShow(true);clickedDeleteAction = false"> Remove Saved Email</a>
              </div>
            
                 <div class="email-preview-bar">EMAIL PREVIEW </div>
