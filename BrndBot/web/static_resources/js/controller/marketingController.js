@@ -1230,7 +1230,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 var editorHtml = $('#tinymceEditorBody').html();
                 if (editorHtml.contains('id="defaultblock1"'))
                 {
-                    $("#defaultblock1").empty().append("<div class=view>" + emailData.htmldata + "</div>");
+                    $("#defaultblock1").empty();
+                    $("#defaultblock1").append("<div class=view>" + emailData.htmldata + "</div>");
 
                 } else {
                     $("#tinymceEditorBody").append("<div id=defaultblock1 class=module><div class=view>" + emailData.htmldata + "</div></div");
@@ -1454,14 +1455,19 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             emailListFactory.getContactsOfEmailList(emailListName.value).then(function (emailListData) {
                 var emailListDetails = emailListData.d.details;
                 var emails = "";
-                for (var i = 0; i < emailListDetails.length; i++) {
-                    emails = emailListDetails[i].fkContactId.emailAddress;
-                    $scope.emailLists = $scope.emailLists + emails + ",";
+                if (emailListDetails != null){
+                    for (var i = 0; i < emailListDetails.length; i++) {
+                        emails = emailListDetails[i].fkContactId.emailAddress;
+                        $scope.emailLists = $scope.emailLists + emails + ",";
+                    }
+                }else {
+                    growl("no email contacts present in the email list, kindly update the email list");
                 }
-                $scope.emailListName = emailListDetails[0].fkEmailListId.emailListName;
+                $scope.emailListName = emailListName.text;
+                alert($scope.emailListName);
                 $scope.automationData.selectedEmailList = $scope.emailListName;
             });
-        };
+        };        
         $scope.recurringEmailValidation = function (data) {
             $scope.error = 0;
             
@@ -1747,8 +1753,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //    
                         var days = $scope.selectedDay;
                         var emaillist = $scope.automationData.selectedEmailList;
-                        alert(emaillist);
-                        var to_email_addresses = $scope.emailLists.split(',');
                         var subject = $scope.automationData.subject;
                         var from_name = $scope.automationData.fromName;
                         var from_address = $scope.automationData.fromAddress;
@@ -1761,11 +1765,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         var schedule_time = $("#timepicker1").val();
                         utilFactory.getEpoch(till_date, newtime).then(function (till_date_epoch) {
                         $scope.froalaHtmlData = $("#tinymceEditorBody").html();
+                        alert($scope.type + $scope.entityNoEmailTemplate);
                         if ($scope.type === 'add') {
                             var recurring_action = {
                                 "days": $scope.selectedDay.toString(),
                                 "emaillist": $scope.emailListName.toString(),
-                                "to_email_addresses": to_email_addresses,
                                 "subject": subject,
                                 "from_name": from_name,
                                 "from_address": from_address,
@@ -1791,7 +1795,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                             var recurring_action = {
                                 "entity_id": $scope.entityId.toString(),
                                 "days": days.toString(), "emaillist": emaillist,
-                                "to_email_addresses": to_email_addresses,
                                 "subject": subject, "from_name": from_name,
                                 "from_address": from_address,
                                 "reply_to_address": reply_to_address,
@@ -1801,7 +1804,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 "schedule_time_epoch": schedule_time,
                                 "program_id": $scope.programId.toString(),"userAssignToId": $scope.ddSelectedUser
                             };
-
+                            alert("One: "+ JSON.stringify(recurring_action));
                             marketingRecurringEmailFactory.addupdateRecurringActionPost(recurring_action).then(function (data) {
 
                                 if ((data === true) && ($scope.entityNoEmailTemplate === true)) {
@@ -1822,7 +1825,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                             var recurring_action = {
                                 "entity_id": $scope.entityId.toString(),
                                 "days": days.toString(), "emaillist": emaillist,
-                                "to_email_addresses": to_email_addresses,
                                 "subject": subject, "from_name": from_name,
                                 "from_address": from_address,
                                 "reply_to_address": reply_to_address,
@@ -1833,6 +1835,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 "program_id": $scope.programId.toString(),"userAssignToId": $scope.ddSelectedUser
                             };
 
+                            alert("Two: "+ JSON.stringify(recurring_action));
                             marketingRecurringEmailFactory.addupdateRecurringActionPost(recurring_action).then(function (data) {
                                 if ((data === true)) {
                                     growl("Details saved succesfully.");
@@ -1862,7 +1865,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                         "template_id": $scope.templateId, "html_data": $scope.froalaHtmlData + footer,
                                         "html_body": $scope.froalaHtmlData,
                                         "days": days.toString(), "emaillist": emaillist,
-                                        "to_email_addresses": to_email_addresses,
                                         "subject": subject, "from_name": from_name,
                                         "from_address": from_address,
                                         "reply_to_address": reply_to_address,
@@ -1872,6 +1874,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                         "schedule_time_epoch": schedule_time,
                                         "program_id": $scope.programId.toString(),"userAssignToId": $scope.ddSelectedUser
                                     };
+                                    alert("Three: "+ JSON.stringify(recurring_action));
 
                                     marketingRecurringEmailFactory.updateRecurringActionPost(recurring_action).then(function (data) {
                                         if ((data === true)) {
