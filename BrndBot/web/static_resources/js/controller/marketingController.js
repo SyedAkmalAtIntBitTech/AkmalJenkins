@@ -646,6 +646,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.templateApproveButton = "Play";
             $scope.templateDisapproveButton = "Pause";
             $scope.pushedEmail = false;
+            $scope.savedPreheader = 'Saved';
+            $scope.savedHeader = getemail(); 
             $scope.hideShowEditDot(false);
             $scope.recurringScheduleData = {schedule_title: schedule_title, schedule_desc: schedule_desc,
                 schedule_id: schedule_id, entities_list_name: "",
