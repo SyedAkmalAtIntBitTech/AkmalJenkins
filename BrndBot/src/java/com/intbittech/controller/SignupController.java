@@ -156,7 +156,8 @@ public class SignupController {
                 if(sendGridSubUserDetails != null) {
                     if(sendGridSubUserDetails.getFkUserId().getUserId() == userCompanyIds.getUserId()) {
                         //Reset subUser password in sendGrid
-                        emailServiceProviderService.changePassword(sendGridSubUserDetails.getSendGridUserId(), password, oldPassword);
+                        //Commented will be used later
+//                        emailServiceProviderService.changePassword(sendGridSubUserDetails.getSendGridUserId(), password, oldPassword);
                         
                     }
                     forgotPasswordService.updatePassword(userCompanyIds.getUserId(), hashPassword);

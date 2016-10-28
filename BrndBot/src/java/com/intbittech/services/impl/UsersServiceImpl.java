@@ -138,7 +138,9 @@ public class UsersServiceImpl implements UsersService {
             //Save subuser in sendgrid
             Subuser subuser = new Subuser();
             subuser.setEmail(usersDetails.getUserName());
-            subuser.setPassword(usersDetails.getUserPassword());
+//            subuser.setPassword(usersDetails.getUserPassword());
+            //Hardcoded password and will be changed later
+            subuser.setPassword("sendgrid123");
             //TODO change this ips
             List<String> ips = new ArrayList<String>();
             ips.add("198.37.159.5");
