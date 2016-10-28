@@ -521,7 +521,8 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                         if ($scope.activationLink) {
                             growl("Mindbody activated successfully.");
                         } else {
-                            growl("Mindbody not activated.");
+                            window.open("https://clients.mindbodyonline.com/classic/home", '_blank');
+//                            growl("Mindbody not activated.");
                         }
                     });
                 }
