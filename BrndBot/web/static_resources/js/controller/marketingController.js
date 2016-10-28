@@ -1231,8 +1231,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 var editorHtml = $('#tinymceEditorBody').html();
                 if (editorHtml.contains('id="defaultblock1"'))
                 {
-                    $("#defaultblock1").empty();
-                    $("#defaultblock1").append("<div class=view>" + emailData.htmldata + "</div>");
+                    $("#tinymceEditorBody").empty();
+                    $("#tinymceEditorBody").append("<div id=defaultblock1 class=module><div class=view>" + emailData.htmldata + "</div></div");
 
                 } else {
                     $("#tinymceEditorBody").append("<div id=defaultblock1 class=module><div class=view>" + emailData.htmldata + "</div></div");
@@ -1465,7 +1465,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     growl("no email contacts present in the email list, kindly update the email list");
                 }
                 $scope.emailListName = emailListName.text;
-                alert($scope.emailListName);
                 $scope.automationData.selectedEmailList = $scope.emailListName;
             });
         };        
@@ -1782,7 +1781,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                             };
                             
                             marketingRecurringEmailFactory.addRecurringActionPost(recurring_action).then(function (data) {
-                                    alert(JSON.stringify(data));
                                 if (data.d.details.message === true) {
                                     growl("Details saved succesfully.");
                                 } else {
@@ -2210,13 +2208,13 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     if(userId === KGlobalAllUserUnderCompanyObject.userList[i].userId){
                         var userFisetName = KGlobalAllUserUnderCompanyObject.userList[i].firstName;
                         var userLastName = KGlobalAllUserUnderCompanyObject.userList[i].lastName;
-                        alert(userFisetName.charAt(0));
+//                        alert(userFisetName.charAt(0));
                         var userSignature = userFisetName.charAt(0)+ userLastName.charAt(0);
                         userSortInfo.userSortName = userSignature.toUpperCase();
                         userSortInfo.userColor = KGlobalAllUserUnderCompanyObject.userList[i].userColor;
-                         alert(JSON.stringify(userSortInfo));
+//                         alert(JSON.stringify(userSortInfo));
                     }
-                     alert(JSON.stringify(userSortInfo));
+//                     alert(JSON.stringify(userSortInfo));
                 }
                
             });
