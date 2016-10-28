@@ -149,15 +149,17 @@ public class SignupController {
                         userDetails.setUserPassword(password);
 
                         usersService.saveSubUser(userDetails, userCompanyIds.getUserId(), userCompanyIds.getCompanyId());
-                        forgotPasswordService.updatePassword(userCompanyIds.getUserId(), hashPassword);
+                        
                     }
+                    forgotPasswordService.updatePassword(userCompanyIds.getUserId(), hashPassword);
                 }
                 if(sendGridSubUserDetails != null) {
                     if(sendGridSubUserDetails.getFkUserId().getUserId() == userCompanyIds.getUserId()) {
                         //Reset subUser password in sendGrid
                         emailServiceProviderService.changePassword(sendGridSubUserDetails.getSendGridUserId(), password, oldPassword);
-                        forgotPasswordService.updatePassword(userCompanyIds.getUserId(), hashPassword);
+                        
                     }
+                    forgotPasswordService.updatePassword(userCompanyIds.getUserId(), hashPassword);
                     
                 }
                 
