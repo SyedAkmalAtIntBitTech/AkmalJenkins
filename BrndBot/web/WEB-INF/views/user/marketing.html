@@ -51,7 +51,7 @@
                     <h3 class="your-plan-date" ng-show="(entity.date != today_date)">{{getDayOfMonth(entity.date)}} {{myYear(mySplit(entity.date, 1))}} {{mySplit(entity.date, 2)}} {{mySplit(entity.date, 0)}}</h3>
                 </div>
                 <div class="bb-slat-list-wrap" ng-hide="entity.dataArray == ''" >
-                    <div class="bb-slat" ng-repeat="entitydetails in entity.dataArray" ng-click="getScheduleDetails(entitydetails.schedule_id,
+                    <div class="bb-slat" ng-repeat="entitydetails in entity.dataArray" ng-click="yourplanTab.selectTab(6);getScheduleDetails(entitydetails.schedule_id,
                                                        entitydetails.template_status,
                                                        entitydetails.schedule_time,
                                                        entitydetails.entity_type,
@@ -63,7 +63,7 @@
                                                        entitydetails.marketingName,
                                                        entitydetails.user_marketing_program_id,
                                                        entitydetails.days,
-                                                       entitydetails.is_today_active, entity.date);yourplanTab.selectTab(6);" >
+                                                       entitydetails.is_today_active, entity.date);" >
                         <div class="bb-your-plan-icon-wrap">
                             <div ng-show="entitydetails.entity_type != master_note">
                                 <div class="your-plan-icon hint--top" ng-show="entitydetails.template_status == 'Template Saved'"  data-hint="Template Saved" > 
