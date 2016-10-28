@@ -10,7 +10,7 @@
 
   dd.run(['$templateCache', function ($templateCache) {
     $templateCache.put('ngDropdowns/templates/dropdownSelect.html', [
-      '<div ng-class="{\'disabled\': dropdownDisabled}" class="wrap-dd-select" tabindex="0">',
+      '<div id="angularDD" ng-class="{\'disabled\': dropdownDisabled}" class="wrap-dd-select" tabindex="0">',
       '<span class="selected">{{dropdownModel[labelField]}}</span>',
       '<ul class="dropdown">',
       '<li ng-repeat="item in dropdownSelect"',
@@ -23,7 +23,7 @@
     ].join(''));
 
     $templateCache.put('ngDropdowns/templates/dropdownSelectItem.html', [
-      '<li ng-class="{divider: (dropdownSelectItem.divider && !dropdownSelectItem[dropdownItemLabel]), \'divider-label\': (dropdownSelectItem.divider && dropdownSelectItem[dropdownItemLabel])}">',
+      '<li id="{{dropdownSelectItem[dropdownItemLabel]}}" ng-class="{divider: (dropdownSelectItem.divider && !dropdownSelectItem[dropdownItemLabel]), \'divider-label\': (dropdownSelectItem.divider && dropdownSelectItem[dropdownItemLabel])}">',
       '<a href="" class="dropdown-item"',
       ' ng-if="!dropdownSelectItem.divider"',
       ' ng-href="{{dropdownSelectItem.href}}"',
@@ -47,7 +47,7 @@
     ].join(''));
 
     $templateCache.put('ngDropdowns/templates/dropdownMenuItem.html', [
-      '<li ng-class="{divider: dropdownMenuItem.divider, \'divider-label\': dropdownMenuItem.divider && dropdownMenuItem[dropdownItemLabel]}">',
+      '<li id="{{dropdownSelectItem[dropdownItemLabel]}}" ng-class="{divider: dropdownMenuItem.divider, \'divider-label\': dropdownMenuItem.divider && dropdownMenuItem[dropdownItemLabel]}">',
       '<a href="" class="dropdown-item"',
       ' ng-if="!dropdownMenuItem.divider"',
       ' ng-href="{{dropdownMenuItem.href}}"',
