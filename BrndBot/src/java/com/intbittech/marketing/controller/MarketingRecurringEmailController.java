@@ -265,14 +265,6 @@ public class MarketingRecurringEmailController {
             scheduled_entity_list.setFkRecurringEmailId(recurringEmailTemplate);
             scheduledEntityListService.update(scheduled_entity_list);
             
-            ActivityLogDetails activityLogDetails = new ActivityLogDetails();
-            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_UPDATED_TEMPLATE_ID.getId());
-            activityLogDetails.setScheduledEntityId(entity_id.intValue());
-            activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
-            activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
-//            activityLogDetails.setActionTitle(recurring_email_title);
-            activityLogService.saveActivityLog(activityLogDetails);
-            
             return "true";
 
         } catch (Throwable throwable) {

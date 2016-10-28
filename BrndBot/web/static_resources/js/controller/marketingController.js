@@ -1765,7 +1765,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         var schedule_time = $("#timepicker1").val();
                         utilFactory.getEpoch(till_date, newtime).then(function (till_date_epoch) {
                         $scope.froalaHtmlData = $("#tinymceEditorBody").html();
-                        alert($scope.type + $scope.entityNoEmailTemplate);
                         if ($scope.type === 'add') {
                             var recurring_action = {
                                 "days": $scope.selectedDay.toString(),
@@ -1804,7 +1803,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 "schedule_time_epoch": schedule_time,
                                 "program_id": $scope.programId.toString(),"userAssignToId": $scope.ddSelectedUser
                             };
-                            alert("One: "+ JSON.stringify(recurring_action));
                             marketingRecurringEmailFactory.addupdateRecurringActionPost(recurring_action).then(function (data) {
 
                                 if ((data === true) && ($scope.entityNoEmailTemplate === true)) {
@@ -1835,7 +1833,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 "program_id": $scope.programId.toString(),"userAssignToId": $scope.ddSelectedUser
                             };
 
-                            alert("Two: "+ JSON.stringify(recurring_action));
                             marketingRecurringEmailFactory.addupdateRecurringActionPost(recurring_action).then(function (data) {
                                 if ((data === true)) {
                                     growl("Details saved succesfully.");
@@ -1874,7 +1871,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                         "schedule_time_epoch": schedule_time,
                                         "program_id": $scope.programId.toString(),"userAssignToId": $scope.ddSelectedUser
                                     };
-                                    alert("Three: "+ JSON.stringify(recurring_action));
 
                                     marketingRecurringEmailFactory.updateRecurringActionPost(recurring_action).then(function (data) {
                                         if ((data === true)) {
