@@ -64,7 +64,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         
         $scope.showHideUserSettings = function (flag){
             $scope.userSettings=flag;
-        }
+        };
         this.tab = 1;
 
         this.selectTab = function (setTab){
@@ -385,7 +385,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.addEmailListButton = false;
             $scope.deletDraftsButton = false;
             settingsFactory.getAllPreferencesGet().then(function (data) {
-                $scope.footerDetails = JSON.parse(data.d.details).userProfile;
+                $scope.footerDetails = JSON.parse(data.d.details).companyProfile;
                 $scope.company = $scope.footerDetails;
             });
         };
@@ -749,6 +749,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                         emailListFactory.addEmailListContact(emaildetails).then(function (data) {
                             $("#addContactButton").unbind('click');
                             growl(datasaved);
+                            $scope.marketingHubTab.selectTab(5);
                             $scope.type='user';
                             $scope.updateList("user");
                             $scope.overlayFade = false;
@@ -963,6 +964,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             emailListFactory.addContactList(emaildetails).then(function (data) {
 //                alert(JSON.stringify(data));
                 growl(datasaved);
+                $scope.marketingHubTab.selectTab(5);
                 $('#textArea').val('');
                 $('#fileUpload').val('');
                 $scope.showUpdateList();

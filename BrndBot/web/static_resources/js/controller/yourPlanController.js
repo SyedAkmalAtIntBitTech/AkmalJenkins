@@ -31,8 +31,10 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.clickedRemoveAction = false;
         $scope.addUserSettings = false;
         $scope.moreThanOneUser = false;
+        $scope.isTask = true;
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
+        var userSortInfo={userSortName:"",userColor:""};
 
         $scope.getCompanyStatus = function () {
             appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent) {
@@ -51,7 +53,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         this.isSelected = function (checkTab) {
             return this.tab === checkTab;
         };
-
+        
+        $scope.isDeletePromptOpen = function(flag){
+            $scope.clickedDeleteAction = flag;
+        };
+        
         $scope.changeUsers = false;
         $scope.footerData = "";
         $scope.ddSelectUserOptions = [{
@@ -150,6 +156,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.userFirstName = kGlobalCompanyObject.userFirstName;
                 $scope.userLastName = kGlobalCompanyObject.userLastName;
 
+                $scope.getUserDetailsByUserId(kGlobalCompanyObject.userId);
                 kGlobalCompanyObject.userHashId = '';
                 appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
                 });
@@ -324,6 +331,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.addAction = false;
             $scope.chooseActionTypeOnChange({"text": "Select", "value": "0"});
             $scope.closePopup();
+            $scope.isDeletePromptOpen(false);
         };
 
         $scope.inviteUser = function (userDetails) {
@@ -377,6 +385,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $("#comment").focus();
             } else {
                 var commentDetails = {"scheduleId": scheduleId, "comment": comment};
+                $scope.getUserDetailsByUserId(scheduleId);
                 yourPlanFactory.addActionCommentPOST(commentDetails).then(function (data) {
                     $scope.getActionComments(scheduleId);
                     $("#comment").val("");
@@ -387,6 +396,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.getActionComments = function (scheduleId) {
             yourPlanFactory.actionCommentsGet(scheduleId).then(function (data) {
                 $scope.comments = data.d.details;
+                $scope.userColor=userSortInfo.userColor;
             });
         };
 
@@ -586,18 +596,18 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
 
             returnFooter = footer;
-            if (footerData.userProfile) {
-                if (footerData.userProfile.facebookUrl)
-                    returnFooter += footerFB.replace("$$$footerFB$$$", footerData.userProfile.facebookUrl);
-                if (footerData.userProfile.twitterUrl)
-                    returnFooter += footerTwitter.replace("$$$footerTwitter$$$", footerData.userProfile.twitterUrl);
-                if (footerData.userProfile.instagramUrl)
-                    returnFooter += footerInstagram.replace("$$$footerInstagram$$$", footerData.userProfile.instagramUrl);
+            if (footerData.companyProfile) {
+                if (footerData.companyProfile.facebookUrl)
+                    returnFooter += footerFB.replace("$$$footerFB$$$", footerData.companyProfile.facebookUrl);
+                if (footerData.companyProfile.twitterUrl)
+                    returnFooter += footerTwitter.replace("$$$footerTwitter$$$", footerData.companyProfile.twitterUrl);
+                if (footerData.companyProfile.instagramUrl)
+                    returnFooter += footerInstagram.replace("$$$footerInstagram$$$", footerData.companyProfile.instagramUrl);
             }
             returnFooter += footerMiddle;
-            if (footerData.userProfile) {
-                if (footerData.userProfile.websiteUrl)
-                    returnFooter += footerWebsite.replace("$$$footerWebsite$$$", footerData.userProfile.websiteUrl);
+            if (footerData.companyProfile) {
+                if (footerData.companyProfile.websiteUrl)
+                    returnFooter += footerWebsite.replace("$$$footerWebsite$$$", footerData.companyProfile.websiteUrl);
             }
             returnFooter += footerAddress.replace("$$$footerAddress$$$", companyAddress);
 
@@ -652,9 +662,12 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.isRecurring = false;
             $scope.pushedEmail = false;
             if (entity_type === getnote()) {
+                $scope.yourplanTab.selectTab(5);
                 $scope.reminderSectionClass = 'reminderSectionClass';
                 $scope.savedReminderTab = true;
+                $scope.isTask = true;
                 $scope.setTab('savedReminder');
+                $scope.getActionComments(schedule_id)
             }
             var date = $scope.entities_selected_time;
             var time = $filter('date')(schedule_time, "hh:mm a");
@@ -1017,6 +1030,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 "template_status": template_status,
                 "entity_type": entity_type};
             companyMarketingProgramFactory.approveStatusPost(approval_type).then(function (data) {
+                alert(JSON.stringify(data));
                 if (data.toString() == "true") {
                     if ($scope.action_template_status == "Template Saved") {
                         $scope.action_template_status = "Approved";
@@ -1175,6 +1189,20 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.fadeClass = 'fadeClass';
                 $scope.sentEmailDetailsPopupClass = 'sentEmailDetailsPopupClass';
                 $scope.savedReminderTab = true;
+            });
+        };
+        
+        $scope.getUserDetailsByUserId = function (userId){
+            appSessionFactory.getAllUsersUnderCompany().then(function (KGlobalAllUserUnderCompanyObject){
+                for(var i=0; i<= KGlobalAllUserUnderCompanyObject.userList.length;i++){
+                    if(userId === KGlobalAllUserUnderCompanyObject.userList[i].userId){
+                        var userFisetName = KGlobalAllUserUnderCompanyObject.userList[i].firstName;
+                        var userLastName = KGlobalAllUserUnderCompanyObject.userList[i].lastName;
+                        var userSignature = userFisetName.charAt(0)+ userLastName.charAt(0);
+                        userSortInfo.userSortName = userSignature.toUpperCase();
+                        userSortInfo.userColor = KGlobalAllUserUnderCompanyObject.userList[i].userColor;
+                    }
+                }
             });
         };
         $scope.addDateTimeOnId= function(dateid,timeId){

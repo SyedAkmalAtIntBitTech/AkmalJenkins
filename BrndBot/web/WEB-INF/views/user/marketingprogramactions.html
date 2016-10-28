@@ -88,7 +88,7 @@
                 <a ng-hide="isProgramArchived" id="onetimeactbtn" class="bb-button bb-primary-action-button" ng-click="ShowAddAction()" >Add a One Time Action</a>
             </div>
             <div class="bb-slat-list-wrap">
-                <div class="bb-slat" ng-repeat="programaction in (filteredItems = (programs.programactions| orderBy: 'postDate':false))" ng-click="getScheduleDetails(programaction.scheduledEntityListId,
+                <div class="bb-slat" ng-repeat="programaction in (filteredItems = (programs.programactions| orderBy: 'postDate':false))" ng-click="marketingTab.selectTab(6);getScheduleDetails(programaction.scheduledEntityListId,
                                             programaction.status,
                                             programaction.postDate,
                                             programaction.actionType,
@@ -100,7 +100,7 @@
                                             programaction.assignedToInitialChars,
                                             programaction.postDateStatus,
                                             programaction.days,
-                                            programs.programdetails.programName);marketingTab.selectTab(6);">
+                                            programs.programdetails.programName);">
                     <div class="bb-your-plan-icon-wrap no-template-icon">
                         <div class="your-plan-icon hint--top" ng-show="programaction.status == 'Template Saved'"  data-hint="Template Saved" > 
                         <img src="/BrndBot/images/template-saved.svg" />

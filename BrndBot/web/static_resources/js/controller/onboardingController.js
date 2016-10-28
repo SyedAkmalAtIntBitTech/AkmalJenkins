@@ -518,22 +518,19 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 
         $scope.getActivationLink = function (studioId) {
             $scope.mindbodyActive = false;
-            onboardingFactory.saveStudioIdPost(studioId).then(function (data) {
-                var studioIdSaved = eval(JSON.stringify(data.d.message));
-                if (studioIdSaved === "true") {
-                    externalContentFactory.activationLinkGet().then(function (data) {
-                        $scope.activationLink = data.d.details[0];
-                        if ($scope.activationLink) {
-                            growl("Mindbody activated successfully.");
-                        } else {
-                            growl("Mindbody not activated.");
-                        }
-                    });
+            externalContentFactory.activationLinkGet().then(function (data) {
+
+                $scope.activationLink = data.d.details[0];
+                alert($scope.activationLink);
+                if ($scope.activationLink) {
+                    window.open($scope.activationLink, '_blank');
+                } else {
+                    growl("Invalid site id, please enter valid site id and try again.", 'error');
                 }
             });
         };
 
-        $scope.isMindbodyActivated = function (selectServices, studioId) {
+        $scope.isMindbodyActivated = function (selectServices, studioId, fromContinueButton) {
             var services = selectServices;
             if (services.text === 'None') {
                 $scope.saveServices();
@@ -544,18 +541,44 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                     $("#mindbodyStudioId").focus();
                     return false;
                 } else {
-                    onboardingFactory.isMindbodyActivated().then(function (data) {
-                        var activation = JSON.stringify(data.d.details[0]);
-                        globalActivation = activation;
-                        if (globalActivation === "false")
-                        {
-                            growl("Mindbody not activated, kindly activate mindbody");
-                            $scope.mindbodyActive = true;
-                            return false;
-                        } else {
-                            $scope.saveServices();
+                    if (fromContinueButton){
+                        onboardingFactory.isMindbodyActivated().then(function (data) {
+                            var activation = JSON.stringify(data.d.details[0]);
+                            globalActivation = activation;
+                            if (globalActivation === "true")
+                            {
+                                $scope.saveServices();
+                            }else {
+                                growl("Mindbody not activated, please activate mindbody");
+                            }
+                        });
+                    }else {
+                        onboardingFactory.saveStudioIdPost(studioId).then(function (data) {
+                        var studioIdSaved = eval(JSON.stringify(data.d.message));
+                        if (studioIdSaved === "true") {
+                                onboardingFactory.isMindbodyActivated().then(function (data) {
+                                    var activation = JSON.stringify(data.d.details[0]);
+                                    globalActivation = activation;
+                                    if (globalActivation === "false")
+                                    {
+                                        $scope.getActivationLink(studioId);
+                                        $scope.mindbodyActive = false;
+                                        return false;
+                                    } else {
+                                        if (fromContinueButton){
+                                            $scope.saveServices();
+                                        }else {
+                                            growl("Mindbody is activated, please continue");
+                                        }
+                                    }
+                                });
+
+                        }else {
+                            growl("An unknown error has occured", "error");
                         }
-                    });
+                        });
+                        
+                    }
                 }
             }
         };
