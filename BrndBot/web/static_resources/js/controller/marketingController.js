@@ -338,7 +338,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
                     console.log(JSON.stringify(data));
                     var dateEpoch = data.programdetails.dateOfEvent;
-                    $scope.programDate = moment(dateEpoch).format(kGlobalDateFormat);
+                    $scope.programDate = moment(dateEpoch).format(KGlobalDatePickerFormate);
                     $("#progactdatepicker").val($scope.programDate);
                     $scope.template_status = data.emailautomation;
                     $scope.actionType = "Email";
@@ -1916,9 +1916,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     "link_url": link_url, "link_name": link_name, "program_name": program_name};
                 companyMarketingProgramFactory.updateUserProgramPost(program_details).then(function (data) {
                     if (data) {
-//                        growl(programdetailssaved);
+                        growl(programdetailssaved);
                     } else {
-//                        growl(savingrecordproblem,"error");
+                        growl(savingrecordproblem,"error");
                     }
                 });
             }
