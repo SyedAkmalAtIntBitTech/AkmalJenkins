@@ -580,7 +580,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.editAutomationHint = flag;
         };
 
-        $scope = function (schedule_id, template_status, till_date, schedule_time, entity_type, schedule_title, schedule_desc, date_status, assignedFirstName, assignedLastName, assignedToInitialChars, days)
+        $scope.getRecurringScheduleDetails = function (schedule_id, template_status, till_date, schedule_time, entity_type, schedule_title, schedule_desc, date_status, assignedFirstName, assignedLastName, assignedToInitialChars, days)
         {
             
             $scope.isRecurring = true;
