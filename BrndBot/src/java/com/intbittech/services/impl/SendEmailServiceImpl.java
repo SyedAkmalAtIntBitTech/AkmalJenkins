@@ -57,7 +57,7 @@ public class SendEmailServiceImpl implements SendEmailService {
     EmailServiceProviderService emailServiceProviderService;
 
     @Override
-    public void sendMail(EmailDataDetails emailDataDetails) throws Exception {
+    public void sendMail(EmailDataDetails emailDataDetails, Boolean saveHistory) throws Exception {
         Mail mail = new Mail();
         List<ContactEmailListLookup> toEmailIds = new ArrayList<>();
         if (emailDataDetails.getEmailType().equals(EmailTypeConstants.Recurring.name())) {
@@ -108,9 +108,11 @@ public class SendEmailServiceImpl implements SendEmailService {
 
         //TODO need to check and change this
         String categories = StringUtils.join(emailDataDetails.getEmailCategoryList(), ',');
-        int lastUpdateId = EmailHistoryDAO.addToEmailHistory(emailDataDetails.getCompanyId(),
-                emailDataDetails.getHtmlData(), emailDataDetails.getFromEmailAddress(), emailDataDetails.getEmailListName(),
-                "", emailDataDetails.getEmailSubject(), categories);
+        if (saveHistory) {
+            int lastUpdateId = EmailHistoryDAO.addToEmailHistory(emailDataDetails.getCompanyId(),
+                    emailDataDetails.getHtmlData(), emailDataDetails.getFromEmailAddress(), emailDataDetails.getEmailListName(),
+                    "", emailDataDetails.getEmailSubject(), categories);
+        }
         //TODO check this and remove insertMandrillEmailId
 //        if (mandrillResponse != null && lastUpdateId != -1) {
 //            EmailHistoryDAO.insertMandrillEmailId(mandrillResponse, lastUpdateId);

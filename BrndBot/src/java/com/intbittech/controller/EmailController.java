@@ -114,7 +114,7 @@ public class EmailController {
             }
             emailDataDetails.setEmailCategoryList(emailCategoryList);
 
-            sendEmailService.sendMail(emailDataDetails);
+            sendEmailService.sendMail(emailDataDetails, true);
             //Added by Syed Ilyas 27 Nov 2015 - changed to NOT
             if (!path.equals("")) {
                 File IframeDelete = new File(path);
@@ -205,10 +205,18 @@ public class EmailController {
             categories.add(MarketingProgramUtility.getMarketingProgramRecuringActionCategory(actionId));
             Date endDate = new Date();
             Calendar cal = Calendar.getInstance();		
-            cal.add(Calendar.DATE, -30);		
+            cal.add(Calendar.DATE, -730);		
             Date startDate = cal.getTime();
+            SendGridStatsList cleanedSendGridStats = new SendGridStatsList();
+            List<SendGridStats> sendGridStatsList = new ArrayList<>();
             SendGridStatsList sendGridStats = emailServiceProviderService.getStatsByCategory(userId.toString(), categories, startDate, endDate, companyId);
-            genericResponse.addDetail(sendGridStats);
+            for(SendGridStats stats: sendGridStats.getSendGridStats()) {
+                if(stats.getStats().get(0).getMetrics().getDelivered() > 0) {
+                    sendGridStatsList.add(stats);
+                }
+            }
+            cleanedSendGridStats.setSendGridStats(sendGridStatsList);
+            genericResponse.addDetail(cleanedSendGridStats);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {

@@ -101,7 +101,7 @@ public class ScheduleAnEmail implements Runnable {
                         emailDataDetails.setEmailCategoryList(emailCategoryList);
                         
                         SendEmailService sendEmailService = SpringContextBridge.services().getSendEmailService();
-                        sendEmailService.sendMail(emailDataDetails);
+                        sendEmailService.sendMail(emailDataDetails, true);
 
                         updateStatusScheduledEmail(currentScheduledEmail);
                         updateStatusForPushedEmail(currentScheduledEmail);

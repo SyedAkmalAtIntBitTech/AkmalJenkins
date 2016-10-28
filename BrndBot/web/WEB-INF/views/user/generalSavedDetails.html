@@ -142,6 +142,12 @@
                 <div class="overlay-details-pane-header">
                     <div >EMAIL HISTORY STATS</div>
                 </div>
+                <div class="external-data-loading-wrap" ng-show="hideGifImage">
+                    <div class="external-data-loading-block">
+                        <div class="loader"></div>
+                        <div class="loader-description">Loading your content</div>
+                    </div>
+                </div>
                 <div class="detail-sections-wrap" ng-if="tagerror">
                     <div class="detail-section">
                         <div class="detail-section-item">{{tagerror}}</div>
@@ -162,6 +168,14 @@
                         <div class="detail-section-item">
                             <label class="detail-section-label">{{tag.stats[0].metrics.unsubscribes}}</label>
                             <p class="detail-section-data" >Unsubscribes</p>
+                        </div>
+                        <div class="detail-section-item">
+                            <label class="detail-section-label">{{tag.stats[0].metrics.delivered}}</label>
+                            <p class="detail-section-data" >Number Sent</p>
+                        </div>
+                        <div class="detail-section-item">
+                            <label class="detail-section-label">{{tag.stats[0].metrics.bounces}}</label>
+                            <p class="detail-section-data" >Hard Bounces</p>
                         </div>
                     </div>
                 </div>
