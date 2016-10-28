@@ -397,6 +397,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             yourPlanFactory.actionCommentsGet(scheduleId).then(function (data) {
                 $scope.comments = data.d.details;
                 $scope.userColor=userSortInfo.userColor;
+                $scope.userInitials=userSortInfo.userSortName;
             });
         };
 
