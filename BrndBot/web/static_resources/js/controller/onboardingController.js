@@ -554,7 +554,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                                 onboardingFactory.isMindbodyActivated().then(function (data) {
                                     var activation = JSON.stringify(data.d.details[0]);
                                     globalActivation = activation;
-                                    growl(globalActivation);
                                     if (globalActivation === "false")
                                     {
                                         $scope.getActivationLink(studioId);
