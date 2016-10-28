@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="input-wrap">
                                     <label> Grant Access in MINDBODY</label>
-                                   <a class="bb-button bb-default-action-button" ng-click="getActivationLink(studioId)" href="">Click Here to Activate in MINDBODY</a>
+                                   <a class="bb-button bb-default-action-button" ng-click="isMindbodyActivated(ddSelectServices,studioId, false)" href="">Click Here to Activate in MINDBODY</a>
                                    <p class="input-wrap-label">You will be directed to your MINDBODY account. Please login as an owner. You do not need to take any other action.</p>
                                 </div>
 <!--                                <div class="input-wrap">
@@ -60,7 +60,7 @@
                     </div>     
                 </div>
                 <div class="bb-bottom-cta-bar">
-                    <a class="bb-bottom-cta-continue-button"  ng-click="isMindbodyActivated(ddSelectServices,studioId)">
+                    <a class="bb-bottom-cta-continue-button"  ng-click="isMindbodyActivated(ddSelectServices,studioId, true)">
                         <div class="bb-bottom-cta-continue-button-text">Continue</div>
                         <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />
                     </a>
