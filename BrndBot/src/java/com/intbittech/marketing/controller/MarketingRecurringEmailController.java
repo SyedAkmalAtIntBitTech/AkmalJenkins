@@ -26,17 +26,22 @@ import com.intbittech.model.Users;
 import com.intbittech.modelmappers.ActivityLogDetails;
 import com.intbittech.services.ActivityLogService;
 import com.intbittech.modelmappers.EmailSettings;
+import com.intbittech.responsemappers.ContainerResponse;
+import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.RecurringEmailTemplateService;
 import com.intbittech.services.UsersService;
+import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,6 +51,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,6 +68,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MarketingRecurringEmailController {
 
     static final Logger logger = Logger.getLogger(MarketingRecurringEmailController.class.getName());
+    @Autowired
+    private MessageSource messageSource;
     @Autowired
     private RecurringEmailTemplateService recurringEmailTemplateService;
     @Autowired
@@ -210,7 +220,7 @@ public class MarketingRecurringEmailController {
             recurring_email_template.setHtmlData(template_html_data);
 
             recurringEmailTemplateService.update(recurring_email_template);
-            
+
             return_response = "true";
         } catch (Throwable throwable) {
             logger.log(Level.SEVERE, "Exception while deleting the recurring email template:", throwable);
@@ -264,7 +274,6 @@ public class MarketingRecurringEmailController {
             recurringEmailTemplate.setRecurringEmailTemplateId(template_id.intValue());
             scheduled_entity_list.setFkRecurringEmailId(recurringEmailTemplate);
             scheduledEntityListService.update(scheduled_entity_list);
-            
             return "true";
 
         } catch (Throwable throwable) {
@@ -274,9 +283,9 @@ public class MarketingRecurringEmailController {
     }
 
     @RequestMapping(value = "/addRecurringAction", method = RequestMethod.POST)
-    public @ResponseBody
-    String addRecurringAction(HttpServletRequest request,
+    public ResponseEntity<ContainerResponse> addRecurringAction(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ParseException {
+        TransactionResponse transactionResponse = new TransactionResponse();
         try {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
@@ -345,11 +354,32 @@ public class MarketingRecurringEmailController {
             schedule_entity_list.setFkCompanyId(company);
 
             Integer schedule_entity_list_id = scheduledEntityListService.save(schedule_entity_list);
-            return "true";
+            ActivityLogDetails activityLogDetails = new ActivityLogDetails();
+            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_CREATED_ACTION_ID.getId());
+            activityLogDetails.setScheduledEntityId(schedule_entity_list_id);
+            activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
+            activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
+            activityLogDetails.setActionTitle(recurring_email_title);
+            activityLogService.saveActivityLog(activityLogDetails);
+
+            ActivityLogDetails activityLogDetailObject = new ActivityLogDetails();
+            activityLogDetailObject.setActivityId(ActivityStatus.ACTIVITY_ASSIGNED_TO_ID.getId());
+            activityLogDetailObject.setAssignedTo(userAssignToId);
+            activityLogDetailObject.setScheduledEntityId(schedule_entity_list_id);
+            activityLogDetailObject.setCreatedBy(userCompanyIds.getUserId());
+            activityLogDetailObject.setCompanyId(userCompanyIds.getCompanyId());
+            activityLogDetailObject.setActionTitle(recurring_email_title);
+            activityLogService.saveActivityLog(activityLogDetailObject);
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("data", true);
+            data.put("scheduleEntityListId", schedule_entity_list_id);
+            transactionResponse.setMessage(AppConstants.GSON.toJson(data));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.log(Level.SEVERE, "Exception while saving the email action in the table:", throwable);
         }
-        return "false";
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "/addupdateRecurringAction", method = RequestMethod.POST)
@@ -424,7 +454,22 @@ public class MarketingRecurringEmailController {
             schedule_entity_list.setFkCompanyId(company);
 
             scheduledEntityListService.update(schedule_entity_list);
-            
+            ActivityLogDetails activityLogDetails = new ActivityLogDetails();
+            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_ADDED_TEMPLATE_ID.getId());
+            activityLogDetails.setScheduledEntityId(Integer.parseInt(entity_id));
+            activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
+            activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
+            activityLogDetails.setActionTitle(recurring_email_title);
+            activityLogService.saveActivityLog(activityLogDetails);
+
+            ActivityLogDetails activityLogDetails1 = new ActivityLogDetails();
+            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_UPDATED_ACTION_ID.getId());
+            activityLogDetails1.setScheduledEntityId(Integer.parseInt(entity_id));
+            activityLogDetails1.setCreatedBy(userCompanyIds.getUserId());
+            activityLogDetails1.setCompanyId(userCompanyIds.getCompanyId());
+            activityLogDetails1.setActionTitle(recurring_email_title);
+            activityLogService.saveActivityLog(activityLogDetails1);
+
             return "true";
 
         } catch (Throwable throwable) {
@@ -522,6 +567,15 @@ public class MarketingRecurringEmailController {
 
             scheduledEntityListService.update(schedule_entity_list);
 
+            ActivityLogDetails activityLogDetails = new ActivityLogDetails();
+            activityLogDetails.setActivityId(IConstants.ACTIVITY_UPDATED_ACTION_ID);
+            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_UPDATED_ACTION_ID.getId());
+            activityLogDetails.setScheduledEntityId(Integer.parseInt(entity_id));
+            activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
+            activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
+            activityLogDetails.setActionTitle(recurring_email_title);
+            activityLogService.saveActivityLog(activityLogDetails);
+
             return "true";
         } catch (Throwable throwable) {
             logger.log(Level.SEVERE, "Exception while saving the email action in the table:", throwable);
@@ -540,16 +594,17 @@ public class MarketingRecurringEmailController {
         }
         return null;
     }
+
     @RequestMapping(value = "/getRecurringEntity", method = RequestMethod.POST)
     public @ResponseBody
-    String getRecurringEntity(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    String getRecurringEntity(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
 
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
-            
+
             String entity_id = (String) requestBodyMap.get("entity_id");
 
             if (Integer.parseInt(entity_id) != 0) {

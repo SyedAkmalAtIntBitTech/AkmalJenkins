@@ -109,6 +109,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
         
         $scope.getUserDetails = function () {
+            $scope.getUserDetailsByUserId(29);
             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                 $scope.companyName = kGlobalCompanyObject.companyName;
                 $scope.userFirstName = kGlobalCompanyObject.userFirstName;
@@ -1781,13 +1782,15 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                             };
                             
                             marketingRecurringEmailFactory.addRecurringActionPost(recurring_action).then(function (data) {
-                                if (data === true) {
+                                    alert(JSON.stringify(data));
+                                if (data.d.details.message === true) {
                                     growl("Details saved succesfully.");
                                 } else {
                                     growl("Problem saving the record!");
                                 }
-                                $location.path("/marketingprogramactions");
-                                $scope.getProgramActions('emailautomation');
+//                               TO Do Akmal redirect with id to template 
+//                                $location.path("/marketingprogramactions");
+//                                $scope.getProgramActions('emailautomation');
                             });
                         } else if (($scope.type === 'template') && ($scope.entityNoEmailTemplate === true)) {
                             $(".page-content-container").css('width', '100%');
@@ -2198,6 +2201,25 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 });
             }
             $scope.recurringTemplateOnClick(0);
+        };
+        //To Do Akmal use this function to get user signature and user color
+        $scope.getUserDetailsByUserId = function (userId){
+            var userSortInfo={userSortName:"",userColor:""};
+            appSessionFactory.getAllUsersUnderCompany().then(function (KGlobalAllUserUnderCompanyObject){
+                for(var i=0; i<= KGlobalAllUserUnderCompanyObject.userList.length;i++){
+                    if(userId === KGlobalAllUserUnderCompanyObject.userList[i].userId){
+                        var userFisetName = KGlobalAllUserUnderCompanyObject.userList[i].firstName;
+                        var userLastName = KGlobalAllUserUnderCompanyObject.userList[i].lastName;
+                        alert(userFisetName.charAt(0));
+                        var userSignature = userFisetName.charAt(0)+ userLastName.charAt(0);
+                        userSortInfo.userSortName = userSignature.toUpperCase();
+                        userSortInfo.userColor = KGlobalAllUserUnderCompanyObject.userList[i].userColor;
+                         alert(JSON.stringify(userSortInfo));
+                    }
+                     alert(JSON.stringify(userSortInfo));
+                }
+               
+            });
         };
 
     }]);
