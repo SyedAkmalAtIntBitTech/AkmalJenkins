@@ -480,6 +480,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
             $scope.deleteScheduleButton = "Remove Saved Email";
             $scope.isEmailHistory = true;
+            $scope.hideGifImage=true;
             var categories = {"categories": details.emailTag};
             emailFactory.tagsDetailsGet(details.emailSentHistoryId).then(function (data) {
                 if (data.d.operationStatus.statusCode !== "DataError") {
@@ -488,7 +489,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 } else {
                     $scope.tagerror = categoryLoadDelay;
                 }
-                
+                $scope.hideGifImage=false;
             });
         };
         $scope.showDraftPopup = function (Id, categoryId, emailSubject, editdate, subCategoryId, mindbodyId, lookupId)
