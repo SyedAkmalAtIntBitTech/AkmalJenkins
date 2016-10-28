@@ -1,5 +1,5 @@
 
-yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'appSessionFactory', 'onboardingFactory', 'activityFactory', 'utilFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, appSessionFactory, onboardingFactory, activityFactory, utilFactory) {
+yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'appSessionFactory', 'onboardingFactory', 'activityFactory', 'utilFactory', 'emailFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, appSessionFactory, onboardingFactory, activityFactory, utilFactory, emailFactory) {
 
 //$scope.iframeLoad = function (){
 //    growl($('iframe').contents().find('body').height());
@@ -434,8 +434,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.getAllUsersInCompany = function () {
             yourPlanFactory.allUsersInCompanyGet().then(function (data) {
 //                $scope.allUsers = data.d.details;
-                for(var i=0;i<data.d.details.length;i++){
-                    $scope.ddSelectUserOptions.push({"text": data.d.details[i].firstName +" "+data.d.details[i].lastName , "value": data.d.details[i].userId});
+                for (var i = 0; i < data.d.details.length; i++) {
+                    $scope.ddSelectUserOptions.push({"text": data.d.details[i].firstName + " " + data.d.details[i].lastName, "value": data.d.details[i].userId});
                 }
             });
             yourPlanFactory.noOfUsersInCompanyGet().then(function (data) {
@@ -468,7 +468,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
                 $scope.dateLesser = false;
                 var actiondate = datePicker;
-//                var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
                 utilFactory.getEpoch(actiondate, actionTime1).then(function (dateTimeEpoch) {
                     var days = 0;
                     var action = {"title": addTitle, "actiontype": actionType.value, "type": "save",
@@ -480,7 +479,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     });
                 });
             }
-            ;
         };
 
         $scope.closePopup = function () {
@@ -611,6 +609,20 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.globalScheduleData = {};
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, assignedFirstName, assignedLastName, assignedToInitialChars, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
         {
+            
+            var statsData = {"programId": programId, "actionId": schedule_id, "scheduleDateTime": schedule_time};
+            emailFactory.emailHistoryStatsGet(statsData).then(function (stats) {
+                if (stats.d.operationStatus.statusCode !== "DataError") {
+                    $scope.tagsDetails = stats.d.details[0].sendGridStats;
+                    $scope.tagerror = "";
+                } else {
+                    $scope.tagerror = categoryLoadDelay;
+                }
+            });
+            if (template_status === "Complete" && entity_type === getemail())
+                $scope.savedPreheader = 'Sent';
+            else
+                $scope.savedPreheader = 'Saved';
             $scope.dateLesser = false;
 //        $scope.entities_selected_time =schedule_time;
             var nDate = new Date(action_date + " 10:30 am"); //10:30 am save DST

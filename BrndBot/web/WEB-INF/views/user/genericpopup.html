@@ -2,7 +2,7 @@
 <div class="overlay-wrap overlay-slide " id="emailsection" ng-class="emailsectionClass">
     <div class="bb-top-nav" id="emailtopnav">
         <div class="bb-bar-left-wrap bb-one-half-flex-col">
-            <a id="closePopupSlider" class="bb-back-button bb-rotate-element-180" ng-click="closePopup();promptHideShow(false);clickedDeleteAction = false;marketingTab.selectTab(4)" href="">
+            <a id="closePopupSlider" class="bb-back-button bb-rotate-element-180" ng-click="closePopup();promptHideShow(false);clickedDeleteAction = false;marketingTab.selectTab(4);marketingHubTab.selectTab(2)" href="">
             </a>
             <h3 class="bb-top-nav-title">{{generalActionDetailsHeader}} Action Detail</h3>
         </div>
@@ -33,10 +33,13 @@
             <a id="emailaction1" val="{{schedule_id}}" ng-click="marketingTab.selectTab(5);yourplanTab.selectTab(5);getActionComments(schedule_id);" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(5) || yourplanTab.isSelected(5)}" href="">Action Details</a>
         </div>
         <div class="bb-top-sub-nav-tab">
-             <a id="emailpost1" ng-click="marketingTab.selectTab(6);yourplanTab.selectTab(6);" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(6) || yourplanTab.isSelected(6)}" href="">Saved {{savedHeader}}</a>
+             <a id="emailpost1" ng-click="marketingTab.selectTab(6);yourplanTab.selectTab(6);" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(6) || yourplanTab.isSelected(6)}" href="">{{savedPreheader}} {{savedHeader}}</a>
         </div>
         <div class="bb-top-sub-nav-tab ">
              <a id="emailnote1" ng-click="marketingTab.selectTab(7);yourplanTab.selectTab(7);getActionComments(schedule_id);" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(7) || yourplanTab.isSelected(7)}"  href="">Collaboration</a>
+        </div>
+        <div class="bb-top-sub-nav-tab" ng-if="isRecurring">
+             <a id="emailAnalytics" ng-click="marketingTab.selectTab(8);yourplanTab.selectTab(8);" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(8) || yourplanTab.isSelected(8)}"  href="">Analytics</a>
         </div>
     </div>
     <ul class="sub-nav-tab-wrap with-back-button" ng-show="pushedEmail==true">
@@ -49,6 +52,7 @@
     </ul>
     
     <div ng-include src="'generalActionDetails.html'"></div>
+    <div ng-include src="'generalActionAnalytics.html'"></div>
     <div ng-include src="'generalActionNotes.html'"></div>
     <div ng-include src="'generalSavedDetails.html'"></div>
     <div ng-include src="'pushedactionssaveddetails.html'"></div>

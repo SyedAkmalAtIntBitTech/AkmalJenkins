@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,7 +57,7 @@ public class SendEmailServiceImpl implements SendEmailService {
     EmailServiceProviderService emailServiceProviderService;
 
     @Override
-    public void sendMail(EmailDataDetails emailDataDetails) throws Exception {
+    public void sendMail(EmailDataDetails emailDataDetails, Boolean saveHistory) throws Exception {
         Mail mail = new Mail();
         List<ContactEmailListLookup> toEmailIds = new ArrayList<>();
         if (emailDataDetails.getEmailType().equals(EmailTypeConstants.Recurring.name())) {
@@ -103,12 +104,15 @@ public class SendEmailServiceImpl implements SendEmailService {
 
             mail.addPersonalization(personalization);
         }
-        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_SubUserRegularEmail);
+        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_SubUserRegularEmail, emailDataDetails.getCompanyId());
 
         //TODO need to check and change this
-        int lastUpdateId = EmailHistoryDAO.addToEmailHistory(emailDataDetails.getCompanyId(),
-                emailDataDetails.getHtmlData(), emailDataDetails.getFromEmailAddress(), emailDataDetails.getEmailListName(),
-                "", emailDataDetails.getEmailSubject(), "TODO add tag/category here");
+        String categories = StringUtils.join(emailDataDetails.getEmailCategoryList(), ',');
+        if (saveHistory) {
+            int lastUpdateId = EmailHistoryDAO.addToEmailHistory(emailDataDetails.getCompanyId(),
+                    emailDataDetails.getHtmlData(), emailDataDetails.getFromEmailAddress(), emailDataDetails.getEmailListName(),
+                    "", emailDataDetails.getEmailSubject(), categories);
+        }
         //TODO check this and remove insertMandrillEmailId
 //        if (mandrillResponse != null && lastUpdateId != -1) {
 //            EmailHistoryDAO.insertMandrillEmailId(mandrillResponse, lastUpdateId);

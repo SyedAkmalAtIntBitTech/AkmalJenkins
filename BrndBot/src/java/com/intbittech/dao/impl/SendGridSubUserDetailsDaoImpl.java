@@ -56,6 +56,50 @@ public class SendGridSubUserDetailsDaoImpl implements SendGridSubUserDetailsDao 
             throw new ProcessFailed(messageSource.getMessage("error_retrieving_message", null, Locale.US));
         }
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public SendGridSubUserDetails getByUserId(Integer userId) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(SendGridSubUserDetails.class)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .setFetchMode("fkUserId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkUserId.userId", userId));
+            List<SendGridSubUserDetails> sendGridSubUserDetails = criteria.list();
+            if (sendGridSubUserDetails.isEmpty()) {
+                return null;
+            }
+            return (SendGridSubUserDetails) criteria.list().get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message", null, Locale.US));
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public SendGridSubUserDetails getByCompanyId(Integer companyId) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(SendGridSubUserDetails.class)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .setFetchMode("fkUserId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkCompanyId.companyId", companyId));
+            List<SendGridSubUserDetails> sendGridSubUserDetails = criteria.list();
+            if (sendGridSubUserDetails.isEmpty()) {
+                return null;
+            }
+            return (SendGridSubUserDetails) criteria.list().get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message", null, Locale.US));
+        }
+    }
 
     /**
      * {@inheritDoc}

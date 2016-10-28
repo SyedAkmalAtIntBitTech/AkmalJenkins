@@ -96,12 +96,12 @@ public class ScheduleAnEmail implements Runnable {
                         Integer entityId = currentScheduledEmail.getEntityId();
                         List<String> emailCategoryList = new ArrayList<>();
                         emailCategoryList.add(MarketingProgramUtility.getMarketingProgramCategory(companyMarketingProgramId));
-                        emailCategoryList.add(MarketingProgramUtility.getMarketingProgramActionCategory(entityId));
+                        emailCategoryList.add(MarketingProgramUtility.getMarketingProgramActionCategory(currentScheduledEmail.getScheduledEntityListId()));
                         
                         emailDataDetails.setEmailCategoryList(emailCategoryList);
                         
                         SendEmailService sendEmailService = SpringContextBridge.services().getSendEmailService();
-                        sendEmailService.sendMail(emailDataDetails);
+                        sendEmailService.sendMail(emailDataDetails, true);
 
                         updateStatusScheduledEmail(currentScheduledEmail);
                         updateStatusForPushedEmail(currentScheduledEmail);

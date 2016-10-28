@@ -36,7 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(rollbackFor = ProcessFailed.class)
 public class SaveActivityLog implements Runnable {
-    
+
     private static Logger logger = Logger.getLogger(ActivityLogServiceImpl.class);
     @Autowired
     private ActivityLogDao activityLogDao;
@@ -48,19 +48,18 @@ public class SaveActivityLog implements Runnable {
 
     @Autowired
     private UsersDao usersDao;
-    
+
     private ActivityLogDetails activityLogDetails;
-    
+
     public SaveActivityLog(ActivityLogDetails activityLogDetails) {
         this.activityLogDetails = activityLogDetails;
     }
 
     public SaveActivityLog() {
     }
-    
-    
+
     @Override
-    public void run(){
+    public void run() {
         try {
             ActivityLog activityLog = new ActivityLog();
             ScheduledEntityList scheduledEntityList = new ScheduledEntityList();
@@ -69,12 +68,12 @@ public class SaveActivityLog implements Runnable {
             Activity activity = new Activity();
             activity.setActivityId(activityLogDetails.getActivityId());
 
-            switch (activityLogDetails.getActivityId()){
+            switch (activityLogDetails.getActivityId()) {
                 case 1:
 //                        ACTIVITY_CREATED_ACTION_ID
-                        Users createdBy = usersDao.getUserById(activityLogDetails.getCreatedBy());
-                        sendNotificationEmail(activityLogDetails.getActivityId(),createdBy.getUserName(), Utility.combineUserName(createdBy),
-                                activityLogDetails.getCompanyName(), activityLogDetails.getActionTitle());
+                    Users createdBy = usersDao.getUserById(activityLogDetails.getCreatedBy());
+                    sendNotificationEmail(activityLogDetails.getActivityId(), createdBy.getUserName(), Utility.combineUserName(createdBy),
+                            activityLogDetails.getCompanyName(), activityLogDetails.getActionTitle());
                 case 2:
 //                        ACTIVITY_ASSIGNED_TO_ID
                     if (activityLogDetails.getAssignedTo() != null) {
@@ -82,7 +81,7 @@ public class SaveActivityLog implements Runnable {
                         assignedTo.setUserId(activityLogDetails.getAssignedTo());
                         activityLog.setAssignedTo(assignedTo);
                         Users sendToUser = usersDao.getUserById(activityLogDetails.getAssignedTo());
-                        sendNotificationEmail(activityLogDetails.getActivityId(),sendToUser.getUserName(), Utility.combineUserName(sendToUser),
+                        sendNotificationEmail(activityLogDetails.getActivityId(), sendToUser.getUserName(), Utility.combineUserName(sendToUser),
                                 activityLogDetails.getCompanyName(), activityLogDetails.getActionTitle());
                     }
                     break;
@@ -93,27 +92,36 @@ public class SaveActivityLog implements Runnable {
                         assignedTo.setUserId(activityLogDetails.getAssignedTo());
                         activityLog.setAssignedTo(assignedTo);
                         Users sendToUser = usersDao.getUserById(activityLogDetails.getAssignedTo());
-                        sendNotificationEmail(activityLogDetails.getAssignedTo(),sendToUser.getUserName(), Utility.combineUserName(sendToUser),
-                                    activityLogDetails.getCompanyName(), activityLogDetails.getActionTitle());
+                        sendNotificationEmail(activityLogDetails.getAssignedTo(), sendToUser.getUserName(), Utility.combineUserName(sendToUser),
+                                activityLogDetails.getCompanyName(), activityLogDetails.getActionTitle());
                     }
                     break;
-                case 4:break;
+                case 4:
+                    break;
 //                        ACTIVITY_ADDED_TEMPLATE_ID
-                case 5:break;
+                case 5:
+                    break;
 //                        ACTIVITY_UPDATED_TEMPLATE_ID
-                case 6:break;
+                case 6:
+                    break;
 //                        ACTIVITY_REMOVED_TEMPLATE_ID
-                case 7:break;
+                case 7:
+                    break;
 //                        ACTIVITY_UPDATED_ACTION_ID
-                case 8:break;
+                case 8:
+                    break;
 //                        ACTIVITY_APPROVED_ACTION_ID
-                case 9:break;
+                case 9:
+                    break;
 //                        ACTIVITY_DISAPPROVED_ACTION_ID
-                case 10:break;
+                case 10:
+                    break;
 //                        ACTIVITY_DELETED_COMMENT_ACTION_ID
-                case 11:break;
+                case 11:
+                    break;
 //                        ACTIVITY_PLAY_ACTION_ID
-                case 12:break;
+                case 12:
+                    break;
 //                        ACTIVITY_PAUSE_ACTION_ID
             }
 //                if (activityLogDetails.getAssignedTo() != null) {
@@ -135,9 +143,10 @@ public class SaveActivityLog implements Runnable {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("activity_save_problem", new String[]{}, Locale.US));
         }
-    
+
     }
-        public Boolean sendNotificationEmail(Integer activityId, String toEmailId, String userName, String company, String actionTitle)throws ProcessFailed {
+
+    public Boolean sendNotificationEmail(Integer activityId, String toEmailId, String userName, String company, String actionTitle) throws ProcessFailed {
         try {
             String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
             String body = messageSource.getMessage("notification_message", new String[]{}, Locale.US);
@@ -147,7 +156,7 @@ public class SaveActivityLog implements Runnable {
             String subject = messageSource.getMessage("notification_subject", new String[]{}, Locale.US);
             String formattedSubject = String.format(subject, companyName);
             Mail mail = new Mail(null, formattedSubject, emailTo, content);
-            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply);
+            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, 0);
             return true;
         } catch (Throwable throwable) {
             logger.error(throwable);

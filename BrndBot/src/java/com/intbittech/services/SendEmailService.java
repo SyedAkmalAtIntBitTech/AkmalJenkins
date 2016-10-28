@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public interface SendEmailService {
 
-    public void sendMail(EmailDataDetails emailDataDetails) throws Exception;
+    public void sendMail(EmailDataDetails emailDataDetails, Boolean saveHistory) throws Exception;
 
 //    public String getTags(Integer companyId) throws Exception;
 

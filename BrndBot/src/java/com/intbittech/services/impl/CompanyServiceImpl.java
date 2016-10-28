@@ -14,11 +14,13 @@ import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCompanyLookup;
+import com.intbittech.model.SendGridSubUserDetails;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
 import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.services.CompanyService;
+import com.intbittech.services.SendGridSubUserDetailsService;
 import com.intbittech.services.UsersService;
 import java.util.Date;
 import java.util.List;
@@ -51,6 +53,9 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Autowired
     private UsersService usersService;
+    
+    @Autowired
+    private SendGridSubUserDetailsService sendGridSubUserDetailsService;
     /**
      * {@inheritDoc}
      */
@@ -199,6 +204,11 @@ public class CompanyServiceImpl implements CompanyService{
 
                 user.setSignupStatus(AppConstants.SignUpStatuscomplete);
                 usersService.update(user);
+                
+                //Update companyId in SendGridSubUserDetails table
+                SendGridSubUserDetails sendGridSubUserDetails = sendGridSubUserDetailsService.getByUserId(companyDetails.getUserId());
+                sendGridSubUserDetails.setFkCompanyId(company);
+                sendGridSubUserDetailsService.update(sendGridSubUserDetails);
                 returnMessage = companyId.toString();
             }else {
                 returnMessage = companyId.toString();

@@ -6,6 +6,7 @@
 package com.intbittech.services.impl;
 
 import com.controller.ApplicationContextListener;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intbittech.AppConstants;
 import com.intbittech.dao.CompanyDao;
@@ -25,7 +26,9 @@ import com.intbittech.modelmappers.TaskDetails;
 import com.intbittech.modelmappers.UserDetails;
 import com.intbittech.modelmappers.UserPreferencesJson;
 import com.intbittech.sendgrid.models.EmailType;
+import com.intbittech.sendgrid.models.SendGridAPIDetails;
 import com.intbittech.sendgrid.models.SendGridUser;
+import com.intbittech.sendgrid.models.SubUserAPIKey;
 import com.intbittech.sendgrid.models.Subuser;
 import com.intbittech.services.EmailServiceProviderService;
 import com.intbittech.services.SendGridSubUserDetailsService;
@@ -39,9 +42,11 @@ import com.intbittech.utility.Utility;
 import com.sendgrid.Content;
 import com.sendgrid.Email;
 import com.sendgrid.Mail;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
 import javax.servlet.ServletContext;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
@@ -127,12 +132,52 @@ public class UsersServiceImpl implements UsersService {
         return usersDao.isUserExistInCompany(inviteDetails, company);
     }
 
+    @Override
+    public void saveSubUser(UserDetails usersDetails, Integer userId, Integer companyId) throws ProcessFailed {
+        try {
+            //Save subuser in sendgrid
+            Subuser subuser = new Subuser();
+            subuser.setEmail(usersDetails.getUserName());
+            subuser.setPassword(usersDetails.getUserPassword());
+            //TODO change this ips
+            List<String> ips = new ArrayList<String>();
+            ips.add("198.37.159.5");
+            subuser.setIps(ips);
+            SendGridUser sendGridUser = emailServiceProviderService.addSubuser(subuser);
+
+            //Create Sub User API Key
+            SubUserAPIKey subUserAPIKey = emailServiceProviderService.createSubUserAPIKey(usersDetails.getUserName());
+            SendGridAPIDetails sendGridAPIDetails = new SendGridAPIDetails();
+            sendGridAPIDetails.setApiKey(subUserAPIKey.getApiKey());
+            sendGridAPIDetails.setApiKeyId(subUserAPIKey.getApiKeyId());
+            sendGridAPIDetails.setName(subUserAPIKey.getName());
+
+            //Save userID in db
+            SendGridSubUserDetails sendGridSubUserDetails = new SendGridSubUserDetails();
+            Users user = new Users();
+            user.setUserId(userId);
+            sendGridSubUserDetails.setFkUserId(user);
+            sendGridSubUserDetails.setSendGridUserId(usersDetails.getUserName());
+            
+            if(companyId != 0) {
+                Company company = new Company();
+                company.setCompanyId(companyId);
+                sendGridSubUserDetails.setFkCompanyId(company);
+            }
+
+            sendGridSubUserDetails.setEmailAPIKey(sendGridAPIDetails.build());
+
+            sendGridSubUserDetailsService.save(sendGridSubUserDetails);
+        } catch (Throwable throwable) {
+            throw new ProcessFailed(messageSource.getMessage("something_wrong", new String[]{}, Locale.US));
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public Integer save(UserDetails usersDetails) throws ProcessFailed {
-        String returnMessage = "false";
         Integer returnUserId = 0;
         Users user = null;
         UsersRoleCompanyLookup usersRoleLookUp = null;
@@ -163,22 +208,11 @@ public class UsersServiceImpl implements UsersService {
 
             usersRoleLookUpDao.save(usersRoleLookUp);
 
-            //Save subuser in sendgrid
-//            Subuser subuser = new Subuser();
-//            subuser.setEmail(usersDetails.getUserName());
-//            subuser.setPassword(usersDetails.getUserPassword());
-//            SendGridUser sendGridUser = emailServiceProviderService.addSubuser(subuser);
-            //TODO save userID in db
-//            SendGridSubUserDetails sendGridSubUserDetails = new SendGridSubUserDetails();
-//            user = new Users();
-//            user.setUserId(userId);
-//            sendGridSubUserDetails.setFkUserId(user);
-//            sendGridSubUserDetails.setSendGridUserId(sendGridUser.getUserId());
-//            
-//            sendGridSubUserDetailsService.save(sendGridSubUserDetails);
+            //CompanyId is 0 since company is not created yet
+            saveSubUser(usersDetails, userId, 0);
+
             returnUserId = userId;
         } catch (Throwable throwable) {
-            returnMessage = "false";
             throw new ProcessFailed(messageSource.getMessage("something_wrong", new String[]{}, Locale.US));
         }
         return returnUserId;
@@ -488,7 +522,7 @@ public class UsersServiceImpl implements UsersService {
             String subject = messageSource.getMessage("acknowledgement_subject", new String[]{}, Locale.US);
             String formattedSubject = String.format(subject, companyName);
             Mail mail = new Mail(null, formattedSubject, emailTo, content);
-            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply);
+            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, 0);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("mail_send_problem", new String[]{}, Locale.US));

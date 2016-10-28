@@ -9,17 +9,27 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intbittech.AppConstants;
 import com.intbittech.divtohtml.StringUtil;
+import com.intbittech.enums.APIKeyType;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.SendGridSubUserDetails;
+import com.intbittech.model.Users;
 import com.intbittech.responsemappers.OperationStatus;
 import com.intbittech.responsemappers.OperationStatusType;
+import com.intbittech.sendgrid.models.APIKey;
 import com.intbittech.sendgrid.models.EmailType;
+import com.intbittech.sendgrid.models.Scopes;
+import com.intbittech.sendgrid.models.SendGridAPIDetails;
 import com.intbittech.sendgrid.models.SendGridCNameValidity;
 import com.intbittech.sendgrid.models.SendGridError;
 import com.intbittech.sendgrid.models.SendGridStats;
+import com.intbittech.sendgrid.models.SendGridStatsList;
 import com.intbittech.sendgrid.models.SendGridUser;
 import com.intbittech.sendgrid.models.SendGridUsers;
+import com.intbittech.sendgrid.models.SubUserAPIKey;
 import com.intbittech.sendgrid.models.Subuser;
 import com.intbittech.services.EmailServiceProviderService;
+import com.intbittech.services.SendGridSubUserDetailsService;
+import com.intbittech.services.UsersService;
 import com.intbittech.utility.IConstants;
 import com.sendgrid.Email;
 import com.sendgrid.Mail;
@@ -37,6 +47,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -51,14 +62,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor = ProcessFailed.class)
 public class EmailServiceProviderServiceImpl implements EmailServiceProviderService {
 
-
-    private static SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-dd-MM");
+    private static SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
     private static Logger logger = Logger.getLogger(EmailServiceProviderServiceImpl.class);
 
     @Autowired
     private MessageSource messageSource;
-    
+
+    @Autowired
+    private SendGridSubUserDetailsService sendGridSubUserDetailsService;
+
+    @Autowired
+    private UsersService usersService;
+
     private Map<String, String> generateQueryParams(String key,
             List<String> categories) {
         Map<String, String> map = new HashMap<String, String>();
@@ -191,17 +207,35 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
         }
     }
 
+    public SendGrid getSendGridWithAPI(APIKeyType apiKeyType, Integer companyId) {
+        SendGrid sendGrid = null;
+        if (apiKeyType.equals(APIKeyType.Main)) {
+            sendGrid = new SendGrid(AppConstants.KSendGridAPIKey);
+        }
+        if (apiKeyType.equals(APIKeyType.SubUser)) {
+            //Get API key from db for current company
+            SendGridAPIDetails sendGridAPIDetails = sendGridSubUserDetailsService.getSendGridAPIDetailsByCompanyId(companyId);
+            sendGrid = new SendGrid(sendGridAPIDetails.getApiKey());
+        }
+
+        return sendGrid;
+    }
+
+//    getAPIKey(typeKey = email stats, emailtype = )
     @Override
-    public OperationStatus sendEmail(Mail mail, EmailType emailType) throws ProcessFailed {
+    public OperationStatus sendEmail(Mail mail, EmailType emailType, Integer companyId) throws ProcessFailed {
         try {
-            
             mail = formatTo(mail, emailType);
-            
+
             OperationStatus operationStatus = new OperationStatus();
             MailSettings mailSettings = new MailSettings();
             mail.setMailSettings(mailSettings);
-           
-            SendGrid sendGrid = new SendGrid(AppConstants.KSendGridAPIKey);
+            SendGrid sendGrid = null;
+            if (emailType.equals(EmailType.BrndBot_NoReply)) {
+                sendGrid = getSendGridWithAPI(APIKeyType.Main, companyId);
+            } else {
+                sendGrid = getSendGridWithAPI(APIKeyType.SubUser, companyId);
+            }
             Request request = new Request();
             request.method = Method.POST;
             request.endpoint = "mail/send";
@@ -228,12 +262,15 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
     }
 
     @Override
-    public SendGridStats getStatsByCategory(String userId, List<String> categories, Date startDate, Date endDate) throws ProcessFailed {
+    public SendGridStatsList getStatsByCategory(String userId, List<String> categories, Date startDate, Date endDate, Integer companyId) throws ProcessFailed {
         try {
             ObjectMapper mapper = new ObjectMapper();
 
-            SendGridStats sendGridStats = new SendGridStats();
-            SendGrid sg = new SendGrid(AppConstants.KSendGridAPIKey);
+            SendGridStatsList sendGridStats = new SendGridStatsList();
+
+            SendGrid sg = getSendGridWithAPI(APIKeyType.Main, 0);
+            SendGridSubUserDetails sendGridSubUserDetails = sendGridSubUserDetailsService.getByCompanyId(companyId);
+            sg.addRequestHeader("on-behalf-of", sendGridSubUserDetails.getSendGridUserId());
 
             startDate = getStartDate(startDate);
             if (endDate == null) {
@@ -252,10 +289,11 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             queryParams.put("end_date", endDateString);
             logRequest(request);
             Response response = sg.api(request);
+
             logResponse(response);
             OperationStatusType type = SendGridError.parseStatusCode(response.statusCode);
             if (type == OperationStatusType.Success) {
-                sendGridStats = mapper.convertValue(response.body, SendGridStats.class);
+                sendGridStats = mapper.readValue("{\"sendGridStats\":" + response.body + "}", SendGridStatsList.class);
             } else {
                 sendGridStats.setOperationStatus(mapError(response));
             }
@@ -275,7 +313,7 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             SendGridUser sendGridUser = new SendGridUser();
             ObjectMapper mapper = new ObjectMapper();
 
-            SendGrid sg = new SendGrid(AppConstants.KSendGridAPIKey);
+            SendGrid sg = getSendGridWithAPI(APIKeyType.Main, 0);
             Request request = new Request();
             request.method = Method.POST;
             request.endpoint = "subusers";
@@ -285,7 +323,7 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             logResponse(response);
             OperationStatusType type = SendGridError.parseStatusCode(response.statusCode);
             if (type == OperationStatusType.Success) {
-                sendGridUser = mapper.convertValue(response.body, SendGridUser.class);
+                sendGridUser = mapper.readValue(response.body, SendGridUser.class);
             } else {
                 sendGridUser.setOperationStatus(mapError(response));
             }
@@ -298,6 +336,102 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             throw new ProcessFailed(ex.getMessage());
         }
 
+    }
+
+    public Scopes getScopes(List<String> scopeList) {
+        Scopes scopes = new Scopes();
+        for (String scope : scopeList) {
+            scopes.setScopes(scope);
+        }
+
+        return scopes;
+    }
+
+    public List<String> getSubUserScopes() {
+        List<String> subUserScopeList = new ArrayList<>();
+        subUserScopeList.add("api_keys.create");
+        subUserScopeList.add("api_keys.delete");
+        subUserScopeList.add("api_keys.read");
+        subUserScopeList.add("api_keys.update");
+        subUserScopeList.add("mail.batch.create");
+        subUserScopeList.add("mail.batch.delete");
+        subUserScopeList.add("mail.batch.read");
+        subUserScopeList.add("mail.batch.update");
+        subUserScopeList.add("mail.send");
+        Scopes subUserScopes = getScopes(subUserScopeList);
+        return subUserScopes.getScopes();
+    }
+
+    public APIKey getSubUserDataObject(String keyName) {
+        APIKey apiKey = new APIKey();
+        apiKey.setName(keyName);
+        apiKey.setScopes(getSubUserScopes());
+
+        return apiKey;
+    }
+
+    @Override
+    public SubUserAPIKey createSubUserAPIKey(String subUserId) throws ProcessFailed {
+        try {
+            SubUserAPIKey subUserAPIKey = new SubUserAPIKey();
+            ObjectMapper mapper = new ObjectMapper();
+
+            SendGrid sg = getSendGridWithAPI(APIKeyType.Main, 0);
+            sg.addRequestHeader("on-behalf-of", subUserId);
+            Request request = new Request();
+            request.method = Method.POST;
+            request.endpoint = "api_keys";
+            String keyName = subUserId + AppConstants.EMAIL_API_KEY_NAME;
+            request.body = getSubUserDataObject(keyName).build();
+
+            logRequest(request);
+            Response response = sg.api(request);
+            logResponse(response);
+
+            OperationStatusType type = SendGridError.parseStatusCode(response.statusCode);
+            if (type == OperationStatusType.Success) {
+                subUserAPIKey = mapper.readValue(response.body, SubUserAPIKey.class);
+            } else {
+                subUserAPIKey.setOperationStatus(mapError(response));
+            }
+
+            return subUserAPIKey;
+        } catch (JsonProcessingException ex) {
+            logger.error(ex);
+            throw new ProcessFailed(ex.getMessage());
+        } catch (IOException ex) {
+            logger.error(ex);
+            throw new ProcessFailed(ex.getMessage());
+        }
+    }
+
+    @Override
+    public Boolean changePassword(String subUserId, String newPassword, String oldPassword) throws ProcessFailed {
+        try {
+            Boolean returnStatus = true;
+            SendGrid sg = getSendGridWithAPI(APIKeyType.Main, 0);
+            sg.addRequestHeader("on-behalf-of", subUserId);
+            Request request = new Request();
+            request.method = Method.PUT;
+            request.endpoint = "/user/password";
+            request.body = "{\"new_password\": \"" + newPassword + "\", \"old_password\": \"" + oldPassword + "\"}";
+
+            logRequest(request);
+            Response response;
+
+            response = sg.api(request);
+
+            logResponse(response);
+
+            OperationStatusType type = SendGridError.parseStatusCode(response.statusCode);
+            if (type == OperationStatusType.DataError || type == OperationStatusType.RequestError) {
+                returnStatus = false;
+            }
+            return returnStatus;
+        } catch (IOException ex) {
+            logger.error(ex);
+            throw new ProcessFailed(ex.getMessage());
+        }
     }
 
     private void logRequest(Request request) {
@@ -336,7 +470,7 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
 
     private Mail formatTo(Mail mail, EmailType emailType) {
         if (emailType == EmailType.BrndBot_NoReply) {
-            String companyName = messageSource.getMessage("companyName",new String[]{}, Locale.US);
+            String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
             Email fromObject = new Email(IConstants.kNoReplyBrndbot, companyName);
             mail.setFrom(fromObject);
         }

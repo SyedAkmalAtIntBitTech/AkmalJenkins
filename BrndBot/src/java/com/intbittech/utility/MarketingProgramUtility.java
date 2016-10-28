@@ -34,4 +34,12 @@ public class MarketingProgramUtility {
         return marketingProgramCategory;
 
     }
+    
+    public static String getDirectEmailCategory(String Id) {
+
+        String category=  IConstants.DIRECT_EMAIL_CATEGORY + Id;
+
+        return category;
+
+    }
 }

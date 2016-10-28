@@ -10,10 +10,13 @@ import com.intbittech.responsemappers.OperationStatus;
 import com.intbittech.sendgrid.models.EmailType;
 import com.intbittech.sendgrid.models.SendGridCNameValidity;
 import com.intbittech.sendgrid.models.SendGridStats;
+import com.intbittech.sendgrid.models.SendGridStatsList;
 import com.intbittech.sendgrid.models.SendGridUser;
 import com.intbittech.sendgrid.models.SendGridUsers;
+import com.intbittech.sendgrid.models.SubUserAPIKey;
 import com.intbittech.sendgrid.models.Subuser;
 import com.sendgrid.Mail;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -29,14 +32,32 @@ public interface EmailServiceProviderService {
     /**
      * Creates a sub user in the send grid DB
      * @param subuser
-     * @return
+     * @return SendGridUser
      * @throws ProcessFailed 
      */
     public SendGridUser addSubuser(Subuser subuser) throws ProcessFailed;
+    
+    /**
+     * Creates a sub user api key
+     * @param subUserId
+     * @return SubUserAPIKey
+     * @throws ProcessFailed 
+     */
+    public SubUserAPIKey createSubUserAPIKey(String subUserId) throws ProcessFailed;
+    
+    /**
+     * Reset password of a sub user
+     * @param subUserId
+     * @param newPassword
+     * @param oldPassword
+     * @return Boolean
+     * @throws ProcessFailed 
+     */
+    public Boolean changePassword(String subUserId, String newPassword, String oldPassword) throws ProcessFailed;
 
     /**
      * Returns details of all the sub users of the account
-     * @return
+     * @return SendGridUsers
      * @throws ProcessFailed 
      */
     public SendGridUsers getAllSubusers() throws ProcessFailed;
@@ -44,7 +65,7 @@ public interface EmailServiceProviderService {
     /**
      * Returns sub user details for a given user name
      * @param userName
-     * @return
+     * @return SendGridUser
      * @throws ProcessFailed 
      */
     public SendGridUser getSubuserDetails(String userName) throws ProcessFailed;
@@ -53,7 +74,7 @@ public interface EmailServiceProviderService {
     /**
      * Validating CName for given sub user id
      * @param sendGridUserId
-     * @return
+     * @return SendGridCNameValidity
      * @throws ProcessFailed 
      */
     public SendGridCNameValidity validateCNAME(String sendGridUserId) throws ProcessFailed;
@@ -65,17 +86,18 @@ public interface EmailServiceProviderService {
      * No other method.
      * @param mail
      * @param emailType
-     * @return
+     * @return OperationStatus
      * @throws ProcessFailed 
      */
-    public OperationStatus sendEmail(Mail mail, EmailType emailType) throws ProcessFailed;
+    public OperationStatus sendEmail(Mail mail, EmailType emailType, Integer companyId) throws ProcessFailed;
     
     /**
      * Get all statistics based off the category. 
      * @param userId can be null
      * @param categories Category could be max of 9 strings.
+     * @return SendGridStatsList
      * @throws ProcessFailed 
      */
-    public SendGridStats getStatsByCategory(String userId, List<String> categories, Date startDate, Date endDate) throws ProcessFailed;
+    public SendGridStatsList getStatsByCategory(String userId, List<String> categories, Date startDate, Date endDate, Integer companyId) throws ProcessFailed;
 
 }

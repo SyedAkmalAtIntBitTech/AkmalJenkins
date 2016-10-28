@@ -78,18 +78,19 @@ public class ScheduleAnRecurringEmail implements Runnable {
                         emailDataDetails.setHtmlData(html_text);
                         emailDataDetails.setReplyToEmailAddress(reply_to_address);
                         emailDataDetails.setEmailType(EmailTypeConstants.Recurring.name());
+                        emailDataDetails.setDays(days);
                         
                         //For email categories/tags
                         Integer companyMarketingProgramId = currentScheduledRecurringEmail.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId();
                         Integer entityId = currentScheduledRecurringEmail.getEntityId();
                         List<String> emailCategoryList = new ArrayList<>();
                         emailCategoryList.add(MarketingProgramUtility.getMarketingProgramCategory(companyMarketingProgramId));
-                        emailCategoryList.add(MarketingProgramUtility.getMarketingProgramRecuringActionCategory(entityId));
+                        emailCategoryList.add(MarketingProgramUtility.getMarketingProgramRecuringActionCategory(currentScheduledRecurringEmail.getScheduledEntityListId()));
                         
                         emailDataDetails.setEmailCategoryList(emailCategoryList);
                         
                         SendEmailService sendEmailService = SpringContextBridge.services().getSendEmailService();
-                        sendEmailService.sendMail(emailDataDetails);
+                        sendEmailService.sendMail(emailDataDetails, false);
                         
                         updateStatusScheduledEmail(currentScheduledRecurringEmail);
                     }
