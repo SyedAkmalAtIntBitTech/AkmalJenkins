@@ -26,6 +26,7 @@ import com.intbittech.utility.MarketingProgramUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 
 /**
  *
@@ -72,7 +73,7 @@ public class ScheduleAnEmail implements Runnable {
                         ScheduledEmailList sendAnEmail = getSendEmail(currentScheduledEmail);
                         
                         Integer companyId = currentScheduledEmail.getFkCompanyId().getCompanyId();
-                        String html_text = sendAnEmail.getBody();
+                        String html_text = escapeHtml(sendAnEmail.getBody());
                         String email_subject = sendAnEmail.getSubject();
 //                        String to_email_addresses = contactEmailListLookupService.getContactsByEmailListNameAndCompanyId(sendAnEmail.getEmailListName(), companyId);
                         String emaillist_name = sendAnEmail.getEmailListName();

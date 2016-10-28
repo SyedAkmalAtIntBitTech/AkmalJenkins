@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import com.intbittech.utility.DateTimeUtil;
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 
 /**
  *
@@ -58,8 +59,8 @@ public class ScheduleFacebookPost implements Runnable {
                         ScheduledSocialpostList facebookPost = getFacebookPost(currentScheduledFacebookPost);
                         String jsonString = facebookPost.getMetaData();
                         JSONObject jsonObject = (JSONObject) new JSONParser().parse(jsonString);
-                        String description = jsonObject.get(IConstants.kFacebookDescriptionKey).toString();
-                        String postText = jsonObject.get(IConstants.kFacebookPostTextKey).toString();
+                        String description = escapeHtml(jsonObject.get(IConstants.kFacebookDescriptionKey).toString());
+                        String postText = escapeHtml(jsonObject.get(IConstants.kFacebookPostTextKey).toString());
                         String url = jsonObject.get(IConstants.kFacebookUrlKey).toString();
                         String linkTitle = jsonObject.get(IConstants.kFacebookLinkTitleKey).toString();
                         String managedPage = jsonObject.get(IConstants.kFacebookManagedPageKey).toString();

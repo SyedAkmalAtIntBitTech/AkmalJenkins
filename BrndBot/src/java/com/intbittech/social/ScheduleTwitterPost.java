@@ -20,6 +20,7 @@ import org.json.simple.parser.JSONParser;
 import com.intbittech.utility.DateTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 
 /**
  *
@@ -50,7 +51,7 @@ public class ScheduleTwitterPost implements Runnable {
                         ScheduledSocialpostList twitterPost = getTwitterPost(currentScheduledTwitterPost);
                         String jsonString = twitterPost.getMetaData();
                         JSONObject jsonObject = (JSONObject) new JSONParser().parse(jsonString);
-                        String text = jsonObject.get(IConstants.kTwitterTextKey).toString();
+                        String text = escapeHtml(jsonObject.get(IConstants.kTwitterTextKey).toString());
                         String url = jsonObject.get(IConstants.kTwitterURLKey).toString();
                         
                         Integer companyId = currentScheduledTwitterPost.getFkCompanyId().getCompanyId();

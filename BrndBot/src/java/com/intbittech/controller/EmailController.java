@@ -36,6 +36,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 
 /**
  *
@@ -82,13 +83,14 @@ public class EmailController {
                 File file = new File(path);
                 html_text = FileUtils.readFileToString(file, "UTF-8");
             }
+            String escapedHtmlText = escapeHtml(html_text);
             EmailDataDetails emailDataDetails = new EmailDataDetails();
             emailDataDetails.setCompanyId(userCompanyIds.getCompanyId());
             emailDataDetails.setEmailListName(emaillist_name);
             emailDataDetails.setEmailSubject(email_subject);
             emailDataDetails.setFromEmailAddress(from_email_address);
             emailDataDetails.setFromName(from_name);
-            emailDataDetails.setHtmlData(html_text);
+            emailDataDetails.setHtmlData(escapedHtmlText);
             emailDataDetails.setReplyToEmailAddress(reply_to_address);
             emailDataDetails.setEmailType(EmailTypeConstants.General.name());
             sendEmailService.sendMail(emailDataDetails);
