@@ -8,6 +8,7 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.UsersDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
+import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.InviteDetails;
 import java.util.List;
@@ -104,7 +105,7 @@ public class UsersDaoImpl implements UsersDao {
         }
         return isUserUnique;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -150,6 +151,24 @@ public class UsersDaoImpl implements UsersDao {
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_deleting_message", new String[]{}, Locale.US));
-        }    }
+        }
+    }
+
+    @Override
+    public List<Users> getAll() throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(Users.class);
+            List<Users> list = criteria.list();
+            if (list.isEmpty()) {
+                return null;
+            }
+            return list;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
+        }
+    }
 
 }

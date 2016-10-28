@@ -71,6 +71,52 @@
                     </div>
                     <div class="overlay-detail-status">{{action_template_status}}</div>
                 </div>
+                <div class="overlay-details-pane" ng-show="isRecurring === false">
+                    <div class="overlay-details-pane-header">{{scheduledTo}} DETAILS</div>
+                    <div class="detail-sections-wrap">
+                        <input type="hidden" class="textbox" id="emaildays" name="emaildays" value="0"/>
+                       
+                        <div class="detail-section half">
+                            <label class="detail-section-label">Date</label>
+                            <a class="overlay-detail-input date-input ease-all">
+                                <img type="" class="date-time-input-img" src="/BrndBot/images/calendar-gray.svg" />
+                                <input type="text" ng-blur="showSaveButton()" id="emaildatetime" name="emaildatetime" />
+                                    <script>
+                                        
+                                        var picker = new Pikaday(
+                                                {
+                                                    field: document.getElementById('emaildatetime'),
+                                                    format: KGlobalDatePickerFormate,
+                                                    firstDay: 1,
+                                                    minDate: new Date(2000, 0, 1),
+                                                    maxDate: new Date(2050, 12, 31),
+                                                    yearRange: [2000, 2050]
+                                                });
+                                                
+                                    </script>
+                            </a>
+                            <span class="validationAlert" ng-if='generalTimeAction'>{{actionDateValidation}}</span>
+                        </div>
+                        <div class="detail-section half" style="margin-left:20px;">
+                            <label class="detail-section-label">Time of Day </label>
+                            <a class="overlay-detail-input time-input ease-all">
+                                <img type="" class="date-time-input-img" src="/BrndBot/images/time-gray.svg" />
+                                <input type="text" ng-blur="showSaveButton()" id="timepickertextbox" name="timepickertextbox" value="{{scheduleData.schedule_time}}" readonly />
+                                <script>
+                                        $('#timepickertextbox').timepicki({
+                                            show_meridian: true,
+                                            min_hour_value: 1,
+                                            max_hour_value: 12,
+                                            step_size_minutes: 01,
+                                            overflow_minutes: true,
+                                            increase_direction: 'up',
+                                            disable_keyboard_mobile: true
+                                        });
+                                </script>
+                            </a>
+                        </div>
+                    </div>
+                    <span class="validationAlert" ng-if='dateLesser'>{{lesserDateValidation}}</span>
             </div>
             <div class="detail-section half" ng-hide="scheduleData.marketing_program_name === 'General'">
                 <label class="detail-section-label">Assigned Marketing Campaign</label>
