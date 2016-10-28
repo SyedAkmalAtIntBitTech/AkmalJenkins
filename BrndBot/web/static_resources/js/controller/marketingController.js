@@ -65,6 +65,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
          };
 
         
+        $scope.isDeletePromptOpen = function(flag){
+            $scope.clickedDeleteAction = flag;
+        };
+        
         $scope.companyAddressDetails = {};
         $scope.marketingFlowObject=kEmailFlowObject;
         $scope.emailListName="";
@@ -777,6 +781,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $("#emaildatetime1").val($filter('date')(schedule_date, "MMM dd yyyy"));
             
             if (entity_type === getnote()) {
+                $scope.marketingTab.selectTab(5);
                 $scope.reminderSectionClass = 'reminderSectionClass';
                 $scope.savedReminderTab = true;
                 $scope.isTask = true;

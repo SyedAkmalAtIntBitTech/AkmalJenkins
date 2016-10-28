@@ -2,7 +2,7 @@
 <div class="overlay-wrap overlay-slide " id="emailsection" ng-class="emailsectionClass">
     <div class="bb-top-nav" id="emailtopnav">
         <div class="bb-bar-left-wrap bb-one-half-flex-col">
-            <a id="closePopupSlider" class="bb-back-button bb-rotate-element-180" ng-click="closePopup();promptHideShow(false);clickedDeleteAction = false;marketingTab.selectTab(4)" href="">
+            <a id="closePopupSlider" class="bb-back-button bb-rotate-element-180" ng-click="closePopup();promptHideShow(false);marketingTab.selectTab(4);isDeletePromptOpen(false);" href="">
             </a>
             <h3 class="bb-top-nav-title">{{generalActionDetailsHeader}} Action Detail</h3>
         </div>
@@ -13,13 +13,13 @@
              <a class="status-button template-not-approved" id="marketingemailapprove" ng-show="action_template_status === 'Approved' && !isProgramArchived" ng-click="Approval(schedule_id, 'template_saved', masterActionType)"  style="padding: 10px 0px 10px 0px;width: 105px;">
                 <label>{{templateDisapproveButton}}</label>
             </a>
-            <div ng-hide="isProgramArchived" class="action-delete-button" ng-click="clickedDeleteAction = true;promptHideShow(false)" ></div>
+            <div ng-hide="isProgramArchived" class="action-delete-button" ng-click="isDeletePromptOpen(true);promptHideShow(false)" ></div>
             <div ng-show="clickedDeleteAction" class="action-pop-up delete-action-pop-up ease-all">
                 <strong>Are you sure you want to delete this action?</strong>
                 <p>All data will be erased and you will lose any saved emails and posts</p>
                 <div class="cta-wrapper">
-                    <a ng-click="clickedDeleteAction = false" href="" class="cancel-button">Cancel</a>
-                    <a ng-click="clickedDeleteAction = false;deleteSchedule(schedule_id, 'delete', generalActionDetailsHeader,'');marketingTab.selectTab(4);" href="" class="delete-button">Delete</a>
+                    <a ng-click="isDeletePromptOpen(false)" href="" class="cancel-button">Cancel</a>
+                    <a ng-click="isDeletePromptOpen(false);deleteSchedule(schedule_id, 'delete', generalActionDetailsHeader,'');marketingTab.selectTab(4);" href="" class="delete-button">Delete</a>
                 </div>
             </div>
         </div>

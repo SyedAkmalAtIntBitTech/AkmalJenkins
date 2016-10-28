@@ -53,7 +53,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         this.isSelected = function (checkTab) {
             return this.tab === checkTab;
         };
-
+        
+        $scope.isDeletePromptOpen = function(flag){
+            $scope.clickedDeleteAction = flag;
+        };
+        
         $scope.changeUsers = false;
         $scope.footerData = "";
         $scope.ddSelectUserOptions = [{
@@ -356,6 +360,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.addAction = false;
             $scope.chooseActionTypeOnChange({"text": "Select", "value": "0"});
             $scope.closePopup();
+            $scope.isDeletePromptOpen(false);
         };
 
         $scope.inviteUser = function (userDetails) {
@@ -674,6 +679,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.isRecurring = false;
             $scope.pushedEmail = false;
             if (entity_type === getnote()) {
+                $scope.yourplanTab.selectTab(5);
                 $scope.reminderSectionClass = 'reminderSectionClass';
                 $scope.savedReminderTab = true;
                 $scope.isTask = true;
@@ -1041,6 +1047,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 "template_status": template_status,
                 "entity_type": entity_type};
             companyMarketingProgramFactory.approveStatusPost(approval_type).then(function (data) {
+                alert(JSON.stringify(data));
                 if (data.toString() == "true") {
                     if ($scope.action_template_status == "Template Saved") {
                         $scope.action_template_status = "Approved";

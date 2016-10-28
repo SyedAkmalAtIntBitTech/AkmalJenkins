@@ -546,6 +546,7 @@ public class CompanyMarketingProgramController {
                 activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_UPDATED_TEMPLATE_ID.getId());
             } else if (template_status.equalsIgnoreCase("no_template")) {
                 scheduled_entity_list.setStatus(TemplateStatus.no_template.toString());
+                activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_UPDATED_TEMPLATE_ID.getId());
             }
                 
             }
