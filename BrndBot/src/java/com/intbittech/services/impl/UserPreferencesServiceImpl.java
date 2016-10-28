@@ -12,6 +12,7 @@ import com.intbittech.model.Users;
 import com.intbittech.modelmappers.Tooltips;
 import com.intbittech.modelmappers.UserPreferencesJson;
 import com.intbittech.services.UserPreferencesService;
+import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,26 @@ public class UserPreferencesServiceImpl implements UserPreferencesService {
             LOOGER.error(throwable);
         }
         return userPreferencesJson.getTooltips();
+    }
+
+    @Override
+    public List<Users> getAll() {
+        return usersDao.getAll();
+    }
+
+    @Override
+    public void setUserPreferencesJson(UserPreferencesJson userPreferencesJson,Users users) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String userPreferencesJsonToString = mapper.writeValueAsString(userPreferencesJson);
+            users.setUserPreferences(userPreferencesJsonToString);
+            usersDao.update(users);
+
+        } catch (Throwable throwable) {
+            LOOGER.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message", new String[]{}, Locale.US));
+        }
+
     }
 
 }

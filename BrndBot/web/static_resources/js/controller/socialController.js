@@ -286,7 +286,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                     {
                         field: document.getElementById('schedule_date'),
                         firstDay: 1,
-                        format: kGlobalDateFormat,
+                        format: KGlobalDatePickerFormate,
                         minDate: new Date(2000, 0, 1),
                         maxDate: new Date(2050, 12, 31),
                         yearRange: [2000, 2050]

@@ -5,7 +5,10 @@
  */
 package com.intbittech.services;
 
+import com.intbittech.model.Users;
 import com.intbittech.modelmappers.Tooltips;
+import com.intbittech.modelmappers.UserPreferencesJson;
+import java.util.List;
 
 /**
  *
@@ -19,4 +22,7 @@ public interface UserPreferencesService {
 
     public Tooltips getTooltips(Integer userId);
 
+    public List<Users> getAll();
+    
+    public void setUserPreferencesJson(UserPreferencesJson userPreferencesJson,Users users);
 }

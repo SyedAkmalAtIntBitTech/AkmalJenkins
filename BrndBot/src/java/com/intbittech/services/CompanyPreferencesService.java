@@ -9,6 +9,7 @@ import static com.intbittech.enums.ScheduledEntityType.Twitter;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.modelmappers.CompanyColorsDetails;
+import com.intbittech.modelmappers.CompanyPreferencesJson;
 import com.intbittech.modelmappers.EmailSettings;
 import com.intbittech.modelmappers.FacebookDataDetails;
 import com.intbittech.modelmappers.FooterDetails;
@@ -65,4 +66,5 @@ public interface CompanyPreferencesService {
     
     public OnBoarding getOnBoarding(Company company);
     
+    public void setCompanyPreferencesJson(CompanyPreferencesJson companyPreferencesJson,CompanyPreferences companyPreferences);
 }
