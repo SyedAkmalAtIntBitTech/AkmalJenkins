@@ -60,7 +60,7 @@ public interface UsersService {
      * @param userId
      * @throws ProcessFailed the process failed
      */
-    public void saveSubUser(UserDetails usersDetails, Integer userId) throws ProcessFailed;
+    public void saveSubUser(UserDetails usersDetails, Integer userId, Integer companyId) throws ProcessFailed;
     
     /**
      * This method pass user as input and get the {@link Integer} from DAO layer.

@@ -47,6 +47,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -67,10 +68,10 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
 
     @Autowired
     private MessageSource messageSource;
-    
+
     @Autowired
     private SendGridSubUserDetailsService sendGridSubUserDetailsService;
-    
+
     @Autowired
     private UsersService usersService;
 
@@ -230,10 +231,11 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             MailSettings mailSettings = new MailSettings();
             mail.setMailSettings(mailSettings);
             SendGrid sendGrid = null;
-            if(emailType.equals(EmailType.BrndBot_NoReply))
+            if (emailType.equals(EmailType.BrndBot_NoReply)) {
                 sendGrid = getSendGridWithAPI(APIKeyType.Main, companyId);
-            else
+            } else {
                 sendGrid = getSendGridWithAPI(APIKeyType.SubUser, companyId);
+            }
             Request request = new Request();
             request.method = Method.POST;
             request.endpoint = "mail/send";
@@ -265,11 +267,11 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             ObjectMapper mapper = new ObjectMapper();
 
             SendGridStatsList sendGridStats = new SendGridStatsList();
-            
+
             SendGrid sg = getSendGridWithAPI(APIKeyType.Main, 0);
             SendGridSubUserDetails sendGridSubUserDetails = sendGridSubUserDetailsService.getByCompanyId(companyId);
             sg.addRequestHeader("on-behalf-of", sendGridSubUserDetails.getSendGridUserId());
-            
+
             startDate = getStartDate(startDate);
             if (endDate == null) {
                 endDate = new Date();
@@ -311,7 +313,7 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             SendGridUser sendGridUser = new SendGridUser();
             ObjectMapper mapper = new ObjectMapper();
 
-            SendGrid sg = getSendGridWithAPI(APIKeyType.Main,0);
+            SendGrid sg = getSendGridWithAPI(APIKeyType.Main, 0);
             Request request = new Request();
             request.method = Method.POST;
             request.endpoint = "subusers";
@@ -374,7 +376,7 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             SubUserAPIKey subUserAPIKey = new SubUserAPIKey();
             ObjectMapper mapper = new ObjectMapper();
 
-            SendGrid sg = getSendGridWithAPI(APIKeyType.Main,0);
+            SendGrid sg = getSendGridWithAPI(APIKeyType.Main, 0);
             sg.addRequestHeader("on-behalf-of", subUserId);
             Request request = new Request();
             request.method = Method.POST;
@@ -397,6 +399,35 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
         } catch (JsonProcessingException ex) {
             logger.error(ex);
             throw new ProcessFailed(ex.getMessage());
+        } catch (IOException ex) {
+            logger.error(ex);
+            throw new ProcessFailed(ex.getMessage());
+        }
+    }
+
+    @Override
+    public Boolean changePassword(String subUserId, String newPassword, String oldPassword) throws ProcessFailed {
+        try {
+            Boolean returnStatus = true;
+            SendGrid sg = getSendGridWithAPI(APIKeyType.Main, 0);
+            sg.addRequestHeader("on-behalf-of", subUserId);
+            Request request = new Request();
+            request.method = Method.PUT;
+            request.endpoint = "/user/password";
+            request.body = "{\"new_password\": \"" + newPassword + "\", \"old_password\": \"" + oldPassword + "\"}";
+
+            logRequest(request);
+            Response response;
+
+            response = sg.api(request);
+
+            logResponse(response);
+
+            OperationStatusType type = SendGridError.parseStatusCode(response.statusCode);
+            if (type == OperationStatusType.DataError || type == OperationStatusType.RequestError) {
+                returnStatus = false;
+            }
+            return returnStatus;
         } catch (IOException ex) {
             logger.error(ex);
             throw new ProcessFailed(ex.getMessage());

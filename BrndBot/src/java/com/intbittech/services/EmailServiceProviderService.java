@@ -16,6 +16,7 @@ import com.intbittech.sendgrid.models.SendGridUsers;
 import com.intbittech.sendgrid.models.SubUserAPIKey;
 import com.intbittech.sendgrid.models.Subuser;
 import com.sendgrid.Mail;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +44,16 @@ public interface EmailServiceProviderService {
      * @throws ProcessFailed 
      */
     public SubUserAPIKey createSubUserAPIKey(String subUserId) throws ProcessFailed;
+    
+    /**
+     * Reset password of a sub user
+     * @param subUserId
+     * @param newPassword
+     * @param oldPassword
+     * @return Boolean
+     * @throws ProcessFailed 
+     */
+    public Boolean changePassword(String subUserId, String newPassword, String oldPassword) throws ProcessFailed;
 
     /**
      * Returns details of all the sub users of the account

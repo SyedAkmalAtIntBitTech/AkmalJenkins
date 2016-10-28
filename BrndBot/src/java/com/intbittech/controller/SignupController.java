@@ -17,6 +17,7 @@ import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.modelmappers.UserDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.services.EmailServiceProviderService;
 import com.intbittech.services.ForgotPasswordService;
 import com.intbittech.services.SendGridSubUserDetailsService;
 import com.intbittech.services.UserRoleCompanyLookUpService;
@@ -65,6 +66,8 @@ public class SignupController {
     SendGridSubUserDetailsService sendGridSubUserDetailsService;
     @Autowired
     UserRoleCompanyLookUpService userRoleCompanyLookUpService;
+    @Autowired
+    EmailServiceProviderService emailServiceProviderService;
 
     @RequestMapping(value = "/{jspFileName}", method = RequestMethod.GET)
     public String signUpJspPages(ModelMap model, @PathVariable(value = "jspFileName") String jspFileName) {
@@ -122,11 +125,12 @@ public class SignupController {
 
             String type = (String) requestBodyMap.get("type");
             String password = (String) requestBodyMap.get("password");
+            String oldPassword = (String) requestBodyMap.get("currentPassword");
             String hashURL = (String) requestBodyMap.get("hashURL");
             String hashPassword = passwordEncoder.encode(password);
             if (type.equalsIgnoreCase("update")) {
                 UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
-                forgotPasswordService.updatePassword(userCompanyIds.getUserId(), hashPassword);
+                
                 SendGridSubUserDetails sendGridSubUserDetails = null;
                 try {
                     sendGridSubUserDetails = sendGridSubUserDetailsService.getByCompanyId(userCompanyIds.getCompanyId());
@@ -136,7 +140,7 @@ public class SignupController {
                     Company company = new Company();
                     company.setCompanyId(userCompanyIds.getCompanyId());
                     UsersRoleCompanyLookup usersRoleCompanyLookup = userRoleCompanyLookUpService.getUsersRoleLookupByUserAndCompany(user, company);
-                    if (usersRoleCompanyLookup.getRoleId().getRoleName().equals(AdminStatus.ROLE_ACCOUNT_OWNER)) {
+                    if (usersRoleCompanyLookup.getRoleId().getRoleName().equals(AdminStatus.ROLE_ACCOUNT_OWNER.toString())) {
                         //create subuser
 
                         Users userObject = usersService.getUserById(userCompanyIds.getUserId());
@@ -144,12 +148,20 @@ public class SignupController {
                         userDetails.setUserName(userObject.getUserName());
                         userDetails.setUserPassword(password);
 
-                        usersService.saveSubUser(userDetails, userCompanyIds.getUserId());
+                        usersService.saveSubUser(userDetails, userCompanyIds.getUserId(), userCompanyIds.getCompanyId());
+                        forgotPasswordService.updatePassword(userCompanyIds.getUserId(), hashPassword);
                     }
                 }
                 if(sendGridSubUserDetails != null) {
-                    //TODO Reset subUser password in sendGrid
+                    if(sendGridSubUserDetails.getFkUserId().getUserId() == userCompanyIds.getUserId()) {
+                        //Reset subUser password in sendGrid
+                        emailServiceProviderService.changePassword(sendGridSubUserDetails.getSendGridUserId(), password, oldPassword);
+                        forgotPasswordService.updatePassword(userCompanyIds.getUserId(), hashPassword);
+                    }
+                    
                 }
+                
+                
                 
             } else if (type.equalsIgnoreCase("change")) {
                 ForgotPassword forgotPassword = forgotPasswordService.getByRandomHash(hashURL);

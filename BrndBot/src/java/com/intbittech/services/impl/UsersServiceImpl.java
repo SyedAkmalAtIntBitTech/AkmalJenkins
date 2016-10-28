@@ -133,7 +133,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public void saveSubUser(UserDetails usersDetails, Integer userId) throws ProcessFailed {
+    public void saveSubUser(UserDetails usersDetails, Integer userId, Integer companyId) throws ProcessFailed {
         try {
             //Save subuser in sendgrid
             Subuser subuser = new Subuser();
@@ -158,6 +158,12 @@ public class UsersServiceImpl implements UsersService {
             user.setUserId(userId);
             sendGridSubUserDetails.setFkUserId(user);
             sendGridSubUserDetails.setSendGridUserId(usersDetails.getUserName());
+            
+            if(companyId != 0) {
+                Company company = new Company();
+                company.setCompanyId(companyId);
+                sendGridSubUserDetails.setFkCompanyId(company);
+            }
 
             sendGridSubUserDetails.setEmailAPIKey(sendGridAPIDetails.build());
 
@@ -202,7 +208,8 @@ public class UsersServiceImpl implements UsersService {
 
             usersRoleLookUpDao.save(usersRoleLookUp);
 
-            saveSubUser(usersDetails, userId);
+            //CompanyId is 0 since company is not created yet
+            saveSubUser(usersDetails, userId, 0);
 
             returnUserId = userId;
         } catch (Throwable throwable) {
