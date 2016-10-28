@@ -354,23 +354,6 @@ public class MarketingRecurringEmailController {
             schedule_entity_list.setFkCompanyId(company);
 
             Integer schedule_entity_list_id = scheduledEntityListService.save(schedule_entity_list);
-            ActivityLogDetails activityLogDetails = new ActivityLogDetails();
-            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_CREATED_ACTION_ID.getId());
-            activityLogDetails.setScheduledEntityId(schedule_entity_list_id);
-            activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
-            activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
-            activityLogDetails.setActionTitle(recurring_email_title);
-            activityLogService.saveActivityLog(activityLogDetails);
-
-            ActivityLogDetails activityLogDetailObject = new ActivityLogDetails();
-            activityLogDetailObject.setActivityId(ActivityStatus.ACTIVITY_ASSIGNED_TO_ID.getId());
-            activityLogDetailObject.setAssignedTo(userAssignToId);
-            activityLogDetailObject.setScheduledEntityId(schedule_entity_list_id);
-            activityLogDetailObject.setCreatedBy(userCompanyIds.getUserId());
-            activityLogDetailObject.setCompanyId(userCompanyIds.getCompanyId());
-            activityLogDetailObject.setActionTitle(recurring_email_title);
-            activityLogService.saveActivityLog(activityLogDetailObject);
-
             Map<String, Object> data = new HashMap<>();
             data.put("data", true);
             data.put("scheduleEntityListId", schedule_entity_list_id);
@@ -454,21 +437,6 @@ public class MarketingRecurringEmailController {
             schedule_entity_list.setFkCompanyId(company);
 
             scheduledEntityListService.update(schedule_entity_list);
-            ActivityLogDetails activityLogDetails = new ActivityLogDetails();
-            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_ADDED_TEMPLATE_ID.getId());
-            activityLogDetails.setScheduledEntityId(Integer.parseInt(entity_id));
-            activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
-            activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
-            activityLogDetails.setActionTitle(recurring_email_title);
-            activityLogService.saveActivityLog(activityLogDetails);
-
-            ActivityLogDetails activityLogDetails1 = new ActivityLogDetails();
-            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_UPDATED_ACTION_ID.getId());
-            activityLogDetails1.setScheduledEntityId(Integer.parseInt(entity_id));
-            activityLogDetails1.setCreatedBy(userCompanyIds.getUserId());
-            activityLogDetails1.setCompanyId(userCompanyIds.getCompanyId());
-            activityLogDetails1.setActionTitle(recurring_email_title);
-            activityLogService.saveActivityLog(activityLogDetails1);
 
             return "true";
 
@@ -566,15 +534,6 @@ public class MarketingRecurringEmailController {
             schedule_email_list_service.update(schedule_email_list);
 
             scheduledEntityListService.update(schedule_entity_list);
-
-            ActivityLogDetails activityLogDetails = new ActivityLogDetails();
-            activityLogDetails.setActivityId(IConstants.ACTIVITY_UPDATED_ACTION_ID);
-            activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_UPDATED_ACTION_ID.getId());
-            activityLogDetails.setScheduledEntityId(Integer.parseInt(entity_id));
-            activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
-            activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
-            activityLogDetails.setActionTitle(recurring_email_title);
-            activityLogService.saveActivityLog(activityLogDetails);
 
             return "true";
         } catch (Throwable throwable) {

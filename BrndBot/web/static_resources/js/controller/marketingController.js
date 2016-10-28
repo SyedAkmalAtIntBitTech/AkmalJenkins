@@ -44,6 +44,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.editSavedEmail = false;
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
+        var userSortInfo={userSortName:"",userColor:""};
 
         $scope.getCompanyStatus = function() {
             appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
@@ -109,12 +110,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
         
         $scope.getUserDetails = function () {
-            $scope.getUserDetailsByUserId(29);
             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                 $scope.companyName = kGlobalCompanyObject.companyName;
                 $scope.userFirstName = kGlobalCompanyObject.userFirstName;
                 $scope.userLastName = kGlobalCompanyObject.userLastName;
-
+                
+                $scope.getUserDetailsByUserId(kGlobalCompanyObject.userId);
                 kGlobalCompanyObject.userHashId = '';
                 appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {});
                 appSessionFactory.getDashboardMessage().then(function (message) {
@@ -460,6 +461,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $("#comment").focus();
             } else {
                 var commentDetails = {"scheduleId": scheduleId, "comment": comment};
+                $scope.getUserDetailsByUserId(scheduleId);
                 yourPlanFactory.addActionCommentPOST(commentDetails).then(function (data) {
                     $scope.getActionComments(scheduleId);
                     $("#comment").val("");
@@ -470,6 +472,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.getActionComments = function (scheduleId) {
             yourPlanFactory.actionCommentsGet(scheduleId).then(function (data) {
                 $scope.comments = data.d.details;
+                $scope.userColor=userSortInfo.userColor;
             });
         };
 
@@ -1781,14 +1784,16 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                             };
                             
                             marketingRecurringEmailFactory.addRecurringActionPost(recurring_action).then(function (data) {
-                                if (data.d.details.message === true) {
+
+                                if (data.d.operationStatus.statusCode === "Success") {
+                                    var recurringEntity=JSON.parse(data.d.message);
+                                    $scope.redirectToEmailAutomation('emailautomation','template','',recurringEntity.scheduleEntityListId,true);
+                                    $scope.automationEditor=true;
+                                    $scope.entityNoEmailTemplate=false;
                                     growl("Details saved succesfully.");
                                 } else {
                                     growl("Problem saving the record!");
                                 }
-//                               TO Do Akmal redirect with id to template 
-//                                $location.path("/marketingprogramactions");
-//                                $scope.getProgramActions('emailautomation');
                             });
                         } else if (($scope.type === 'template') && ($scope.entityNoEmailTemplate === true)) {
                             $(".page-content-container").css('width', '100%');
@@ -1872,7 +1877,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                         "schedule_time_epoch": schedule_time,
                                         "program_id": $scope.programId.toString(),"userAssignToId": $scope.ddSelectedUser
                                     };
-
+                                    
                                     marketingRecurringEmailFactory.updateRecurringActionPost(recurring_action).then(function (data) {
                                         if ((data === true)) {
                                                 growl("Details saved succesfully.");
@@ -2199,24 +2204,18 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 });
             }
             $scope.recurringTemplateOnClick(0);
-        };
-        //To Do Akmal use this function to get user signature and user color
+        };       
         $scope.getUserDetailsByUserId = function (userId){
-            var userSortInfo={userSortName:"",userColor:""};
             appSessionFactory.getAllUsersUnderCompany().then(function (KGlobalAllUserUnderCompanyObject){
                 for(var i=0; i<= KGlobalAllUserUnderCompanyObject.userList.length;i++){
                     if(userId === KGlobalAllUserUnderCompanyObject.userList[i].userId){
                         var userFisetName = KGlobalAllUserUnderCompanyObject.userList[i].firstName;
                         var userLastName = KGlobalAllUserUnderCompanyObject.userList[i].lastName;
-//                        alert(userFisetName.charAt(0));
                         var userSignature = userFisetName.charAt(0)+ userLastName.charAt(0);
                         userSortInfo.userSortName = userSignature.toUpperCase();
                         userSortInfo.userColor = KGlobalAllUserUnderCompanyObject.userList[i].userColor;
-//                         alert(JSON.stringify(userSortInfo));
                     }
-//                     alert(JSON.stringify(userSortInfo));
                 }
-               
             });
         };
 
