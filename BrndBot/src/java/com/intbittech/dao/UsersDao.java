@@ -9,6 +9,7 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.InviteDetails;
+import java.util.List;
 
 /**
  * <code> {@link UsersDao} </code> Interface to get User details from
@@ -88,4 +89,11 @@ public interface UsersDao {
      */
     public Users getUserByEmailId(String emailId) throws ProcessFailed;
     
+       /**
+     * This method pass user as input and get the {@link Users} from database
+     *
+     * @return {@link List<user>}
+     * @throws ProcessFailed the process failed
+     */
+    public List<Users>getAll()throws ProcessFailed;
 }

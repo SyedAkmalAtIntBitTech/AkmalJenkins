@@ -364,4 +364,17 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
         }
         return companyPreferencesJson.getOnBoarding();
     }
+
+    @Override
+    public void setCompanyPreferencesJson(CompanyPreferencesJson companyPreferencesJson,CompanyPreferences companyPreferences) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
+            companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
+            companyPreferencesDao.saveOrUpdate(companyPreferences);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message", new String[]{}, Locale.US));
+        }
+    }
 }

@@ -1,4 +1,3 @@
-
 <div class="overlay-content" id="emailactionsection" ng-init='hideSaveButton()' ng-show='marketingTab.isSelected(5) || yourplanTab.isSelected(5);' ng-form name="actionDetailsForm">
     <div ng-show="isProgramArchived" class="clickProofLayer"></div>
     <div class="overlay-name-bar" ng-show="isRecurring === false">
@@ -7,49 +6,47 @@
         <input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{scheduleData.schedule_type}}'/>
     </div>
     <span class="validationAlert general-action-alert " ng-if='scheduleData.schedule_title === "" || null'>{{actionNameValidation}}</span>
-
-        <div class="overlay-content" id="recurringactiondiv" ng-show="isEmailHistory">
-            <!--Email History Overlay content goes within this Div-->
-            <div class="overlay-name-bar">
-                <div class="overlay-name-bar-recurring-title" >Test Email History</div>
-            </div>
-            <div class="overlay-details-pane">
-                <div class="overlay-details-pane-header">HISTORY DETAILS</div>
-                <div class="detail-sections-wrap">
-                    <div class="detail-section-item">
-                        <label class="detail-section-label">Email tag 1</label>
-                        <p class="detail-section-data" >Email Tag</p>
-                    </div>
-                    <div class="detail-section-item">
-                        <label class="detail-section-label">56%</label>
-                        <p class="detail-section-data" >Open Rate</p>
-                    </div>
-                    <div class="detail-section-item">
-                        <label class="detail-section-label">78%</label>
-                        <p class="detail-section-data" >Click Through Rate</p>
-                    </div>
-                    <div class="detail-section-item">
-                        <label class="detail-section-label">Empty</label>
-                        <p class="detail-section-data" >Unsubscribes</p>
-                    </div>
-                </div>
-            </div>
-            <div class="overlay-content-saved-email-draft" >
-                <div class="overlay-details-pane">
-                    <div class="overlay-details-pane-header">
-                        <div >EMAIL HISTORY DETAILS</div>
-                    </div>
-                    <div class="detail-sections-wrap">
-                        <div class="detail-section"> 
-                            <div class="detail-section-item">
-                                <label class="detail-section-label">Total Emails</label>
-                                <p class="detail-section-data">5214</p>
-                            </div>
+    
+                <div class="overlay-details-pane" ng-show="isEmailHistory">
+                    <div class="overlay-details-pane-header">EMAIL HISTORY DETAILS</div>
+                    <div class="external-data-loading-wrap" ng-show="hideGifImage">
+                        <div class="external-data-loading-block">
+                            <div class="loader"></div>
+                            <div class="loader-description">Loading your content</div>
                         </div>
                     </div>
-                </div>   
-            </div>
-       </div>
+                    <div class="detail-sections-wrap" ng-if="tagerror">
+                        <div class="detail-section">
+                            <div class="detail-section-item">{{tagerror}}</div>
+                        </div>
+                    </div>
+                    <div class="detail-sections-wrap" ng-if="!tagerror" ng-repeat="tag in tagsDetails">
+                        <div class="detail-section half">
+                            <p class="detail-section-data"> {{tag.date}}</p>
+                            <label class="detail-section-label">Date</label>
+                        </div>
+                        <div class="detail-section half">
+                            <p class="detail-section-data"> {{(tag.stats[0].metrics.unique_opens / tag.stats[0].metrics.delivered) * 100 | number : 2}} %</p>
+                            <label class="detail-section-label">Open Rate</label>
+                        </div>
+                        <div class="detail-section half">
+                            <p class="detail-section-data">{{(tag.stats[0].metrics.unique_clicks / tag.stats[0].metrics.delivered) * 100 | number : 2}} %</p>
+                            <label class="detail-section-label">Click Through Rate</label>
+                        </div>
+                        <div class="detail-section half">
+                            <p class="detail-section-data">{{tag.stats[0].metrics.unsubscribes}}</p>
+                            <label class="detail-section-label">Unsubscribes</label>
+                        </div>
+                        <div class="detail-section half">
+                            <p class="detail-section-data">{{tag.stats[0].metrics.delivered}}</p>
+                            <label class="detail-section-label">Number Sent</label>
+                        </div>
+                        <div class="detail-section half">
+                            <p class="detail-section-data">{{tag.stats[0].metrics.bounces}}</p>
+                            <label class="detail-section-label">Hard Bounces</label>
+                        </div>
+                    </div>
+                </div>
                 <div class="overlay-details-pane" ng-show="isRecurring === false">
                     <div class="overlay-details-pane-header">GENERAL DETAILS</div>
                     <div class="detail-sections-wrap">
@@ -95,7 +92,7 @@
                                         var picker = new Pikaday(
                                                 {
                                                     field: document.getElementById('emaildatetime'),
-                                                    format: kGlobalDateFormat,
+                                                    format: KGlobalDatePickerFormate,
                                                     firstDay: 1,
                                                     minDate: new Date(2000, 0, 1),
                                                     maxDate: new Date(2050, 12, 31),

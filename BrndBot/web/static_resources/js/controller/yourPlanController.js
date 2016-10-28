@@ -1,5 +1,5 @@
 
-yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'appSessionFactory', 'onboardingFactory', 'activityFactory', 'utilFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, appSessionFactory, onboardingFactory, activityFactory, utilFactory) {
+yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'appSessionFactory', 'onboardingFactory', 'activityFactory', 'utilFactory', 'emailFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, appSessionFactory, onboardingFactory, activityFactory, utilFactory, emailFactory) {
 
 //$scope.iframeLoad = function (){
 //    growl($('iframe').contents().find('body').height());
@@ -125,7 +125,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 {
                     field: document.getElementById('jumptodatepicker'),
                     firstDay: 1,
-                    format: kGlobalDateFormat,
+                    format: KGlobalDatePickerFormate,
                     minDate: new Date('2000-01-01'),
                     maxDate: new Date('2050-12-31'),
                     yearRange: [2000, 2050],
@@ -149,35 +149,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         function addDays(theDate, days) {
             return new Date(theDate.getTime() + days * 24 * 60 * 60 * 1000);
         }
-
-//$(document).ready(function ()
-//{
-//     $(".calendar-dropdown").click(function (){$("#jumptodatepicker").trigger( "click" );});
-//    
-//    var picker = new Pikaday(
-//                            {
-//                                field: document.getElementById('jumptodatepicker'),
-//                                firstDay: 1,
-//                                minDate: new Date('2000-01-01'),
-//                                maxDate: new Date('2050-12-31'),
-//                                yearRange: [2000,2050],
-//                                onSelect: function() {
-//                                    var mydate=this.getMoment();
-//                                   var mydt=mydate.toLocaleString();
-//                                    var myDate = new Date(mydt);
-//                                    setCurrentDate(myDate);
-//                                }                                
-//                            });
-//                            
-//  function setCurrentDate(selected_date) {    
-//    $(".delete-button").hide();
-//    $("#liPriority").show();
-//    user_selected_date = selected_date;
-//    angular.element(document.getElementById('controllerMarketingCampaign')).scope().getCampaigns();
-//}
-
-//});
-
 
         $scope.getUserDetails = function () {
             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
@@ -473,8 +444,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.getAllUsersInCompany = function () {
             yourPlanFactory.allUsersInCompanyGet().then(function (data) {
 //                $scope.allUsers = data.d.details;
-                for(var i=0;i<data.d.details.length;i++){
-                    $scope.ddSelectUserOptions.push({"text": data.d.details[i].firstName +" "+data.d.details[i].lastName , "value": data.d.details[i].userId});
+                for (var i = 0; i < data.d.details.length; i++) {
+                    $scope.ddSelectUserOptions.push({"text": data.d.details[i].firstName + " " + data.d.details[i].lastName, "value": data.d.details[i].userId});
                 }
             });
             yourPlanFactory.noOfUsersInCompanyGet().then(function (data) {
@@ -507,7 +478,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
                 $scope.dateLesser = false;
                 var actiondate = datePicker;
-//                var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
                 utilFactory.getEpoch(actiondate, actionTime1).then(function (dateTimeEpoch) {
                     var days = 0;
                     var action = {"title": addTitle, "actiontype": actionType.value, "type": "save",
@@ -519,7 +489,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     });
                 });
             }
-            ;
         };
 
         $scope.closePopup = function () {
@@ -650,6 +619,20 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.globalScheduleData = {};
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, assignedFirstName, assignedLastName, assignedToInitialChars, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
         {
+            
+            var statsData = {"programId": programId, "actionId": schedule_id, "scheduleDateTime": schedule_time};
+            emailFactory.emailHistoryStatsGet(statsData).then(function (stats) {
+                if (stats.d.operationStatus.statusCode !== "DataError") {
+                    $scope.tagsDetails = stats.d.details[0].sendGridStats;
+                    $scope.tagerror = "";
+                } else {
+                    $scope.tagerror = categoryLoadDelay;
+                }
+            });
+            if (template_status === "Complete" && entity_type === getemail())
+                $scope.savedPreheader = 'Sent';
+            else
+                $scope.savedPreheader = 'Saved';
             $scope.dateLesser = false;
 //        $scope.entities_selected_time =schedule_time;
             var nDate = new Date(action_date + " 10:30 am"); //10:30 am save DST
@@ -688,8 +671,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             }
             var date = $scope.entities_selected_time;
             var time = $filter('date')(schedule_time, "hh:mm a");
-            $("#emaildatetime").val(action_date);
-            $("#emaildatetime1").val(action_date);
+            $("#emaildatetime").val(moment(action_date, "YYYY-MM-DD").format("MMM DD YYYY"));
+            $("#emaildatetime1").val(moment(action_date, "YYYY-MM-DD").format("MMM DD YYYY"));
             $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: date,
                 schedule_id: schedule_id, schedule_desc: schedule_desc,
                 email_template_status: template_status, schedule_type: entity_type,
@@ -1222,5 +1205,10 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 }
             });
         };
-        
+        $scope.addDateTimeOnId= function(dateid,timeId){
+            utilFactory.AddDateTimePickerOnId(dateid,timeId).then(function (dateTimeEpoch) {
+                
+                
+            });
+        };
     }]);

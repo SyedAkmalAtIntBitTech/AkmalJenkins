@@ -85,21 +85,23 @@ public class FranchiseEmailListTagLookupServiceImpl implements FranchiseEmailLis
         List<EmailListTagLookup> emailListTagLookupList = emailListTagLookupDao.getEmailListTagLookupByCompanyId(companyId);
         if (franchiseEmailListTagLookupList != null) {
             for (FranchiseEmailListTagLookup emailTag : franchiseEmailListTagLookupList) {
-                if(emailListTagLookupList != null) {
-                    TagAndEmailListDetails tagAndEmailListDetails = new TagAndEmailListDetails();
-                    tagAndEmailListDetails.setTagId(emailTag.getFkEmailListTagId().getTagId());
-                    tagAndEmailListDetails.setTagName(emailTag.getFkEmailListTagId().getTagName());
+                TagAndEmailListDetails tagAndEmailListDetails = new TagAndEmailListDetails();
+                tagAndEmailListDetails.setTagId(emailTag.getFkEmailListTagId().getTagId());
+                tagAndEmailListDetails.setTagName(emailTag.getFkEmailListTagId().getTagName());
+                if (emailListTagLookupList != null) {
+
                     for (EmailListTagLookup emailListTag : emailListTagLookupList) {
-                        if(emailTag.getFkEmailListTagId().getTagId() == emailListTag.getFkEmailListTagId().getTagId()) {
+                        if (emailTag.getFkEmailListTagId().getTagId() == emailListTag.getFkEmailListTagId().getTagId()) {
                             tagAndEmailListDetails.setEmailListTagId(emailListTag.getEmailListTagId());
                             tagAndEmailListDetails.setEmailListId(emailListTag.getFkEmailListId().getEmailListId());
                             tagAndEmailListDetails.setEmailListName(emailListTag.getFkEmailListId().getEmailListName());
                             break;
                         }
-                            
+
                     }
-                    tagAndEmailListDetailsList.add(tagAndEmailListDetails);
+
                 }
+                tagAndEmailListDetailsList.add(tagAndEmailListDetails);
             }
         }
         return tagAndEmailListDetailsList;

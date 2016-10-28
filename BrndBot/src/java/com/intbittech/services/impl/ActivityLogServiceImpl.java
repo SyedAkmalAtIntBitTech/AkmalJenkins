@@ -48,7 +48,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor = ProcessFailed.class)
 public class ActivityLogServiceImpl implements ActivityLogService {
 
-    private static Logger logger = Logger.getLogger(ActivityLogServiceImpl.class);  
+    private static Logger logger = Logger.getLogger(ActivityLogServiceImpl.class);
     public final int DefaultPollingInterval = 60;//5 mins
     public final int InitialDelayPollingInterval = 10;//5 mins
 
@@ -65,10 +65,10 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     private UsersService usersService;
 
     private ActivityLogDetails activityLogDetails;
-    
+
     @Autowired
     private EmailServiceProviderService emailServiceProviderService;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -135,7 +135,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
      */
     @Async
     public void saveActivityLog(ActivityLogDetails activityLogDetails) throws ProcessFailed {
-        try{
+        try {
             ActivityLog activityLog = new ActivityLog();
             ScheduledEntityList scheduledEntityList = new ScheduledEntityList();
             scheduledEntityList.setScheduledEntityListId(activityLogDetails.getScheduledEntityId());
@@ -151,12 +151,12 @@ public class ActivityLogServiceImpl implements ActivityLogService {
             activityLog.setCreatedAt(new Date());
             activityLog.setFkActivityId(activity);
             activityLogDao.save(activityLog);
-            switch (activityLogDetails.getActivityId()){
+            switch (activityLogDetails.getActivityId()) {
                 case 1:
 //                        ACTIVITY_CREATED_ACTION_ID
 
                     if (activityLogDetails.getAssignedTo() != null && activityLogDetails.getAssignedTo() != 0) {
-                        sendNotificationEmail(activityLogDetails.getActivityId(),createdBy.getUserName(), Utility.combineUserName(createdBy),
+                        sendNotificationEmail(activityLogDetails.getActivityId(), createdBy.getUserName(), Utility.combineUserName(createdBy),
                                 company.getCompanyName(), activityLogDetails.getActionTitle(), createdBy.getUserName());
                     }
                     break;
@@ -167,7 +167,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                         assignedTo.setUserId(activityLogDetails.getAssignedTo());
                         activityLog.setAssignedTo(assignedTo);
                         Users sendToUser = usersService.getUserById(activityLogDetails.getAssignedTo());
-                        sendNotificationEmail(activityLogDetails.getActivityId(),sendToUser.getUserName(), Utility.combineUserName(sendToUser),
+                        sendNotificationEmail(activityLogDetails.getActivityId(), sendToUser.getUserName(), Utility.combineUserName(sendToUser),
                                 company.getCompanyName(), activityLogDetails.getActionTitle(), createdBy.getUserName());
                     }
                     break;
@@ -178,27 +178,36 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                         assignedTo.setUserId(activityLogDetails.getAssignedTo());
                         activityLog.setAssignedTo(assignedTo);
                         Users sendToUser = usersService.getUserById(activityLogDetails.getAssignedTo());
-                        sendNotificationEmail(activityLogDetails.getActivityId(),sendToUser.getUserName(), Utility.combineUserName(sendToUser),
+                        sendNotificationEmail(activityLogDetails.getActivityId(), sendToUser.getUserName(), Utility.combineUserName(sendToUser),
                                 company.getCompanyName(), activityLogDetails.getActionTitle(), createdBy.getUserName());
                     }
                     break;
-                case 4:break;
+                case 4:
+                    break;
 //                        ACTIVITY_ADDED_TEMPLATE_ID
-                case 5:break;
+                case 5:
+                    break;
 //                        ACTIVITY_UPDATED_TEMPLATE_ID
-                case 6:break;
+                case 6:
+                    break;
 //                        ACTIVITY_REMOVED_TEMPLATE_ID
-                case 7:break;
+                case 7:
+                    break;
 //                        ACTIVITY_UPDATED_ACTION_ID
-                case 8:break;
+                case 8:
+                    break;
 //                        ACTIVITY_APPROVED_ACTION_ID
-                case 9:break;
+                case 9:
+                    break;
 //                        ACTIVITY_DISAPPROVED_ACTION_ID
-                case 10:break;
+                case 10:
+                    break;
 //                        ACTIVITY_DELETED_COMMENT_ACTION_ID
-                case 11:break;
+                case 11:
+                    break;
 //                        ACTIVITY_PLAY_ACTION_ID
-                case 12:break;
+                case 12:
+                    break;
 //                        ACTIVITY_PAUSE_ACTION_ID
             }
 
@@ -214,27 +223,28 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     /* Alternate asynchronous method using runnable */
     @Async
     public void activityLogSave(ActivityLogDetails activityLogDetails) throws ProcessFailed {
-        try{
+        try {
             final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(5);
 
             SaveActivityLog saveActivityLog = new SaveActivityLog(activityLogDetails);
 
             scheduler.scheduleAtFixedRate(saveActivityLog, InitialDelayPollingInterval, DefaultPollingInterval, TimeUnit.SECONDS);
-            
-        }catch (Throwable throwable){
+
+        } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("activity_save_problem", new String[]{}, Locale.US));
         }
     }
+
     @Async
-    public Boolean sendNotificationEmail(Integer activityId, String toEmailId, String userName, 
-                                         String company, String actionTitle, String createdBy)throws ProcessFailed {
+    public Boolean sendNotificationEmail(Integer activityId, String toEmailId, String userName,
+            String company, String actionTitle, String createdBy) throws ProcessFailed {
 
         String body = null;
         try {
             String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
-            
-            switch (activityId){
+
+            switch (activityId) {
                 case 1:
                     body = messageSource.getMessage("notification_message_activity_created_action", new String[]{}, Locale.US);
                     body = body.replace("%t", actionTitle);
@@ -269,12 +279,12 @@ public class ActivityLogServiceImpl implements ActivityLogService {
             String subject = messageSource.getMessage("notification_subject", new String[]{}, Locale.US);
             String formattedSubject = String.format(subject, companyName);
             Mail mail = new Mail(null, formattedSubject, emailTo, content);
-            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply);
+            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, 0);
             return true;
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("mail_send_problem", new String[]{}, Locale.US));
         }
     }
-    
+
 }

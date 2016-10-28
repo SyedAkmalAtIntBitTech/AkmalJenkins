@@ -7,7 +7,9 @@ package com.controller;
 
 import com.intbittech.schedulers.MindbodyEmailListScheduler;
 import com.intbittech.schedulers.SocialPostScheduler;
+import com.intbittech.utility.CompanyPreferencesDBUtil;
 import com.intbittech.utility.EmailListDBUtility;
+import com.intbittech.utility.UserPreferencesDBUtil;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
@@ -89,8 +91,12 @@ public class ApplicationContextListener implements ServletContextListener {
 //        socialPostScheduler.startEmailScheduler();
 //        socialPostScheduler.startRecurringEmailScheduler();
         
-        //Processor to convert emaillist and contacts from JSON to Tables
+//        Processor to convert emaillist and contacts from JSON to Tables
 //        EmailListDBUtility.emailListJSONToTable();
+//        process companypreferenceJSon column from companypreference table and add onBoading json if not exist
+//       CompanyPreferencesDBUtil.companyPreferenceListJSONToTable();
+//        process users table and add random profileColor in userPreference Column if userColor not exist
+//       UserPreferencesDBUtil.usersListJSONToTable();
     }
 
     @Override

@@ -5,6 +5,7 @@
  */
 package com.intbittech.services.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intbittech.dao.SendGridSubUserDetailsDao;
 import com.intbittech.dao.UserRoleCompanyLookUpDao;
 import com.intbittech.enums.AdminStatus;
@@ -12,8 +13,11 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.SendGridSubUserDetails;
 import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.modelmappers.UserDetails;
+import com.intbittech.sendgrid.models.SendGridAPIDetails;
 import com.intbittech.services.SendGridSubUserDetailsService;
+import java.io.IOException;
 import java.util.Locale;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -45,6 +49,43 @@ public class SendGridSubUserDetailsServiceImpl implements SendGridSubUserDetails
             throw new ProcessFailed(messageSource.getMessage("send_grid_sub_user_details", new String[]{}, Locale.US));
         }
         return sendGridSubUserDetails;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public SendGridSubUserDetails getByUserId(Integer userId) throws ProcessFailed {
+        SendGridSubUserDetails sendGridSubUserDetails = gridSubUserDetailsDao.getByUserId(userId);
+        if (sendGridSubUserDetails == null) {
+            throw new ProcessFailed(messageSource.getMessage("send_grid_sub_user_details", new String[]{}, Locale.US));
+        }
+        return sendGridSubUserDetails;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public SendGridSubUserDetails getByCompanyId(Integer companyId) throws ProcessFailed {
+        SendGridSubUserDetails sendGridSubUserDetails = gridSubUserDetailsDao.getByCompanyId(companyId);
+        if (sendGridSubUserDetails == null) {
+            throw new ProcessFailed(messageSource.getMessage("send_grid_sub_user_details", new String[]{}, Locale.US));
+        }
+        return sendGridSubUserDetails;
+    }
+    
+    public SendGridAPIDetails getSendGridAPIDetailsByCompanyId(Integer companyId) throws ProcessFailed {
+        SendGridAPIDetails sendGridAPIDetails = new SendGridAPIDetails();
+        ObjectMapper mapper = new ObjectMapper();
+        
+        SendGridSubUserDetails sendGridSubUserDetails = getByCompanyId(companyId);
+        String emailAPIKeyString = sendGridSubUserDetails.getEmailAPIKey();
+        try {
+            sendGridAPIDetails = mapper.readValue(emailAPIKeyString, SendGridAPIDetails.class);
+        } catch (IOException ex) {
+            throw new ProcessFailed(messageSource.getMessage("something_wrong", new String[]{}, Locale.US));
+        }
+        
+        return sendGridAPIDetails;       
     }
 
     /**

@@ -8,6 +8,7 @@ package com.intbittech.services;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.SendGridSubUserDetails;
 import com.intbittech.modelmappers.UserDetails;
+import com.intbittech.sendgrid.models.SendGridAPIDetails;
 
 /**
  * <code>{@link SendGridSubUserDetailsService}</code> is service layer interface for
@@ -26,6 +27,36 @@ public interface SendGridSubUserDetailsService {
      * @throws ProcessFailed the process failed
      */
     public SendGridSubUserDetails getBySendGridSubUserDetailsId(Integer sendGridSubUserDetailsId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link SendGridSubUserDetails} from DAO
+     * layer.
+     *
+     * @param userId
+     * @return {@link SendGridSubUserDetails}
+     * @throws ProcessFailed the process failed
+     */
+    public SendGridSubUserDetails getByUserId(Integer userId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link SendGridSubUserDetails} from DAO
+     * layer.
+     *
+     * @param companyId
+     * @return {@link SendGridSubUserDetails}
+     * @throws ProcessFailed the process failed
+     */
+    public SendGridSubUserDetails getByCompanyId(Integer companyId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link SendGridSubUserDetails} from DAO
+     * layer.
+     *
+     * @param companyId
+     * @return {@link SendGridSubUserDetails}
+     * @throws ProcessFailed the process failed
+     */
+    public SendGridAPIDetails getSendGridAPIDetailsByCompanyId(Integer companyId) throws ProcessFailed;
     
     /**
      * This method save {@link SendGridSubUserDetails} into the database.

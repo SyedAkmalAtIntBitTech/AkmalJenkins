@@ -22,6 +22,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.emailAddressValidation = emailAddressValidation;
         $scope.emailaddrValidation = emailaddrValidation;
         $scope.passwordValidation = passwordValidation;
+        $scope.newPassword8CharValidation = "Password needs to be atleast 8 characters long";
         $scope.confirmPasswordValidation = confirmPasswordValidation;
         $scope.confirmPasswordMissmatch = confirmPasswordMissmatch;
         $scope.uniqueUserValidation = uniqueUserValidation;
@@ -92,6 +93,10 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 $scope.uniqueUser = false;
                 $scope.createEmailValidation = false;
                 $scope.userDetails = {userName: userDetails.userName, userPassword: ""};
+                $("#passwordsignup").focus();
+                return false;
+            }
+            if(userDetails.userPassword.length < 8) {
                 $("#passwordsignup").focus();
                 return false;
             }

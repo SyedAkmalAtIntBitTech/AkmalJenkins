@@ -39,16 +39,18 @@ public class SendGridSubUserDetails implements Serializable {
     @Basic(optional = false)
     @Column(name = "send_grid_user_id")
     private String sendGridUserId;
-    @Basic(optional = false)
     @Column(name = "ips")
     @Type(type = "StringJsonObject")
     private String ips;
     @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Company fkCompanyId;
     @JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")
     @ManyToOne(optional = false)
     private Users fkUserId;
+    @Column(name = "email_api_key")
+    @Type(type = "StringJsonObject")
+    private String emailAPIKey;
 
     public SendGridSubUserDetails() {
     }
@@ -101,5 +103,13 @@ public class SendGridSubUserDetails implements Serializable {
 
     public void setFkUserId(Users fkUserId) {
         this.fkUserId = fkUserId;
+    }
+
+    public String getEmailAPIKey() {
+        return emailAPIKey;
+    }
+
+    public void setEmailAPIKey(String emailAPIKey) {
+        this.emailAPIKey = emailAPIKey;
     }
 }
