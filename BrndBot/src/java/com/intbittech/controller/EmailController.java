@@ -161,10 +161,20 @@ public class EmailController {
             for (Integer i = 0; i < categoriesArray.length; i++) {
                 categories.add(categoriesArray[i].trim());
             }
-            Date endDate = emailSentHistoryList.getTimeSent();
+            Date endDate = new Date();//emailSentHistoryList.getTimeSent();
             Date startDate = emailSentHistoryList.getTimeSent();
             SendGridStatsList sendGridStats = emailServiceProviderService.getStatsByCategory(userId.toString(), categories, startDate, endDate, companyId);
-            genericResponse.addDetail(sendGridStats);
+
+            SendGridStatsList cleanedSendGridStats = new SendGridStatsList();
+            List<SendGridStats> sendGridStatsList = new ArrayList<>();
+            for (SendGridStats stats : sendGridStats.getSendGridStats()) {
+                if (Utility.isStatsWithData(stats)) {
+                    sendGridStatsList.add(stats);
+                }
+            }
+            cleanedSendGridStats.setSendGridStats(sendGridStatsList);
+
+            genericResponse.addDetail(cleanedSendGridStats);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {
@@ -182,10 +192,19 @@ public class EmailController {
             List<String> categories = new ArrayList<>();
             categories.add(MarketingProgramUtility.getMarketingProgramCategory(programId));
             categories.add(MarketingProgramUtility.getMarketingProgramActionCategory(actionId));
-            Date endDate = new Date(scheduleDateTime);
+            Date endDate = new Date();//new Date(scheduleDateTime);
             Date startDate = new Date(scheduleDateTime);
             SendGridStatsList sendGridStats = emailServiceProviderService.getStatsByCategory(userId.toString(), categories, startDate, endDate, companyId);
-            genericResponse.addDetail(sendGridStats);
+            SendGridStatsList cleanedSendGridStats = new SendGridStatsList();
+            List<SendGridStats> sendGridStatsList = new ArrayList<>();
+            for (SendGridStats stats : sendGridStats.getSendGridStats()) {
+                if (Utility.isStatsWithData(stats)) {
+                    sendGridStatsList.add(stats);
+                }
+            }
+            cleanedSendGridStats.setSendGridStats(sendGridStatsList);
+
+            genericResponse.addDetail(cleanedSendGridStats);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {
@@ -195,6 +214,8 @@ public class EmailController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
     
+    
+
     @RequestMapping(value = "/recurringEmailHistoryStats", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> recurringEmailHistoryStats(HttpServletRequest request,
             HttpServletResponse response, @RequestParam("userId") Integer userId, @RequestParam("companyId") Integer companyId, @RequestParam("actionId") Integer actionId, @RequestParam("programId") Integer programId) {
@@ -204,14 +225,14 @@ public class EmailController {
             categories.add(MarketingProgramUtility.getMarketingProgramCategory(programId));
             categories.add(MarketingProgramUtility.getMarketingProgramRecuringActionCategory(actionId));
             Date endDate = new Date();
-            Calendar cal = Calendar.getInstance();		
-            cal.add(Calendar.DATE, -730);		
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DATE, -730);
             Date startDate = cal.getTime();
             SendGridStatsList cleanedSendGridStats = new SendGridStatsList();
             List<SendGridStats> sendGridStatsList = new ArrayList<>();
             SendGridStatsList sendGridStats = emailServiceProviderService.getStatsByCategory(userId.toString(), categories, startDate, endDate, companyId);
-            for(SendGridStats stats: sendGridStats.getSendGridStats()) {
-                if(stats.getStats().get(0).getMetrics().getDelivered() > 0) {
+            for (SendGridStats stats : sendGridStats.getSendGridStats()) {
+                if (Utility.isStatsWithData(stats)) {
                     sendGridStatsList.add(stats);
                 }
             }

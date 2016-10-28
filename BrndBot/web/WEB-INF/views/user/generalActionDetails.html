@@ -23,6 +23,10 @@
         </div>
         <div class="detail-sections-wrap" ng-if="!tagerror" ng-repeat="tag in tagsDetails">
             <div class="detail-section half">
+                <p class="detail-section-data"> {{tag.date}}</p>
+                <label class="detail-section-label">Date</label>
+            </div>
+            <div class="detail-section half">
                 <p class="detail-section-data"> {{(tag.stats[0].metrics.unique_opens / tag.stats[0].metrics.delivered) * 100 | number : 2}} %</p>
                 <label class="detail-section-label">Open Rate</label>
             </div>

@@ -18,6 +18,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import com.intbittech.model.EmailInfo;
 import com.intbittech.model.UserCompanyIds;
+import com.intbittech.sendgrid.models.SendGridStats;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.simple.JSONArray;
@@ -181,6 +182,13 @@ public class Utility {
 
         String name = String.valueOf(firstName.charAt(0)) + String.valueOf(lastName.charAt(0));
         return name;
+    }
+    
+    public static Boolean isStatsWithData(SendGridStats stats) {
+        Boolean isStatsWithData = false;
+        if(stats.getStats().get(0).getMetrics().getBlocks() > 0 || stats.getStats().get(0).getMetrics().getBounceDrops() > 0 || stats.getStats().get(0).getMetrics().getBounces() > 0 || stats.getStats().get(0).getMetrics().getClicks() > 0 || stats.getStats().get(0).getMetrics().getDeferred() > 0 || stats.getStats().get(0).getMetrics().getInvalidEmails() > 0 || stats.getStats().get(0).getMetrics().getOpens() > 0 || stats.getStats().get(0).getMetrics().getProcessed() > 0 || stats.getStats().get(0).getMetrics().getRequests() > 0 || stats.getStats().get(0).getMetrics().getSpamReportDrops() > 0 || stats.getStats().get(0).getMetrics().getSpamReports() > 0 || stats.getStats().get(0).getMetrics().getUniqueClicks() > 0 || stats.getStats().get(0).getMetrics().getUniqueOpens() > 0 || stats.getStats().get(0).getMetrics().getUnsubscribeDrops() > 0)
+            isStatsWithData = true;
+        return isStatsWithData;
     }
 
 }
