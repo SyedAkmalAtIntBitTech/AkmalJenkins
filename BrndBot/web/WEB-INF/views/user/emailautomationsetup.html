@@ -15,7 +15,7 @@
                 </div>
                 <span class="validationAlert" ng-if='automationData.title === "" || null'>{{actionNameValidation}}</span>
 
-                <p class="input-wrap-label"> Make this something that your clients will recognize</p>
+                <p class="input-wrap-label"> This is for internal use only</p>
             </div>
             <div class="input-wrap">
                 <label> Enter a description</label>
@@ -24,7 +24,7 @@
                            placeholder="Enter description of email" ng-model="automationData.description" value="{{entity_details.recurring_email_description}}" class="fluid"/>
                     <span class="validationAlert" ng-if='automationData.description === "" || null'>{{descriptionValidation}}</span>
 
-                    <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
+                    <p class="input-wrap-label"> This is for internal use only.</p>
                 </div>
             </div>
         </div>
@@ -102,7 +102,7 @@
                 </div>
                 <span class="validationAlert" ng-if='automationData.subject === "" || null'>{{subjectValidation}}</span>
 
-                <p class="input-wrap-label"> Make this something that your clients will recognize</p>
+                <p class="input-wrap-label"> This is the subject line your clients will see in their inbox</p>
             </div>
             <div class="input-wrap">
                 <label> Enter a from name</label>
@@ -111,7 +111,7 @@
                            value="{{entity_details.recurring_email_from_name}}"/>
                     <span class="validationAlert" ng-if='automationData.fromName === "" || null'>{{fromNameValidation}}</span>
 
-                    <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
+                    <p class="input-wrap-label"> Make this something that your clients will recognize</p>
                 </div>
             </div>
             <div class="input-wrap">
@@ -121,7 +121,7 @@
                            value="{{entity_details.recurring_email_from_address}}"/>
                     <span class="validationAlert" ng-if='automationData.fromAddress === "" || null'>{{fromAddressValidation}}</span>
                     <span class="validationAlert" ng-if="validateFromEmailAddress">{{fromAddressValidation}}</span>
-                    <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
+                    <p class="input-wrap-label"> Make this something that your clients will recognize</p>
                 </div>
             </div>
             <div class="input-wrap">

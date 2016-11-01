@@ -1,16 +1,25 @@
-     <div class="bb-top-nav" ng-init="getUserDetails();marketingTab.selectTab(1);">
+
+    <div  ng-init="getUserDetails();marketingTab.selectTab(1);">
+    <div class="bb-top-nav">
          <div class="bb-bar-left-wrap bb-one-third-flex-col">
-             <h3 class="bb-top-nav-title">Marketing Campaigns</h3>
+             <h3 class="bb-top-nav-title">Your Marketing Campaigns</h3>
          </div>
          <div class="bb-bar-right-wrap bb-one-third-flex-col">
              <div class="bb-help-icon">help icon</div>
-             <div class="bb-user-profile-dropdown-wrap" ng-click="userSettings=true">
-                 <div class="bb-user-profile-user-name">{{userFirstName}} {{userLastName}}</div>
+             <div class="bb-user-profile-dropdown-wrap"  ng-click="userSettings=true">
+                 <div class="bb-user-badge bb-action-comment-user-badge" style="background-color: {{userColor}}">
+                     <div style="color:#444">{{userFirstNameInitial}}{{userLastNameInitial}}</div>
+                 </div>
+                 <div class="bb-user-name-company-wrap">
+                     <div class="bb-user-profile-user-name"><b>{{userFirstName}}</b></div>
+                      <div class="bb-user-profile-company-name">{{companyName}}</div>
+                 </div>
                  <img type="image/svg+xml" src="/BrndBot/images/dropdown.svg" class="hub-dropdown-icon" style="cursor:pointer;"/>
              </div>
              <div ng-include src="'usersettingsDropDown.html'" class="bb-user-settings-dropdown-target"></div>
          </div>
      </div>
+</div>
     <div class="bb-top-sub-nav"  ng-click="userSettings=false">
         <div class="bb-top-sub-nav-tab"  ng-click="marketingTab.selectTab(1)" ng-class="{activeCampaign:marketingTab.isSelected(1)}" id="curmarprog">Current Campaigns</div>
         <div class="bb-top-sub-nav-tab " ng-click="getUserMarketingProgramsClosed('marketingprogramactions');marketingTab.selectTab(2)" ng-class="{activeCampaign:marketingTab.isSelected(2)}">Archived Campaigns</div>

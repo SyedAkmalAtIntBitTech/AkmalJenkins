@@ -6,12 +6,12 @@
             </a>
             <h3 class="bb-top-nav-title">{{generalActionDetailsHeader}} Action Detail</h3>
         </div>
-        <div class="bb-bar-right-wrap bb-one-half-flex-col" ng-show="pushedEmail==false">
-            <a  class="status-button template-not-approved" ng-show="action_template_status === 'Template Saved' && !isProgramArchived" ng-click="Approval(schedule_id, 'approved', masterActionType)" style="padding: 10px 0px 10px 0px;width: 100px;">
-                <label>{{templateApproveButton}}</label>
+        <div class="bb-bar-right-wrap bb-one-half-flex-col bb-overlay-header-cta-wrap" ng-show="pushedEmail==false">
+            <a  class="bb-button bb-primary-action-button" ng-show="action_template_status === 'Template Saved' && !isProgramArchived" ng-click="Approval(schedule_id, 'approved', masterActionType)">
+                {{templateApproveButton}}
             </a>
-             <a class="status-button template-not-approved" id="marketingemailapprove" ng-show="action_template_status === 'Approved' && !isProgramArchived" ng-click="Approval(schedule_id, 'template_saved', masterActionType)"  style="padding: 10px 0px 10px 0px;width: 105px;">
-                <label>{{templateDisapproveButton}}</label>
+             <a class="bb-button bb-default-action-button" id="marketingemailapprove" ng-show="action_template_status === 'Approved' && !isProgramArchived" ng-click="Approval(schedule_id, 'template_saved', masterActionType)"  >
+                {templateDisapproveButton}}
             </a>
             <div ng-hide="isProgramArchived" class="action-delete-button" ng-click="isDeletePromptOpen(true);promptHideShow(false)" ></div>
             <div ng-show="clickedDeleteAction" class="action-pop-up delete-action-pop-up ease-all">

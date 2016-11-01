@@ -1,19 +1,28 @@
 
 <div ng-include src="'addaction.html'"></div>
 <div ng-include src="'usersettingpopup.html'"></div>
-    <div class="bb-top-nav" ng-init="getUserDetails()">
+ 
+  <div  ng-init="getUserDetails()">
+    <div class="bb-top-nav">
          <div class="bb-bar-left-wrap bb-one-third-flex-col">
              <h3 class="bb-top-nav-title">Your Plan</h3>
          </div>
          <div class="bb-bar-right-wrap bb-one-third-flex-col">
              <div class="bb-help-icon">help icon</div>
-             <div class="bb-user-profile-dropdown-wrap" ng-init="getUserDetails()" ng-click="userSettings=true">
-                 <div class="bb-user-profile-user-name">{{userFirstName}} {{userLastName}}</div>
+             <div class="bb-user-profile-dropdown-wrap"  ng-click="userSettings=true">
+                 <div class="bb-user-badge bb-action-comment-user-badge" style="background-color: {{userColor}}">
+                     <div style="color:#444">{{userFirstNameInitial}}{{userLastNameInitial}}</div>
+                 </div>
+                 <div class="bb-user-name-company-wrap">
+                     <div class="bb-user-profile-user-name"><b>{{userFirstName}}</b></div>
+                      <div class="bb-user-profile-company-name">{{companyName}}</div>
+                 </div>
                  <img type="image/svg+xml" src="/BrndBot/images/dropdown.svg" class="hub-dropdown-icon" style="cursor:pointer;"/>
              </div>
              <div ng-include src="'usersettingsDropDown.html'" class="bb-user-settings-dropdown-target"></div>
          </div>
      </div>
+</div>
     <div class="bb-top-sub-nav" ng-init="getAllUsersInCompany()">
         <a href="javascript:void(0)" class="bb-button bb-primary-action-button bb-add-action" id="liPriority" ng-click="ShowAddAction()">Add Action</a>
         <div class="" ng-click="setCurrentDateActions()">
@@ -103,15 +112,15 @@
                                 <h2 ng-show="entitydetails.entity_type == master_facebook || entitydetails.entity_type == master_twitter">{{entitydetails.entity_type}}</h2>
                                 <h2 ng-show="entitydetails.entity_type == master_email">{{entitydetails.entity_type}}</h2>
                                 <h2 ng-show="entitydetails.entity_type == master_note">Task</h2>
-                                <p>Action Type</p>
+                               
                             </div>
                         </div>
 
 
-                        <div class="slat-detail-wrap slat-detail-wrap-your-plan">
-                            <div class="slat-detail">
-                                <h2>{{entitydetails.assignedFirstName}}&nbsp;{{entitydetails.assignedLastName}}</h2>
-                                <p>Assigned To</p>
+                        <div class="slat-detail-wrap slat-detail-wrap-your-plan" >
+                            <div class="slat-detail" ng-hide="entitydetails.assignedFirstName == undefined">
+                                <h2>{{entitydetails.assignedToInitialChars}}</h2>
+                                
                             </div>
                         </div>
 
