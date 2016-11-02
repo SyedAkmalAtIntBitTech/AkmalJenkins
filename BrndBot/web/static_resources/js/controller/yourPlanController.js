@@ -1208,8 +1208,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
         $scope.addDateTimeOnId= function(dateid,timeId){
             utilFactory.AddDateTimePickerOnId(dateid,timeId).then(function (dateTimeEpoch) {
-                
-                
             });
         };
     }]);

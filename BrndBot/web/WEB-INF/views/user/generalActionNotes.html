@@ -14,28 +14,13 @@
 
                     <div class="detail-section half">
                         <label class="detail-section-label">Action Assignment</label>
-<!--                        <a class="overlay-detail-input  ease-all"  ng-click = "openChangeUserDD(true)">
-                            <div class="user-badge" style="height:30px; width:30px; line-height: 30px; text-align: center; margin-right: 15px; border-radius: 30px; background-color:lightblue; font-size: 14px; font-weight: bold; color: white;">{{assignedToInitialChars}}</div>
-                            <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">{{assignedFirstName}} {{assignedLastName}}</span>
-                        </a>-->
                          <div class="invalidDropdown bb-dropdown-padding" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="ChangeUserOnChange(selected)"></div>
-                          <!--<a id="addactionClose" ng-click = "openChangeUserDD(false)" class="modal-pane-header-exit"></a>-->  
                     </div>
 
                     <div ng-show="changeUsers" class="detail-section half">
-                       
                         <div class="invalidDropdown" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="ChangeUserOnChange(selected)"></div>
                     </div>
-    <!--
-    <div id="facebooknotesection1" ng-show='generalNotes'>
-    <div class="below-nav-container-saved-post-detail">
-    <div class="inner-content-container-detail">
-        <div class="inner-content-detail">
-            <div class="saved-note-detail">
-                <div class="notes-container">
-                    <textarea ng-model="scheduleData.schedule_desc" class="notes-container-textarea" name="fb_description" id="fb_description{{scheduleData.schedule_id}}">{{scheduleData.schedule_desc}}</textarea>
-    development branch-->
-                </div>
+        </div>
 
         </div>
         <div class="email-preview-bar" ng-init="getActionComments(schedule_id)">ACTION COMMENTS</div>
