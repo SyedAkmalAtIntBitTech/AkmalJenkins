@@ -40,7 +40,7 @@
         </div>
         
         <!--Below Nav-->
-        <div class="overlay-content-saved-email-draft" ng-show="isTask == true">
+        <div class="overlay-content-saved-email-draft" ng-show="yourplanTab.isSelected(5);marketingTab.isSelected(5);">
             <div hidden="" id="note_desc" class="instruction-text">{{scheduleData.schedule_desc}}</div>
             <div class="overlay-name-bar">
                 <input  size="40" type="text" id="edit_note_title" ng-change="showReminderSaveButton()" ng-model="scheduleData.schedule_title"  name="edit_note_title" value="{{scheduleData.schedule_title}}" />
@@ -108,13 +108,13 @@
             <div ng-init="getActionComments(schedule_id)">
             <div class="overlay-details-pane" ng-show="isRecurring === false">
                     <div class="overlay-details-pane-header">ACTION ACTIVITY</div>
-                    <div class="detail-sections-wrap">
+                    <div class="detail-sections-wrap" style="display:block;">
                         <!--PUT ACTIVITY HERE-->
                     <div class="action" style="padding:0px 30px;  border-radius: 3px;  "ng-repeat="comment in comments">
                         <div style="background-color:white;">
                         <div style="display: inline-flex;" ng-show="comment.isActivity==true">
-        <!--                    <div style="height:30px; width:30px; line-height: 30px; text-align: center; margin-right: 10px; border-radius: 30px; background-color:lightblue; font-size: 14px; font-weight: bold; color: white;">{{comment.initials}}
-                            </div>-->
+                            <div style="height:30px; width:30px; line-height: 30px; text-align: center; margin-right: 10px; border-radius: 5px; background-color: {{userColor}} ; font-size: 14px; font-weight: bold; color: white;">{{userInitials}}
+                            </div>
                             <span style="margin: 0px 5px; line-height: 10px; font-size: 12px; color:#3f3f42;"><b>{{comment.createdByFirstName}} {{comment.createdByLastName}}</b></span>
                             <span style="margin: 0px 5px; line-height: 10px; font-size: 12px; color:#3f3f42;">{{comment.activityName}} </span>
                             <span style="margin: 0px 5px; line-height: 10px; font-size: 12px; color:#3f3f42;">{{comment.assignedToFirstName}} {{comment.assignedToLastName}}</span>
