@@ -6,13 +6,11 @@
 package com.intbittech.services.impl;
 
 import com.controller.ApplicationContextListener;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intbittech.AppConstants;
 import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.UserRoleCompanyLookUpDao;
 import com.intbittech.dao.UsersDao;
-import com.intbittech.dao.UsersInviteDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.Invite;
@@ -46,7 +44,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
 import javax.servlet.ServletContext;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
