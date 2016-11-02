@@ -53,6 +53,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
 
+
         $scope.getCompanyStatus = function() {
             appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
                 $scope.isCurrentCompanyInFranchise = isCurrent;

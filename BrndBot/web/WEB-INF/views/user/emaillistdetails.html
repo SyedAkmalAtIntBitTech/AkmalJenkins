@@ -30,14 +30,15 @@
 
         <div class="bb-top-sub-nav bb-top-sub-nav-backbutton-offset">
             <div class="bb-top-sub-nav-tab"  id="emailListli" ng-click="marketingHubTab.selectTab(5);showUpdateList()"><a  ng-class="{activeTab:marketingHubTab.isSelected(5)}">Email List Contacts</a></div>
-           <div class="bb-top-sub-nav-tab"  id="importListli" ng-click="marketingHubTab.selectTab(6);showAddContacts()"><a id="importList" ng-class="{activeTab:marketingHubTab.isSelected(6)}">Add Contacts</a></div>
+           <div class="bb-top-sub-nav-tab"  id="importListli" ng-click="marketingHubTab.selectTab(6);showAddContacts()"><a id="importList" ng-class="{activeTab:marketingHubTab.isSelected(6)}">Add Multiple Contacts</a></div>
         </div>
     <!--Main Content--> 
     <div class="bb-main-content-wrap bb-main-content-wrap-emaillist bb-main-content-wrap-padding" ng-show="marketingHubTab.isSelected(5)">
     <div class="bb-panel-full-width bb-panel-styling" ng-init="updateList()">
             <div class="bb-panel-header">
                 <h2 class="">Email List Contacts</h2>
-                <input type="text" placeholder="Search" ng-model="userSearch">
+                <input class="input" type="text" placeholder="Search" ng-model="userSearch">
+                <a class="bb-button bb-default-action-button" ng-click="addContactDetails('add','','','','')"> Add Contact</a>
             </div>
             <div class="bb-panel-full-width bb-panel-styling-content-wrap">
                 
@@ -59,7 +60,7 @@
                     </div>
                     
                       <!--User Created List-->
-                    <div class="bb-slat" ng-repeat="email in user_emailAddresses | filter:userSearch">
+                    <div class="bb-slat-no-hover" ng-repeat="email in user_emailAddresses | filter:userSearch">
                         <div class="selection-container col-5p fleft"> 
                             <div class="selection-icon" id="{{email.contactLookupId}}" ng-click="selectedEmailListCheckbox(email.contactLookupId)">
                                 <input type="checkbox" id="emailid{{email.fkContactId.emailAddress}}" value="{{email.fkContactId.emailAddress}}" name="emaillistname" hidden></input>
@@ -85,7 +86,7 @@
                     </div>
                     
                     <!--MINDBDOY Connected Email List-->
-                    <div class="slat" ng-repeat="email in mindbody_emailAddresses">
+                    <div class="bb-slat-no-hover" ng-repeat="email in mindbody_emailAddresses">
 <!--                 <div class="selection-container col-5p fleft" id="hideformindbdy"> 
                         </div>                 -->
                         <div class="slat-name-wrap">
@@ -116,24 +117,36 @@
             <div class="bb-panel-full-width bb-panel-styling">
             <div class="bb-panel-header">
                 <h2 class="">Import Email Addresses into {{emailListName}}</h2>
-                <div id="addcontact" class="bb-button add-button" ng-click="addContactDetails('add','','','','')"> Add Contact</div>
+               
             </div>
-            <div class="bb-panel-full-width bb-panel-styling-content-wrap" >
-                
-                <div id="emailsubjectdiv">
-           
-
-                <div class="col-md-7 col-md-offset-0">
-                    <label style="padding-top: 20px;">Upload CSV</label><br><br>
+            <div class="bb-panel-content-wrap" >
+               
+                    <div class="hub-section">
+                     <div class="section-header">
+                         <h3>Upload from a CSV</h3>
+                        <p>Choose a CSV with email addresses in the first column to upload.</p>
+                     </div>
                     <input type="file" class="fileUpload" id="fileUpload" name="fileUpload"><br>
                     <span class="validationAlert" ng-if="csvUpload">{{uploadCsvValidation}}</span><br>
-                    <input class="button button--moema button--text-thick button--text-upper button--size-s" type="button" id="upload" value="Upload" ng-click="uploadCsv()" /><br>
+                    <input class="bb-button bb-default-action-button" type="button" id="upload" value="Upload" ng-click="uploadCsv()" />
+                </div>
+                    <div class="hub-section">
+                     <div class="section-header">
+                         <h3>Manually Enter Multiple Email Addresses</h3>
+                        <p>Copy and paste or write in multiple addresses below seperated by a semicolon.</p>
+                     </div>
+                    <div id="dvCSV"></div>
+                    <textarea id="textArea" style="margin-bottom:20px; width:400px; height:150px;"></textarea>
+                     <span class="validationAlert" ng-if="importContacts">{{importContactValidation}}</span><br>
+                <input  id="emailSubjectContinueButton" type="button" class="bb-button bb-default-action-button" value="Update" ng-click="updateEmailList();">
+                </div>
+                
+                   
+                    <br>
                 </div><br>
-                <div id="dvCSV"></div>
-                <textarea width="400" height="500" id="textArea"></textarea><br><br>
+                
                                    
-                <span class="validationAlert" ng-if="importContacts">{{importContactValidation}}</span><br>
-                <input  id="emailSubjectContinueButton" type="button" class="button button--moema button--text-thick button--text-upper button--size-s" value="Update" ng-click="updateEmailList();">
+               
             </div>
                     
                 </div>

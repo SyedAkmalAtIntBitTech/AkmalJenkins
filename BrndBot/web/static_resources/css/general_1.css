@@ -985,16 +985,6 @@ li.sub-nav-tab.active a{
     background: rgba(57,60,70,.7);
 }
 
-.overlay-wrap{
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 850px;
-    height: 100vh;
-    background: #FFFFFF;  
-    z-index: 99999;
-}
-
 .overlay-wrap .header{
     height: 60px;
     width: 100%;
@@ -1004,8 +994,8 @@ li.sub-nav-tab.active a{
 }
 
 .overlay-wrap .header .exit-button{
-    width: 60px;
-    height: 60px;
+    width: 60px; 
+   height: 60px;
     background: #0F76A6;
     padding: 18px;
 }
@@ -1033,6 +1023,10 @@ li.sub-nav-tab.active a{
     padding: 12.5px 30px 12.5px 0px;
     display: flex;
 
+}
+
+.bb-overlay-header-cta-wrap{
+    padding-right: 30px;
 }
 
 
@@ -4884,6 +4878,42 @@ textarea.task-textarea:focus{
 
 }
 
+.bb-editor-option-slider{
+   flex: 0 0 400px;
+    background: #FFF;
+    border-left: 1px solid #D2D3D5;
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    height: calc(100vh - 100px);
+    overflow-y: scroll;
+    width: 450px;
+    position: fixed;
+    right: 0;
+}
+
+.bb-color-wrap{
+    border-radius: 3px;
+    padding: 3px;
+    border: 2px solid #C3CED9; 
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.bb-small-color-swab{
+    height: 20px;
+    width: 20px;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.bb-small-color-swab-label{
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #737982;
+}
+
 .loader{
     width:100px;
     margin: 0px auto 20px auto;
@@ -4950,11 +4980,29 @@ textarea.task-textarea:focus{
     border-bottom: 1px solid #ddd;
 }
 
-.r-col-block-wrap{
+.bb-email-option-header{
+    padding: 20px 30px;
+    font-size: 16px;
+    color: rgb(43,43,43);
+    font-weight: 400;
+    background-color: #fff;
+    width: 100%;
+    flex: 0 0 60px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.bb-email-option-wrap{
     overflow-y: auto;
     flex: 1 1 auto;
     padding: 20px;
-    height: calc(100% - 30vh);
+}
+
+.r-col-block-wrap{
+    overflow-y: scroll;
+    flex: 1 1 auto;
+    padding: 20px;
+    height: calc(100% - 200px);
 }
 
 .preview-email-button{
@@ -5209,6 +5257,14 @@ textarea.task-textarea:focus{
     margin-top:7%;
 }
 
+.bb-user-name-company-wrap{
+    display: flex;
+    flex-direction: column;
+    max-height: 49px;
+    margin-left:10px;
+     margin-right: 15px;
+}
+
 
 .bb-panel-full-width:first-of-type{
     margin-top: 0px;
@@ -5334,11 +5390,23 @@ textarea.task-textarea:focus{
 }
 
 .bb-user-profile-user-name{
-    font-size: 14px;
+    font-size: 12px;
     color: #777B85;
-    margin-right: 8px;
-    flex: 0 0 auto;
-    text-transform: capitalize;
+   line-height: 14px;
+   font-weight: 500;
+}
+
+.bb-user-profile-company-name{
+    margin-top: 4px;
+    font-size: 12px;
+    color: #777B85;
+   line-height: 14px;
+   font-weight: 500;
+   max-width: 130px;
+   text-overflow: ellipsis;
+   overflow: hidden;
+   white-space: nowrap;
+    
 }
 
 .bb-bottom-cta-bar{
@@ -5401,6 +5469,22 @@ textarea.task-textarea:focus{
 .bb-add-action{
     margin-left: 30px;
     margin-right: 0px !important;
+}
+
+.bb-action-activity-item{
+    display:inline-flex;
+    margin-bottom: 4px;
+    color: #5A6069;
+    font-size: 14px
+}
+
+.bb-action-activity-name{
+    margin-right: 5px;
+}
+
+.bb-action-activity-date{
+    color: #A9B3BD;
+    margin-right: 5px;
 }
 
 .bb-jump-to-date{
@@ -5495,6 +5579,86 @@ textarea.task-textarea:focus{
     height: calc(100vh - 100px);
 }
 
+.bb-action-comment-list-wrap{
+    height:calc(95vh - 400px); 
+    background-color: #EFF2F6; 
+    width: 100%; 
+    padding:30px 60px; 
+    overflow-y: scroll;
+   
+}
+
+.bb-action-comment-details{
+    font-size: 12px;
+    color: #A9B3BD;
+    white-space: no-wrap;
+    margin-left: 10px;
+}
+
+.bb-action-comment-item{
+    display: inline-flex;
+    margin-bottom:15px;
+    background-color: white;
+    padding:15px;
+    width:100%;
+    position: relative;
+}
+
+.bb-action-comment-input{
+    margin-bottom: 8px;
+}
+
+.bb-action-comment-name{
+    font-size: 14px;
+    color: #49505B;
+    font-weight: bold;
+}
+
+.bb-user-badge{
+    text-transform: uppercase;
+    color: white;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    
+}
+
+.bb-action-comment-badge-wrap{
+    width:30px;
+    margin-right:5px;
+}
+
+.bb-action-comment-user-badge{
+    height: 30px;
+    width: 30px;
+  
+}
+
+.bb-action-comment-text{
+    color: #1B2432;
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 6px;
+}
+
+.bb-action-comment-body-wrap{
+    padding: 0px 40px 0px 12px;
+}
+
+.bb-action-comment-wrap{
+    position: absolute; 
+    bottom:0px; 
+    width:100%; 
+    padding: 15px 60px; 
+    background-color:white;
+    max-width: 900px;
+     border-top:1px solid #C7D0D9;
+}
+
 .bb-clickable-slat{
     width: 100%;
     display: flex;
@@ -5573,6 +5737,16 @@ textarea.task-textarea:focus{
 
 
 .bb-slat{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    padding: 20px 15px;
+}
+
+.bb-slat-no-hover{
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -6306,6 +6480,7 @@ img#prevfbimg {
 }
 /*....on hover template border color...*/
 .template-border-Active{
-    border: 1px solid rgb(30, 173, 252);
+    outline: 1px solid rgb(30, 173, 252);
+    outline-offset: 0px;
 }
 
