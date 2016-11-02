@@ -70,7 +70,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                  <div class="input-wrap">
                     <div class="login ">
                         <input id="passwordsignup" ng-model="userDetails.userPassword" type="password" class="fluid" placeholder="Create a Password" ng-class="{'invalid-input': userDetails.userPassword === '' || null}" ></input>
-                    </div>{{userDetails.userPassword.length}}
+                    </div>
                     <span class="validationAlert" ng-if='userDetails.userPassword === "" || null'>{{passwordValidation}}</span>
                     <span class="validationAlert" ng-if='userDetails.userPassword.length < 8'>{{newPassword8CharValidation}}</span>
 
