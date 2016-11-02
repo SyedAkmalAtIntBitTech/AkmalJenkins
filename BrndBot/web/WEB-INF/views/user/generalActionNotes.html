@@ -1,78 +1,59 @@
 <!-- HEAD franchisebackend1 -->
 <html>
     <head>
-        
+
     </head>
     <body ng-app="yourPlanFlowApp" class="body-normal" ng-controller="yourPlanController" id="yourPlanController">
-        
-<div class="overlay-content" ng-show='marketingTab.isSelected(7) || yourplanTab.isSelected(7);' style="position: relative">
-    <div ng-show="moreThanOneUser">
-        <div class="overlay-details-pane">
-                <div class="overlay-details-pane-header">GENERAL DETAILS</div>
-                <div class="detail-sections-wrap">
-                    <input type="hidden" class="textbox" id="emaildays" name="emaildays" value="0"/>
 
-                    <div class="detail-section half">
-                        <label class="detail-section-label">Action Assignment</label>
-<!--                        <a class="overlay-detail-input  ease-all"  ng-click = "openChangeUserDD(true)">
-                            <div class="user-badge" style="height:30px; width:30px; line-height: 30px; text-align: center; margin-right: 15px; border-radius: 30px; background-color:lightblue; font-size: 14px; font-weight: bold; color: white;">{{assignedToInitialChars}}</div>
-                            <span class="user-assignment-name" style="margin-right: 10px; min-width: 150px; font-size: 16px;">{{assignedFirstName}} {{assignedLastName}}</span>
-                        </a>-->
-                         <div class="invalidDropdown bb-dropdown-padding" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="ChangeUserOnChange(selected)"></div>
-                          <!--<a id="addactionClose" ng-click = "openChangeUserDD(false)" class="modal-pane-header-exit"></a>-->  
-                    </div>
+        <div class="overlay-content" ng-show='marketingTab.isSelected(7) || yourplanTab.isSelected(7);' style="position: relative">
+            <div ng-show="moreThanOneUser">
+                <div class="overlay-details-pane">
+                    <div class="overlay-details-pane-header">GENERAL DETAILS</div>
+                    <div class="detail-sections-wrap">
+                        <input type="hidden" class="textbox" id="emaildays" name="emaildays" value="0"/>
 
-                    <div ng-show="changeUsers" class="detail-section half">
-                       
-                        <div class="invalidDropdown" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="ChangeUserOnChange(selected)"></div>
-                    </div>
-    <!--
-    <div id="facebooknotesection1" ng-show='generalNotes'>
-    <div class="below-nav-container-saved-post-detail">
-    <div class="inner-content-container-detail">
-        <div class="inner-content-detail">
-            <div class="saved-note-detail">
-                <div class="notes-container">
-                    <textarea ng-model="scheduleData.schedule_desc" class="notes-container-textarea" name="fb_description" id="fb_description{{scheduleData.schedule_id}}">{{scheduleData.schedule_desc}}</textarea>
-    development branch-->
-                </div>
+                        <div class="detail-section half">
+                            <label class="detail-section-label">Action Assignment</label>
+                            <div class="invalidDropdown bb-dropdown-padding" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="ChangeUserOnChange(selected)"></div>
+                        </div>
 
-        </div>
-        <div class="email-preview-bar" ng-init="getActionComments(schedule_id)"><div>ACTION COMMENTS</div></div>
-        <div class="bb-action-comment-list-wrap"  >
-            <div class="" ng-repeat="comment in comments">
-                <div class="bb-action-comment-item ng-show="comment.isActivity==false"">
-                    <div class="bb-action-comment-badge-wrap">
-                        <div class="bb-user-badge bb-action-comment-user-badge" style="background-color: {{userColor}}">
-                            <div>{{comment.initials}}</div>
+                        <div ng-show="changeUsers" class="detail-section half">
+                            <div class="invalidDropdown" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="ChangeUserOnChange(selected)"></div>
                         </div>
                     </div>
-                    <div class="bb-action-comment-body-wrap">
-                        <div class="bb-action-comment-detail-wrap">
-                            <span class="bb-action-comment-name">{{comment.createdByFirstName}} {{comment.createdByLastName}}</span>
-                            <span class="bb-action-comment-details">{{comment.createdAt | date:"MMMM d, y 'at' h:mma"}}</span>
-                        </div>
-                        <div class="bb-action-comment-text">{{comment.commentName}} </div>
-                    </div>
-                    <a id="addactionClose" ng-show="comment.isLoginUser==true" ng-click = "removeActionComment(schedule_id,comment.commentId)" class="bb-action-comment-delete" alt="Remove Comment"></a>
+
                 </div>
-               
-               
+                <div class="email-preview-bar" ng-init="getActionComments(schedule_id)"><div>ACTION COMMENTS</div></div>
+                <div class="bb-action-comment-list-wrap"  >
+                    <div class="" ng-repeat="comment in comments">
+                        <div class="bb-action-comment-item" ng-show="comment.isActivity == false">
+                            <div ng-include src="'userbadge.html'"></div>
+                            <div class="bb-action-comment-body-wrap">
+                                <div class="bb-action-comment-detail-wrap">
+                                    <span class="bb-action-comment-name">{{comment.createdByFirstName}} {{comment.createdByLastName}}</span>
+                                    <span class="bb-action-comment-details">{{comment.createdAt| date:"MMMM d, y 'at' h:mma"}}</span>
+                                </div>
+                                <div class="bb-action-comment-text">{{comment.commentName}} </div>
+                            </div>
+                            <a id="addactionClose" ng-show="comment.isLoginUser == true" ng-click = "removeActionComment(schedule_id, comment.commentId)" class="bb-action-comment-delete" alt="Remove Comment"></a>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div ng-show="moreThanOneUser == false">
+                <br>
+                <input type="button" value="Invite a user" name="inviteUser" ng-click="showInviteUsersPopup()"/>
+                <br>
+            </div>
+            <div class="bb-action-comment-wrap">
+                <div class="input" ng-form name="actionCommentForm">
+                    <input  name="comment" class="fluid bb-action-comment-input" id="comment"  placeholder="Add a comment to this action" ng-model="comment" contenteditable="true" style="max-width:780px;">
+                    <div class="bb-button bb-primary-action-button  ease-all" value="comment" ng-click="addActionComment(schedule_id, comment)" ng-show="actionCommentForm.$dirty">Add Comment</div>
+                    <div value="refresh" ng-click="getActionComments(schedule_id)"></div>
+                </div>
             </div>
         </div>
-    </div>
-    <div ng-show="moreThanOneUser==false">
-        <br>
-            <input type="button" value="Invite a user" name="inviteUser" ng-click="showInviteUsersPopup()"/>
-        <br>
-    </div>
-    <div class="bb-action-comment-wrap">
-        <div class="input" ng-form name="actionCommentForm">
-            <input  name="comment" class="fluid bb-action-comment-input" id="comment"  placeholder="Add a comment to this action" ng-model="comment" contenteditable="true" style="max-width:780px;">
-            <div class="bb-button bb-primary-action-button  ease-all" value="comment" ng-click="addActionComment(schedule_id, comment)" ng-show="actionCommentForm.$dirty">Add Comment</div>
-            <div value="refresh" ng-click="getActionComments(schedule_id)"></div>
-        </div>
-    </div>
-</div>
     </body>
 </html>

@@ -34,6 +34,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.isTask = true;
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
+        $scope.userColor = "";
+        $scope.userInitials = "";
         var userSortInfo={userSortName:"",userColor:""};
 
         $scope.getCompanyStatus = function () {
@@ -384,20 +386,27 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 alert("comment not added, please add the comment");
                 $("#comment").focus();
             } else {
+
+            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                $scope.companyName = kGlobalCompanyObject.companyName;
+                $scope.userFirstName = kGlobalCompanyObject.userFirstName;
+                $scope.userLastName = kGlobalCompanyObject.userLastName;
+
                 var commentDetails = {"scheduleId": scheduleId, "comment": comment};
-                $scope.getUserDetailsByUserId(scheduleId);
+                $scope.getUserDetailsByUserId(kGlobalCompanyObject.userId);
                 yourPlanFactory.addActionCommentPOST(commentDetails).then(function (data) {
                     $scope.getActionComments(scheduleId);
                     $("#comment").val("");
                 });
+            });
             }
         };
         
         $scope.getActionComments = function (scheduleId) {
             yourPlanFactory.actionCommentsGet(scheduleId).then(function (data) {
                 $scope.comments = data.d.details;
-                $scope.userColor=userSortInfo.userColor;
-                $scope.userInitials=userSortInfo.userSortName;
+//                $scope.userColor=userSortInfo.userColor;
+//                $scope.userInitials=userSortInfo.userSortName;
             });
         };
 
@@ -445,6 +454,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.getAllUsersInCompany = function () {
             yourPlanFactory.allUsersInCompanyGet().then(function (data) {
 //                $scope.allUsers = data.d.details;
+                $scope.ddSelectUserOptions.push({"text": "None", "value": 0});
                 for (var i = 0; i < data.d.details.length; i++) {
                     $scope.ddSelectUserOptions.push({"text": data.d.details[i].firstName + " " + data.d.details[i].lastName, "value": data.d.details[i].userId});
                 }
@@ -1031,7 +1041,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 "template_status": template_status,
                 "entity_type": entity_type};
             companyMarketingProgramFactory.approveStatusPost(approval_type).then(function (data) {
-                alert(JSON.stringify(data));
                 if (data.toString() == "true") {
                     if ($scope.action_template_status == "Template Saved") {
                         $scope.action_template_status = "Approved";
@@ -1195,21 +1204,21 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         
         $scope.getUserDetailsByUserId = function (userId){
             appSessionFactory.getAllUsersUnderCompany().then(function (KGlobalAllUserUnderCompanyObject){
-                for(var i=0; i<= KGlobalAllUserUnderCompanyObject.userList.length;i++){
+                for(var i=0; i< KGlobalAllUserUnderCompanyObject.userList.length;i++){
                     if(userId === KGlobalAllUserUnderCompanyObject.userList[i].userId){
                         var userFisetName = KGlobalAllUserUnderCompanyObject.userList[i].firstName;
                         var userLastName = KGlobalAllUserUnderCompanyObject.userList[i].lastName;
                         var userSignature = userFisetName.charAt(0)+ userLastName.charAt(0);
                         userSortInfo.userSortName = userSignature.toUpperCase();
                         userSortInfo.userColor = KGlobalAllUserUnderCompanyObject.userList[i].userColor;
+                        $scope.userInitials=userSignature.toUpperCase();
+                        $scope.userColor=KGlobalAllUserUnderCompanyObject.userList[i].userColor;
                     }
                 }
             });
         };
         $scope.addDateTimeOnId= function(dateid,timeId){
             utilFactory.AddDateTimePickerOnId(dateid,timeId).then(function (dateTimeEpoch) {
-                
-                
             });
         };
     }]);

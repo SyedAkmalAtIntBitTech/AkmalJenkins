@@ -5,6 +5,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.endDate = "";
         $scope.programId = "";
         $scope.ddSelectedUser = '0';
+        $scope.master_facebook = getfacebook();
+        $scope.master_twitter = gettwitter();
+        $scope.master_email = getemail();
+        $scope.master_note = getnote();
         $scope.randomIframeFilename = event.timeStamp;
         $scope.actionNameValidation = actionNameValidation;
         $scope.actionDropdownValidation = actionDropdownValidation;

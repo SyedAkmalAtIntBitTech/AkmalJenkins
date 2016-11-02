@@ -1,75 +1,75 @@
 <div ng-include src="'addaction.html'"></div>
 
-         <div class="bb-main-container-wrap" ng-init="getProgramActions('emailautomation');marketingTab.selectTab(4);">
-               <div class="bb-top-nav" >
-                <div class="bb-bar-left-wrap bb-one-third-flex-col">
-                    <a class="bb-back-button" ng-click="backToPreviousPage('marketingprogramlists');marketingTab.selectTab(1)" ></a>
-                    <h3 class="bb-top-nav-title">{{programs.programdetails.programName}}</h3>
-                    <input type="hidden" name="program_name2" id="program_name2" value="{{programs.programdetails.programName}}">
-                </div>
-                <div class="bb-bar-right-wrap bb-one-third-flex-col">
-                    <div class="bb-help-icon">help icon</div>
-                    <a ng-hide="isProgramArchived" href="" class="bb-button bb-default-action-button" ng-click="endMarketingProgram()" id="endMarketingProgram">Archive Campaign</a>
-                </div>
-            </div>
-             <div class="bb-top-sub-nav bb-top-sub-nav-backbutton-offset ">
-                <div class="bb-top-sub-nav-tab "  id="ovrviewli" ng-hide="checkProgramStatus()" ng-click="marketingTab.selectTab(3)"><a ng-class="{activeCampaign:marketingTab.isSelected(3)}">Campaign Details</a></div>
-                <div class="bb-top-sub-nav-tab"  id="actionsli" ng-click="marketingTab.selectTab(4)"><a ng-class="{activeCampaign:marketingTab.isSelected(4)}">Campaign Actions</a></div>
-                
-             </div>
-             
-       
+<div class="bb-main-container-wrap" ng-init="getProgramActions('emailautomation');marketingTab.selectTab(4);">
+    <div class="bb-top-nav" >
+        <div class="bb-bar-left-wrap bb-one-third-flex-col">
+            <a class="bb-back-button" ng-click="backToPreviousPage('marketingprogramlists');marketingTab.selectTab(1)" ></a>
+            <h3 class="bb-top-nav-title">{{programs.programdetails.programName}}</h3>
+            <input type="hidden" name="program_name2" id="program_name2" value="{{programs.programdetails.programName}}">
+        </div>
+        <div class="bb-bar-right-wrap bb-one-third-flex-col">
+            <div class="bb-help-icon">help icon</div>
+            <a ng-hide="isProgramArchived" href="" class="bb-button bb-default-action-button" ng-click="endMarketingProgram()" id="endMarketingProgram">Archive Campaign</a>
+        </div>
+    </div>
+    <div class="bb-top-sub-nav bb-top-sub-nav-backbutton-offset ">
+        <div class="bb-top-sub-nav-tab "  id="ovrviewli" ng-hide="checkProgramStatus()" ng-click="marketingTab.selectTab(3)"><a ng-class="{activeCampaign:marketingTab.isSelected(3)}">Campaign Details</a></div>
+        <div class="bb-top-sub-nav-tab"  id="actionsli" ng-click="marketingTab.selectTab(4)"><a ng-class="{activeCampaign:marketingTab.isSelected(4)}">Campaign Actions</a></div>
+
+    </div>
+
+
 
 
 
     <div class="bb-main-content-wrap bb-main-content-wrap-padding" id="" ng-show="marketingTab.isSelected(4)" ng-init='getAllUsersInCompany()'>
-        
-             <div class="bb-panel-full-width bb-panel-styling">
-                <div class="bb-panel-header">
-                    <h2 class="">Recurring Automated Emails</h2>
-                    <a ng-hide="isProgramArchived || isEmailAutomationActionsEmpty" id="addrecemail" ng-click="redirectToEmailAutomation(forward,'add','', '0')" class="bb-button bb-default-action-button">Add an Automated Email</a>
-                </div>
+
+        <div class="bb-panel-full-width bb-panel-styling">
+            <div class="bb-panel-header">
+                <h2 class="">Recurring Automated Emails</h2>
+                <a ng-hide="isProgramArchived || isEmailAutomationActionsEmpty" id="addrecemail" ng-click="redirectToEmailAutomation(forward, 'add', '', '0')" class="bb-button bb-default-action-button">Add an Automated Email</a>
+            </div>
             <div class="bb-panel-empty-state-wrap" ng-show="isEmailAutomationActionsEmpty">
                 <h2 class="bb-empty-state-text">You have no automated emails in this campaign.</h2>
-                <a ng-hide="isProgramArchived" id="addrecemail" ng-click="redirectToEmailAutomation(forward,'add','', '0')" class="bb-button bb-primary-action-button">Add an Automated Email</a>
+                <a ng-hide="isProgramArchived" id="addrecemail" ng-click="redirectToEmailAutomation(forward, 'add', '', '0')" class="bb-button bb-primary-action-button">Add an Automated Email</a>
             </div>
-                <div class="bb-slat-list-wrap" >
-                    <div class="bb-slat" ng-click="getRecurringScheduleDetails(emailautomation.scheduledEntityListId,
-                                                emailautomation.status, emailautomation.tillDate,
-                                                emailautomation.dateTime,
-                                                emailautomation.actionType,
-                                                emailautomation.programTemplateName,
-                                                emailautomation.description,
-                                                emailautomation.postDateStatus,
-                                                emailautomation.assignedFirstName,
-                                                emailautomation.assignedLastName,
-                                                emailautomation.assignedToInitialChars,
-                                                emailautomation.days);marketingTab.selectTab(6);" ng-repeat="emailautomation in programs.emailautomation">
-                        <div class="bb-your-plan-icon-wrap">
-                                     <div class="your-plan-icon" ng-show="emailautomation.status == 'Template Saved'"> 
-                                         <img src="/BrndBot/images/email-auto/email-auto-icons_Pause-gray.svg">
-                                     </div>
-                                     <div class="your-plan-icon" ng-show="emailautomation.status == 'No Template'"> 
-                                         <img src="/BrndBot/images/email-auto/email-auto-icons_Pause-gray.svg" >
-                                     </div>
-                                     <div class="your-plan-icon" ng-show="emailautomation.status == 'Approved'"> 
-                                         <img src="/BrndBot/images/email-auto/email-auto-icons_Play-green.svg" >
-                                     </div>
-                                     <div class="your-plan-icon" ng-show="emailautomation.status == 'Complete'"> 
-                                         <img src="/BrndBot/images/template-complete.svg"/>
-                                     </div>
+            <div class="bb-slat-list-wrap" >
+                <div class="bb-slat" ng-click="getRecurringScheduleDetails(emailautomation.scheduledEntityListId,
+                            emailautomation.status, emailautomation.tillDate,
+                            emailautomation.dateTime,
+                            emailautomation.actionType,
+                            emailautomation.programTemplateName,
+                            emailautomation.description,
+                            emailautomation.postDateStatus,
+                            emailautomation.assignedFirstName,
+                            emailautomation.assignedLastName,
+                            emailautomation.assignedToInitialChars,
+                            emailautomation.days);marketingTab.selectTab(6);" ng-repeat="emailautomation in programs.emailautomation">
+                    <div class="bb-your-plan-icon-wrap">
+                        <div class="your-plan-icon" ng-show="emailautomation.status == 'Template Saved'"> 
+                            <img src="/BrndBot/images/email-auto/email-auto-icons_Pause-gray.svg">
                         </div>
-                        <div class="slat-name-wrap">
-                            <h2>{{emailautomation.programTemplateName}}</h2>
-                            <p>{{emailautomation.description}}</p>
+                        <div class="your-plan-icon" ng-show="emailautomation.status == 'No Template'"> 
+                            <img src="/BrndBot/images/email-auto/email-auto-icons_Pause-gray.svg" >
                         </div>
-                         <div class="slat-detail-wrap">
-                             <div class="slat-detail">
-                                <h2>{{emailautomation.status}}</h2>
-                               
-                            </div>
+                        <div class="your-plan-icon" ng-show="emailautomation.status == 'Approved'"> 
+                            <img src="/BrndBot/images/email-auto/email-auto-icons_Play-green.svg" >
+                        </div>
+                        <div class="your-plan-icon" ng-show="emailautomation.status == 'Complete'"> 
+                            <img src="/BrndBot/images/template-complete.svg"/>
+                        </div>
+                    </div>
+                    <div class="slat-name-wrap">
+                        <h2>{{emailautomation.programTemplateName}}</h2>
+                        <p>{{emailautomation.description}}</p>
+                    </div>
+                    <div class="slat-detail-wrap">
+                        <div class="slat-detail">
+                            <h2>{{emailautomation.status}}</h2>
 
                         </div>
+
+                    </div>
                     <!--<div class="slat-detail-wrap">
                         <div class="slat-detail">
                             <a class="reg-button slat-detail-button" >Action Details</a>
@@ -88,22 +88,23 @@
                 <a ng-hide="isProgramArchived" id="onetimeactbtn" class="bb-button bb-primary-action-button" ng-click="ShowAddAction()" >Add a One Time Action</a>
             </div>
             <div class="bb-slat-list-wrap">
-                <div class="bb-slat" ng-repeat="programaction in (filteredItems = (programs.programactions| orderBy: 'postDate':false))" ng-click="marketingTab.selectTab(6);getScheduleDetails(programaction.scheduledEntityListId,
-                                            programaction.status,
-                                            programaction.postDate,
-                                            programaction.actionType,
-                                            programaction.programTemplateName,
-                                            programaction.description,
-                                            programaction.postTime,
-                                            programaction.assignedFirstName,
-                                            programaction.assignedLastName,
-                                            programaction.assignedToInitialChars,
-                                            programaction.postDateStatus,
-                                            programaction.days,
-                                            programs.programdetails.programName);">
+                <div class="bb-slat" ng-repeat="programaction in (filteredItems = (programs.programactions| orderBy: 'postDate':false))" ng-click="marketingTab.selectTab(6);
+                        getScheduleDetails(programaction.scheduledEntityListId,
+                                programaction.status,
+                                programaction.postDate,
+                                programaction.actionType,
+                                programaction.programTemplateName,
+                                programaction.description,
+                                programaction.postTime,
+                                programaction.assignedFirstName,
+                                programaction.assignedLastName,
+                                programaction.assignedToInitialChars,
+                                programaction.postDateStatus,
+                                programaction.days,
+                                programs.programdetails.programName);">
                     <div class="bb-your-plan-icon-wrap no-template-icon">
                         <div class="your-plan-icon hint--top" ng-show="programaction.status == 'Template Saved'"  data-hint="Template Saved" > 
-                        <img src="/BrndBot/images/template-saved.svg" />
+                            <img src="/BrndBot/images/template-saved.svg" />
                         </div>
                         <div class="your-plan-icon hint--top" ng-show="programaction.status == 'No Template'"  data-hint="No Template" >
                             <img src="/BrndBot/images/no-template.svg"/>
@@ -126,8 +127,10 @@
                         </div>
                     </div>
                     <div class="slat-detail-wrap">
-                        <div class="slat-detail">{{programaction.actionType}}
-                        <p>Action Type</p>
+                        <div class="slat-detail">
+                            <h2 ng-show="programaction.actionType !== master_note">{{programaction.actionType}}</h2>
+                            <h2 ng-show="programaction.actionType === master_note">Task</h2>
+                            <p>Action Type</p>
                         </div>
                     </div>
                     <!--<div class="slat-detail-wrap">
@@ -138,8 +141,8 @@
                 </div>
             </div>
 
-            </div>
         </div>
+    </div>
     <div class="bb-main-content-wrap bb-main-content-wrap-padding"  id="" ng-show="marketingTab.isSelected(3)">
         <div ng-show="isProgramArchived" class="clickProofLayer"></div>
         <div class="bb-panel-styling bb-panel-full-width" >

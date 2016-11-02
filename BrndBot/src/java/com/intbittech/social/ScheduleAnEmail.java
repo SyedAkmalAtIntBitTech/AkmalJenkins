@@ -73,7 +73,7 @@ public class ScheduleAnEmail implements Runnable {
                         ScheduledEmailList sendAnEmail = getSendEmail(currentScheduledEmail);
                         
                         Integer companyId = currentScheduledEmail.getFkCompanyId().getCompanyId();
-                        String html_text = escapeHtml(sendAnEmail.getBody());
+                        String html_text = sendAnEmail.getBody();
                         String email_subject = sendAnEmail.getSubject();
 //                        String to_email_addresses = contactEmailListLookupService.getContactsByEmailListNameAndCompanyId(sendAnEmail.getEmailListName(), companyId);
                         String emaillist_name = sendAnEmail.getEmailListName();

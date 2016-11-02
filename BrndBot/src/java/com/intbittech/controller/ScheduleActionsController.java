@@ -336,11 +336,17 @@ public class ScheduleActionsController {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             ScheduledEntityList scheduledEntityList = scheduledEntityListService.getById(updateActionDetails.getScheduleId());
-            Users users = usersService.getUserById(updateActionDetails.getUserAssignToId());
-            users.setUserId(updateActionDetails.getUserAssignToId());
-            scheduledEntityList.setAssignedTo(users);
-            scheduledEntityList.setUpdatedAt(new Date());
-            scheduledEntityListService.update(scheduledEntityList);
+            if (updateActionDetails.getUserAssignToId() == 0){
+                scheduledEntityList.setAssignedTo(null);
+                scheduledEntityList.setUpdatedAt(new Date());
+                scheduledEntityListService.update(scheduledEntityList);
+            }else {
+                Users users = usersService.getUserById(updateActionDetails.getUserAssignToId());
+                users.setUserId(updateActionDetails.getUserAssignToId());
+                scheduledEntityList.setAssignedTo(users);
+                scheduledEntityList.setUpdatedAt(new Date());
+                scheduledEntityListService.update(scheduledEntityList);
+            }
 
             ActivityLogDetails activityLogDetails = new ActivityLogDetails();
             activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_REASSIGNED_TO_ID.getId());
