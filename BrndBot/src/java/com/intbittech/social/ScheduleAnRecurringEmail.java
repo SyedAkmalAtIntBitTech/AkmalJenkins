@@ -48,7 +48,7 @@ public class ScheduleAnRecurringEmail implements Runnable {
 
                     if (shouldPostNow) {
                         ScheduledEmailList sendAnEmail = getSendEmail(currentScheduledRecurringEmail);
-                        String html_text = escapeHtml(sendAnEmail.getBody());
+                        String html_text = sendAnEmail.getBody();
                         String email_subject = sendAnEmail.getSubject();
 
                         String emaillist_name = sendAnEmail.getEmailListName();

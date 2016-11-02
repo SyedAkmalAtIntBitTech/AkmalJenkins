@@ -51,7 +51,7 @@ public class ScheduleTwitterPost implements Runnable {
                         ScheduledSocialpostList twitterPost = getTwitterPost(currentScheduledTwitterPost);
                         String jsonString = twitterPost.getMetaData();
                         JSONObject jsonObject = (JSONObject) new JSONParser().parse(jsonString);
-                        String text = escapeHtml(jsonObject.get(IConstants.kTwitterTextKey).toString());
+                        String text = jsonObject.get(IConstants.kTwitterTextKey).toString();
                         String url = jsonObject.get(IConstants.kTwitterURLKey).toString();
                         
                         Integer companyId = currentScheduledTwitterPost.getFkCompanyId().getCompanyId();

@@ -13,7 +13,6 @@ import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
-import com.intbittech.social.CompanyPreferencesFacebook;
 import com.intbittech.utility.ErrorHandlingUtil;
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,8 +31,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.intbittech.social.PostToFacebook;
 import com.intbittech.social.PostToTwitter;
 import com.intbittech.utility.Utility;
-import org.json.simple.JSONObject;
-import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 
 /**
  *
@@ -71,13 +68,13 @@ public class SocialPostController {
             accessToken = facebook.getFbDefaultPageAccessToken();
             String title = (String) requestBodyMap.get("title");
             String file_image_path = (String) requestBodyMap.get("file_image_path");
-            String posttext = escapeHtml(requestBodyMap.get("postText").toString());
+            String posttext = requestBodyMap.get("postText").toString();
             String imagePostURL = (String) requestBodyMap.get("imagePostURL");
             String getImageFile = (String) requestBodyMap.get("imageToPost");
             String url = (String) requestBodyMap.get("url");
-            String description = escapeHtml(requestBodyMap.get("description").toString());
+            String description = requestBodyMap.get("description").toString();
             String imageType = (String) requestBodyMap.get("imageType");
-            String htmlString = escapeHtml(requestBodyMap.get("htmlString").toString());
+            String htmlString = requestBodyMap.get("htmlString").toString();
             String fileImagePath = getImageTypePrefix(imageType, userCompanyIds.getCompanyId(), getImageFile);
             String status = postToFacebook.postStatus(title, fileImagePath, posttext, imagePostURL, getImageFile, url, description, imageType, userCompanyIds.getCompanyId(), htmlString, accessToken);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(status));
@@ -100,10 +97,10 @@ public class SocialPostController {
 
             UserCompanyIds userCompanyIds = Utility.getUserCompanyIdsFromRequestBodyMap(requestBodyMap);
 
-            String text = escapeHtml(requestBodyMap.get("text").toString());
+            String text = requestBodyMap.get("text").toString();
             String shortURL = (String) requestBodyMap.get("shorturl");
             String fileImagePath = (String) requestBodyMap.get("imageToPost");
-            String htmlString = escapeHtml(requestBodyMap.get("htmlString").toString());
+            String htmlString = requestBodyMap.get("htmlString").toString();
             String imageType = (String) requestBodyMap.get("imageType");
             String getImageFile = getImageTypePrefix(imageType, userCompanyIds.getCompanyId(), fileImagePath);
 

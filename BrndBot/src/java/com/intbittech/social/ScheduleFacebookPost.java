@@ -59,8 +59,8 @@ public class ScheduleFacebookPost implements Runnable {
                         ScheduledSocialpostList facebookPost = getFacebookPost(currentScheduledFacebookPost);
                         String jsonString = facebookPost.getMetaData();
                         JSONObject jsonObject = (JSONObject) new JSONParser().parse(jsonString);
-                        String description = escapeHtml(jsonObject.get(IConstants.kFacebookDescriptionKey).toString());
-                        String postText = escapeHtml(jsonObject.get(IConstants.kFacebookPostTextKey).toString());
+                        String description = jsonObject.get(IConstants.kFacebookDescriptionKey).toString();
+                        String postText = jsonObject.get(IConstants.kFacebookPostTextKey).toString();
                         String url = jsonObject.get(IConstants.kFacebookUrlKey).toString();
                         String linkTitle = jsonObject.get(IConstants.kFacebookLinkTitleKey).toString();
                         String managedPage = jsonObject.get(IConstants.kFacebookManagedPageKey).toString();

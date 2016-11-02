@@ -12,7 +12,6 @@ import com.intbittech.divtohtml.StringUtil;
 import com.intbittech.enums.APIKeyType;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.SendGridSubUserDetails;
-import com.intbittech.model.Users;
 import com.intbittech.responsemappers.OperationStatus;
 import com.intbittech.responsemappers.OperationStatusType;
 import com.intbittech.sendgrid.models.APIKey;
@@ -21,7 +20,6 @@ import com.intbittech.sendgrid.models.Scopes;
 import com.intbittech.sendgrid.models.SendGridAPIDetails;
 import com.intbittech.sendgrid.models.SendGridCNameValidity;
 import com.intbittech.sendgrid.models.SendGridError;
-import com.intbittech.sendgrid.models.SendGridStats;
 import com.intbittech.sendgrid.models.SendGridStatsList;
 import com.intbittech.sendgrid.models.SendGridUser;
 import com.intbittech.sendgrid.models.SendGridUsers;
@@ -47,7 +45,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -257,6 +254,9 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
         } catch (IOException ex) {
             logger.error(ex);
             throw new ProcessFailed(ex.getMessage());
+        } catch (Throwable throwable){
+            logger.error(throwable.getMessage());
+            throw new ProcessFailed(throwable.getMessage());
         }
 
     }
