@@ -28,8 +28,9 @@
             <div class="action" style="padding:0px 30px;  border-radius: 3px;  "ng-repeat="comment in comments">
                 <div style="background-color:white;">
                 <div style="display: inline-flex;" ng-show="comment.isActivity==false">
-                    <div style="height:30px; width:30px; line-height: 30px; text-align: center; margin-right: 10px; border-radius: 5px; background-color: {{userColor}} ; font-size: 14px; font-weight: bold; color: white;">{{comment.initials}}
-                    </div>
+<!--                    <div style="height:30px; width:30px; line-height: 30px; text-align: center; margin-right: 10px; border-radius: 5px; background-color: {{userColor}} ; font-size: 14px; font-weight: bold; color: white;">{{comment.initials}}
+                    </div>-->
+                    <div ng-include src="'useravatar.html'"></div>
                     <span style="margin: 0px 5px; line-height: 30px; font-size: 16px; color:#3f3f42;">{{comment.createdByFirstName}} {{comment.createdByLastName}}</span>
                     <span style=" font-size: 14px; color: #7c7d82; line-height: 30px; margin-left: 10px; ">{{comment.createdAt | date:"MMMM d, y 'at' h:mma"}}</span>
                     <a id="addactionClose" ng-show="comment.isLoginUser==true" ng-click = "removeActionComment(schedule_id,comment.commentId)" class="modal-pane-header-exit" alt="remove comment"></a>

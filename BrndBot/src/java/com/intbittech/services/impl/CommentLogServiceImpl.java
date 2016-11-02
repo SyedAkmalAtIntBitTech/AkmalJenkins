@@ -95,6 +95,7 @@ public class CommentLogServiceImpl implements CommentLogService {
             for (CommentLog commentLog : commentLogList) {
                 CommentActivityLogResponse commentLogResponse = new CommentActivityLogResponse();
                 commentLogResponse.setCommentName(commentLog.getComment());
+                commentLogResponse.setCreatedByUserId(commentLog.getCommentedBy().getUserId());
                 commentLogResponse.setCreatedByByEmailId(commentLog.getCommentedBy().getUserName());
                 commentLogResponse.setCreatedByFirstName(commentLog.getCommentedBy().getFirstName());
                 commentLogResponse.setCreatedByLastName(commentLog.getCommentedBy().getLastName());
@@ -116,6 +117,7 @@ public class CommentLogServiceImpl implements CommentLogService {
             for (ActivityLog activityLog : activityLogList) {
                 CommentActivityLogResponse commentActivityLogResponse = new CommentActivityLogResponse();
                 commentActivityLogResponse.setActivityName(activityLog.getFkActivityId().getActivityName());
+                commentActivityLogResponse.setCreatedByUserId(activityLog.getCreatedBy().getUserId());
                 commentActivityLogResponse.setCreatedByByEmailId(activityLog.getCreatedBy().getUserName());
                 commentActivityLogResponse.setCreatedByFirstName(activityLog.getCreatedBy().getFirstName());
                 commentActivityLogResponse.setCreatedByLastName(activityLog.getCreatedBy().getLastName());

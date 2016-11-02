@@ -18,6 +18,7 @@ public class CommentActivityLogResponse implements Comparable<CommentActivityLog
     private String createdByFirstName;
     private String createdByLastName;
     private String createdByByEmailId;
+    private Integer createdByUserId;
     private Date createdAt;
     private Integer scheduledEntityListId;
     private Boolean isLoginUser;
@@ -27,6 +28,14 @@ public class CommentActivityLogResponse implements Comparable<CommentActivityLog
     private String assignedToLastName;
     private String assignedToEmailId;
     private Boolean isActivity;
+
+    public Integer getCreatedByUserId() {
+        return createdByUserId;
+    }
+
+    public void setCreatedByUserId(Integer createdByUserId) {
+        this.createdByUserId = createdByUserId;
+    }
 
     public String getCommentName() {
         return commentName;

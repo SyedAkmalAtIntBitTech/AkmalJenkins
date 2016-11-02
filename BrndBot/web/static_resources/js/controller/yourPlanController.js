@@ -34,6 +34,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.isTask = true;
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
+        $scope.userColor = "";
+        $scope.userInitials = "";
         var userSortInfo={userSortName:"",userColor:""};
 
         $scope.getCompanyStatus = function () {
@@ -384,20 +386,27 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 alert("comment not added, please add the comment");
                 $("#comment").focus();
             } else {
+
+            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                $scope.companyName = kGlobalCompanyObject.companyName;
+                $scope.userFirstName = kGlobalCompanyObject.userFirstName;
+                $scope.userLastName = kGlobalCompanyObject.userLastName;
+
                 var commentDetails = {"scheduleId": scheduleId, "comment": comment};
-                $scope.getUserDetailsByUserId(scheduleId);
+                $scope.getUserDetailsByUserId(kGlobalCompanyObject.userId);
                 yourPlanFactory.addActionCommentPOST(commentDetails).then(function (data) {
                     $scope.getActionComments(scheduleId);
                     $("#comment").val("");
                 });
+            });
             }
         };
 
         $scope.getActionComments = function (scheduleId) {
             yourPlanFactory.actionCommentsGet(scheduleId).then(function (data) {
                 $scope.comments = data.d.details;
-                $scope.userColor=userSortInfo.userColor;
-                $scope.userInitials=userSortInfo.userSortName;
+//                $scope.userColor=userSortInfo.userColor;
+//                $scope.userInitials=userSortInfo.userSortName;
             });
         };
 
@@ -1195,13 +1204,15 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         
         $scope.getUserDetailsByUserId = function (userId){
             appSessionFactory.getAllUsersUnderCompany().then(function (KGlobalAllUserUnderCompanyObject){
-                for(var i=0; i<= KGlobalAllUserUnderCompanyObject.userList.length;i++){
+                for(var i=0; i< KGlobalAllUserUnderCompanyObject.userList.length;i++){
                     if(userId === KGlobalAllUserUnderCompanyObject.userList[i].userId){
                         var userFisetName = KGlobalAllUserUnderCompanyObject.userList[i].firstName;
                         var userLastName = KGlobalAllUserUnderCompanyObject.userList[i].lastName;
                         var userSignature = userFisetName.charAt(0)+ userLastName.charAt(0);
                         userSortInfo.userSortName = userSignature.toUpperCase();
                         userSortInfo.userColor = KGlobalAllUserUnderCompanyObject.userList[i].userColor;
+                        $scope.userInitials=userSignature.toUpperCase();
+                        $scope.userColor=KGlobalAllUserUnderCompanyObject.userList[i].userColor;
                     }
                 }
             });
