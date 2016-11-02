@@ -1031,7 +1031,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 "template_status": template_status,
                 "entity_type": entity_type};
             companyMarketingProgramFactory.approveStatusPost(approval_type).then(function (data) {
-                alert(JSON.stringify(data));
                 if (data.toString() == "true") {
                     if ($scope.action_template_status == "Template Saved") {
                         $scope.action_template_status = "Approved";
