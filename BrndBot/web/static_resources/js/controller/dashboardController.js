@@ -20,6 +20,7 @@ dashboardFlowApp.controller("dashboardController", ['$scope', '$window', '$locat
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
         $scope.neverShowUnsubscribeEmailpopup = true;
+        var userSortInfo={userSortName:"",userColor:""};
 
         $scope.getCompanyStatus = function() {
             appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
@@ -32,12 +33,13 @@ dashboardFlowApp.controller("dashboardController", ['$scope', '$window', '$locat
 
         $scope.getUserDetails = function () {
             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                $scope.getUserDetailsByUserId(kGlobalCompanyObject.userId);
                 $scope.companyName = kGlobalCompanyObject.companyName;
                 $scope.userFirstName = kGlobalCompanyObject.userFirstName;
                 $scope.userLastName = kGlobalCompanyObject.userLastName;
                 $scope.userRole = kGlobalCompanyObject.roleName;
                 $scope.logourl = kGlobalCompanyObject.logourl;
-
+                
                 appSessionFactory.getDashboardMessage().then(function (message) {
                     if (message)
                     {
@@ -58,7 +60,7 @@ dashboardFlowApp.controller("dashboardController", ['$scope', '$window', '$locat
                 
             });
         };
-
+        
         $scope.showCompanyList = function () {
             window.location = getHost() + "user/loading";
         };
@@ -180,6 +182,23 @@ dashboardFlowApp.controller("dashboardController", ['$scope', '$window', '$locat
                 $scope.redirectToEmailFlow('baseemaileditor');
             }
         };
+        
+        $scope.getUserDetailsByUserId = function (userId){
+            appSessionFactory.getAllUsersUnderCompany().then(function (KGlobalAllUserUnderCompanyObject){
+                for(var i=0; i<= KGlobalAllUserUnderCompanyObject.userList.length;i++){
+                    if(userId === KGlobalAllUserUnderCompanyObject.userList[i].userId){
+                        var userFisetName = KGlobalAllUserUnderCompanyObject.userList[i].firstName;
+                        var userLastName = KGlobalAllUserUnderCompanyObject.userList[i].lastName;
+                        var userSignature = userFisetName.charAt(0)+ userLastName.charAt(0);
+                        userSortInfo.userSortName = userSignature.toUpperCase();
+                        userSortInfo.userColor = KGlobalAllUserUnderCompanyObject.userList[i].userColor;
+                    }
+                $scope.userColor=userSortInfo.userColor;
+                $scope.userInitials=userSortInfo.userSortName;
+                }
+            });
+        };
+        
     }]);
 
 

@@ -7,7 +7,8 @@
                 <div class="bb-bar-right-wrap bb-one-third-flex-col">
                     <div class="bb-help-icon">help icon</div>
                     <div class="bb-user-profile-dropdown-wrap"  ng-click="userSettings=true">
-                        <div class="bb-user-profile-user-name">{{userFirstName}} {{userLastName}}</div>
+                        <div class="bb-user-profile-user-name"><div style="height:15px; width:20px; line-height: 15px; text-align: center; margin-right: 10px; border-radius: 5px; background-color: {{userColor}} ; font-size: 10px; font-weight: bold; color: white;">{{userInitials}}
+                            </div>{{userFirstName}} {{userLastName}}</div>
                         <img type="image/svg+xml" src="/BrndBot/images/dropdown.svg" class="hub-dropdown-icon" style="cursor:pointer;"/>
                     </div>
                     <div ng-include src="'usersettingsDropDown.html'" class="bb-user-settings-dropdown-target"></div>
