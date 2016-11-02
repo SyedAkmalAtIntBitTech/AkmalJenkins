@@ -445,6 +445,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.getAllUsersInCompany = function () {
             yourPlanFactory.allUsersInCompanyGet().then(function (data) {
 //                $scope.allUsers = data.d.details;
+                $scope.ddSelectUserOptions.push({"text": "None", "value": 0});
                 for (var i = 0; i < data.d.details.length; i++) {
                     $scope.ddSelectUserOptions.push({"text": data.d.details[i].firstName + " " + data.d.details[i].lastName, "value": data.d.details[i].userId});
                 }

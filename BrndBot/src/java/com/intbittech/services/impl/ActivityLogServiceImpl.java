@@ -166,9 +166,9 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                         Users assignedTo = new Users();
                         assignedTo.setUserId(activityLogDetails.getAssignedTo());
                         activityLog.setAssignedTo(assignedTo);
-                        Users sendToUser = usersService.getUserById(activityLogDetails.getAssignedTo());
-                        sendNotificationEmail(activityLogDetails.getActivityId(), sendToUser.getUserName(), Utility.combineUserName(sendToUser),
-                                company.getCompanyName(), activityLogDetails.getActionTitle(), createdBy.getUserName());
+                            Users sendToUser = usersService.getUserById(activityLogDetails.getAssignedTo());
+                            sendNotificationEmail(activityLogDetails.getActivityId(), sendToUser.getUserName(), Utility.combineUserName(sendToUser),
+                                    company.getCompanyName(), activityLogDetails.getActionTitle(), createdBy.getUserName());
                     }
                     break;
                 case 3:
@@ -177,10 +177,10 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                         Users assignedTo = new Users();
                         assignedTo.setUserId(activityLogDetails.getAssignedTo());
                         activityLog.setAssignedTo(assignedTo);
-                        Users sendToUser = usersService.getUserById(activityLogDetails.getAssignedTo());
-                        sendNotificationEmail(activityLogDetails.getActivityId(), sendToUser.getUserName(), Utility.combineUserName(sendToUser),
-                                company.getCompanyName(), activityLogDetails.getActionTitle(), createdBy.getUserName());
-                    }
+                            Users sendToUser = usersService.getUserById(activityLogDetails.getAssignedTo());
+                            sendNotificationEmail(activityLogDetails.getActivityId(), sendToUser.getUserName(), Utility.combineUserName(sendToUser),
+                                    company.getCompanyName(), activityLogDetails.getActionTitle(), createdBy.getUserName());
+                        }
                     break;
                 case 4:
                     break;
