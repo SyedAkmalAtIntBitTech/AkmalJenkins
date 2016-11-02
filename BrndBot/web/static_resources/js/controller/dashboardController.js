@@ -21,6 +21,9 @@ dashboardFlowApp.controller("dashboardController", ['$scope', '$window', '$locat
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
         $scope.neverShowUnsubscribeEmailpopup = true;
         var userSortInfo={userSortName:"",userColor:""};
+        $scope.userFirstNameInitial=""
+        $scope.userLastNameInitial=""
+        $scope.pageTitle=""
 
         $scope.getCompanyStatus = function() {
             appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
@@ -37,9 +40,10 @@ dashboardFlowApp.controller("dashboardController", ['$scope', '$window', '$locat
                 $scope.companyName = kGlobalCompanyObject.companyName;
                 $scope.userFirstName = kGlobalCompanyObject.userFirstName;
                 $scope.userLastName = kGlobalCompanyObject.userLastName;
+                $scope.userFirstNameInitial = kGlobalCompanyObject.userFirstName.charAt(0);
+                $scope.userLastNameInitial = kGlobalCompanyObject.userLastName.charAt(0);
                 $scope.userRole = kGlobalCompanyObject.roleName;
                 $scope.logourl = kGlobalCompanyObject.logourl;
-                
                 appSessionFactory.getDashboardMessage().then(function (message) {
                     if (message)
                     {
