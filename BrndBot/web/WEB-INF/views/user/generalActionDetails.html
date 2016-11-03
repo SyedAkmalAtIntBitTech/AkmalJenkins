@@ -1,4 +1,4 @@
-<div class="overlay-content" id="emailactionsection" ng-init='hideSaveButton()' ng-show='marketingTab.isSelected(5) || yourplanTab.isSelected(5); || marketingHubTab.isSelected(5);' ng-form name="actionDetailsForm">
+<div class="overlay-content" id="emailactionsection" ng-init='hideSaveButton()' ng-show='marketingTab.isSelected(5) || yourplanTab.isSelected(5); ' ng-form name="actionDetailsForm">
     <div ng-show="isProgramArchived" class="clickProofLayer"></div>
     <div class="overlay-name-bar" ng-show="isRecurring === false">
         <input size="40" value="Email Action Name" id="email_edit_title" name="email_edit_title" ng-model='scheduleData.schedule_title' ng-change="showSaveButton()" value="{{scheduleData.schedule_title}}"><br/>
@@ -7,46 +7,7 @@
     </div>
     <span class="validationAlert general-action-alert " ng-if='scheduleData.schedule_title === "" || null'>{{actionNameValidation}}</span>
     
-                <div class="overlay-details-pane" ng-show="isEmailHistory">
-                    <div class="overlay-details-pane-header">EMAIL HISTORY DETAILS</div>
-                    <div class="external-data-loading-wrap" ng-show="hideGifImage">
-                        <div class="external-data-loading-block">
-                            <div class="loader"></div>
-                            <div class="loader-description">Loading your content</div>
-                        </div>
-                    </div>
-                    <div class="detail-sections-wrap" ng-if="tagerror">
-                        <div class="detail-section">
-                            <div class="detail-section-item">{{tagerror}}</div>
-                        </div>
-                    </div>
-                    <div class="detail-sections-wrap" ng-if="!tagerror" ng-repeat="tag in tagsDetails">
-                        <div class="detail-section half">
-                            <p class="detail-section-data"> {{tag.date}}</p>
-                            <label class="detail-section-label">Date</label>
-                        </div>
-                        <div class="detail-section half">
-                            <p class="detail-section-data"> {{(tag.stats[0].metrics.unique_opens / tag.stats[0].metrics.delivered) * 100 | number : 2}} %</p>
-                            <label class="detail-section-label">Open Rate</label>
-                        </div>
-                        <div class="detail-section half">
-                            <p class="detail-section-data">{{(tag.stats[0].metrics.unique_clicks / tag.stats[0].metrics.delivered) * 100 | number : 2}} %</p>
-                            <label class="detail-section-label">Click Through Rate</label>
-                        </div>
-                        <div class="detail-section half">
-                            <p class="detail-section-data">{{tag.stats[0].metrics.unsubscribes}}</p>
-                            <label class="detail-section-label">Unsubscribes</label>
-                        </div>
-                        <div class="detail-section half">
-                            <p class="detail-section-data">{{tag.stats[0].metrics.delivered}}</p>
-                            <label class="detail-section-label">Number Sent</label>
-                        </div>
-                        <div class="detail-section half">
-                            <p class="detail-section-data">{{tag.stats[0].metrics.bounces}}</p>
-                            <label class="detail-section-label">Hard Bounces</label>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="overlay-details-pane" ng-show="isRecurring === false">
                     <div class="overlay-details-pane-header">GENERAL DETAILS</div>
                     <div class="detail-sections-wrap">
