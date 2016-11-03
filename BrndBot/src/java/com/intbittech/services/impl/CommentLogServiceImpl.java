@@ -143,6 +143,8 @@ public class CommentLogServiceImpl implements CommentLogService {
                 commentActivityLogResponse.setCreatedByByEmailId(activityLog.getCreatedBy().getUserName());
                 commentActivityLogResponse.setCreatedByFirstName(activityLog.getCreatedBy().getFirstName());
                 commentActivityLogResponse.setCreatedByLastName(activityLog.getCreatedBy().getLastName());
+                String initials = Utility.getFirstTwoCharactersOfName(activityLog.getCreatedBy().getFirstName(), activityLog.getCreatedBy().getLastName());
+                commentActivityLogResponse.setInitials(initials);
                 commentActivityLogResponse.setUserColor(userPreferencesJson.getProfileColor());
                 commentActivityLogResponse.setScheduledEntityListId(activityLog.getFkScheduledEntityid().getScheduledEntityListId());
                 commentActivityLogResponse.setCreatedAt(activityLog.getCreatedAt());
