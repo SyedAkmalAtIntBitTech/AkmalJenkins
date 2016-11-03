@@ -521,7 +521,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             externalContentFactory.activationLinkGet().then(function (data) {
 
                 $scope.activationLink = data.d.details[0];
-                alert($scope.activationLink);
                 if ($scope.activationLink) {
                     window.open($scope.activationLink, '_blank');
                 } else {
