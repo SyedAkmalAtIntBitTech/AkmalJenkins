@@ -549,6 +549,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.saveEmailSettingsButton = false;
             $scope.deletDraftsButton = false;
             $scope.emallistdetails = true;
+            $scope.noMindbodyIndexedList = false;
             appSessionFactory.getCompany().then(function (companyObject) {
 
                 emailListFactory.getAllEmailListWithNoOfContactsForUser(companyObject.companyId).then(function (data) {
@@ -556,9 +557,12 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     $scope.emailLists = data.d.details;
                 });
                 emailListFactory.getAllEmailListWithNoOfContactsForMindBody(companyObject.companyId).then(function (data) {
+                    if(data.d.operationStatus.statusCode!=="DataError") {
+                        $scope.emailListsMindbody = data.d.details;
+                    } else {
+                        $scope.noMindbodyIndexedList = true;
+                    }
                     $scope.hideGifImage = false;
-                    //                alert(JSON.stringify(data));
-                    $scope.emailListsMindbody = data.d.details;
                 });
             });
         };
@@ -1037,6 +1041,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         $scope.viewEmailListDetails = function (email, type)
         {
+            $scope.isMINDBODYEmailLIstDetails = true;
+            if(type==="user")
+                $scope.isMINDBODYEmailLIstDetails = false;
             $scope.overlayFade = false;
             $scope.emailListName = email.emailListName;
             $scope.emailListId = email.emailListId;
