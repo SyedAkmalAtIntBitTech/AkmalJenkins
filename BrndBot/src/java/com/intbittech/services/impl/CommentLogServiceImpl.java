@@ -5,14 +5,19 @@
  */
 package com.intbittech.services.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intbittech.dao.ActivityLogDao;
 import com.intbittech.dao.CommentLogDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ActivityLog;
 import com.intbittech.model.CommentLog;
+import com.intbittech.model.UsersRoleCompanyLookup;
+import com.intbittech.modelmappers.UserPreferencesJson;
 import com.intbittech.responsemappers.CommentActivityLogResponse;
 import com.intbittech.services.CommentLogService;
+import com.intbittech.services.UserRoleCompanyLookUpService;
 import com.intbittech.utility.Utility;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -35,7 +40,11 @@ public class CommentLogServiceImpl implements CommentLogService {
     private CommentLogDao commentLogDao;
     @Autowired
     private ActivityLogDao activityLogDao;
-
+    @Autowired
+    private UserRoleCompanyLookUpService userRoleCompanyLookUpService;
+    @Autowired
+    private UserPreferencesJson userPreferencesJson;
+    
     /**
      * {@inheritDoc}
      */
@@ -59,7 +68,7 @@ public class CommentLogServiceImpl implements CommentLogService {
     /**
      * {@inheritDoc}
      */
-    public List<CommentActivityLogResponse> getAllCommentLogByScheduledEntityListId(Integer scheduledEntityListId, Integer userId) throws ProcessFailed {
+    public List<CommentActivityLogResponse> getAllCommentLogByScheduledEntityListId(Integer scheduledEntityListId, Integer userId) throws ProcessFailed, IOException {
         List<CommentLog> CommentLogList = commentLogDao.getAllCommentLogByScheduledEntityListId(scheduledEntityListId);
 
         List<ActivityLog> activityLogList = activityLogDao.getAllActivityLogByScheduledEntityListId(scheduledEntityListId);
@@ -89,16 +98,23 @@ public class CommentLogServiceImpl implements CommentLogService {
         commentLogDao.delete(CommentLog);
     }
 
-    private List<CommentActivityLogResponse> getAllCommentLogResponse(List<CommentLog> commentLogList, List<ActivityLog> activityLogList, Integer userId) {
+    private List<CommentActivityLogResponse> getAllCommentLogResponse(List<CommentLog> commentLogList, List<ActivityLog> activityLogList, Integer userId)throws IOException {
         List<CommentActivityLogResponse> commentActivityLogResponseList = new ArrayList<>();
         if (commentLogList != null) {
             for (CommentLog commentLog : commentLogList) {
                 CommentActivityLogResponse commentLogResponse = new CommentActivityLogResponse();
+                UsersRoleCompanyLookup userRoleCompanyLookup = userRoleCompanyLookUpService.getUsersRoleLookupByUser(commentLog.getCommentedBy());
+
+                String userPreferencesJsonString = userRoleCompanyLookup.getUserId().getUserPreferences();
+                ObjectMapper mapper = new ObjectMapper();
+                userPreferencesJson = mapper.readValue(userPreferencesJsonString, UserPreferencesJson.class);
+                
                 commentLogResponse.setCommentName(commentLog.getComment());
                 commentLogResponse.setCreatedByUserId(commentLog.getCommentedBy().getUserId());
                 commentLogResponse.setCreatedByByEmailId(commentLog.getCommentedBy().getUserName());
                 commentLogResponse.setCreatedByFirstName(commentLog.getCommentedBy().getFirstName());
                 commentLogResponse.setCreatedByLastName(commentLog.getCommentedBy().getLastName());
+                commentLogResponse.setUserColor(userPreferencesJson.getProfileColor());
                 String initials = Utility.getFirstTwoCharactersOfName(commentLog.getCommentedBy().getFirstName(), commentLog.getCommentedBy().getLastName());
                 commentLogResponse.setInitials(initials);
                 commentLogResponse.setIsActivity(false);
@@ -116,11 +132,20 @@ public class CommentLogServiceImpl implements CommentLogService {
         if (activityLogList != null) {
             for (ActivityLog activityLog : activityLogList) {
                 CommentActivityLogResponse commentActivityLogResponse = new CommentActivityLogResponse();
+                UsersRoleCompanyLookup userRoleCompanyLookup = userRoleCompanyLookUpService.getUsersRoleLookupByUser(activityLog.getCreatedBy());
+
+                String userPreferencesJsonString = userRoleCompanyLookup.getUserId().getUserPreferences();
+                ObjectMapper mapper = new ObjectMapper();
+                userPreferencesJson = mapper.readValue(userPreferencesJsonString, UserPreferencesJson.class);
+                
                 commentActivityLogResponse.setActivityName(activityLog.getFkActivityId().getActivityName());
                 commentActivityLogResponse.setCreatedByUserId(activityLog.getCreatedBy().getUserId());
                 commentActivityLogResponse.setCreatedByByEmailId(activityLog.getCreatedBy().getUserName());
                 commentActivityLogResponse.setCreatedByFirstName(activityLog.getCreatedBy().getFirstName());
                 commentActivityLogResponse.setCreatedByLastName(activityLog.getCreatedBy().getLastName());
+                String initials = Utility.getFirstTwoCharactersOfName(activityLog.getCreatedBy().getFirstName(), activityLog.getCreatedBy().getLastName());
+                commentActivityLogResponse.setInitials(initials);
+                commentActivityLogResponse.setUserColor(userPreferencesJson.getProfileColor());
                 commentActivityLogResponse.setScheduledEntityListId(activityLog.getFkScheduledEntityid().getScheduledEntityListId());
                 commentActivityLogResponse.setCreatedAt(activityLog.getCreatedAt());
                 commentActivityLogResponse.setIsActivity(true);

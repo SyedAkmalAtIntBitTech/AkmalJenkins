@@ -224,10 +224,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $scope.userId = $location.search().userId;
         };
 
-        $scope.getUserId = function () {
-            $scope.userId = $location.search().userId;
-        };
-
         $scope.getLoggedInUserId = function () {
             onboardingFactory.getLoggedInUserId().then(function (data) {
                 appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
@@ -521,7 +517,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             externalContentFactory.activationLinkGet().then(function (data) {
 
                 $scope.activationLink = data.d.details[0];
-                alert($scope.activationLink);
                 if ($scope.activationLink) {
                     window.open($scope.activationLink, '_blank');
                 } else {

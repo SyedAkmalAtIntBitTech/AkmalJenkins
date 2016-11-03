@@ -32,8 +32,18 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
         $scope.settings = {};
+        $scope.userColor="";
+        $scope.userInitials="";
+        var userSortInfo={userSortName:"",userColor:""};
+        $scope.userSettings=false;
+        
+        $scope.showSettingsPopup = function (flag){
+            $scope.userSettings = flag;
+        };
+        
         this.tab = 1;
-
+        
+        
         this.selectTab = function (setTab) {
             this.tab = setTab;
         };
@@ -61,6 +71,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $scope.logourl = kGlobalCompanyObject.logourl;
                 $scope.userDetails.userFirstName = $scope.userFirstName;
                 $scope.userDetails.userLastName = $scope.userLastName;
+                $scope.getUserDetailsByUserId(kGlobalCompanyObject.userId);
             });
         };
 
@@ -148,11 +159,6 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $("#confirmpassword").focus();
                 return false;
             }
-            if (!userDetails.currentPassword) {
-                $scope.userDetails.currentPassword = "";
-                $("#currentpassword").focus();
-                return false;
-            }
             if ($scope.isConfirmPasswordSame(userDetails.password, userDetails.confirmPassword))
                 return true;
         };
@@ -191,7 +197,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.changePassword = function (userDetails) {
             if ($scope.accountSettingsValidation(userDetails))
             {
-                var password_object = {"currentPassword": userDetails.currentPassword, "password": userDetails.password, "confirmpassword": userDetails.confirmPassword, "type": "update"};
+                var password_object = {"password": userDetails.password, "confirmpassword": userDetails.confirmPassword, "type": "update"};
                 signupFactory.resetPasswordPost(password_object).then(function (data) {
                     if (data.d.operationStatus.statusCode === "DataError")
                         growl("Oops something went wrong please check if you entered passwords correctly.");
@@ -595,9 +601,23 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             } else {
                 growl("Please select email list before saving.")
             }
-
-
         };
+        $scope.getUserDetailsByUserId = function (userId){
+            appSessionFactory.getAllUsersUnderCompany().then(function (KGlobalAllUserUnderCompanyObject){
+                for(var i=0; i< KGlobalAllUserUnderCompanyObject.userList.length;i++){
+                    if(userId === KGlobalAllUserUnderCompanyObject.userList[i].userId){
+                        var userFisetName = KGlobalAllUserUnderCompanyObject.userList[i].firstName;
+                        var userLastName = KGlobalAllUserUnderCompanyObject.userList[i].lastName;
+                        var userSignature = userFisetName.charAt(0)+ userLastName.charAt(0);
+                        userSortInfo.userSortName = userSignature.toUpperCase();
+                        userSortInfo.userColor = KGlobalAllUserUnderCompanyObject.userList[i].userColor;
+                    }
+                }
+                $scope.userColor=userSortInfo.userColor;
+                $scope.userInitials=userSortInfo.userSortName;
+            });
+        };
+        
 
     }]);
 

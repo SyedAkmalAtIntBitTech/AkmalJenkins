@@ -52,6 +52,12 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.replyToAddress = false;
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
+        var userSortInfo={userSortName:"",userColor:""};
+        $scope.userSettings=false;
+        
+        $scope.showSettingsPopup = function (flag){
+            $scope.userSettings = flag;
+        };
 
 
         $scope.getCompanyStatus = function() {
@@ -63,9 +69,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             });
         };
         
-        $scope.showHideUserSettings = function (flag){
-            $scope.userSettings=flag;
-        };
         this.tab = 1;
 
         this.selectTab = function (setTab){
@@ -84,6 +87,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         var generalEmailList = "General";
         $scope.getUserDetails = function () {
             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                $scope.getUserDetailsByUserId(kGlobalCompanyObject.userId);
                 $scope.companyName = kGlobalCompanyObject.companyName;
                 $scope.userFirstName = kGlobalCompanyObject.userFirstName;
                 $scope.userLastName = kGlobalCompanyObject.userLastName;
@@ -425,6 +429,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.emailFooterPopupDetails = false;
         };
         $scope.displayEmailHistory = function () {
+            $scope.email_history = "";
             $scope.showDeleteEmailList = false;
             $scope.emaildropdown = false;
             $scope.deletDraftsButton = false;
@@ -470,6 +475,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
 
         $scope.getHistoryDetails = function (details) {
+            $scope.tagsDetails = "";
             $scope.fadeClass = 'fadeClass';
             $scope.emailsectionClass = 'emailsectionClass';
             $scope.scheduledTo = 'POST';
@@ -549,6 +555,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.saveEmailSettingsButton = false;
             $scope.deletDraftsButton = false;
             $scope.emallistdetails = true;
+            $scope.noMindbodyIndexedList = false;
             appSessionFactory.getCompany().then(function (companyObject) {
 
                 emailListFactory.getAllEmailListWithNoOfContactsForUser(companyObject.companyId).then(function (data) {
@@ -556,9 +563,12 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     $scope.emailLists = data.d.details;
                 });
                 emailListFactory.getAllEmailListWithNoOfContactsForMindBody(companyObject.companyId).then(function (data) {
+                    if(data.d.operationStatus.statusCode!=="DataError") {
+                        $scope.emailListsMindbody = data.d.details;
+                    } else {
+                        $scope.noMindbodyIndexedList = true;
+                    }
                     $scope.hideGifImage = false;
-                    //                alert(JSON.stringify(data));
-                    $scope.emailListsMindbody = data.d.details;
                 });
             });
         };
@@ -1037,6 +1047,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         $scope.viewEmailListDetails = function (email, type)
         {
+            $scope.isMINDBODYEmailLIstDetails = true;
+            if(type==="user")
+                $scope.isMINDBODYEmailLIstDetails = false;
             $scope.overlayFade = false;
             $scope.emailListName = email.emailListName;
             $scope.emailListId = email.emailListId;
@@ -1194,4 +1207,21 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.showAddContactPopup = false;
             $scope.overlayFade = false;
         };
+        
+        $scope.getUserDetailsByUserId = function (userId){
+            appSessionFactory.getAllUsersUnderCompany().then(function (KGlobalAllUserUnderCompanyObject){
+                for(var i=0; i< KGlobalAllUserUnderCompanyObject.userList.length;i++){
+                    if(userId === KGlobalAllUserUnderCompanyObject.userList[i].userId){
+                        var userFisetName = KGlobalAllUserUnderCompanyObject.userList[i].firstName;
+                        var userLastName = KGlobalAllUserUnderCompanyObject.userList[i].lastName;
+                        var userSignature = userFisetName.charAt(0)+ userLastName.charAt(0);
+                        userSortInfo.userSortName = userSignature.toUpperCase();
+                        userSortInfo.userColor = KGlobalAllUserUnderCompanyObject.userList[i].userColor;
+                    }
+                $scope.userColor=userSortInfo.userColor;
+                $scope.userInitials=userSortInfo.userSortName;
+                }
+            });
+        };
+        
     }]);

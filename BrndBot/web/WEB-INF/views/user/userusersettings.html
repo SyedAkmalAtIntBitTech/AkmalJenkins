@@ -1,69 +1,69 @@
         
-    <div class="bb-panel-full-width bb-panel-styling" id="accountsettingdiv" ng-init="setTab('account')">
-            <div class="bb-panel-header">
-                <h2 class="">User Account Settings</h2>
-                
+<div class="bb-panel-full-width bb-panel-styling" id="accountsettingdiv" ng-init="setTab('account')">
+    <div class="bb-panel-header">
+        <h2 class="">User Account Settings</h2>
+
+    </div>
+    <div class="bb-panel-content-wrap">
+        <div class="hub-section" ng-init="getCompanyAddress()">
+            <div class="section-header">
+                <h3>Update your Details</h3>
+                <p>These are your user settings, if you are associated with multiple accounts this will change all of them</p>
             </div>
-            <div class="bb-panel-content-wrap">
-                <div class="hub-section" ng-init="getCompanyAddress()">
-                     <div class="section-header">
-                         <h3>Update your Details</h3>
-                        <p>These are your user settings, if you are associated with multiple accounts this will change all of them</p>
-                     </div>
-                    <div class="input-wrap">
-                        <label> First Name </label>
-                        <div class="input" >
-                            <input class="fluid" id="firstName"  ng-model="userDetails.userFirstName" ng-class="{'invalid-input': userDetails.userFirstName === '' || null}" placeholder="First name" ></input>
-                        </div>
-                        <span class="validationAlert" ng-if='userDetails.userFirstName === "" || null'>{{newFirstNameValidation}}</span>
+            <div class="input-wrap">
+                <label> First Name </label>
+                <div class="input" >
+                    <input class="fluid" id="firstName"  ng-model="userDetails.userFirstName" ng-class="{'invalid-input': userDetails.userFirstName === '' || null}" placeholder="First name" ></input>
+                </div>
+                <span class="validationAlert" ng-if='userDetails.userFirstName === "" || null'>{{newFirstNameValidation}}</span>
 
-                    </div>
-                    <div class="input-wrap">
-                        <label> Last Name </label>
-                        <div class="input" >
-                            <input class="fluid" id="lastName"  ng-model="userDetails.userLastName" placeholder="Last name" ng-class="{'invalid-input': userDetails.userLastName === '' || null}"></input>
-                        </div>
-                        <span class="validationAlert" ng-if='userDetails.userLastName === "" || null'>{{newLastNameValidation}}</span>
+            </div>
+            <div class="input-wrap">
+                <label> Last Name </label>
+                <div class="input" >
+                    <input class="fluid" id="lastName"  ng-model="userDetails.userLastName" placeholder="Last name" ng-class="{'invalid-input': userDetails.userLastName === '' || null}"></input>
+                </div>
+                <span class="validationAlert" ng-if='userDetails.userLastName === "" || null'>{{newLastNameValidation}}</span>
 
-                    </div>
-                    <div class="update-container">
-                        <a class="long-button gray-button" ng-click="changeUserName(userDetails)">Change User Name</a>
-                    </div>
-                    </div>
-                    <div class="hub-section">
-                    <div class="input-wrap">
-                        <label> Type Current Password </label>
-                        <div class="input" >
-                            <input class="" id="currentpassword" type="{{inputType}}" ng-model="userDetails.currentPassword" ng-class="{'invalid-input': userDetails.currentPassword === '' || null}" placeholder="Enter your current password" ng-blur="setPassword(userDetails.currentPassword)"></input>
-                        </div>
-                        <span class="validationAlert" ng-if='userDetails.currentPassword === "" || null'>{{newPasswordValidation}}</span>
-                        
-                    </div>    
-                    <div class="input-wrap">
-                        <label> Type New Password </label>
-                        <div class="input" >
-                            <input class="" id="newpassword" type="{{inputType}}" ng-model="userDetails.password" ng-class="{'invalid-input': userDetails.password === '' || null}" placeholder="Enter your new password" ng-blur="setPassword(userDetails.password)"></input>
-                        </div>
-                        <span class="validationAlert" ng-if='userDetails.password === "" || null'>{{newPasswordValidation}}</span>
-                        <span class="validationAlert" ng-if='userDetails.password.length < 8'>{{newPassword8CharValidation}}</span>
-
-                    </div>
-                    <div class="input-wrap">
-                        <label> Confirm New Password </label>
-                        <div class="input">
-                            <input id="confirmpassword" type="{{inputType}}" ng-model="userDetails.confirmPassword" ng-class="{'invalid-input': userDetails.confirmPassword === '' || null}" placeholder="Confirm password" ng-blur="isConfirmPasswordSame(confirmPassword)"></input>
-                        </div>
-                        <span class="validationAlert" ng-if='userDetails.confirmPassword === "" || null'>{{confirmPasswordValidation}}</span>
-                        <span class="validationAlert" ng-if='isConfirmPasswordSamePassword'>{{confirmPasswordMissmatch}}</span>{{userDetails.isConfirmPasswordSamePassword}}
-
-                    </div>
-                    
-                    <div class="update-container">
-                        <a class="long-button gray-button" ng-click="changePassword(userDetails)">Change Password</a>
-                    </div>
-                    </div>
-                    
-                 
+            </div>
+            <div class="update-container">
+                <a class="long-button gray-button" ng-click="changeUserName(userDetails)">Change User Name</a>
             </div>
         </div>
-    <d
+        <div class="hub-section">
+<!--            <div class="input-wrap">
+                <label> Type Current Password </label>
+                <div class="input" >
+                    <input class="" id="currentpassword" type="{{inputType}}" ng-model="userDetails.currentPassword" ng-class="{'invalid-input': userDetails.currentPassword === '' || null}" placeholder="Enter your current password" ng-blur="setPassword(userDetails.currentPassword)"></input>
+                </div>
+                <span class="validationAlert" ng-if='userDetails.currentPassword === "" || null'>{{newPasswordValidation}}</span>
+
+            </div>    -->
+            <div class="input-wrap">
+                <label> Type New Password </label>
+                <div class="input" >
+                    <input class="" id="newpassword" type="{{inputType}}" ng-model="userDetails.password" ng-class="{'invalid-input': userDetails.password === '' || null}" placeholder="Enter your new password" ng-blur="setPassword(userDetails.password)"></input>
+                </div>
+                <span class="validationAlert" ng-if='userDetails.password === "" || null'>{{newPasswordValidation}}</span>
+                <span class="validationAlert" ng-if='userDetails.password.length < 8'>{{newPassword8CharValidation}}</span>
+
+            </div>
+            <div class="input-wrap">
+                <label> Confirm New Password </label>
+                <div class="input">
+                    <input id="confirmpassword" type="{{inputType}}" ng-model="userDetails.confirmPassword" ng-class="{'invalid-input': userDetails.confirmPassword === '' || null}" placeholder="Confirm password" ng-blur="isConfirmPasswordSame(confirmPassword)"></input>
+                </div>
+                <span class="validationAlert" ng-if='userDetails.confirmPassword === "" || null'>{{confirmPasswordValidation}}</span>
+                <span class="validationAlert" ng-if='isConfirmPasswordSamePassword'>{{confirmPasswordMissmatch}}</span>{{userDetails.isConfirmPasswordSamePassword}}
+
+            </div>
+
+            <div class="update-container">
+                <a class="long-button gray-button" ng-click="changePassword(userDetails)">Change Password</a>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<d

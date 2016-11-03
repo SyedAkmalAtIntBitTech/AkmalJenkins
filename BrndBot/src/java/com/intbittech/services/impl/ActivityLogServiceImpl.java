@@ -242,7 +242,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
 
         String body = null;
         try {
-            String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
+//            String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
 
             switch (activityId) {
                 case 1:
@@ -277,7 +277,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
             Content content = new Content(IConstants.kContentHTML, formattedBody);
             Email emailTo = new Email(toEmailId, userName);
             String subject = messageSource.getMessage("notification_subject", new String[]{}, Locale.US);
-            String formattedSubject = String.format(subject, companyName);
+            String formattedSubject = String.format(subject, createdBy);
             Mail mail = new Mail(null, formattedSubject, emailTo, content);
             emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, 0);
             return true;

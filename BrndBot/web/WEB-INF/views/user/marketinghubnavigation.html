@@ -4,9 +4,9 @@
     </div>
     <div class="bb-bar-right-wrap bb-one-third-flex-col">
         <div class="bb-help-icon">help icon</div>
-        <div class="bb-user-profile-dropdown-wrap" ng-init="getUserDetails()" ng-click="userSettings=true">
-             <div class="bb-user-badge bb-action-comment-user-badge" style="background-color: {{userColor}}">
-                <div style="">{{userFirstNameInitial}}{{userLastNameInitial}}</div>
+        <div class="bb-user-profile-dropdown-wrap" ng-init="getUserDetails()" ng-click="showSettingsPopup(true);">
+            <div class="bb-user-badge bb-action-comment-user-badge" style="background-color: {{userColor}}">
+                <div style="">{{userInitials}}</div>
             </div>
             <div class="bb-user-name-company-wrap">
                 <div class="bb-user-profile-user-name"><b>{{userFirstName}}</b></div>

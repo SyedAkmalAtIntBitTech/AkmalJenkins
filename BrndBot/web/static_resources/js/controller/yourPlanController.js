@@ -35,7 +35,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
         $scope.userColor = "";
-        $scope.userInitials = "";
+//        $scope.userInitials = "";
         var userSortInfo={userSortName:"",userColor:""};
 
         $scope.getCompanyStatus = function () {
@@ -405,8 +405,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.getActionComments = function (scheduleId) {
             yourPlanFactory.actionCommentsGet(scheduleId).then(function (data) {
                 $scope.comments = data.d.details;
-//                $scope.userColor=userSortInfo.userColor;
-//                $scope.userInitials=userSortInfo.userSortName;
             });
         };
 
@@ -1215,7 +1213,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                         $scope.userColor=KGlobalAllUserUnderCompanyObject.userList[i].userColor;
                     }
                 }
-            });
+            });           
         };
         $scope.addDateTimeOnId= function(dateid,timeId){
             utilFactory.AddDateTimePickerOnId(dateid,timeId).then(function (dateTimeEpoch) {

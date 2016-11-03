@@ -39,6 +39,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
         $scope.customLinkValidation = customLinkValidation;
         $scope.facebookImageValidation = facebookImageValidation;
         $scope.actionNameListValidation = actionNameListValidation;
+        $scope.sendOrPostHeader='Post';
         $scope.fbPostData = {};
         $scope.twitterPostData = {};
         $scope.fbLinkValidation = false;

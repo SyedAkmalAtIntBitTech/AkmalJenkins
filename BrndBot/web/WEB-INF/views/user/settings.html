@@ -46,9 +46,9 @@ and open the template in the editor.
                         </div>
                         <div class="bb-bar-right-wrap bb-one-third-flex-col">
                             <div class="bb-help-icon">help icon</div>
-                            <div class="bb-user-profile-dropdown-wrap"  ng-click="userSettings=true">
+                            <div class="bb-user-profile-dropdown-wrap"  ng-click="showSettingsPopup(true);">
                                  <div class="bb-user-badge bb-action-comment-user-badge" style="background-color: {{userColor}}">
-                                    <div style="">{{userFirstNameInitial}}{{userLastNameInitial}}</div>
+                                    <div style="">{{userInitials}}</div>
                                 </div>
                                 <div class="bb-user-name-company-wrap">
                                     <div class="bb-user-profile-user-name"><b>{{userFirstName}}</b></div>
@@ -59,13 +59,13 @@ and open the template in the editor.
                             <div ng-include src="'usersettingsDropDown.html'" class="bb-user-settings-dropdown-target"></div>
                         </div>
                     </div>
-                    <div class="bb-top-sub-nav">
+                    <div class="bb-top-sub-nav"  ng-click="userSettings=false">
                         <div class="bb-top-sub-nav-tab" ng-click="userSettingsTab.selectTab(1)"  ng-class="{ active: userSettingsTab.isSelected(1)}"><a href="#/useraccountsettings">Company Settings</a></div>
                         <div class="bb-top-sub-nav-tab" ng-click="userSettingsTab.selectTab(2)" ng-class="{ active: userSettingsTab.isSelected(2)}"><a href="#/userusersettings" >User Settings</a></div>
                         <div class="bb-top-sub-nav-tab" ng-click="userSettingsTab.selectTab(3)" ng-class="{ active: userSettingsTab.isSelected(3)}"><a href="#/userlogosettings" >Brand Settings</a></div>
-                        <div class="bb-top-sub-nav-tab" ng-click="userSettingsTab.selectTab(4)" ng-class="{ active: userSettingsTab.isSelected(4)}"><a href="#/settingsmanagedaccount" >Managed Account Settings</a></div>
+<!--                        <div class="bb-top-sub-nav-tab" ng-click="userSettingsTab.selectTab(4)" ng-class="{ active: userSettingsTab.isSelected(4)}"><a href="#/settingsmanagedaccount" >Managed Account Settings</a></div>-->
                     </div>
-                    <div class="bb-main-content-wrap bb-main-content-wrap-padding" ng-view> </div>
+                    <div class="bb-main-content-wrap bb-main-content-wrap-padding" ng-view ng-click="showSettingsPopup(false);"> </div>
                 </div> 
             </div>
         </div>

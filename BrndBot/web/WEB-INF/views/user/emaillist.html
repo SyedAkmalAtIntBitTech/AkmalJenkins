@@ -1,7 +1,7 @@
     <div ng-init="marketingHubTab.selectTab(3)" ng-include src="'marketinghubnavigation.html'"></div>
     <div ng-include src="'createemailList.html'"></div>
     
-    <div class="bb-main-content-wrap bb-main-content-wrap-padding" id="emaillistsdiv" ng-show="emallistdetails" ng-click="showHideUserSettings(false)">
+    <div class="bb-main-content-wrap bb-main-content-wrap-padding" id="emaillistsdiv" ng-show="emallistdetails" ng-click="showSettingsPopup(false);">
 
         <!--USER ADDED LISTS-->
         <div class="bb-panel-full-width bb-panel-styling">
@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 </div>
-                <div class="bb-panel-empty-state-wrap"   ng-if="emailListsMindbody.length <= 0 || emailListsMindbody.length == undefined ">
+                <div class="bb-panel-empty-state-wrap" ng-if="noMindbodyIndexedList">
                     <h2 class="bb-panel-empty-state-text">There are no MINDBODY indexed lists presently, it might take approximately 20 minutes to sync.</h2>  
                 
                 </div>
