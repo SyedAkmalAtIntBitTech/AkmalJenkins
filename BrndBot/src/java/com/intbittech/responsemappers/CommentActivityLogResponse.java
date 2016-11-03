@@ -28,9 +28,18 @@ public class CommentActivityLogResponse implements Comparable<CommentActivityLog
     private String assignedToLastName;
     private String assignedToEmailId;
     private Boolean isActivity;
+    private String userColor;
 
     public Integer getCreatedByUserId() {
         return createdByUserId;
+    }
+
+    public String getUserColor() {
+        return userColor;
+    }
+
+    public void setUserColor(String userColor) {
+        this.userColor = userColor;
     }
 
     public void setCreatedByUserId(Integer createdByUserId) {
@@ -148,7 +157,6 @@ public class CommentActivityLogResponse implements Comparable<CommentActivityLog
         this.isActivity = isActivity;
     }
     
-
     @Override
     public int compareTo(CommentActivityLogResponse o) {
         int value = 0;
