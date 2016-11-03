@@ -53,6 +53,11 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
         var userSortInfo={userSortName:"",userColor:""};
+        $scope.userSettings=false;
+        
+        $scope.showSettingsPopup = function (flag){
+            $scope.userSettings = flag;
+        };
 
 
         $scope.getCompanyStatus = function() {
@@ -64,9 +69,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             });
         };
         
-        $scope.showHideUserSettings = function (flag){
-            $scope.userSettings=flag;
-        };
         this.tab = 1;
 
         this.selectTab = function (setTab){

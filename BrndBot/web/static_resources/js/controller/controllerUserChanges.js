@@ -35,9 +35,15 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.userColor="";
         $scope.userInitials="";
         var userSortInfo={userSortName:"",userColor:""};
+        $scope.userSettings=false;
+        
+        $scope.showSettingsPopup = function (flag){
+            $scope.userSettings = flag;
+        };
         
         this.tab = 1;
-
+        
+        
         this.selectTab = function (setTab) {
             this.tab = setTab;
         };

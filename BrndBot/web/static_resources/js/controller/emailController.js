@@ -60,6 +60,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.stateValidation = stateValidation;
         $scope.zipcodeValidation = zipcodeValidation;
         $scope.countryValidation = countryValidation;
+        $scope.sendOrPostHeader='Send';
         $scope.isEmailSubEmpty = false;
         $scope.ispreHeaderEmpty = false;
         $scope.actionTimeVal = false;
