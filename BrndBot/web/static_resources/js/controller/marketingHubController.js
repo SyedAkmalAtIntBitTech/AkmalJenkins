@@ -427,6 +427,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.emailFooterPopupDetails = false;
         };
         $scope.displayEmailHistory = function () {
+            $scope.email_history = "";
             $scope.showDeleteEmailList = false;
             $scope.emaildropdown = false;
             $scope.deletDraftsButton = false;
@@ -472,6 +473,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
 
         $scope.getHistoryDetails = function (details) {
+            $scope.tagsDetails = "";
             $scope.fadeClass = 'fadeClass';
             $scope.emailsectionClass = 'emailsectionClass';
             $scope.scheduledTo = 'POST';
