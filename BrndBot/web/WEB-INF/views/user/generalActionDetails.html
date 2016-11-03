@@ -1,4 +1,4 @@
-<div class="overlay-content" id="emailactionsection" ng-init='hideSaveButton()' ng-show='marketingTab.isSelected(5) || yourplanTab.isSelected(5);' ng-form name="actionDetailsForm">
+<div class="overlay-content" id="emailactionsection" ng-init='hideSaveButton()' ng-show='marketingTab.isSelected(5) || yourplanTab.isSelected(5); || marketingHubTab.isSelected(5);' ng-form name="actionDetailsForm">
     <div ng-show="isProgramArchived" class="clickProofLayer"></div>
     <div class="overlay-name-bar" ng-show="isRecurring === false">
         <input size="40" value="Email Action Name" id="email_edit_title" name="email_edit_title" ng-model='scheduleData.schedule_title' ng-change="showSaveButton()" value="{{scheduleData.schedule_title}}"><br/>
