@@ -32,6 +32,10 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
         $scope.settings = {};
+        $scope.userColor="";
+        $scope.userInitials="";
+        var userSortInfo={userSortName:"",userColor:""};
+        
         this.tab = 1;
 
         this.selectTab = function (setTab) {
@@ -61,6 +65,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $scope.logourl = kGlobalCompanyObject.logourl;
                 $scope.userDetails.userFirstName = $scope.userFirstName;
                 $scope.userDetails.userLastName = $scope.userLastName;
+                $scope.getUserDetailsByUserId(kGlobalCompanyObject.userId);
             });
         };
 
@@ -595,9 +600,23 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             } else {
                 growl("Please select email list before saving.")
             }
-
-
         };
+        $scope.getUserDetailsByUserId = function (userId){
+            appSessionFactory.getAllUsersUnderCompany().then(function (KGlobalAllUserUnderCompanyObject){
+                for(var i=0; i< KGlobalAllUserUnderCompanyObject.userList.length;i++){
+                    if(userId === KGlobalAllUserUnderCompanyObject.userList[i].userId){
+                        var userFisetName = KGlobalAllUserUnderCompanyObject.userList[i].firstName;
+                        var userLastName = KGlobalAllUserUnderCompanyObject.userList[i].lastName;
+                        var userSignature = userFisetName.charAt(0)+ userLastName.charAt(0);
+                        userSortInfo.userSortName = userSignature.toUpperCase();
+                        userSortInfo.userColor = KGlobalAllUserUnderCompanyObject.userList[i].userColor;
+                    }
+                }
+                $scope.userColor=userSortInfo.userColor;
+                $scope.userInitials=userSortInfo.userSortName;
+            });
+        };
+        
 
     }]);
 

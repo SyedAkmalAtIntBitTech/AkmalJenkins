@@ -48,6 +48,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.editSavedEmail = false;
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
+        $scope.userColor="";
+        $scope.userInitials="";
         var userSortInfo={userSortName:"",userColor:""};
 
         $scope.getCompanyStatus = function () {
@@ -479,8 +481,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.getActionComments = function (scheduleId) {
             yourPlanFactory.actionCommentsGet(scheduleId).then(function (data) {
                 $scope.comments = data.d.details;
-                $scope.userColor=userSortInfo.userColor;
-                $scope.userInitials=userSortInfo.userSortName;
+//                $scope.userColor=userSortInfo.userColor;
+//                $scope.userInitials=userSortInfo.userSortName;
             });
         };
 
@@ -2102,7 +2104,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };       
         $scope.getUserDetailsByUserId = function (userId){
             appSessionFactory.getAllUsersUnderCompany().then(function (KGlobalAllUserUnderCompanyObject){
-                for(var i=0; i<= KGlobalAllUserUnderCompanyObject.userList.length;i++){
+                for(var i=0; i< KGlobalAllUserUnderCompanyObject.userList.length;i++){
                     if(userId === KGlobalAllUserUnderCompanyObject.userList[i].userId){
                         var userFisetName = KGlobalAllUserUnderCompanyObject.userList[i].firstName;
                         var userLastName = KGlobalAllUserUnderCompanyObject.userList[i].lastName;
@@ -2111,6 +2113,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         userSortInfo.userColor = KGlobalAllUserUnderCompanyObject.userList[i].userColor;
                     }
                 }
+                $scope.userColor=userSortInfo.userColor;
+                $scope.userInitials=userSortInfo.userSortName;
             });
         };
 

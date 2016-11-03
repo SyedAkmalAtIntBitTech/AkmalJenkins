@@ -1,6 +1,9 @@
 socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$location', 'settingsFactory', 'socialPostFactory', 'appSessionFactory', function ($scope, $rootScope, $location, settingsFactory, socialPostFactory, appSessionFactory) {
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
+        $scope.userColor="";
+        $scope.userInitials="";
+        var userSortInfo={userSortName:"",userColor:""};
 
         $scope.getCompanyStatus = function() {
             appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent){
@@ -39,6 +42,7 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
                 $scope.userFirstName = kGlobalCompanyObject.userFirstName;
                 $scope.userLastName = kGlobalCompanyObject.userLastName;
 
+                $scope.getUserDetailsByUserId(kGlobalCompanyObject.userId);
                 kGlobalCompanyObject.userHashId = 'undefined';
                 appSessionFactory.setCompany(kGlobalCompanyObject).then(function(data){});
                 appSessionFactory.getDashboardMessage().then(function(message){
@@ -199,6 +203,21 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
         $scope.closeTwitterPopup = function ()
         {
             $scope.showTwitterPopup = false;
+        };
+        $scope.getUserDetailsByUserId = function (userId){
+            appSessionFactory.getAllUsersUnderCompany().then(function (KGlobalAllUserUnderCompanyObject){
+                for(var i=0; i< KGlobalAllUserUnderCompanyObject.userList.length;i++){
+                    if(userId === KGlobalAllUserUnderCompanyObject.userList[i].userId){
+                        var userFisetName = KGlobalAllUserUnderCompanyObject.userList[i].firstName;
+                        var userLastName = KGlobalAllUserUnderCompanyObject.userList[i].lastName;
+                        var userSignature = userFisetName.charAt(0)+ userLastName.charAt(0);
+                        userSortInfo.userSortName = userSignature.toUpperCase();
+                        userSortInfo.userColor = KGlobalAllUserUnderCompanyObject.userList[i].userColor;
+                    }
+                }
+                $scope.userColor=userSortInfo.userColor;
+                $scope.userInitials=userSortInfo.userSortName;
+            });
         };
 
     }]);
