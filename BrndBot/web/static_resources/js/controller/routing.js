@@ -1,38 +1,38 @@
 brndBotSignupApp.config(function ($routeProvider) {
     $routeProvider
             .when('/signin', {
-                title: 'BrndBot - Login',
+                title: 'BrandBot - Login',
                 templateUrl: 'signup/loginform.html'
             })
             .when('/signup/resetpassword', {
-                title: 'BrndBot - Reset-Password',
+                title: 'BrandBot - Reset-Password',
                 templateUrl: 'signup/resetpassword.html'
             })
             .when('/signup/changepassword', {
-                title: 'BrndBot - Reset-Password',
+                title: 'BrandBot - Reset-Password',
                 templateUrl: 'signup/changepassword.html'
             })
             .when('/signup/company', {
-                title: 'BrndBot-On Boarding',
+                title: 'BrandBot-On Boarding',
                 templateUrl: 'signup/company.html'
             })
             .when('/signup/userregistration', {
-                title: 'BrndBot - User Signup',
+                title: 'BrandBot - User Signup',
                 templateUrl: 'signup/userregistration.html'
             })
             .when('/signup/datasource', {
-                title: 'BrndBot-On Boarding',
+                title: 'BrandBot-On Boarding',
                 templateUrl: 'signup/datasource.html'
             })
             .when('/signup/uploadlogo', {
-                title: 'BrndBot-On Boarding',
+                title: 'BrandBot-On Boarding',
                 templateUrl: 'signup/uploadlogo.html'
             })
             .when('/signup/choosepalette', {
-                title: 'BrndBot- Color Palette',
+                title: 'BrandBot- Color Palette',
                 templateUrl: 'signup/choosepalette.html'
             })
-            .otherwise({title: 'BrndBot - Login', redirectTo: '/signin'});
+            .otherwise({title: 'BrandBot - Login', redirectTo: '/signin'});
 }).run(function ($rootScope) {
     $rootScope.$on("$routeChangeSuccess", function (event, currentRoute) {
         document.title = currentRoute.title;
@@ -64,23 +64,23 @@ emailFlowApp.config(function ($routeProvider) {
                 templateUrl: 'emailexternalsource.html'
             })
             .when('/emailsubjects', {
-                title: 'BrndBot - Email Subject',
+                title: 'BrandBot - Email Subject',
                 templateUrl: 'emailsubjects.html'
             })
             .when('/emaileditor', {
-                title: 'BrndBot - Email Editor',
+                title: 'BrandBot - Email Editor',
                 templateUrl: 'emaileditor.html'
             })
             .when('/emaillistselection', {
-                title: 'BrndBot - Email List Selection',
+                title: 'BrandBot - Email List Selection',
                 templateUrl: 'emaillistselection.html'
             })
             .when('/emaildetails', {
-                title: 'BrndBot - Email Details',
+                title: 'BrandBot - Email Details',
                 templateUrl: 'emaildetails.html'
             })
             .when('/franchisecompanies', {
-                title: 'BrndBot - Franchise Companies',
+                title: 'BrandBot - Franchise Companies',
                 templateUrl: 'franchisecompanies.html'
             })
             .otherwise({title: 'Category', redirectTo: '/emailcategory'});
@@ -155,7 +155,7 @@ marketingFlowApp.config(function ($routeProvider) {
 
     $routeProvider
             .when('/createmarketingprogram', {
-                title: 'BrndBot - Create Marketing Program',
+                title: 'BrandBot - Create Marketing Program',
                 templateUrl: 'basemarketingprogram.html'
 
             })
@@ -164,22 +164,22 @@ marketingFlowApp.config(function ($routeProvider) {
                 templateUrl: 'marketingprogram.html'
             })
             .when('/usermarketingprogram', {
-                title: 'BrndBot - User Marketing Program',
+                title: 'BrandBot - User Marketing Program',
                 templateUrl: 'usermarketingprogram.html'
 
             })
             .when('/marketingprogramlists', {
-                title: 'BrndBot - Marketing Programs lists',
+                title: 'BrandBot - Marketing Programs lists',
                 templateUrl: 'marketingprogramlists.html'
 
             })
             .when('/marketingprogramactions', {
-                title: 'BrndBot - Marketing Program actions',
+                title: 'BrandBot - Marketing Program actions',
                 templateUrl: 'marketingprogramactions.html'
 
             })
             .when('/emailautomation', {
-                title: 'BrndBot - Email Automation',
+                title: 'BrandBot - Email Automation',
                 templateUrl: 'emailautomation.html'
             })
 
@@ -195,35 +195,35 @@ marketingFlowApp.config(function ($routeProvider) {
 marketinghubFlowApp.config(function ($routeProvider) {
     $routeProvider
             .when('/marketinghub', {
-                title: 'BrndBot - Marketing Hub',
+                title: 'BrandBot - Marketing Hub',
                 templateUrl: 'marketinghub.html'
             })
             .when('/emaildraft', {
-                title: 'BrndBot - Email Drafts',
+                title: 'BrandBot - Email Drafts',
                 templateUrl: 'emaildraft.html'
             })
             .when('/emailhistory', {
-                title: 'BrndBot - Email History',
+                title: 'BrandBot - Email History',
                 templateUrl: 'emailhistory.html'
             })
             .when('/emaillist', {
-                title: 'BrndBot - Email Lists',
+                title: 'BrandBot - Email Lists',
                 templateUrl: 'emaillist.html'
             })
             .when('/emailsetting', {
-                title: 'BrndBot - Email Settings',
+                title: 'BrandBot - Email Settings',
                 templateUrl: 'emailsetting.html'
             })
             .when('/footersetting', {
-                title: 'BrndBot - Email Footer Settings',
+                title: 'BrandBot - Email Footer Settings',
                 templateUrl: 'footersetting.html'
             })
             .when('/emaillistdetails', {
-                title: 'BrndBot - Email List Details',
+                title: 'BrandBot - Email List Details',
                 templateUrl: 'emaillistdetails.html'
             })
 
-            .otherwise({title: 'BrndBot - Email Lists', redirectTo: '/emaillist'});
+            .otherwise({title: 'BrandBot - Email Lists', redirectTo: '/emaillist'});
 }).run(function ($rootScope) {
     $rootScope.$on("$routeChangeSuccess", function (event, currentRoute) {
         document.title = currentRoute.title;
@@ -244,28 +244,28 @@ imagesFlowApp.config(function ($routeProvider) {
 franchiseHubApp.config(function ($routeProvider) {
     $routeProvider
             .when('/managedaccountdash', {
-                title: 'BrndBot - Account Manager Dashboard',
+                title: 'BrandBot - Account Manager Dashboard',
                 templateUrl: 'managedaccountdash.html'
             })
 
             .when('/managedaccounts', {
-                title: 'BrndBot - Managed Accounts',
+                title: 'BrandBot - Managed Accounts',
                 templateUrl: 'managedaccounts.html'
             })
             .when('/pushedemailhistory', {
-                title: 'BrndBot - Pushed Emails',
+                title: 'BrandBot - Pushed Emails',
                 templateUrl: 'pushedemailhistory.html'
             })
             .when('/pushedemaildrafts', {
-                title: 'BrndBot - Pushed Emails',
+                title: 'BrandBot - Pushed Emails',
                 templateUrl: 'pushedemaildrafts.html'
             })
             .when('/emailtags', {
-                title: 'BrndBot - Email Tags',
+                title: 'BrandBot - Email Tags',
                 templateUrl: 'emailtags.html'
             })
             .when('/pushedemaildetailbase', {
-                title: 'BrndBot - Pushed Emails',
+                title: 'BrandBot - Pushed Emails',
                 templateUrl: 'pushedemaildetailbase.html'
             })
             .when('/emailcategory', {
@@ -281,24 +281,24 @@ franchiseHubApp.config(function ($routeProvider) {
                 templateUrl: 'emailexternalsource.html'
             })
             .when('/emailsubjects', {
-                title: 'BrndBot - Email Subject',
+                title: 'BrandBot - Email Subject',
                 templateUrl: 'emailsubjects.html'
             })
             .when('/emaileditor', {
-                title: 'BrndBot - Email Editor',
+                title: 'BrandBot - Email Editor',
                 templateUrl: 'emaileditor.html'
             })
             .when('/emaillistselection', {
-                title: 'BrndBot - Email List Selection',
+                title: 'BrandBot - Email List Selection',
                 templateUrl: 'emaillistselection.html'
             })
             .when('/emaildetails', {
-                title: 'BrndBot - Email Details',
+                title: 'BrandBot - Email Details',
                 templateUrl: 'emaildetails.html'
             })
 
 
-            .otherwise({title: 'BrndBot - Account Manager Dashboard', redirectTo: '/managedaccountdash'});
+            .otherwise({title: 'BrandBot - Account Manager Dashboard', redirectTo: '/managedaccountdash'});
 }).run(function ($rootScope) {
     $rootScope.$on("$routeChangeSuccess", function (event, currentRoute) {
         document.title = currentRoute.title;

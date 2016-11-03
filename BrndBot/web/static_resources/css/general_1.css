@@ -1144,7 +1144,7 @@ li.sub-nav-tab.active a{
     width: 35px;
     border: 2px #D5D9DD  solid;
     border-radius: 35px;
-    margin-left: 45px; 
+    margin-left: 10px; 
     padding: 5px;
     cursor:pointer;
 }
@@ -1815,10 +1815,7 @@ li.sub-nav-tab.active a{
 }
 
 .sendOrSchedulePopup{
-    position:  fixed;
-    top: 5vh;
-    left: 45vh;
-    z-index:150;
+
 }
 #fadeEmailAutomationPreview
 {
@@ -2059,6 +2056,10 @@ p.modal-content-header{
 
 .modal-pane-content-wrap.create-new-schedule-modal{
     padding: 30px 55px;
+}
+
+.modal-max-height-override{
+    max-height: 600px !important;
 }
 
 
@@ -2718,8 +2719,8 @@ p.modal-content-header{
     padding-left: 20px;
 }
 
-.slat-detail-wrap-your-plan{
-    padding-left:160px;
+.slat-detail-wrap{
+    width: 200px;
 }
 
 .slat-detail-wrap:last-child{
@@ -2742,11 +2743,7 @@ p.modal-content-header{
     width: 120px;
 }
 
-.slat-detail h2{
-    text-align: right;  
-    overflow: visible;
-    width: 220px;
-}
+
 
 .slat-detail p{
     color: #6F7176;
@@ -3759,12 +3756,7 @@ p.modal-content-header{
     left:55vh;
 }
 
-#addUserSettings{
-    z-index: 999999;
-    position: fixed;
-    left:55vh;
-    top:20vh;  
-}
+
 
 .choosePalettePopup{
     z-index: 999999;
@@ -5391,7 +5383,7 @@ textarea.task-textarea:focus{
 
 .bb-user-profile-user-name{
     font-size: 12px;
-    color: #777B85;
+    color: #49505B;
    line-height: 14px;
    font-weight: 500;
 }
@@ -5588,6 +5580,37 @@ textarea.task-textarea:focus{
    
 }
 
+.bb-action-slat-assignee{
+    min-width: 50px;
+   
+}
+
+.bb-action-slat-assignee-wrap{
+     position: relative;
+     width: 50px;
+}
+
+.bb-tooltip{
+    position: absolute;
+      padding: 8px 10px;
+    border-radius: 3px;
+    background-color: #535b66;
+    color: #EEE;
+    font-size: 12px;
+    width: auto;
+    text-align: left;
+    line-height: 140%;
+}
+
+.bb-tooltip-top{
+  bottom: 120%;
+  left:0;
+}
+
+.bb-action-slat-assignee-tooltip{
+    width:100px;
+}
+
 .bb-action-comment-details{
     font-size: 12px;
     color: #A9B3BD;
@@ -5623,7 +5646,8 @@ textarea.task-textarea:focus{
     align-content: center;
     align-items: center;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 500;
+    line-height: 100%;
     
 }
 
@@ -6316,6 +6340,28 @@ h3{
     width: 900px;
     right: 0px;
     margin-right: -900px;
+}
+
+#emaildraftpopup{
+    
+    position: fixed;
+    z-index: 999999;
+    height: 100vh;
+    overflow-y: hidden;
+    width: 900px;
+    right: 0px;
+  
+}
+
+#emaildraftpopup{
+    
+    position: fixed;
+    z-index: 999999;
+    height: 100vh;
+    overflow-y: hidden;
+    width: 900px;
+    right: 0px;
+  
 }
 
 .emailsectionClass{

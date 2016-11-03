@@ -1,15 +1,15 @@
-<div id="fade"  class="black_overlay" ng-click="closeSavedEmailDraftPopup()">
-</div>
-    <div id="emaildraftpopup" ng-show="savedEmailDraftPopup" class="overlay-wrap">
+<div id="fade"  class="black_overlay" ng-click="closeSavedEmailDraftPopup()"  ng-show="savedEmailDraftPopup">
+
+    <div  class="overlay-wrap overlay-slide" id="emaildraftpopup">
         <div class="detail-overlay-content">
-            <div class="header" id="emailtopnav">
-                <a class="exit-button" href="" id="closedraftpopup" ng-click="clickedDeleteAction = false;closeSavedEmailDraftPopup()">
+            <div class="bb-top-nav" id="emailtopnav">
+            <div class="bb-bar-left-wrap bb-one-half-flex-col">
+                <a class="bb-back-button bb-rotate-element-180" href="" id="closedraftpopup" ng-click="clickedDeleteAction = false;closeSavedEmailDraftPopup()">
                 </a>
-                <h2> Saved Email Draft</h2>
-                <div class="overlay-header-cta-wrap">
-                    <a class="reg-button gray-button" ng-click="editDrafts(id, categoryid, emailsubject, subcategoryid, mindbodyId, lookupId)">
-                        Edit This Draft
-                    </a>
+                <h3 class="bb-top-nav-title">{{generalActionDetailsHeader}} Action Detail</h3>
+            </div>
+                <div class="bb-bar-right-wrap bb-one-half-flex-col bb-overlay-header-cta-wrap" >
+                    
                     <div class="action-delete-button" ng-click="clickedDeleteAction = true"></div>
                     <div ng-show="clickedDeleteAction" class="action-pop-up delete-action-pop-up ease-all">
                         <strong>Are you sure you want to delete this action?</strong>
@@ -26,7 +26,7 @@
             <div class="overlay-content-saved-email-draft" >
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
-                        <div >SAVED EMAIL DETAILS</div>
+                        <div >SAVED EMAIL DRAFT DETAILS</div>
                     </div>
                     <div class="detail-sections-wrap">
                         <div class="detail-section">  
@@ -41,9 +41,14 @@
                         </div>
                     </div>
                 </div>
+                 <div class="bb-overlay-button-wrap">
+                    <a class="bb-button bb-secondary-action-button" ng-click="editDrafts(id, categoryid, emailsubject, subcategoryid, mindbodyId, lookupId)">
+                        Edit This Draft
+                    </a>
+                 </div>
                 <div class="email-preview-bar">EMAIL PREVIEW</div>
                 <div class="overlay-email-preview"><div id="draftshow"></div></div>   
             </div>
         </div>
     </div> 
-
+</div>

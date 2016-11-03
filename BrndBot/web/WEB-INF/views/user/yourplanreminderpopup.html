@@ -4,29 +4,33 @@
         <input type="hidden" id="remainder_id" value="{{scheduleData.schedule_id}}"/>
 
         <!--TOP NAV BAR-->
-        <div class="header">
-            <a class="exit-button" ng-click="closePopup();isDeletePromptOpen(false);marketingTab.selectTab(4);" href="">
-            </a>
-            <h2> Task Detail</h2>
-            <div class="overlay-header-cta-wrap">
-                <a class="reg-button gray-button" ng-show="action_template_status === 'No Template'" ng-click="Approval(schedule_id, 'complete', masterActionType)">
-                    Mark Complete
-                </a>
-                <a class="reg-button gray-button" id="marketingemailapprove" ng-show="action_template_status === 'Complete'" ng-click="Approval(schedule_id, 'no_template', masterActionType)">
-                    Change to Incomplete
-                </a>                
-                <div class="action-delete-button" ng-click="isDeletePromptOpen(true)"></div>
-                <div ng-show="clickedDeleteAction" class="action-pop-up delete-action-pop-up ease-all">
-                    <strong>Are you sure you want to delete this action?</strong>
-                    <p>All data will be erased and you will lose any saved emails and posts</p>
-                    <div class="cta-wrapper">
-                        <a ng-click="isDeletePromptOpen(false)" href="" class="cancel-button">Cancel</a>
-                        <a ng-click="deleteSchedule(scheduleData.schedule_id, 'delete', getnote());marketingTab.selectTab(4);" href="" class="delete-button">Delete</a>
+       
+            <div class="bb-top-nav" id="emailtopnav">
+                <div class="bb-bar-left-wrap bb-one-half-flex-col">
+                    <a id="closePopupSlider" class="bb-back-button bb-rotate-element-180" ng-click="closePopup();isDeletePromptOpen(false);marketingTab.selectTab(4);" href="">
+                    </a>
+                    <h3 class="bb-top-nav-title">{{generalActionDetailsHeader}} Action Detail</h3>
+                </div>
+                <div class="bb-bar-right-wrap bb-one-half-flex-col bb-overlay-header-cta-wrap" ng-show="pushedEmail==false">
+                   <a class="bb-button bb-default-action-button" ng-show="action_template_status === 'No Template'" ng-click="Approval(schedule_id, 'complete', masterActionType)">
+                            Mark Complete
+                        </a>
+                        <a class="bb-button bb-default-action-button" id="marketingemailapprove" ng-show="action_template_status === 'Complete'" ng-click="Approval(schedule_id, 'no_template', masterActionType)">
+                            Change to Incomplete
+                        </a>      
+                    <div ng-hide="isProgramArchived" class="action-delete-button" ng-click="isDeletePromptOpen(true);promptHideShow(false)" ></div>
+                    <div ng-show="clickedDeleteAction" class="action-pop-up delete-action-pop-up ease-all">
+                        <strong>Are you sure you want to delete this action?</strong>
+                        <p>All data will be erased and you will lose any saved emails and posts</p>
+                        <div class="cta-wrapper">
+                            <a ng-click="isDeletePromptOpen(false)" href="" class="cancel-button">Cancel</a>
+                            <a ng-click="isDeletePromptOpen(false);deleteSchedule(scheduleData.schedule_id, 'delete', getnote());marketingTab.selectTab(4);"  href="" class="delete-button">Delete</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
+       
         <div class="bb-top-sub-nav bb-top-sub-nav-backbutton-offset" ng-show="pushedEmail == false">
             <div class="bb-top-sub-nav-tab" ng-if="isEmailHistory">
                 <a id="emailnote1" ng-click="setTab('emailHistory')" ng-class="top_subnav_link_active_emailHistoryDetail_Class" href="">Email History Details</a>

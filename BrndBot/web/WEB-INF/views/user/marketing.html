@@ -2,7 +2,7 @@
 <div ng-include src="'addaction.html'"></div>
 <div ng-include src="'usersettingpopup.html'"></div>
  
-  <div  ng-init="getUserDetails()">
+  <div  ng-init="getUserDetails(); assignmentTooltip=false">
     <div class="bb-top-nav">
          <div class="bb-bar-left-wrap bb-one-third-flex-col">
              <h3 class="bb-top-nav-title">Your Plan</h3>
@@ -118,9 +118,11 @@
 
 
                         <div class="slat-detail-wrap slat-detail-wrap-your-plan" >
-                            <div class="slat-detail" ng-hide="entitydetails.assignedFirstName == undefined">
-                                <h2>{{entitydetails.assignedToInitialChars}}</h2>
-                                
+                            <div class="slat-detail">
+                                <div class=" bb-action-slat-assignee-wrap">
+                                    <h2  class="bb-action-slat-assignee" ng-hide="entitydetails.assignedFirstName == undefined" ng-mouseover="assignmentTooltip=true" ng-mouseleave="assignmentTooltip=false">{{entitydetails.assignedToInitialChars}}</h2>
+                                    <div class="bb-tooltip bb-tooltip-top bb-action-slat-assignee-tooltip" ng-show="assignmentTooltip">Assigned to <br><b>{{entitydetails.assignedFirstName}} {{entitydetails.assignedlastName}}</b></div>
+                                </div>
                             </div>
                         </div>
 
