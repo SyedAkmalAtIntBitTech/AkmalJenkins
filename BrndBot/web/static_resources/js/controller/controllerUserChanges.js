@@ -148,11 +148,6 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $("#confirmpassword").focus();
                 return false;
             }
-            if (!userDetails.currentPassword) {
-                $scope.userDetails.currentPassword = "";
-                $("#currentpassword").focus();
-                return false;
-            }
             if ($scope.isConfirmPasswordSame(userDetails.password, userDetails.confirmPassword))
                 return true;
         };
@@ -191,7 +186,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.changePassword = function (userDetails) {
             if ($scope.accountSettingsValidation(userDetails))
             {
-                var password_object = {"currentPassword": userDetails.currentPassword, "password": userDetails.password, "confirmpassword": userDetails.confirmPassword, "type": "update"};
+                var password_object = {"password": userDetails.password, "confirmpassword": userDetails.confirmPassword, "type": "update"};
                 signupFactory.resetPasswordPost(password_object).then(function (data) {
                     if (data.d.operationStatus.statusCode === "DataError")
                         growl("Oops something went wrong please check if you entered passwords correctly.");
