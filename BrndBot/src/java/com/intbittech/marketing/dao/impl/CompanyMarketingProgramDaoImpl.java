@@ -180,6 +180,7 @@ public class CompanyMarketingProgramDaoImpl implements CompanyMarketingProgramDa
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(CompanyMarketingProgram.class)
                     .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .add(Restrictions.eq("status", "Open"))
                     .add(Restrictions.eq("fkCompanyId.companyId", companyId));
             if (criteria.list().isEmpty()) {
                 return null;

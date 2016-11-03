@@ -125,7 +125,6 @@ public class SignupController {
 
             String type = (String) requestBodyMap.get("type");
             String password = (String) requestBodyMap.get("password");
-            String oldPassword = (String) requestBodyMap.get("currentPassword");
             String hashURL = (String) requestBodyMap.get("hashURL");
             String hashPassword = passwordEncoder.encode(password);
             if (type.equalsIgnoreCase("update")) {
