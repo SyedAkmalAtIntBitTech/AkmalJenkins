@@ -224,14 +224,11 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $scope.userId = $location.search().userId;
         };
 
-        $scope.getUserId = function () {
-            $scope.userId = $location.search().userId;
-        };
-
         $scope.getLoggedInUserId = function () {
             onboardingFactory.getLoggedInUserId().then(function (data) {
                 appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                     kGlobalCompanyObject.userId = data.d.details[0];
+                    alert(data.d.details);
                     appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data1) {
                         if (data1) {
                             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
