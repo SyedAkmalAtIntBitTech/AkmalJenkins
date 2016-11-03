@@ -1041,6 +1041,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         $scope.viewEmailListDetails = function (email, type)
         {
+            $scope.isMINDBODYEmailLIstDetails = true;
+            if(type==="user")
+                $scope.isMINDBODYEmailLIstDetails = false;
+            alert($scope.isMINDBODYEmailLIstDetails);
             $scope.overlayFade = false;
             $scope.emailListName = email.emailListName;
             $scope.emailListId = email.emailListId;
