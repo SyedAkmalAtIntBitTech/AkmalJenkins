@@ -866,6 +866,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.closePopup();
                     $scope.getProgramActions();
                     $scope.getActionComments(schedule_id);
+                    growl("Action Saved");
                 });
             });
         };

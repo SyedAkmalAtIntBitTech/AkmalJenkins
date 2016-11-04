@@ -303,12 +303,14 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             });
         };
 
-        $scope.removeUser = function (inviteId) {
-
-            onboardingFactory.removeUserPost(inviteId).then(function (data) {
-                growl(data.d.message);
-                $location.path("/settings/useraccountsettings");
-            });
+        $scope.removeUser = function (users) {
+            var flag=confirm(userDeletePrompt+"\n "+users.emailID+" ?");
+            if(flag){
+                onboardingFactory.removeUserPost(users.inviteId).then(function (data) {
+                    growl(data.d.message);
+                    $location.path("/settings/useraccountsettings");
+                });
+            }
         };
 
         $scope.getInvitedUsers = function () {

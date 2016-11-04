@@ -50,7 +50,7 @@
             <div class="bb-action-comment-wrap">
                 <div class="input" ng-form name="actionCommentForm">
                     <input  name="comment" class="fluid bb-action-comment-input" id="comment"  placeholder="Add a comment to this action" ng-model="comment" contenteditable="true" style="max-width:780px;">
-                    <div class="bb-button bb-primary-action-button  ease-all" value="comment" ng-click="addActionComment(schedule_id, comment)" ng-show="actionCommentForm.$dirty">Add Comment</div>
+                    <div class="bb-button bb-primary-action-button  ease-all" value="comment" ng-click="addActionComment(schedule_id, comment);comment='';" ng-show="actionCommentForm.$dirty">Add Comment</div>
                     <div value="refresh" ng-click="getActionComments(schedule_id)"></div>
                 </div>
             </div>
