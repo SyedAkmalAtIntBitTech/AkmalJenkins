@@ -396,7 +396,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.getUserDetailsByUserId(kGlobalCompanyObject.userId);
                 yourPlanFactory.addActionCommentPOST(commentDetails).then(function (data) {
                     $scope.getActionComments(scheduleId);
-                    $("#comment").val("");
                 });
             });
             }
@@ -936,7 +935,13 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var schedule_id = scheduleUpdatedData.schedule_id;//$("#email_scheduleid").val();
             var title = scheduleUpdatedData.schedule_title;//$("#email_edit_title").val();
             var actiondate = "1970/01/01";
-            var actionTime1 = $("#timepickertextbox").val();
+            var actionTime1 = "";
+            if (actiontype === getnote()) {
+               actionTime1 = $("#tasktimepickertextbox").val();
+            }
+            else{
+                actionTime1 = $("#timepickertextbox").val();
+            }
             var days = 0;
             if (scheduleUpdatedData.marketing_program_name === 'General') {
                 actiondate = $("#emaildatetime").val();
@@ -1000,7 +1005,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 };
                 yourPlanFactory.addActionPost(action).then(function (data) {
                     $scope.dateLesser = false;
-                    growl("Action Saved");
                     $scope.getActionComments(schedule_id);
                     $scope.closePopup();
                     $scope.getCampaigns();

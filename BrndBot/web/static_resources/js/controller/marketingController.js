@@ -140,6 +140,16 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 });
             });
         };
+        
+        
+        $scope.showCompanyList = function () {
+            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                kGlobalCompanyObject.userHashId = "";
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                });
+            });
+            window.location = getHost() + "user/loading";
+        };
 
         $scope.displayCampaignDetails = function () {
             $scope.campaignDetailsClass = 'activeCampaign';
@@ -811,7 +821,13 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var title = scheduleUpdatedData.schedule_title;//$("#email_edit_title").val();
 
             var actiondate = $("#emaildatetime").val();
-            var actionTime1 = $("#timepickertextbox").val();
+            var actionTime1 = "";
+            if (actiontype === getnote()) {
+               actionTime1 = $("#tasktimepickertextbox").val();
+            }
+            else{
+                actionTime1 = $("#timepickertextbox").val();
+            }
             if (!title) {
                 $("#email_edit_title").focus();
                 return false;
@@ -856,6 +872,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.closePopup();
                     $scope.getProgramActions();
                     $scope.getActionComments(schedule_id);
+                    growl("Action Saved");
                 });
             });
         };

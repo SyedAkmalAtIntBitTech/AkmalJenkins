@@ -97,7 +97,7 @@
                         <div class="user-slat-cta-wrap">
                              <div class="user-slat-button resend-user-email" ng-hide="users.inviteStatus=='Invite Accepted'" ng-click="resendUserInvite(users.inviteId)">Resend User Email</div>
                              <div class="user-slat-button edit-user-permissions" ng-hide="users.inviteStatus=='Invite Sent'" ng-click="showEditUser(users.inviteId,users.userRoleLookUp,users.emailID)">Edit User Permissions</div>
-                             <div class=" user-slat-button remove-user-button" ng-click="removeUser(users.inviteId)">Remove User</div>
+                             <div class=" user-slat-button remove-user-button" ng-click="removeUser(users)">Remove User</div>
                         </div>
                     </div>
                     <div class="update-container">

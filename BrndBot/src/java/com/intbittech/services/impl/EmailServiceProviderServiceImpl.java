@@ -220,9 +220,13 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
 
 //    getAPIKey(typeKey = email stats, emailtype = )
     @Override
-    public OperationStatus sendEmail(Mail mail, EmailType emailType, Integer companyId) throws ProcessFailed {
+    public OperationStatus sendEmail(Mail mail, EmailType emailType, Integer companyId, String fromName) throws ProcessFailed {
         try {
-            mail = formatTo(mail, emailType);
+            if (companyId == 0){
+                mail = formatTo(mail, emailType, companyId.toString());
+            }else {
+                mail = formatTo(mail, emailType, fromName);
+            }
 
             OperationStatus operationStatus = new OperationStatus();
             MailSettings mailSettings = new MailSettings();
@@ -468,10 +472,15 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
         return startDate;
     }
 
-    private Mail formatTo(Mail mail, EmailType emailType) {
+    private Mail formatTo(Mail mail, EmailType emailType, String fromEmailId) {
+        Email fromObject;
         if (emailType == EmailType.BrndBot_NoReply) {
-            String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
-            Email fromObject = new Email(IConstants.kNoReplyBrndbot, companyName);
+            if (fromEmailId.equals('0')){
+                String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
+                fromObject = new Email(IConstants.kNoReplyBrndbot, companyName);
+            }else {
+                fromObject = new Email(IConstants.kNoReplyBrndbot, fromEmailId);
+            }
             mail.setFrom(fromObject);
         }
         return mail;

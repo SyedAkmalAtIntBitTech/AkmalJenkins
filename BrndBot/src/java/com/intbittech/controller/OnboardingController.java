@@ -185,7 +185,8 @@ public class OnboardingController {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             String returnMessage = companyService.saveCompany(companyDetails);
-            if (returnMessage != null) {
+            Integer returnValue = Integer.parseInt(returnMessage);
+            if (returnValue != 0) {
                 Company company = companyService.getCompanyById(Integer.parseInt(returnMessage));
                 OnBoarding onBoarding = companyPreferencesService.getOnBoarding(company);
                 onBoarding.setCompanyName("true");

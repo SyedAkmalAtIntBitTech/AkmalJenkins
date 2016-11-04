@@ -72,7 +72,21 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $scope.userDetails.userFirstName = $scope.userFirstName;
                 $scope.userDetails.userLastName = $scope.userLastName;
                 $scope.getUserDetailsByUserId(kGlobalCompanyObject.userId);
+                
+                appSessionFactory.getUser().then(function (kGlobalCompanyObject) {
+                    $scope.hasMultipleCompany = kGlobalCompanyObject.hasMultipleCompany;
+                });
             });
+        };
+        
+        
+        $scope.showCompanyList = function () {
+            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                kGlobalCompanyObject.userHashId = "";
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                });
+            });
+            window.location = getHost() + "user/loading";
         };
 
         $scope.validateCompanyAddress = function (companyAddressData) {
@@ -289,12 +303,14 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             });
         };
 
-        $scope.removeUser = function (inviteId) {
-
-            onboardingFactory.removeUserPost(inviteId).then(function (data) {
-                growl(data.d.message);
-                $location.path("/settings/useraccountsettings");
-            });
+        $scope.removeUser = function (users) {
+            var flag=confirm(userDeletePrompt+"\n "+users.emailID+" ?");
+            if(flag){
+                onboardingFactory.removeUserPost(users.inviteId).then(function (data) {
+                    growl(data.d.message);
+                    $location.path("/settings/useraccountsettings");
+                });
+            }
         };
 
         $scope.getInvitedUsers = function () {
@@ -428,8 +444,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             $("#colorPalete3").css("background-color", color3);
             $("#colorPalete4").css("background-color", color4);
         };
-        $scope.showColors = function () {
-            $scope.setTab('logo');
+        $scope.showColors = function () {            
             settingsFactory.getColorsURLGet().then(function (data) {
                 $scope.user_preferences_colors = data.d.details;
             });

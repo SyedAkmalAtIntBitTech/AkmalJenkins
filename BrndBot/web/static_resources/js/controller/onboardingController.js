@@ -380,18 +380,19 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                                         kGlobalCompanyObject.userEmailId = companyDetails.userEmailId;
                                         kGlobalCompanyObject.userFirstName = companyDetails.userFirstName;
                                         kGlobalCompanyObject.userLastName = companyDetails.userLastName;
-
+                                        
                                         appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {});
                                     });
                                 } else {
                                     $scope.companies = data.d.details;
                                 }
+                                $scope.getAccountStatus(detail[0]);
                             });
                             appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {});
                             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                                 var companyAddressDetails = {"companyId": kGlobalCompanyObject.companyId, "addressLine1": $scope.address1, "addressLine2": $scope.address2,
                                     "city": $scope.city, "state": $scope.state, "zipcode": $scope.zipcode, "country": $scope.country};
-                                onboardingFactory.saveCompanyAddress(companyAddressDetails).then(function (data) {//alert(JSON.stringify(data));
+                                onboardingFactory.saveCompanyAddress(companyAddressDetails).then(function (data) {
                                 });
                                 //TODO Set the companyId in Auth factory file
                                 $location.path("/signup/datasource");
