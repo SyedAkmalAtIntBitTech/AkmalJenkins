@@ -255,7 +255,7 @@ public class UsersInviteServiceImpl implements UsersInviteService {
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             String fromEmailId = userProfile.getUser().getUserName();
-
+            
             ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
             String contextRealPath = servletContext.getRealPath("");
 
@@ -295,7 +295,7 @@ public class UsersInviteServiceImpl implements UsersInviteService {
             companyInvite.setIsUsed(Boolean.FALSE);
             update(companyInvite);
 
-            sendInviteEmail(companyInvite.getInviteSentToEmailId(), user, imageContextPath, hashURL, userStatus);
+            sendInviteEmail(companyInvite.getInviteSentToEmailId(), user, imageContextPath, hashURL, userStatus, fromEmailId, 0);
 
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -327,7 +327,7 @@ public class UsersInviteServiceImpl implements UsersInviteService {
             companyInvite.setInviteSentToEmailId(inviteDetails.getEmailaddress());
             save(companyInvite);
 
-            sendInviteEmail(inviteDetails.getEmailaddress(), user, imageContextPath, hashURL, userStatus);
+            sendInviteEmail(inviteDetails.getEmailaddress(), user, imageContextPath, hashURL, userStatus,fromEmailId, inviteDetails.getCompanyId());
         } catch (Throwable throwable) {
              logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("mail_send_problem", new String[]{}, Locale.US));
@@ -335,7 +335,7 @@ public class UsersInviteServiceImpl implements UsersInviteService {
 
     }
 
-    private void sendInviteEmail(String emailaddress, Users user, String imageContextPath, String hashURL, String userStatus) {
+    private void sendInviteEmail(String emailaddress, Users user, String imageContextPath, String hashURL, String userStatus, String fromEmailAddress, Integer companyId) {
         String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
         String body = "";
         if (userStatus.equals(AppConstants.User_Status_New)) {
@@ -349,6 +349,6 @@ public class UsersInviteServiceImpl implements UsersInviteService {
         String subject = messageSource.getMessage("userInviteSubject", new String[]{}, Locale.US);
         String formattedSubject = String.format(subject, companyName);
         Mail mail = new Mail(null, formattedSubject, emailTo, content);
-        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, 0);
+        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, companyId, fromEmailAddress);
     }
 }

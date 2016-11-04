@@ -391,7 +391,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
                                 var companyAddressDetails = {"companyId": kGlobalCompanyObject.companyId, "addressLine1": $scope.address1, "addressLine2": $scope.address2,
                                     "city": $scope.city, "state": $scope.state, "zipcode": $scope.zipcode, "country": $scope.country};
-                                onboardingFactory.saveCompanyAddress(companyAddressDetails).then(function (data) {//alert(JSON.stringify(data));
+                                onboardingFactory.saveCompanyAddress(companyAddressDetails).then(function (data) {
                                 });
                                 //TODO Set the companyId in Auth factory file
                                 $location.path("/signup/datasource");

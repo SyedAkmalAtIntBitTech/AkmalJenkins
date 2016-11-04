@@ -10,6 +10,7 @@ import com.intbittech.model.ActivityLog;
 import com.intbittech.modelmappers.ActivityLogDetails;
 import com.intbittech.responsemappers.ActivityLogResponse;
 import java.util.List;
+import javax.servlet.ServletContext;
 
 /**
  * <code>{@link ActivityLogService}</code> is service layer interface for
@@ -60,16 +61,7 @@ public interface ActivityLogService {
      */
     public void saveActivityLog(ActivityLogDetails activityLogDetails) throws ProcessFailed;       
 
-      /**
-     * This method save {@link ActivityLog} into the database.
-     *
-     * @param activityLogDetails the activityLogDetails
-     * @return the Integer
-     * @throws ProcessFailed the process failed
-     */
-    public void activityLogSave(ActivityLogDetails activityLogDetails) throws ProcessFailed;
-
     public Boolean sendNotificationEmail(Integer activityId, String toEmailId, String userName, 
-                                         String company, String actionTitle, String createdBy)throws ProcessFailed;
+                                         Integer companyId, String actionTitle, String createdBy)throws ProcessFailed;
 
 }

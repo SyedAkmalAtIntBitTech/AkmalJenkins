@@ -252,7 +252,7 @@ public class FranchiseServiceImpl implements FranchiseService {
             Mail mail = new Mail(null, subject, emailTo, content);
             mail.setFrom(emailFrom);
             String preHeader = "something";
-            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, 0);
+            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, 0, null);
             return true;
         } catch (Throwable throwable) {
             logger.error(throwable);

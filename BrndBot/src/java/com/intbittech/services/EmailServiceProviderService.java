@@ -89,7 +89,7 @@ public interface EmailServiceProviderService {
      * @return OperationStatus
      * @throws ProcessFailed 
      */
-    public OperationStatus sendEmail(Mail mail, EmailType emailType, Integer companyId) throws ProcessFailed;
+    public OperationStatus sendEmail(Mail mail, EmailType emailType, Integer companyId, String fromEmailId) throws ProcessFailed;
     
     /**
      * Get all statistics based off the category. 

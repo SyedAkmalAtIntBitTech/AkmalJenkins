@@ -208,7 +208,7 @@ public class UsersServiceImpl implements UsersService {
             usersRoleLookUpDao.save(usersRoleLookUp);
 
             //CompanyId is 0 since company is not created yet
-            saveSubUser(usersDetails, userId, 0);
+//            saveSubUser(usersDetails, userId, 0);
 
             returnUserId = userId;
         } catch (Throwable throwable) {
@@ -521,7 +521,7 @@ public class UsersServiceImpl implements UsersService {
             String subject = messageSource.getMessage("acknowledgement_subject", new String[]{}, Locale.US);
             String formattedSubject = String.format(subject, sentByEmailId);
             Mail mail = new Mail(null, formattedSubject, emailTo, content);
-            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, company.getCompanyId());
+            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, company.getCompanyId(), sentByEmailId );
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("mail_send_problem", new String[]{}, Locale.US));
