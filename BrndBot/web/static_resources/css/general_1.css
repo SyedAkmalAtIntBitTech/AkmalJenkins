@@ -1867,6 +1867,9 @@ li.sub-nav-tab.active a{
 
 #addactionClose{
     cursor: pointer;
+    background-image: url(/BrndBot/images/gray-close.svg);
+    height:10px;
+    width: 10px;
 }
 
 #addAction
