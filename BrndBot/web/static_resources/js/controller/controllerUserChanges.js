@@ -72,7 +72,21 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $scope.userDetails.userFirstName = $scope.userFirstName;
                 $scope.userDetails.userLastName = $scope.userLastName;
                 $scope.getUserDetailsByUserId(kGlobalCompanyObject.userId);
+                
+                appSessionFactory.getUser().then(function (kGlobalCompanyObject) {
+                    $scope.hasMultipleCompany = kGlobalCompanyObject.hasMultipleCompany;
+                });
             });
+        };
+        
+        
+        $scope.showCompanyList = function () {
+            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                kGlobalCompanyObject.userHashId = "";
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                });
+            });
+            window.location = getHost() + "user/loading";
         };
 
         $scope.validateCompanyAddress = function (companyAddressData) {

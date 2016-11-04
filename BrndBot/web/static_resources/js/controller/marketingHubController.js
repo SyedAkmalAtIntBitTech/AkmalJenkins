@@ -107,6 +107,16 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 });
             });
         };
+        
+        
+        $scope.showCompanyList = function () {
+            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                kGlobalCompanyObject.userHashId = "";
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                });
+            });
+            window.location = getHost() + "user/loading";
+        };
 
         $scope.displayAllEmailDrafts = function () {
             $scope.emailDraftDetails = true;
