@@ -46,7 +46,7 @@ public class SocialPostScheduler {
         }
     }
 
-    void stopScheduler() {
+    public void stopScheduler() {
         try {
             if (scheduler != null) {
                 twitterPostCallable.terminateThread();
@@ -60,7 +60,7 @@ public class SocialPostScheduler {
         }
     }
 
-    void startFacebookScheduler() {
+    public void startFacebookScheduler() {
         try {
             if (facebookPostCallable != null) {
                 facebookPostCallable.terminateThread();
@@ -76,7 +76,7 @@ public class SocialPostScheduler {
         }
     }
 
-    void startEmailScheduler() {
+    public void startEmailScheduler() {
         try {
             if (scheduleEmailCallable != null) {
                 scheduleEmailCallable.terminateThread();
@@ -91,7 +91,7 @@ public class SocialPostScheduler {
         }
     }
 
-    void startRecurringEmailScheduler() {
+    public void startRecurringEmailScheduler() {
         try {
             if (scheduleRecurringEmailCallable != null) {
                 scheduleRecurringEmailCallable.terminateThread();

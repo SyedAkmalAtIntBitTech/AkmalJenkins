@@ -49,10 +49,9 @@ public class AppConstants {
     public static String KSendGridAPIKey = "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";
 
 //........ BrndBot fb App configuration.....uncomment for production server..../
-/*   
-    public static final String facebookString1 = "592852577521569";
-    public static final String facebookString2 = "a87cc0c30d792fa5dd0aaef6b43994ef";
-*/
+//    public static final String facebookString1 = "592852577521569";
+//    public static final String facebookString2 = "a87cc0c30d792fa5dd0aaef6b43994ef";
+
 //    Test fb App configuration.....comment for production server.....
     public static final String facebookString1 = "1577738335828079";
     public static final String facebookString2 = "2b6fd6252aa68e836acc574c0aa1a647";
