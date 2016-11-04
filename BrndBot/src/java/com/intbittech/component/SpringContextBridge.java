@@ -9,9 +9,13 @@ import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.ContactsService;
 import com.intbittech.services.EmailListService;
+import com.intbittech.services.PushedScheduledActionCompaniesService;
+import com.intbittech.services.PushedScheduledEntityListService;
 import com.intbittech.services.SendEmailService;
 import com.intbittech.services.UnsubscribedEmailsService;
 import com.intbittech.services.UserPreferencesService;
+import com.intbittech.social.PostToFacebook;
+import com.intbittech.social.PostToTwitter;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -43,6 +47,15 @@ public class SpringContextBridge
     private SendEmailService sendEmailService;
     @Autowired
     private UserPreferencesService userPreferencesService;
+    @Autowired
+    private PostToTwitter postToTwitter;
+    @Autowired
+    private PostToFacebook postToFacebook;
+    @Autowired
+    private PushedScheduledEntityListService pushedScheduledEntityListService;
+
+    @Autowired
+    private PushedScheduledActionCompaniesService pushedScheduledActionCompaniesService;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext)
@@ -95,5 +108,25 @@ public class SpringContextBridge
     @Override
     public UserPreferencesService getUserPreferencesService() {
         return userPreferencesService;
+    }
+    
+    @Override
+    public PostToTwitter getPostToTwitter() {
+        return postToTwitter;
+    }
+    
+    @Override
+    public PostToFacebook getPostToFacebook() {
+        return postToFacebook;
+    }
+    
+    @Override
+    public PushedScheduledEntityListService getPushedScheduledEntityListService() {
+        return pushedScheduledEntityListService;
+    }
+    
+    @Override
+    public PushedScheduledActionCompaniesService getPushedScheduledActionCompaniesService() {
+        return pushedScheduledActionCompaniesService;
     }
 }

@@ -7,6 +7,7 @@ package com.intbittech.social;
 
 import com.intbittech.utility.IConstants;
 import com.intbittech.AppConstants;
+import com.intbittech.component.SpringContextBridge;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.ScheduledSocialpostList;
 import java.io.File;
@@ -77,7 +78,7 @@ public class ScheduleFacebookPost implements Runnable {
 
                         facebookPost.getImageType();
                         Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, "Message while scheduling the post", file_image_path);
-                        PostToFacebook postToFacebook = new PostToFacebook();
+                        PostToFacebook postToFacebook = SpringContextBridge.services().getPostToFacebook();
                         String message = postToFacebook.postStatus(linkTitle, file_image_path, postText, url, facebookPost.getImageName(), url, description, facebookPost.getImageType(), companyId, null);
                         if (message.equalsIgnoreCase("success")) {
                             updateStatusScheduledFacebook(currentScheduledFacebookPost);

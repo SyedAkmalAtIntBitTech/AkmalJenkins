@@ -74,7 +74,7 @@ public class SocialPostController {
             String url = (String) requestBodyMap.get("url");
             String description = requestBodyMap.get("description").toString();
             String imageType = (String) requestBodyMap.get("imageType");
-            String htmlString = requestBodyMap.get("htmlString").toString();
+            String htmlString = "";//requestBodyMap.get("htmlString").toString();
             String fileImagePath = getImageTypePrefix(imageType, userCompanyIds.getCompanyId(), getImageFile);
             String status = postToFacebook.postStatus(title, fileImagePath, posttext, imagePostURL, getImageFile, url, description, imageType, userCompanyIds.getCompanyId(), htmlString, accessToken);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(status));
@@ -100,7 +100,7 @@ public class SocialPostController {
             String text = requestBodyMap.get("text").toString();
             String shortURL = (String) requestBodyMap.get("shorturl");
             String fileImagePath = (String) requestBodyMap.get("imageToPost");
-            String htmlString = requestBodyMap.get("htmlString").toString();
+            String htmlString = "";//requestBodyMap.get("htmlString").toString();
             String imageType = (String) requestBodyMap.get("imageType");
             String getImageFile = getImageTypePrefix(imageType, userCompanyIds.getCompanyId(), fileImagePath);
 

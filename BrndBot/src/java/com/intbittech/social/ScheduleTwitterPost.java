@@ -7,6 +7,7 @@ package com.intbittech.social;
 
 import com.intbittech.utility.IConstants;
 import com.intbittech.AppConstants;
+import com.intbittech.component.SpringContextBridge;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.ScheduledSocialpostList;
 import com.intbittech.services.CompanyService;
@@ -26,14 +27,13 @@ import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
  *
  * @author AR
  */
-@Component
 public class ScheduleTwitterPost implements Runnable {
 
 
     private Logger logger = Logger.getLogger(ScheduleTwitterPost.class);
 
-    @Autowired
-    PostToTwitter postToTwitter;
+//    @Autowired
+//    PostToTwitter postToTwitter;
     @Override
     public void run() { 
 
@@ -64,6 +64,7 @@ public class ScheduleTwitterPost implements Runnable {
                             file_image_path = twitterPost.getImageName();
                         }
                         logger.info(text + " Tweet @" + new Date());
+                        PostToTwitter postToTwitter = SpringContextBridge.services().getPostToTwitter();
                         String message = postToTwitter.postStatus(twitterPost.getImageType(), text, url, file_image_path, companyId, null, file_image_path);
                         if (message.equalsIgnoreCase("success")) {
                             updateStatusScheduledTwitter(currentScheduledTwitterPost);

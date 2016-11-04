@@ -32,17 +32,15 @@ import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
  *
  * @author Ajit
  */
-@Service
-@Transactional(rollbackFor = ProcessFailed.class)
 public class ScheduleAnEmail implements Runnable {
 
     private Logger logger = Logger.getLogger(ScheduleAnRecurringEmail.class);
 
-    @Autowired
-    PushedScheduledEntityListService pushedScheduleEntityListService;
-
-    @Autowired
-    PushedScheduledActionCompaniesService pushedScheduledActionCompaniesService;
+//    @Autowired
+//    PushedScheduledEntityListService pushedScheduleEntityListService;
+//
+//    @Autowired
+//    PushedScheduledActionCompaniesService pushedScheduledActionCompaniesService;
     public void terminateThread() {
         try {
             Thread.currentThread().interrupt();
@@ -130,6 +128,8 @@ public class ScheduleAnEmail implements Runnable {
     }
 
     private void updateStatusForPushedEmail(ScheduledEntityList scheduledEmail)throws Throwable {
+        PushedScheduledEntityListService pushedScheduleEntityListService = SpringContextBridge.services().getPushedScheduledEntityListService();
+        PushedScheduledActionCompaniesService pushedScheduledActionCompaniesService = SpringContextBridge.services().getPushedScheduledActionCompaniesService();
         List<PushedScheduledEntityList> pushedScheduledEntityList = pushedScheduleEntityListService.getAllPushedScheduledEntityListIdByScheduledEntityListId(scheduledEmail.getEntityId());
         
         if (pushedScheduledEntityList != null){
