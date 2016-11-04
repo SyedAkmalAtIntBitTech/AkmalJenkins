@@ -821,7 +821,13 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var title = scheduleUpdatedData.schedule_title;//$("#email_edit_title").val();
 
             var actiondate = $("#emaildatetime").val();
-            var actionTime1 = $("#timepickertextbox").val();
+            var actionTime1 = "";
+            if (actiontype === getnote()) {
+               actionTime1 = $("#tasktimepickertextbox").val();
+            }
+            else{
+                actionTime1 = $("#timepickertextbox").val();
+            }
             if (!title) {
                 $("#email_edit_title").focus();
                 return false;
