@@ -208,7 +208,7 @@ public class UsersServiceImpl implements UsersService {
             usersRoleLookUpDao.save(usersRoleLookUp);
 
             //CompanyId is 0 since company is not created yet
-            saveSubUser(usersDetails, userId, 0);
+//            saveSubUser(usersDetails, userId, 0);
 
             returnUserId = userId;
         } catch (Throwable throwable) {
@@ -300,7 +300,7 @@ public class UsersServiceImpl implements UsersService {
                         throw new ProcessFailed(messageSource.getMessage("role_exist", new String[]{}, Locale.US));
                     }
                 }
-                sendAcknowledgementEmail(user.getUserName(), usersDetails, company, inviteSentByUser.getUserName());
+                sendAcknowledgementEmail(user.getUserName(), usersDetails, company, Utility.combineUserName(inviteSentByUser));
 
             } else {
                 throw new ProcessFailed(messageSource.getMessage("validity_expired", new String[]{}, Locale.US));
@@ -511,7 +511,7 @@ public class UsersServiceImpl implements UsersService {
         return status;
     }
 
-    public void sendAcknowledgementEmail(String toEmailId, UserDetails usersDetails, Company company, String sentByEmailId) throws ProcessFailed {
+    public void sendAcknowledgementEmail(String toEmailId, UserDetails usersDetails, Company company, String sentByFromName) throws ProcessFailed {
         try {
 //            String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
             String body = messageSource.getMessage("acknowledgement_message", new String[]{}, Locale.US);
@@ -519,9 +519,9 @@ public class UsersServiceImpl implements UsersService {
             Content content = new Content(IConstants.kContentHTML, formattedBody);
             Email emailTo = new Email(toEmailId, Utility.combineUserName(usersDetails));
             String subject = messageSource.getMessage("acknowledgement_subject", new String[]{}, Locale.US);
-            String formattedSubject = String.format(subject, sentByEmailId);
+            String formattedSubject = String.format(subject, sentByFromName);
             Mail mail = new Mail(null, formattedSubject, emailTo, content);
-            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, company.getCompanyId());
+            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, company.getCompanyId(), sentByFromName );
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("mail_send_problem", new String[]{}, Locale.US));
