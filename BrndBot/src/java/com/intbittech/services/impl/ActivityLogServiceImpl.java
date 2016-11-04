@@ -159,7 +159,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
 
                     if (activityLogDetails.getAssignedTo() != null && activityLogDetails.getAssignedTo() != 0) {
                         sendNotificationEmail(activityLogDetails.getActivityId(), createdBy.getUserName(), Utility.combineUserName(createdBy),
-                                company.getCompanyId(), activityLogDetails.getActionTitle(), createdBy.getUserName());
+                                company.getCompanyId(), activityLogDetails.getActionTitle(), Utility.combineUserName(createdBy));
                     }
                     break;
                 case 2:
@@ -170,7 +170,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                         activityLog.setAssignedTo(assignedTo);
                             Users sendToUser = usersService.getUserById(activityLogDetails.getAssignedTo());
                             sendNotificationEmail(activityLogDetails.getActivityId(), sendToUser.getUserName(), Utility.combineUserName(sendToUser),
-                                    company.getCompanyId(), activityLogDetails.getActionTitle(), createdBy.getUserName());
+                                    company.getCompanyId(), activityLogDetails.getActionTitle(), Utility.combineUserName(createdBy));
                     }
                     break;
                 case 3:
@@ -181,7 +181,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                         activityLog.setAssignedTo(assignedTo);
                             Users sendToUser = usersService.getUserById(activityLogDetails.getAssignedTo());
                             sendNotificationEmail(activityLogDetails.getActivityId(), sendToUser.getUserName(), Utility.combineUserName(sendToUser),
-                                    company.getCompanyId(), activityLogDetails.getActionTitle(), createdBy.getUserName());
+                                    company.getCompanyId(), activityLogDetails.getActionTitle(), Utility.combineUserName(createdBy));
                         }
                     break;
                 case 4:
@@ -221,7 +221,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
 
     @Async
     public Boolean sendNotificationEmail(Integer activityId, String toEmailId, String userName,
-            Integer companyId, String actionTitle, String createdBy) throws ProcessFailed {
+            Integer companyId, String actionTitle, String createdByUserName) throws ProcessFailed {
 
         String body = null;
         
@@ -233,7 +233,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                 case 1:
                     body = messageSource.getMessage("notification_message_activity_created_action", new String[]{}, Locale.US);
                     body = body.replace("%t", actionTitle);
-                    body = body.replace("%s", createdBy);
+                    body = body.replace("%s", createdByUserName);
                     body = body.replace("%c", companyName);
                     break;
                 case 2:
@@ -265,9 +265,9 @@ public class ActivityLogServiceImpl implements ActivityLogService {
             Email emailTo = new Email(toEmailId, userName);
             String subject = messageSource.getMessage("notification_subject", new String[]{}, Locale.US);
             subject = subject.replace("%t", actionTitle);
-            String formattedSubject = String.format(subject, createdBy);
+            String formattedSubject = String.format(subject, createdByUserName);
             Mail mail = new Mail(null, formattedSubject, emailTo, content);
-            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, companyId, createdBy);
+            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, companyId, createdByUserName);
             return true;
         } catch (Throwable throwable) {
             logger.error(throwable);

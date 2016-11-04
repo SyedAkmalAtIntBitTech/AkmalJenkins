@@ -260,3 +260,5 @@ var actionAlreadyScheduled = "This action is already scheduled, please Pause or 
 
 var emailTagSaveSuccess = "Email tag created successfully.";
 var emailTagDeleteSuccess = "Email tag deleted successfully.";
+
+var userDeletePrompt = "Are you sure you want to delete this User";

@@ -140,6 +140,16 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 });
             });
         };
+        
+        
+        $scope.showCompanyList = function () {
+            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                kGlobalCompanyObject.userHashId = "";
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                });
+            });
+            window.location = getHost() + "user/loading";
+        };
 
         $scope.displayCampaignDetails = function () {
             $scope.campaignDetailsClass = 'activeCampaign';
@@ -856,6 +866,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.closePopup();
                     $scope.getProgramActions();
                     $scope.getActionComments(schedule_id);
+                    growl("Action Saved");
                 });
             });
         };

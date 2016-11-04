@@ -380,12 +380,13 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                                         kGlobalCompanyObject.userEmailId = companyDetails.userEmailId;
                                         kGlobalCompanyObject.userFirstName = companyDetails.userFirstName;
                                         kGlobalCompanyObject.userLastName = companyDetails.userLastName;
-
+                                        
                                         appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {});
                                     });
                                 } else {
                                     $scope.companies = data.d.details;
                                 }
+                                $scope.getAccountStatus(detail[0]);
                             });
                             appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {});
                             appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {

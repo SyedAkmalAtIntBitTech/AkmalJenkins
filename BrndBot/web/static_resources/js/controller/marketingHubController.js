@@ -53,6 +53,11 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
         var userSortInfo={userSortName:"",userColor:""};
+        $scope.userSettings=false;
+        
+        $scope.showSettingsPopup = function (flag){
+            $scope.userSettings = flag;
+        };
 
 
         $scope.getCompanyStatus = function() {
@@ -64,9 +69,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             });
         };
         
-        $scope.showHideUserSettings = function (flag){
-            $scope.userSettings=flag;
-        };
         this.tab = 1;
 
         this.selectTab = function (setTab){
@@ -104,6 +106,16 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     });
                 });
             });
+        };
+        
+        
+        $scope.showCompanyList = function () {
+            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                kGlobalCompanyObject.userHashId = "";
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                });
+            });
+            window.location = getHost() + "user/loading";
         };
 
         $scope.displayAllEmailDrafts = function () {
@@ -427,6 +439,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.emailFooterPopupDetails = false;
         };
         $scope.displayEmailHistory = function () {
+            $scope.email_history = "";
             $scope.showDeleteEmailList = false;
             $scope.emaildropdown = false;
             $scope.deletDraftsButton = false;
@@ -472,6 +485,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
 
         $scope.getHistoryDetails = function (details) {
+            $scope.tagsDetails = "";
             $scope.fadeClass = 'fadeClass';
             $scope.emailsectionClass = 'emailsectionClass';
             $scope.scheduledTo = 'POST';

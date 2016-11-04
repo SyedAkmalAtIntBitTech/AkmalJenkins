@@ -1,6 +1,6 @@
     <div ng-include src="'genericpopup.html'"></div>
     <div ng-init="marketingHubTab.selectTab(2)" ng-include src="'marketinghubnavigation.html'"></div>
-    <div class="bb-main-content-wrap bb-main-content-wrap-padding">
+    <div class="bb-main-content-wrap bb-main-content-wrap-padding" ng-click="showSettingsPopup(false);">
         <div class="bb-panel-full-width bb-panel-styling" ng-init="displayEmailHistory()">
             <div class="bb-panel-header">
                 <h2 class="">Email History</h2>

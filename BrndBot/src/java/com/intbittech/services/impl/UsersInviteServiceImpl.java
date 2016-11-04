@@ -282,10 +282,10 @@ public class UsersInviteServiceImpl implements UsersInviteService {
     public void reSendMail(String fromEmailId, String imageContextPath, Integer inviteId, String userStatus) throws ProcessFailed {
         try {
 
-            Users user = usersService.getUserByEmailId(fromEmailId);
+            Users fromUser = usersService.getUserByEmailId(fromEmailId);
             Invite companyInvite = getInvitedUserById(inviteId);
 
-            String randomVal = companyInvite.getInviteSentToEmailId() + String.valueOf(user.getUserId()) + new Date().getTime();
+            String randomVal = companyInvite.getInviteSentToEmailId() + String.valueOf(fromUser.getUserId()) + new Date().getTime();
             GenerateHashPassword generate_hash_password = new GenerateHashPassword();
 
             String hashURL = generate_hash_password.hashURL(randomVal);
@@ -295,7 +295,7 @@ public class UsersInviteServiceImpl implements UsersInviteService {
             companyInvite.setIsUsed(Boolean.FALSE);
             update(companyInvite);
 
-            sendInviteEmail(companyInvite.getInviteSentToEmailId(), user, imageContextPath, hashURL, userStatus, fromEmailId, 0);
+            sendInviteEmail(companyInvite.getInviteSentToEmailId(), fromUser, imageContextPath, hashURL, userStatus, Utility.combineUserName(fromUser), 0);
 
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -308,9 +308,9 @@ public class UsersInviteServiceImpl implements UsersInviteService {
     public void sendMail(String fromEmailId, String imageContextPath, InviteDetails inviteDetails, String userStatus) throws ProcessFailed {
         try {
 
-            Users user = usersService.getUserByEmailId(fromEmailId);
+            Users fromUser = usersService.getUserByEmailId(fromEmailId);
 
-            String randomVal = inviteDetails.getEmailaddress() + String.valueOf(user.getUserId()) + new Date().getTime();
+            String randomVal = inviteDetails.getEmailaddress() + String.valueOf(fromUser.getUserId()) + new Date().getTime();
             GenerateHashPassword generateHashPassword = new GenerateHashPassword();
 
             String hashURL = generateHashPassword.hashURL(randomVal);
@@ -318,7 +318,7 @@ public class UsersInviteServiceImpl implements UsersInviteService {
 
             companyInvite.setCreatedDateTime(new Date());
             companyInvite.setCode(hashURL);
-            companyInvite.setInviteSentBy(user);
+            companyInvite.setInviteSentBy(fromUser);
             companyInvite.setInviteSentTo(null);
             companyInvite.setMessage(null);
             companyInvite.setIsUsed(Boolean.FALSE);
@@ -327,7 +327,7 @@ public class UsersInviteServiceImpl implements UsersInviteService {
             companyInvite.setInviteSentToEmailId(inviteDetails.getEmailaddress());
             save(companyInvite);
 
-            sendInviteEmail(inviteDetails.getEmailaddress(), user, imageContextPath, hashURL, userStatus,fromEmailId, inviteDetails.getCompanyId());
+            sendInviteEmail(inviteDetails.getEmailaddress(), fromUser, imageContextPath, hashURL, userStatus, Utility.combineUserName(fromUser), inviteDetails.getCompanyId());
         } catch (Throwable throwable) {
              logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("mail_send_problem", new String[]{}, Locale.US));
@@ -335,7 +335,7 @@ public class UsersInviteServiceImpl implements UsersInviteService {
 
     }
 
-    private void sendInviteEmail(String emailaddress, Users user, String imageContextPath, String hashURL, String userStatus, String fromEmailAddress, Integer companyId) {
+    private void sendInviteEmail(String emailaddress, Users user, String imageContextPath, String hashURL, String userStatus, String fromUserName, Integer companyId) {
         String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
         String body = "";
         if (userStatus.equals(AppConstants.User_Status_New)) {
@@ -349,6 +349,6 @@ public class UsersInviteServiceImpl implements UsersInviteService {
         String subject = messageSource.getMessage("userInviteSubject", new String[]{}, Locale.US);
         String formattedSubject = String.format(subject, companyName);
         Mail mail = new Mail(null, formattedSubject, emailTo, content);
-        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, companyId, fromEmailAddress);
+        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, companyId, fromUserName);
     }
 }

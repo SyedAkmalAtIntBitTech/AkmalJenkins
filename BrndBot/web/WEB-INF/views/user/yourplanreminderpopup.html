@@ -44,7 +44,7 @@
         </div>
 
         <!--Below Nav-->
-        <div class="overlay-content-saved-email-draft" ng-show="yourplanTab.isSelected(5);marketingTab.isSelected(5);">
+        <div class="overlay-content-saved-email-draft" ng-show="yourplanTab.isSelected(5) || marketingTab.isSelected(5);">
             <div hidden="" id="note_desc" class="instruction-text">{{scheduleData.schedule_desc}}</div>
             <div class="overlay-name-bar">
                 <input  size="40" type="text" id="edit_note_title" ng-change="showReminderSaveButton()" ng-model="scheduleData.schedule_title"  name="edit_note_title" value="{{scheduleData.schedule_title}}" />

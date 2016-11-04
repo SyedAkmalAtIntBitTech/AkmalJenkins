@@ -189,7 +189,7 @@ dashboardFlowApp.controller("dashboardController", ['$scope', '$window', '$locat
         
         $scope.getUserDetailsByUserId = function (userId){
             appSessionFactory.getAllUsersUnderCompany().then(function (KGlobalAllUserUnderCompanyObject){
-                for(var i=0; i<= KGlobalAllUserUnderCompanyObject.userList.length;i++){
+                for(var i=0; i< KGlobalAllUserUnderCompanyObject.userList.length;i++){
                     if(userId === KGlobalAllUserUnderCompanyObject.userList[i].userId){
                         var userFisetName = KGlobalAllUserUnderCompanyObject.userList[i].firstName;
                         var userLastName = KGlobalAllUserUnderCompanyObject.userList[i].lastName;

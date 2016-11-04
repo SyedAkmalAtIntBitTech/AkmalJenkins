@@ -1873,15 +1873,6 @@ li.sub-nav-tab.active a{
 {
     display: block;
     z-index: 999999;
-    position: fixed;
-    -webkit-flex-direction: row;
-    flex-direction: row;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    left:55vh;
-    top:20vh;
 }
 
 .modal-pane{
@@ -3773,7 +3764,7 @@ p.modal-content-header{
     border: 1px solid #F9FAFC;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 60px;
+    /*margin-top: 60px;*/
     box-sizing: border-box;
 }
 
@@ -3879,7 +3870,7 @@ p.modal-content-header{
 .addContactPopup {
     position: fixed;
     z-index: 99999;
-    left: 30%;
+    /*left: 30%;*/
 }
 
 .cur {

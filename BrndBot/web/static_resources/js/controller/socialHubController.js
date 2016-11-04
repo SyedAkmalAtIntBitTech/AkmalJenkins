@@ -52,8 +52,20 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
                         appSessionFactory.clearDashboardMessage().then(function(message){
                         });
                     }
+                    appSessionFactory.getUser().then(function (kGlobalCompanyObject) {
+                        $scope.hasMultipleCompany = kGlobalCompanyObject.hasMultipleCompany;
+                    });
                 });
             });
+        };
+        
+        $scope.showCompanyList = function () {
+            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                kGlobalCompanyObject.userHashId = "";
+                appSessionFactory.setCompany(kGlobalCompanyObject).then(function (data) {
+                });
+            });
+            window.location = getHost() + "user/loading";
         };
         
         $scope.showDropDown = function ()

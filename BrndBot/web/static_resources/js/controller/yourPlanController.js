@@ -396,7 +396,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.getUserDetailsByUserId(kGlobalCompanyObject.userId);
                 yourPlanFactory.addActionCommentPOST(commentDetails).then(function (data) {
                     $scope.getActionComments(scheduleId);
-                    $("#comment").val("");
                 });
             });
             }
@@ -1000,7 +999,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 };
                 yourPlanFactory.addActionPost(action).then(function (data) {
                     $scope.dateLesser = false;
-                    growl("Action Saved");
                     $scope.getActionComments(schedule_id);
                     $scope.closePopup();
                     $scope.getCampaigns();

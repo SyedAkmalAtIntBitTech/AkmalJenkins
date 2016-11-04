@@ -220,12 +220,12 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
 
 //    getAPIKey(typeKey = email stats, emailtype = )
     @Override
-    public OperationStatus sendEmail(Mail mail, EmailType emailType, Integer companyId, String fromEmailId) throws ProcessFailed {
+    public OperationStatus sendEmail(Mail mail, EmailType emailType, Integer companyId, String fromName) throws ProcessFailed {
         try {
             if (companyId == 0){
                 mail = formatTo(mail, emailType, companyId.toString());
             }else {
-                mail = formatTo(mail, emailType, fromEmailId);
+                mail = formatTo(mail, emailType, fromName);
             }
 
             OperationStatus operationStatus = new OperationStatus();
