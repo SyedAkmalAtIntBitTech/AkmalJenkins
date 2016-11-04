@@ -442,8 +442,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             $("#colorPalete3").css("background-color", color3);
             $("#colorPalete4").css("background-color", color4);
         };
-        $scope.showColors = function () {
-            $scope.setTab('logo');
+        $scope.showColors = function () {            
             settingsFactory.getColorsURLGet().then(function (data) {
                 $scope.user_preferences_colors = data.d.details;
             });
