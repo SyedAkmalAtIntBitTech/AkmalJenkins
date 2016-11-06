@@ -58,6 +58,7 @@
         <div class="bb-panel-full-width bb-panel-styling">
             <div class="bb-panel-header">
                 <h2 class="">MINDBODY Index Connected Lists</h2>
+                <input class="modal-pane-search-input" type="text" placeholder="Search" ng-model="userSearch" style="margin-left:45% !important;">
             </div>
             <div class="bb-panel-content" ng-init="emailListGet()">
                 <div  class="bb-panel-empty-state-wrap" ng-if="hideGifImage">
@@ -72,7 +73,7 @@
                     <h2 class="bb-panel-empty-state-text">There are no MINDBODY indexed lists presently, it might take approximately 20 minutes to sync.</h2>  
                 
                 </div>
-                <div class="bb-slat-list-wrap" ng-show="marketingHubTab.isSelected(3) && emailListsMindbody.length > 0" ng-repeat="email in emailListsMindbody">
+                <div class="bb-slat-list-wrap" ng-show="marketingHubTab.isSelected(3) && emailListsMindbody.length > 0" ng-repeat="email in emailListsMindbody | filter:userSearch">
                     <div class="bb-slat" ng-click="viewEmailListDetails(email, 'mindbody');marketingHubTab.selectTab(5);">
                         <!--<div class="slat-icon-wrap"></div>-->
                         <div class="slat-name-wrap">

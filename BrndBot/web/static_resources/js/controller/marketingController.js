@@ -498,6 +498,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.removeActionComment = function (scheduleId, commentId) {
             yourPlanFactory.removeActionComment(commentId).then(function (data) {
+                growl(eval(JSON.stringify(data.d.operationStatus.messages[0])));
                 $scope.getActionComments(scheduleId);
             });
         };
@@ -1867,7 +1868,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.endMarketingProgram = function () {
             var delconf = confirm("Do you really want to End this Program?");
             if (delconf === true) {
-                var programData = {"program_id": $scope.programId};
+                var programData = {"program_id": parseFloat($scope.programId)};
                 companyMarketingProgramFactory.endMarketingProgramPost(programData).then(function (data) {
                     if (data) {
                         $location.path("/marketingprogramlists");

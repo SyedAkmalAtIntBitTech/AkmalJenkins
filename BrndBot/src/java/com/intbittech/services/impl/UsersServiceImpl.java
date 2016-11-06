@@ -541,11 +541,15 @@ public class UsersServiceImpl implements UsersService {
             String body = "";
         
             ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
+            String contextRealPath = servletContext.getRealPath("");
+
+            String contextPath = Utility.getServerName(contextRealPath);
             
             body = ServletUtil.convertHTMLToString("rolechangeemailtemplate.html", servletContext);
-            
-            String formattedBody = String.format(body, company.getCompanyName(), roleName);
-            Content content = new Content(IConstants.kContentHTML, formattedBody);
+            body = body.replace("*Company Name*", company.getCompanyName());
+            body = body.replace("*Role Name*", roleName);
+            body = body.replace("hostName", contextPath);
+            Content content = new Content(IConstants.kContentHTML, body);
             Email emailTo = new Email(toEmailId, Utility.combineUserName(user));
             String subject = messageSource.getMessage("role_changed_acknowledgement_subject", new String[]{}, Locale.US);
             String formattedSubject = String.format(subject, company.getCompanyName());
