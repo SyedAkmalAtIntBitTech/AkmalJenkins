@@ -9,14 +9,12 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.responsemappers.OperationStatus;
 import com.intbittech.sendgrid.models.EmailType;
 import com.intbittech.sendgrid.models.SendGridCNameValidity;
-import com.intbittech.sendgrid.models.SendGridStats;
 import com.intbittech.sendgrid.models.SendGridStatsList;
 import com.intbittech.sendgrid.models.SendGridUser;
 import com.intbittech.sendgrid.models.SendGridUsers;
 import com.intbittech.sendgrid.models.SubUserAPIKey;
 import com.intbittech.sendgrid.models.Subuser;
 import com.sendgrid.Mail;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -69,7 +67,6 @@ public interface EmailServiceProviderService {
      * @throws ProcessFailed 
      */
     public SendGridUser getSubuserDetails(String userName) throws ProcessFailed;
-
     
     /**
      * Validating CName for given sub user id
@@ -78,8 +75,6 @@ public interface EmailServiceProviderService {
      * @throws ProcessFailed 
      */
     public SendGridCNameValidity validateCNAME(String sendGridUserId) throws ProcessFailed;
-
-    
     
     /**
      * Send Email. This is only method that needs to be used across the app the send emails.

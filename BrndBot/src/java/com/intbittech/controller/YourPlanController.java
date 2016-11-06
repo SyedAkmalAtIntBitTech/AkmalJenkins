@@ -14,11 +14,7 @@ import com.intbittech.AppConstants;
 import com.intbittech.dao.impl.ScheduleSocialPostDAO;
 import com.intbittech.enums.ActivityStatus;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.Activity;
-import com.intbittech.model.ActivityLog;
-import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
-import com.intbittech.model.Users;
 import com.intbittech.modelmappers.ActivityLogDetails;
 import com.intbittech.modelmappers.SentEmailDetails;
 import com.intbittech.responsemappers.ContainerResponse;
@@ -55,12 +51,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.intbittech.social.PostToFacebook;
 import com.intbittech.social.PostToTwitter;
-import com.intbittech.utility.IConstants;
 import com.intbittech.utility.Utility;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.TimeZone;
 //import java.sql.Date;
 
@@ -291,7 +284,11 @@ public class YourPlanController {
 
                         ActivityLogDetails activityLogDetailsObject = new ActivityLogDetails();
                         activityLogDetailsObject.setActivityId(ActivityStatus.ACTIVITY_ASSIGNED_TO_ID.getId());
+                        activityLogDetailsObject.setActionType(requestBodyMap.get("actiontype").toString());
+                        activityLogDetailsObject.setProgramName(null);
+                        activityLogDetailsObject.setActionDate(new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()));
                         activityLogDetailsObject.setAssignedTo(userAssignToId);
+                        activityLogDetailsObject.setActionStatus(templateStatus);
                         activityLogDetailsObject.setScheduledEntityId(scheduleId);
                         activityLogDetailsObject.setCreatedBy(userCompanyIds.getUserId());
                         activityLogDetailsObject.setCompanyId(userCompanyIds.getCompanyId());

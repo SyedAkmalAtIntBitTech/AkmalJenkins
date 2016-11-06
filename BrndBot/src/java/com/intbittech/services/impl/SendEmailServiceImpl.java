@@ -5,7 +5,6 @@
  */
 package com.intbittech.services.impl;
 
-import com.google.gson.Gson;
 import com.intbittech.AppConstants;
 import com.intbittech.utility.ServletUtil;
 import com.intbittech.dao.impl.EmailHistoryDAO;
@@ -18,7 +17,6 @@ import com.intbittech.modelmappers.EmailDataDetails;
 import com.intbittech.sendgrid.models.EmailType;
 import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.EmailServiceProviderService;
-import com.intbittech.services.UsersService;
 import com.intbittech.utility.IConstants;
 import com.intbittech.utility.Utility;
 import com.sendgrid.Content;
@@ -30,7 +28,6 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +47,7 @@ public class SendEmailServiceImpl implements SendEmailService {
     @Autowired
     private ContactEmailListLookupService contactEmailListLookupService;
 
-    @Autowired
-    private UsersService usersService;
-
+    
     @Autowired
     EmailServiceProviderService emailServiceProviderService;
 
