@@ -5,6 +5,7 @@
  */
 package com.intbittech.services.impl;
 
+import com.controller.ApplicationContextListener;
 import com.controller.GenerateHashPassword;
 import com.intbittech.dao.ForgotPasswordDao;
 import com.intbittech.exception.ProcessFailed;
@@ -15,12 +16,15 @@ import com.intbittech.services.EmailServiceProviderService;
 import com.intbittech.services.ForgotPasswordService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.IConstants;
+import com.intbittech.utility.ServletUtil;
 import com.intbittech.utility.Utility;
 import com.sendgrid.Content;
 import com.sendgrid.Email;
 import com.sendgrid.Mail;
+import java.io.IOException;
 import java.util.Date;
 import java.util.Locale;
+import javax.servlet.ServletContext;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -65,10 +69,10 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
     }
 
     @Override
-    public void sendMail(String email_id, String imageContextPath) {
-        
+    public void sendMail(String email_id, String contextPath)throws IOException {
         
         Users user = usersService.getUserByEmailId(email_id);
+        ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
 
         String randomVal = email_id + String.valueOf(user.getUserId()) + new Date().getTime();
         GenerateHashPassword generate_hash_password = new GenerateHashPassword();
@@ -81,9 +85,12 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
         save(forgotPassword);
 
         String companyName = messageSource.getMessage("companyName",new String[]{}, Locale.US);
-        String body = messageSource.getMessage("forgotPasswordBody",new String[]{}, Locale.US);
-        String formattedBody = String.format(body, companyName, imageContextPath, hashURL);
-        Content content = new Content(IConstants.kContentHTML, formattedBody);
+
+        String body = ServletUtil.convertHTMLToString("forgotpasswordemailtemplate.html", servletContext);
+        body = body.replace("contextPath", contextPath);
+        body = body.replace("hashURL", hashURL);
+        
+        Content content = new Content(IConstants.kContentHTML, body);
         Email emailTo = new Email(email_id, Utility.combineUserName(user));
         String subject = messageSource.getMessage("forgotPasswordSubject",new String[]{}, Locale.US);
         String formattedSubject = String.format(subject);

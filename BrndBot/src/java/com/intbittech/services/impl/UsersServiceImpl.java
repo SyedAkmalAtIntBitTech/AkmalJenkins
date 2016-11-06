@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intbittech.AppConstants;
 import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.UserRoleCompanyLookUpDao;
+import com.intbittech.dao.UserRoleDao;
 import com.intbittech.dao.UsersDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
@@ -34,6 +35,7 @@ import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UserRoleCompanyLookUpService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.IConstants;
+import com.intbittech.utility.ServletUtil;
 import com.intbittech.utility.StringUtility;
 import com.intbittech.utility.UserSessionUtil;
 import com.intbittech.utility.Utility;
@@ -65,6 +67,9 @@ public class UsersServiceImpl implements UsersService {
     @Autowired
     private CompanyDao companyDao;
 
+    @Autowired
+    private UserRoleDao userRoleDao;
+    
     @Autowired
     private UsersInviteService usersInviteService;
 
@@ -340,10 +345,10 @@ public class UsersServiceImpl implements UsersService {
 
             String contextPath = Utility.getServerName(contextRealPath);
             if (user != null) {
-                usersInviteService.sendMail(fromEmailId, contextPath, inviteDetails, AppConstants.User_Status_Existing);
+                usersInviteService.sendMail(fromEmailId, servletContext, inviteDetails, AppConstants.User_Status_Existing);
                 returnMessage = true;
             } else {
-                usersInviteService.sendMail(fromEmailId, contextPath, inviteDetails, AppConstants.User_Status_New);
+                usersInviteService.sendMail(fromEmailId, servletContext, inviteDetails, AppConstants.User_Status_New);
                 returnMessage = true;
             }
 //            if (userExist){
@@ -420,7 +425,7 @@ public class UsersServiceImpl implements UsersService {
         List<Integer> roles = null;
         UsersRoleCompanyLookup usersRoleLookUp = null;
         boolean flag = false;
-        Users user = null;
+        Users user = null;Company company = new Company();UserRole changedUserRole = new UserRole();
         try {
 
             taskDetails = new TaskDetails(inviteDetails.getTask(), inviteDetails.getRoles());
@@ -433,7 +438,7 @@ public class UsersServiceImpl implements UsersService {
                 usersRoleLookUp = new UsersRoleCompanyLookup();
 
                 UserRole userRole = new UserRole();
-                Company company = companyDao.getCompanyById(inviteDetails.getCompanyId());
+                company = companyDao.getCompanyById(inviteDetails.getCompanyId());
                 userRole.setUserRoleId((Integer) roles.get(i));
 
                 usersRoleLookUp.setId(Integer.parseInt(UserRoleLookUpIds[i]));
@@ -442,7 +447,8 @@ public class UsersServiceImpl implements UsersService {
                 usersRoleLookUp.setCompanyId(company);
                 usersRoleLookUp.setAccountStatus(AppConstants.Account_Activated);
                 usersRoleCompanyLookUpService.update(usersRoleLookUp);
-
+                changedUserRole = userRoleDao.getUserRoleById(roles.get(i));
+                
             }
             Users userTo = findByUserName(inviteDetails.emailaddress);
             Invite invite = usersInviteService.getInvitedUserById(inviteDetails.getInviteId());
@@ -450,6 +456,7 @@ public class UsersServiceImpl implements UsersService {
             invite.setTask(StringUtility.objectListToJsonString(taskDetails));
             usersInviteService.update(invite);
             flag = true;
+            sendAcknowledgementEmailForRoleChange(inviteDetails.getEmailaddress(), user,company, changedUserRole.getRoleName());
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage(throwable.getMessage(), new String[]{}, Locale.US));
@@ -528,4 +535,31 @@ public class UsersServiceImpl implements UsersService {
         }
 
     }
+    public void sendAcknowledgementEmailForRoleChange(String toEmailId,Users user, Company company, String roleName) throws ProcessFailed {
+        try {
+//            String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
+            String body = "";
+        
+            ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
+            String contextRealPath = servletContext.getRealPath("");
+
+            String contextPath = Utility.getServerName(contextRealPath);
+            
+            body = ServletUtil.convertHTMLToString("rolechangeemailtemplate.html", servletContext);
+            body = body.replace("*Company Name*", company.getCompanyName());
+            body = body.replace("*Role Name*", roleName);
+            body = body.replace("hostName", contextPath);
+            Content content = new Content(IConstants.kContentHTML, body);
+            Email emailTo = new Email(toEmailId, Utility.combineUserName(user));
+            String subject = messageSource.getMessage("role_changed_acknowledgement_subject", new String[]{}, Locale.US);
+            String formattedSubject = String.format(subject, company.getCompanyName());
+            Mail mail = new Mail(null, formattedSubject, emailTo, content);
+            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, 0, null);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("mail_send_problem", new String[]{}, Locale.US));
+        }
+
+    }
+
 }

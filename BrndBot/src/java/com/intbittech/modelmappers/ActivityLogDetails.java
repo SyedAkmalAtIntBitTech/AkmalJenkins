@@ -5,6 +5,10 @@
  */
 package com.intbittech.modelmappers;
 
+import com.sun.jna.platform.win32.Sspi;
+import java.sql.Timestamp;
+import java.util.Date;
+
 /**
  *
  * @author ajit @ Intbit
@@ -17,6 +21,42 @@ public class ActivityLogDetails {
     private Integer assignedTo;
     private Integer createdBy;
     private String actionTitle;
+    private String actionType;
+    private String programName;
+    private Timestamp actionDate;
+    private String actionStatus;
+
+    public String getActionType() {
+        return actionType;
+    }
+
+    public void setActionType(String actionType) {
+        this.actionType = actionType;
+    }
+
+    public String getProgramName() {
+        return programName;
+    }
+
+    public void setProgramName(String programName) {
+        this.programName = programName;
+    }
+
+    public Timestamp getActionDate() {
+        return actionDate;
+    }
+
+    public void setActionDate(Timestamp actionDate) {
+        this.actionDate = actionDate;
+    }
+
+    public String getActionStatus() {
+        return actionStatus;
+    }
+
+    public void setActionStatus(String actionStatus) {
+        this.actionStatus = actionStatus;
+    }
     private String companyName;
     private Integer companyId;
 

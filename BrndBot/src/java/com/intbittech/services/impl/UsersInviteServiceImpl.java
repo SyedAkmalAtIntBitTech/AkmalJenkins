@@ -29,12 +29,14 @@ import com.intbittech.services.UserRoleService;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.IConstants;
+import com.intbittech.utility.ServletUtil;
 import com.intbittech.utility.StringUtility;
 import com.intbittech.utility.UserSessionUtil;
 import com.intbittech.utility.Utility;
 import com.sendgrid.Content;
 import com.sendgrid.Email;
 import com.sendgrid.Mail;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -250,24 +252,21 @@ public class UsersInviteServiceImpl implements UsersInviteService {
     }
 
     @Override
-    public boolean reSendInvitation(Integer inviteId) throws ProcessFailed {
+    public boolean reSendInvitation(Integer inviteId, Integer companyId) throws ProcessFailed {
         boolean returnMessage = false;
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             String fromEmailId = userProfile.getUser().getUserName();
             
             ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
-            String contextRealPath = servletContext.getRealPath("");
-
-            String contextPath = Utility.getServerName(contextRealPath);
 
             Invite companyInvite = getInvitedUserById(inviteId);
             Users userTo = usersService.isUserExist(companyInvite.getInviteSentToEmailId());
 
             if (userTo != null) {
-                reSendMail(fromEmailId, contextPath, inviteId, AppConstants.User_Status_Existing);
+                reSendMail(fromEmailId, servletContext, inviteId, AppConstants.User_Status_Existing, companyId);
             } else {
-                reSendMail(fromEmailId, contextPath, inviteId, AppConstants.User_Status_New);
+                reSendMail(fromEmailId, servletContext, inviteId, AppConstants.User_Status_New, companyId);
             }
 
             returnMessage = true;
@@ -279,7 +278,7 @@ public class UsersInviteServiceImpl implements UsersInviteService {
     }
 
     @Override
-    public void reSendMail(String fromEmailId, String imageContextPath, Integer inviteId, String userStatus) throws ProcessFailed {
+    public void reSendMail(String fromEmailId, ServletContext servletContext, Integer inviteId, String userStatus, Integer companyId) throws ProcessFailed {
         try {
 
             Users fromUser = usersService.getUserByEmailId(fromEmailId);
@@ -294,8 +293,8 @@ public class UsersInviteServiceImpl implements UsersInviteService {
             companyInvite.setCode(hashURL);
             companyInvite.setIsUsed(Boolean.FALSE);
             update(companyInvite);
-
-            sendInviteEmail(companyInvite.getInviteSentToEmailId(), fromUser, imageContextPath, hashURL, userStatus, Utility.combineUserName(fromUser), 0);
+            Company company = companyDao.getCompanyById(companyId);
+            sendInviteEmail(companyInvite.getInviteSentToEmailId(), fromUser, servletContext, hashURL, userStatus, Utility.combineUserName(fromUser), company);
 
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -305,7 +304,7 @@ public class UsersInviteServiceImpl implements UsersInviteService {
     }
 
     @Override
-    public void sendMail(String fromEmailId, String imageContextPath, InviteDetails inviteDetails, String userStatus) throws ProcessFailed {
+    public void sendMail(String fromEmailId, ServletContext servletContext, InviteDetails inviteDetails, String userStatus) throws ProcessFailed {
         try {
 
             Users fromUser = usersService.getUserByEmailId(fromEmailId);
@@ -326,8 +325,8 @@ public class UsersInviteServiceImpl implements UsersInviteService {
             companyInvite.setTask(StringUtility.objectListToJsonString(taskdetails));
             companyInvite.setInviteSentToEmailId(inviteDetails.getEmailaddress());
             save(companyInvite);
-
-            sendInviteEmail(inviteDetails.getEmailaddress(), fromUser, imageContextPath, hashURL, userStatus, Utility.combineUserName(fromUser), inviteDetails.getCompanyId());
+            Company company = companyDao.getCompanyById(inviteDetails.getCompanyId());
+            sendInviteEmail(inviteDetails.getEmailaddress(), fromUser, servletContext, hashURL, userStatus, Utility.combineUserName(fromUser),company);
         } catch (Throwable throwable) {
              logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("mail_send_problem", new String[]{}, Locale.US));
@@ -335,20 +334,31 @@ public class UsersInviteServiceImpl implements UsersInviteService {
 
     }
 
-    private void sendInviteEmail(String emailaddress, Users user, String imageContextPath, String hashURL, String userStatus, String fromUserName, Integer companyId) {
-        String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
-        String body = "";
+    private void sendInviteEmail(String emailaddress, Users user, ServletContext servletContext, String hashURL, String userStatus, String fromUserName, Company company)throws IOException {
+//        String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
+        String body = "";String formattedBody ="";
+        
+        String contextRealPath = servletContext.getRealPath("");
+
+        String contextPath = Utility.getServerName(contextRealPath);
+        body = ServletUtil.convertHTMLToString("inviteuseremailtemplate.html", servletContext);
+        
         if (userStatus.equals(AppConstants.User_Status_New)) {
-            body = messageSource.getMessage("userInviteBodySignup", new String[]{}, Locale.US);
+            body = body.replace("*Company Name*", company.getCompanyName());
+            body = body.replace("hostName", contextPath);
+            body = body.replace("fileName", "userregistration");
+            body = body.replace("hashURL", hashURL);
         } else if (userStatus.equals(AppConstants.User_Status_Existing)) {
-            body = messageSource.getMessage("userInviteBodySignin", new String[]{}, Locale.US);
+            body = body.replace("*Company Name*", company.getCompanyName());
+            body = body.replace("hostName", contextPath);
+            body = body.replace("fileName", "signin");
+            body = body.replace("hashURL", hashURL);
         }
-        String formattedBody = String.format(body, companyName, imageContextPath, hashURL);
-        Content content = new Content(IConstants.kContentHTML, formattedBody);
+        Content content = new Content(IConstants.kContentHTML, body);
         Email emailTo = new Email(emailaddress, Utility.combineUserName(user));
         String subject = messageSource.getMessage("userInviteSubject", new String[]{}, Locale.US);
-        String formattedSubject = String.format(subject, companyName);
+        String formattedSubject = String.format(subject);
         Mail mail = new Mail(null, formattedSubject, emailTo, content);
-        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, companyId, fromUserName);
+        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, company.getCompanyId(), company.getCompanyName());
     }
 }

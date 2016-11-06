@@ -8,6 +8,7 @@ package com.intbittech.services;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Category;
 import com.intbittech.model.ForgotPassword;
+import java.io.IOException;
 
 /**
  * <code>{@link CategoryService}</code> is service layer interface for
@@ -45,7 +46,7 @@ public interface ForgotPasswordService {
      */
     public void delete(ForgotPassword forgotPassword) throws ProcessFailed;
 
-    public void sendMail(String email_id, String imageContextPath);
+    public void sendMail(String email_id, String imageContextPath)throws IOException;
 
     public void updatePassword(Integer userId, String hashPassword);
 
