@@ -4486,8 +4486,8 @@ textarea.task-textarea:focus{
     display: block;
     z-index: 999999;
     position: fixed;
-    margin-left: 45vh;
-    margin-top: 5vw;
+/*    margin-left: 45vh;
+    margin-top: 5vw;*/
 }
 
 
@@ -5503,7 +5503,7 @@ textarea.task-textarea:focus{
 }
 
 .bb-top-sub-nav-tab:hover{
-    cursor: pointer;
+    cursor: default;
     color: #5A6069;
 }
 

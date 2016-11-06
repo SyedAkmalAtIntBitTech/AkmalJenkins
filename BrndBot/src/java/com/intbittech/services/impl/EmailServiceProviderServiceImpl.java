@@ -27,7 +27,6 @@ import com.intbittech.sendgrid.models.SubUserAPIKey;
 import com.intbittech.sendgrid.models.Subuser;
 import com.intbittech.services.EmailServiceProviderService;
 import com.intbittech.services.SendGridSubUserDetailsService;
-import com.intbittech.services.UsersService;
 import com.intbittech.utility.IConstants;
 import com.sendgrid.Email;
 import com.sendgrid.Mail;
@@ -68,9 +67,6 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
 
     @Autowired
     private SendGridSubUserDetailsService sendGridSubUserDetailsService;
-
-    @Autowired
-    private UsersService usersService;
 
     private Map<String, String> generateQueryParams(String key,
             List<String> categories) {
@@ -223,7 +219,8 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
     public OperationStatus sendEmail(Mail mail, EmailType emailType, Integer companyId, String fromName) throws ProcessFailed {
         try {
             if (companyId == 0){
-                mail = formatTo(mail, emailType, companyId.toString());
+                String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
+                mail = formatTo(mail, emailType, companyName);
             }else {
                 mail = formatTo(mail, emailType, fromName);
             }

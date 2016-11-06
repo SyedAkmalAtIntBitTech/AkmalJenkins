@@ -409,6 +409,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
         $scope.removeActionComment = function (scheduleId, commentId) {
             yourPlanFactory.removeActionComment(commentId).then(function (data) {
+                growl(eval(JSON.stringify(data.d.operationStatus.messages[0])));
                 $scope.getActionComments(scheduleId);
             });
         };

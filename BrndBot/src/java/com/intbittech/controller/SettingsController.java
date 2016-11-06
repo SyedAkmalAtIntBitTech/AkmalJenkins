@@ -34,17 +34,14 @@ import com.intbittech.services.AddressService;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.ContactEmailListLookupService;
-import com.intbittech.services.EmailListService;
 import com.intbittech.services.ForgotPasswordService;
 import com.intbittech.services.UnsubscribedEmailsService;
 import com.intbittech.services.UserPreferencesService;
 import com.intbittech.services.UsersInviteService;
 import com.intbittech.services.UsersService;
-import com.intbittech.social.CompanyPreferencesFacebook;
 import com.intbittech.social.CompanyPreferencesTwitter;
 import com.intbittech.utility.EmailValidator;
 import com.intbittech.utility.ErrorHandlingUtil;
-import com.intbittech.utility.IConstants;
 import com.intbittech.utility.ServletUtil;
 import com.intbittech.utility.StringUtility;
 import com.intbittech.utility.Utility;
@@ -130,8 +127,6 @@ private UserPreferencesService userPreferencesService;
 
     @Autowired
     private CompanyPreferencesService companyPreferencesService;
-    @Autowired
-    private EmailListService emailListService;
 
     @RequestMapping(value = "/sendInvitation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> sendInvitation(@RequestBody InviteDetails inviteDetails) {
@@ -152,10 +147,10 @@ private UserPreferencesService userPreferencesService;
     }
 
     @RequestMapping(value = "/resendInvitation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> resendInvitation(@RequestParam("inviteId") Integer inviteId) {
+    public ResponseEntity<ContainerResponse> resendInvitation(@RequestParam("inviteId") Integer inviteId, @RequestParam("companyId") Integer companyId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            boolean returnMessage = usersInviteService.reSendInvitation(inviteId);
+            boolean returnMessage = usersInviteService.reSendInvitation(inviteId, companyId);
             if (returnMessage) {
                 transactionResponse.setMessage(messageSource.getMessage("invitation_check_mail", new String[]{}, Locale.US));
             } else {

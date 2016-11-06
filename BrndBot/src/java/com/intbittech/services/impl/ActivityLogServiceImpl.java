@@ -27,13 +27,11 @@ import com.intbittech.utility.Utility;
 import com.sendgrid.Content;
 import com.sendgrid.Email;
 import com.sendgrid.Mail;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletContext;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,8 +63,6 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     private CompanyDao companyDao;
     @Autowired
     private UsersService usersService;
-
-    private ActivityLogDetails activityLogDetails;
 
     @Autowired
     private EmailServiceProviderService emailServiceProviderService;
@@ -159,7 +155,8 @@ public class ActivityLogServiceImpl implements ActivityLogService {
 
                     if (activityLogDetails.getAssignedTo() != null && activityLogDetails.getAssignedTo() != 0) {
                         sendNotificationEmail(activityLogDetails.getActivityId(), createdBy.getUserName(), Utility.combineUserName(createdBy),
-                                company.getCompanyId(), activityLogDetails.getActionTitle(), Utility.combineUserName(createdBy));
+                                company.getCompanyId(),activityLogDetails.getCompanyName(),activityLogDetails.getActionType(),activityLogDetails.getProgramName(),
+                                activityLogDetails.getActionDate(),activityLogDetails.getActionStatus(), activityLogDetails.getActionTitle(), Utility.combineUserName(createdBy));
                     }
                     break;
                 case 2:
@@ -170,7 +167,8 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                         activityLog.setAssignedTo(assignedTo);
                             Users sendToUser = usersService.getUserById(activityLogDetails.getAssignedTo());
                             sendNotificationEmail(activityLogDetails.getActivityId(), sendToUser.getUserName(), Utility.combineUserName(sendToUser),
-                                    company.getCompanyId(), activityLogDetails.getActionTitle(), Utility.combineUserName(createdBy));
+                                company.getCompanyId(),activityLogDetails.getCompanyName(),activityLogDetails.getActionType(),activityLogDetails.getProgramName(),
+                                activityLogDetails.getActionDate(),activityLogDetails.getActionStatus(), activityLogDetails.getActionTitle(), Utility.combineUserName(createdBy));
                     }
                     break;
                 case 3:
@@ -181,7 +179,8 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                         activityLog.setAssignedTo(assignedTo);
                             Users sendToUser = usersService.getUserById(activityLogDetails.getAssignedTo());
                             sendNotificationEmail(activityLogDetails.getActivityId(), sendToUser.getUserName(), Utility.combineUserName(sendToUser),
-                                    company.getCompanyId(), activityLogDetails.getActionTitle(), Utility.combineUserName(createdBy));
+                                company.getCompanyId(),activityLogDetails.getCompanyName(),activityLogDetails.getActionType(),activityLogDetails.getProgramName(),
+                                activityLogDetails.getActionDate(),activityLogDetails.getActionStatus(), activityLogDetails.getActionTitle(), Utility.combineUserName(createdBy));
                         }
                     break;
                 case 4:
@@ -221,13 +220,17 @@ public class ActivityLogServiceImpl implements ActivityLogService {
 
     @Async
     public Boolean sendNotificationEmail(Integer activityId, String toEmailId, String userName,
-            Integer companyId, String actionTitle, String createdByUserName) throws ProcessFailed {
+            Integer companyId,String companyName, String actionType,String campaignName,
+            Timestamp actionDate,String actionStatus, String actionTitle, String createdByUserName) throws ProcessFailed {
 
-        String body = null;
+            String body = null;String formattedBody = "", formattedSubject = "";
         
             ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
+            String context_real_path = servletContext.getRealPath("");
+
+            String contextPath = Utility.getServerName(context_real_path);
+            
         try {
-            String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
 
             switch (activityId) {
                 case 1:
@@ -237,18 +240,27 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                     body = body.replace("%c", companyName);
                     break;
                 case 2:
-                    body = ServletUtil.convertHTMLToString("actionassignment.html", servletContext);
-//                    body = messageSource.getMessage("notification_message_activity_assigned_to", new String[]{}, Locale.US);
-//                    body = body.replace("%t", actionTitle);
-//                    body = body.replace("%s", createdBy);
-//                    body = body.replace("%c", companyName);
+                    body = ServletUtil.convertHTMLToString("actionassignmentemailtemplate.html", servletContext);
+                    body = body.replace("*Name of person who assigned*", createdByUserName);
+                    body = body.replace("*action type*", actionType);
+                    body = body.replace("*company name*", companyName);
+                    body = body.replace("*Marketing Action Name*", actionTitle);
+                    body = body.replace("*Marketing Campaign Name*", campaignName);
+                    body = body.replace("*Marketing Action Date*", actionDate.toString());
+                    body = body.replace("*Marketing Action Status*", actionStatus);
+                    body = body.replace("host", contextPath);
+                    
                     break;
                 case 3:
-                    body = ServletUtil.convertHTMLToString("actionassignment.html", servletContext);
-//                    body = messageSource.getMessage("notification_message_activity_reassigned_to", new String[]{}, Locale.US);
-//                    body = body.replace("%t", actionTitle);
-//                    body = body.replace("%s", createdBy);
-//                    body = body.replace("%c", companyName);
+                    body = ServletUtil.convertHTMLToString("actionassignmentemailtemplate.html", servletContext);
+                    body = body.replace("*Name of person who assigned*", createdByUserName);
+                    body = body.replace("*action type*", actionType);
+                    body = body.replace("*company name*", companyName);
+                    body = body.replace("*Marketing Action Name*", actionTitle);
+                    body = body.replace("*Marketing Campaign Name*", campaignName);
+                    body = body.replace("*Marketing Action Date*", actionDate.toString());
+                    body = body.replace("*Marketing Action Status*", actionStatus);
+                    body = body.replace("host", contextPath);
                     break;
                 case 4:
                 case 5:
@@ -260,12 +272,10 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                 case 11:
                 case 12:
             }
-//            String formattedBody = String.format(body);
             Content content = new Content(IConstants.kContentHTML, body);
             Email emailTo = new Email(toEmailId, userName);
             String subject = messageSource.getMessage("notification_subject", new String[]{}, Locale.US);
-            subject = subject.replace("%t", actionTitle);
-            String formattedSubject = String.format(subject, createdByUserName);
+            formattedSubject = String.format(subject, actionTitle);
             Mail mail = new Mail(null, formattedSubject, emailTo, content);
             emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, companyId, createdByUserName);
             return true;

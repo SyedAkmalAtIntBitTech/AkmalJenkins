@@ -9,8 +9,8 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ActivityLog;
 import com.intbittech.modelmappers.ActivityLogDetails;
 import com.intbittech.responsemappers.ActivityLogResponse;
+import java.sql.Timestamp;
 import java.util.List;
-import javax.servlet.ServletContext;
 
 /**
  * <code>{@link ActivityLogService}</code> is service layer interface for
@@ -61,7 +61,8 @@ public interface ActivityLogService {
      */
     public void saveActivityLog(ActivityLogDetails activityLogDetails) throws ProcessFailed;       
 
-    public Boolean sendNotificationEmail(Integer activityId, String toEmailId, String userName, 
-                                         Integer companyId, String actionTitle, String createdBy)throws ProcessFailed;
+    public Boolean sendNotificationEmail(Integer activityId, String toEmailId, String userName,
+            Integer companyId,String companyName, String actionType,String campaignName,
+            Timestamp actionDate,String actionStatus, String actionTitle, String createdByUserName)throws ProcessFailed;
 
 }

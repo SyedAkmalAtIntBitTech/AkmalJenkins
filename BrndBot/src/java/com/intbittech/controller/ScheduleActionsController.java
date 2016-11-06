@@ -27,6 +27,7 @@ import com.intbittech.utility.IConstants;
 import com.intbittech.utility.MapUtility;
 import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -353,6 +354,10 @@ public class ScheduleActionsController {
             activityLogDetails.setAssignedTo(updateActionDetails.getUserAssignToId());
             activityLogDetails.setScheduledEntityId(scheduledEntityList.getScheduledEntityListId());
             activityLogDetails.setActionTitle(scheduledEntityList.getScheduleTitle());
+            activityLogDetails.setActionType(scheduledEntityList.getEntityType());
+            activityLogDetails.setActionStatus(scheduledEntityList.getStatus());
+            activityLogDetails.setProgramName(scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramName());
+            activityLogDetails.setActionDate(new Timestamp(scheduledEntityList.getScheduleTime().getTime()));
             
             Company company = companyService.getCompanyById(updateActionDetails.getCompanyId());
             activityLogDetails.setCompanyName(company.getCompanyName());

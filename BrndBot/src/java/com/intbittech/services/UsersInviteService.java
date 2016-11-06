@@ -12,6 +12,7 @@ import com.intbittech.model.InvitedUsers;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.InviteDetails;
 import java.util.List;
+import javax.servlet.ServletContext;
 
 /**
  *
@@ -103,7 +104,7 @@ public interface UsersInviteService {
      * @param inviteDetails
      * @throws ProcessFailed the process failed
      */
-    public void sendMail(String fromEmailId, String imageContextPath, InviteDetails inviteDetails, String userStatus) throws ProcessFailed;   
+    public void sendMail(String fromEmailId, ServletContext servletContext, InviteDetails inviteDetails, String userStatus) throws ProcessFailed;   
     
     /**
      * This method pass fromEmailId,inviteId as input and sends mail from Service layer
@@ -112,7 +113,7 @@ public interface UsersInviteService {
      * @param inviteId
      * @throws ProcessFailed the process failed
      */
-    public boolean reSendInvitation(Integer inviteId)throws ProcessFailed;
+    public boolean reSendInvitation(Integer inviteId, Integer companyId)throws ProcessFailed;
     /**
      * This method pass fromEmailId,imageContextPath,inviteDetails as input and sends mail from Service layer
      *
@@ -121,6 +122,6 @@ public interface UsersInviteService {
      * @param inviteDetails
      * @throws ProcessFailed the process failed
      */
-    public void reSendMail(String from_email_id, String imageContextPath, Integer inviteId, String userStatus)throws ProcessFailed;
+    public void reSendMail(String from_email_id, ServletContext servletContext, Integer inviteId, String userStatus, Integer companyId)throws ProcessFailed;
 
 }
