@@ -48,8 +48,8 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     @Autowired
     private MessageSource messageSource;
 
-    @Autowired
-    private CompanyPreferencesJson companyPreferencesJson;
+//    @Autowired
+//    private CompanyPreferencesJson companyPreferencesJson;
 
     @Override
     public void updatePreferences(CompanyPreferences companyPreferences) {
@@ -64,6 +64,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     @Override
     public void updateEmailSettings(EmailSettings emailSettings, Company company) throws ProcessFailed {
         try {
+            CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             if (companyPreferences == null) {
                 companyPreferences = new CompanyPreferences();
@@ -96,6 +97,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
 
     @Override
     public List<String> getColors(Company company) {
+        CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
         try {
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             ObjectMapper mapper = new ObjectMapper();
@@ -111,6 +113,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     @Override
     public void setColors(CompanyColorsDetails companyColorsDetailsList, Company company) {
         try {
+            CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             if (companyPreferences == null) {
                 companyPreferences = new CompanyPreferences();
@@ -161,6 +164,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     @Override
     public void setFooterDetails(FooterDetails footerDetails, Company company) {
         try {
+            CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             if (companyPreferences == null) {
                 companyPreferences = new CompanyPreferences();
@@ -224,6 +228,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     @Override
     public void setTwitterDetails(TwitterDataDetails twitter, Company company) {
         try {
+            CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             if (companyPreferences == null) {
                 companyPreferences = new CompanyPreferences();
@@ -242,6 +247,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
 
     @Override
     public TwitterDataDetails getTwitterDetails(Company company) {
+        CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
         try {
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             String companyPreferencesJsonString = companyPreferences.getCompanyPreferences();
@@ -256,6 +262,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     @Override
     public void deleteTwitterDetails(Company company) {
         try {
+            CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             if (companyPreferences == null) {
                 companyPreferences = new CompanyPreferences();
@@ -276,6 +283,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     @Override
     public void setFacebookDetails(FacebookDataDetails facebook, Company company) {
         try {
+            CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             if (companyPreferences == null) {
                 companyPreferences = new CompanyPreferences();
@@ -294,6 +302,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
 
     @Override
     public FacebookDataDetails getFacebookDetails(Company company) {
+        CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
         try {
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             String companyPreferencesJsonString = companyPreferences.getCompanyPreferences();
@@ -308,6 +317,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     @Override
     public void deleteFacebookDetails(Company company) {
         try {
+            CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             if (companyPreferences == null) {
                 companyPreferences = new CompanyPreferences();
@@ -328,6 +338,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     @Override
     public void setOnBoarding(OnBoarding onBoarding, Company company) {
         try {
+            CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             if (companyPreferences == null) {
                 companyPreferences = new CompanyPreferences();
@@ -346,6 +357,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
 
     @Override
     public OnBoarding getOnBoarding(Company company) {
+        CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
         try {
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             if (companyPreferences == null) {
