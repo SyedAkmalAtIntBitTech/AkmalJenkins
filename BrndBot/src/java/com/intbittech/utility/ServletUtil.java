@@ -145,4 +145,14 @@ public class ServletUtil {
         return htmlHeader;
             
     }
+    
+    public static String convertHTMLToString(String fileName,ServletContext context)throws IOException {
+        String htmlString = "";
+        String path = context.getRealPath("")+"/WEB-INF/views/user/"+ fileName;
+        File htmlFile = new File(path);
+        if (htmlFile.exists()){
+            htmlString = FileUtils.readFileToString(htmlFile, "UTF-8");
+        }
+        return htmlString;
+    }
 }

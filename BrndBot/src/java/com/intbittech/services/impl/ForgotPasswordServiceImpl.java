@@ -86,11 +86,11 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
         Content content = new Content(IConstants.kContentHTML, formattedBody);
         Email emailTo = new Email(email_id, Utility.combineUserName(user));
         String subject = messageSource.getMessage("forgotPasswordSubject",new String[]{}, Locale.US);
-        String formattedSubject = String.format(subject, companyName);
+        String formattedSubject = String.format(subject);
         Mail mail = new Mail(null, formattedSubject, emailTo, content);
         String preHeader = "something";
         
-        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, 0);
+        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, 0, null);
     }
 
     @Override

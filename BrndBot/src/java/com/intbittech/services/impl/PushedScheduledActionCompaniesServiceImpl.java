@@ -8,6 +8,7 @@ package com.intbittech.services.impl;
 import com.intbittech.dao.PushedScheduledActionCompaniesDao;
 import com.intbittech.dao.PushedScheduledEntityListDao;
 import com.intbittech.dao.UserRoleCompanyLookUpDao;
+import com.intbittech.dao.UsersDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.EmailListTag;
@@ -15,6 +16,7 @@ import com.intbittech.model.Franchise;
 import com.intbittech.model.PushedScheduledActionCompanies;
 import com.intbittech.model.PushedScheduledEntityList;
 import com.intbittech.model.ScheduledEntityList;
+import com.intbittech.model.Users;
 import com.intbittech.model.UsersRoleCompanyLookup;
 import com.intbittech.modelmappers.ActionCompaniesDetails;
 import com.intbittech.modelmappers.PushedScheduledActionCompaniesDetails;
@@ -63,7 +65,8 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
     private EmailServiceProviderService emailServiceProviderService;
     @Autowired
     private EmailListTagService emailListTagService;
-
+    @Autowired
+    private UsersDao usersDao;
     /**
      * {@inheritDoc}
      */
@@ -180,6 +183,9 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
             throw new ProcessFailed("No user found");
         }
         List<UserDetails> userDetailsList = new ArrayList<>();
+            
+        Users fromUser = usersDao.getUserById(sendReminderEmailDetails.getUserId());
+        
         for (UsersRoleCompanyLookup usersRoleCompanyLookup : roleCompanyLookupList) {
             UserDetails userDetails = new UserDetails();
             userDetails.setUserId(usersRoleCompanyLookup.getUserId().getUserId());
@@ -188,12 +194,13 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
             userDetails.setUserName(usersRoleCompanyLookup.getUserId().getUserName());
             EmailListTag emailListTag = emailListTagService.getByEmailListTagId(sendReminderEmailDetails.getEmailListTagId());
             sendNotificationEmailForNoEmailListPresent(usersRoleCompanyLookup.getUserId().getUserName(),
-                    Utility.combineUserName(usersRoleCompanyLookup.getUserId()), emailListTag.getTagName(), usersRoleCompanyLookup.getCompanyId().getCompanyName());
+                    Utility.combineUserName(usersRoleCompanyLookup.getUserId()), emailListTag.getTagName(), 
+                    usersRoleCompanyLookup.getCompanyId().getCompanyName(),usersRoleCompanyLookup.getCompanyId().getCompanyId(), fromUser.getUserName());
         }
         return userDetailsList;
     }
 
-    public Boolean sendNotificationEmailForNoEmailListPresent(String toEmailId, String userName, String emailTag, String company) throws ProcessFailed {
+    public Boolean sendNotificationEmailForNoEmailListPresent(String toEmailId, String userName, String emailTag, String company,Integer companyId, String fromName) throws ProcessFailed {
         try {
             String companyName = messageSource.getMessage("companyName", new String[]{}, Locale.US);
             String body = messageSource.getMessage("notification_message_no_emaillist_tag", new String[]{}, Locale.US);
@@ -204,7 +211,7 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
             String subject = messageSource.getMessage("notification_subject_no_emailList", new String[]{}, Locale.US);
             String formattedSubject = String.format(subject, companyName);
             Mail mail = new Mail(null, formattedSubject, emailTo, content);
-            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, 0);
+            emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_NoReply, companyId, fromName);
             return true;
         } catch (Throwable throwable) {
             logger.error(throwable);
