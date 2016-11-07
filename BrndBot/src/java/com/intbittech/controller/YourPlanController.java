@@ -14,6 +14,11 @@ import com.intbittech.AppConstants;
 import com.intbittech.dao.impl.ScheduleSocialPostDAO;
 import com.intbittech.enums.ActivityStatus;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.marketing.service.CompanyMarketingProgramService;
+import com.intbittech.marketing.service.ScheduledEntityListService;
+import com.intbittech.model.Company;
+import com.intbittech.model.CompanyMarketingProgram;
+import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.modelmappers.ActivityLogDetails;
 import com.intbittech.modelmappers.SentEmailDetails;
@@ -54,6 +59,8 @@ import com.intbittech.social.PostToTwitter;
 import com.intbittech.utility.Utility;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 //import java.sql.Date;
 
@@ -71,6 +78,10 @@ public class YourPlanController {
     private MessageSource messageSource;
     @Autowired
     private ActivityLogService activityLogService;
+    @Autowired
+    private ScheduledEntityListService scheduledEntityListService;
+    @Autowired
+    private CompanyMarketingProgramService companyMarketingProgramService;
 
     @Autowired
     PostToFacebook postToFacebook;
@@ -273,6 +284,7 @@ public class YourPlanController {
                         conn.commit();
                         Map<String, Object> data = new HashMap<>();
                         data.put("schedule_entity_id", scheduleId);
+                        ScheduledEntityList scheduledEntityList = scheduledEntityListService.getById(scheduleId);
 
                         ActivityLogDetails activityLogDetails = new ActivityLogDetails();
                         activityLogDetails.setActivityId(ActivityStatus.ACTIVITY_CREATED_ACTION_ID.getId());
@@ -285,8 +297,18 @@ public class YourPlanController {
                         ActivityLogDetails activityLogDetailsObject = new ActivityLogDetails();
                         activityLogDetailsObject.setActivityId(ActivityStatus.ACTIVITY_ASSIGNED_TO_ID.getId());
                         activityLogDetailsObject.setActionType(requestBodyMap.get("actiontype").toString());
-                        activityLogDetailsObject.setProgramName(null);
-                        activityLogDetailsObject.setActionDate(new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()));
+                        activityLogDetailsObject.setProgramName(scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramName());
+                        if (scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId() == 0){
+                            activityLogDetailsObject.setActionDate(new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()));
+                        }else {
+                            CompanyMarketingProgram userMarketingProgram = companyMarketingProgramService.getById(scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId());
+                            Date eventDate = userMarketingProgram.getDateEvent();
+                            Calendar cal = Calendar.getInstance();
+                            cal.setTime(eventDate);
+                            cal.add(Calendar.DAY_OF_MONTH, -days);
+
+                            activityLogDetailsObject.setActionDate(new Timestamp(cal.getTimeInMillis()));
+                        }
                         activityLogDetailsObject.setAssignedTo(userAssignToId);
                         activityLogDetailsObject.setActionStatus(templateStatus);
                         activityLogDetailsObject.setScheduledEntityId(scheduleId);
@@ -316,6 +338,7 @@ public class YourPlanController {
                         conn.commit();
                         Map<String, Object> data = new HashMap<>();
                         data.put("schedule_entity_id", scheduleId);
+                        
                         ActivityLogDetails activityLogDetailsObject = new ActivityLogDetails();
                         activityLogDetailsObject.setActivityId(ActivityStatus.ACTIVITY_UPDATED_ACTION_ID.getId());
                         activityLogDetailsObject.setScheduledEntityId(scheduleId);
