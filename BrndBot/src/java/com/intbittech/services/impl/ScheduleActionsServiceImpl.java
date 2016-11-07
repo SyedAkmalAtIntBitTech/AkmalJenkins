@@ -13,6 +13,8 @@ import com.intbittech.dao.impl.ScheduleDAO;
 import com.intbittech.dao.impl.ScheduleSocialPostDAO;
 import com.intbittech.enums.ActivityStatus;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.marketing.service.ScheduledEntityListService;
+import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.modelmappers.ActivityLogDetails;
 import com.intbittech.services.ActivityLogService;
@@ -49,6 +51,8 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
     private MessageSource messageSource;
     @Autowired
     private ActivityLogService activityLogService;
+    @Autowired
+    private ScheduledEntityListService scheduledEntityListService;
 
     @Override
     public String getActions(Map<String, Object> requestBodyMap, Integer companyId) throws Exception {
@@ -148,12 +152,18 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                 activityLogDetailsObject.setCompanyId(companyId);
                 activityLogDetailsObject.setActionTitle(requestBodyMap.get("schedule_title").toString());
                 activityLogService.saveActivityLog(activityLogDetailsObject);
+                
+                ScheduledEntityList scheduledEntityList = scheduledEntityListService.getById(scheduleEntityId);
                 ActivityLogDetails activityLog = new ActivityLogDetails();
                 activityLog.setActivityId(ActivityStatus.ACTIVITY_ASSIGNED_TO_ID.getId());
                 activityLog.setScheduledEntityId(scheduleEntityId);
+                activityLog.setActionDate(new Timestamp(scheduledEntityList.getScheduleTime().getTime()));
+                activityLog.setActionStatus(scheduledEntityList.getStatus());
+                activityLog.setActionTitle(scheduledEntityList.getScheduleTitle());
+                activityLog.setActionType(scheduledEntityList.getEntityType());
+                activityLog.setProgramName(scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramName());
                 activityLog.setCreatedBy(createdBy);
                 activityLog.setCompanyId(companyId);
-                activityLog.setActionTitle(requestBodyMap.get("schedule_title").toString());
                 activityLog.setAssignedTo(userAssignToId);
                 activityLogService.saveActivityLog(activityLog);
             if (!path.equals("")) {
@@ -303,13 +313,18 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                 activityLogDetailsObject.setCompanyId(companyId);
                 activityLogDetailsObject.setActionTitle(requestBodyMap.get("schedule_title").toString());
                 activityLogService.saveActivityLog(activityLogDetailsObject);
+                ScheduledEntityList scheduledEntityList = scheduledEntityListService.getById(scheduleEntityId);
                 ActivityLogDetails activityLog = new ActivityLogDetails();
                 activityLog.setActivityId(ActivityStatus.ACTIVITY_ASSIGNED_TO_ID.getId());
                 activityLog.setScheduledEntityId(scheduleEntityId);
+                activityLog.setProgramName(scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramName());
+                activityLog.setActionDate(new Timestamp(scheduledEntityList.getScheduleTime().getTime()));
+                activityLog.setActionStatus(scheduledEntityList.getStatus());
+                activityLog.setActionTitle(scheduledEntityList.getScheduleTitle());
+                activityLog.setActionType(scheduledEntityList.getEntityType());
                 activityLog.setCreatedBy(createdBy);
                 activityLog.setAssignedTo(userAssignToId);
                 activityLog.setCompanyId(companyId);
-                activityLog.setActionTitle(requestBodyMap.get("schedule_title").toString());
                 activityLogService.saveActivityLog(activityLog);
             } catch (SQLException ex) {
                 conn.rollback();

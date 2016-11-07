@@ -336,6 +336,21 @@ a {
     text-align: center;
 }
 
+#addactionClose:hover:after{           
+            margin-left: 20px;
+            position: absolute;
+            color: #FFF;
+            text-align: center;
+            top: 10%;
+            padding: 5px 10px;
+            height: 20px;
+            display: block;
+            min-width: 120px;
+            z-index: 1000;
+            border-radius:3px;
+            background-color: #2D4355;
+            content: "Remove Comment";
+}
 
 /*-----------------------------------
        Navigation and Structure

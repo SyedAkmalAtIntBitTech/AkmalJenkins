@@ -28,6 +28,7 @@ import com.sendgrid.Content;
 import com.sendgrid.Email;
 import com.sendgrid.Mail;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -155,7 +156,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
 
                     if (activityLogDetails.getAssignedTo() != null && activityLogDetails.getAssignedTo() != 0) {
                         sendNotificationEmail(activityLogDetails.getActivityId(), createdBy.getUserName(), Utility.combineUserName(createdBy),
-                                company.getCompanyId(),activityLogDetails.getCompanyName(),activityLogDetails.getActionType(),activityLogDetails.getProgramName(),
+                                company.getCompanyId(),company.getCompanyName(),activityLogDetails.getActionType(),activityLogDetails.getProgramName(),
                                 activityLogDetails.getActionDate(),activityLogDetails.getActionStatus(), activityLogDetails.getActionTitle(), Utility.combineUserName(createdBy));
                     }
                     break;
@@ -167,7 +168,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                         activityLog.setAssignedTo(assignedTo);
                             Users sendToUser = usersService.getUserById(activityLogDetails.getAssignedTo());
                             sendNotificationEmail(activityLogDetails.getActivityId(), sendToUser.getUserName(), Utility.combineUserName(sendToUser),
-                                company.getCompanyId(),activityLogDetails.getCompanyName(),activityLogDetails.getActionType(),activityLogDetails.getProgramName(),
+                                company.getCompanyId(),company.getCompanyName(),activityLogDetails.getActionType(),activityLogDetails.getProgramName(),
                                 activityLogDetails.getActionDate(),activityLogDetails.getActionStatus(), activityLogDetails.getActionTitle(), Utility.combineUserName(createdBy));
                     }
                     break;
@@ -179,7 +180,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                         activityLog.setAssignedTo(assignedTo);
                             Users sendToUser = usersService.getUserById(activityLogDetails.getAssignedTo());
                             sendNotificationEmail(activityLogDetails.getActivityId(), sendToUser.getUserName(), Utility.combineUserName(sendToUser),
-                                company.getCompanyId(),activityLogDetails.getCompanyName(),activityLogDetails.getActionType(),activityLogDetails.getProgramName(),
+                                company.getCompanyId(),company.getCompanyName(),activityLogDetails.getActionType(),activityLogDetails.getProgramName(),
                                 activityLogDetails.getActionDate(),activityLogDetails.getActionStatus(), activityLogDetails.getActionTitle(), Utility.combineUserName(createdBy));
                         }
                     break;
@@ -222,8 +223,8 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     public Boolean sendNotificationEmail(Integer activityId, String toEmailId, String userName,
             Integer companyId,String companyName, String actionType,String campaignName,
             Timestamp actionDate,String actionStatus, String actionTitle, String createdByUserName) throws ProcessFailed {
-
-            String body = null;String formattedBody = "", formattedSubject = "";
+ 
+            String body = null;String formattedSubject = "";
         
             ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
             String context_real_path = servletContext.getRealPath("");
@@ -246,7 +247,9 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                     body = body.replace("*company name*", companyName);
                     body = body.replace("*Marketing Action Name*", actionTitle);
                     body = body.replace("*Marketing Campaign Name*", campaignName);
-                    body = body.replace("*Marketing Action Date*", actionDate.toString());
+                    SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE d MMM yy 'at' hh:mm:ss");
+                    String result = dateFormatter.format(actionDate);
+                    body = body.replace("*Marketing Action Date*", result);
                     body = body.replace("*Marketing Action Status*", actionStatus);
                     body = body.replace("host", contextPath);
                     
@@ -258,7 +261,9 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                     body = body.replace("*company name*", companyName);
                     body = body.replace("*Marketing Action Name*", actionTitle);
                     body = body.replace("*Marketing Campaign Name*", campaignName);
-                    body = body.replace("*Marketing Action Date*", actionDate.toString());
+                    dateFormatter = new SimpleDateFormat("EEE d MMM yy 'at' hh:mm:ss");
+                    result = dateFormatter.format(actionDate);
+                    body = body.replace("*Marketing Action Date*", result);
                     body = body.replace("*Marketing Action Status*", actionStatus);
                     body = body.replace("host", contextPath);
                     break;
