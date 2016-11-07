@@ -1107,6 +1107,7 @@ socialFlowApp.controller("socialController", ['$scope', '$filter', '$rootScope',
                         }),
                         success: function (responseText) {
                             img.src = responseText.link;
+                            $scope.displayImage = responseText.link;
                             appSessionFactory.getFbPostData().then(function (kGlobalFbPostDataObject) {
                                 kGlobalFbPostDataObject.imgNameToPost = responseText.link;
                                 kGlobalFbPostDataObject.imageType = "url";
