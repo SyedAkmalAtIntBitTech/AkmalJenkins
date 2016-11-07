@@ -38,7 +38,7 @@
             <div class="bb-panel-header">
                 <h2 class="">Email List Contacts</h2>
                 <input class="input" type="text" placeholder="Search" ng-model="userSearch">
-                <a ng-hide="isMINDBODYEmailLIstDetails = true" class="bb-button bb-default-action-button" ng-click="addContactDetails('add','','','','')"> Add Contact</a>
+                <a ng-hide="isMINDBODYEmailLIstDetails" class="bb-button bb-default-action-button" ng-click="addContactDetails('add','','','','')"> Add Contact</a>
             </div>
             <div class="bb-panel-full-width bb-panel-styling-content-wrap">
                 
@@ -61,7 +61,7 @@
                     
                       <!--User Created List-->
                     <div class="bb-slat-no-hover" ng-repeat="email in user_emailAddresses | filter:userSearch">
-                        <div class="selection-container col-5p fleft" ng-hide="isMINDBODYEmailLIstDetails = true"> 
+                        <div class="selection-container col-5p fleft" ng-hide="isMINDBODYEmailLIstDetails"> 
                             <div class="selection-icon" id="{{email.contactLookupId}}" ng-click="selectedEmailListCheckbox(email.contactLookupId)">
                                 <input type="checkbox" id="emailid{{email.fkContactId.emailAddress}}" value="{{email.fkContactId.emailAddress}}" name="emaillistname" hidden></input>
                             </div>
