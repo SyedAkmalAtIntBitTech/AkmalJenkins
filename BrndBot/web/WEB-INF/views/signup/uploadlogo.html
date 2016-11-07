@@ -41,7 +41,7 @@
                             </div>
                             
 
-                            <span class="validationAlert" ng-if='myFile === "" || null'>{{logoValidation}}</span>
+                            <span class="validationAlert" ng-if='myFile === "" || null '>{{logoValidation}}</span>
                             <div class="upload-logo-button-wrap">
                                
                                 <label for="logoUpload" id="triggerFile" class="bb-button bb-default-action-button">Browse your files</label>
@@ -53,7 +53,7 @@
                 </div>     
             </div>
             <div class="bb-bottom-cta-bar">
-                <a class="bb-bottom-cta-continue-button"  ng-click="uploadLogo(myFile)" >
+                <a class="bb-bottom-cta-continue-button"  ng-click="uploadLogo(myFile)" ng-class="{'bb-valid' : myFile != null}">
                     <div class="bb-bottom-cta-continue-button-text">Continue</div>
                     
                     <img class="bb-bottom-cta-continue-button-arrow" src="/BrndBot/images/continue-arrow.svg" />

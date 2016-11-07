@@ -551,23 +551,24 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                     }else {
                         onboardingFactory.saveStudioIdPost(studioId).then(function (data) {
                         var studioIdSaved = eval(JSON.stringify(data.d.message));
-                        if (studioIdSaved === "true") {
-                                onboardingFactory.isMindbodyActivated().then(function (data) {
-                                    var activation = JSON.stringify(data.d.details[0]);
-                                    globalActivation = activation;
-                                    if (globalActivation === "false")
-                                    {
-                                        $scope.getActivationLink(studioId);
-                                        $scope.mindbodyActive = false;
-                                        return false;
-                                    } else {
-                                        if (fromContinueButton){
-                                            $scope.saveServices();
-                                        }else {
-                                            growl("Mindbody is activated, please continue");
-                                        }
-                                    }
-                                });
+                                                    if (studioIdSaved === "true") {
+                                                            onboardingFactory.isMindbodyActivated().then(function (data) {
+                                                                var activation = JSON.stringify(data.d.details[0]);
+                                                                globalActivation = activation;
+                                                                if (globalActivation === "false")
+                                                                {
+                                                                    $scope.getActivationLink(studioId);
+                                                                    $scope.mindbodyActive = false;
+                                                                    return false;
+                                                                } else {
+                                                                    if (fromContinueButton){
+                                                                        $scope.saveServices();
+                                                                    }else {
+                                                                        $scope.mindbodyContinue=true;
+                                                                        growl("Mindbody is activated, please continue");
+                                                                    }
+                                                                }
+                                                            });
 
                         }else {
                             growl("An unknown error has occured", "error");
