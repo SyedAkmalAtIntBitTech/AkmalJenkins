@@ -231,7 +231,7 @@ public class YourPlanController {
             }
             activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
             activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
-            activityLogDetails.setActionTitle(requestBodyMap.get("schedule_title").toString());
+            activityLogDetails.setActionTitle("");
             activityLogService.saveActivityLog(activityLogDetails);
             transactionResponse.setMessage(messageStatus);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));

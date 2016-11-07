@@ -49,7 +49,8 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     private MessageSource messageSource;
 
 //    @Autowired
-//    private CompanyPreferencesJson companyPreferencesJson;
+    private CompanyPreferencesJson companyPreferencesJson;
+    private List<String> colorList = new ArrayList<>();
 
     @Override
     public void updatePreferences(CompanyPreferences companyPreferences) {
@@ -119,7 +120,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
                 companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
             }
-            List<String> colorList = new ArrayList<>();
+//            List<String> colorList = new ArrayList<>();
             colorList.add(companyColorsDetailsList.getColor1());
             colorList.add(companyColorsDetailsList.getColor2());
             colorList.add(companyColorsDetailsList.getColor3());
@@ -345,6 +346,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
                 companyPreferences.setFkCompanyId(company);
             }
             companyPreferencesJson.setOnBoarding(onBoarding);
+            companyPreferencesJson.setColors(colorList);
             ObjectMapper mapper = new ObjectMapper();
             String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
             companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
