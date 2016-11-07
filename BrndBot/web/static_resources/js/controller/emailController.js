@@ -1215,10 +1215,10 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.getEmailSettings = function () {
             settingsFactory.getEmailSettingsGet().then(function (data) {
                 var parseData = JSON.parse(data.d.details);
-                $scope.email_settings = parseData;
-                $scope.replyAddress = parseData.reply_email_address;
-                $scope.fromName = parseData.from_name;
-                $scope.fromAddress = parseData.from_address;
+                $scope.email_settings = parseData.emailSettings;
+                $scope.replyAddress = parseData.emailSettings.reply_email_address;
+                $scope.fromName = parseData.emailSettings.from_name;
+                $scope.fromAddress = parseData.emailSettings.from_address;
             });
         };
 
