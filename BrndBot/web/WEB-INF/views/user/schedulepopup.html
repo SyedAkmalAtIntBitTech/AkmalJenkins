@@ -54,7 +54,7 @@
 
             </div>
             <div class="input-wrap" ng-show="moreThanOneUser" ng-init="getAllUsersInCompany()">
-                <label>Assigned To</label>
+                <label>Assigned To<i class="bb-label-optional-text">Optional</i></label>
                 <div class="invalidDropdown" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="chooseUserOnChange(selected)"></div>
                 <span class="validationAlert" ng-if="actionTypeValidation">{{actionDropdownValidation}}</span>
             </div>

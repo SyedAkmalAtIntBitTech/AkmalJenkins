@@ -38,7 +38,7 @@
             <div class="bb-panel-header">
                 <h2 class="">Email List Contacts</h2>
                 <input class="input" type="text" placeholder="Search" ng-model="userSearch">
-                <a class="bb-button bb-default-action-button" ng-click="addContactDetails('add','','','','')"> Add Contact</a>
+                <a ng-hide="isMINDBODYEmailLIstDetails = true" class="bb-button bb-default-action-button" ng-click="addContactDetails('add','','','','')"> Add Contact</a>
             </div>
             <div class="bb-panel-full-width bb-panel-styling-content-wrap">
                 
@@ -61,22 +61,27 @@
                     
                       <!--User Created List-->
                     <div class="bb-slat-no-hover" ng-repeat="email in user_emailAddresses | filter:userSearch">
-                        <div class="selection-container col-5p fleft"> 
+                        <div class="selection-container col-5p fleft" ng-hide="isMINDBODYEmailLIstDetails = true"> 
                             <div class="selection-icon" id="{{email.contactLookupId}}" ng-click="selectedEmailListCheckbox(email.contactLookupId)">
                                 <input type="checkbox" id="emailid{{email.fkContactId.emailAddress}}" value="{{email.fkContactId.emailAddress}}" name="emaillistname" hidden></input>
                             </div>
-                        </div>                 
+                        </div>   
+                        
                         <div class="slat-name-wrap">
                             <h2>{{email.fkContactId.emailAddress}}</h2>
                             <p>Added {{email.addedDate| date:'  M/dd/yyyy'}}</p>
                         </div>
-                         <div class="slat-detail" ng-show="email.fkContactId.firstName != ''">
-                             <h2 class="overflowclass">{{email.fkContactId.firstName}}</h2>
-                            <p>First Name</p>
+                        <div class="slat-detail-wrap">
+                            <div class="slat-detail" ng-show="email.fkContactId.firstName != ''">
+                                <h2 class="overflowclass">{{email.fkContactId.firstName}}</h2>
+                               <p>First Name</p>
+                           </div>
                         </div>
-                         <div class="slat-detail" ng-show="email.fkContactId.lastName != ''">
-                             <h2 class="overflowclass">{{email.fkContactId.lastName}}</h2>
-                            <p>Last Name</p>
+                        <div class="slat-detail-wrap">
+                            <div class="slat-detail" ng-show="email.fkContactId.lastName != ''">
+                                <h2 class="overflowclass">{{email.fkContactId.lastName}}</h2>
+                               <p>Last Name</p>
+                           </div>
                         </div>
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">                           
