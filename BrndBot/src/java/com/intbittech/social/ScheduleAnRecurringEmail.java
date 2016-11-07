@@ -46,7 +46,7 @@ public class ScheduleAnRecurringEmail implements Runnable {
 
                     if (shouldPostNow) {
                         ScheduledEmailList sendAnEmail = getSendEmail(currentScheduledRecurringEmail);
-                        String html_text = sendAnEmail.getBody();
+                        
                         String email_subject = sendAnEmail.getSubject();
 
                         String emaillist_name = sendAnEmail.getEmailListName();
@@ -70,7 +70,7 @@ public class ScheduleAnRecurringEmail implements Runnable {
                         JSONArray jsonArray = anEmail.getAllEmailAddressesForEmailList(companyId, days, emaillist_name);
 
                         for (int i = 0; i < jsonArray.size(); i++) {
-
+                            String html_text = sendAnEmail.getBody();
                             EmailInfo emailInfo = (EmailInfo) jsonArray.get(i);
 
                             html_text = html_text.replace(IConstants.kEmailClientFirstName, emailInfo.getFirstName());
