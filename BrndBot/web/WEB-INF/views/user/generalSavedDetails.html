@@ -155,10 +155,6 @@
                 </div> 
                 <div class="detail-sections-wrap" ng-if="!tagerror" ng-repeat="tag in tagsDetails">
                     <div class="detail-section half">
-                        <p class="detail-section-data"> {{tag.date}}</p>
-                        <label class="detail-section-label">Date</label>
-                    </div>
-                    <div class="detail-section half">
                         <p class="detail-section-data"> {{(tag.stats[0].metrics.unique_opens / tag.stats[0].metrics.delivered) * 100 | number : 2}} %</p>
                         <label class="detail-section-label">Open Rate</label>
                     </div>
@@ -209,7 +205,7 @@
                 </div>
             </div>
 
-            <div class="bb-overlay-button-wrap">
+            <div class="bb-overlay-button-wrap" ng-hide="action_template_status == 'Complete'">
                 <a ng-hide="isProgramArchived" class="bb-secondary-action-button bb-button" ng-click="editSavedEmail(schedule_id, entitiesdetails);"> Edit Saved Email</a>
                 <a ng-hide="isProgramArchived"  class="bb-secondary-action-button bb-button" ng-click="promptHideShow(true);isDeletePromptOpen(false);"> Remove Saved Email</a>
             </div>

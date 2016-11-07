@@ -42,12 +42,24 @@
                     </div>
                 </div>
             </div>
-            <div ng-show="moreThanOneUser == false">
-                <br>
-                <input type="button" value="Invite a user" name="inviteUser" ng-click="showInviteUsersPopup()"/>
-                <br>
-            </div>
-            <div class="bb-action-comment-wrap">
+          
+               
+                <div  ng-show="moreThanOneUser == false">
+                    <div class="overlay-content">
+                        <div class="overlay-empty-container">
+                            <div class="empty-wrap">
+
+                                <p class="bb-empty-state-text"> There is only one user in your account. Click below to add another user.</p>
+                                <!--need to have a bunch of button state management. We should have a factory -->
+                                <div class="bb-button bb-primary-action-button" ng-click="showInviteUsersPopup()">Invite a User</div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+            <div class="bb-action-comment-wrap" ng-hide="moreThanOneUser == false">
                 <div class="input" ng-form name="actionCommentForm">
                     <input  name="comment" class="fluid bb-action-comment-input" id="comment"  placeholder="Add a comment to this action" ng-model="comment" contenteditable="true" style="max-width:780px;">
                     <div class="bb-button bb-primary-action-button  ease-all" value="comment" ng-click="addActionComment(schedule_id, comment);comment='';" ng-show="actionCommentForm.$dirty">Add Comment</div>
