@@ -16,19 +16,18 @@
                         <div class="slat-name-wrap">
                             <h2>{{email.subject}}</h2>
                         </div>
-                         <div class="slat-detail-wrap">
+                         <div class="slat-detail-wrap slat-detail-wrap-email-date">
                             <div class="slat-detail">
                                 <h2>{{email.timeSent | date : "MMM d, y h:mm:ss a"}}</h2>
                                 <p>Sent Date</p>
                             </div>
+                            
+                        </div>
+                        <div class="slat-detail-wrap slat-detail-wrap-email-date">
                              <div class="slat-detail">
                                 <h2 ng-show="email.emailListName.length >0">{{email.emailListName}}</h2>
                                 <h2 ng-hide="email.emailListName.length >0">--</h2>
                                 <p>To Email List</p>
-                            </div>
-                        </div>
-                        <div class="slat-detail-wrap">
-                            <div class="slat-detail">
                             </div>
                         </div>
                     </div>
