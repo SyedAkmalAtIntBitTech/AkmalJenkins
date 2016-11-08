@@ -8,6 +8,7 @@ package com.intbittech.controller;
 import com.intbittech.AppConstants;
 import com.intbittech.enums.ActivityStatus;
 import com.intbittech.enums.ScheduledEntityType;
+import com.intbittech.enums.TemplateStatus;
 import com.intbittech.marketing.service.ScheduledEntityListService;
 import com.intbittech.model.Company;
 import com.intbittech.model.ScheduledEntityList;
@@ -355,7 +356,7 @@ public class ScheduleActionsController {
             activityLogDetails.setScheduledEntityId(scheduledEntityList.getScheduledEntityListId());
             activityLogDetails.setActionTitle(scheduledEntityList.getScheduleTitle());
             activityLogDetails.setActionType(scheduledEntityList.getEntityType());
-            activityLogDetails.setActionStatus(scheduledEntityList.getStatus());
+            activityLogDetails.setActionStatus(TemplateStatus.valueOf(scheduledEntityList.getStatus()).getDisplayName());
             activityLogDetails.setProgramName(scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramName());
             activityLogDetails.setActionDate(new Timestamp(scheduledEntityList.getScheduleTime().getTime()));
             

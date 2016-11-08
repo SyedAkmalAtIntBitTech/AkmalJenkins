@@ -231,7 +231,7 @@ public class YourPlanController {
             }
             activityLogDetails.setCreatedBy(userCompanyIds.getUserId());
             activityLogDetails.setCompanyId(userCompanyIds.getCompanyId());
-            activityLogDetails.setActionTitle(requestBodyMap.get("schedule_title").toString());
+            activityLogDetails.setActionTitle("");
             activityLogService.saveActivityLog(activityLogDetails);
             transactionResponse.setMessage(messageStatus);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
@@ -303,14 +303,18 @@ public class YourPlanController {
                         }else {
                             CompanyMarketingProgram userMarketingProgram = companyMarketingProgramService.getById(scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId());
                             Date eventDate = userMarketingProgram.getDateEvent();
+                            Integer scheduleDays = scheduledEntityList.getDays();
+                            Date scheduleDate = scheduledEntityList.getScheduleTime();
+                            eventDate.setHours(scheduleDate.getHours());
+                            eventDate.setMinutes(scheduleDate.getMinutes());
+                            eventDate.setSeconds(scheduleDate.getSeconds());
                             Calendar cal = Calendar.getInstance();
                             cal.setTime(eventDate);
-                            cal.add(Calendar.DAY_OF_MONTH, -days);
-
+                            cal.add(Calendar.DAY_OF_MONTH, -scheduleDays);
                             activityLogDetailsObject.setActionDate(new Timestamp(cal.getTimeInMillis()));
                         }
                         activityLogDetailsObject.setAssignedTo(userAssignToId);
-                        activityLogDetailsObject.setActionStatus(templateStatus);
+                        activityLogDetailsObject.setActionStatus(TemplateStatus.no_template.getDisplayName());
                         activityLogDetailsObject.setScheduledEntityId(scheduleId);
                         activityLogDetailsObject.setCreatedBy(userCompanyIds.getUserId());
                         activityLogDetailsObject.setCompanyId(userCompanyIds.getCompanyId());
