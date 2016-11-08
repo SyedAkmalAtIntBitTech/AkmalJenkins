@@ -213,7 +213,7 @@ public class UsersServiceImpl implements UsersService {
             usersRoleLookUpDao.save(usersRoleLookUp);
 
             //CompanyId is 0 since company is not created yet
-//            saveSubUser(usersDetails, userId, 0);
+            saveSubUser(usersDetails, userId, 0);
 
             returnUserId = userId;
         } catch (Throwable throwable) {
