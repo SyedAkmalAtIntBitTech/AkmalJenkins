@@ -48,6 +48,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.editSavedEmail = false;
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
+        $scope.moreThanOneUser = false;
         $scope.userColor="";
         $scope.userInitials="";
         var userSortInfo={userSortName:"",userColor:""};
