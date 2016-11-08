@@ -928,6 +928,15 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 });
             }
 //            growl($scope.isRecurring);
+        var statsData = {"programId": programId, "actionId": schedule_id, "scheduleDateTime": schedule_time};
+           emailFactory.emailHistoryStatsGet(statsData).then(function (stats) {
+               if (stats.d.operationStatus.statusCode !== "DataError") {
+                   $scope.tagsDetails = stats.d.details[0].sendGridStats;
+                   $scope.tagerror = "";
+               } else {
+                   $scope.tagerror = categoryLoadDelay;
+               }
+           });
         };
 
 

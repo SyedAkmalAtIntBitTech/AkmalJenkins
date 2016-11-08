@@ -10,7 +10,6 @@ import com.intbittech.AppConstants;
 import com.intbittech.component.SpringContextBridge;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.ScheduledSocialpostList;
-import com.intbittech.services.CompanyService;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,9 +18,6 @@ import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import com.intbittech.utility.DateTimeUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 
 /**
  *

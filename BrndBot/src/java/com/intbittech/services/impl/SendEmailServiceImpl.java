@@ -99,7 +99,7 @@ public class SendEmailServiceImpl implements SendEmailService {
 
             mail.addPersonalization(personalization);
         }
-        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_SubUserRegularEmail, emailDataDetails.getCompanyId(), emailDataDetails.getFromEmailAddress());
+        emailServiceProviderService.sendEmail(mail, EmailType.BrndBot_SubUserRegularEmail, emailDataDetails.getCompanyId(), emailDataDetails.getFromName());
 
         //TODO need to check and change this
         String categories = StringUtils.join(emailDataDetails.getEmailCategoryList(), ',');
