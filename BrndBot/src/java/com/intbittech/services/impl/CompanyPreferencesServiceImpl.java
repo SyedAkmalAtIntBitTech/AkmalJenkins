@@ -120,7 +120,6 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
                 companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
             }
-//            List<String> colorList = new ArrayList<>();
             colorList.add(companyColorsDetailsList.getColor1());
             colorList.add(companyColorsDetailsList.getColor2());
             colorList.add(companyColorsDetailsList.getColor3());
