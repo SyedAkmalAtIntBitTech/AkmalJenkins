@@ -4486,7 +4486,7 @@ textarea.task-textarea:focus{
 .create-email-popup{
     display: block;
     z-index: 999999;
-    position: fixed;
+    /*position: fixed;*/
 /*    margin-left: 45vh;
     margin-top: 5vw;*/
 }
