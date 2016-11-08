@@ -310,7 +310,7 @@ public class YourPlanController {
                             activityLogDetailsObject.setActionDate(new Timestamp(cal.getTimeInMillis()));
                         }
                         activityLogDetailsObject.setAssignedTo(userAssignToId);
-                        activityLogDetailsObject.setActionStatus(templateStatus);
+                        activityLogDetailsObject.setActionStatus(TemplateStatus.no_template.getDisplayName());
                         activityLogDetailsObject.setScheduledEntityId(scheduleId);
                         activityLogDetailsObject.setCreatedBy(userCompanyIds.getUserId());
                         activityLogDetailsObject.setCompanyId(userCompanyIds.getCompanyId());
