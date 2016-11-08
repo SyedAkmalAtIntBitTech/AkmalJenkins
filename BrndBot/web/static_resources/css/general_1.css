@@ -1531,6 +1531,12 @@ li.sub-nav-tab.active a{
 .remove-saved-template-pop-up{
     position: absolute;
     top: 180px;
+    right:450px;
+}
+
+.remove-saved-post-pop-up{
+    position: absolute;
+    top: 180px;
     right:30px;
 }
 
