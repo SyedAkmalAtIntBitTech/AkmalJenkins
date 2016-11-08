@@ -206,9 +206,9 @@ public class CompanyServiceImpl implements CompanyService{
                 usersService.update(user);
                 
                 //Update companyId in SendGridSubUserDetails table
-//                SendGridSubUserDetails sendGridSubUserDetails = sendGridSubUserDetailsService.getByUserId(companyDetails.getUserId());
-//                sendGridSubUserDetails.setFkCompanyId(company);
-//                sendGridSubUserDetailsService.update(sendGridSubUserDetails);
+                SendGridSubUserDetails sendGridSubUserDetails = sendGridSubUserDetailsService.getByUserId(companyDetails.getUserId());
+                sendGridSubUserDetails.setFkCompanyId(company);
+                sendGridSubUserDetailsService.update(sendGridSubUserDetails);
                 returnMessage = companyId.toString();
             }else {
                 returnMessage = companyId.toString();

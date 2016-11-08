@@ -158,7 +158,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                 activityLog.setActivityId(ActivityStatus.ACTIVITY_ASSIGNED_TO_ID.getId());
                 activityLog.setScheduledEntityId(scheduleEntityId);
                 activityLog.setActionDate(new Timestamp(scheduledEntityList.getScheduleTime().getTime()));
-                activityLog.setActionStatus(scheduledEntityList.getStatus());
+                activityLog.setActionStatus(TemplateStatus.valueOf(scheduledEntityList.getStatus()).getDisplayName());
                 activityLog.setActionTitle(scheduledEntityList.getScheduleTitle());
                 activityLog.setActionType(scheduledEntityList.getEntityType());
                 activityLog.setProgramName(scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramName());
@@ -319,7 +319,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                 activityLog.setScheduledEntityId(scheduleEntityId);
                 activityLog.setProgramName(scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramName());
                 activityLog.setActionDate(new Timestamp(scheduledEntityList.getScheduleTime().getTime()));
-                activityLog.setActionStatus(scheduledEntityList.getStatus());
+                activityLog.setActionStatus(TemplateStatus.valueOf(scheduledEntityList.getStatus()).getDisplayName());
                 activityLog.setActionTitle(scheduledEntityList.getScheduleTitle());
                 activityLog.setActionType(scheduledEntityList.getEntityType());
                 activityLog.setCreatedBy(createdBy);
