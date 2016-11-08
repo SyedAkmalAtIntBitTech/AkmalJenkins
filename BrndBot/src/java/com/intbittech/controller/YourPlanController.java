@@ -451,9 +451,9 @@ public class YourPlanController {
 
     @RequestMapping(value = "/GetScheduledSocialPostDetail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> GetScheduledSocialPostDetail(HttpServletRequest request, HttpServletResponse response) {
-        GenericResponse<String> genericResponse = new GenericResponse<>();
+        GenericResponse<Map<String, Object>> genericResponse = new GenericResponse<>();
         try {
-            List<String> messageList = new ArrayList<>();
+            List<Map<String, Object>> messageList = new ArrayList<>();
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
@@ -465,7 +465,7 @@ public class YourPlanController {
             Map<String, Object> schedulePostDetails
                     = ScheduleSocialPostDAO.getScheduleSocialPostDetails(Integer.parseInt(request.getParameter("companyId")), Integer.parseInt(scheduleId));
 
-            messageList.add(AppConstants.GSON.toJson(schedulePostDetails));
+            messageList.add(schedulePostDetails);
             genericResponse.setDetails(messageList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {

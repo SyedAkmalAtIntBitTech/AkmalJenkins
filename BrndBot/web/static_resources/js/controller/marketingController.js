@@ -781,8 +781,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         yourPlanFactory.scheduledSocialPost($scope.scheduleData.schedule_id).then(function (data) {
 
                             var iframe = document.getElementById('iframeForAction');
-                            if (data.d.details != "{}") {
-                                $scope.entitiesdetails = JSON.parse(data.d.details);
+                            if (JSON.stringify(data.d.details[0]) != "{}") {
+                                $scope.entitiesdetails = data.d.details[0];
                                 $scope.savedEmail = true;
                                 if (entity_type === gettwitter())
                                 {
