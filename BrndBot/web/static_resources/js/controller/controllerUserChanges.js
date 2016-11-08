@@ -353,13 +353,14 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             $scope.editUserSettings = false;
         };
 
-        $scope.showEditUser = function (inviteId, userRoleLookUpId, userEmailId)
+        $scope.showEditUser = function (user)
         {
             $scope.fadeClasses = 'fadeClasses';
-            $scope.userRoleLookUpId = userRoleLookUpId;
-            $scope.userEmailId = userEmailId;
-            $scope.inviteId = inviteId;
-            $("#editemail").val(userEmailId);
+            $scope.userRoleLookUpId = user.userRoleLookUp;
+            $scope.userEmailId = user.emailID;
+            $scope.inviteId = user.inviteId;
+            $scope.userRoles = user.userRole;
+            $("#editemail").val(user.emailID);
             $scope.addUserSettings = false;
             $scope.editUserSettings = true;
         };
