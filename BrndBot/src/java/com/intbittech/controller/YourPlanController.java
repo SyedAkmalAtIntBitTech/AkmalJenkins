@@ -303,10 +303,14 @@ public class YourPlanController {
                         }else {
                             CompanyMarketingProgram userMarketingProgram = companyMarketingProgramService.getById(scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId());
                             Date eventDate = userMarketingProgram.getDateEvent();
+                            Integer scheduleDays = scheduledEntityList.getDays();
+                            Date scheduleDate = scheduledEntityList.getScheduleTime();
+                            eventDate.setHours(scheduleDate.getHours());
+                            eventDate.setMinutes(scheduleDate.getMinutes());
+                            eventDate.setSeconds(scheduleDate.getSeconds());
                             Calendar cal = Calendar.getInstance();
                             cal.setTime(eventDate);
-                            cal.add(Calendar.DAY_OF_MONTH, -days);
-
+                            cal.add(Calendar.DAY_OF_MONTH, -scheduleDays);
                             activityLogDetailsObject.setActionDate(new Timestamp(cal.getTimeInMillis()));
                         }
                         activityLogDetailsObject.setAssignedTo(userAssignToId);
