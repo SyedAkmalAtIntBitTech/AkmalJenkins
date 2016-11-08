@@ -1,7 +1,7 @@
     <div ng-include src="'genericpopup.html'"></div>
     <div ng-init="marketingHubTab.selectTab(2)" ng-include src="'marketinghubnavigation.html'"></div>
     <div class="bb-main-content-wrap bb-main-content-wrap-padding" ng-click="showSettingsPopup(false);">
-        <div class="bb-panel-full-width bb-panel-styling" ng-init="displayEmailHistory()">
+        <div class="bb-panel-full-width bb-panel-styling">
             <div class="bb-panel-header">
                 <h2 class="">Email History</h2>
                 <input type="text" class="search-bar" placeholder="Search" ng-model="userSearch"  ng-show="email_history.length > 0">
@@ -12,7 +12,7 @@
                 <h3 class="bb-panel-empty-state-support-text"> If you have sent an email, please allow some time for it to be processed</h3>
             </div>
             <div class="bb-panel-content-wrap" ng-show="marketingHubTab.isSelected(2) && email_history.length > 0 ">
-                    <div class="bb-slat" ng-repeat="email in email_history | filter:userSearch" ng-click="getHistoryDetails(email);marketingHubTab.selectTab(5);">
+                    <div class="bb-slat" ng-repeat="email in (filteredItems = (email_history| orderBy: 'timeSent':true))" ng-click="getHistoryDetails(email);marketingHubTab.selectTab(5);">
                         <div class="slat-name-wrap">
                             <h2>{{email.subject}}</h2>
                         </div>
