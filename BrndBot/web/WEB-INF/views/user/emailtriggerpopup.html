@@ -1,42 +1,35 @@
-<div class="overlay-content" id="emailactionsection" name="actionDetailsForm" style="height: calc(100vh - 45px);">
-<div class="overlay-details-pane" ng-show="isEmailHistory">
-                    <div class="overlay-details-pane-header">EMAIL HISTORY DETAILS</div>
-                    <div class="external-data-loading-wrap" ng-show="hideGifImage">
-                        <div class="external-data-loading-block">
-                            <div class="loader"></div>
-                            <div class="loader-description">Loading your content</div>
-                        </div>
-                    </div>
-                    <div class="detail-sections-wrap" ng-if="tagerror">
-                        <div class="detail-section">
-                            <div class="detail-section-item">{{tagerror}}</div>
-                        </div>
-                    </div>
-                    <div class="detail-sections-wrap" ng-if="!tagerror" ng-repeat="tag in tagsDetails">
-                        <div class="detail-section half">
-                            <p class="detail-section-data"> {{tag.date}}</p>
-                            <label class="detail-section-label">Date</label>
-                        </div>
-                        <div class="detail-section half">
-                            <p class="detail-section-data"> {{(tag.stats[0].metrics.unique_opens / tag.stats[0].metrics.delivered) * 100 | number : 2}} %</p>
-                            <label class="detail-section-label">Open Rate</label>
-                        </div>
-                        <div class="detail-section half">
-                            <p class="detail-section-data">{{(tag.stats[0].metrics.unique_clicks / tag.stats[0].metrics.delivered) * 100 | number : 2}} %</p>
-                            <label class="detail-section-label">Click Through Rate</label>
-                        </div>
-                        <div class="detail-section half">
-                            <p class="detail-section-data">{{tag.stats[0].metrics.unsubscribes}}</p>
-                            <label class="detail-section-label">Unsubscribes</label>
-                        </div>
-                        <div class="detail-section half">
-                            <p class="detail-section-data">{{tag.stats[0].metrics.delivered}}</p>
-                            <label class="detail-section-label">Number Sent</label>
-                        </div>
-                        <div class="detail-section half">
-                            <p class="detail-section-data">{{tag.stats[0].metrics.bounces}}</p>
-                            <label class="detail-section-label">Hard Bounces</label>
-                        </div>
-                    </div>
-                </div>
+<div class="bb-full-page-overlay">
+    <div class="bb-full-page-overlay-header-wrap">
+        <div>Close</div>
+        <div>Help</div>
+    </div>
+    <div class="bb-full-page-overlay-content-wrap">
+        <div class="bb-full-page-overlay-title-wrap">
+            <h2 class="bb-full-page-overlay-title">Please Select a Trigger Option:</h2>
+        </div>
+        <div class="bb-full-page-overlay-card-wrap">
+            <a class="bb-full-page-overlay-card">
+                <div class="bb-full-page-overlay-card-label">MINDBODY</div>
+                <div class="bb-full-page-overlay-card-header">TRIGGER NAME</div>
+                <div class="bb-full-page-overlay-card-p">Trigger description goes here</div>
+            </a>
+             <a class="bb-full-page-overlay-card">
+                <div class="bb-full-page-overlay-card-label">MINDBODY</div>
+                <div class="bb-full-page-overlay-card-header">TRIGGER NAME</div>
+                <div class="bb-full-page-overlay-card-p">Trigger description goes here</div>
+            </a>
+             <a class="bb-full-page-overlay-card">
+                <div class="bb-full-page-overlay-card-label">General</div>
+                <div class="bb-full-page-overlay-card-header">TRIGGER NAME</div>
+                <div class="bb-full-page-overlay-card-p">Trigger description goes here</div>
+            </a>
+            <a class="bb-full-page-overlay-card">
+                <div class="bb-full-page-overlay-card-label">MINDBODY</div>
+                <div class="bb-full-page-overlay-card-header">TRIGGER NAME</div>
+                <div class="bb-full-page-overlay-card-p">Trigger description goes here</div>
+            </a>
+        </div>
+    </div>
 </div>
+
+    
