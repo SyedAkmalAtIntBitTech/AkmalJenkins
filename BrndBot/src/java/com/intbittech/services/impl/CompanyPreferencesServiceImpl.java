@@ -366,12 +366,13 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             ObjectMapper mapper = new ObjectMapper();
             CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
-            String companyPreferencesJsonString = companyPreferences.getCompanyPreferences();
             if (companyPreferences == null) {
                 companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
+            }else {
+                String companyPreferencesJsonString = companyPreferences.getCompanyPreferences();
+                companyPreferencesJson = mapper.readValue(companyPreferencesJsonString, CompanyPreferencesJson.class);
             }
-            companyPreferencesJson = mapper.readValue(companyPreferencesJsonString, CompanyPreferencesJson.class);
             companyPreferencesJson.setOnBoarding(onBoarding);
             String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
             companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
