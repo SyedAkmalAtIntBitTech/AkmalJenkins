@@ -9,15 +9,12 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.intbittech.modelmappers.MarketingActionDetails;
 import com.intbittech.modelmappers.MarketingActionsObjectDetails;
 import com.intbittech.modelmappers.TaskDetails;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.Arrays;
 import java.util.List;
 import org.json.JSONException;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
