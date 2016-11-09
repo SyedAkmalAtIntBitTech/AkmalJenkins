@@ -1,5 +1,5 @@
-emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$location', 'blockModelFactory', 'companyFactory', 'categoryFactory', 'emailDraftFactory', 'subCategoryFactory', 'externalContentFactory', 'redirectFactory', 'SharedService', 'settingsFactory', 'companyMarketingProgramFactory', 'emailFactory', 'modelFactory', 'emailListFactory', 'scheduleActionsFactory', 'appSessionFactory', 'yourPlanFactory', 'rulesEngineFactory', 'onboardingFactory','franchiseFactory','pushedActionsFactory', 'utilFactory',
-    function ($scope, $filter, $window, $location, blockModelFactory, companyFactory, categoryFactory, emailDraftFactory, subCategoryFactory, externalContentFactory, redirectFactory, SharedService, settingsFactory, companyMarketingProgramFactory, emailFactory, modelFactory, emailListFactory, scheduleActionsFactory, appSessionFactory, yourPlanFactory, rulesEngineFactory, onboardingFactory, franchiseFactory, pushedActionsFactory, utilFactory) {
+emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$location', 'blockModelFactory', 'companyFactory', 'categoryFactory', 'emailDraftFactory', 'subCategoryFactory', 'externalContentFactory', 'redirectFactory', 'SharedService', 'settingsFactory', 'companyMarketingProgramFactory', 'emailFactory', 'modelFactory', 'emailListFactory', 'scheduleActionsFactory', 'appSessionFactory', 'yourPlanFactory', 'rulesEngineFactory', 'onboardingFactory','franchiseFactory','pushedActionsFactory', 'utilFactory','companyImagesFactory','imageFactory',
+    function ($scope, $filter, $window, $location, blockModelFactory, companyFactory, categoryFactory, emailDraftFactory, subCategoryFactory, externalContentFactory, redirectFactory, SharedService, settingsFactory, companyMarketingProgramFactory, emailFactory, modelFactory, emailListFactory, scheduleActionsFactory, appSessionFactory, yourPlanFactory, rulesEngineFactory, onboardingFactory, franchiseFactory, pushedActionsFactory, utilFactory,companyImagesFactory,imageFactory) {
 
         $scope.objectParameter = kEmailFlowObject;
         $scope.footerEmailPopup = false;
@@ -37,6 +37,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         var sliderDialog = "#emaileditorexternalpopup";
         $scope.user = "";
         $scope.companyAddressDetails = {};
+        $scope.selectImageId="";
         
         // validation scope variables
         
@@ -166,6 +167,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
 
         //OnPageLoad
         $scope.emailEditorInit = function () {
+            $scope.getAllCompanyImages();
             $scope.emailEditorContinueButton=true;
             $scope.loadingOverlay = true; //start Loading Overlay
             $('#slider-button').click(function () {
@@ -677,7 +679,29 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             $('.view').find('table:first').find('td:first').mouseleave(function () {
                 $(this).find('table:first').removeClass('template-border-Active');
             });
+            $('.img_upload').click(function (){
+                $scope.selectImageId = $(this).parent('div').next('img').attr('id');
+            });
         };
+         $scope.getAllCompanyImages = function () {
+                    companyImagesFactory.companyImagesGet().then(function (getData) {
+                        $scope.datalists = getData.d.details;
+                        $scope.currentCompanyId = getData.d.details[0].fkCompanyId.companyId;
+                    });
+                };
+         $scope.changeTemplateImage = function (imageId){
+                var imageSrc = $("#"+imageId).attr("src");
+             $("#"+$scope.selectImageId).attr("src",imageSrc);
+         };
+         $scope.showImageUploadPopup = function (){
+                    $("#filesToUpload").trigger("click");
+                };
+         $scope.uploadFile = function () {
+            imageFactory.saveImagePost(event.target.files[0]).then(function (data) {
+                $scope.getAllCompanyImages();
+
+               });
+              };
         $scope.launchTinyMceEditorForOnlyImage = function () {
             tinymce.EditorManager.editors = [];
             tinymce.init({
@@ -2139,6 +2163,15 @@ emailFlowApp.directive('fileReader', function () {
         }
     };
 });
+emailFlowApp.directive('customOnChange', function () {
+                return {
+                    restrict: 'A',
+                    link: function (scope, element, attrs) {
+                        var onChangeFunc = scope.$eval(attrs.customOnChange);
+                        element.bind('change', onChangeFunc);
+                    }
+                };
+            });
  // This example displays an address form, using the autocomplete feature
       // of the Google Places API to help users fill in the information.
 
