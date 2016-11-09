@@ -9,7 +9,7 @@
                         <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="redirectToEmailAutomation('emailautomation', 'template', '', schedule_id, 'edit saved email')"> Edit Saved Email</a>
                         <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);isDeletePromptOpen(false);"> Remove Saved Email</a>
                     </div>
-                    <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all ease-all">
+                    <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-post-pop-up ease-all ease-all">
                         <strong>Are you sure you want to remove this saved email?</strong>
 
                         <div class="cta-wrapper">
@@ -50,7 +50,7 @@
                         <div>Saved Post Details</div>
                         <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);clickedDeleteAction = false"> Remove Saved Post</a>
                     </div>
-                    <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-action-template-pop-up ease-all">
+                    <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-post-pop-up ease-all">
                         <strong>Are you sure you want to remove this post?</strong>
 
                         <div class="cta-wrapper">
@@ -74,6 +74,9 @@
                                 <div ng-show="entitiesdetails.image_type == 'gallery'">
                                     <img id="prevfbimg" src="/BrndBot/downloadImage?imageName={{entitiesdetails.image_name}}&imageType=GALLERY&companyId={{companyId}}" />
                                 </div>
+                                <div ng-show="entitiesdetails.image_type == 'url'">
+                                    <img id="prevfbimg" src="{{entitiesdetails.image_name}}">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -87,7 +90,7 @@
                         <div>Saved Post Details</div>
                         <a ng-hide="isProgramArchived"  class="overlay-details-pane-header-cta" ng-click="promptHideShow(true);clickedDeleteAction = false"> Remove Saved Post</a>
                     </div>
-                    <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all">
+                    <div ng-if="clickedRemoveAction" class="action-pop-up remove-saved-post-pop-up ease-all">
                         <strong>Are you sure you want to remove this saved post?</strong>
 
                         <div class="cta-wrapper">
@@ -124,8 +127,8 @@
                                 <div ng-show="entitiesdetails.image_type == 'layout'" style="display: none;">
                                     <img id="prevfbimg" src="/BrndBot/downloadImage?imageType=LAYOUT_IMAGES&amp;imageName=13.jpg">
                                 </div>
-                                <div ng-show="entitiesdetails.image_type == 'url'" style="display: none;">
-                                    <img id="prevfbimg" src="">
+                                <div ng-show="entitiesdetails.image_type == 'url'">
+                                    <img id="prevfbimg" src="{{entitiesdetails.image_name}}">
                                 </div>
                             </div>
                         </div>

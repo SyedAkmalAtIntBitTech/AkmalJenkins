@@ -728,12 +728,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                         if (!$scope.twitterprofileName)
                             $scope.twitterprofileName = "--";
                         yourPlanFactory.scheduledSocialPost($scope.scheduleData.schedule_id).then(function (data) {
-                            $scope.entitiesdetails = JSON.parse(data.d.details);
-
+                            $scope.entitiesdetails = data.d.details[0];
                             var iframe = document.getElementById('iframeForAction');
 //                iframe.contentDocument.head.appendChild = ;
 
-                            if (data.d.details != "{}") {
+                            if (JSON.stringify(data.d.details[0]) != "{}") {
                                 $scope.savedEmail = true;
                                 if (entity_type === gettwitter())
                                 {
