@@ -1104,6 +1104,24 @@ factoryApp.service('configurationService', function () {
     this.requestToAddCompaniesURL = function () {
         return getHost() + "requestToAddCompanies";
     };
+    
+    //**************** behaviorFactory **********************//    
+
+    this.revenueCategoryGetURL = function () {
+        return getHost() + "behavior/getRevenueCategory";
+    };
+    
+    this.serviceCategoryGetURL = function () {
+        return getHost() + "behavior/getServiceCategory";
+    };
+    
+    this.pricingOptionGetURL = function () {
+        return getHost() + "behavior/getPricingOption";
+    };
+    
+    this.dollarAmountGetURL = function () {
+        return getHost() + "behavior/getDollarAmount";
+    };
 });
 
 
