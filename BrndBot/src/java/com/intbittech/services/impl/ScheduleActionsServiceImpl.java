@@ -163,7 +163,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                 activityLog.setActivityId(ActivityStatus.ACTIVITY_ASSIGNED_TO_ID.getId());
                 activityLog.setScheduledEntityId(scheduleEntityId);
                 if (scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId() == 0){
-                    activityLogDetailsObject.setActionDate(new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()));
+                    activityLogDetailsObject.setActionDate(new Timestamp(Double.valueOf(requestBodyMap.get("schedule_time").toString()).longValue()));
                 }else {
                     CompanyMarketingProgram userMarketingProgram = companyMarketingProgramService.getById(scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId());
                     Date eventDate = userMarketingProgram.getDateEvent();
@@ -339,7 +339,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                 activityLog.setProgramName(scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramName());
 
                 if (scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId() == 0){
-                    activityLogDetailsObject.setActionDate(new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()));
+                    activityLogDetailsObject.setActionDate(new Timestamp(Double.valueOf(requestBodyMap.get("schedule_time").toString()).longValue()));
                 }else {
                     CompanyMarketingProgram userMarketingProgram = companyMarketingProgramService.getById(scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId());
                     Date eventDate = userMarketingProgram.getDateEvent();
