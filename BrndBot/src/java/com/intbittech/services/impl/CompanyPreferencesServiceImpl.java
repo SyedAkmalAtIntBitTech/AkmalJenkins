@@ -244,11 +244,8 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
                 companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
             }
-            JSONParser jsonparser = new JSONParser();
-            JSONObject companyPreferencesJsonObject = (JSONObject)jsonparser.parse(companyPreferences.getCompanyPreferences());
-
             //convert json string to object
-            CompanyPreferencesJson CompanyPreferencesJsonObject = objectMapper.readValue(companyPreferencesJsonObject.toJSONString(), CompanyPreferencesJson.class);
+            CompanyPreferencesJson CompanyPreferencesJsonObject = objectMapper.readValue(companyPreferences.getCompanyPreferences(), CompanyPreferencesJson.class);
             
             CompanyPreferencesJsonObject.setTwitter(twitter);
             ObjectMapper mapper = new ObjectMapper();
@@ -285,11 +282,9 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
                 companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
             }
-            JSONParser jsonparser = new JSONParser();
-            JSONObject companyPreferencesJsonObject = (JSONObject)jsonparser.parse(companyPreferences.getCompanyPreferences());
 
             //convert json string to object
-            CompanyPreferencesJson CompanyPreferencesJsonObject = objectMapper.readValue(companyPreferencesJsonObject.toJSONString(), CompanyPreferencesJson.class);
+            CompanyPreferencesJson CompanyPreferencesJsonObject = objectMapper.readValue(companyPreferences.getCompanyPreferences(), CompanyPreferencesJson.class);
             
             TwitterDataDetails twitterDataDetails = null;
             CompanyPreferencesJsonObject.setTwitter(twitterDataDetails);
@@ -314,11 +309,8 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
                 companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
             }
-            JSONParser jsonparser = new JSONParser();
-            JSONObject companyPreferencesJsonObject = (JSONObject)jsonparser.parse(companyPreferences.getCompanyPreferences());
-
             //convert json string to object
-            CompanyPreferencesJson CompanyPreferencesJsonObject = objectMapper.readValue(companyPreferencesJsonObject.toJSONString(), CompanyPreferencesJson.class);
+            CompanyPreferencesJson CompanyPreferencesJsonObject = objectMapper.readValue(companyPreferences.getCompanyPreferences(), CompanyPreferencesJson.class);
             
             CompanyPreferencesJsonObject.setFacebook(facebook);
             ObjectMapper mapper = new ObjectMapper();
