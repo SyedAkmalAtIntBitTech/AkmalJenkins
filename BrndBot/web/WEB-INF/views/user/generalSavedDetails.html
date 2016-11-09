@@ -74,6 +74,9 @@
                                 <div ng-show="entitiesdetails.image_type == 'gallery'">
                                     <img id="prevfbimg" src="/BrndBot/downloadImage?imageName={{entitiesdetails.image_name}}&imageType=GALLERY&companyId={{companyId}}" />
                                 </div>
+                                <div ng-show="entitiesdetails.image_type == 'url'">
+                                    <img id="prevfbimg" src="{{entitiesdetails.image_name}}">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -124,8 +127,8 @@
                                 <div ng-show="entitiesdetails.image_type == 'layout'" style="display: none;">
                                     <img id="prevfbimg" src="/BrndBot/downloadImage?imageType=LAYOUT_IMAGES&amp;imageName=13.jpg">
                                 </div>
-                                <div ng-show="entitiesdetails.image_type == 'url'" style="display: none;">
-                                    <img id="prevfbimg" src="">
+                                <div ng-show="entitiesdetails.image_type == 'url'">
+                                    <img id="prevfbimg" src="{{entitiesdetails.image_name}}">
                                 </div>
                             </div>
                         </div>
