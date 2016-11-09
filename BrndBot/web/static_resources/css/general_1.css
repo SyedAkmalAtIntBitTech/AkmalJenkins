@@ -1872,14 +1872,6 @@ li.sub-nav-tab.active a{
     height: 100vh;
 }
 
-#addactionClose{		
-     cursor: pointer;		
-     background-image: url(/BrndBot/images/gray-close.svg);		
-     height:15px;		
-     width: 15px;
-     margin: 0 0 0 47%;
- }
-
 #addAction
 {
     display: block;
