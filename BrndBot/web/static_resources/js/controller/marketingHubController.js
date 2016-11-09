@@ -446,8 +446,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.deletDraftsButton = false;
             $scope.addEmailListButton = false;
             $scope.saveEmailSettingsButton = false;
+            $scope.hideGifImage = true;
             emailFactory.sendEmailGet().then(function (data) {
                 $scope.email_history = data.d.details;
+                $scope.hideGifImage = false;
             });
         };
 
@@ -570,7 +572,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             appSessionFactory.getCompany().then(function (companyObject) {
 
                 emailListFactory.getAllEmailListWithNoOfContactsForUser(companyObject.companyId).then(function (data) {
-                    $scope.hideGifImage = false;
                     $scope.emailLists = data.d.details;
                 });
                 emailListFactory.getAllEmailListWithNoOfContactsForMindBody(companyObject.companyId).then(function (data) {

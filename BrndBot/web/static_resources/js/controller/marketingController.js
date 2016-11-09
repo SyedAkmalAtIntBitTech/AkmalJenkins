@@ -528,8 +528,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 }
 
                 $scope.dateLesser = false;
-                var actiondate = datePicker;
-                var currDate = moment(actiondate).format(kGlobalDateFormat);
+                var actiondate = "1970-01-01";
+                var emaildate = datePicker;
+                var currDate = moment(emaildate).format(kGlobalDateFormat);
                 var nDate = $scope.programDate;
                 var start = moment(nDate);
                 var end1 = moment(currDate);

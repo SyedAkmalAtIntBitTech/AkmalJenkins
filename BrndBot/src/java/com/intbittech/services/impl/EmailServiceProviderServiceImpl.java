@@ -288,6 +288,7 @@ public class EmailServiceProviderServiceImpl implements EmailServiceProviderServ
             queryParams.put("start_date", startDateString);
             request.queryParams = queryParams;
             queryParams.put("end_date", endDateString);
+            queryParams.put("aggregated_by", "month");
             logRequest(request);
             Response response = sg.api(request);
 

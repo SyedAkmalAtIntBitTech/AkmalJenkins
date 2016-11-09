@@ -8,6 +8,8 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.EmailSentHistoryDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailSentHistory;
+import com.intbittech.utility.DateTimeUtil;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -38,10 +40,12 @@ public class EmailSentHistoryDaoImpl implements EmailSentHistoryDao{
     @Override
     public List<EmailSentHistory> getAllEmailSentHistoryByCompanyId(Integer companyId) throws ProcessFailed {
         try {
+            
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(EmailSentHistory.class)
                     .setFetchMode("fkCompanyId", FetchMode.JOIN)
-                    .add(Restrictions.eq("fkCompanyId.companyId", companyId));
+                    .add(Restrictions.eq("fkCompanyId.companyId", companyId))
+                    .add(Restrictions.gt("timeSent", DateTimeUtil.daysAgo(-30)));
             List<EmailSentHistory> emailSentHistoryList = criteria.list();
             if (emailSentHistoryList.isEmpty()) {
                 return null;

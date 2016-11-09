@@ -13,7 +13,9 @@ import com.intbittech.dao.impl.ScheduleDAO;
 import com.intbittech.dao.impl.ScheduleSocialPostDAO;
 import com.intbittech.enums.ActivityStatus;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.marketing.service.CompanyMarketingProgramService;
 import com.intbittech.marketing.service.ScheduledEntityListService;
+import com.intbittech.model.CompanyMarketingProgram;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserCompanyIds;
 import com.intbittech.modelmappers.ActivityLogDetails;
@@ -28,6 +30,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +56,8 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
     private ActivityLogService activityLogService;
     @Autowired
     private ScheduledEntityListService scheduledEntityListService;
+    @Autowired
+    private CompanyMarketingProgramService companyMarketingProgramService;
 
     @Override
     public String getActions(Map<String, Object> requestBodyMap, Integer companyId) throws Exception {
@@ -157,7 +162,21 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                 ActivityLogDetails activityLog = new ActivityLogDetails();
                 activityLog.setActivityId(ActivityStatus.ACTIVITY_ASSIGNED_TO_ID.getId());
                 activityLog.setScheduledEntityId(scheduleEntityId);
-                activityLog.setActionDate(new Timestamp(scheduledEntityList.getScheduleTime().getTime()));
+                if (scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId() == 0){
+                    activityLogDetailsObject.setActionDate(new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()));
+                }else {
+                    CompanyMarketingProgram userMarketingProgram = companyMarketingProgramService.getById(scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId());
+                    Date eventDate = userMarketingProgram.getDateEvent();
+                    Integer scheduleDays = scheduledEntityList.getDays();
+                    Date scheduleDate = scheduledEntityList.getScheduleTime();
+                    eventDate.setHours(scheduleDate.getHours());
+                    eventDate.setMinutes(scheduleDate.getMinutes());
+                    eventDate.setSeconds(scheduleDate.getSeconds());
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(eventDate);
+                    cal.add(Calendar.DAY_OF_MONTH, -scheduleDays);
+                    activityLogDetailsObject.setActionDate(new Timestamp(cal.getTimeInMillis()));
+                }
                 activityLog.setActionStatus(TemplateStatus.valueOf(scheduledEntityList.getStatus()).getDisplayName());
                 activityLog.setActionTitle(scheduledEntityList.getScheduleTitle());
                 activityLog.setActionType(scheduledEntityList.getEntityType());
@@ -318,7 +337,24 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                 activityLog.setActivityId(ActivityStatus.ACTIVITY_ASSIGNED_TO_ID.getId());
                 activityLog.setScheduledEntityId(scheduleEntityId);
                 activityLog.setProgramName(scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramName());
-                activityLog.setActionDate(new Timestamp(scheduledEntityList.getScheduleTime().getTime()));
+
+                if (scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId() == 0){
+                    activityLogDetailsObject.setActionDate(new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()));
+                }else {
+                    CompanyMarketingProgram userMarketingProgram = companyMarketingProgramService.getById(scheduledEntityList.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId());
+                    Date eventDate = userMarketingProgram.getDateEvent();
+                    Integer scheduleDays = scheduledEntityList.getDays();
+                    Date scheduleDate = scheduledEntityList.getScheduleTime();
+                    eventDate.setHours(scheduleDate.getHours());
+                    eventDate.setMinutes(scheduleDate.getMinutes());
+                    eventDate.setSeconds(scheduleDate.getSeconds());
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(eventDate);
+                    cal.add(Calendar.DAY_OF_MONTH, -scheduleDays);
+                    activityLogDetailsObject.setActionDate(new Timestamp(cal.getTimeInMillis()));
+                }
+                
+//                activityLog.setActionDate(new Timestamp(scheduledEntityList.getScheduleTime().getTime()));
                 activityLog.setActionStatus(TemplateStatus.valueOf(scheduledEntityList.getStatus()).getDisplayName());
                 activityLog.setActionTitle(scheduledEntityList.getScheduleTitle());
                 activityLog.setActionType(scheduledEntityList.getEntityType());

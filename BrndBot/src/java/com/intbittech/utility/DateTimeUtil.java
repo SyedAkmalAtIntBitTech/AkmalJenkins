@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,8 +26,7 @@ public class DateTimeUtil {
     public static final Logger logger = Logger.getLogger(com.intbittech.utility.Utility.getClassName(DateTimeUtil.class));
 
     public static boolean timeEqualsCurrentTime(Date datetime, Integer companyProgramId) {
-        if(companyProgramId!=0)
-        {
+        if (companyProgramId != 0) {
             //Checks if the currect date is DST if yes then -1 hour
             datetime = isDSTCalculate(datetime);
         }
@@ -46,7 +46,7 @@ public class DateTimeUtil {
         }
         return flag;
     }
-    
+
     public static Date isDSTCalculate(Date datetime) {
         Date returnDate = datetime;
         if (TimeZone.getDefault().inDaylightTime(new Date())) {
@@ -54,7 +54,7 @@ public class DateTimeUtil {
             cal.setTime(datetime);
             cal.add(Calendar.HOUR, -1);
             returnDate = cal.getTime();
-        } 
+        }
         return returnDate;
     }
 
@@ -130,5 +130,14 @@ public class DateTimeUtil {
     public static Date getCurrentGMTDate() {
         Date date = new Date();
         return date;
+    }
+
+    public static Date daysAgo(Integer days) {
+        Date today = new Date();
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(today);
+        cal.add(Calendar.DAY_OF_MONTH, days);
+        Date returnDate = cal.getTime();
+        return returnDate;
     }
 }

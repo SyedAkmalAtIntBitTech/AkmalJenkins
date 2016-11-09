@@ -36,7 +36,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
         $scope.userColor = "";
 //        $scope.userInitials = "";
-        var userSortInfo={userSortName:"",userColor:""};
+        var userSortInfo = {userSortName: "", userColor: ""};
 
         $scope.getCompanyStatus = function () {
             appSessionFactory.isCurrentCompanyInFranchise().then(function (isCurrent) {
@@ -55,11 +55,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         this.isSelected = function (checkTab) {
             return this.tab === checkTab;
         };
-        
-        $scope.isDeletePromptOpen = function(flag){
+
+        $scope.isDeletePromptOpen = function (flag) {
             $scope.clickedDeleteAction = flag;
         };
-        
+
         $scope.changeUsers = false;
         $scope.footerData = "";
         $scope.ddSelectUserOptions = [{
@@ -387,20 +387,20 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $("#comment").focus();
             } else {
 
-            appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
-                $scope.companyName = kGlobalCompanyObject.companyName;
-                $scope.userFirstName = kGlobalCompanyObject.userFirstName;
-                $scope.userLastName = kGlobalCompanyObject.userLastName;
+                appSessionFactory.getCompany().then(function (kGlobalCompanyObject) {
+                    $scope.companyName = kGlobalCompanyObject.companyName;
+                    $scope.userFirstName = kGlobalCompanyObject.userFirstName;
+                    $scope.userLastName = kGlobalCompanyObject.userLastName;
 
-                var commentDetails = {"scheduleId": scheduleId, "comment": comment};
-                $scope.getUserDetailsByUserId(kGlobalCompanyObject.userId);
-                yourPlanFactory.addActionCommentPOST(commentDetails).then(function (data) {
-                    $scope.getActionComments(scheduleId);
+                    var commentDetails = {"scheduleId": scheduleId, "comment": comment};
+                    $scope.getUserDetailsByUserId(kGlobalCompanyObject.userId);
+                    yourPlanFactory.addActionCommentPOST(commentDetails).then(function (data) {
+                        $scope.getActionComments(scheduleId);
+                    });
                 });
-            });
             }
         };
-        
+
         $scope.getActionComments = function (scheduleId) {
             yourPlanFactory.actionCommentsGet(scheduleId).then(function (data) {
                 $scope.comments = data.d.details;
@@ -628,7 +628,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.globalScheduleData = {};
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, assignedFirstName, assignedLastName, assignedToInitialChars, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
         {
-            
             if (template_status === "Complete" && entity_type === getemail())
                 $scope.savedPreheader = 'Sent';
             else
@@ -918,15 +917,21 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 });
             }
 //            growl($scope.isRecurring);
-        var statsData = {"programId": programId, "actionId": schedule_id, "scheduleDateTime": schedule_time};
-           emailFactory.emailHistoryStatsGet(statsData).then(function (stats) {
-               if (stats.d.operationStatus.statusCode !== "DataError") {
-                   $scope.tagsDetails = stats.d.details[0].sendGridStats;
-                   $scope.tagerror = "";
-               } else {
-                   $scope.tagerror = categoryLoadDelay;
-               }
-           });
+            $scope.hideGifImage = true;
+            if (template_status === "Complete" && entity_type === getemail()) {
+                utilFactory.getEpoch(moment(action_date, "YYYY-MM-DD").format("MMM DD YYYY"), "12:00 AM").then(function (dateTimeEpoch) {
+                    var statsData = {"programId": programId, "actionId": schedule_id, "scheduleDateTime": dateTimeEpoch};
+                    emailFactory.emailHistoryStatsGet(statsData).then(function (stats) {
+                        if (stats.d.operationStatus.statusCode !== "DataError") {
+                            $scope.tagsDetails = stats.d.details[0].sendGridStats;
+                            $scope.tagerror = "";
+                        } else {
+                            $scope.tagerror = categoryLoadDelay;
+                        }
+                        $scope.hideGifImage = false;
+                    });
+                });
+            }
         };
 
 
@@ -937,9 +942,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var actiondate = "1970/01/01";
             var actionTime1 = "";
             if (actiontype === getnote()) {
-               actionTime1 = $("#tasktimepickertextbox").val();
-            }
-            else{
+                actionTime1 = $("#tasktimepickertextbox").val();
+            } else {
                 actionTime1 = $("#timepickertextbox").val();
             }
             var days = 0;
@@ -1203,24 +1207,24 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.savedReminderTab = true;
             });
         };
-        
-        $scope.getUserDetailsByUserId = function (userId){
-            appSessionFactory.getAllUsersUnderCompany().then(function (KGlobalAllUserUnderCompanyObject){
-                for(var i=0; i< KGlobalAllUserUnderCompanyObject.userList.length;i++){
-                    if(userId === KGlobalAllUserUnderCompanyObject.userList[i].userId){
+
+        $scope.getUserDetailsByUserId = function (userId) {
+            appSessionFactory.getAllUsersUnderCompany().then(function (KGlobalAllUserUnderCompanyObject) {
+                for (var i = 0; i < KGlobalAllUserUnderCompanyObject.userList.length; i++) {
+                    if (userId === KGlobalAllUserUnderCompanyObject.userList[i].userId) {
                         var userFisetName = KGlobalAllUserUnderCompanyObject.userList[i].firstName;
                         var userLastName = KGlobalAllUserUnderCompanyObject.userList[i].lastName;
-                        var userSignature = userFisetName.charAt(0)+ userLastName.charAt(0);
+                        var userSignature = userFisetName.charAt(0) + userLastName.charAt(0);
                         userSortInfo.userSortName = userSignature.toUpperCase();
                         userSortInfo.userColor = KGlobalAllUserUnderCompanyObject.userList[i].userColor;
-                        $scope.userInitials=userSignature.toUpperCase();
-                        $scope.userColor=KGlobalAllUserUnderCompanyObject.userList[i].userColor;
+                        $scope.userInitials = userSignature.toUpperCase();
+                        $scope.userColor = KGlobalAllUserUnderCompanyObject.userList[i].userColor;
                     }
                 }
-            });           
+            });
         };
-        $scope.addDateTimeOnId= function(dateid,timeId){
-            utilFactory.AddDateTimePickerOnId(dateid,timeId).then(function (dateTimeEpoch) {
+        $scope.addDateTimeOnId = function (dateid, timeId) {
+            utilFactory.AddDateTimePickerOnId(dateid, timeId).then(function (dateTimeEpoch) {
             });
         };
     }]);
