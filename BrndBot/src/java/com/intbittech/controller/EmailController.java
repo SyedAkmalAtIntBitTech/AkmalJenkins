@@ -166,16 +166,7 @@ public class EmailController {
             Date startDate = emailSentHistoryList.getTimeSent();
             SendGridStatsList sendGridStats = emailServiceProviderService.getStatsByCategory(userId.toString(), categories, startDate, endDate, companyId);
 
-            SendGridStatsList cleanedSendGridStats = new SendGridStatsList();
-            List<SendGridStats> sendGridStatsList = new ArrayList<>();
-            for (SendGridStats stats : sendGridStats.getSendGridStats()) {
-                if (Utility.isStatsWithData(stats)) {
-                    sendGridStatsList.add(stats);
-                }
-            }
-            cleanedSendGridStats.setSendGridStats(sendGridStatsList);
-
-            genericResponse.addDetail(cleanedSendGridStats);
+            genericResponse.addDetail(sendGridStats);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {
@@ -196,16 +187,8 @@ public class EmailController {
             Date endDate = new Date();//new Date(scheduleDateTime);
             Date startDate = new Date(scheduleDateTime);
             SendGridStatsList sendGridStats = emailServiceProviderService.getStatsByCategory(userId.toString(), categories, startDate, endDate, companyId);
-            SendGridStatsList cleanedSendGridStats = new SendGridStatsList();
-            List<SendGridStats> sendGridStatsList = new ArrayList<>();
-            for (SendGridStats stats : sendGridStats.getSendGridStats()) {
-                if (Utility.isStatsWithData(stats)) {
-                    sendGridStatsList.add(stats);
-                }
-            }
-            cleanedSendGridStats.setSendGridStats(sendGridStatsList);
-
-            genericResponse.addDetail(cleanedSendGridStats);
+            
+            genericResponse.addDetail(sendGridStats);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {
