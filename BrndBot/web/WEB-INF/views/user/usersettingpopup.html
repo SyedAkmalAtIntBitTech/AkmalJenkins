@@ -93,7 +93,7 @@
                     </div>
                     <div class="user-role-option-wrap">
                         <div class="user-role-check-box-wrap">
-                            <input type="radio" ng-value="5" ng-model="settings.editAdminRadio" id="editCoownerRadio"/>
+                            <input type="radio" ng-value="5" ng-checked="(userRoles == 'Owner')" ng-model="settings.editAdminRadio" id="editCoownerRadio"/>
                         </div>
                         <div class="user-role-definition-wrap">
                             <label for="editCoownerRadio"><h3 class="user-role-title cur">Co-owner</h3></label>
@@ -103,7 +103,7 @@
                     <div class="user-role-option-wrap">
                         <div class="user-role-check-box-wrap">
                             <!--Need to add ng-click to hide and show active checkbox-->
-                            <input type="radio" ng-value="2" ng-model="settings.editAdminRadio" name="adminRadio" id="editManagerRadio">
+                            <input type="radio" ng-value="2" ng-checked="(userRoles == 'Manager')" ng-model="settings.editAdminRadio" name="adminRadio" id="editManagerRadio">
                         </div>
                         <div class="user-role-definition-wrap">
                             <label for="editManagerRadio"><h3 class="user-role-title cur">Manager</h3></label>
@@ -114,7 +114,7 @@
                     <div class="user-role-option-wrap">
                         <!--Need to add ng-click to hide and show active checkbox-->
                        <div class="user-role-check-box-wrap">
-                            <input type="radio" ng-value="4" ng-model="settings.editAdminRadio" name="adminRadio" id="editAdminRadio">
+                            <input type="radio" ng-value="4" ng-checked="(userRoles == 'Creator')" ng-model="settings.editAdminRadio" name="adminRadio" id="editAdminRadio">
                         </div>
                         <div class="user-role-definition-wrap">
                             <label for="editAdminRadio"><h3 class="user-role-title cur">Creator</h3></label>

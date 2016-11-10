@@ -65,15 +65,20 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     @Override
     public void updateEmailSettings(EmailSettings emailSettings, Company company) throws ProcessFailed {
         try {
+            ObjectMapper objectMapper = new ObjectMapper();
             CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
+            //convert json string to object
+            CompanyPreferencesJson CompanyPreferencesJsonObject = objectMapper.readValue(companyPreferences.getCompanyPreferences(), CompanyPreferencesJson.class);
+            
             if (companyPreferences == null) {
                 companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
             }
-            companyPreferencesJson.setEmailSettings(emailSettings);
+            CompanyPreferencesJsonObject.setEmailSettings(emailSettings);
             ObjectMapper mapper = new ObjectMapper();
-            String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
+            String companyPreferencesJsonToString = mapper.writeValueAsString(CompanyPreferencesJsonObject);
+            
             companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
@@ -164,8 +169,12 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     @Override
     public void setFooterDetails(FooterDetails footerDetails, Company company) {
         try {
+            ObjectMapper objectMapper = new ObjectMapper();
             CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
+            //convert json string to object
+            CompanyPreferencesJson CompanyPreferencesJsonObject = objectMapper.readValue(companyPreferences.getCompanyPreferences(), CompanyPreferencesJson.class);
+            
             if (companyPreferences == null) {
                 companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
@@ -175,9 +184,9 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             companyProfile.setTwitterUrl(footerDetails.getTwitterUrl());
             companyProfile.setInstagramUrl(footerDetails.getInstagramUrl());
             companyProfile.setWebsiteUrl(footerDetails.getWebsiteUrl());
-            companyPreferencesJson.setCompanyProfile(companyProfile);
+            CompanyPreferencesJsonObject.setCompanyProfile(companyProfile);
             ObjectMapper mapper = new ObjectMapper();
-            String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
+            String companyPreferencesJsonToString = mapper.writeValueAsString(CompanyPreferencesJsonObject);
             companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
@@ -228,15 +237,19 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     @Override
     public void setTwitterDetails(TwitterDataDetails twitter, Company company) {
         try {
+            ObjectMapper objectMapper = new ObjectMapper();
             CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             if (companyPreferences == null) {
                 companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
             }
-            companyPreferencesJson.setTwitter(twitter);
+            //convert json string to object
+            CompanyPreferencesJson CompanyPreferencesJsonObject = objectMapper.readValue(companyPreferences.getCompanyPreferences(), CompanyPreferencesJson.class);
+            
+            CompanyPreferencesJsonObject.setTwitter(twitter);
             ObjectMapper mapper = new ObjectMapper();
-            String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
+            String companyPreferencesJsonToString = mapper.writeValueAsString(CompanyPreferencesJsonObject);
             companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
@@ -262,16 +275,21 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     @Override
     public void deleteTwitterDetails(Company company) {
         try {
+            ObjectMapper objectMapper = new ObjectMapper();
             CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             if (companyPreferences == null) {
                 companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
             }
+
+            //convert json string to object
+            CompanyPreferencesJson CompanyPreferencesJsonObject = objectMapper.readValue(companyPreferences.getCompanyPreferences(), CompanyPreferencesJson.class);
+            
             TwitterDataDetails twitterDataDetails = null;
-            companyPreferencesJson.setTwitter(twitterDataDetails);
+            CompanyPreferencesJsonObject.setTwitter(twitterDataDetails);
             ObjectMapper mapper = new ObjectMapper();
-            String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
+            String companyPreferencesJsonToString = mapper.writeValueAsString(CompanyPreferencesJsonObject);
             companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
@@ -283,15 +301,20 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     @Override
     public void setFacebookDetails(FacebookDataDetails facebook, Company company) {
         try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            
             CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             if (companyPreferences == null) {
                 companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
             }
-            companyPreferencesJson.setFacebook(facebook);
+            //convert json string to object
+            CompanyPreferencesJson CompanyPreferencesJsonObject = objectMapper.readValue(companyPreferences.getCompanyPreferences(), CompanyPreferencesJson.class);
+            
+            CompanyPreferencesJsonObject.setFacebook(facebook);
             ObjectMapper mapper = new ObjectMapper();
-            String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
+            String companyPreferencesJsonToString = mapper.writeValueAsString(CompanyPreferencesJsonObject);
             companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
             companyPreferencesDao.saveOrUpdate(companyPreferences);
         } catch (Throwable throwable) {
@@ -317,15 +340,17 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     @Override
     public void deleteFacebookDetails(Company company) {
         try {
+            ObjectMapper mapper = new ObjectMapper();
             CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
+            String companyPreferencesJsonString = companyPreferences.getCompanyPreferences();
             if (companyPreferences == null) {
                 companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
             }
             FacebookDataDetails facebook = null;
+            companyPreferencesJson = mapper.readValue(companyPreferencesJsonString, CompanyPreferencesJson.class);
             companyPreferencesJson.setFacebook(facebook);
-            ObjectMapper mapper = new ObjectMapper();
             String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
             companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
             companyPreferencesDao.saveOrUpdate(companyPreferences);
@@ -338,15 +363,17 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     @Override
     public void setOnBoarding(OnBoarding onBoarding, Company company) {
         try {
+            ObjectMapper mapper = new ObjectMapper();
             CompanyPreferencesJson companyPreferencesJson = new CompanyPreferencesJson();
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             if (companyPreferences == null) {
                 companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
+            }else {
+                String companyPreferencesJsonString = companyPreferences.getCompanyPreferences();
+                companyPreferencesJson = mapper.readValue(companyPreferencesJsonString, CompanyPreferencesJson.class);
             }
             companyPreferencesJson.setOnBoarding(onBoarding);
-            companyPreferencesJson.setColors(colorList);
-            ObjectMapper mapper = new ObjectMapper();
             String companyPreferencesJsonToString = mapper.writeValueAsString(companyPreferencesJson);
             companyPreferences.setCompanyPreferences(companyPreferencesJsonToString);
             companyPreferencesDao.saveOrUpdate(companyPreferences);
