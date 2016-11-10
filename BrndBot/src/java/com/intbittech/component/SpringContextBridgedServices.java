@@ -9,6 +9,8 @@ import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.ContactsService;
 import com.intbittech.services.EmailListService;
+import com.intbittech.services.EmailListTagLookupService;
+import com.intbittech.services.EmailListTagService;
 import com.intbittech.services.PushedScheduledActionCompaniesService;
 import com.intbittech.services.PushedScheduledEntityListService;
 import com.intbittech.services.SendEmailService;
@@ -33,4 +35,6 @@ public interface SpringContextBridgedServices {
     public PostToFacebook getPostToFacebook();
     public PushedScheduledEntityListService getPushedScheduledEntityListService();
     public PushedScheduledActionCompaniesService getPushedScheduledActionCompaniesService();
+    public EmailListTagLookupService getEmailListTagLookupService();
+    public EmailListTagService getEmailListTagService();
 }

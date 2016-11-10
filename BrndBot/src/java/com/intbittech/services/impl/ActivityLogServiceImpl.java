@@ -247,7 +247,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                     body = body.replace("*company name*", companyName);
                     body = body.replace("*Marketing Action Name*", actionTitle);
                     body = body.replace("*Marketing Campaign Name*", campaignName);
-                    SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE d MMM yy 'at' hh:mm:ss");
+                    SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE d MMM yy 'at' h:mm a");
                     String result = dateFormatter.format(actionDate);
                     body = body.replace("*Marketing Action Date*", result);
                     body = body.replace("*Marketing Action Status*", actionStatus);
@@ -261,7 +261,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                     body = body.replace("*company name*", companyName);
                     body = body.replace("*Marketing Action Name*", actionTitle);
                     body = body.replace("*Marketing Campaign Name*", campaignName);
-                    dateFormatter = new SimpleDateFormat("EEE d MMM yy 'at' hh:mm:ss");
+                    dateFormatter = new SimpleDateFormat("EEE d MMM yy 'at' h:mm a");
                     result = dateFormatter.format(actionDate);
                     body = body.replace("*Marketing Action Date*", result);
                     body = body.replace("*Marketing Action Status*", actionStatus);

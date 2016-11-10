@@ -333,7 +333,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             settingsFactory.getEmailSettingsGet().then(function (data) {
                 $scope.emailSettingsDetails = true;
                 $scope.email_settingsData = JSON.parse(data.d.details);
-                $scope.email_settings = $scope.email_settingsData.emailSettings;
+                $scope.email_settings = $scope.email_settingsData;
                 if($scope.email_settings == null) {
                     $scope.email_settings = {};
                     $scope.email_settings.from_address = 'mail@brndbot.com';
