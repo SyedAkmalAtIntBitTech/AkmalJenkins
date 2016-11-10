@@ -11,29 +11,30 @@
                 <div class="loader"></div>
                 <div class="loader-description">Loading your content</div>
             </div>
-            <div class="bb-panel-content-wrap" ng-show="marketingHubTab.isSelected(2) && email_history.length > 0 || hideGifImage">
-                <div class="bb-slat" ng-repeat="email in (filteredItems = (email_history| orderBy: 'timeSent':true))" ng-click="getHistoryDetails(email);marketingHubTab.selectTab(5);">
-                    <div class="slat-name-wrap">
-                        <h2>{{email.subject}}</h2>
-                    </div>
-                    <div class="slat-detail-wrap slat-detail-wrap-email-date">
-                        <div class="slat-detail">
-                            <h2>{{email.timeSent| date : "MMM d, y h:mm:ss a"}}</h2>
-                            <p>Sent Date</p>
-                        </div>
-
-                    </div>
-                    <div class="slat-detail-wrap slat-detail-wrap-email-date">
-                        <div class="slat-detail">
-                            <h2 ng-show="email.emailListName.length > 0">{{email.emailListName}}</h2>
-                            <h2 ng-hide="email.emailListName.length > 0">--</h2>
-                            <p>To Email List</p>
-                        </div>
+        </div>
+        <div class="bb-panel-content-wrap" ng-show="marketingHubTab.isSelected(2) && email_history.length > 0">
+            <div class="bb-slat" ng-repeat="email in (filteredItems = (email_history| orderBy: 'timeSent':true))" ng-click="getHistoryDetails(email);marketingHubTab.selectTab(5);">
+                <div class="slat-name-wrap">
+                    <h2>{{email.subject}}</h2>
+                </div>
+                <div class="slat-detail-wrap slat-detail-wrap-email-date">
+                    <div class="slat-detail">
+                        <h2>{{email.timeSent| date : "MMM d, y h:mm:ss a"}}</h2>
+                        <p>Sent Date</p>
                     </div>
 
                 </div>
+                <div class="slat-detail-wrap slat-detail-wrap-email-date">
+                    <div class="slat-detail">
+                        <h2 ng-show="email.emailListName.length > 0">{{email.emailListName}}</h2>
+                        <h2 ng-hide="email.emailListName.length > 0">--</h2>
+                        <p>To Email List</p>
+                    </div>
+                </div>
+
             </div>
         </div>
+
 
     </div>
 </div>
