@@ -27,7 +27,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.confirmPasswordMissmatch = confirmPasswordMissmatch;
         $scope.uniqueUserValidation = uniqueUserValidation;
         $scope.browserCompatibilityPopup = false;
-        $scope.browserCompatibilityPopupDiv = false;
         $scope.loginForm = false;
         $scope.uniqueUser = false;
         $scope.userDetails = {};
@@ -148,31 +147,25 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             if ((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1)
             {
                 $scope.browserCompatibilityPopup = true;
-                $scope.browserCompatibilityPopupDiv = true;
             } else if (navigator.userAgent.indexOf("Chrome") != -1)
             {
                 $scope.loginForm = true;
                 $scope.browserCompatibilityPopup = false;
-                $scope.browserCompatibilityPopupDiv = false;
             } else if (navigator.userAgent.indexOf("Safari") != -1)
             {
-                $scope.loginForm = true;
-                $scope.browserCompatibilityPopup = false;
-                $scope.browserCompatibilityPopupDiv = false;
+                $scope.loginForm = false;
+                $scope.browserCompatibilityPopup = true;
             } else if (navigator.userAgent.indexOf("Firefox") != -1)
             {
                 $scope.browserCompatibilityPopup = true;
-                $scope.browserCompatibilityPopupDiv = true;
                 $scope.loginForm = false;
             } else if ((navigator.userAgent.indexOf("MSIE") != -1) || (!!document.documentMode == true)) //IF IE > 10
             {
                 $scope.browserCompatibilityPopup = true;
-                $scope.browserCompatibilityPopupDiv = true;
                 $scope.loginForm = false;
             } else
             {
                 $scope.browserCompatibilityPopup = true;
-                $scope.browserCompatibilityPopupDiv = true;
                 $scope.loginForm = false;
             }
         }
@@ -180,8 +173,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.closeOverlay = function () {
             $scope.browserCompatibilityPopup = false;
             $scope.browserCompatibilityPopupDiv = false;
-            $scope.loginForm = true;
-
         };
         $scope.getUserIdForSignUp = function () {
             checkBrowser();
