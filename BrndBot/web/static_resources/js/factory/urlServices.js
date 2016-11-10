@@ -443,6 +443,9 @@ factoryApp.service('configurationService', function () {
     this.uploadByUserURL = function () {
         return getHost() + "UploadByUser";
     };
+    this.uploadByImageUrlURL= function (){
+         return getHost() + "DownloadImageFromUrl";
+    };
 
     //************** companyFactory ********************//
 

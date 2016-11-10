@@ -1,5 +1,5 @@
-emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$location', 'blockModelFactory', 'companyFactory', 'categoryFactory', 'emailDraftFactory', 'subCategoryFactory', 'externalContentFactory', 'redirectFactory', 'SharedService', 'settingsFactory', 'companyMarketingProgramFactory', 'emailFactory', 'modelFactory', 'emailListFactory', 'scheduleActionsFactory', 'appSessionFactory', 'yourPlanFactory', 'rulesEngineFactory', 'onboardingFactory','franchiseFactory','pushedActionsFactory', 'utilFactory','companyImagesFactory','imageFactory',
-    function ($scope, $filter, $window, $location, blockModelFactory, companyFactory, categoryFactory, emailDraftFactory, subCategoryFactory, externalContentFactory, redirectFactory, SharedService, settingsFactory, companyMarketingProgramFactory, emailFactory, modelFactory, emailListFactory, scheduleActionsFactory, appSessionFactory, yourPlanFactory, rulesEngineFactory, onboardingFactory, franchiseFactory, pushedActionsFactory, utilFactory,companyImagesFactory,imageFactory) {
+emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$location', 'blockModelFactory', 'companyFactory', 'categoryFactory', 'emailDraftFactory', 'subCategoryFactory', 'externalContentFactory', 'redirectFactory', 'SharedService', 'settingsFactory', 'companyMarketingProgramFactory', 'emailFactory', 'modelFactory', 'emailListFactory', 'scheduleActionsFactory', 'appSessionFactory', 'yourPlanFactory', 'rulesEngineFactory', 'onboardingFactory','franchiseFactory','pushedActionsFactory', 'utilFactory','companyImagesFactory','imageFactory','uploadImageFactory',
+    function ($scope, $filter, $window, $location, blockModelFactory, companyFactory, categoryFactory, emailDraftFactory, subCategoryFactory, externalContentFactory, redirectFactory, SharedService, settingsFactory, companyMarketingProgramFactory, emailFactory, modelFactory, emailListFactory, scheduleActionsFactory, appSessionFactory, yourPlanFactory, rulesEngineFactory, onboardingFactory, franchiseFactory, pushedActionsFactory, utilFactory,companyImagesFactory,imageFactory,uploadImageFactory) {
 
         $scope.objectParameter = kEmailFlowObject;
         $scope.footerEmailPopup = false;
@@ -682,7 +682,47 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             $('.img_upload').click(function (){
                 $scope.selectImageId = $(this).parent('div').next('img').attr('id');
             });
+            $('.img_edit').click(function (){
+                var editImgId = $(this).parent('div').next('img').attr('id');
+                launchEditor(editImgId);
+            })
         };
+         function launchEditor(id, src) {
+                    featherEditor.launch({
+                        image: id,
+                        url: src,
+                        cropPresets:[
+                                'Custom',
+                                'Original',
+                                ['680x330', '68:33'],
+                                ['350x350', '35:35'],
+                                ['310x370', '31:37']
+                            ]
+                    });
+                   return false;
+                }
+          var featherEditor = new Aviary.Feather({
+                    apiKey: getAviaryApiKey(),
+                    apiVersion: 3,
+                    theme: 'dark', // Check out our new 'light' and 'dark' themes!
+                    tools: 'all',
+                    appendTo: '',
+                    onSave: function(imageID, newURL) {
+                        var userId = JSON.parse(localStorage.getItem("companyDetails")).userId;
+                        var companyId = JSON.parse(localStorage.getItem("companyDetails")).companyId;
+                        var img = document.getElementById(imageID);
+                        var data = {folderName:"aviary",
+                                 imageUrl:newURL
+                             };
+                        uploadImageFactory.uploadByImageUrlPost(data).then(function (response){
+                            img.src = responseText.link;
+                                       featherEditor.close();
+                        });
+                    },
+                    onError: function(errorObj) {
+                        alert(errorObj.message);
+                    }
+                }); 
          $scope.getAllCompanyImages = function () {
                     companyImagesFactory.companyImagesGet().then(function (getData) {
                         $scope.datalists = getData.d.details;

@@ -19,6 +19,14 @@ factoryApp.factory('uploadImageFactory', function ($q, authenticatedServiceFacto
             deffered.resolve(data);
         });
         return deffered.promise;
-    };   
+    };
+    uploadImageFactoryObject.uploadByImageUrlPost = function (imageDetails) {
+        var deffered = $q.defer();
+        var url = configurationService.uploadByImageUrlURL();
+        authenticatedServiceFactory.makeCall("POST", url, imageDetails, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
     return uploadImageFactoryObject;
 });
