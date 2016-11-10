@@ -5847,6 +5847,52 @@ textarea.task-textarea:focus{
     margin-right: 20px;
 }
 
+.bb-welcome-loading-overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+     background-color: white;
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.bb-welcome-loading-overlay-content{
+    height: 60%
+}
+
+.bb-welcome-loading-gif-wrap{
+    height: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+   
+}
+
+.bb-welcome-loading-gif{
+    width: 520px;
+    height: 142px;
+    display: block;
+   
+}
+
+.bb-welcome-loading-logo-wrap{
+    height: 40%;
+     display: flex;
+ align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.bb-welcome-loading-logo{
+    width: 210px;
+ 
+}
+
 .bb-button-large{
      border-radius: 3px;
     font-size: 14px;
