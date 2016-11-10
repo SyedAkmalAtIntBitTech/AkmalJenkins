@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Type;
 
 /**
  *
@@ -50,6 +51,12 @@ public class ScheduledEntityList implements Serializable {
     private Boolean isRecurring;
     @Column(name = "days")
     private Integer days;
+    @Column(name = "start_trigger")
+    @Type(type = "StringJsonObject")
+    private String startTrigger;
+    @Column(name = "stop_trigger")
+    @Type(type = "StringJsonObject")
+    private String stopTrigger;
     @Column(name = "till_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date tillDate;
@@ -154,6 +161,22 @@ public class ScheduledEntityList implements Serializable {
         this.days = days;
     }
 
+    public String getStartTrigger() {
+        return startTrigger;
+    }
+
+    public void setStartTrigger(String startTrigger) {
+        this.startTrigger = startTrigger;
+    }
+
+    public String getStopTrigger() {
+        return stopTrigger;
+    }
+
+    public void setStopTrigger(String stopTrigger) {
+        this.stopTrigger = stopTrigger;
+    }
+    
     public Date getTillDate() {
         return tillDate;
     }
