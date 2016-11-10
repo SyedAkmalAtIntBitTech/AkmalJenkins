@@ -35,6 +35,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
         $scope.userColor = "";
+        $scope.userAssignmentPopUp = false;
 //        $scope.userInitials = "";
         var userSortInfo = {userSortName: "", userColor: ""};
 
@@ -68,8 +69,9 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             }
         ];
 
-        $scope.openChangeUserDD = function (flag) {
-            $scope.changeUsers = flag;
+        $scope.openChangeUserDD = function () {
+            $scope.changeUsers = true;
+       
         };
 
         $scope.ddSelectUser = {text: "Select"};
@@ -77,6 +79,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
         $scope.chooseUserOnChange = function (actionValue) {
             $scope.ddSelectedUser = actionValue.value;
+            
+            
         };
 
         $scope.ddSelectActionOptions = [
@@ -379,6 +383,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.ddSelectedUser = changedValue.value;
             $scope.changeAssignedTo($scope.schedule_id);
             $scope.openChangeUserDD(false);
+            $scope.changeUsers = false;
         };
 
         $scope.addActionComment = function (scheduleId, comment) {

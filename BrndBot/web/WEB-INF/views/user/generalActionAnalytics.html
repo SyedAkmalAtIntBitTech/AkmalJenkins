@@ -12,30 +12,33 @@
                         <div class="detail-section-item">{{tagerror}}</div>
                     </div>
                 </div>
-                <div class="detail-sections-wrap" ng-if="!tagerror" ng-repeat="tag in tagsDetails">
-                    <div class="detail-section half">
+                <div class="bb-auto-email-analytics-wrap" ng-if="!tagerror" ng-repeat="tag in tagsDetails">
+                    <div class="bb-auto-email-analytics-item-header ">
                         <p class="detail-section-data"> {{tag.date}}</p>
-                        <label class="detail-section-label">Date</label>
                     </div>
-                    <div class="detail-section half">
-                        <p class="detail-section-data"> {{(tag.stats[0].metrics.unique_opens / tag.stats[0].metrics.delivered) * 100 | number : 2}} %</p>
-                        <label class="detail-section-label">Open Rate</label>
-                    </div>
-                    <div class="detail-section half">
-                        <p class="detail-section-data">{{(tag.stats[0].metrics.unique_clicks / tag.stats[0].metrics.delivered) * 100 | number : 2}} %</p>
-                        <label class="detail-section-label">Click Through Rate</label>
-                    </div>
-                    <div class="detail-section half">
-                        <p class="detail-section-data">{{tag.stats[0].metrics.unsubscribes}}</p>
-                        <label class="detail-section-label">Unsubscribes</label>
-                    </div>
-                    <div class="detail-section half">
-                        <p class="detail-section-data">{{tag.stats[0].metrics.delivered}}</p>
-                        <label class="detail-section-label">Number Sent</label>
-                    </div>
-                    <div class="detail-section half">
-                        <p class="detail-section-data">{{tag.stats[0].metrics.bounces}}</p>
-                        <label class="detail-section-label">Hard Bounces</label>
+                    <div class="bb-auto-email-analytics-table">
+                        <div class="bb-analytics-table-item  ">
+                            <p class="detail-section-data">{{tag.stats[0].metrics.delivered}}</p>
+                            <label class="detail-section-label">Number Sent</label>
+                        </div>
+                        <div class="bb-analytics-table-item ">
+                            <p class="detail-section-data"> {{(tag.stats[0].metrics.unique_opens / tag.stats[0].metrics.delivered) * 100 | number : 2}} %</p>
+                            <label class="detail-section-label">Open Rate</label>
+                        </div>
+                        <div class="bb-analytics-table-item  ">
+                            <p class="detail-section-data">{{(tag.stats[0].metrics.unique_clicks / tag.stats[0].metrics.delivered) * 100 | number : 2}} %</p>
+                            <label class="detail-section-label">Click Rate</label>
+                        </div>
+                       
+                        
+                        <div class="bb-analytics-table-item  ">
+                               <p class="detail-section-data">{{tag.stats[0].metrics.unsubscribes}}</p>
+                               <label class="detail-section-label">Unsubscribes</label>
+                           </div>
+                       <div class="bb-analytics-table-item  ">
+                           <p class="detail-section-data">{{tag.stats[0].metrics.bounces}}</p>
+                           <label class="detail-section-label">Hard Bounces</label>
+                       </div>
                     </div>
                 </div>
     </div>
