@@ -86,7 +86,6 @@ public class ScheduleAnEmail implements Runnable {
                         Integer companyId = currentScheduledEmail.getFkCompanyId().getCompanyId();
                         String html_text = sendAnEmail.getBody();
                         String email_subject = sendAnEmail.getSubject();
-//                        String to_email_addresses = contactEmailListLookupService.getContactsByEmailListNameAndCompanyId(sendAnEmail.getEmailListName(), companyId);
                         
                         List<PushedScheduledEntityList> pushedScheduleEntityList = pushedScheduleEntityListService.getAllPushedScheduledEntityListIdByScheduledEntityListId(currentScheduledEmail.getScheduledEntityListId());
                         if (pushedScheduleEntityList != null) {
@@ -98,7 +97,7 @@ public class ScheduleAnEmail implements Runnable {
                                 EmailListTag emailListTag = emailListTagService.getByTagName(sendAnEmail.getEmailListName());
                                 EmailListTagLookup emailListTagLookup = null;
                                 try {
-                                    emailListTagLookup = emailListTagLookupService.getByEmailListTagLookupByEmailListIdAndCompanyId(emailListTag.getTagId(), companyId);
+                                    emailListTagLookup = emailListTagLookupService.getByEmailListTagLookupByEmailListIdAndCompanyId(emailListTag.getTagId(), company.getCompanyId());
                                 } catch (Throwable throwable) {
 
                                 }
@@ -119,7 +118,7 @@ public class ScheduleAnEmail implements Runnable {
                                     fromName = emailSettings.getFromName();
 
                                     EmailDataDetails emailDataDetails = new EmailDataDetails();
-                                    emailDataDetails.setCompanyId(companyId);
+                                    emailDataDetails.setCompanyId(company.getCompanyId());
                                     emailDataDetails.setEmailListName(emaillist_name);
                                     emailDataDetails.setEmailSubject(email_subject);
                                     emailDataDetails.setFromEmailAddress(fromEmailAddress);
@@ -139,7 +138,8 @@ public class ScheduleAnEmail implements Runnable {
 
                                     SendEmailService sendEmailService = SpringContextBridge.services().getSendEmailService();
                                     sendEmailService.sendMail(emailDataDetails, true);
-                                    updateStatusForPushedEmail(currentScheduledEmail);
+                                    pushedScheduleActionCompanies.setStatus(IConstants.ACTION_COMPANIES_SENT_STATUS);
+                                    pushedScheduledActionCompaniesService.update(pushedScheduleActionCompanies);
 
                                 }
 
@@ -195,22 +195,6 @@ public class ScheduleAnEmail implements Runnable {
         scheduledAnEmail.setStatus(IConstants.kSocialPostCommpleteStatus);
         SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledAnEmail);
 //        ApplicationContextListener.refreshEmailScheduler();
-    }
-
-    private void updateStatusForPushedEmail(ScheduledEntityList scheduledEmail) throws Throwable {
-        PushedScheduledEntityListService pushedScheduleEntityListService = SpringContextBridge.services().getPushedScheduledEntityListService();
-        PushedScheduledActionCompaniesService pushedScheduledActionCompaniesService = SpringContextBridge.services().getPushedScheduledActionCompaniesService();
-        List<PushedScheduledEntityList> pushedScheduledEntityList = pushedScheduleEntityListService.getAllPushedScheduledEntityListIdByScheduledEntityListId(scheduledEmail.getEntityId());
-
-        if (pushedScheduledEntityList != null) {
-            List<PushedScheduledActionCompanies> pushedScheduledActionCompaniesList = pushedScheduledActionCompaniesService.getPushedScheduledActionCompaniesByScheduledEntityListIdAndStatus(pushedScheduledEntityList.get(0).getPushedScheduledEntityListId(), IConstants.ACTION_COMPANIES_READY_TO_GO);
-            for (int i = 0; i < pushedScheduledActionCompaniesList.size(); i++) {
-                PushedScheduledActionCompanies pushedScheduledActionCompanies = pushedScheduledActionCompaniesList.get(i);
-
-                pushedScheduledActionCompanies.setStatus(IConstants.ACTION_COMPANIES_SENT_STATUS);
-                pushedScheduledActionCompaniesService.update(pushedScheduledActionCompanies);
-            }
-        }
     }
 
     private ScheduledEmailList getSendEmail(ScheduledEntityList scheduledAnEmail) throws Throwable {
