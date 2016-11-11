@@ -388,8 +388,7 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
         };        
         $scope.showDraftPopup = function (Id, categoryId, emailSubject, editdate, subCategoryId, mindbodyId, lookupId)
         {
-            $("#fadePushedEmail").show();
-            $scope.savedEmailDraftPopup = true;
+            $scope.savedDraftPopup = true;
             $scope.id = Id;
             $scope.categoryid = categoryId;
             $scope.emailsubject = emailSubject;
@@ -397,7 +396,6 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
             $scope.subcategoryid = subCategoryId;
             $scope.mindbodyId = mindbodyId;
             $scope.lookupId = lookupId;
-            $('#slider-button').click();
             emailDraftFactory.getEmailDraftGet(Id).then(function (data) {
                 if (data === "") {
                     $scope.emaildraftsstatus = noemaildraft;
@@ -406,10 +404,16 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
                     $('#draftshow').empty().append($scope.htmlbody);
                 }
             });
+            $scope.showDPopup();
+            $("#fadePushedEmail").show();
+        };
+        $scope.showDPopup = function(){
+            $scope.savedDraftPopup = true;
+            
         };
         $scope.closeSavedEmailDraftPopup = function ()
         {
-            $scope.savedEmailDraftPopup = false;
+            $scope.savedDraftPopup = false;
             $("#fadePushedEmail").hide();
         };
 
@@ -440,11 +444,6 @@ franchiseHubApp.controller("franchiseController", ['$scope', '$window', '$locati
                 $scope.selectedEmail = "";
                 $scope.closeSavedEmailDraftPopup();
             });
-        };
-        $scope.closeSavedEmailDraftPopup = function ()
-        {
-            $scope.savedEmailDraftPopup = false;
-            $("#fadePushedEmail").hide();
         };
 
         $scope.editDrafts = function (draft_id, category_id, email_subject, sub_category_id, mindbodyId, lookupId) {

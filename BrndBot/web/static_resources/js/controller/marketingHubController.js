@@ -513,9 +513,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             });
         };
         $scope.showDraftPopup = function (Id, categoryId, emailSubject, editdate, subCategoryId, mindbodyId, lookupId)
-        {
-            $("#fade").show();
-            $scope.savedEmailDraftPopup = true;
+        {   
+            $("#fadePushedEmail").show();
+            $scope.savedDraftPopup = true;
             emailDraftFactory.getEmailDraftGet(Id).then(function (data) {
                 if (data === "") {
                     $scope.emaildraftsstatus = noemaildraft;
@@ -536,8 +536,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         $scope.closeSavedEmailDraftPopup = function ()
         {
-            $scope.savedEmailDraftPopup = false;
-            $("#fade").hide();
+            $scope.savedDraftPopup = false;
+            $("#fadePushedEmail").hide();
         };
         $scope.addEmailList = function ()
         {
