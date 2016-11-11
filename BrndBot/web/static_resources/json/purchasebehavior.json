@@ -1,0 +1,16 @@
+{
+  "queries": [
+    {
+      "queryId": "1",
+      "queryname": "Purchase Behaviour",
+      "querydescription": "Purchase Behaviour Description",
+      "querysource": "MindBody"
+    },
+    {
+      "queryId": "2",
+      "queryname": "Last Visited Date",
+      "querydescription": "Last Visited Date Description",
+      "querysource": "MindBody"
+    }
+  ]
+}
