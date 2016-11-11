@@ -2008,8 +2008,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 }else {
                     $scope.postTypeSelectionPopUp = false;
                     $scope.schedulePopup = true;
-                    $scope.existingActionPopup = true;
-                    $scope.createNewActionPopup = false;
+                    $scope.existingActionPopup = false;
+                    $scope.createNewActionPopup = true;
                     $scope.activeClassExisting = 'active';
                     $scope.activeClassNew = '';
                     $scope.scheduleButtonData = "Schedule";
