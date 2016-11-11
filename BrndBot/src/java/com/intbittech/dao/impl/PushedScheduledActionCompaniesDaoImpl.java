@@ -8,6 +8,7 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.PushedScheduledActionCompaniesDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.PushedScheduledActionCompanies;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -172,6 +173,32 @@ public class PushedScheduledActionCompaniesDaoImpl implements PushedScheduledAct
         }
     }
 
+     /**
+     * {@inheritDoc}
+     */
+    public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByCompanyIdAndDateDifference(Integer companyId, Timestamp fromDate, Timestamp toDate) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(PushedScheduledActionCompanies.class)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .setFetchMode("fkPushedScheduledActionEntityListId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkCompanyId.companyId", companyId))
+                    .add(Restrictions.gt("updatedAt", fromDate))
+                    .add(Restrictions.lt("updatedAt", toDate));
+          List<PushedScheduledActionCompanies> pushedScheduledActionCompanies = criteria.list();
+
+            if (pushedScheduledActionCompanies.isEmpty()) {
+              
+                return null;
+            }
+            return  criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retreving_message",new String[]{}, Locale.US));
+        }
+    }
+    
     @Override
     public List<PushedScheduledActionCompanies> getPushedScheduledActionCompaniesByScheduledEntityListIdAndStatus(Integer ScheduledEntityListId, String Status) throws ProcessFailed {
         try {

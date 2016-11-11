@@ -6,7 +6,7 @@
             </a>
             <h3 class="bb-top-nav-title">{{generalActionDetailsHeader}} Action Detail</h3>
         </div>
-        <div class="bb-bar-right-wrap bb-one-half-flex-col bb-overlay-header-cta-wrap" ng-show="pushedEmail==false">
+        <div class="bb-bar-right-wrap bb-one-half-flex-col bb-overlay-header-cta-wrap" ng-show="pushedEmail==false && !isPushed">
             <a  class="bb-button green-button" ng-show="action_template_status === 'Template Saved' && !isProgramArchived" ng-click="Approval(schedule_id, 'approved', masterActionType)">
                 {{templateApproveButton}}
             </a>

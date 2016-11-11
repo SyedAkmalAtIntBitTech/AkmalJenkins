@@ -8,6 +8,7 @@ package com.intbittech.dao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.PushedScheduledActionCompanies;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -89,6 +90,15 @@ public interface PushedScheduledActionCompaniesDao {
      * @throws ProcessFailed the process failed
      */
     public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByCompanyId(Integer companyId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link PushedScheduledActionCompanies} from DAO
+     * layer.
+     * @param companyId the companyId
+     * @return {@link PushedScheduledActionCompanies}
+     * @throws ProcessFailed the process failed
+     */
+    public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByCompanyIdAndDateDifference(Integer companyId, Timestamp fromDate, Timestamp toDate) throws ProcessFailed;
 
 }
 

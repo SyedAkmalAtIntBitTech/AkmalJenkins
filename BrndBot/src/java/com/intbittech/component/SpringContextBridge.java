@@ -5,6 +5,7 @@
  */
 package com.intbittech.component;
 
+import com.intbittech.marketing.service.ScheduledEntityListService;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.ContactEmailListLookupService;
 import com.intbittech.services.ContactsService;
@@ -62,6 +63,8 @@ public class SpringContextBridge
     private EmailListTagLookupService emailListTagLookupService;
     @Autowired
     private EmailListTagService emailListTagService;
+    @Autowired
+    private ScheduledEntityListService scheduledEntityListService;
     @Override
     public void setApplicationContext(ApplicationContext applicationContext)
             throws BeansException {
@@ -143,4 +146,8 @@ public class SpringContextBridge
     public EmailListTagService getEmailListTagService() {
         return emailListTagService;
     }
+    @Override
+    public ScheduledEntityListService getScheduledEntityListService(){
+        return scheduledEntityListService;
+    } 
 }

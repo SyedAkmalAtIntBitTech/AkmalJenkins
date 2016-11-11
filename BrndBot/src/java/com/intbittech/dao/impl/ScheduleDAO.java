@@ -8,8 +8,14 @@ package com.intbittech.dao.impl;
 import com.intbittech.utility.IConstants;
 import com.intbittech.divtohtml.StringUtil;
 import com.intbit.ConnectionManager;
+import com.intbittech.component.SpringContextBridge;
 import com.intbittech.enums.ScheduledEntityType;
 import com.intbittech.enums.TemplateStatus;
+import com.intbittech.marketing.service.ScheduledEntityListService;
+import com.intbittech.model.PushedScheduledActionCompanies;
+import com.intbittech.model.ScheduledEntityList;
+import com.intbittech.services.PushedScheduledActionCompaniesService;
+import com.intbittech.services.PushedScheduledEntityListService;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -37,6 +43,7 @@ import org.json.simple.parser.ParseException;
 import org.postgresql.util.PGobject;
 import com.intbittech.utility.DateTimeUtil;
 import com.intbittech.utility.Utility;
+import java.util.List;
 
 /**
  *
@@ -909,7 +916,13 @@ public class ScheduleDAO {
             LocalDate fromDate, LocalDate toDate) throws SQLException {
 
         Map<String, JSONArray> result = new LinkedHashMap<>();
+        PushedScheduledEntityListService pushedScheduleEntityListService = SpringContextBridge.services().getPushedScheduledEntityListService();
+        PushedScheduledActionCompaniesService pushedScheduledActionCompaniesService = SpringContextBridge.services().getPushedScheduledActionCompaniesService();
+        ScheduledEntityListService scheduledEntityListService = SpringContextBridge.services().getScheduledEntityListService();
 
+        long scheduleTime;
+        long scheduleDate;
+        
         String sql = "SELECT DISTINCT ON (scheduled_entity_list_id) slist.*, "
                 + "concat(date(programtable.date_event) - slist.days, ' ', slist.schedule_time::time WITH TIME ZONE) "
                 + "as cal_schedule_time, concat(date(programtable.date_event), ' ', slist.schedule_time::time WITH TIME ZONE)"
@@ -932,10 +945,10 @@ public class ScheduleDAO {
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Timestamp scheduleTimestamp = rs.getTimestamp("schedule_time");
-                    long scheduleTime = scheduleTimestamp.getTime();
                     JSONObject scheduleDetailJSONObject = new JSONObject();
-                    long scheduleDate;
+                    
+                    Timestamp scheduleTimestamp = rs.getTimestamp("schedule_time");
+                    scheduleTime = scheduleTimestamp.getTime();
                     if (rs.getInt("fk_company_marketing_program_id") == 0) {
                         scheduleDate = rs.getTimestamp("schedule_time").getTime();
                     } else {
@@ -953,6 +966,7 @@ public class ScheduleDAO {
                     int marketingId = rs.getInt("fk_company_marketing_program_id");
                     String marketingName = getMarketingProgramName(marketingId, connection);
                     scheduleDetailJSONObject.put("marketingName", marketingName);
+                    scheduleDetailJSONObject.put("isPushed", false);
                     scheduleDetailJSONObject.put("user_marketing_program_id", rs.getInt("fk_company_marketing_program_id"));
                     scheduleDetailJSONObject.put("schedule_title", rs.getString("schedule_title"));
                     scheduleDetailJSONObject.put("schedule_description", rs.getString("schedule_desc"));
@@ -993,6 +1007,53 @@ public class ScheduleDAO {
 
                     result.get(String.valueOf(scheduleDate)).add(scheduleDetailJSONObject);
                 }
+                List<PushedScheduledActionCompanies> pushedScheduledActionCompaniesList = pushedScheduledActionCompaniesService.getAllPushedScheduledActionCompaniesByCompanyIdAndDateDifference(companyId, new Timestamp(Date.valueOf(fromDate).getTime()), new Timestamp(Date.valueOf(toDate).getTime()));
+
+                for (int i = 0; i< pushedScheduledActionCompaniesList.size(); i++){
+
+                    JSONObject scheduleDetailJSONObject = new JSONObject();
+                    PushedScheduledActionCompanies pushedScheduledactionCompanies = pushedScheduledActionCompaniesList.get(i);
+                    
+                    ScheduledEntityList scheduleEntiyList = pushedScheduledactionCompanies.getFkPushedScheduledActionEntityListId().getFkScheduledEntityListId();
+                    
+                    scheduleTime = scheduleEntiyList.getScheduleTime().getTime();
+
+                    scheduleDate = scheduleTime;
+                    scheduleDetailJSONObject.put("days", "");
+                    scheduleDetailJSONObject.put("schedule_id", scheduleEntiyList.getScheduledEntityListId());
+                    scheduleDetailJSONObject.put("entity_id", scheduleEntiyList.getEntityId());
+                    scheduleDetailJSONObject.put("marketingName", "");
+                    scheduleDetailJSONObject.put("isPushed", true);
+                    scheduleDetailJSONObject.put("user_marketing_program_id", "");
+                    scheduleDetailJSONObject.put("schedule_title", scheduleEntiyList.getScheduleTitle());
+                    scheduleDetailJSONObject.put("schedule_description", scheduleEntiyList.getScheduleDesc());
+                    scheduleDetailJSONObject.put("schedule_time", scheduleTime);
+                    if (DateTimeUtil.dateEqualsCurrentDate(new Date(scheduleTime))) {
+                        scheduleDetailJSONObject.put("is_today_active", "true");
+                    } else {
+                        scheduleDetailJSONObject.put("is_today_active", "false");
+                    }
+
+                    scheduleDetailJSONObject.put("is_recurring", "");
+                    scheduleDetailJSONObject.put("entity_type", scheduleEntiyList.getEntityType());
+                    scheduleDetailJSONObject.put("status", scheduleEntiyList.getStatus());
+                    scheduleDetailJSONObject.put("user_id", companyId);
+
+                    if (scheduleEntiyList.getAssignedTo().getUserId() != null && scheduleEntiyList.getAssignedTo().getFirstName() != null && scheduleEntiyList.getAssignedTo().getLastName() != null) {
+                        scheduleDetailJSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduleEntiyList.getAssignedTo().getFirstName(), scheduleEntiyList.getAssignedTo().getLastName()));
+                        scheduleDetailJSONObject.put("assignedToId", scheduleEntiyList.getAssignedTo().getUserId());
+                        scheduleDetailJSONObject.put("assignedFirstName", scheduleEntiyList.getAssignedTo().getFirstName());
+                        scheduleDetailJSONObject.put("assignedLastName", scheduleEntiyList.getAssignedTo().getLastName());
+                    }
+                    scheduleDetailJSONObject.put("template_status",
+                            TemplateStatus.valueOf(scheduleEntiyList.getStatus()).getDisplayName());
+                    if (!result.containsKey(String.valueOf(scheduleDate))) {
+                        result.put(String.valueOf(scheduleDate), new JSONArray());
+                    }
+
+                    result.get(String.valueOf(scheduleDate)).add(scheduleDetailJSONObject);
+                    
+                } 
                 logger.log(Level.INFO, "In com.intbit.dao.ScheduleDAO.getScheduledEntities");
             } catch (Exception e) {
                 logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e,

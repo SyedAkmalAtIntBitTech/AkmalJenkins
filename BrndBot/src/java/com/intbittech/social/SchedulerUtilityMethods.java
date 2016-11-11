@@ -89,8 +89,8 @@ public class SchedulerUtilityMethods {
             sbSql.append(" and lower(entitytable.status) like '").append(status).append("'");
             sbSql.append(" and entitytable.entity_type like'").append(entityType).append("'");
             sbSql.append(" and entitytable.is_recurring = '").append(isRecurring).append("'");
-            sbSql.append(" and (date(programtable.date_event AT TIME ZONE 'Asia/Kolkata') - entitytable.days  = current_date AT TIME ZONE 'Asia/Kolkata' or (date(entitytable.schedule_time AT TIME ZONE 'Asia/Kolkata'))= current_date AT TIME ZONE 'Asia/Kolkata')");
-            sbSql.append(" and date_trunc('minute', entitytable.schedule_time)::time AT TIME ZONE 'Asia/Kolkata' = date_trunc('minute', localtimestamp)::time AT TIME ZONE 'Asia/Kolkata'");
+            sbSql.append(" and (date(programtable.date_event AT TIME ZONE 'US/Eastern') - entitytable.days  = current_date AT TIME ZONE 'US/Eastern' or (date(entitytable.schedule_time AT TIME ZONE 'US/Eastern'))= current_date AT TIME ZONE 'US/Eastern')");
+            sbSql.append(" and date_trunc('minute', entitytable.schedule_time)::time AT TIME ZONE 'US/Eastern' = date_trunc('minute', localtimestamp)::time AT TIME ZONE 'US/Eastern'");
             sbSql.append(" order by entitytable.schedule_time::time");
 //            sbSql.append(" limit 1");
             sbSql.append(";");

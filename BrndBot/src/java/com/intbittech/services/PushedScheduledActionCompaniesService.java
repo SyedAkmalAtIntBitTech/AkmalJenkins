@@ -10,6 +10,7 @@ import com.intbittech.model.PushedScheduledActionCompanies;
 import com.intbittech.modelmappers.PushedScheduledActionCompaniesDetails;
 import com.intbittech.modelmappers.SendReminderEmailDetails;
 import com.intbittech.modelmappers.UserDetails;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -92,6 +93,15 @@ public interface PushedScheduledActionCompaniesService {
      */
     public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByCompanyId(Integer companyId) throws ProcessFailed;
 
+    /**
+     * This method pass id as input and get the {@link PushedScheduledActionCompanies} from DAO
+     * layer.
+     * @param companyId the companyId
+     * @return {@link PushedScheduledActionCompanies}
+     * @throws ProcessFailed the process failed
+     */
+    public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByCompanyIdAndDateDifference(Integer companyId, Timestamp fromDate, Timestamp toDate) throws ProcessFailed;
+    
      /**
      * This method save {@link PushedScheduledActionCompanies} into the database.
      *
