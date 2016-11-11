@@ -5620,9 +5620,9 @@ textarea.task-textarea:focus{
 }
 
 .bb-user-assignment-dropdown-wrap{
-    position: absolute;
+/*    position: absolute;
     top: 0;
-    left: -8;
+    left: -8;*/
     width:300px;
 }
 

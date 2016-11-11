@@ -15,9 +15,9 @@
                         <div class="detail-section">
                             <label class="detail-section-label">Action Assignment</label>
                             <div class=" bb-assignment-wrap">
-                                <div class="bb-button bb-default-action-button" ng-click="openChangeUserDD()" ng-hide="assignedFirstName.length > 0">Click to Assign</div>
-                                <div class="bb-assignment-selection" ng-click="openChangeUserDD()" ng-show="assignedFirstName.length > 0">{{assignedFirstName}}&nbsp{{assignedLastName}}</div>
-                                <div ng-show="changeUsers" class="bb-user-assignment-dropdown-wrap">
+                                <!--<div class="bb-button bb-default-action-button" ng-click="openChangeUserDD(true)" ng-hide="assignedFirstName.length > 0">Click to Assign</div>-->
+                                <!--<div class="bb-assignment-selection" ng-click="openChangeUserDD(true)" ng-show="assignedFirstName.length > 0">{{assignedFirstName}}&nbsp{{assignedLastName}}</div>-->
+                                <div  class="bb-user-assignment-dropdown-wrap">
                                     <div class="invalidDropdown" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="ChangeUserOnChange(selected)"></div>
                                 </div>
                             </div>

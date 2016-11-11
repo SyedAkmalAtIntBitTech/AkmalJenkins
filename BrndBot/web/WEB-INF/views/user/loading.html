@@ -34,15 +34,16 @@
         <div class="bb-app-frame">
             <div class="bb-main-app-wrap" >
                 <div class="bb-main-container-wrap">
-                     <div ng-if="hideDataOverlay">
-                            <div class="external-data-loading-wrap external-data-loading-block">
-<!--                                <div class="external-data-loading-block">
-                                    <div class="loader"></div>
-                                    <div class="loader-description">Loading your content</div>
-                                </div>-->
-                                <img src="../images/YogaLoadingGif.gif"/>
+                    <div ng-if="hideDataOverlay" class="bb-welcome-loading-overlay">
+                        <div class="bb-welcome-loading-overlay-content">
+                            <div class="bb-welcome-loading-gif-wrap">
+                                <img class="bb-welcome-loading-gif" src="../images/loadinggif.gif"  />
                             </div>
+                            <div class="bb-welcome-loading-logo-wrap">
+                                <img class="bb-welcome-loading-logo" src="../images/Logo_Standard.svg"  />
                             </div>
+                        </div>
+                    </div>
                         <!--    <a  class="slat external-data">
                                 <div class="slat-name-wrap">
                                     <h2>{{companyDetail.companyName}}</h2>
