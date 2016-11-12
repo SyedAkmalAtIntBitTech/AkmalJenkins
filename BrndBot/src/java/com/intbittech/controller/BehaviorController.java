@@ -1,8 +1,12 @@
 package com.intbittech.controller;
 
+import com.intbittech.externalcontent.MindbodyExternalContentFactory;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.utility.ErrorHandlingUtil;
+import com.mindbody.source.RevenueCategory;
+import com.mindbody.source.RevenueCategoryResponse;
+import com.mindbodyonline.clients.api._0_5.StatusCode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -15,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /*
  * Copyright 2015 Intbit Technologies. This software and documentation contains
@@ -36,11 +41,16 @@ public class BehaviorController {
     private MessageSource messageSource;
     
     @RequestMapping(value = "/getRevenueCategory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getRevenueCategory() {
-        GenericResponse<String> genericResponse = new GenericResponse<String>();
+    public ResponseEntity<ContainerResponse> getRevenueCategory(@RequestParam("companyId") Integer companyId, @RequestParam("revenueType") String revenueType) {
+        GenericResponse<RevenueCategory> genericResponse = new GenericResponse<RevenueCategory>();
         try {
-            List<String> revenueCategoryList = new ArrayList<>();
-            genericResponse.setDetails(revenueCategoryList);
+            MindbodyExternalContentFactory externalContentFactory = new MindbodyExternalContentFactory(companyId);
+            RevenueCategoryResponse revenueCategoryResponse = externalContentFactory.getRevenueCategories(revenueType);
+            if (revenueCategoryResponse.getStatus() == StatusCode.SUCCESS) {
+                genericResponse.setDetails((List<RevenueCategory>) revenueCategoryResponse.getRows());                
+            } else {
+                genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(revenueCategoryResponse.getMessage()));
+            }
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("revenueCategory_get_all", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {

@@ -5,8 +5,9 @@
  */
 package com.intbittech.mindbody;
 
-import com.controller.SqlMethods;
 import com.mindbody.source.MindBody;
+import com.mindbody.source.MindBodyRevenueType;
+import com.mindbody.source.RevenueCategoryResponse;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -24,6 +25,7 @@ import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsResult;
 import com.mindbodyonline.clients.api._0_5Client.Client;
 import com.mindbodyonline.clients.api._0_5Staff.GetStaffRequest;
 import com.mindbodyonline.clients.api._0_5Staff.GetStaffResult;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -144,6 +146,11 @@ public class MindBodyClass {
     
     public void searchEmailAndUpdateEmailOptIn(List<String> unsubscribeEmailList) {
         mindBody.searchEmailAndUpdateEmailOptIn(unsubscribeEmailList);
+    }
+    
+    public RevenueCategoryResponse getRevenueCategories(String revenueCategory) throws IOException {
+        MindBodyRevenueType revenueType = MindBodyRevenueType.valueOf(revenueCategory);
+        return mindBody.getRevenueCategories(revenueType);
     }
 
 }
