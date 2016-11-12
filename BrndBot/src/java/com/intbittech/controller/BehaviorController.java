@@ -40,6 +40,7 @@ public class BehaviorController {
     @Autowired
     private MessageSource messageSource;
     
+    //Revenue type can be either 'Service' or 'Product'
     @RequestMapping(value = "/getRevenueCategory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getRevenueCategory(@RequestParam("companyId") Integer companyId, @RequestParam("revenueType") String revenueType) {
         GenericResponse<RevenueCategory> genericResponse = new GenericResponse<RevenueCategory>();
