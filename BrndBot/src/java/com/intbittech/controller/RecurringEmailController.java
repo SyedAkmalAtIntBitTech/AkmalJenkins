@@ -15,9 +15,12 @@ import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.RecurringEmailTemplateService;
 import com.intbittech.utility.ErrorHandlingUtil;
+import com.intbittech.utility.ServletUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -225,5 +228,20 @@ public class RecurringEmailController {
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-
+    
+    @RequestMapping(value = "getPurchaseBehaviorJSON", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getPurchaseBehaviorJSON(HttpServletRequest request, HttpServletResponse response) {
+        GenericResponse<String> genericResponse = new GenericResponse<>();
+        try {
+            List<String> responseJSONString = new ArrayList<>();
+            String jsonString = ServletUtil.getJSONString("purchasebehavior.json", request.getServletContext());
+            responseJSONString.add(jsonString);
+            genericResponse.setDetails(responseJSONString);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurringEmail_get_all", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
 }

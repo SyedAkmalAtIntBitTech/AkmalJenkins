@@ -91,6 +91,14 @@
             deffered.resolve(data);
         });
         return deffered.promise;
+    }; 
+    marketingRecurringEmailFactoryObject.getPurchaseBehaviorJSON = function (data) {
+        var deffered = $q.defer();
+        var url = configurationService.purchaseBehaviorJSONURL();
+        authenticatedServiceFactory.makeCall("GET", url, "","").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
     };   
     return marketingRecurringEmailFactoryObject;
 });

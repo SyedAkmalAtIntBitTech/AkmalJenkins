@@ -743,6 +743,10 @@ factoryApp.service('configurationService', function () {
     this.allRecurringEmailsURL = function () {
         return getHost() + "getAllRecurringEmails";
     };
+    
+    this.purchaseBehaviorJSONURL = function () {
+        return getHost() + "getPurchaseBehaviorJSON";
+    };
 
     //************** settingsFactory ********************/    
 

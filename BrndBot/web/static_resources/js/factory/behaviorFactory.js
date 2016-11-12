@@ -6,9 +6,9 @@
 
 factoryApp.factory('behaviorFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var behaviorFactoryObject = {};
-    behaviorFactoryObject.revenueCategoryGet = function () {
+    behaviorFactoryObject.revenueCategoryGet = function (revenueType) {
         var deffered = $q.defer();
-        var url = configurationService.revenueCategoryGetURL();
+        var url = configurationService.revenueCategoryGetURL()+"?revenueType="+ revenueType;
         authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
@@ -38,4 +38,5 @@ factoryApp.factory('behaviorFactory', function ($q, authenticatedServiceFactory,
         });
         return deffered.promise;
     };
+    return behaviorFactoryObject;
 });
