@@ -56,7 +56,7 @@ public class BehaviorController {
             RevenueCategoryResponse response = externalContentFactory.getRevenueCategories(revenueType);
             if (response.getStatus() == StatusCode.SUCCESS) {
                 genericResponse.setDetails((List<RevenueCategory>) response.getRows());  
-                genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("revenueCategory_get_all", new String[]{}, Locale.US)));
+                genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
             } else {
                 genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(response.getMessage()));
             }
@@ -76,7 +76,7 @@ public class BehaviorController {
             GetProgramsResult response = externalContentFactory.getServiceCategories(scheduleType, StringUtility.safeBoolean(onlineOnly));
             if (response.getStatus() == StatusCode.SUCCESS) {
                 genericResponse.setDetails((List<Program>) response.getPrograms().getProgram());  
-                genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("serviceCategory_get_all", new String[]{}, Locale.US)));
+                genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
             } else {
                 genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(response.getMessage()));
             }
@@ -97,7 +97,7 @@ public class BehaviorController {
                 GetServicesResult response = externalContentFactory.getPricingOptions(programIdList);
                 if (response.getStatus() == com.mindbodyonline.clients.api._0_5Sale.StatusCode.SUCCESS) {
                     genericResponse.setDetails((List<Service>) response.getServices().getService());
-                    genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("pricingOption_get_all", new String[]{}, Locale.US)));
+                    genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
                 } else {
                     genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(response.getMessage()));
                 }
@@ -119,7 +119,7 @@ public class BehaviorController {
                 GetLocationsResult response = externalContentFactory.getSiteLocations();
                 if (response.getStatus() == StatusCode.SUCCESS) {
                     genericResponse.setDetails((List<Location>) response.getLocations().getLocation());
-                    genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("pricingOption_get_all", new String[]{}, Locale.US)));
+                    genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success", new String[]{}, Locale.US)));
                 } else {
                     genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(response.getMessage()));
                 }

@@ -2173,32 +2173,32 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 text: 'Select',
                 value: '0'
             }, {
-                text: "ALL",
-                value: "ALL"
+                text: "All",
+                value: "All"
             },
             {
-                text: "DROP_IN",
-                value: "DROP_IN"
+                text: "Drop In",
+                value: "DropIn"
             },
             {
-                text: "ENROLLMENT",
-                value: "ENROLLMENT"
+                text: "Enrollment",
+                value: "Enrollment"
             },
             {
-                text: "APPOINTMENT",
-                value: "APPOINTMENT"
+                text: "Appointment",
+                value: "Appointment"
             },
             {
-                text: "RESOURCE",
-                value: "RESOURCE"
+                text: "Resource",
+                value: "Resource"
             },
             {
-                text: "MEDIA",
-                value: "MEDIA"
+                text: "Media",
+                value: "Media"
             },
             {
-                text: "ARRIVAL",
-                value: "ARRIVAL"
+                text: "Arrival",
+                value: "Arrival"
             }
         ];
         $scope.ddScheduleType = {};
@@ -2267,7 +2267,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 "RevenueCategory": revenueCategories.text,
                                 "ServiceCategory": serviceCategories.text,
                                 "pricingOption": pricingOptionsSelected.text,
-                                "locationId": locationId.value
+                                "locationId": locationId.text
                             }
                         },
                         {
@@ -2300,7 +2300,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 "RevenueCategory": revenueCategories.text,
                                 "ServiceCategory": serviceCategories.text,
                                 "pricingOption": pricingOptionsSelected.text,
-                                "locationId": locationId.value
+                                "locationId": locationId.text
                             }
                         },
                         {
@@ -2342,29 +2342,29 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
         $scope.chooseScheduleTypeOnChange = function(selected) {
             $scope.ddServiceCategoriesOptions = [];
-            behaviorFactory.serviceCategoryGet(selected.text, 'false').then(function(data){
+            behaviorFactory.serviceCategoryGet(selected.value, 'false').then(function(data){
                 alert(JSON.stringify(data));
                 var responseData=  data.d.details;
                 for (var i = 0; i < responseData.length; i++)
                 {
                     var serviceCategoryObject = {};
-                    serviceCategoryObject["text"] = responseData[i].categoryName;
-                    serviceCategoryObject["value"] = responseData[i].categoryId;
+                    serviceCategoryObject["text"] = responseData[i].name;
+                    serviceCategoryObject["value"] = responseData[i].id;
                     $scope.ddServiceCategoriesOptions.push(serviceCategoryObject);
                 }
             });
         };
         $scope.chooseServiceCategoriesOnChange = function(selected) {
-            $scope.ddLocationIdOptions = [];
+            $scope.ddPricingOptions = [];
             behaviorFactory.pricingOptionGet(selected.value).then(function(data){
                 alert(JSON.stringify(data));
                 var responseData=  data.d.details;
                 for (var i = 0; i < responseData.length; i++)
                 {
                     var pricingOptionsObject = {};
-                    pricingOptionsObject["text"] = responseData[i].categoryName;
-                    pricingOptionsObject["value"] = responseData[i].categoryId;
-                    $scope.ddLocationIdOptions.push(pricingOptionsObject);
+                    pricingOptionsObject["text"] = responseData[i].name;
+                    pricingOptionsObject["value"] = responseData[i].id;
+                    $scope.ddPricingOptions.push(pricingOptionsObject);
                 }
             });
         };
@@ -2373,13 +2373,13 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             behaviorFactory.siteLocationsGet().then(function(data){
                 alert(JSON.stringify(data));
                 $scope.responseData=  data.d.details;
-//                for (var i = 0; i < $scope.responseSiteLocations.length; i++)
-//                {
-//                    var siteLocationsObject = {};
-//                    siteLocationsObject["text"] = $scope.responseSiteLocations[i].categoryName;
-//                    siteLocationsObject["value"] = $scope.responseSiteLocations[i].categoryId;
-//                    $scope.ddLocationIdOptions.push(siteLocationsObject);
-//                }
+                for (var i = 1; i < $scope.responseData.length; i++)
+                {
+                    var siteLocationsObject = {};
+                    siteLocationsObject["text"] = "Studio at "+$scope.responseData[i].city;
+                    siteLocationsObject["value"] = $scope.responseData[i].id.value;
+                    $scope.ddLocationIdOptions.push(siteLocationsObject);
+                }
             });
         }
     }]);

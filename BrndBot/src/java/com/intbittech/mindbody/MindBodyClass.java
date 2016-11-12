@@ -166,7 +166,7 @@ public class MindBodyClass {
     }
 
     public GetProgramsResult getServiceCategories(String scheduleType, Boolean onlineOnly) {
-        ScheduleType scheduleType1 = ScheduleType.fromValue(scheduleType.toUpperCase());
+        ScheduleType scheduleType1 = ScheduleType.fromValue(scheduleType);
         return mindBody.getServiceCategories(scheduleType1, onlineOnly);
     }
 
