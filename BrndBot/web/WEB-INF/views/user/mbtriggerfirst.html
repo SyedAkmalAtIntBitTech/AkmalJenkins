@@ -46,7 +46,7 @@
         <div dropdown-select="ddServiceCategoriesOptions" dropdown-model="ddServiceCategories"  dropdown-onchange="chooseServiceCategoriesOnChange(selected)"></div>
         <div>Pricing Options</div>
         <div dropdown-select="ddPricingOptions" dropdown-model="ddPricingOptionsSelected"  dropdown-onchange="choosePricingOptionsOnChange(selected)"></div>
-        <div>Location Id</div>
+        <div ng-init="getAllSiteLocations();">Site Location</div>
         <div dropdown-select="ddLocationIdOptions" dropdown-model="ddLocationId"  dropdown-onchange="chooseLocationIdOnChange(selected)"></div>
         <div class="bb-button bb-primary-action-button" ng-click="saveTriggerData(ddRevenueType, ddRevenueCategories, ddScheduleType, ddServiceCategories, ddPricingOptionsSelected, ddLocationId)">Save Trigger</div>
     </div>

@@ -2156,23 +2156,23 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
         ];
         $scope.ddRevenueType = {};
-        $scope.ddRevenueCategoriesOptions = [{
-                text: 'Select',
-                value: '0'
-            },{
-                text: "RevenueCategory1",
-                value: "1"
-            },
-            {
-                text: "RevenueCategory2",
-                value: "2"
-            }
-        ];
+//        $scope.ddRevenueCategoriesOptions = [{
+//                text: 'Select',
+//                value: '0'
+//            }, {
+//                text: "RevenueCategory1",
+//                value: "1"
+//            },
+//            {
+//                text: "RevenueCategory2",
+//                value: "2"
+//            }
+//        ];
         $scope.ddRevenueCategories = {};
         $scope.ddScheduleTypeOptions = [{
                 text: 'Select',
                 value: '0'
-            },{
+            }, {
                 text: "ALL",
                 value: "ALL"
             },
@@ -2202,44 +2202,44 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
         ];
         $scope.ddScheduleType = {};
-        $scope.ddServiceCategoriesOptions = [{
-                text: 'Select',
-                value: '0'
-            },{
-                text: "ServiceCategories1",
-                value: "1"
-            },
-            {
-                text: "ServiceCategories2",
-                value: "2"
-            }
-        ];
+//        $scope.ddServiceCategoriesOptions = [{
+//                text: 'Select',
+//                value: '0'
+//            }, {
+//                text: "ServiceCategories1",
+//                value: "1"
+//            },
+//            {
+//                text: "ServiceCategories2",
+//                value: "2"
+//            }
+//        ];
         $scope.ddServiceCategories = {};
-        $scope.ddPricingOptions = [{
-                text: 'Select',
-                value: '0'
-            },{
-                text: "PricingOptions1",
-                value: "1"
-            },
-            {
-                text: "PricingOptions2",
-                value: "2"
-            }
-        ];
+//        $scope.ddPricingOptions = [{
+//                text: 'Select',
+//                value: '0'
+//            }, {
+//                text: "PricingOptions1",
+//                value: "1"
+//            },
+//            {
+//                text: "PricingOptions2",
+//                value: "2"
+//            }
+//        ];
         $scope.ddPricingOptionsSelected = {}
-        $scope.ddLocationIdOptions = [{
-                text: 'Select',
-                value: '0'
-            },{
-                text: "LocationId1",
-                value: "1"
-            },
-            {
-                text: "LocationId2",
-                value: "2"
-            }
-        ];
+//        $scope.ddLocationIdOptions = [{
+//                text: 'Select',
+//                value: '0'
+//            }, {
+//                text: "LocationId1",
+//                value: "1"
+//            },
+//            {
+//                text: "LocationId2",
+//                value: "2"
+//            }
+//        ];
         $scope.ddLocationId = {};
         $scope.clickedQueryId = function (queryId) {
 //            isEmailTrigger=false;
@@ -2325,21 +2325,61 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             return $scope.selectedQueryId;
         };
         $scope.chooseRevenueTypeOnChange = function (selected) {
-            alert(selected.text);
-            
-            behaviorFactory.revenueCategoryGet(selected.text).then(function(data){
+            $scope.ddRevenueCategoriesOptions = [];
+            behaviorFactory.revenueCategoryGet(selected.text).then(function (data) {
                 alert(JSON.stringify(data));
+                var responseData = data.d.details;
+                for (var i = 0; i < responseData.length; i++)
+                {
+                    var revenueCategoryObject = {};
+                    revenueCategoryObject["text"] = responseData[i].categoryName;
+                    revenueCategoryObject["value"] = responseData[i].categoryId;
+                    $scope.ddRevenueCategoriesOptions.push(revenueCategoryObject);
+                }
             });
-            $scope.ddRevenueTypeOptions = {};
 
-            $scope.ddScheduleType = {};
-
-            $scope.ddServiceCategories = {};
-
-            $scope.ddPricingOptionsSelected = {}
-
-            $scope.ddLocationId = {};
 
         };
-
+        $scope.chooseScheduleTypeOnChange = function(selected) {
+            $scope.ddServiceCategoriesOptions = [];
+            behaviorFactory.serviceCategoryGet(selected.text, 'false').then(function(data){
+                alert(JSON.stringify(data));
+                var responseData=  data.d.details;
+                for (var i = 0; i < responseData.length; i++)
+                {
+                    var serviceCategoryObject = {};
+                    serviceCategoryObject["text"] = responseData[i].categoryName;
+                    serviceCategoryObject["value"] = responseData[i].categoryId;
+                    $scope.ddServiceCategoriesOptions.push(serviceCategoryObject);
+                }
+            });
+        };
+        $scope.chooseServiceCategoriesOnChange = function(selected) {
+            $scope.ddLocationIdOptions = [];
+            behaviorFactory.pricingOptionGet(selected.value).then(function(data){
+                alert(JSON.stringify(data));
+                var responseData=  data.d.details;
+                for (var i = 0; i < responseData.length; i++)
+                {
+                    var pricingOptionsObject = {};
+                    pricingOptionsObject["text"] = responseData[i].categoryName;
+                    pricingOptionsObject["value"] = responseData[i].categoryId;
+                    $scope.ddLocationIdOptions.push(pricingOptionsObject);
+                }
+            });
+        };
+        $scope.getAllSiteLocations = function() {
+            $scope.ddLocationIdOptions = [];
+            behaviorFactory.siteLocationsGet().then(function(data){
+                alert(JSON.stringify(data));
+                $scope.responseData=  data.d.details;
+//                for (var i = 0; i < $scope.responseSiteLocations.length; i++)
+//                {
+//                    var siteLocationsObject = {};
+//                    siteLocationsObject["text"] = $scope.responseSiteLocations[i].categoryName;
+//                    siteLocationsObject["value"] = $scope.responseSiteLocations[i].categoryId;
+//                    $scope.ddLocationIdOptions.push(siteLocationsObject);
+//                }
+            });
+        }
     }]);

@@ -1123,8 +1123,8 @@ factoryApp.service('configurationService', function () {
         return getHost() + "behavior/getPricingOption";
     };
     
-    this.dollarAmountGetURL = function () {
-        return getHost() + "behavior/getDollarAmount";
+    this.siteLocationsGetURL = function () {
+        return getHost() + "behavior/getSiteLocations";
     };
 });
 

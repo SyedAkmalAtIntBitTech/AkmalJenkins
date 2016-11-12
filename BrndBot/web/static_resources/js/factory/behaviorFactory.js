@@ -14,25 +14,25 @@ factoryApp.factory('behaviorFactory', function ($q, authenticatedServiceFactory,
         });
         return deffered.promise;
     };
-    behaviorFactoryObject.serviceCategoryGet = function () {
+    behaviorFactoryObject.serviceCategoryGet = function (scheduleType, onlineOnly) {
         var deffered = $q.defer();
-        var url = configurationService.serviceCategoryGetURL();
+        var url = configurationService.serviceCategoryGetURL()+"?scheduleType="+scheduleType+"&onlineOnly="+onlineOnly;
         authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    behaviorFactoryObject.pricingOptionGet = function () {
+    behaviorFactoryObject.pricingOptionGet = function (programIds) {
         var deffered = $q.defer();
-        var url = configurationService.pricingOptionGetURL();
+        var url = configurationService.pricingOptionGetURL()+"?programIds="+programIds;
         authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    behaviorFactoryObject.dollarAmountGet = function () {
+    behaviorFactoryObject.siteLocationsGet = function () {
         var deffered = $q.defer();
-        var url = configurationService.dollarAmountGetURL();
+        var url = configurationService.siteLocationsGetURL();
         authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });

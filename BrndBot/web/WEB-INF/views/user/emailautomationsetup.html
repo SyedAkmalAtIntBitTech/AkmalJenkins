@@ -31,19 +31,21 @@
         </div>
         <div class="hub-section">
             <div class="section-header">
-                <h3>Start Trigger{{isEmailTrigger}}</h3>
+                <h3>Start Trigger</h3>
             </div>
             <div class="input-wrap">
                 <input type="button" value="Start Trigger" ng-click="getAllPurchaseBehaviorJSON('start');emailTrigger(true);">
             </div>
+            {{startTrigger}}
         </div>
         <div class="hub-section">
             <div class="section-header">
                 <h3>Stop Trigger</h3>
             </div>
-            <div class="input-wrap">
+            <div class="input-wrap" ng-hide="stopTrigger">
                 <input type="button" value="Stop Trigger" ng-click="getAllPurchaseBehaviorJSON('stop');emailTrigger(true);">
             </div>
+            {{stopTrigger}}
         </div>
         <!--        <div class="hub-section" ng-init="getAllUsersInCompany()">
                     <div class="section-header">
