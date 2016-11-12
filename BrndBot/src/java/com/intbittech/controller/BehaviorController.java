@@ -4,12 +4,19 @@ import com.intbittech.externalcontent.MindbodyExternalContentFactory;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.utility.ErrorHandlingUtil;
+import com.intbittech.utility.StringUtility;
 import com.mindbody.source.RevenueCategory;
 import com.mindbody.source.RevenueCategoryResponse;
+import com.mindbodyonline.clients.api._0_5.GetLocationsResult;
+import com.mindbodyonline.clients.api._0_5.GetProgramsResult;
+import com.mindbodyonline.clients.api._0_5.Location;
+import com.mindbodyonline.clients.api._0_5.Program;
 import com.mindbodyonline.clients.api._0_5.StatusCode;
-import java.util.ArrayList;
+import com.mindbodyonline.clients.api._0_5Sale.GetServicesResult;
+import com.mindbodyonline.clients.api._0_5Sale.Service;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -46,14 +53,13 @@ public class BehaviorController {
         GenericResponse<RevenueCategory> genericResponse = new GenericResponse<RevenueCategory>();
         try {
             MindbodyExternalContentFactory externalContentFactory = new MindbodyExternalContentFactory(companyId);
-            RevenueCategoryResponse revenueCategoryResponse = externalContentFactory.getRevenueCategories(revenueType);
-            if (revenueCategoryResponse.getStatus() == StatusCode.SUCCESS) {
-                genericResponse.setDetails((List<RevenueCategory>) revenueCategoryResponse.getRows());                
+            RevenueCategoryResponse response = externalContentFactory.getRevenueCategories(revenueType);
+            if (response.getStatus() == StatusCode.SUCCESS) {
+                genericResponse.setDetails((List<RevenueCategory>) response.getRows());  
+                genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("revenueCategory_get_all", new String[]{}, Locale.US)));
             } else {
-                genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(revenueCategoryResponse.getMessage()));
+                genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(response.getMessage()));
             }
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("revenueCategory_get_all", new String[]{}, Locale.US)));
-
         } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -61,29 +67,43 @@ public class BehaviorController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
     
+    //scheduleType values     ALL, DROP_IN, ENROLLMENT, APPOINTMENT, RESOURCE, MEDIA, ARRIVAL
     @RequestMapping(value = "/getServiceCategory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getServiceCategory() {
-        GenericResponse<String> genericResponse = new GenericResponse<String>();
+    public ResponseEntity<ContainerResponse> getServiceCategory(@RequestParam("companyId") Integer companyId, @RequestParam("scheduleType") String scheduleType,@RequestParam("onlineOnly") String onlineOnly) {
+        GenericResponse<Program> genericResponse = new GenericResponse<Program>();
         try {
-            List<String> serviceCategoryList = new ArrayList<>();
-            genericResponse.setDetails(serviceCategoryList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("serviceCategory_get_all", new String[]{}, Locale.US)));
-
+            MindbodyExternalContentFactory externalContentFactory = new MindbodyExternalContentFactory(companyId);
+            GetProgramsResult response = externalContentFactory.getServiceCategories(scheduleType, StringUtility.safeBoolean(onlineOnly));
+            if (response.getStatus() == StatusCode.SUCCESS) {
+                genericResponse.setDetails((List<Program>) response.getPrograms().getProgram());  
+                genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("serviceCategory_get_all", new String[]{}, Locale.US)));
+            } else {
+                genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(response.getMessage()));
+            }
         } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-    
+    //Array of program ids split by |
     @RequestMapping(value = "/getPricingOption", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getPricingOption() {
-        GenericResponse<String> genericResponse = new GenericResponse<String>();
+    public ResponseEntity<ContainerResponse> getPricingOption(@RequestParam("companyId") Integer companyId, @RequestParam("programIds") String programIds) {
+        GenericResponse<Service> genericResponse = new GenericResponse<Service>();
         try {
-            List<String> pricingOptionList = new ArrayList<>();
-            genericResponse.setDetails(pricingOptionList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("pricingOption_get_all", new String[]{}, Locale.US)));
-
+            if (!StringUtility.isEmpty(programIds)) {
+                MindbodyExternalContentFactory externalContentFactory = new MindbodyExternalContentFactory(companyId);
+                String[] programIdList = programIds.split(Pattern.quote("|"));
+                GetServicesResult response = externalContentFactory.getPricingOptions(programIdList);
+                if (response.getStatus() == com.mindbodyonline.clients.api._0_5Sale.StatusCode.SUCCESS) {
+                    genericResponse.setDetails((List<Service>) response.getServices().getService());
+                    genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("pricingOption_get_all", new String[]{}, Locale.US)));
+                } else {
+                    genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(response.getMessage()));
+                }
+            } else {
+                genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation("No program ids sent"));
+            }
         } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -91,13 +111,18 @@ public class BehaviorController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "/getDollarAmount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getDollarAmount() {
-        GenericResponse<String> genericResponse = new GenericResponse<String>();
+    @RequestMapping(value = "/getSiteLocations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getSiteLocations(@RequestParam("companyId") Integer companyId) {
+        GenericResponse<Location> genericResponse = new GenericResponse<Location>();
         try {
-            List<String> dollarAmountList = new ArrayList<>();
-            genericResponse.setDetails(dollarAmountList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("dollarAmount_get_all", new String[]{}, Locale.US)));
+            MindbodyExternalContentFactory externalContentFactory = new MindbodyExternalContentFactory(companyId);
+                GetLocationsResult response = externalContentFactory.getSiteLocations();
+                if (response.getStatus() == StatusCode.SUCCESS) {
+                    genericResponse.setDetails((List<Location>) response.getLocations().getLocation());
+                    genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("pricingOption_get_all", new String[]{}, Locale.US)));
+                } else {
+                    genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(response.getMessage()));
+                }
 
         } catch (Throwable throwable) {
             logger.error(throwable);
