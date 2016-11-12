@@ -8,28 +8,31 @@ package com.intbittech.mindbody;
 import com.mindbody.source.MindBody;
 import com.mindbody.source.MindBodyRevenueType;
 import com.mindbody.source.RevenueCategoryResponse;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
-
 import com.mindbodyonline.clients.api._0_5.GetActivationCodeResult;
+import com.mindbodyonline.clients.api._0_5.GetLocationsResult;
+import com.mindbodyonline.clients.api._0_5.GetProgramsResult;
+import com.mindbodyonline.clients.api._0_5.ScheduleType;
 import com.mindbodyonline.clients.api._0_5.XMLDetailLevel;
 import com.mindbodyonline.clients.api._0_5Class.GetClassesRequest;
 import com.mindbodyonline.clients.api._0_5Class.GetClassesResult;
 import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsRequest;
 import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsResult;
 import com.mindbodyonline.clients.api._0_5Client.Client;
+import com.mindbodyonline.clients.api._0_5Sale.GetServicesResult;
 import com.mindbodyonline.clients.api._0_5Staff.GetStaffRequest;
 import com.mindbodyonline.clients.api._0_5Staff.GetStaffResult;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
  *
@@ -151,6 +154,25 @@ public class MindBodyClass {
     public RevenueCategoryResponse getRevenueCategories(String revenueCategory) throws IOException {
         MindBodyRevenueType revenueType = MindBodyRevenueType.valueOf(revenueCategory);
         return mindBody.getRevenueCategories(revenueType);
+    }
+
+    public GetServicesResult getPricingOptions(String[] programIds) {
+        List<Integer> list = new ArrayList<>();
+        for (String value : programIds) {
+            list.add(Integer.parseInt(value));
+        }
+        GetServicesResult servicesResult = mindBody.getPricingOptions(list);
+        return servicesResult;
+    }
+
+    public GetProgramsResult getServiceCategories(String scheduleType, Boolean onlineOnly) {
+        ScheduleType scheduleType1 = ScheduleType.fromValue(scheduleType.toUpperCase());
+        return mindBody.getServiceCategories(scheduleType1, onlineOnly);
+    }
+
+    public GetLocationsResult getSiteLocations() {
+        GetLocationsResult locationsResult = mindBody.getLocations();
+        return locationsResult;
     }
 
 }

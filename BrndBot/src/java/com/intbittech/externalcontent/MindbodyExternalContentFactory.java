@@ -12,6 +12,8 @@ import com.intbittech.mindbody.MindBodyDuration;
 import com.intbittech.mindbody.MindBodyProcessedData;
 import com.mindbody.source.RevenueCategoryResponse;
 import com.mindbodyonline.clients.api._0_5.GetActivationCodeResult;
+import com.mindbodyonline.clients.api._0_5.GetLocationsResult;
+import com.mindbodyonline.clients.api._0_5.GetProgramsResult;
 import com.mindbodyonline.clients.api._0_5Class.ArrayOfClass;
 import com.mindbodyonline.clients.api._0_5Class.ArrayOfClassSchedule;
 import com.mindbodyonline.clients.api._0_5Class.ClassDescription;
@@ -19,6 +21,7 @@ import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
 import com.mindbodyonline.clients.api._0_5Class.GetClassesResult;
 import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsResult;
 import com.mindbodyonline.clients.api._0_5Class.Staff;
+import com.mindbodyonline.clients.api._0_5Sale.GetServicesResult;
 import com.mindbodyonline.clients.api._0_5Staff.ArrayOfStaff;
 import com.mindbodyonline.clients.api._0_5Staff.GetStaffResult;
 import java.io.IOException;
@@ -276,5 +279,19 @@ public class MindbodyExternalContentFactory extends ExternalContentFactory {
         RevenueCategoryResponse revenueCategoryResponse = mindBodyClass.getRevenueCategories(revenueCategory);
         return revenueCategoryResponse;
     }
-    
+
+    public GetProgramsResult getServiceCategories(String scheduleType, Boolean onlineOnly) {
+        GetProgramsResult programsResult = mindBodyClass.getServiceCategories(scheduleType, onlineOnly);
+        return programsResult;
+    }
+
+    public GetServicesResult getPricingOptions(String[] programIds) {
+        GetServicesResult servicesResult = mindBodyClass.getPricingOptions(programIds);
+        return servicesResult;
+    }
+
+    public GetLocationsResult getSiteLocations() {
+        GetLocationsResult locationsResult = mindBodyClass.getSiteLocations();
+        return locationsResult;
+    }
 }
