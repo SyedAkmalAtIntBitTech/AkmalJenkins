@@ -38,6 +38,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.user = "";
         $scope.companyAddressDetails = {};
         $scope.selectImageId="";
+        $scope.addBlockStyle = true;
+        
         
         // validation scope variables
         
@@ -680,16 +682,30 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 $(this).find('table:first').removeClass('template-border-Active');
             });
             $('.img_upload').click(function (){
+                $scope.addBlockStyle = false;
                 $scope.selectImageId = $(this).parent('div').next('img').attr('id');
             });
             $('.img_edit').click(function (){
                 $scope.selectImageId = $(this).parent('div').next('img').attr('id');
-                launchEditor(editImgId);
+                launchEditor($scope.selectImageId);
             });
             $('.img_link').click(function (){
                 $scope.selectImageId = $(this).parent('div').next('img').attr('id');
                  $scope.addLinkPopup = true;
             });
+            $('td img').mouseenter(function(event){
+                $(this).parent('td').find('div:first').css("opacity",1);
+            });
+            $('td div img').mouseleave(function (event){
+                $(this).parent('td').find('div:first').css("opacity",0);
+            });
+            $('td div .uploader_wrap').mouseenter(function(event){
+                $(this).parent('td').find('div:first').css("opacity",1);
+            });
+            $('td div .uploader_wrap').mouseleave(function (event){
+                $(this).parent('td').find('div:first').css("opacity",0);
+            });
+            
         };
          function launchEditor(id, src) {
                     featherEditor.launch({
@@ -737,7 +753,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         $scope.currentCompanyId = getData.d.details[0].fkCompanyId.companyId;
                     });
                 };
-         $scope.changeTemplateImage = function (imageId){
+         $scope.changeTemplateImage = function (imageId){ 
+             $scope.addBlockStyle = true;
                 var imageSrc = $("#"+imageId).attr("src");
              $("#"+$scope.selectImageId).attr("src",imageSrc);
          };
@@ -778,6 +795,30 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
             });
             $('.view').find('table:first').find('td:first').mouseleave(function () {
                 $(this).find('table:first').removeClass('template-border-Active');
+            });
+            $('.img_upload').click(function (){
+                $scope.addBlockStyle = false;
+                $scope.selectImageId = $(this).parent('div').next('img').attr('id');
+            });
+            $('.img_edit').click(function (){
+                $scope.selectImageId = $(this).parent('div').next('img').attr('id');
+                launchEditor($scope.selectImageId);
+            });
+            $('.img_link').click(function (){
+                $scope.selectImageId = $(this).parent('div').next('img').attr('id');
+                 $scope.addLinkPopup = true;
+            });
+            $('td img').mouseenter(function(event){
+                $(this).parent('td').find('div:first').css("opacity",1);
+            });
+            $('td div img').mouseleave(function (event){
+                $(this).parent('td').find('div:first').css("opacity",0);
+            });
+            $('td div .uploader_wrap').mouseenter(function(event){
+                $(this).parent('td').find('div:first').css("opacity",1);
+            });
+            $('td div .uploader_wrap').mouseleave(function (event){
+                $(this).parent('td').find('div:first').css("opacity",0);
             });
         };
         $scope.blockIdOnSelected = function (selectedBlock, blockId, mindbodyId) {

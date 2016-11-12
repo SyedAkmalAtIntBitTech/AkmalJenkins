@@ -59,7 +59,7 @@
             </p>
         </div>
     </div>
-    <div class="email-editor-right-col">
+    <div class="email-editor-right-col" ng-show="addBlockStyle === true">
         <div class="email-editor-tab-wrap">
             <div class="editor-col-tab">
                 <div class="emailSideBar-tab" ng-class="{'emailSideBar-tab-active': emailTab.isSelected(1)}" id="blocktab" ng-init="showBlocks()" ng-click="emailTab.selectTab(1); showBlocks()">
@@ -87,7 +87,7 @@
             </li>
         </ul>
     </div>
-    <div class="email-editor-right-col">
+    <div class="email-editor-right-col" ng-show="addBlockStyle === false">
         <div class="bb-email-image-pop-up-header">
             <a class="bb-button bb-default-action-button" ng-click="showImageUploadPopup()">Upload an Image</a>
         </div>

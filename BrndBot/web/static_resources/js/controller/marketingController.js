@@ -1184,7 +1184,32 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $('.view').find('table:first').find('td:first').mouseleave(function () {
                 $(this).find('table:first').removeClass('template-border-Active');
             });
+            $('.img_upload').click(function (){
+                $scope.addBlockStyle = false;
+                $scope.selectImageId = $(this).parent('div').next('img').attr('id');
+            });
+            $('.img_edit').click(function (){
+                $scope.selectImageId = $(this).parent('div').next('img').attr('id');
+                launchEditor($scope.selectImageId);
+            });
+            $('.img_link').click(function (){
+                $scope.selectImageId = $(this).parent('div').next('img').attr('id');
+                 $scope.addLinkPopup = true;
+            });
+            $('td img').mouseenter(function(event){
+                $(this).parent('td').find('div:first').css("opacity",1);
+            });
+            $('td div img').mouseleave(function (event){
+                $(this).parent('td').find('div:first').css("opacity",0);
+            });
+            $('td div .uploader_wrap').mouseenter(function(event){
+                $(this).parent('td').find('div:first').css("opacity",1);
+            });
+            $('td div .uploader_wrap').mouseleave(function (event){
+                $(this).parent('td').find('div:first').css("opacity",0);
+            });
         };
+        
         $scope.launchTinyMceEditorForOnlyImage = function () {
             tinymce.EditorManager.editors = [];
             tinymce.init({
@@ -1213,6 +1238,30 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             });
             $('.view').find('table:first').find('td:first').mouseleave(function () {
                 $(this).find('table:first').removeClass('template-border-Active');
+            });
+            $('.img_upload').click(function (){
+                $scope.addBlockStyle = false;
+                $scope.selectImageId = $(this).parent('div').next('img').attr('id');
+            });
+            $('.img_edit').click(function (){
+                $scope.selectImageId = $(this).parent('div').next('img').attr('id');
+                launchEditor($scope.selectImageId);
+            });
+            $('.img_link').click(function (){
+                $scope.selectImageId = $(this).parent('div').next('img').attr('id');
+                 $scope.addLinkPopup = true;
+            });
+            $('td img').mouseenter(function(event){
+                $(this).parent('td').find('div:first').css("opacity",1);
+            });
+            $('td div img').mouseleave(function (event){
+                $(this).parent('td').find('div:first').css("opacity",0);
+            });
+            $('td div .uploader_wrap').mouseenter(function(event){
+                $(this).parent('td').find('div:first').css("opacity",1);
+            });
+            $('td div .uploader_wrap').mouseleave(function (event){
+                $(this).parent('td').find('div:first').css("opacity",0);
             });
         };
         $scope.getFooterDetails = function () {

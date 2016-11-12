@@ -2628,6 +2628,11 @@ INPUT.sg_templatename_field
 {
     background: #4C5669 url(../img/imgedit.png) center;
 }
+.emailrender .uploader_wrap:hover .move_controls
+{
+    filter: alpha(opacity=100);
+    opacity: 1;
+}
 /*IMAGE LINK*/
 .darkoverlay_imglink
 {
@@ -2695,4 +2700,7 @@ INPUT.sg_templatename_field
 }
 *{
     -webkit-nbsp-mode: normal !important;
+}
+.active{
+    opacity: 1;
 }
