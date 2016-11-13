@@ -1264,6 +1264,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 launchEditor($scope.selectImageId);
             });
             $('.img_link').click(function () {
+                $scope.getAllCompanyImages();
                 $scope.selectImageId = $(this).parent('div').next('img').attr('id');
                 $scope.addLinkPopup = true;
             });
@@ -1378,6 +1379,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 launchEditor($scope.selectImageId);
             });
             $('.img_link').click(function () {
+                $scope.getAllCompanyImages();
                 $scope.selectImageId = $(this).parent('div').next('img').attr('id');
                 $scope.addLinkPopup = true;
             });
@@ -2247,6 +2249,15 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.userColor=userSortInfo.userColor;
                 $scope.userInitials=userSortInfo.userSortName;
             });
+        };
+        $scope.hidePopup = function (popupName) {
+            if (popupName === "sendOrSchedulePopup") {
+                $scope.postTypeSelectionPopUp = false;
+            } else if (popupName === "schedulePopup") {
+                $scope.schedulePopup = false;
+            } else if (popupName === "addlinkpopup") {
+                $scope.addLinkPopup = false;
+            }
         };
 
     }]);
