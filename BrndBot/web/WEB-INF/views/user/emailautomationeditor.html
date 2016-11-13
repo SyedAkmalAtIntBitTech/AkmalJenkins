@@ -1,5 +1,6 @@
-<div  id="emailautomation"  ng-init="getEmailTemplates(false)" >
 
+<div  id="emailautomation"  ng-init="getEmailTemplates(false)" >
+<div ng-include src="'addlinkpopup.html'"></div>
     <!--Email Preview-->
     <div id="fadeEmailAutomationPreview" class="center-pop-ups overlay-dark-bg" ng-show="emailPreviewPopup">
 
@@ -67,7 +68,7 @@
 
         </div>
         <!--......tinymce end..............-->
-        <div class="email-editor-right-col">
+        <div class="email-editor-right-col" ng-show="addBlockStyle === true">
             <div class="email-editor-tab-wrap">
                 <div class="editor-col-tab">
                     <div class="{{recurringtab}}" id="recurringtab"  ng-click="getEmailTemplates(true)">
@@ -110,6 +111,23 @@
                     </li>
                 </ul>
             </div>
+        </div>
+        <div class="email-editor-right-col" ng-show="addBlockStyle === false">
+            <div class="bb-email-image-pop-up-header">
+                <a class="bb-button bb-default-action-button" ng-click="showImageUploadPopup()">Upload an Image</a>
+            </div>
+            <div class="imageGallery-inner-popup" style="display: none !important;">
+                <div class="imageUpload-container">
+                    <div class="browse-button">
+                        <input type="file"  hidden="" id="filesToUpload" custom-on-change="uploadFile"/>
+                    </div>
+                </div>                     
+            </div>
+            <ul class="r-col-block-wrap">
+                <li ng-repeat="images in datalists">
+                    <img id="{{images.companyImagesId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{currentCompanyId}}"  width="100%" ng-click="changeTemplateImage(images.companyImagesId)" />
+                </li>
+            </ul>
         </div>
         <div class="r-col-editor-wrap" id="textdivheader" ng-show="textdivheader">
             <div class="textstyle">To add client name please use these options</div>

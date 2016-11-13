@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="bb-panel-empty-state-wrap" ng-hide="marketingHubTab.isSelected(2) && email_history.length > 0 || hideGifImage" >
-            <h2 class="bb-panel-empty-state-text">You have no email history. Try sending your first email!</h2> 
+            <h2 class="bb-panel-empty-state-text">You have no email history. Try sending your first email!</h2>
             <h3 class="bb-panel-empty-state-support-text"> If you have sent an email, please allow some time for it to be processed</h3>
         </div>
         <div class="bb-panel-content-wrap" ng-show="marketingHubTab.isSelected(2) && email_history.length > 0">
@@ -21,23 +21,24 @@
                 <div class="slat-name-wrap">
                     <h2>{{email.subject}}</h2>
                 </div>
-                <div class="slat-detail-wrap">
+                <div class="slat-detail-wrap slat-detail-wrap-email-date">
                     <div class="slat-detail">
                         <h2>{{email.timeSent| date : "MMM d, y h:mm:ss a"}}</h2>
                         <p>Sent Date</p>
                     </div>
+
+                </div>
+                <div class="slat-detail-wrap slat-detail-wrap-email-date">
                     <div class="slat-detail">
                         <h2 ng-show="email.emailListName.length > 0">{{email.emailListName}}</h2>
                         <h2 ng-hide="email.emailListName.length > 0">--</h2>
                         <p>To Email List</p>
                     </div>
                 </div>
-                <div class="slat-detail-wrap">
-                    <div class="slat-detail">
-                    </div>
-                </div>
-            </div>
 
+            </div>
         </div>
+
+
     </div>
 </div>

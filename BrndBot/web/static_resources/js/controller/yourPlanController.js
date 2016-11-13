@@ -35,6 +35,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.isCurrentCompanyInFranchise = false;
         $scope.isCurrentCompanyAFranchiseHeadquarter = false;
         $scope.userColor = "";
+        $scope.userAssignmentPopUp = false;
 //        $scope.userInitials = "";
         var userSortInfo = {userSortName: "", userColor: ""};
 
@@ -60,7 +61,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.clickedDeleteAction = flag;
         };
 
-        $scope.changeUsers = false;
+//        $scope.changeUsers = false;
         $scope.footerData = "";
         $scope.ddSelectUserOptions = [{
                 text: 'Select',
@@ -68,15 +69,17 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             }
         ];
 
-        $scope.openChangeUserDD = function (flag) {
-            $scope.changeUsers = flag;
-        };
+//        $scope.openChangeUserDD = function (flag) {
+//            $scope.changeUsers = flag;
+//        };
 
         $scope.ddSelectUser = {text: "Select"};
 
 
         $scope.chooseUserOnChange = function (actionValue) {
             $scope.ddSelectedUser = actionValue.value;
+            
+            
         };
 
         $scope.ddSelectActionOptions = [
@@ -378,7 +381,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.ChangeUserOnChange = function (changedValue) {
             $scope.ddSelectedUser = changedValue.value;
             $scope.changeAssignedTo($scope.schedule_id);
-            $scope.openChangeUserDD(false);
+//                $scope.openChangeUserDD(false);
+////            $scope.changeUsers = false;
         };
 
         $scope.addActionComment = function (scheduleId, comment) {
@@ -452,7 +456,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.getAllUsersInCompany = function () {
             yourPlanFactory.allUsersInCompanyGet().then(function (data) {
 //                $scope.allUsers = data.d.details;
-                $scope.ddSelectUserOptions.push({"text": "None", "value": 0});
+//                $scope.ddSelectUserOptions.push({"text": "None", "value": 0});
                 for (var i = 0; i < data.d.details.length; i++) {
                     $scope.ddSelectUserOptions.push({"text": data.d.details[i].firstName + " " + data.d.details[i].lastName, "value": data.d.details[i].userId});
                 }
