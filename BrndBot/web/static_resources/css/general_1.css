@@ -6136,6 +6136,77 @@ textarea.task-textarea:focus{
     padding: 20px 0px;
 }
 
+.bb-full-page-overlay{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    z-index: 10000;
+}
+
+.bb-full-page-overlay-header-wrap{
+    display: flex;
+    justify-content: space-between;
+    height: 70px;
+    width: 100%;
+    
+    
+}
+
+.bb-full-page-overlay-title-wrap{
+  
+    
+}
+
+.bb-full-page-overlay-title{
+  font-size: 26px
+    
+}
+.bb-full-page-overlay-card-wrap{
+    margin-top: 45px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+
+.bb-full-page-overlay-card{
+    width: 300px;
+    min-width: 300px;
+    padding: 30px;
+    border: 1.5px solid #B0BCC7;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.bb-full-page-overlay-card:hover{
+    background-color: #F6F6FA;
+    cursor: pointer;
+}
+
+.bb-full-page-overlay-card-label{
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-size: 14px;
+   color:#B1BBC4;
+}
+
+
+
+.bb-full-page-overlay-card-header{
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 500;
+   color:#49505B;
+}
+
+.bb-full-page-overlay-content-wrap{
+    width: 940px;
+    margin: auto;
+    margin-top: 40px;
+}
+
 .powered-by-mb-logo{
     background-image: url(/BrndBot/images/poweredbymindbody.png) ;
     height: 30px;

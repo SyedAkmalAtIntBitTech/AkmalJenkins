@@ -89,4 +89,14 @@ public class StringUtility {
         return object;
     }    
 
+    public static Boolean safeBoolean(String value) {
+        if (isEmpty(value)) {
+            return false;
+        } else if(value.equalsIgnoreCase("true")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

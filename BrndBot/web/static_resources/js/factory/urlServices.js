@@ -743,6 +743,10 @@ factoryApp.service('configurationService', function () {
     this.allRecurringEmailsURL = function () {
         return getHost() + "getAllRecurringEmails";
     };
+    
+    this.purchaseBehaviorJSONURL = function () {
+        return getHost() + "getPurchaseBehaviorJSON";
+    };
 
     //************** settingsFactory ********************/    
 
@@ -1103,6 +1107,24 @@ factoryApp.service('configurationService', function () {
 
     this.requestToAddCompaniesURL = function () {
         return getHost() + "requestToAddCompanies";
+    };
+    
+    //**************** behaviorFactory **********************//    
+
+    this.revenueCategoryGetURL = function () {
+        return getHost() + "behavior/getRevenueCategory";
+    };
+    
+    this.serviceCategoryGetURL = function () {
+        return getHost() + "behavior/getServiceCategory";
+    };
+    
+    this.pricingOptionGetURL = function () {
+        return getHost() + "behavior/getPricingOption";
+    };
+    
+    this.siteLocationsGetURL = function () {
+        return getHost() + "behavior/getSiteLocations";
     };
 });
 

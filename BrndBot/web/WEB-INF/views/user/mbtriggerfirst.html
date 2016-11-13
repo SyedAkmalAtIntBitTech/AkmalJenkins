@@ -1,0 +1,53 @@
+<div class="bb-full-page-overlay" ng-if="isSelectedQueryIdOne() === '1'">
+    <div class="bb-full-page-overlay-header-wrap">
+        <div ng-click="clickedQueryId('0');">Close</div>
+        <div>Help</div>
+    </div>
+    <div class="bb-full-page-overlay-content-wrap">
+        <div ng-click="clickedQueryId('0')">Go back</div>
+        <div class="bb-full-page-overlay-title-wrap">
+            <h2 class="bb-full-page-overlay-title">Choose trigger options</h2>
+        </div>
+        <div>Start Date</div>
+        <input type="text" name="datepicker" id="startdatepicker" readonly class="time-date-select" placeholder="Enter Start Date" />
+
+        <script>
+            var picker = new Pikaday(
+                    {
+                        field: document.getElementById('startdatepicker'),
+                        firstDay: 1,
+                        format: KGlobalDatePickerFormate,
+                        minDate: new Date(2000, 0, 1),
+                        maxDate: new Date(2050, 12, 31),
+                        yearRange: [2000, 2050]
+                    });
+        </script>
+        <div>End Date</div>
+        <input type="text" name="datepicker" id="enddatepicker" readonly class="time-date-select" placeholder="Enter End Date" />
+
+        <script>
+            var picker = new Pikaday(
+                    {
+                        field: document.getElementById('enddatepicker'),
+                        firstDay: 1,
+                        format: KGlobalDatePickerFormate,
+                        minDate: new Date(2000, 0, 1),
+                        maxDate: new Date(2050, 12, 31),
+                        yearRange: [2000, 2050]
+                    });
+        </script>
+        <div>Revenue Type</div>
+        <div dropdown-select="ddRevenueTypeOptions" dropdown-model="ddRevenueType"  dropdown-onchange="chooseRevenueTypeOnChange(selected)"></div>
+        <div>Revenue Categories</div>
+        <div dropdown-select="ddRevenueCategoriesOptions" dropdown-model="ddRevenueCategories"  dropdown-onchange="chooseRevenueCategoriesOnChange(selected)"></div>
+        <div>Schedule Type</div>
+        <div dropdown-select="ddScheduleTypeOptions" dropdown-model="ddScheduleType"  dropdown-onchange="chooseScheduleTypeOnChange(selected)"></div>
+        <div>Service Categories</div>
+        <div dropdown-select="ddServiceCategoriesOptions" dropdown-model="ddServiceCategories"  dropdown-onchange="chooseServiceCategoriesOnChange(selected)"></div>
+        <div>Pricing Options</div>
+        <div dropdown-select="ddPricingOptions" dropdown-model="ddPricingOptionsSelected"  dropdown-onchange="choosePricingOptionsOnChange(selected)"></div>
+        <div ng-init="getAllSiteLocations();">Site Location</div>
+        <div dropdown-select="ddLocationIdOptions" dropdown-model="ddLocationId"  dropdown-onchange="chooseLocationIdOnChange(selected)"></div>
+        <div class="bb-button bb-primary-action-button" ng-click="saveTriggerData(ddRevenueType, ddRevenueCategories, ddScheduleType, ddServiceCategories, ddPricingOptionsSelected, ddLocationId)">Save Trigger</div>
+    </div>
+</div>

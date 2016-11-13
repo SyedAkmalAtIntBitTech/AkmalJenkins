@@ -6,7 +6,14 @@
 package com.intbittech.externalcontent;
 
 import com.controller.MindBodyConstants;
+import com.intbittech.mindbody.MindBodyClass;
+import com.intbittech.mindbody.MindBodyDataMapper;
+import com.intbittech.mindbody.MindBodyDuration;
+import com.intbittech.mindbody.MindBodyProcessedData;
+import com.mindbody.source.RevenueCategoryResponse;
 import com.mindbodyonline.clients.api._0_5.GetActivationCodeResult;
+import com.mindbodyonline.clients.api._0_5.GetLocationsResult;
+import com.mindbodyonline.clients.api._0_5.GetProgramsResult;
 import com.mindbodyonline.clients.api._0_5Class.ArrayOfClass;
 import com.mindbodyonline.clients.api._0_5Class.ArrayOfClassSchedule;
 import com.mindbodyonline.clients.api._0_5Class.ClassDescription;
@@ -14,8 +21,10 @@ import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
 import com.mindbodyonline.clients.api._0_5Class.GetClassesResult;
 import com.mindbodyonline.clients.api._0_5Class.GetEnrollmentsResult;
 import com.mindbodyonline.clients.api._0_5Class.Staff;
+import com.mindbodyonline.clients.api._0_5Sale.GetServicesResult;
 import com.mindbodyonline.clients.api._0_5Staff.ArrayOfStaff;
 import com.mindbodyonline.clients.api._0_5Staff.GetStaffResult;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,10 +34,6 @@ import java.util.List;
 import java.util.Map;
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.XMLGregorianCalendar;
-import com.intbittech.mindbody.MindBodyClass;
-import com.intbittech.mindbody.MindBodyDataMapper;
-import com.intbittech.mindbody.MindBodyDuration;
-import com.intbittech.mindbody.MindBodyProcessedData;
 import org.json.JSONException;
 import org.json.simple.JSONArray;
 
@@ -268,5 +273,25 @@ public class MindbodyExternalContentFactory extends ExternalContentFactory {
     @Override
     public void searchEmailAndUpdateEmailOptIn(List<String> unsubscribeEmailList) {
         mindBodyClass.searchEmailAndUpdateEmailOptIn(unsubscribeEmailList);
+    }
+    
+    public RevenueCategoryResponse getRevenueCategories(String revenueCategory) throws IOException {
+        RevenueCategoryResponse revenueCategoryResponse = mindBodyClass.getRevenueCategories(revenueCategory);
+        return revenueCategoryResponse;
+    }
+
+    public GetProgramsResult getServiceCategories(String scheduleType, Boolean onlineOnly) {
+        GetProgramsResult programsResult = mindBodyClass.getServiceCategories(scheduleType, onlineOnly);
+        return programsResult;
+    }
+
+    public GetServicesResult getPricingOptions(String[] programIds) {
+        GetServicesResult servicesResult = mindBodyClass.getPricingOptions(programIds);
+        return servicesResult;
+    }
+
+    public GetLocationsResult getSiteLocations() {
+        GetLocationsResult locationsResult = mindBodyClass.getSiteLocations();
+        return locationsResult;
     }
 }

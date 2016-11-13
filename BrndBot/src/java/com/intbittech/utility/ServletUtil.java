@@ -155,4 +155,14 @@ public class ServletUtil {
         }
         return htmlString;
     }
+    
+    public static String getJSONString(String fileName,ServletContext context)throws IOException {
+        String jsonString = "";
+        String path = context.getRealPath("")+"/static_resources/json/"+fileName;
+        File jsonFile = new File(path);
+        if (jsonFile.exists()){
+            jsonString = FileUtils.readFileToString(jsonFile, "UTF-8");
+        }
+        return jsonString;
+    }
 }

@@ -1,4 +1,5 @@
-
+<div ng-include src="'emailtriggerpopup.html'"></div>
+<div ng-include src="'mbtriggerfirst.html'"></div>
 <div class="bb-panel-full-width bb-panel-styling" ng-init="getEntityDetails()">
     <div class="bb-panel-header">
         <h2 class="">Email Automation Set Up</h2>
@@ -28,19 +29,37 @@
                 </div>
             </div>
         </div>
-<!--        <div class="hub-section" ng-init="getAllUsersInCompany()">
+        <div class="hub-section">
             <div class="section-header">
-                <h3>Assignment details</h3>
+                <h3>Start Trigger</h3>
             </div>
             <div class="input-wrap">
-                <label>Assigned To:</label>
-                <div class="invalidDropdown bb-dropdown-padding" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="ChangeUserOnChange(selected)"></div>
-                <select id="assignTo" ng-show="moreThanOneUser">
-                    <option value="no assignee" selected>no assignee</option>
-                    <option ng-repeat="users in allUsers" value="{{users.userId}}">{{users.userName}}</option>
-                </select>
+                <input type="button" value="Start Trigger" ng-click="getAllPurchaseBehaviorJSON('start');emailTrigger(true);">
             </div>
-        </div>        -->
+            {{startTrigger}}
+        </div>
+        <div class="hub-section">
+            <div class="section-header">
+                <h3>Stop Trigger</h3>
+            </div>
+            <div class="input-wrap" ng-hide="stopTrigger">
+                <input type="button" value="Stop Trigger" ng-click="getAllPurchaseBehaviorJSON('stop');emailTrigger(true);">
+            </div>
+            {{stopTrigger}}
+        </div>
+        <!--        <div class="hub-section" ng-init="getAllUsersInCompany()">
+                    <div class="section-header">
+                        <h3>Assignment details</h3>
+                    </div>
+                    <div class="input-wrap">
+                        <label>Assigned To:</label>
+                        <div class="invalidDropdown bb-dropdown-padding" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="ChangeUserOnChange(selected)"></div>
+                        <select id="assignTo" ng-show="moreThanOneUser">
+                            <option value="no assignee" selected>no assignee</option>
+                            <option ng-repeat="users in allUsers" value="{{users.userId}}">{{users.userName}}</option>
+                        </select>
+                    </div>
+                </div>        -->
         <div class="hub-section">
             <div class="section-header">
                 <h3>Trigger Details</h3>
