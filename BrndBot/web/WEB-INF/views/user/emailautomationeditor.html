@@ -54,12 +54,12 @@
                     </div>
                 </div>
             </div>
-             <div class="email-bottom-padding">Your Footer Will Be Added On Previewing and Sending</div>
+            <div class="email-bottom-padding">Your Footer Will Be Added On Previewing and Sending</div>
             <div class="emailEditor-leftCol float-lt" style="">
                 <div class="in-editor-footer-wrap" style="position: fixed; bottom: 6%;width: 75%;">
                     <h3>Email Footer</h3>
                     <p>Your email footer is the same on every email. You  
-                       see the footer in this email by previewing your email. To edit
+                        see the footer in this email by previewing your email. To edit
                         the footer click email footer settings.</p>
                     <span class="reg-button gray-button" ng-click="editFooter()">Edit Email Footer</span>
                 </div>
@@ -67,7 +67,7 @@
 
         </div>
         <!--......tinymce end..............-->
-        <div class="email-editor-right-col">
+        <div class="email-editor-right-col" ng-show="addBlockStyle === true">
             <div class="email-editor-tab-wrap">
                 <div class="editor-col-tab">
                     <div class="{{recurringtab}}" id="recurringtab"  ng-click="getEmailTemplates(true)">
@@ -111,6 +111,23 @@
                 </ul>
             </div>
         </div>
+        <div class="email-editor-right-col" ng-show="addBlockStyle === false">
+            <div class="bb-email-image-pop-up-header">
+                <a class="bb-button bb-default-action-button" ng-click="showImageUploadPopup()">Upload an Image</a>
+            </div>
+            <div class="imageGallery-inner-popup" style="display: none !important;">
+                <div class="imageUpload-container">
+                    <div class="browse-button">
+                        <input type="file"  hidden="" id="filesToUpload" custom-on-change="uploadFile"/>
+                    </div>
+                </div>                     
+            </div>
+            <ul class="r-col-block-wrap">
+                <li ng-repeat="images in datalists">
+                    <img id="{{images.companyImagesId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{currentCompanyId}}"  width="100%" ng-click="changeTemplateImage(images.companyImagesId)" />
+                </li>
+            </ul>
+        </div>
         <div class="r-col-editor-wrap" id="textdivheader" ng-show="textdivheader">
             <div class="textstyle">To add client name please use these options</div>
             <div class="textstyle">Ex: Hi &LT;clientFirstName&GT; </div>
@@ -124,5 +141,5 @@
 <span ng-init="getFooterDetails()">
     <div ng-include src="'emailfooterpopup.html'"></div> 
 </span>
-
+<div ng-include src="'addlinkpopup.html'"></div>
 <script src="../js/utilities/drag-delete-template.js" type="text/javascript"></script>

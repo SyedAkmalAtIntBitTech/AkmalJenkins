@@ -728,8 +728,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     tools: 'all',
                     appendTo: '',
                     onSave: function(imageID, newURL) {
-                        var userId = JSON.parse(localStorage.getItem("companyDetails")).userId;
-                        var companyId = JSON.parse(localStorage.getItem("companyDetails")).companyId;
                         var img = document.getElementById(imageID);
                         var data = {folderName:"aviary",
                                  imageUrl:newURL
