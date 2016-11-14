@@ -2,27 +2,28 @@
  "queries": [
    {
      "queryId": "1",
-     "queryname": "Purchase Behaviour",
-     "querydescription": "Purchase Behaviour Description",
+     "queryname": "Based on Purchase",
+     "querydescription": "Clients who have made a specific purchase in MINDBODY",
      "querysource": "MindBody"
    },
    {
      "queryId": "2",
-     "queryname": "Last Visited Date",
-     "querydescription": "Last Visited Date Description",
+     "queryname": "We Miss You Emails",
+     "querydescription": "Clients who have not been to the studio in a given amount of time",
      "querysource": "MindBody"
    },
    {
      "queryId": "3",
-     "queryname": "Purchase and Attendance",
-     "querydescription": "People who purchased something",
+     "queryname": "Based on Purchase and Attendance",
+     "querydescription": "Clients who have made a specific purchase in MINDBODY and also have attended the studio since",
      "querysource": "MindBody"
    },
    {
      "queryId": "4",
-     "queryname": "Added to an email list",
-     "querydescription": "People to added to the list",
+     "queryname": "Added to Email List or Client Index",
+     "querydescription": "Clients who have been added to a BrandBot email list or a MINDBODY index",
      "querysource": "MindBody"
    }
+  
  ]
 }

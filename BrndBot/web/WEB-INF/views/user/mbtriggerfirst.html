@@ -1,14 +1,18 @@
 <div class="bb-full-page-overlay" ng-if="isSelectedQueryIdOne() === '1'">
     <div class="bb-full-page-overlay-header-wrap">
-        <div ng-click="clickedQueryId('0');">Close</div>
-        <div>Help</div>
+        <div class="bb-full-page-overlay-exit-button" ng-click="emailTrigger(false);"></div>
+<!--        <div>Help</div>-->
     </div>
     <div class="bb-full-page-overlay-content-wrap">
-        <div ng-click="clickedQueryId('0')">Go back</div>
+        <div class="bb-full-page-offset"></div>
+         <a  ng-click="clickedQueryId('0')">
+            <div class="bb-back-text">Go back</div>
+         </a>
+
         <div class="bb-full-page-overlay-title-wrap">
-            <h2 class="bb-full-page-overlay-title">Choose trigger options</h2>
+            <h2 class="bb-full-page-overlay-title">Choose trigger what the client has purchased</h2>
         </div>
-        <div>Start Date</div>
+        <!--<div>Start Date</div>
         <input type="text" name="datepicker" id="startdatepicker" readonly class="time-date-select" placeholder="Enter Start Date" />
 
         <script>
@@ -35,19 +39,39 @@
                         maxDate: new Date(2050, 12, 31),
                         yearRange: [2000, 2050]
                     });
-        </script>
-        <div>Revenue Type</div>
-        <div dropdown-select="ddRevenueTypeOptions" dropdown-model="ddRevenueType"  dropdown-onchange="chooseRevenueTypeOnChange(selected)"></div>
-        <div>Revenue Categories</div>
-        <div dropdown-select="ddRevenueCategoriesOptions" dropdown-model="ddRevenueCategories"  dropdown-onchange="chooseRevenueCategoriesOnChange(selected)"></div>
-        <div>Schedule Type</div>
-        <div dropdown-select="ddScheduleTypeOptions" dropdown-model="ddScheduleType"  dropdown-onchange="chooseScheduleTypeOnChange(selected)"></div>
-        <div>Service Categories</div>
-        <div dropdown-select="ddServiceCategoriesOptions" dropdown-model="ddServiceCategories"  dropdown-onchange="chooseServiceCategoriesOnChange(selected)"></div>
-        <div>Pricing Options</div>
-        <div dropdown-select="ddPricingOptions" dropdown-model="ddPricingOptionsSelected"  dropdown-onchange="choosePricingOptionsOnChange(selected)"></div>
-        <div ng-init="getAllSiteLocations();">Site Location</div>
-        <div dropdown-select="ddLocationIdOptions" dropdown-model="ddLocationId"  dropdown-onchange="chooseLocationIdOnChange(selected)"></div>
-        <div class="bb-button bb-primary-action-button" ng-click="saveTriggerData(ddRevenueType, ddRevenueCategories, ddScheduleType, ddServiceCategories, ddPricingOptionsSelected, ddLocationId)">Save Trigger</div>
+        </script> -->
+        <div class="bb-email-auto-recipe-input-wrap">
+           <div class="input-wrap">
+             <label>Revenue Type<i class="bb-label-optional-text">Optional</i></label>
+             <div dropdown-select="ddRevenueTypeOptions" dropdown-model="ddRevenueType"  dropdown-onchange="chooseRevenueTypeOnChange(selected)"></div>
+         </div>
+         <div class="input-wrap">
+             <label>Revenue Categories<i class="bb-label-optional-text">Optional</i></label>
+             <div dropdown-select="ddRevenueCategoriesOptions" dropdown-model="ddRevenueCategories"  dropdown-onchange="chooseRevenueCategoriesOnChange(selected)"></div>
+         </div>
+         <div class="input-wrap">
+             <label>Schedule Type<i class="bb-label-optional-text">Optional</i></label>
+              <div dropdown-select="ddScheduleTypeOptions" dropdown-model="ddScheduleType"  dropdown-onchange="chooseScheduleTypeOnChange(selected)"></div>
+         </div>
+         
+         <div class="input-wrap">
+             <label>Service Categories<i class="bb-label-optional-text">Optional</i></label>
+             <div dropdown-select="ddServiceCategoriesOptions" dropdown-model="ddServiceCategories"  dropdown-onchange="chooseServiceCategoriesOnChange(selected)"></div>
+         </div>
+         <div class="input-wrap">
+             <label>Pricing Options<i class="bb-label-optional-text">Optional</i></label>
+             <div dropdown-select="ddPricingOptions" dropdown-model="ddPricingOptionsSelected"  dropdown-onchange="choosePricingOptionsOnChange(selected)"></div>
+         </div>
+         
+         <div class="input-wrap">
+             <label ng-init="getAllSiteLocations();">Site Location<i class="bb-label-optional-text">Optional</i></label>
+             <div dropdown-select="ddLocationIdOptions" dropdown-model="ddLocationId"  dropdown-onchange="chooseLocationIdOnChange(selected)"></div>
+         </div>
+         </div>
+         <div class="update-container">
+             <div class="bb-button bb-primary-action-button" ng-click="saveTriggerData(ddRevenueType, ddRevenueCategories, ddScheduleType, ddServiceCategories, ddPricingOptionsSelected, ddLocationId)">Save Trigger</div>
+         </div>  
+        
+    
     </div>
 </div>

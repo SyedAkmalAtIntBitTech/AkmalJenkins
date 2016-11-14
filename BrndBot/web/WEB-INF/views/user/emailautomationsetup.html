@@ -2,13 +2,11 @@
 <div ng-include src="'mbtriggerfirst.html'"></div>
 <div class="bb-panel-full-width bb-panel-styling" ng-init="getEntityDetails()">
     <div class="bb-panel-header">
-        <h2 class="">Email Automation Set Up</h2>
+        <h2 class="">Set up this recurring email automation action</h2>
     </div>
     <div class="bb-panel-content-wrap">
         <div class="hub-section">
-            <div class="section-header">
-                <h3>General Details</h3>
-            </div>
+            
             <div class="input-wrap">
                 <label> Enter a name for this automated email: </label>
                 <div class="input">
@@ -29,7 +27,32 @@
                 </div>
             </div>
         </div>
-        <div class="hub-section">
+        </div>
+        </div>
+        <div class="bb-panel-full-width bb-panel-styling" >
+            <div class="bb-panel-header">
+                <h2 class="">Select which clients you want to get this email</h2>
+            </div>
+            <div class="bb-panel-content-wrap">
+                <div class="bb-small-hub-section">
+                    <div class="bb-automation-recipe-sentence-wrap">
+                        <h3>Wait</h3>
+                        <div class="day-drop-down-email-auto">
+                            <div dropdown-select="ddSelectDateAutomationDataOptions" dropdown-model="ddSelectDateAutomationData" dropdown-onchange="setDays(selected)"></div>
+                        </div>
+                        <span class="validationAlert" ng-if="emailAutomationDayValidation">{{automationDayValidation}}</span>
+                        <div class="">
+                            day(s) and
+                        </div>
+                    </div>
+                    <div class="bb-automation-recipe-wrap">
+                        <div class="bb-automation-recipe-title">Send this email to a client who has...</div>
+                        <div class="bb-automation-button-wrap">
+                            <div class="bb-button bb-default-action-button" ng-click="getAllPurchaseBehaviorJSON('start');emailTrigger(true);">Add a start recipe</div>
+                        </div>
+                        {{startTrigger}}
+
+<!--        <div class="hub-section">
             <div class="section-header">
                 <h3>Start Trigger</h3>
             </div>
@@ -50,11 +73,24 @@
         </div>
         <div class="hub-section">
             <div class="section-header">
-                <h3>Stop Trigger</h3>
+                <h3>Stop Trigger</h3>-->
+                
             </div>
-            <div class="input-wrap" ng-hide="stopTrigger">
-                <input type="button" value="Stop Trigger" ng-click="getAllPurchaseBehaviorJSON('stop');emailTrigger(true);">
             </div>
+         <div class="bb-small-hub-section-divider"><i class="bb-divider-optional-text">Optional</i></div>
+         <div class="bb-small-hub-section">
+             <div class="bb-automation-recipe-title">Do not send this email if the same client...</div>
+             <div class="bb-automation-button-wrap" ng-hide="stopTrigger">
+                 <div class="bb-button bb-default-action-button"  ng-click="getAllPurchaseBehaviorJSON('stop');emailTrigger(true);">Add a stop recipe</div>
+             </div>
+             {{stopTrigger}}
+         </div>
+             </div>
+            </div>
+            <div class="bb-panel-full-width bb-panel-styling">
+                <div class="bb-panel-header">
+                    <h2 class="">Email Details</h2>
+                </div>
             <div class="input-wrap">
                 {{selectedStopQuery.name}}<br />
                 <div class="input" ng-repeat="stopQuery in stopTrigger.stopTrigger">
@@ -66,7 +102,6 @@
                     <div ng-if="stopQuery.querydisplayvalues.LocationId">Location Id: {{stopQuery.querydisplayvalues.LocationId}}</div>
                 </div>
             </div>
-        </div>
         <!--        <div class="hub-section" ng-init="getAllUsersInCompany()">
                     <div class="section-header">
                         <h3>Assignment details</h3>
@@ -80,11 +115,11 @@
                         </select>
                     </div>
                 </div>        -->
-        <div class="hub-section">
+        <!--
             <div class="section-header">
                 <h3>Trigger Details</h3>
-            </div>
-            <div class="email-automation-trigger-sentence-wrap">
+            </div> -->
+<!--            <div class="email-automation-trigger-sentence-wrap">
                 <div class="">
                     Send an email to a recipient
                 </div>
@@ -92,11 +127,14 @@
                     <div dropdown-select="ddSelectDateAutomationDataOptions" dropdown-model="ddSelectDateAutomationData" dropdown-onchange="setDays(selected)"></div>
                 </div>
                 <span class="validationAlert" ng-if="emailAutomationDayValidation">{{automationDayValidation}}</span>
-
+-->
+                
+                <div class="bb-panel-content-wrap">
+         <div class="hub-section">
+             <div class="section-header">
+                 <h3>Set this email's sending details</h3>
                 <div class="">
-                    <div class="">
                         days after they are added to
-                    </div>
                 </div>
                 <div class="email-automation-trigger-list-drop" ng-click="emailListDropdown()">
                     <div dropdown-select="ddSelectEmailListAutomationDataOptions" dropdown-model="ddSelectEmailListAutomationData" dropdown-onchange="emailListOnChange(selected)"></div>
@@ -129,12 +167,7 @@
                 <span class="validationAlert" ng-if="automationTime">{{scheduleTimeValidation}}</span>
 
             </div>
-        </div>
-        <div class="hub-section">
-            <div class="section-header">
-                <h3>Email Details</h3>
-            </div>
-            <div class="input-wrap">
+             
                 <label> Enter a subject line: </label>
                 <div class="input">
                     <input id="recuring_email_subject"  type="text" required placeholder="Enter subject" ng-model="automationData.subject" value="{{entity_details.recurring_email_subject}}" ng-class="{'invalid-input': automationData.subject === '' || null}" class="fluid"/>
@@ -177,4 +210,3 @@
             </div>
         </div>
     </div>
-</div>
