@@ -34,31 +34,51 @@
     </div>
     <div class="bb-panel-content-wrap">
         <div class="bb-small-hub-section">
-             <div class="bb-automation-recipe-sentence-wrap">
-                    <h3>Wait</h3>
-                    <div class="day-drop-down-email-auto">
-                        <div dropdown-select="ddSelectDateAutomationDataOptions" dropdown-model="ddSelectDateAutomationData" dropdown-onchange="setDays(selected)"></div>
-                    </div>
-                    <span class="validationAlert" ng-if="emailAutomationDayValidation">{{automationDayValidation}}</span>
-                    <div class="">
-                        day(s) and
-                    </div>
+            <div class="bb-automation-recipe-sentence-wrap">
+                <h3>Wait</h3>
+                <div class="day-drop-down-email-auto">
+                    <div dropdown-select="ddSelectDateAutomationDataOptions" dropdown-model="ddSelectDateAutomationData" dropdown-onchange="setDays(selected)"></div>
                 </div>
+                <span class="validationAlert" ng-if="emailAutomationDayValidation">{{automationDayValidation}}</span>
+                <div class="">
+                    day(s) and
+                </div>
+            </div>
             <div class="bb-automation-recipe-wrap">
                 <div class="bb-automation-recipe-title">Send this email to a client who has...</div>
                 <div class="bb-automation-button-wrap">
                     <div class="bb-button bb-default-action-button" ng-click="getAllPurchaseBehaviorJSON('start');emailTrigger(true);">Add a start recipe</div>
                 </div>
-                {{startTrigger}}
+                <div class="input-wrap">
+                    {{selectedStartQuery.name}}<br />
+                    <div class="input" ng-repeat="startQuery in startTrigger.startTrigger">
+                        <div ng-if="startQuery.querydisplayvalues.StartDate">Start Date: {{startQuery.querydisplayvalues.StartDate}}</div>
+                        <div ng-if="startQuery.querydisplayvalues.EndDate">End Date: {{startQuery.querydisplayvalues.EndDate}}</div>
+                        <div ng-if="startQuery.querydisplayvalues.RevenueCategory">Revenue Category: {{startQuery.querydisplayvalues.RevenueCategory}}</div>
+                        <div ng-if="startQuery.querydisplayvalues.ServiceCategory">Service Category: {{startQuery.querydisplayvalues.ServiceCategory}}</div>
+                        <div ng-if="startQuery.querydisplayvalues.PricingOption">Pricing Option: {{startQuery.querydisplayvalues.PricingOption}}</div>
+                        <div ng-if="startQuery.querydisplayvalues.LocationId">Location Id: {{startQuery.querydisplayvalues.LocationId}}</div>
+                    </div>
+                </div>
             </div>
-          </div>
+        </div>
         <div class="bb-small-hub-section-divider"><i class="bb-divider-optional-text">Optional</i></div>
         <div class="bb-small-hub-section">
             <div class="bb-automation-recipe-title">Do not send this email if the same client...</div>
             <div class="bb-automation-button-wrap" ng-hide="stopTrigger">
                 <div class="bb-button bb-default-action-button"  ng-click="getAllPurchaseBehaviorJSON('stop');emailTrigger(true);">Add a stop recipe</div>
             </div>
-            {{stopTrigger}}
+            <div class="input-wrap">
+                {{selectedStopQuery.name}}<br />
+                <div class="input" ng-repeat="stopQuery in stopTrigger.stopTrigger">
+                    <div ng-if="stopQuery.querydisplayvalues.StartDate">Start Date: {{stopQuery.querydisplayvalues.StartDate}}</div>
+                    <div ng-if="stopQuery.querydisplayvalues.EndDate">End Date: {{stopQuery.querydisplayvalues.EndDate}}</div>
+                    <div ng-if="stopQuery.querydisplayvalues.RevenueCategory">Revenue Category: {{stopQuery.querydisplayvalues.RevenueCategory}}</div>
+                    <div ng-if="stopQuery.querydisplayvalues.ServiceCategory">Service Category: {{stopQuery.querydisplayvalues.ServiceCategory}}</div>
+                    <div ng-if="stopQuery.querydisplayvalues.PricingOption">Pricing Option: {{stopQuery.querydisplayvalues.PricingOption}}</div>
+                    <div ng-if="stopQuery.querydisplayvalues.LocationId">Location Id: {{stopQuery.querydisplayvalues.LocationId}}</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -66,65 +86,65 @@
     <div class="bb-panel-header">
         <h2 class="">Email Details</h2>
     </div>
-        <!--        <div class="hub-section" ng-init="getAllUsersInCompany()">
-                    <div class="section-header">
-                        <h3>Assignment details</h3>
-                    </div>
-                    <div class="input-wrap">
-                        <label>Assigned To:</label>
-                        <div class="invalidDropdown bb-dropdown-padding" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="ChangeUserOnChange(selected)"></div>
-                        <select id="assignTo" ng-show="moreThanOneUser">
-                            <option value="no assignee" selected>no assignee</option>
-                            <option ng-repeat="users in allUsers" value="{{users.userId}}">{{users.userName}}</option>
-                        </select>
-                    </div>
-                </div>        -->
-      
-<!--            <div class="section-header">
-                <h3>Trigger Details</h3>
-            </div>-->
-<!--            <div class="email-automation-trigger-sentence-wrap">
-                <div class="">
-                    Send an email to a recipient
+    <!--        <div class="hub-section" ng-init="getAllUsersInCompany()">
+                <div class="section-header">
+                    <h3>Assignment details</h3>
                 </div>
-                
-                <div class="email-automation-trigger-list-drop" ng-click="emailListDropdown()">
-                    <div dropdown-select="ddSelectEmailListAutomationDataOptions" dropdown-model="ddSelectEmailListAutomationData" dropdown-onchange="emailListOnChange(selected)"></div>
+                <div class="input-wrap">
+                    <label>Assigned To:</label>
+                    <div class="invalidDropdown bb-dropdown-padding" dropdown-select="ddSelectUserOptions" dropdown-model="ddSelectUser" dropdown-onchange="ChangeUserOnChange(selected)"></div>
+                    <select id="assignTo" ng-show="moreThanOneUser">
+                        <option value="no assignee" selected>no assignee</option>
+                        <option ng-repeat="users in allUsers" value="{{users.userId}}">{{users.userName}}</option>
+                    </select>
                 </div>
-                <span class="validationAlert" ng-if="emailAutomationListValidation">{{automatedEmailListValidation}}</span>
+            </div>        -->
 
-            </div>-->
-        <div class="bb-panel-content-wrap">
+    <!--            <div class="section-header">
+                    <h3>Trigger Details</h3>
+                </div>-->
+    <!--            <div class="email-automation-trigger-sentence-wrap">
+                    <div class="">
+                        Send an email to a recipient
+                    </div>
+                    
+                    <div class="email-automation-trigger-list-drop" ng-click="emailListDropdown()">
+                        <div dropdown-select="ddSelectEmailListAutomationDataOptions" dropdown-model="ddSelectEmailListAutomationData" dropdown-onchange="emailListOnChange(selected)"></div>
+                    </div>
+                    <span class="validationAlert" ng-if="emailAutomationListValidation">{{automatedEmailListValidation}}</span>
+    
+                </div>-->
+    <div class="bb-panel-content-wrap">
         <div class="hub-section">
             <div class="section-header">
                 <h3>Set this email's sending details</h3>
             </div>
             <div class="input-wrap">
-                 <div class="input-wrap">
-                <label> Enter a Time of Day to Send this Email</label>
-                <a class="clickable-input fluid">
-                    <div class="date-time-select-icon">
-                        <object type="image/svg+xml" data="/BrndBot/images/time-gray.svg" style="cursor:pointer;"> </object>
-                    </div>
-                    <input id="timepicker1" readonly type="text" name="timepicker1" ng-model="automationData.time" class="time-date-select"  ng-class="{'invalid-input': automationData.time === '' || null}"
-                           value="{{entity_details.recurring_email_time| date: 'hh:mm a'}}" /> 
+                <div class="input-wrap">
+                    <label> Enter a Time of Day to Send this Email</label>
+                    <a class="clickable-input fluid">
+                        <div class="date-time-select-icon">
+                            <object type="image/svg+xml" data="/BrndBot/images/time-gray.svg" style="cursor:pointer;"> </object>
+                        </div>
+                        <input id="timepicker1" readonly type="text" name="timepicker1" ng-model="automationData.time" class="time-date-select"  ng-class="{'invalid-input': automationData.time === '' || null}"
+                               value="{{entity_details.recurring_email_time| date: 'hh:mm a'}}" /> 
 
-                    <script src="../js/utilities/timepicki.js" type="text/javascript"></script>
-                    <script>
-                               $('#timepicker1').timepicki({
-                                   show_meridian: true,
-                                   min_hour_value: 0,
-                                   max_hour_value: 12,
-                                   step_size_minutes: 01,
-                                   overflow_minutes: true,
-                                   increase_direction: 'up',
-                                   disable_keyboard_mobile: true
-                               });
-                    </script>
-                </a>
-                <span class="validationAlert" ng-if="automationTime">{{scheduleTimeValidation}}</span>
+                        <script src="../js/utilities/timepicki.js" type="text/javascript"></script>
+                        <script>
+                                   $('#timepicker1').timepicki({
+                                       show_meridian: true,
+                                       min_hour_value: 0,
+                                       max_hour_value: 12,
+                                       step_size_minutes: 01,
+                                       overflow_minutes: true,
+                                       increase_direction: 'up',
+                                       disable_keyboard_mobile: true
+                                   });
+                        </script>
+                    </a>
+                    <span class="validationAlert" ng-if="automationTime">{{scheduleTimeValidation}}</span>
 
-            </div>
+                </div>
                 <label> Enter a subject line: </label>
                 <div class="input">
                     <input id="recuring_email_subject"  type="text" required placeholder="Enter subject" ng-model="automationData.subject" value="{{entity_details.recurring_email_subject}}" ng-class="{'invalid-input': automationData.subject === '' || null}" class="fluid"/>
@@ -166,6 +186,6 @@
                 </div>
             </div>
         </div>
-        </div>
+    </div>
 </div>
-  
+
