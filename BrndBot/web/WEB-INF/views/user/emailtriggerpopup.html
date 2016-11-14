@@ -1,11 +1,12 @@
 <div class="bb-full-page-overlay" ng-if="isEmailTrigger">
     <div class="bb-full-page-overlay-header-wrap">
-        <div ng-click="emailTrigger(false);">Close</div>
-        <div>Help</div>
+        <div class="bb-full-page-overlay-exit-button" ng-click="emailTrigger(false);"></div>
+        <!--<div>Help</div>-->
     </div>
+    <div class="bb-full-page-offset"></div>
     <div class="bb-full-page-overlay-content-wrap">
         <div class="bb-full-page-overlay-title-wrap">
-            <h2 class="bb-full-page-overlay-title">Please Select a Trigger Option:{{selectedQueryId}}</h2>
+            <h2 class="bb-full-page-overlay-title">Add an automation recipe{{selectedQueryId}}</h2>
         </div>
         <div class="bb-full-page-overlay-card-wrap">
             <a class="bb-full-page-overlay-card" ng-repeat="query in behaviorJSON.queries" ng-click="clickedQueryId(query.queryId)">
