@@ -36,11 +36,31 @@
             <div class="input-wrap">
                 <input type="button" value="Start Trigger" ng-click="getAllPurchaseBehaviorJSON('start');emailTrigger(true);">
             </div>
-            {{startTrigger}}
+            <div class="input-wrap">
+                {{selectedStartQuery.name}}<br />
+                <div class="input" ng-repeat="startQuery in startTrigger.startTrigger">
+                    <div ng-if="startQuery.querydisplayvalues.StartDate">Start Date: {{startQuery.querydisplayvalues.StartDate}}</div>
+                    <div ng-if="startQuery.querydisplayvalues.EndDate">End Date: {{startQuery.querydisplayvalues.EndDate}}</div>
+                    <div ng-if="startQuery.querydisplayvalues.RevenueCategory">Revenue Category: {{startQuery.querydisplayvalues.RevenueCategory}}</div>
+                    <div ng-if="startQuery.querydisplayvalues.ServiceCategory">Service Category: {{startQuery.querydisplayvalues.ServiceCategory}}</div>
+                    <div ng-if="startQuery.querydisplayvalues.PricingOption">Pricing Option: {{startQuery.querydisplayvalues.PricingOption}}</div>
+                    <div ng-if="startQuery.querydisplayvalues.LocationId">Location Id: {{startQuery.querydisplayvalues.LocationId}}</div>
+                </div>
+            </div>
         </div>
         <div class="hub-section">
             <div class="section-header">
-                <h3>Stop Trigger</h3>
+                <div class="input-wrap">
+                    {{selectedStopQuery.name}}<br />
+                    <div class="input" ng-repeat="stopQuery in stopTrigger.stopTrigger">
+                        <div ng-if="stopQuery.querydisplayvalues.StartDate">Start Date: {{stopQuery.querydisplayvalues.StartDate}}</div>
+                        <div ng-if="stopQuery.querydisplayvalues.EndDate">End Date: {{stopQuery.querydisplayvalues.EndDate}}</div>
+                        <div ng-if="stopQuery.querydisplayvalues.RevenueCategory">Revenue Category: {{stopQuery.querydisplayvalues.RevenueCategory}}</div>
+                        <div ng-if="stopQuery.querydisplayvalues.ServiceCategory">Service Category: {{stopQuery.querydisplayvalues.ServiceCategory}}</div>
+                        <div ng-if="stopQuery.querydisplayvalues.PricingOption">Pricing Option: {{stopQuery.querydisplayvalues.PricingOption}}</div>
+                        <div ng-if="stopQuery.querydisplayvalues.LocationId">Location Id: {{stopQuery.querydisplayvalues.LocationId}}</div>
+                    </div>
+                </div>
             </div>
             <div class="input-wrap" ng-hide="stopTrigger">
                 <input type="button" value="Stop Trigger" ng-click="getAllPurchaseBehaviorJSON('stop');emailTrigger(true);">

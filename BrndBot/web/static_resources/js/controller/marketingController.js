@@ -2309,8 +2309,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.ddServiceCategories = {};
         $scope.ddPricingOptionsSelected = {}
         $scope.ddLocationId = {};
-        $scope.clickedQueryId = function (queryId) {
-            $scope.selectedQueryId = queryId;
+        $scope.clickedQueryId = function (query) {
+            $scope.selectedQueryId = query.queryId;
+            if(query !== "0") {
+                if($scope.triggerType === 'start')
+                    $scope.selectedStartQuery = { "id": query.queryId, "name" :query.queryname };
+                else
+                    $scope.selectedStopQuery = { "id": query.queryId, "name" :query.queryname };
+            }
         };
         $scope.saveTriggerData = function (revenueType, revenueCategories, scheduleType, serviceCategories, pricingOptionsSelected, locationId) {
             var startDate = $("#startdatepicker").val();
@@ -2325,16 +2331,16 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 "EndDate": endDate,
                                 "RevenueCategory": revenueCategories.value,
                                 "ServiceCategory": serviceCategories.value,
-                                "pricingOption": pricingOptionsSelected.value,
-                                "locationId": locationId.value
+                                "PricingOption": pricingOptionsSelected.value,
+                                "LocationId": locationId.value
                             },
                             "querydisplayvalues": {
                                 "StartDate": startDate,
                                 "EndDate": endDate,
                                 "RevenueCategory": revenueCategories.text,
                                 "ServiceCategory": serviceCategories.text,
-                                "pricingOption": pricingOptionsSelected.text,
-                                "locationId": locationId.text
+                                "PricingOption": pricingOptionsSelected.text,
+                                "LocationId": locationId.text
                             }
                         },
                         {
@@ -2358,16 +2364,16 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 "EndDate": endDate,
                                 "RevenueCategory": revenueCategories.value,
                                 "ServiceCategory": serviceCategories.value,
-                                "pricingOption": pricingOptionsSelected.value,
-                                "locationId": locationId.value
+                                "PricingOption": pricingOptionsSelected.value,
+                                "LocationId": locationId.value
                             },
                             "querydisplayvalues": {
                                 "StartDate": startDate,
                                 "EndDate": endDate,
                                 "RevenueCategory": revenueCategories.text,
                                 "ServiceCategory": serviceCategories.text,
-                                "pricingOption": pricingOptionsSelected.text,
-                                "locationId": locationId.text
+                                "PricingOption": pricingOptionsSelected.text,
+                                "LocationId": locationId.text
                             }
                         },
                         {

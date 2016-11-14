@@ -1,16 +1,28 @@
 {
-  "queries": [
-    {
-      "queryId": "1",
-      "queryname": "Purchase Behaviour",
-      "querydescription": "Purchase Behaviour Description",
-      "querysource": "MindBody"
-    },
-    {
-      "queryId": "2",
-      "queryname": "Last Visited Date",
-      "querydescription": "Last Visited Date Description",
-      "querysource": "MindBody"
-    }
-  ]
+ "queries": [
+   {
+     "queryId": "1",
+     "queryname": "Purchase Behaviour",
+     "querydescription": "Purchase Behaviour Description",
+     "querysource": "MindBody"
+   },
+   {
+     "queryId": "2",
+     "queryname": "Last Visited Date",
+     "querydescription": "Last Visited Date Description",
+     "querysource": "MindBody"
+   },
+   {
+     "queryId": "3",
+     "queryname": "Purchase and Attendance",
+     "querydescription": "People who purchased something",
+     "querysource": "MindBody"
+   },
+   {
+     "queryId": "4",
+     "queryname": "Added to an email list",
+     "querydescription": "People to added to the list",
+     "querysource": "MindBody"
+   }
+ ]
 }
