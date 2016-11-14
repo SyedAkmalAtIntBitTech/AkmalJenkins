@@ -2032,6 +2032,15 @@ p.modal-content-header{
     background-position: center;
 }
 
+.bb-back-arrow-icon{
+    width: 20px;
+    height: 15px;
+    margin-right: 10px;
+    background-image: url(/BrndBot/images/back-arrow-modal.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 .modal-pane-back-step span{
     margin-top: 1px;
     font-size: 12px;
@@ -2381,6 +2390,8 @@ p.modal-content-header{
     padding-top: 20px; 
     display: inline-flex;
 }
+
+
 .update-container-change-palette{
     margin-top: 20px; 
 }
@@ -3029,6 +3040,7 @@ p.modal-content-header{
     font-size: 18px;
     color:#333;
     margin-bottom: 5px;
+    margin-top:4px;
 
 
 }
@@ -3060,6 +3072,7 @@ p.modal-content-header{
     outline: none;
     font-weight: 500;
     color: #3F3F42;
+    min-height: 32px;
 }
 
 .wrap-dd-select.disabled {
@@ -4703,8 +4716,7 @@ textarea.task-textarea:focus{
 }
 
 .edit-email-auto-button{
-    margin-right: 30px;
-    padding-left: 25px;
+
     position: relative;
 }
 
@@ -4723,7 +4735,7 @@ textarea.task-textarea:focus{
     background-color: #1EADFC;
     position: absolute;
     top: 12px;
-    left: 8px;
+    left: -5px;
 
 }
 
@@ -5144,6 +5156,13 @@ textarea.task-textarea:focus{
     letter-spacing: .3px;
 }
 
+.bb-divider-optional-text{
+    
+    font-size: 15px;
+    color: #AAA;
+    letter-spacing: .3px;
+}
+
 .bb-bar-center-wrap{
     display: inline-flex;
 
@@ -5363,6 +5382,25 @@ textarea.task-textarea:focus{
     background-repeat: no-repeat;
 }
 
+.bb-back-text{
+    color: #9AA1AD;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.bb-full-page-overlay-exit-button{
+    height: 49px;
+    display: block;
+    background-color: #C7D0D9;
+    width: 50px;
+    background-image: url(/BrndBot/images/Close.svg);
+    background-position: center;
+    background-size: 40%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
 .bb-user-profile-dropdown-wrap{
     padding: 0px 30px;
     background-color: white;
@@ -5432,6 +5470,12 @@ textarea.task-textarea:focus{
     justify-content: center;
     align-items: center;
 }
+
+.bb-email-auto-recipe-input-wrap{
+    max-width: 600px;
+    margin-top: 30px;
+}
+
 
 .bb-bottom-cta-continue-button.bb-valid{
     background-color: #1eadfc;
@@ -6121,6 +6165,15 @@ textarea.task-textarea:focus{
     flex-flow: wrap;
 }
 
+.bb-small-hub-section{
+    margin-bottom: 40px;
+}
+
+.bb-small-hub-section-divider{
+    padding: 10px 0px;
+}
+
+
 .bb-color-swab{
     margin-bottom: 10px;
     margin-right: 10px;
@@ -6138,23 +6191,42 @@ textarea.task-textarea:focus{
 
 .bb-full-page-overlay{
     position: fixed;
+    top:0;
     width: 100vw;
     height: 100vh;
     background-color: white;
     z-index: 10000;
+    overflow-y: scroll;
+}
+
+.bb-automation-recipe-wrap{
+    
+}
+
+.bb-automation-button-wrap{
+    margin-top:20px;
+}
+
+.bb-automation-recipe-sentence-wrap{
+    display:inline-flex;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .bb-full-page-overlay-header-wrap{
     display: flex;
     justify-content: space-between;
-    height: 70px;
-    width: 100%;
+    height: 50px;
+    width: 100vw;
+    border-bottom: 1px solid #DCE2E8;
+    position: fixed;
+    top: 0;
     
     
 }
 
-.bb-full-page-overlay-title-wrap{
-  
+.bb-full-page-offset{
+  margin-top: 90px;
     
 }
 
@@ -6166,17 +6238,28 @@ textarea.task-textarea:focus{
     margin-top: 45px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    
 
 }
 
 .bb-full-page-overlay-card{
     width: 300px;
     min-width: 300px;
-    padding: 30px;
+    padding: 30px 30px 45px 30px;
     border: 1.5px solid #B0BCC7;
     border-radius: 3px;
     margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.bb-full-page-overlay-card:nth-of-type(3){
+    width: 300px;
+    min-width: 300px;
+    padding: 30px 30px 45px 30px;
+    border: 1.5px solid #B0BCC7;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    margin-right: 0px;
 }
 
 .bb-full-page-overlay-card:hover{
@@ -6187,16 +6270,20 @@ textarea.task-textarea:focus{
 .bb-full-page-overlay-card-label{
     margin-bottom: 20px;
     text-transform: uppercase;
-    font-size: 14px;
-   color:#B1BBC4;
+    font-size: 12px;
+  color: #777B85;
 }
 
-
+.bb-full-page-overlay-card-p{
+    font-size: 14px;
+    line-height: 150%;
+    color: 
+}
 
 .bb-full-page-overlay-card-header{
     margin-bottom: 10px;
-    text-transform: uppercase;
     font-size: 18px;
+    line-height: 150%;
     font-weight: 500;
    color:#49505B;
 }
@@ -6205,6 +6292,7 @@ textarea.task-textarea:focus{
     width: 940px;
     margin: auto;
     margin-top: 40px;
+    
 }
 
 .powered-by-mb-logo{
@@ -6318,6 +6406,12 @@ h2{
     margin: 0;
     color: #49505B;
     font-size: 20px;
+    font-weight: 400;
+}
+.bb-automation-recipe-title{
+    margin: 0;
+    color: #49505B;
+    font-size: 18px;
     font-weight: 400;
 }
 
