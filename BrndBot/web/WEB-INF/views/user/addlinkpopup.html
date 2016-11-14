@@ -1,0 +1,24 @@
+<div id="addLinkPopup" class="background-pop-up" ng-init="addLinkPopup = false"  ng-click="hidePopup('addlinkpopup')"  ng-if="addLinkPopup">
+
+    <div class="bb-panel-default bb-panel-styling sendOrSchedulePopup"> 
+        <div class="bb-panel-header">
+            <h2 class="">Add Link</h2>
+            <a id="schedulePopupClose" class="modal-pane-header-exit" ng-click="hidePopup('addlinkpopup')"></a>
+        </div>
+        <a class="modal-pane-back-step">
+            <span>Add link to image</span>
+        </a>
+        <div class="bb-panel-content-wrap">
+            <div class="input-wrap">
+                <label>Enter Link</label>
+                <div class="input">
+                    <input  size="100" class="fluid" ng-model="imageLink" id="imageLink"  placeholder="http://google.com" />
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-cta-container" ng-click="addLinkToImage(imageLink)">
+            <a class="long-button blue-button">Add</a>
+        </div>
+    </div>
+</div>

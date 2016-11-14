@@ -11,7 +11,8 @@
     }
 </style>
 <div ng-include src="'emailpreview.html'"></div>
-<div ng-include src="'emaileditormindbodypopup.html'"></div>   
+<div ng-include src="'emaileditormindbodypopup.html'"></div>
+<div ng-include src="'addlinkpopup.html'"></div>
 
 <div class="bb-top-nav" ng-init="emailEditorInit()">
     <div class="bb-bar-left-wrap bb-one-third-flex-col" ng-init="redirectBaseURL()">
@@ -59,7 +60,7 @@
         </div>
     </div>
     
-    <div class="email-editor-right-col">
+    <div class="email-editor-right-col"  ng-show="addBlockStyle === true">
         <div class="email-editor-tab-wrap">
             <div class="editor-col-tab">
                 <div class="emailSideBar-tab" ng-class="{'emailSideBar-tab-active': emailTab.isSelected(1)}" id="blocktab" ng-init="showBlocks()" ng-click="emailTab.selectTab(1);showBlocks()">
@@ -84,6 +85,23 @@
         <ul class="r-col-block-wrap"  ng-show="emailTab.isSelected(2)">
             <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="bb-clickable-slat" id="stylelistid{{styles.modelId}}" ng-click="addActive('stylelistid' + styles.modelId)">
                 <img id="{{styles.modelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" ng-click="addHTMLInEmailEditor(styles.modelId)" width="100%" />
+            </li>
+        </ul>
+    </div>
+    <div class="email-editor-right-col" ng-show="addBlockStyle === false">
+        <div class="bb-email-image-pop-up-header">
+            <a class="bb-button bb-default-action-button" ng-click="showImageUploadPopup()">Upload an Image</a>
+        </div>
+        <div class="imageGallery-inner-popup" style="display: none !important;">
+            <div class="imageUpload-container">
+                <div class="browse-button">
+                    <input type="file"  hidden="" id="filesToUpload" custom-on-change="uploadFile"/>
+                </div>
+            </div>                     
+        </div>
+        <ul class="r-col-block-wrap">
+            <li ng-repeat="images in datalists">
+                <img id="{{images.companyImagesId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{currentCompanyId}}"  width="100%" ng-click="changeTemplateImage(images.companyImagesId)" />
             </li>
         </ul>
     </div>
