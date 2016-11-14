@@ -379,8 +379,10 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.ChangeUserOnChange = function (changedValue) {
-            $scope.ddSelectedUser = changedValue.value;
-            $scope.changeAssignedTo($scope.schedule_id);
+            if(changedValue.value > 0){
+                $scope.ddSelectedUser = changedValue.value;
+                $scope.changeAssignedTo($scope.schedule_id);
+            }
 //                $scope.openChangeUserDD(false);
 ////            $scope.changeUsers = false;
         };

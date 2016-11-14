@@ -236,9 +236,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         $scope.ChangeUserOnChange = function (changedValue) {
-            $scope.ddSelectedUser = changedValue.value;
-            $scope.changeAssignedTo($scope.schedule_id);
-            $scope.openChangeUserDD(false);
+            if(changedValue.value > 0){
+                $scope.ddSelectedUser = changedValue.value;
+                $scope.changeAssignedTo($scope.schedule_id);
+                $scope.openChangeUserDD(false);
+            }
         };
 
 
