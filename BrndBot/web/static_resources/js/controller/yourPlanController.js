@@ -1000,7 +1000,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 days = start.diff(end, "days");
             }
 //            var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
-            utilFactory.getEpoch(actiondate, actionTime1).then(function (dateTimeEpoch) {
+            utilFactory.getEpoch(emaildate, actionTime1).then(function (dateTimeEpoch) {
                 var description = scheduleUpdatedData.schedule_desc;
 //        if (!validateemailaction()) {
                 var action = {

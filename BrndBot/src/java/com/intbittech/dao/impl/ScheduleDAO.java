@@ -1039,7 +1039,7 @@ public class ScheduleDAO {
                     scheduleDetailJSONObject.put("status", scheduleEntiyList.getStatus());
                     scheduleDetailJSONObject.put("user_id", companyId);
 
-                    if (scheduleEntiyList.getAssignedTo().getUserId() != null && scheduleEntiyList.getAssignedTo().getFirstName() != null && scheduleEntiyList.getAssignedTo().getLastName() != null) {
+                    if (scheduleEntiyList.getAssignedTo() != null && scheduleEntiyList.getAssignedTo() != null && scheduleEntiyList.getAssignedTo() != null) {
                         scheduleDetailJSONObject.put("assignedToInitialChars", Utility.getFirstTwoCharactersOfName(scheduleEntiyList.getAssignedTo().getFirstName(), scheduleEntiyList.getAssignedTo().getLastName()));
                         scheduleDetailJSONObject.put("assignedToId", scheduleEntiyList.getAssignedTo().getUserId());
                         scheduleDetailJSONObject.put("assignedFirstName", scheduleEntiyList.getAssignedTo().getFirstName());
