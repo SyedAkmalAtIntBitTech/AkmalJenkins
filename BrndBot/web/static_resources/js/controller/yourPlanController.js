@@ -630,7 +630,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         $scope.globalScheduleData = {};
-        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, assignedFirstName, assignedLastName, assignedToInitialChars, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
+        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, assignedFirstName, assignedLastName, assignedToInitialChars, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date,isPushed)
         {
             if (template_status === "Complete" && entity_type === getemail())
                 $scope.savedPreheader = 'Sent';
@@ -641,6 +641,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var nDate = new Date(action_date + " 10:30 am"); //10:30 am save DST
             $scope.calculatedProgramDate = $scope.addDays(nDate, days);
             $scope.entities_selected_time = $filter('date')(schedule_time, kGlobalDateFormat);
+            $scope.isPushed = isPushed;
             $scope.savedEmail = false;
             $scope.schedule_id = schedule_id;
             $scope.assignedFirstName = assignedFirstName;
@@ -684,7 +685,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 //                $('#emailcontentiframe').contents().find('html').html(data.body); 
             $("#timepickertextbox").val(time);
             $scope.globalScheduleData = $scope.scheduleData;
-
+            
             if (entity_type === getemail()) {
                 $scope.scheduledTo = 'SEND';
                 $scope.savedHeader = getemail();

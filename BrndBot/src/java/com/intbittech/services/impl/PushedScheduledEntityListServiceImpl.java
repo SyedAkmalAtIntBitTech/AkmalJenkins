@@ -87,9 +87,9 @@ public class PushedScheduledEntityListServiceImpl implements PushedScheduledEnti
     public List<PushedScheduledEntityList> getAllPushedScheduledEntityListIdByScheduledEntityListId(Integer scheduledEntityListId) throws ProcessFailed {
         
         List<PushedScheduledEntityList> pushedScheduledEntityList = pushedScheduledEntityListDao.getAllPushedScheduledEntityListIdByScheduledEntityListId(scheduledEntityListId);
-        if (pushedScheduledEntityList == null) {
-            throw new ProcessFailed(messageSource.getMessage("no_pushed_scheduled_action_found",new String[]{}, Locale.US));
-        }
+//        if (pushedScheduledEntityList == null) {
+////            throw new ProcessFailed(messageSource.getMessage("no_pushed_scheduled_action_found",new String[]{}, Locale.US));
+//        }
         return pushedScheduledEntityList;
     }
 }

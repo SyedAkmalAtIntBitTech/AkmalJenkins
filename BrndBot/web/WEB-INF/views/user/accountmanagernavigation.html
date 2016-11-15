@@ -17,13 +17,19 @@
         <h3 class="bb-top-nav-title">Account Manager Hub</h3>
     </div>
     <div class="bb-bar-right-wrap bb-one-third-flex-col">
-        <div class="bb-help-icon">help icon</div>
-        <div class="bb-user-profile-dropdown-wrap" ng-init="getUserDetails()" ng-click="userSettings=true">
-            <div class="bb-user-profile-user-name">{{userFirstName}} {{userLastName}}</div>
-            <img type="image/svg+xml" src="/BrndBot/images/dropdown.svg" class="hub-dropdown-icon" style="cursor:pointer;"/>
-        </div>
-        <div ng-include src="'usersettingsDropDown.html'" class="bb-user-settings-dropdown-target"></div>
-    </div>
+             <div class="bb-help-icon">help icon</div>
+             <div class="bb-user-profile-dropdown-wrap"  ng-click="userSettings=true">
+                 <div class="bb-user-badge bb-action-comment-user-badge" style="background-color: {{userColor}}">
+                     <div>{{userInitials}}</div>
+                 </div>
+                 <div class="bb-user-name-company-wrap">
+                     <div class="bb-user-profile-user-name"><b>{{userFirstName}}</b></div>
+                      <div class="bb-user-profile-company-name">{{companyName}}</div>
+                 </div>
+                 <img type="image/svg+xml" src="/BrndBot/images/dropdown.svg" class="hub-dropdown-icon" style="cursor:pointer;"/>
+             </div>
+             <div ng-include src="'usersettingsDropDown.html'" class="bb-user-settings-dropdown-target"></div>
+         </div>
 </div>
 <div class="bb-top-sub-nav" ng-click="userSettings=false" >
    <div class="bb-top-sub-nav-tab"   ng-class="{ active: isActive('/managedaccountdash')}"><a href="#/managedaccountdash" >Managed Account Dashboard</a></div>

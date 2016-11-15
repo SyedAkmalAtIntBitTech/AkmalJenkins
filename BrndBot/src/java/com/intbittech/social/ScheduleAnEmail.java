@@ -8,6 +8,10 @@ package com.intbittech.social;
 import com.intbittech.component.SpringContextBridge;
 import com.intbittech.enums.EmailTypeConstants;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.Company;
+import com.intbittech.model.CompanyPreferences;
+import com.intbittech.model.EmailListTag;
+import com.intbittech.model.EmailListTagLookup;
 import com.intbittech.model.PushedScheduledActionCompanies;
 import com.intbittech.model.PushedScheduledEntityList;
 import com.intbittech.utility.IConstants;
@@ -19,6 +23,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import com.intbittech.utility.DateTimeUtil;
 import com.intbittech.modelmappers.EmailDataDetails;
+import com.intbittech.modelmappers.EmailSettings;
+import com.intbittech.services.CompanyPreferencesService;
+import com.intbittech.services.EmailListTagLookupService;
+import com.intbittech.services.EmailListTagService;
 import com.intbittech.services.PushedScheduledActionCompaniesService;
 import com.intbittech.services.PushedScheduledEntityListService;
 import com.intbittech.services.SendEmailService;
@@ -36,11 +44,6 @@ public class ScheduleAnEmail implements Runnable {
 
     private Logger logger = Logger.getLogger(ScheduleAnRecurringEmail.class);
 
-//    @Autowired
-//    PushedScheduledEntityListService pushedScheduleEntityListService;
-//
-//    @Autowired
-//    PushedScheduledActionCompaniesService pushedScheduledActionCompaniesService;
     public void terminateThread() {
         try {
             Thread.currentThread().interrupt();
@@ -52,7 +55,17 @@ public class ScheduleAnEmail implements Runnable {
     @Override
     public void run() {
         //Adding tens mins if there are no latest approved posts
+        PushedScheduledEntityListService pushedScheduleEntityListService = SpringContextBridge.services().getPushedScheduledEntityListService();
+        PushedScheduledActionCompaniesService pushedScheduledActionCompaniesService = SpringContextBridge.services().getPushedScheduledActionCompaniesService();
+        EmailListTagService emailListTagService = SpringContextBridge.services().getEmailListTagService();
+        EmailListTagLookupService emailListTagLookupService = SpringContextBridge.services().getEmailListTagLookupService();
+        CompanyPreferencesService companyPreferencesService = SpringContextBridge.services().getCompanyPreferencesService();
         logger.info("In Email Schedule CallBlock");
+        String emaillist_name = "";
+        String replyToAddress = "";
+        String fromEmailAddress = "";
+        String message = "";
+        String fromName = "";
 
         try {
             List<ScheduledEntityList> scheduledAnEmail = getLatestApprovedSendEmail();
@@ -69,41 +82,98 @@ public class ScheduleAnEmail implements Runnable {
                     if (shouldPostNow) {
                         logger.info("Should post now is true: Sending Mail");
                         ScheduledEmailList sendAnEmail = getSendEmail(currentScheduledEmail);
-                        
+
                         Integer companyId = currentScheduledEmail.getFkCompanyId().getCompanyId();
                         String html_text = sendAnEmail.getBody();
                         String email_subject = sendAnEmail.getSubject();
-//                        String to_email_addresses = contactEmailListLookupService.getContactsByEmailListNameAndCompanyId(sendAnEmail.getEmailListName(), companyId);
-                        String emaillist_name = sendAnEmail.getEmailListName();
+                        
+                        List<PushedScheduledEntityList> pushedScheduleEntityList = pushedScheduleEntityListService.getAllPushedScheduledEntityListIdByScheduledEntityListId(currentScheduledEmail.getScheduledEntityListId());
+                        if (pushedScheduleEntityList != null) {
+                            List<PushedScheduledActionCompanies> pushedScheduledActionCompaniesList = pushedScheduledActionCompaniesService.getAllPushedScheduledActionCompaniesByScheduledEntityListId(currentScheduledEmail.getScheduledEntityListId());
+                            for (int i = 0; i < pushedScheduledActionCompaniesList.size(); i++) {
+                                PushedScheduledActionCompanies pushedScheduleActionCompanies = pushedScheduledActionCompaniesList.get(i);
+                                Company company = pushedScheduleActionCompanies.getFkCompanyId();
 
-                        String reply_to_address = sendAnEmail.getReplyToEmailAddress();
-                        String from_email_address = sendAnEmail.getFromAddress();
-                        String message = "";
-                        String from_name = sendAnEmail.getFromName();
-                        EmailDataDetails emailDataDetails = new EmailDataDetails();
-                        emailDataDetails.setCompanyId(companyId);
-                        emailDataDetails.setEmailListName(emaillist_name);
-                        emailDataDetails.setEmailSubject(email_subject);
-                        emailDataDetails.setFromEmailAddress(from_email_address);
-                        emailDataDetails.setFromName(from_name);
-                        emailDataDetails.setHtmlData(html_text);
-                        emailDataDetails.setReplyToEmailAddress(reply_to_address);
-                        emailDataDetails.setEmailType(EmailTypeConstants.General.name());
-                        
-                        //For email categories/tags
-                        Integer companyMarketingProgramId = currentScheduledEmail.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId();
-                        Integer entityId = currentScheduledEmail.getEntityId();
-                        List<String> emailCategoryList = new ArrayList<>();
-                        emailCategoryList.add(MarketingProgramUtility.getMarketingProgramCategory(companyMarketingProgramId));
-                        emailCategoryList.add(MarketingProgramUtility.getMarketingProgramActionCategory(currentScheduledEmail.getScheduledEntityListId()));
-                        
-                        emailDataDetails.setEmailCategoryList(emailCategoryList);
-                        
-                        SendEmailService sendEmailService = SpringContextBridge.services().getSendEmailService();
-                        sendEmailService.sendMail(emailDataDetails, true);
+                                EmailListTag emailListTag = emailListTagService.getByTagName(sendAnEmail.getEmailListName());
+                                EmailListTagLookup emailListTagLookup = null;
+                                try {
+                                    emailListTagLookup = emailListTagLookupService.getByEmailListTagLookupByEmailListIdAndCompanyId(emailListTag.getTagId(), company.getCompanyId());
+                                } catch (Throwable throwable) {
 
+                                }
+
+                                EmailSettings emailSettings = null;
+                                try {
+                                    emailSettings = companyPreferencesService.getEmailSettings(company);
+                                } catch (Throwable throwable) {
+
+                                }
+                                if ((emailSettings != null) && (emailListTagLookup != null)) {
+                                    //Do something
+                                    emaillist_name = emailListTagLookup.getFkEmailListId().getEmailListName();
+
+                                    replyToAddress = emailSettings.getReplyEmailAddress();
+                                    fromEmailAddress = emailSettings.getFromAddress();
+                                    message = "";
+                                    fromName = emailSettings.getFromName();
+
+                                    EmailDataDetails emailDataDetails = new EmailDataDetails();
+                                    emailDataDetails.setCompanyId(company.getCompanyId());
+                                    emailDataDetails.setEmailListName(emaillist_name);
+                                    emailDataDetails.setEmailSubject(email_subject);
+                                    emailDataDetails.setFromEmailAddress(fromEmailAddress);
+                                    emailDataDetails.setFromName(fromName);
+                                    emailDataDetails.setHtmlData(html_text);
+                                    emailDataDetails.setReplyToEmailAddress(replyToAddress);
+                                    emailDataDetails.setEmailType(EmailTypeConstants.General.name());
+
+                                    //For email categories/tags
+                                    Integer companyMarketingProgramId = currentScheduledEmail.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId();
+                                    Integer entityId = currentScheduledEmail.getEntityId();
+                                    List<String> emailCategoryList = new ArrayList<>();
+                                    emailCategoryList.add(MarketingProgramUtility.getMarketingProgramCategory(companyMarketingProgramId));
+                                    emailCategoryList.add(MarketingProgramUtility.getMarketingProgramActionCategory(currentScheduledEmail.getScheduledEntityListId()));
+
+                                    emailDataDetails.setEmailCategoryList(emailCategoryList);
+
+                                    SendEmailService sendEmailService = SpringContextBridge.services().getSendEmailService();
+                                    sendEmailService.sendMail(emailDataDetails, true);
+                                    pushedScheduleActionCompanies.setStatus(IConstants.ACTION_COMPANIES_SENT_STATUS);
+                                    pushedScheduledActionCompaniesService.update(pushedScheduleActionCompanies);
+
+                                }
+
+                            }
+
+                        } else {
+                            emaillist_name = sendAnEmail.getEmailListName();
+                            replyToAddress = sendAnEmail.getReplyToEmailAddress();
+                            fromEmailAddress = sendAnEmail.getFromAddress();
+                            message = "";
+                            fromName = sendAnEmail.getFromName();
+                            EmailDataDetails emailDataDetails = new EmailDataDetails();
+                            emailDataDetails.setCompanyId(companyId);
+                            emailDataDetails.setEmailListName(emaillist_name);
+                            emailDataDetails.setEmailSubject(email_subject);
+                            emailDataDetails.setFromEmailAddress(fromEmailAddress);
+                            emailDataDetails.setFromName(fromName);
+                            emailDataDetails.setHtmlData(html_text);
+                            emailDataDetails.setReplyToEmailAddress(replyToAddress);
+                            emailDataDetails.setEmailType(EmailTypeConstants.General.name());
+
+                            //For email categories/tags
+                            Integer companyMarketingProgramId = currentScheduledEmail.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId();
+                            Integer entityId = currentScheduledEmail.getEntityId();
+                            List<String> emailCategoryList = new ArrayList<>();
+                            emailCategoryList.add(MarketingProgramUtility.getMarketingProgramCategory(companyMarketingProgramId));
+                            emailCategoryList.add(MarketingProgramUtility.getMarketingProgramActionCategory(currentScheduledEmail.getScheduledEntityListId()));
+
+                            emailDataDetails.setEmailCategoryList(emailCategoryList);
+
+                            SendEmailService sendEmailService = SpringContextBridge.services().getSendEmailService();
+                            sendEmailService.sendMail(emailDataDetails, true);
+                        }
                         updateStatusScheduledEmail(currentScheduledEmail);
-                        updateStatusForPushedEmail(currentScheduledEmail);
                         logger.info("Should post now is true: Sent the mail");
                         //Get the next in line
                     }
@@ -127,22 +197,6 @@ public class ScheduleAnEmail implements Runnable {
 //        ApplicationContextListener.refreshEmailScheduler();
     }
 
-    private void updateStatusForPushedEmail(ScheduledEntityList scheduledEmail)throws Throwable {
-        PushedScheduledEntityListService pushedScheduleEntityListService = SpringContextBridge.services().getPushedScheduledEntityListService();
-        PushedScheduledActionCompaniesService pushedScheduledActionCompaniesService = SpringContextBridge.services().getPushedScheduledActionCompaniesService();
-        List<PushedScheduledEntityList> pushedScheduledEntityList = pushedScheduleEntityListService.getAllPushedScheduledEntityListIdByScheduledEntityListId(scheduledEmail.getEntityId());
-        
-        if (pushedScheduledEntityList != null){
-            List<PushedScheduledActionCompanies> pushedScheduledActionCompaniesList = pushedScheduledActionCompaniesService.getPushedScheduledActionCompaniesByScheduledEntityListIdAndStatus(pushedScheduledEntityList.get(0).getPushedScheduledEntityListId(), IConstants.ACTION_COMPANIES_READY_TO_GO);
-                for (int i = 0; i< pushedScheduledActionCompaniesList.size(); i++){
-                    PushedScheduledActionCompanies pushedScheduledActionCompanies = pushedScheduledActionCompaniesList.get(i);
-                    
-                    pushedScheduledActionCompanies.setStatus(IConstants.ACTION_COMPANIES_SENT_STATUS);
-                    pushedScheduledActionCompaniesService.update(pushedScheduledActionCompanies);
-                }
-        }
-    }
-    
     private ScheduledEmailList getSendEmail(ScheduledEntityList scheduledAnEmail) throws Throwable {
         ScheduledEmailList scheduledEmailList = SchedulerUtilityMethods.getEmailEntityById(scheduledAnEmail.getEntityId());
         return scheduledEmailList;

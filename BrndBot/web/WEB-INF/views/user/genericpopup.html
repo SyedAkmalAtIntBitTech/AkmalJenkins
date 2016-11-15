@@ -6,7 +6,7 @@
             </a>
             <h3 class="bb-top-nav-title">{{generalActionDetailsHeader}} Action Detail</h3>
         </div>
-        <div class="bb-bar-right-wrap bb-one-half-flex-col bb-overlay-header-cta-wrap" ng-show="pushedEmail==false">
+        <div class="bb-bar-right-wrap bb-one-half-flex-col bb-overlay-header-cta-wrap" ng-show="pushedEmail==false && !isPushed">
             <a  class="bb-button green-button" ng-show="action_template_status === 'Template Saved' && !isProgramArchived" ng-click="Approval(schedule_id, 'approved', masterActionType)">
                 {{templateApproveButton}}
             </a>
@@ -42,21 +42,21 @@
              <a id="emailAnalytics" ng-click="marketingTab.selectTab(8);yourplanTab.selectTab(8);" ng-class="{'top-subnav-link-active-detail-Class':marketingTab.isSelected(8) || yourplanTab.isSelected(8)}"  href="">Analytics</a>
         </div>
     </div>
-    <ul class="sub-nav-tab-wrap with-back-button" ng-show="pushedEmail==true">
-        <li class="sub-nav-tab ">
+    <div class="bb-top-sub-nav bb-top-sub-nav-backbutton-offset" ng-show="pushedEmail==true">
+        <div class="bb-top-sub-nav-tab" >
              <a id="emailpost1" ng-click="setTab('savedDetails')" ng-class="top_subnav_link_active_savedDetail_Class" href="">Saved {{savedHeader}}</a>
-        </li>
-        <li class="sub-nav-tab ">
+        </div>
+        <div class="bb-top-sub-nav-tab">
              <a id="emailnote1" ng-click="setTab('associatedAcccounts')" ng-class="top_subnav_link_active_notesDetail_Class" href="">Associated Accounts</a>
-        </li>
-    </ul>
+        </div>
+    </div>
     
+    <div ng-include src="'pushedactionssaveddetails.html'"></div>
+    <div ng-include src="'pushedactionassociatedaccounts.html'"></div>
     <div ng-include src="'generalActionDetails.html'"></div>
     <div ng-include src="'generalActionAnalytics.html'"></div>
     <div ng-include src="'generalActionNotes.html'"></div>
     <div ng-include src="'generalSavedDetails.html'"></div>
     <div ng-include src="'emailhistorypopup.html'"></div>
-    <div ng-include src="'pushedactionssaveddetails.html'"></div>
-    <div ng-include src="'pushedactionassociatedaccounts.html'"></div>
     
 </div>

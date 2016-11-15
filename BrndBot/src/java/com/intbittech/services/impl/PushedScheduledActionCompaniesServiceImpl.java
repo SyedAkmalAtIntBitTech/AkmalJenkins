@@ -32,6 +32,7 @@ import com.intbittech.utility.Utility;
 import com.sendgrid.Content;
 import com.sendgrid.Email;
 import com.sendgrid.Mail;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -136,6 +137,17 @@ public class PushedScheduledActionCompaniesServiceImpl implements PushedSchedule
         return pushedScheduledActionCompaniesList;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public List<PushedScheduledActionCompanies> getAllPushedScheduledActionCompaniesByCompanyIdAndDateDifference(Integer companyId, Timestamp fromDate, Timestamp toDate) throws ProcessFailed {
+        List<PushedScheduledActionCompanies> pushedScheduledActionCompaniesList = pushedScheduledActionCompaniesDao.getAllPushedScheduledActionCompaniesByCompanyIdAndDateDifference(companyId,fromDate, toDate);
+        if (pushedScheduledActionCompaniesList == null) {
+            throw new ProcessFailed(messageSource.getMessage("no_pushed_scheduled_action_company_found", new String[]{}, Locale.US));
+        }
+        return pushedScheduledActionCompaniesList;
+    }
+    
     /**
      * {@inheritDoc}
      */

@@ -93,7 +93,8 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             String companyPreferencesString = companyPreferences.getCompanyPreferences();
             ObjectMapper mapper = new ObjectMapper();
-            EmailSettings emailSettings = mapper.readValue(companyPreferencesString, EmailSettings.class);
+            CompanyPreferencesJson companyPreferencesJson = mapper.readValue(companyPreferencesString , CompanyPreferencesJson.class);
+            EmailSettings emailSettings = companyPreferencesJson.getEmailSettings();
             return emailSettings;
         } catch (Throwable throwable) {
             logger.error(throwable);

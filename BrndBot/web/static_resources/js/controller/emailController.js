@@ -1326,10 +1326,10 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.getEmailSettings = function () {
             settingsFactory.getEmailSettingsGet().then(function (data) {
                 var parseData = JSON.parse(data.d.details);
-                $scope.email_settings = parseData.emailSettings;
-                $scope.replyAddress = parseData.emailSettings.reply_email_address;
-                $scope.fromName = parseData.emailSettings.from_name;
-                $scope.fromAddress = parseData.emailSettings.from_address;
+                $scope.email_settings = parseData
+                $scope.replyAddress = parseData.reply_email_address;
+                $scope.fromName = parseData.from_name;
+                $scope.fromAddress = parseData.from_address;
             });
         };
 
@@ -1488,7 +1488,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                     settingsFactory.getEmailSettingsGet().then(function (data) {
                         console.log(JSON.stringify(data.d.details[0]));
                         var parseData = JSON.parse(data.d.details[0]);
-                        var emailSettingsData = parseData.emailSettings;
+                        var emailSettingsData = parseData;
                         if (emailSettingsData){
                             $scope.email_settings = emailSettingsData;
                             $scope.postData.replyAddress = emailSettingsData.reply_email_address;
@@ -1931,6 +1931,7 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
         $scope.getScheduleData = function (selectedMarketingProgramId, postData) {
             var email_scheduling = "";
             var schedule_title = $("#ActionName").val();
+
             if(!schedule_title){
                 schedule_title='';
             }
@@ -1952,36 +1953,31 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         email_body: $("#dynamictable").contents().find("html").html(),
                         schedule_desc: ",,,",
                         iframeName: $scope.randomIframeFilename.toString(),
-                        html_body: kGlobalEmailObject.htmlBody
+                        html_body: kGlobalEmailObject.htmlBody,
+                        autoApproved: autoApproved
+                        
                     };
                     scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
                         if (data.d.operationStatus.statusCode === "Success") {
 
                             emailDraftFactory.deleteEmailDraftPost(kGlobalEmailObject.draftId).then(function (responseText) {
-                                if(kGlobalEmailObject.pushedEmail){
-                                     var approved = $("#autoApproved:checked").val();
-                                     var autoApproved = false;
-                                     var editable = false;
-                                     if (approved){
-                                         editable = false;
-                                         autoApproved = true;
-                                     }
-                                     var emailTagId = kGlobalEmailObject.emailTagId;
-                                     appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
-                                         var franchiseId = kGlobalCompanyObject.franchiseId;
-
-                                         var pushedScheduledEntityDetails = {"autoApproved": autoApproved,
-                                                                             "editable":editable, "franchiseId":franchiseId,
-                                                                             "scheduledEntityListId":$scope.socialAction, 
-                                                                             "emailListTagId": emailTagId};
-                                         var actionCompaniesDetails = companies;
-                                         var pushedScheduledActionCompaniesDetails = {"pushedScheduledEntityDetails": pushedScheduledEntityDetails,"actionCompaniesDetails":actionCompaniesDetails};
-                                         pushedActionsFactory.saveSchedulePushedActionsCompanies(pushedScheduledActionCompaniesDetails).then(function (data){
-
-                                         });                       
-                                     });                        
-
-                                }
+//                                if(kGlobalEmailObject.pushedEmail){
+//                                     var emailTagId = kGlobalEmailObject.emailTagId;
+//                                     appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
+//                                         var franchiseId = kGlobalCompanyObject.franchiseId;
+//
+//                                         var pushedScheduledEntityDetails = {"autoApproved": autoApproved,
+//                                                                             "editable":editable, "franchiseId":franchiseId,
+//                                                                             "scheduledEntityListId":$scope.socialAction, 
+//                                                                             "emailListTagId": emailTagId};
+//                                         var actionCompaniesDetails = companies;
+//                                         var pushedScheduledActionCompaniesDetails = {"pushedScheduledEntityDetails": pushedScheduledEntityDetails,"actionCompaniesDetails":actionCompaniesDetails};
+//                                         pushedActionsFactory.saveSchedulePushedActionsCompanies(pushedScheduledActionCompaniesDetails).then(function (data){
+//
+//                                         });                       
+//                                     });                        
+//
+//                                }
                             $scope.schedulePopup = false;
                             $scope.isPostSuccess = true;
 
@@ -2000,8 +1996,16 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 var schedule_date = $("#actionDate").val();
 
                 var schedule_time = $("#actionTime").val();
+
+                var approved = $("#autoApproved:checked").val();
+                var autoApproved = false;
+                var editable = false;
+                if (approved){
+                    editable = false;
+                    autoApproved = true;
+                }
                 
-                var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();    
+                var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
                 var fromDate = new Date(dateAndTime);
                 var todayDate = new Date();
                 if (fromDate < todayDate) {
@@ -2027,7 +2031,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                         "schedule_desc": ",,,",
                         "iframeName": $scope.randomIframeFilename.toString(),
                         "html_body": kGlobalEmailObject.htmlBody,
-                        "userAssignedTo": $scope.ddSelectedUser
+                        "userAssignedTo": $scope.ddSelectedUser,
+                        "autoApproved": autoApproved
                     };
                     scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
                         
@@ -2037,13 +2042,6 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                                 if(kGlobalEmailObject.pushedEmail){
                                      var entity = data.d.details;
                                      var parsedEntity = JSON.parse(entity);
-                                     var approved = $("#autoApproved:checked").val();
-                                     var autoApproved = false;
-                                     var editable = false;
-                                     if (approved){
-                                         editable = false;
-                                         autoApproved = true;
-                                     }
                                      var emailTagId = kGlobalEmailObject.emailTagId;
                                      appSessionFactory.getCompany().then(function(kGlobalCompanyObject){
                                          var franchiseId = kGlobalCompanyObject.franchiseId;
@@ -2121,8 +2119,8 @@ emailFlowApp.controller("emailController", ['$scope', '$filter', '$window', '$lo
                 }else {
                     $scope.postTypeSelectionPopUp = false;
                     $scope.schedulePopup = true;
-                    $scope.existingActionPopup = true;
-                    $scope.createNewActionPopup = false;
+                    $scope.existingActionPopup = false;
+                    $scope.createNewActionPopup = true;
                     $scope.activeClassExisting = 'active';
                     $scope.activeClassNew = '';
                     $scope.scheduleButtonData = "Schedule";

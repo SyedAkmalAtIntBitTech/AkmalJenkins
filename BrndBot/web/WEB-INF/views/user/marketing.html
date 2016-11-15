@@ -72,7 +72,8 @@
                                                        entitydetails.marketingName,
                                                        entitydetails.user_marketing_program_id,
                                                        entitydetails.days,
-                                                       entitydetails.is_today_active, entity.date);" >
+                                                       entitydetails.is_today_active, entity.date,
+                                                       entitydetails.isPushed);" >
                         <div class="bb-your-plan-icon-wrap">
                             <div ng-show="entitydetails.entity_type != master_note">
                                 <div class="your-plan-icon hint--top" ng-show="entitydetails.template_status == 'Template Saved'"  data-hint="Template Saved" > 
@@ -126,6 +127,14 @@
                             </div>
                         </div>
 
+                        <div class="slat-detail-wrap slat-detail-wrap-your-plan" >
+                            <div class="slat-detail">
+                                <div class=" bb-action-slat-assignee-wrap">
+                                    <h2  class="bb-action-slat-assignee" ng-show="entitydetails.isPushed">Pushed</h2>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
 
                 </div>

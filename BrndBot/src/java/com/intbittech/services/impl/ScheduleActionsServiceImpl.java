@@ -118,12 +118,20 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
             //Added by Syed Ilyas 27 Nov 2015 - email body from iframe
             String html_text = "";
             String path = "";
+            String templateStatus = "";
             if (requestBodyMap.get("iframeName").toString().trim() != null) {
                 String iframeName = requestBodyMap.get("iframeName").toString().trim();
                 path = AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator + iframeName + ".html";
                 File file = new File(path);
                 html_text = FileUtils.readFileToString(file, "UTF-8");
             }
+            boolean autoApproved = (boolean)requestBodyMap.get("autoApproved");
+            if (autoApproved){
+                templateStatus = TemplateStatus.approved.toString();
+            }else {
+                templateStatus = TemplateStatus.template_saved.toString();
+            }
+            
             Map<String, Integer> idMap = ScheduleDAO.addToScheduledEmailList(
                     companyId,
                     requestBodyMap.get("email_subject").toString(),
@@ -138,7 +146,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
                     requestBodyMap.get("schedule_title").toString(),
                     scheduleDesc,
                     new Timestamp(Double.valueOf(requestBodyMap.get("schedule_time").toString()).longValue()),
-                    TemplateStatus.template_saved.toString(),
+                    templateStatus,
                     requestBodyMap.get("html_body").toString(), createdBy, userAssignToId
             );
             Integer scheduleEntityId = idMap.get("schedule_entity_id");

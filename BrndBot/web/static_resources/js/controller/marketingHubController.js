@@ -333,7 +333,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             settingsFactory.getEmailSettingsGet().then(function (data) {
                 $scope.emailSettingsDetails = true;
                 $scope.email_settingsData = JSON.parse(data.d.details);
-                $scope.email_settings = $scope.email_settingsData.emailSettings;
+                $scope.email_settings = $scope.email_settingsData;
                 if($scope.email_settings == null) {
                     $scope.email_settings = {};
                     $scope.email_settings.from_address = 'mail@brndbot.com';
@@ -513,9 +513,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             });
         };
         $scope.showDraftPopup = function (Id, categoryId, emailSubject, editdate, subCategoryId, mindbodyId, lookupId)
-        {
-            $("#fade").show();
-            $scope.savedEmailDraftPopup = true;
+        {   
+            $("#fadePushedEmail").show();
+            $scope.savedDraftPopup = true;
             emailDraftFactory.getEmailDraftGet(Id).then(function (data) {
                 if (data === "") {
                     $scope.emaildraftsstatus = noemaildraft;
@@ -536,8 +536,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         $scope.closeSavedEmailDraftPopup = function ()
         {
-            $scope.savedEmailDraftPopup = false;
-            $("#fade").hide();
+            $scope.savedDraftPopup = false;
+            $("#fadePushedEmail").hide();
         };
         $scope.addEmailList = function ()
         {

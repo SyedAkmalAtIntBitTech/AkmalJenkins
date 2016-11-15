@@ -90,6 +90,14 @@ public class EmailListTagLookupServiceImpl implements EmailListTagLookupService{
 
     }
 
-    
-   
+    @Override
+    public EmailListTagLookup getByEmailListTagLookupByEmailListIdAndCompanyId(Integer emailListId, Integer CompanyId) throws ProcessFailed {
+       EmailListTagLookup emailListTagLookup = emailListTagLookupDao.getEmailListTagLookupByEmailListTagIdAndCompanyId(emailListId,CompanyId);
+        if(emailListTagLookup == null){
+            throw new ProcessFailed(messageSource.getMessage("email_list_tag_not_found",new String[]{}, Locale.US)); 
+        }
+        
+        return emailListTagLookup;        
+    }
+
 }
