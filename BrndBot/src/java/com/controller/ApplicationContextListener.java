@@ -88,7 +88,7 @@ public class ApplicationContextListener implements ServletContextListener {
         socialPostScheduler = new SocialPostScheduler();
 //        socialPostScheduler.startTwitterScheduler();
 //        socialPostScheduler.startFacebookScheduler();
-        socialPostScheduler.startEmailScheduler();
+//        socialPostScheduler.startEmailScheduler();
 //        socialPostScheduler.startRecurringEmailScheduler();
         
 //        Processor to convert emaillist and contacts from JSON to Tables
